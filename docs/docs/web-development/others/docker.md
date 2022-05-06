@@ -1,0 +1,54 @@
+---
+title: "Docker cheetsheat"
+metaTitle: "Docker cheetsheat"
+metaDescription: "Daily operational commands for docker"
+---
+
+
+# See full command of running/stopped container in Docker
+
+```bash
+docker inspect -f "{{.Name}} {{.Config.Cmd}}" $(docker ps -a -q)
+```
+
+# Simple method to run docker or docker-compose with the same UID/GID as parent user
+
+That is useful when you mount a volumn via docker-compose. You need to align the UID and GID from host to docker container, so that it can create folders to host system and have the permission to access the folder.
+
+```bash
+UID=$(id -u) GID=$(id -g) docker-compose up
+
+```
+
+# Communication between multiple docker-compose projects
+
+In this example, each container can look up the hostname front or api and get back the appropriate container’s IP address. For example, front’s application code could connect to the URL `htpp://api:8888` and start using the Postgres database.
+
+> Note: Your app’s network is given a name based on the “project name”, which is based on the name of the directory it lives in, in this case a prefix front_ was added in front folder 
+
+```yml
+# front/docker-compose.yml
+version: '2'
+services:
+  front:
+    ...
+    networks:
+      - some-net
+networks:
+  some-net:
+    driver: bridge
+
+
+# api/docker-compose.yml
+version: '2'
+services:
+  api:
+    ...
+    networks:
+      - front_some-net
+    ports:
+      - "8080:8888"
+networks:
+  front_some-net:
+    external: true
+```

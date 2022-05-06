@@ -1,0 +1,46 @@
+---
+title: "SSH"
+metaTitle: "!!!Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+![types-of-encryption](/img/web-development/others/types-of-encryption.jpg)
+
+## What is Hash?
+- Hashing is used only to verify data
+- The same input will always produce the same output
+- It’s impossible to reverse it back to the original data
+
+## Generate key for gitHub
+[Generating a new SSH key pair](https://gitlab.com/help/ssh/README#generating-a-new-ssh-key-pair)
+Following best practices, you should always favor **ED25519** SSH keys, since they are more secure and have better performance over the other types.
+
+``` shell
+git config --global user.name "Your Username"
+git config --global user.email "Your Email"
+
+cd ~/.ssh
+# Check if any keys exsist?
+
+#這樣在~/.ssh就會產生id_ed25519和id_rsa.pub，id_ed25519.pub就是公開的sshkey
+ssh-keygen -t ed25519 -C "email@example.com"
+#Generating public/private rsa key pair.
+#Enter file in which to save the key (/Users/QbsuranAlang/.ssh/id_ed25519): (直接return / 比個名尼條key)
+#Enter passphrase (empty for no passphrase): (直接return)
+#Enter same passphrase again: (直接return)
+```
+
+## Adding ssh keys for single sign-on 
+``` shell
+# Copy your public SSH key to the clipboard
+xclip -sel clip < ~/.ssh/id_ed25519.pub
+ 
+# Go to the host server and edit their authorized_keys
+vi ~/.ssh/authorized_keys
+
+# ========== If you have mutiple ssh keys in ~/.ssh ===================
+# Add your SSH private key to the ssh-agent.
+ssh-add ~/.ssh/id_ed25519
+```
+ssh-add adds private key identities (from your ~/.ssh directory) to the authentication agent (ssh-agent), so that the ssh agent can take care of the authentication for you, and you don’t have type in passwords at the terminal.
+

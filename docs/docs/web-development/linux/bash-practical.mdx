@@ -209,7 +209,9 @@ The keyboard is the standard input device while your screen is the standard outp
 
 上面這張圖顯示的兩股資料中，上方的線段為不存在 /tmp/abc 時所進行的指令行為，下方的線段則是存在 /tmp/abc 所在的指令行為。如上所述，下方線段由於存在 /tmp/abc 所以導致 $?=0 ，讓中間的 mkdir 就不執行了！ 並將 $?=0 繼續往後傳給後續的 touch 去利用啦！
 
-## Pipe
+## Pipe & Command substitution
+
+### Pipe
 就如同前面所說的， bash 命令執行的時候有輸出的資料會出現！那麼如果這群資料必需要經過幾道手續之後才能得到我們所想要的格式，應該如何來設定？這就牽涉到管線命令的問題了（ pipe ），管線命令使用的是『 | 』這個界定符號！另外，管線命令與『連續下達命令』是不一樣的呦！這點底下我們會再說明。底下我們先舉一個例子來說明一下簡單的管線命令。
 假設我們要讀取 last 這個指令中，那個 root 登入的『次數』應該怎麼作？注意呦！我們只需要『次數』。那麼我所進行的步驟是：
 
@@ -225,7 +227,7 @@ The keyboard is the standard input device while your screen is the standard outp
 
 ![pip flow image](/img/web-development/linux/pip-flow.jpg)
 
-## Command substitution
+### Command substitution
 
 "Command substitution" is the name of the feature of the shell language that allows you to execute a command and have the output of that command replace (substitute) the text of the command. These commands are executed in a subshell, and their  data is what the substitution syntax expands to.
 
@@ -241,15 +243,16 @@ $ echo "$s"
 ```
 
 ## Command redirection vs. Piping
+
+:::note TL;DR
 Pipe is used to pass output to another **program or utility**.
 Redirect is used to pass output to either **a file or stream**.
 
-`ls > log.txt` sends the output to the log.txt file.
+- `ls > log.txt` sends the output to the log.txt file.
 
-`ls | grep file.txt` sends the output of the ls to grep command through the use of pipe (|), and the grep command searches for file.txt in the in the input provided to it by the previous command.
+- `ls | grep file.txt` sends the output of the ls to grep command through the use of pipe (|), and the grep command searches for file.txt in the in the input provided to it by the previous command.
 
-
-## Command substitution vs. Piping
+:::
 
 **Piping** redirects the output of one program to the input of another program.
 
