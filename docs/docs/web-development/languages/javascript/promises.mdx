@@ -7,7 +7,7 @@ metaDescription: "This is the meta description for this page"
 A promise is an object which can be returned synchronously from an asynchronous function ([ref](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261#3cd0)).
 
 Promises can be used to avoid [callback hell](http://callbackhell.com/), and they are more and more frequently encountered in modern JavaScript projects.
-![Promise concept](/img/languages/javascript/promise.png)
+![Promise concept](/img/web-development/languages/javascript/promise.png)
 
 ## Analogy
 Imagine that you’re a top singer, and fans ask day and night for your upcoming single.
@@ -208,7 +208,7 @@ The whole promise chain works, because *a call to promise.then returns a promise
 
 When a handler returns a value, it becomes the result of that promise, so the next .then is called with it.
 As the result is passed along the chain of handlers, we can see a sequence of alert calls: 1 → 2 → 4.
-![Promise concept](/img/languages/javascript/promise-chain.png)
+![Promise concept](/img/web-development/languages/javascript/promise-chain.png)
 ```js
 new Promise(function(resolve, reject) {
 
@@ -233,7 +233,7 @@ new Promise(function(resolve, reject) {
 });
 ```
 A classic newbie error: technically we can also add many .then to a single promise. This is not chaining instead, it is just several handlers to one promise. They don’t pass the result to each other, instead they process it independently.
-![Promise concept](/img/languages/javascript/promise-newbie-mistake.png)
+![Promise concept](/img/web-development/languages/javascript/promise-newbie-mistake.png)
 ```js
 let promise = new Promise(function(resolve, reject) {
   setTimeout(() => resolve(1), 1000);

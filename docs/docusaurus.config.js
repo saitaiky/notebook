@@ -159,7 +159,7 @@ const config = {
               },
               {
                 type: 'docSidebar',
-                sidebarId: 'languageSidebar',
+                sidebarId: 'webDevelopmentSidebar',
                 label: 'Programming Languages',
               },
             ],

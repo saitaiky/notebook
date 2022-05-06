@@ -36,8 +36,8 @@ function HomepageHeader() {
         <div className={styles.links}>
           <Link
             className="button button--secondary button--lg"
-            to="/languages/">
-            Programming languages
+            to="/web-development/">
+            Web development
           </Link>
         </div>
         <img src={hasuras} alt="Hasuras Image" />
