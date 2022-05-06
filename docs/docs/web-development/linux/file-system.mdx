@@ -1,0 +1,60 @@
+---
+title: "File system"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+
+# NFS
+NFS (Network File System) is basically developed for sharing of *files* and *folders* between Linux/Unix systems by Sun Microsystems in 1980. It allows you to mount your local file systems over a network and remote hosts to interact with them as they are mounted locally on the same system. With the help of NFS, we can set up file sharing between *Unix* to *Linux* system and *Linux* to *Unix* system.
+
+
+## File Commands
+
+```bash
+# Copy source_directory recursively to destination. If destination exists, copy source_directory into destination, otherwise create destination with the contents of source_directory.
+cp -r source_directory destination
+
+# Rename or move file1 to file2. If file2 is an existing directory, move file1 into directory file2
+mv file1 file2
+
+# Create symbolic link to linkname
+ln -s /path/to/file linkname
+
+# Create an empty file or update the access and modification times of file.
+touch file
+
+# Browse through a text file
+# less is most useful for viewing the content of large files or the results of commands that produce many lines of output.
+less file
+
+# Display the first & last 10 lines of file
+head file
+tail file
+
+# Display the last 10 lines of file and "follow" the file as it grows.
+tail -f file
+```
+
+## Useful tips
+
+### How do I run a shell script without using “sh” or “bash” commands?
+- Add a "shebang" at the top of your file: `#!/bin/bash`
+- And make your file executable `(chmod +x script.sh)`.
+- Finally, modify your path to add the directory where your script is located (typically, you want `$HOME/bin` for storing your own scripts):
+`export PATH=$PATH:/appropriate/directory`
+
+### Why my cd command in makefile doesn't work?
+
+When you write a `cd some_directory`. It is actually executing the command, changing the directory to some_directory, however, this is performed in a sub-process shell, and affects neither make nor the shell you're working from.
+
+If you're looking to perform more tasks within `some_directory`, you need to add a semi-colon and append the other commands as well. Note that you cannot use newlines as they are interpreted by make as the end of the rule, so any newlines you use for clarity needs to be escaped by a backslash.
+
+```shell
+all:
+        cd some_dir; echo "I'm in some_dir"; \
+          gcc -Wall -o myTest myTest.c
+```
+
+## Learn Xargs in the future
+[12 Practical Examples of Linux Xargs Command for Beginners](https://www.tecmint.com/xargs-command-examples/)

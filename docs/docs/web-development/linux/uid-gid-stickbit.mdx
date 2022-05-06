@@ -1,0 +1,72 @@
+---
+title: "setuid, setgid and stick bit"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+There's actually 4 attribute sets you can work with via chmod.
+
+Special, `User/Owner`, Group, and Others in that order, when working with the four-number chmods, with that first number being special bits that can be set.
+
+chmod 4555 equates to the following:
+
+- Set UID bit - Run the file as the owner regardless of which user is running it
+- `User/Owner`: `Read, Execute`
+- Group: `Read, Execute`
+- Others: `Read, Execute`
+The `s` in your 'human readable' string for permissions indicates that the SetUID bit (explained below) is set.
+
+---
+
+Effectively, we can break down the four-number chmod permissions argument into specific descriptors as follows, and doing the math to determine what a 4 in the first section would be, a 5 in the next section, and so on.
+
+Keep in mind that #### is Special `User/Owner` Group and Others in that order.
+
+For Special attributes (the first number in a four-number chmod argument):
+
+- `Set UID` - Run file as owner regardless of the user running it (shows as `s` in the human-readable permissions string for User section) = +4 (--s under `User/Owner`)
+- `Set GID` - Run file as group regardless of the user/group running it (shows as `s` in the human-readable permissions string for Group section) = +2 (--s under Group)
+- `Sticky Bit` - EFFECTIVE ON DIRECTORIES ONLY - If set, only the directory's owner user and root can delete the directory, and only the file owner or root can delete files inside it. (shows as t in the human-readable permissions string for Others section) = +1 (--t under Others)
+
+For ``User/Owner``, Group and Others attributes (the last three numbers in a four-number chmod argument):
+
+- Read = +4 (r--)
+- Write = +2 (-w-)
+- Execute (for files), or 'Enter Into / List Items' (for directories) = +1 (--x)
+
+## Examples
+
+### setuid与setgid讲解
+看一下系统中用到它的地方，以/etc/passwd和/usr/bin/passwd为例：
+```shell
+[root@Salve1 school]# ll /etc/passwd /usr/bin/passwd 
+-rw-r--r-- 1 root root 2005 Apr 23 01:25 /etc/passwd 
+-rwsr-xr-x 1 root root 23420 Aug 11 2010 /usr/bin/passwd 
+[root@Salve1 school]# 
+```
+分析一下，/etc/passwd的权限为 -rw-r--r-- 也就是说：
+该文件的所有者拥有读写的权限，而用户组成员和其它成员只有查看的权限。
+
+我们知道，在系统中我们要修改一个用户的密码，root用户和普通用户均可以用/usr/bin/passwd someuser这个命令来修改这个/etc/passwd这个文件，root用户本身拥有对/etc/passwd的写权限，无可厚非；那普通用户呢，这里就用到了setuid，setuid的作用是“让执行该命令的用户以该命令拥有者的权限去执行”，就是普通用户执行passwd时会拥有root的权限，这样就可以修改/etc/passwd这个文件了。
+
+它的标志为：s，会出现在x的地方，例：-rwsr-xr-x 。而setgid的意思和它是一样的，即让执行文件的用户以该文件所属组的权限去执行。
+
+
+### sticky bit
+
+看一下系统中用到它的地方，以/tmp为例：
+```shell
+[root@Salve1 /]# ll -d /tmp 
+drwxrwxrwt 13 root root 4096 Apr 23 02:06 /tmp 
+[root@Salve1 /]# 
+```
+我们知道/tmp是系统的临时文件目录，所有的用户在该目录下拥有所有的权限，
+也就是说在该目录下可以任意创建、修改、删除文件，那如果用户A在该目录下创建了一个文件，
+用户B将该文件删除了，这种情况我们是不能允许的。
+
+为了达到该目的，就出现了stick bit（粘滞位）的概念。 它是针对目录来说的，如果该目录设置了stick bit（粘滞位），则该目录下的文件除了该文件的创建者和root用户可以删除和修改/tmp目录下的stuff，别的用户均不能动别人的，这就是粘滞位的作用。
+
+## References
+
+- [What is the first number for in a 4-number chmod argument (such as `chmod 4555`)?](https://askubuntu.com/questions/581290/what-is-the-first-number-for-in-a-4-number-chmod-argument-such-as-chmod-4555)
+- [setuid与setgid讲解](https://www.jianshu.com/p/70f9ea162ca9)

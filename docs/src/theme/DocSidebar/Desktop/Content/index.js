@@ -8,16 +8,16 @@ export default function ContentWrapper(props) {
 	const isBrowser = useIsBrowser();
 	const isCryptoDocs =
 		isBrowser && window.location.pathname.includes("/crypto/");
-	const isCoreDocs =
-		isBrowser && window.location.pathname.includes("/graphql/core/");
+	const isWebDevelopmentDocs =
+		isBrowser && window.location.pathname.includes("/web-development/");
 	return (
 		<>
 			<div className={styles["doc-sidebar-tabs"]}>
 				<VersionedLink
-					to="/graphql/core/index/"
-					className={`${styles["link-tab"]} ${isCoreDocs ? styles['active'] : ''}`}
+					to="/web-development/index/"
+					className={`${styles["link-tab"]} ${isWebDevelopmentDocs ? styles['active'] : ''}`}
 				>
-					Hasura Core
+					Web Development
 				</VersionedLink>
 				<VersionedLink
 					to="/crypto/index/"

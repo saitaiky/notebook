@@ -1,0 +1,102 @@
+---
+title: "Bash Intro"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+我這個使用者什麼時候可以取得 shell 來工作呢？還有， 我這個使用者預設會取得哪一個 shell 啊？還記得我們在第四章的在終端介面登入linux小節當中提到的登入動作吧？ 當我登入的時候，系統就會給我一個 shell 讓我來工作了。 而這個登入取得的 shell 就記錄在 /etc/passwd 這個檔案內！這個檔案的內容是啥？
+
+```bash
+[dmtsai@study ~]$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+.....(底下省略).....
+```
+如上所示，在每一行的最後一個資料，就是你登入後可以取得的預設的 shell 啦！那你也會看到， root 是 /bin/bash ，不過，系統帳號 bin 與 daemon 等等，就使用那個怪怪的 /sbin/nologin 囉～關於使用者這部分的內容，我們留在[第十三章的帳號管理](http://linux.vbird.org/linux_basic/0410accountmanager.php)時提供更多的說明。
+
+登入系統取得的文字型互動界面就稱為 shell，shell 的操作環境能夠依據使用者的喜好來設定，使用者也能夠切換不同的 shell。 而 shell 最重要的就是變數，這在許多的程式語言裡面都是需要注意到的部份。
+
+## Different shells and Bash
+
+那麼目前我們的 Linux (以 CentOS 7.x 為例) 有多少我們可以使用的 shells 呢？ 你可以檢查一下 /etc/shells 這個檔案，至少就有底下這幾個可以用的 shells (鳥哥省略了重複的 shell 了！包括 /bin/sh 等於 /usr/bin/sh 囉！)：
+
+- /bin/sh (已經被 /bin/bash 所取代)
+- /bin/bash (就是 Linux 預設的 shell)
+- /bin/tcsh (整合 C Shell ，提供更多的功能)
+- /bin/csh (已經被 /bin/tcsh 所取代)
+
+使用者可以自由的切換所需要的 shell，不過不同的 shell 使用的方式、語法都有點差異。舉例來說， bash 使用的變數設定方式為 『var='content'』， 但是 csh 使用的是『 set var = 'content' 』，csh 需要有 set ，不過等號兩邊可以有空格。
+
+Bash ( bash ) is one of many available (yet the most commonly used) Unix shells.
+
+
+## Bash environment config files
+你是否會覺得奇怪，怎麼我們什麼動作都沒有進行，但是一進入 bash 就取得一堆有用的變數了？ 這是因為系統有一些環境設定檔案的存在，讓 bash 在啟動時直接讀取這些設定檔，以規劃好 bash 的操作環境啦！ 而這些設定檔又可以分為全體系統的設定檔以及使用者個人偏好設定檔。要注意的是， 我們前幾個小節談到的命令別名啦、自訂的變數啦，在你登出 bash 後就會失效，所以你想要保留你的設定， 就得要將這些設定寫入設定檔才行。底下就讓我們來聊聊吧！
+
+
+## login and non-login shell
+在開始介紹 bash 的設定檔前，我們一定要先知道的就是 login shell 與 non-login shell！ 重點在於有沒有登入 (login) 啦！
+
+- login shell：取得 bash 時需要完整的登入流程的，就稱為 login shell。舉例來說，你要由 tty1 ~ tty6 登入，需要輸入使用者的帳號與密碼，此時取得的 bash 就稱為『 login shell 』囉；
+
+- non-login shell：取得 bash 介面的方法不需要重複登入的舉動，舉例來說，(1)你以 X window 登入 Linux 後， 再以 X 的圖形化介面啟動終端機，此時那個終端介面並沒有需要再次的輸入帳號與密碼，那個 bash 的環境就稱為 non-login shell了。(2)你在原本的 bash 環境下再次下達 bash 這個指令，同樣的也沒有輸入帳號密碼， 那第二個 bash (子程序) 也是 non-login shell 。
+
+為什麼要介紹 login, non-login shell 呢？這是因為這兩個取得 bash 的情況中，讀取的設定檔資料並不一樣所致。 由於我們需要登入系統，所以先談談 login shell 會讀取哪些設定檔？一般來說，login shell 其實只會讀取這兩個設定檔：
+
+1. /etc/profile：這是系統整體的設定，你最好不要修改這個檔案；
+2. ~/.bash_profile 或 ~/.bash_login 或 ~/.profile：屬於使用者個人設定，你要改自己的資料，就寫入這裡！
+
+
+### /etc/profile (login shell 才會讀)
+
+你可以使用 vim 去閱讀一下這個檔案的內容。這個設定檔可以利用使用者的識別碼 (UID) 來決定很多重要的變數資料， 這也是每個使用者登入取得 bash 時一定會讀取的設定檔！ 所以如果你想要幫所有使用者設定整體環境，那就是改這裡囉！不過，沒事還是不要隨便改這個檔案喔 這個檔案設定的變數主要有：
+- PATH：會依據 UID 決定 PATH 變數要不要含有 sbin 的系統指令目錄；
+- MAIL：依據帳號設定好使用者的 mailbox 到 /var/spool/mail/帳號名；
+- USER：根據使用者的帳號設定此一變數內容；
+- HOSTNAME：依據主機的 hostname 指令決定此一變數內容；
+- HISTSIZE：歷史命令記錄筆數。CentOS 7.x 設定為 1000 ；
+- umask：包括 root 預設為 022 而一般用戶為 002 等！
+
+### ~/.bash_profile (login shell 才會讀)
+bash 在讀完了整體環境設定的 /etc/profile 並藉此呼叫其他設定檔後，接下來則是會讀取使用者的個人設定檔。 在 login shell 的 bash 環境中，所讀取的個人偏好設定檔其實主要有三個，依序分別是：
+
+1. ~/.bash_profile
+2. ~/.bash_login
+3. ~/.profile
+
+*其實 bash 的 login shell 設定只會讀取上面三個檔案的其中一個， 而讀取的順序則是依照上面的順序。*也就是說，如果 ~/.bash_profile 存在，那麼其他兩個檔案不論有無存在，都不會被讀取。 如果 ~/.bash_profile 不存在才會去讀取 ~/.bash_login，而前兩者都不存在才會讀取 ~/.profile 的意思。 會有這麼多的檔案，其實是因應其他 shell 轉換過來的使用者的習慣而已。 先讓我們來看一下 dmtsai 的 /home/dmtsai/.bash_profile 的內容是怎樣呢？
+```bash
+[dmtsai@study ~]$ cat ~/.bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then    <==底下這三行在判斷並讀取 ~/.bashrc
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+PATH=$PATH:$HOME/.local/bin:$HOME/bin    <==底下這幾行在處理個人化設定
+export PATH
+```
+
+我們來看看整個 login shell 的讀取流程：
+![centos7_bashrc](/img/web-development/linux/centos7_bashrc_1.gif)
+
+
+## source ：讀入環境設定檔的指令
+由於 /etc/profile 與 ~/.bash_profile 都是在取得 login shell 的時候才會讀取的設定檔，所以， 如果你將自己的偏好設定寫入上述的檔案後，通常都是得登出再登入後，該設定才會生效。那麼，能不能直接讀取設定檔而不登出登入呢？ 可以的！那就得要利用 source 這個指令了！
+
+```bash
+[dmtsai@study ~]$ source 設定檔檔名
+
+範例：將家目錄的 ~/.bashrc 的設定讀入目前的 bash 環境中
+[dmtsai@study ~]$ source ~/.bashrc  <==底下這兩個指令是一樣的！
+[dmtsai@study ~]$  .  ~/.bashrc
+```
+利用 source 或小數點 (.) 都可以將設定檔的內容讀進來目前的 shell 環境中！ 舉例來說，我修改了 ~/.bashrc ，那麼不需要登出，立即以 source ~/.bashrc 就可以將剛剛最新設定的內容讀進來目前的環境中！很不錯吧！還有，包括 ~/bash_profile 以及 /etc/profile 的設定中， 很多時候也都是利用到這個 source (或小數點) 的功能喔！
+
+## References
+
+- [Input Output Redirection in Linux/Unix Examples](https://www.guru99.com/linux-redirection.html)
+- [第十章、認識與學習BASH](http://linux.vbird.org/linux_basic/0320bash.php#bash_why)

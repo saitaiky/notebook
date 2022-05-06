@@ -1,0 +1,31 @@
+---
+title: "Linux Package Manager"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+
+# Linux Package Manager
+在前一章我們提到以原始碼的方式來安裝軟體，也就是利用廠商釋出的 Tarball 來進行軟體的安裝。不過，你應該很容易發現，那就是每次安裝軟體都需要偵測作業系統與環境、設定編譯參數、實際的編譯、 最後還要依據個人喜好的方式來安裝軟體到定位。這過程是真的很麻煩的，而且對於不熟整個系統的朋友來說，還真是累人啊！
+
+那有沒有想過，如果我的 Linux 系統與廠商的系統一模一樣，那麼在廠商的系統上面編譯出來的執行檔， 自然也就可以在我的系統上面跑囉！也就是說，廠商先在他們的系統上面編譯好了我們使用者所需要的軟體， 然後將這個編譯好的可執行的軟體直接釋出給使用者來安裝，如此一來，由於我們本來就使用廠商的 Linux distribution ，所以當然系統 (硬體與作業系統) 是一樣的，那麼使用廠商提供的編譯過的可執行檔就沒有問題啦！ 說的比較白話一些，那就是利用類似 Windows 的安裝方式，由程式開發者直接在已知的系統上面編譯好，再將該程式直接給使用者來安裝，如此而已。
+
+那麼如果在安裝的時候還可以加上一些與這些程式相關的資訊，將他建立成為資料庫，那不就可以進行安裝、反安裝、 升級與驗證等等的相關功能囉 (類似 Windows 底下的『新增移除程式』)？確實如此，在 Linux 上面至少就有兩種常見的這方面的軟體管理員，分別是 RPM 與 Debian 的 dpkg 。
+
+## RPM 與 DPKG
+由於自由軟體的蓬勃發展，加上大型 Unix-Like 主機的強大效能，讓很多軟體開發者將他們的軟體使用 Tarball 來釋出。 後來 Linux 發展起來後，由一些企業或社群將這些軟體收集起來製作成為 distributions 以發佈這好用的 Linux 作業系統。但後來發現到，這些 distribution 的軟體管理實在傷腦筋， 如果軟體有漏洞時，又該如何修補呢？使用 tarball 的方式來管理嗎？又常常不曉得到底我們安裝過了哪些程式？ 因此，一些社群與企業就開始思考 Linux 的軟體管理方式。
+
+目前在 Linux 界軟體安裝方式最常見的有兩種，分別是：
+
+dpkg：
+這個機制最早是由 Debian Linux 社群所開發出來的，透過 dpkg 的機制， Debian 提供的軟體就能夠簡單的安裝起來，同時還能提供安裝後的軟體資訊，實在非常不錯。 只要是衍生於 Debian 的其他 Linux distributions 大多使用 dpkg 這個機制來管理軟體的， 包括 B2D, Ubuntu 等等。
+
+RPM：
+這個機制最早是由 Red Hat 這家公司開發出來的，後來實在很好用，因此很多 distributions 就使用這個機制來作為軟體安裝的管理方式。包括 Fedora, CentOS, SuSE 等等知名的開發商都是用這咚咚。
+
+|distribution(Distro) |軟體管理機制   |使用指令   |Command to install dependency   |
+|---|---|---|---|
+|Red Hat/Fedora   |RPM	   |rpm, rpmbuild   |YUM (yum)   |
+|Debian/Ubuntu   |DPKG   |dpkg   |APT (apt-get)   |
+
+Source: [22.1.1 Linux 界的兩大主流: RPM 與 DPKG](http://linux.vbird.org/linux_basic/0520rpm_and_srpm.php#intro_import2)
