@@ -7,8 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Hasura GraphQL Docs',
-  tagline: 'Instant GraphQL on all your data',
+  title: 'Sai\'s Note Book',
+  tagline: 'Learn, update and iterate',
   url: 'https://hasura.io',
   baseUrl: '/docs/',
   trailingSlash: true,
@@ -131,6 +131,7 @@ const config = {
       //   id: 'announcementBar-2', // Increment on change
       //   content: `⭐️ If you like Docusaurus, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebook/docusaurus">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/docusaurus" >Twitter</a> ${TwitterSvg}`,
       // },
+      // For header
       navbar: {
         hideOnScroll: false,
         title: '',
@@ -155,6 +156,11 @@ const config = {
                 type: 'docSidebar',
                 sidebarId: 'cloudDocsSidebar',
                 label: 'Hasura Cloud',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'languageSidebar',
+                label: 'Programming Languages',
               },
             ],
           },
@@ -193,23 +199,6 @@ const config = {
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
-          },
-          {
-            to: 'https://hasura.io/pricing/',
-            label: 'Pricing',
-            position: 'right',
-          },
-          {
-            to: 'https://cloud.hasura.io/login?pg=docs&plcmt=header&cta=log-in&tech=default',
-            label: 'Login',
-            position: 'right',
-            className: "nav-link_login",
-          },
-          {
-            to: 'https://cloud.hasura.io/signup?pg=products&plcmt=header&cta=try-hasura&tech=default',
-            label: 'Get Started',
-            position: 'right',
-            className: "nav-link_getting-started",
           },
         ],
       },

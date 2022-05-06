@@ -33,6 +33,13 @@ function HomepageHeader() {
             Docs Wiki
           </Link>
         </div>
+        <div className={styles.links}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/lang/">
+            Programming languages
+          </Link>
+        </div>
         <img src={hasuras} alt="Hasuras Image" />
       </div>
     </header>
