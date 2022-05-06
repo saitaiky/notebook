@@ -1,0 +1,256 @@
+---
+title: "Collections"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+List
+----
+
+A list, in Python, stores a sequence of objects in a defined order. They allow indexing or iterating through the list. Next, lists are mutable which you can modify after creation.
+```python
+<list> = <list>[from_inclusive : to_exclusive : ±step_size]
+```
+
+```python
+<list>.append(<el>)            # Or: <list> += [<el>]
+<list>.extend(<collection>)    # Or: <list> += <collection>
+```
+
+```python
+<list>.sort()
+<list>.reverse()
+<list> = sorted(<collection>)
+<iter> = reversed(<list>)
+```
+
+```python
+sum_of_elements  = sum(<collection>)
+elementwise_sum  = [sum(pair) for pair in zip(list_a, list_b)]
+sorted_by_second = sorted(<collection>, key=lambda el: el[1])
+sorted_by_both   = sorted(<collection>, key=lambda el: (el[1], el[0]))
+flatter_list     = list(itertools.chain.from_iterable(<list>))
+product_of_elems = functools.reduce(lambda out, x: out * x, <collection>)
+list_of_chars    = list(<str>)
+```
+
+```python
+<int> = <list>.count(<el>)     # Returns number of occurrences. Also works on strings.
+index = <list>.index(<el>)     # Returns index of first occurrence or raises ValueError.
+<list>.insert(index, <el>)     # Inserts item at index and moves the rest to the right.
+<el> = <list>.pop([index])     # Removes and returns item at index or from the end.
+<list>.remove(<el>)            # Removes first occurrence of item or raises ValueError.
+<list>.clear()                 # Removes all items. Also works on dictionary and set.
+```
+
+使用 '=' 設定變數則會是傳址，等同於前面說的標籤概念，把兩張標籤貼在同一個物件上(number or srting 除外)
+這樣當我改變了物件後，則物件上所有的標籤所指到的值都會跟著改變，
+若要改成傳值的話可以使用copy() 、 list.list() 與 list[:] 來達到目的
+```python
+a = [1, 2, 3]
+b = a
+
+a[0] = 4
+print(a, b)
+
+c = a.copy()
+d = list(a)
+e = a[:]
+a[0] = 'surprises'
+
+>>
+[4, 2, 3] [4, 2, 3]
+['surprises', 2, 3] ['surprises', 2, 3] [4, 2, 3] [4, 2, 3] [4, 2, 3]
+```
+
+Tuple
+-----
+也是一個List差別只在不能做修改，一旦给定後，無法再進行增加 刪除 修改等操作，所以可以當作一個常數的List
+
+創建時空的時使用()，一個以上時可以省略，但是一個時最後一個逗號不可以省略。
+
+A tuple is though similar to a list, but it’s immutable. Another semantic difference between a list and a tuple is “Tuples are heterogeneous data structures whereas the list is a homogeneous sequence.“.
+**Tuple is an immutable and hashable list.**
+```python
+<tuple> = ()
+<tuple> = (<el>, )
+<tuple> = (<el_1>, <el_2> [, ...])
+```
+
+### Named Tuple
+**Tuple's subclass with named elements.**
+
+```python
+>> from collections import namedtuple
+>> Point = namedtuple('Point', 'x y')
+>> p = Point(1, y=2)
+Point(x=1, y=2)
+>> p[0]
+1
+>> p.x
+1
+>> getattr(p, 'y')
+2
+>> p._fields  # Or: Point._fields
+('x', 'y')
+```
+
+## List vs Tuples
+兩者差異在於，List可以改變其內容，增減長度 or 替換等等皆可以
+Tuples一旦賦予值之後，就不能再修改。
+以效能和記憶體使用量來說，Tuples皆較佳
+
+Tuple既然他不能修改等等的那相對於List一定也有其他好處
+
+- 空間較小
+- 不會不小心修改到值
+- 可以當作dictionary的key值 (後一小節有說明)
+- 命名Tuples，可以做為物件的替代 (第六章會說明)
+- 函數的傳遞是以Tuples形式傳遞
+
+
+Dictionary
+----------
+A dictionary is an associative array of key-value pairs. It’s unordered and requires the keys to be hashable. Search operations happen to be faster in a dictionary as they use keys for lookups.
+```python
+<view> = <dict>.keys()                          # Coll. of keys that reflects changes.
+<view> = <dict>.values()                        # Coll. of values that reflects changes.
+<view> = <dict>.items()                         # Coll. of key-value tuples.
+```
+
+```python
+value  = <dict>.get(key, default=None)          # Returns default if key is missing.
+value  = <dict>.setdefault(key, default=None)   # Returns and writes default if key is missing.
+<dict> = collections.defaultdict(<type>)        # Creates a dict with default value of type.
+<dict> = collections.defaultdict(lambda: 1)     # Creates a dict with default value 1.
+```
+
+```python
+<dict>.update(<dict>)
+<dict> = dict(<collection>)                     # Creates a dict from coll. of key-value pairs.
+<dict> = dict(zip(keys, values))                # Creates a dict from two collections.
+<dict> = dict.fromkeys(keys [, value])          # Creates a dict from collection of keys.
+```
+
+```python
+value = <dict>.pop(key)                         # Removes item or raises KeyError.
+{k: v for k, v in <dict>.items() if k in keys}  # Filters dictionary by keys.
+```
+
+### Counter
+```python
+>> from collections import Counter
+>> colors = ['blue', 'red', 'blue', 'red', 'blue']
+>> counter = Counter(colors)
+>> counter['yellow'] += 1
+Counter({'blue': 3, 'red': 2, 'yellow': 1})
+>> counter.most_common()[0]
+('blue', 3)
+```
+
+
+
+
+Enumerate
+---------
+```python
+for i, el in enumerate(<collection> [, i_start]):
+    ...
+```
+
+
+
+Set
+---
+```python
+<set> = set()
+```
+
+```python
+<set>.add(<el>)                                 # Or: <set> |= {<el>}
+<set>.update(<collection>)                      # Or: <set> |= <set>
+```
+
+```python
+<set>  = <set>.union(<coll.>)                   # Or: <set> | <set>
+<set>  = <set>.intersection(<coll.>)            # Or: <set> & <set>
+<set>  = <set>.difference(<coll.>)              # Or: <set> - <set>
+<set>  = <set>.symmetric_difference(<coll.>)    # Or: <set> ^ <set>
+<bool> = <set>.issubset(<coll.>)                # Or: <set> <= <set>
+<bool> = <set>.issuperset(<coll.>)              # Or: <set> >= <set>
+```
+
+```python
+<el> = <set>.pop()                              # Raises KeyError if empty.
+<set>.remove(<el>)                              # Raises KeyError if missing.
+<set>.discard(<el>)                             # Doesn't raise an error.
+```
+
+### Frozen Set
+* **Is immutable and hashable.**
+* **That means it can be used as a key in a dictionary or as an element in a set.**
+```python
+<frozenset> = frozenset(<collection>)
+```
+
+Range
+-----
+```python
+<range> = range(to_exclusive)
+<range> = range(from_inclusive, to_exclusive)
+<range> = range(from_inclusive, to_exclusive, ±step_size)
+```
+
+```python
+from_inclusive = <range>.start
+to_exclusive   = <range>.stop
+```
+
+Iterator
+--------
+```python
+<iter> = iter(<collection>)                 # `iter(<iter>)` returns unmodified iterator.
+<iter> = iter(<function>, to_exclusive)     # A Sequence of return values until 'to_exclusive'.
+<el>   = next(<iter> [, default])           # Raises StopIteration or returns 'default' on end.
+```
+
+### Itertools
+```python
+from itertools import count, repeat, cycle, chain, islice
+```
+
+```python
+<iter> = count(start=0, step=1)             # Returns incremented value endlessly.
+<iter> = repeat(<el> [, times])             # Returns element endlessly or 'times' times.
+<iter> = cycle(<collection>)                # Repeats the sequence endlessly.
+```
+
+```python
+<iter> = chain(<coll_1>, <coll_2> [, ...])  # Empties collections in order.
+<iter> = chain.from_iterable(<collection>)  # Empties collections inside a collection in order.
+```
+
+```python
+<iter> = islice(<collection>, to_exclusive)
+<iter> = islice(<collection>, from_inclusive, to_exclusive)
+<iter> = islice(<collection>, from_inclusive, to_exclusive, +step_size)
+```
+
+
+Generator
+---------
+* **Any function that contains a yield statement returns a generator.**
+* **Generators and iterators are interchangeable.**
+
+```python
+def count(start, step):
+    while True:
+        yield start
+        start += step
+```
+
+```python
+>> counter = count(10, 2)
+>> next(counter), next(counter), next(counter)
+(10, 12, 14)
+```

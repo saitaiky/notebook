@@ -1,0 +1,126 @@
+---
+title: "Python programming styles"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+- [Tutorial: Python Functions and Functional Programming](https://www.dataquest.io/blog/introduction-functional-programming-python/)
+- [Embracing the Four Python Programming Styles](https://blog.newrelic.com/engineering/python-programming-styles/)
+
+## Embracing the Four Python Programming Styles
+
+There are four main Python coding styles: imperative, functional, object-oriented, and procedural. (Some people combine imperative and functional coding styles while others view them as completely separate styles.) You may or may not agree that all four forms are valid or even useful—but nevertheless Python makes them all available. Let’s take a look at the pros and cons of each approach as well as some examples. 
+
+
+### A brief overview of the four Python coding styles
+1. **Functional**:
+Every statement is treated as *a mathematical equation* and any forms of state or mutable data are avoided. The main advantage of this approach is that it lends itself well to parallel processing because there is no state to consider. Many developers prefer this coding style for recursion and for lambda calculus. (Note that Python’s implementation of functional programming deviates from the standard—read, is impure— because it’s possible to maintain state and create side effects if you’re not careful. [If you need a pure functional programming implementation, Haskell may be a better choice](https://caiorss.github.io/Functional-Programming/haskell/Functional_Programming_Concepts.html).)
+2. **Imperative**: Computation is performed as a direct change to program state. This style is especially useful when manipulating data structures and produces elegant yet simple code. Python fully implements this paradigm.
+3. **Object-oriented**: Relies on data fields that are treated as objects and manipulated only through prescribed methods. Python doesn’t fully support this paradigm because it can’t implement features such as data hiding (encapsulation), which [many believe is a primary requirement of the object-oriented programming paradigm](http://codebetter.com/raymondlewallen/2005/07/19/4-major-principles-of-object-oriented-programming/). This coding style also favors code reuse.
+4. **Procedural**: Tasks are treated as step-by-step iterations where common tasks are placed in functions that are called as needed. This coding style favors iteration, sequencing, selection, and modularization. Python excels in implementing this particular paradigm.
+
+### Procedural coding style
+The procedural style relies on procedure calls to create modularized code. This approach simplifies your application code by breaking it into small pieces that a developer can view easily. Even though procedural coding is an older form of application development, it’s still a viable approach for tasks that lend themselves to step-by-step execution.
+
+```python
+#  procedural coding style
+my_list = [1, 2, 3, 4, 5]
+def do_add(any_list):
+    sum = 0
+    for x in any_list:
+        sum += x
+    return sum
+print(do_add(my_list))
+```
+
+
+### Functional vs. Imperative code
+With imperative you have to explicitly code the order of your operations. In contrast, with functional programming you are not defining the sequence but rather you are declaring what you are trying to model (this is why it is sometimes referred to as declarative style of programming). [ref](https://stackoverflow.com/questions/21895525/python-programming-functional-vs-imperative-code)
+
+```python
+import functools
+my_list = [1, 2, 3, 4, 5]
+
+# functional coding style
+def add_it(x, y):
+    return (x + y)
+sum = functools.reduce(add_it, my_list)
+print(sum)
+
+#  imperative coding style
+sum = 0
+for x in my_list:
+    sum += x
+print(sum)
+```
+
+## Comparing object-oriented to functional (stateful)
+Suppose we wanted to create a line counter class that takes in a file, reads each line, then counts the total amount of lines in the file. Using a **class**, it could look something like the following[ref](https://www.dataquest.io/blog/introduction-functional-programming-python/):
+
+```python
+class LineCounter:
+    def __init__(self, filename):
+        self.file = open(filename, 'r')
+        self.lines = []
+
+        def read(self):
+            self.lines = [line for line in self.file]
+
+        def count(self):
+            return len(self.lines)
+
+# example.txt contains 100 lines.
+lc = LineCounter('example.txt')
+print(lc.lines)
+>> []
+print(lc.count())
+>> 0
+
+# The lc object must read the file to set the lines property.
+lc.read()
+# The `lc.lines` property has been changed.
+# This is called changing the state of the lc object.
+print(lc.lines)
+>> [['Hello world!', ...]]
+print(lc.count())
+>> 100       
+```
+
+The ever-changing state of an object is both its blessing and curse. To understand why a changing state can be seen as a negative, we have to introduce an alternative. The alternative is to build the line counter as a series of independent functions.
+
+```python
+def read(filename):
+    with open(filename, 'r') as f:
+        return [line for line in f]
+
+def count(lines):
+    return len(lines)
+
+example_lines = read('example.txt')
+lines_count = count(example_lines)
+```
+
+## Working with pure functions (stateless)
+
+In the previous example, we were able to count the lines only with the use of functions. When we only use functions, we are applying a functional approach to programming which is, non-excitingly, called **functional programming**. The concepts behind functional programming requires functions to be **stateless**, and rely only on their given inputs to produce an output.
+
+The most important concept is, **if we don't reference any other variables outside of the function, so it is pure**. The functions that meet the above criteria are called **pure functions**. Here’s an example to highlight the difference between pure functions, and non-pure:
+
+```python
+# Create a global variable `A`.
+A = 5
+
+def impure_sum(b):
+    # Adds two numbers, but uses the global `A` variable.
+    return b + A
+
+def pure_sum(a, b):
+    # Adds two numbers, using ONLY the local function inputs.
+    return a + b
+
+print(impure_sum(6))
+>> 11
+
+print(pure_sum(4, 6))
+>> 10
+```

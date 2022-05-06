@@ -1,0 +1,101 @@
+---
+title: "Zip, Enumerate"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+[Mutable and Immutable Objects](https://www.pythonforthelab.com/blog/mutable-and-immutable-objects/)
+
+
+## Zip
+The zip() function take iterables (can be zero or more), makes iterator that aggregates elements based on the iterables passed, and returns **an iterator of tuples**.
+
+```python
+# Example 1
+# initializing lists
+name = [ "Manjeet", "Nikhil", "Shambhavi", "Astha" ]
+roll_no = [ 4, 1, 3, 2 ]
+marks = [ 40, 50, 60, 70 ]
+
+# using zip() to map values, converting map value to print as set
+mapped = set(zip(name, roll_no, marks))
+print(mapped)
+print(list(zip(*mapped)))
+print("-"*50)
+
+namz, rollz, markz = list(zip(*mapped))
+print(namz)
+print(rollz)
+print(markz)
+
+>>
+{('Nikhil', 1, 50), ('Shambhavi', 3, 60), ('Astha', 2, 70), ('Manjeet', 4, 40)}
+[('Nikhil', 'Shambhavi', 'Astha', 'Manjeet'), (1, 3, 2, 4), (50, 60, 70, 40)]
+--------------------------------------------------
+('Nikhil', 'Shambhavi', 'Astha', 'Manjeet')
+(1, 3, 2, 4)
+(50, 60, 70, 40)
+```
+
+
+```python
+# Example 2
+players = [ "Sachin", "Sehwag", "Gambhir", "Dravid", "Raina" ]
+scores = [100, 15, 17, 28, 43 ]
+
+for pl, sc in zip(players, scores):
+    print ("Player :  %s     Score : %d" %(pl, sc))
+```    
+
+
+```python
+# Example 3 - unzipping values
+# Unzipping means converting the zipped values back to the individual self as they were.
+# This is done with the help of “*” operator.
+
+# initializing list of tuples
+test_list = [('Akshat', 1), ('Bro', 2), ('is', 3), ('Placed', 4)]
+print ("Original list is : " + str(test_list))
+
+# using zip() and * operator to
+# perform Unzipping
+res = list(zip(*test_list))
+print ("Modified list is : " + str(res))
+
+>>
+Original list is : [('Akshat', 1), ('Bro', 2), ('is', 3), ('Placed', 4)]
+Modified list is : [('Akshat', 'Bro', 'is', 'Placed'), (1, 2, 3, 4)]
+```
+
+## Enumerate
+Enumerate is a built-in function of Python.
+- It adds a counter to an iterable and returns it in a form of enumerate object
+- `enumerate` also accept an optional argument. The optional argument allows us to tell enumerate from where to start the index.
+
+```python
+my_list = ['apple', 'banana', 'grapes', 'pear']
+
+for counter, value in enumerate(my_list):
+    print(counter, value)
+
+print("-"*50)
+for c, value in enumerate(my_list, 100):
+    print(c, value)
+
+print("-"*50)
+print(list(enumerate(my_list)))
+
+>>
+0 apple
+1 banana
+2 grapes
+3 pear
+--------------------------------------------------
+100 apple
+101 banana
+102 grapes
+103 pear
+--------------------------------------------------
+[(0, 'apple'), (1, 'banana'), (2, 'grapes'), (3, 'pear')]
+<enumerate object at 0x7f1ae0392dc8>
+```

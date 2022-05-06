@@ -1,0 +1,142 @@
+---
+title: "Javascript"
+metaTitle: "!!!Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+
+https://javascript.info/promise-basics
+https://github.com/mbeaudru/modern-js-cheatsheet
+
+
+## Table of contents
+
+- Notions
+- Arrow function
+- Destructuring object and arrays
+- Array methods - map / filter / reduce
+- Spread operator "..."
+- Object property shorthand
+- Promises
+- Async Await
+
+
+
+## Haven't done yet
+https://github.com/mbeaudru/modern-js-cheatsheet
+Template literals
+Tagged template literals
+Imports / Exports
+
+JavaScript this
+Class
+Extends and super keywords
+
+
+Promise API - https://javascript.info/promise-api
+Promisification
+Microtasks
+
+
+## Mutation
+[Why Mutation Can Be Scary](https://alistapart.com/article/why-mutation-can-be-scary/)
+To mutate means to change in form or nature. Something that’s mutable can be changed, while something that’s immutable cannot be changed. To understand mutation, think of the X-Men. In X-Men, people can suddenly gain powers. The problem is, you don’t know when these powers will emerge. Imagine your friend turns blue and grows fur all of a sudden; that’d be scary, wouldn’t it?
+
+In JavaScript, the same problem with mutation applies. If your code is mutable, you might change (and break) something without knowing.  In JavaScript, only `objects` and `arrays` are mutable, not primitive values.
+
+### Objects are mutable in JavaScript
+In JavaScript, you can add properties to an object. When you do so after instantiating it, the object is changed permanently. It mutates, like how an X-Men member mutates when they gain powers.
+
+In the example below, the variable egg mutates once you add the isBroken property to it. We say that objects (like egg) are mutable (have the ability to mutate). Mutation is pretty normal in JavaScript. You use it all the time.
+```js
+const egg = { name: "Humpty Dumpty" };
+egg.isBroken = false;
+
+console.log(egg);
+// {
+//   name: "Humpty Dumpty",
+//   isBroken: false
+// }
+```
+
+### Here’s when mutation becomes scary
+Let’s say you create a constant variable called `newEgg` and `assign` egg to it. Then you want to change the name of `newEgg` to something else.
+
+```js
+const egg = { name: "Humpty Dumpty" };
+
+const newEgg = egg;
+newEgg.name = "Errr ... Not Humpty Dumpty";
+```
+When you change (mutate) newEgg, did you know egg gets mutated automatically?
+```js
+console.log(egg);
+// {
+//   name: "Errr ... Not Humpty Dumpty"
+// }
+```
+The example above illustrates why mutation can be scary—when you change one piece of your code, another piece can change somewhere else without your knowing. As a result, you’ll get bugs that are hard to track and fix.
+
+- Non-Primitive data (`objects or anything that doesn’t belong to Primitive types`) are mutable which means **pass by reference** in JavaScript.
+- Primitive data (`string, number, bigint, boolean, null, undefined, symbol`) is immutable which means always **pass by value**. So changing the value of the variable never changes the underlying value.
+
+## Immediately-Invoked Function Expression (IIFE)
+
+In the past, there were no block-level lexical environment in JavaScript.
+
+So programmers had to invent something. And what they did is called “immediately-invoked function expressions” (abbreviated as IIFE), which means it gets executed immediately. Think of it as a function getting called automatically when the interpreter reaches that function.
+
+That’s not a thing we should use nowadays, but you can find them in old scripts, so it’s better to understand them.
+
+There exist other ways besides parentheses to tell JavaScript that we mean a Function Expression:
+```js
+// Ways to create IIFE
+
+(function() {
+  alert("Parentheses around the function");
+})();
+
+(function() {
+  alert("Parentheses around the whole thing");
+}());
+
+!function() {
+  alert("Bitwise NOT operator starts the expression");
+}();
+
++function() { // Sai: Ignore the highlight
+  alert("Unary plus starts the expression");
+}();
+```
+In all the above cases we declare a Function Expression and run it immediately. Let’s note again: *nowadays there’s no reason to write such code*.
+
+
+
+IIFE's can also be written with ES6's arrow function (like Gajus has pointed out in a comment) :
+```js
+((foo) => foo)('foo value')
+```
+
+[closure](https://javascript.info/closure)
+[What is the (function() { } )() construct in JavaScript?](https://stackoverflow.com/questions/8228281/what-is-the-function-construct-in-javascript)
+
+## Object vs JSon
+Object: The keys are not wrapped in quotes. JavaScript Object values can be any datatype including a function (which you CANNOT do with JSON.
+
+Unlike JavaScript Object, a JSON Object has to be fed into a variable as a String and then parsed into JavaScript.    
+```js
+let personObj = {
+  height: 178.5,
+  gender: "M",
+  isHappy: () => {console.log("Yes!")}
+}
+
+let personJson = {
+  "height": 178.5,
+  "gender": "M",
+  "isHappy": true
+}
+```
+
+========
+[JavaScript — Map vs. ForEach](https://codeburst.io/javascript-map-vs-foreach-f38111822c0f)

@@ -1,0 +1,107 @@
+---
+title: "Comprehensions"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+
+## Comprehensions
+
+Comprehensions are constructs that allow sequences to be built from other sequences. Several types of comprehensions are supported:
+
+- list comprehensions
+- dictionary comprehensions
+- set comprehensions
+- generator comprehensions
+
+### Notes:
+- Comprehensions are a key feature in Python. Understanding and applying them will make your code much more Pythonic.
+- Comprehensions are just fancy syntax for a simple for-loop pattern. Once you understand the pattern, you’ll develop an intuitive understanding for comprehensions.
+
+### Rewriting with list comprehensions
+Because we eventually convert to lists, we should rewrite the `map()` and `filter()` functions using list comprehension instead. This is the more pythonic way of writing them, as we are taking advantage of the Python syntax for making lists. Here’s how you could translate the previous examples of `map()` and `filter()` to list comprehensions:
+
+
+```python
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Map.
+add_10 = [x + 10 for x in values]
+print(add_10)
+>> [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+# Filter.
+even = [x for x in values if x % 2 == 0]
+print(even)
+>> [2, 4, 6, 8, 10]
+```
+
+## list
+
+List comprehensions provide a short and concise way to create lists. It consists of square brackets containing an expression followed by a `for` clause, then zero or more `for` or `if` clauses.
+
+This can be really useful to make lists quickly. It is even preferred by some instead of the `filter` function. List comprehensions really shine when you want to supply a list to a method or function to make a new list by appending to it in each iteration of the `for` loop.
+```python
+multiples = [i for i in range(30) if i % 3 == 0]
+print(multiples)
+>> [0, 3, 6, 9, 12, 15, 18, 21, 24, 27]
+
+squared = []
+for x in range(10):
+    squared.append(x**2)
+print(squared)
+>> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# You can simplify it using list comprehensions. For example:    
+squared = [x**2 for x in range(10)]
+print(squared)
+>> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+## dict
+They are used in a similar way. Here is an example which I found recently:
+```python
+mcase = {'a': 10, 'b': 34, 'A': 7, 'Z': 3}
+
+mcase_frequency = {
+    # k.lower(): a, b, z
+    k.lower(): mcase.get(k.lower(), 0) + mcase.get(k.upper(), 0)
+    for k in mcase.keys()
+}
+
+print(mcase_frequency)
+>> {'a': 17, 'b': 34, 'z': 3}
+```
+In the above example we are combining the values of keys which are same but in different typecase. **I personally do not use `dict` comprehensions a lot**. You can also quickly switch keys and values of a dictionary:
+```python
+{v: k for k, v in mcase.items()}
+>> {10: 'a', 34: 'b', 7: 'A', 3: 'Z'}
+```
+## set
+They are also similar to list comprehensions. The only difference is that they use braces `{}`. Here is an example:
+```python
+squared = {x**2 for x in [1, 1, 2]}
+>> {1, 4}
+```
+## generator
+
+They are also similar to list comprehensions. The only difference is that they don't allocate memory for the whole list but generate one item at a time, thus more memory efficient.
+```python
+multiples_gen = (i for i in range(30) if i % 3 == 0)
+print(multiples_gen)
+>> <generator object <genexpr> at 0x7fb4d02e5ba0>
+
+for x in multiples_gen:
+    print(x)
+>>
+0
+3
+6
+9
+12
+15
+18
+21
+24
+27
+```

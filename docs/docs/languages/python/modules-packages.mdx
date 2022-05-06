@@ -1,0 +1,254 @@
+---
+title: "Modules and Packages"
+metaTitle: ""
+metaDescription: ""
+---
+
+This article explores Python **modules** and Python **packages**, two mechanisms that facilitate **modular programming**.
+
+**Modular programming** refers to the process of breaking a large, unwieldy programming task into separate, smaller, more manageable subtasks or **modules**. Individual modules can then be cobbled together like building blocks to create a larger application. **Functions**, **modules** and **packages** are all constructs in Python that promote code modularization. 
+To me, there are 3 main advantages to modularizing code in a large application:
+- **Simplicity**: Rather than focusing on the entire problem at hand, a module typically focuses on one relatively small portion of the problem. If you’re working on a single module, you’ll have a smaller problem domain to wrap your head around. This makes development easier and less error-prone.
+- **Maintainability**: Modules are typically designed so that they enforce logical boundaries between different problem domains. If modules are written in a way that minimizes interdependency, there is decreased likelihood that modifications to a single module will have an impact on other parts of the program. (You may even be able to make changes to a module without having any knowledge of the application outside that module.) This makes it more viable for a team of many programmers to work collaboratively on a large application.
+- **Scoping**: Modules typically define a separate namespace, which helps avoid collisions between identifiers in different areas of a program. (One of the tenets in the Zen of Python is Namespaces are one honking great idea—let’s do more of those!)
+
+Here, the focus will mostly be on modules that are written in Python. 
+
+## Python Modules: Overview
+
+There are actually three different ways to define a module in Python *(The focus in this document will mostly be on modules that are written in Python. )*:
+
+1. A module can be written in Python itself.
+2. A module can be written in C and loaded dynamically at run-time, like the re (**regular expression**) module.
+3. A **built-in** module is intrinsically contained in the interpreter, like the itertools module.
+
+
+```python
+# We got a file called mod.py
+s = "If Comrade Napoleon says it, it must be right."
+a = [100, 200, 300]
+
+def foo(arg):
+    print(f'arg = {arg}')
+
+class Foo:
+    pass
+```
+
+## Module search path
+
+When the interpreter executes the above import statement, it searches for `mod.py` in a list of directories assembled from the following sources:
+
+- The directory from which the input script was run or the **current directory** if the interpreter is being run interactively
+- The list of directories contained in the [PYTHONPATH](https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH) environment variable, if it is set. (The format for PYTHONPATH is OS-dependent but should mimic the PATH environment variable.)
+- An installation-dependent list of directories configured at the time Python is installed
+
+The resulting search path is accessible in the Python variable sys.path, which is obtained from a module named sys:
+
+```python
+>>> import sys
+>>> sys.path
+['', 'C:\\Users\\john\\Documents\\Python\\doc', 'C:\\Python36\\Lib\\idlelib',
+'C:\\Python36\\python36.zip', 'C:\\Python36\\DLLs', 'C:\\Python36\\lib',
+'C:\\Python36', 'C:\\Python36\\lib\\site-packages'
+```
+Thus, to ensure your module is found, you need to do one of the following:
+
+1. Put `mod.py` in the directory where the input script is located or the **current director**y, if interactive
+2. Modify the `PYTHONPATH` environment variable to contain the directory where `mod.py` is located before starting the interpreter
+    - **Or**: Put `mod.py` in one of the directories already contained in the PYTHONPATH variable
+3. Put `mod.py` in one of the installation-dependent directories, which you may or may not have write-access to, depending on the OS
+4. Put the module file in any directory of your choice and then modify sys.path at run-time so that it contains that directory. 
+
+```python
+# This is a point 4 example:
+>>> sys.path.append(r'C:\Users\john')
+>>> sys.path
+['', 'C:\\Users\\john\\Documents\\Python\\doc', 'C:\\Python36\\Lib\\idlelib',
+'C:\\Python36\\python36.zip', 'C:\\Python36\\DLLs', 'C:\\Python36\\lib',
+'C:\\Python36', 'C:\\Python36\\lib\\site-packages', 'C:\\Users\\john']
+```
+
+Once a module has been imported, you can determine the location where it was found with the module’s __file__ attribute:
+```python
+>>> import mod
+>>> mod.__file__
+'C:\\Users\\john\\mod.py'
+
+>>> import re
+>>> re.__file__
+'C:\\Python36\\lib\\re.py'
+```
+The directory portion of __file__ should be one of the directories in sys.path.
+
+## Different forms of import: 
+
+Module contents are made available to the caller with the import statement. The import statement takes many different forms.
+
+Note that this *does not* make the module contents directly accessible to the caller. Each module has its own **private symbol table**, which serves as the global symbol table for all objects defined in the module. Thus, a module creates a separate **namespace**, as already noted.
+
+The statement import `<module_name>` only places `<module_name>` in the caller’s symbol table. The objects that are defined in the module *remain* in the module’s private symbol table.
+
+From the caller, objects in the module are only accessible when prefixed with `<module_name>` via **dot notation**, as illustrated below.
+
+After the following import statement, mod is placed into the **local symbol table**. Thus, mod has meaning in the caller’s local context:
+
+### Import forms 
+
+1. `import <module_name>[, <module_name> ...]`
+```python
+>>> import mod
+>>> mod
+<module 'mod' from 'C:\\Users\\john\\Documents\\Python\\doc\\mod.py'>
+
+>>> s
+NameError: name 's' is not defined
+>>> foo('quux')
+NameError: name 'foo' is not defined
+
+
+
+"""
+To be accessed in the local context, names of objects defined 
+in the module must be prefixed by mod:
+"""
+>>> mod.s
+'If Comrade Napoleon says it, it must be right.'
+>>> mod.foo('quux')
+arg = quux
+```
+
+2. `from <module_name> import <name(s)>`
+```python
+>>> from mod import s, foo
+>>> s
+'If Comrade Napoleon says it, it must be right.'
+>>> foo('quux')
+arg = quux
+
+>>> from mod import Foo
+>>> x = Foo()
+>>> x
+<mod.Foo object at 0x02E3AD50>
+```
+
+2.1 `from <module_name> import *`
+This isn’t necessarily recommended in large-scale production code. It’s a bit dangerous because you are entering names into the local symbol table en masse. Unless you know them all well and can be confident there won’t be a conflict, you have a decent chance of overwriting an existing name inadvertently. However, this syntax is quite handy when you are just mucking around with the interactive interpreter, for testing or discovery purposes, because it quickly gives you access to everything a module has to offer without a lot of typing.
+
+**Import \* can't be used within function**
+Module contents can be imported from within a function definition. In that case, the import does not occur until the function is called:
+```python
+>>> def bar():
+...     from mod import foo
+...     foo('corge')
+
+>>> bar()
+arg = corge
+
+
+"""
+However, Python 3 does not allow the indiscriminate 
+import * syntax from within a function:
+"""
+>>> def bar():
+...     from mod import *
+...
+SyntaxError: import * only allowed at module level
+```
+
+2.2 Import module or individual objects but enter them into the local symbol table with **alternate names**.
+- `from <module_name> import <name> as <alt_name>[, <name> as <alt_name> …]`
+- `import <module_name> as <alt_name>`
+
+## Executing a Module as a Script
+
+Any .py file that contains a **module** is essentially also a Python **script**, and there isn’t any reason it can’t be executed like one.
+
+```python
+s = "If Comrade Napoleon says it, it must be right."
+a = [100, 200, 300]
+
+def foo(arg):
+    print(f'arg = {arg}')
+
+class Foo:
+    pass
+
+print(s)
+print(a)
+foo('quux')
+x = Foo()
+print(x)
+```
+
+We got something like below as expected:
+```shell
+C:\Users\john\Documents>python mod.py
+If Comrade Napoleon says it, it must be right.
+[100, 200, 300]
+arg = quux
+<__main__.Foo object at 0x02F101D0>
+```
+
+Unfortunately, now it also generates output when imported as a module:
+```python
+>>> import mod
+If Comrade Napoleon says it, it must be right.
+[100, 200, 300]
+arg = quux
+<mod.Foo object at 0x0169AD50>
+```
+This is probably not what you want. It isn’t usual for a module to generate output when it is imported.
+
+Wouldn’t it be nice if you could distinguish between when the file is loaded as a module and when it is run as a standalone script?
+
+When a .py file is imported as a module, Python sets the special **dunder** variable __name__ to the name of the module. However, if a file is run as a standalone script, __name__ is (creatively) set to the string '__main__'. Using this fact, you can discern which is the case at run-time and alter behavior accordingly:
+
+```python
+a = [100, 200, 300]
+
+def foo(arg):
+    print(f'arg = {arg}')
+
+class Foo:
+    pass
+
+if (__name__ == '__main__'):
+    print('Executing as standalone script')
+    print(s)
+    print(a)
+    foo('quux')
+    x = Foo()
+    print(x)
+```
+
+Now, if you run as a script, you get output:
+```python
+C:\Users\john\Documents>python mod.py
+Executing as standalone script
+If Comrade Napoleon says it, it must be right.
+[100, 200, 300]
+arg = quux
+<__main__.Foo object at 0x03450690>
+```
+
+But if you import as a module, you don’t:
+```python
+>>> import mod
+>>> mod.foo('grault')
+arg = grault
+```
+
+Modules are often designed with the capability to run as a standalone script for purposes of testing the functionality that is contained within the module. This is referred to as [unit testing](https://realpython.com/python-testing/).
+
+### python -m MODULE_NAME
+[Execution of Python code with -m option or not](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not)
+[-m documentation](https://docs.python.org/3/using/cmdline.html#cmdoption-m)
+```python
+python -m pdb 
+# is roughly equivalent to 
+python /usr/lib/python3.5/pdb.py
+```
+
+## reference
+- [Python Modules and Packages – An Introduction](https://realpython.com/python-modules-packages/) 

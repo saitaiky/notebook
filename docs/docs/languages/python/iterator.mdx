@@ -1,0 +1,217 @@
+---
+title: "Iterator"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+## Python Iterators
+
+First lets understand iterators. According to Wikipedia, an iterator is an object that enables a programmer to traverse a container, particularly lists. However, an iterator performs traversal and gives access to data elements in a container, but does not perform iteration. You might be confused so lets take it a bit slow. There are three parts namely:
+
+- **Iterable**: An iterable is any object in Python which has an __iter__ or a __getitem__ method defined which returns an iterator or can take indexes (You can read more about them [here](https://stackoverflow.com/a/20551346)). In short an iterable is any object which can provide us with an iterator.
+- **Iterator**: An iterator is any object in Python which has a next (Python2) or __next__ method defined.
+- **Iteration**: In simple words it is the process of taking an item from something e.g a list. When we use a loop to loop over something it is called iteration.
+
+**Summary:**
+- Iterators provide a sequence interface to Python objects that’s memory efficient and considered Pythonic.
+- To support iteration an object needs to implement the iterator protocol by providing the __iter__ and __next__ dunder methods.
+- Class-based iterators are only one way to write iterable objects in Python. Also consider generators and generator expressions.
+
+## Difference Between Iterable and Iterator
+It will be easier to understand the concept of generators if you get the idea of iterables and iterators.
+
+Iterable is a “sequence” of data, you can iterate over using a loop. The easiest visible example of iterable can be a list of integers – [1, 2, 3, 4, 5, 6, 7]. However, it’s possible to iterate over other types of data like strings, dicts, tuples, sets, etc.
+
+Basically, any object that has `iter()` method can be used as an iterable. You can check it using `hasattr()` function in the interpreter.
+
+Iterator protocol is implemented whenever you iterate over a sequence of data. For example, when you use a for loop the following is happening on a background:
+
+- first **iter()** method is called on the object to converts it to an iterator object.
+- **next()** method is called on the iterator object to get the next element of the sequence.
+- **StopIteration** exception is raised when there are no elements left to call.
+
+
+
+```python
+<iter> = iter(<collection>)                 # `iter(<iter>)` returns unmodified iterator.
+<iter> = iter(<function>, to_exclusive)     # Sequence of return values until 'to_exclusive'.
+<el>   = next(<iter> [, default])           # Raises StopIteration or returns 'default' on end.
+```
+
+As we can see that after yielding all the values `next()` caused a `StopIteration` error. Basically this error informs us that all the values have been yielded. You might be wondering that why don't we get this error while using a `for` loop? Well the answer is simple. The `for` loop automatically catches this error and stops calling `next`.
+
+
+```python
+simple_list = [1, 2, 3]
+my_iterator = iter(simple_list)
+print(my_iterator)
+print(next(my_iterator))
+print(next(my_iterator))
+print(next(my_iterator))
+print(next(my_iterator))
+
+>>
+<list_iterator object at 0x7fde153b85c0>
+1
+2
+3
+---------------------------------------------------------------------------
+StopIteration                             Traceback (most recent call last)
+<ipython-input-7-8b8dd0adcc73> in <module>()
+      5 print(next(my_iterator))
+      6 print(next(my_iterator))
+----> 7 print(next(my_iterator))
+
+StopIteration:
+```
+
+
+Basically, any object that has iter() method can be used as an iterable. You can check it using hasattr()function in the interpreter.
+```python
+print(hasattr(str, '__iter__'))
+print(hasattr(list, '__iter__'))
+print(hasattr(bool, '__iter__'))
+
+>>
+True
+True
+False
+```
+
+## Understand how  Python’s elegant loop constructs work behind the scenes
+
+### Version 1: two separate classes
+In this approach, we first setting up and retrieving the iterator object with an iter() call, and then repeatedly fetching values from it via next().
+
+> Python offers these facades for other functionality as well. For example, len(x) is a shortcut for calling x.__len__. Similarly, calling iter(x) invokes x.__iter__ and calling next(x) invokes x.__next__.
+
+#### Repeater
+- Repeater looks like a bog-standard Python class. But notice how it also includes the __iter__ dunder method.
+- What’s the RepeaterIterator object we’re creating and returning from  __iter__? It’s a helper class we also need to define for our for-in iteration example to work:
+
+#### RepeaterIterator
+1. In the __init__ method we link each RepeaterIterator instance to the  Repeater object that created it. That way we can hold on to the “source” object that’s being iterated over.
+
+2. In RepeaterIterator.__next__, we reach back into the “source” Repeater instance and return the value associated with it.
+
+In this code example, Repeater and RepeaterIterator are working together to support Python’s iterator protocol. The two dunder methods we defined,  __iter__ and __next__, are the key to making a Python object iterable.
+```python
+class Repeater:
+    def __init__(self, value):
+        self.value = value
+
+    def __iter__(self): # Can be invoked by Repeater.__iter__() / iter(Repeater)
+        return RepeaterIterator(self)
+
+class RepeaterIterator:
+    def __init__(self, source):
+        self.source = source
+
+    def __next__(self): # Can be invoked by RepeaterIterator.__next__() / next(RepeaterIterator)
+        self.source.value += 1
+        return self.source.value
+
+
+# for loop version
+repeater = Repeater(0)
+for item in repeater:
+    print(item)
+    if item == 5:
+        break;
+
+print("-"*50)
+# While loop version
+repeater = Repeater(0)
+iterator = repeater.__iter__()
+while True:
+    item = iterator.__next__()
+    print(item)
+
+    if item == 5:
+        break;
+
+>>
+1
+2
+3
+4
+5
+--------------------------------------------------
+1
+2
+3
+4
+5
+```
+
+#### Version 2: Only one class
+Above iterator example consisted of two separate classes, Repeater and RepeaterIterator, but many times both of these responsibilities can be shouldered by a single class. Doing this allows you to reduce the amount of code necessary to write a class-based iterator.
+
+We needed it to host the __next__ method for fetching new values from the iterator. But it doesn’t really matter where __next__ is defined. In the iterator protocol, all that matters is that __iter__ returns any object with a __next__ method on it.
+
+Streamlining a class-based iterator like that often makes sense. In fact, most Python iterator tutorials start out that way.
+```python
+class Repeater:
+    def __init__(self, value, max_repeats):
+        self.value = value
+        self.max_repeats = max_repeats
+        self.count = 0
+
+    def __iter__(self):  # Can be invoked by Repeater.__iter__() / iter(Repeater)
+        return self
+
+    def __next__(self): # Can be invoked by RepeaterIterator.__next__() / next(RepeaterIterator)
+        self.value += 1
+        if self.value > self.max_repeats:
+            raise StopIteration
+        self.count += 1
+        return self.value
+
+repeater = Repeater(0, 5)
+for item in repeater:
+    print(item)
+
+1
+2
+3
+4
+5
+```
+
+If we rewrite this last for-in loop example to take away some of the syntactic sugar, we end up with the following expanded code snippet:
+
+```python
+repeater = Repeater(0, 5)
+iterator = iter(repeater)
+while True:
+    try:
+        item = next(iterator)
+    except StopIteration:
+        break
+    print(item)
+>>
+1
+2
+3
+4
+5
+```
+
+## Why do we always need to put result into list/set?
+[ref](https://stackoverflow.com/questions/1303347/getting-a-map-to-return-a-list-in-python-3-x)
+
+In Python 3+, many processes that iterate over **iterables** return **iterators** themselves. In most cases, this ends up saving memory, and should make things go faster.
+
+Which means you need to pass to function like `list()` or `set()` to display or process them.
+
+If all you're going to do is iterate over this list eventually, there's no need to even convert it to a list, because you can still iterate over the `map` object like so:
+
+```python
+for ch in map(chr,[65,66,67,68]):
+    print(ch)
+>>
+A
+B
+C
+D
+```

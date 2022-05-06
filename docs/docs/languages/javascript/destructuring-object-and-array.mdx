@@ -1,0 +1,140 @@
+---
+title: "Destructuring objects and arrays"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+*Destructuring* is a convenient way of creating new variables by extracting some values from data stored in objects or arrays.
+
+### Object
+Let's consider the following object for all the samples:
+
+```js
+const person = {
+  firstName: "Nick",
+  lastName: "Anderson",
+  age: 35,
+  sex: "M"
+}
+```
+
+```js
+// --------- Without destructuring ---------
+
+const first = person.firstName;
+const age = person.age;
+const city = person.city || "Paris";
+
+// ---------With destructuring, all in one line ---------
+const { firstName: first, age, city = "Paris" } = person; // That's it !
+
+console.log(age) // 35 -- A new variable age is created and is equal to person.age
+console.log(first) // "Nick" -- A new variable first is created and is equal to person.firstName
+console.log(firstName) // ReferenceError -- person.firstName exists BUT the new variable created is named first
+console.log(city) // "Paris" -- A new variable city is created and since person.city is undefined, city is equal to the default value provided "Paris".
+```
+
+**Note :** In ```const { age } = person;```, the brackets after *const* keyword are not used to declare an object nor a block but is the *destructuring* syntax.
+
+### Function parameters
+
+*Destructuring* is often used to destructure objects parameters in functions.
+
+Without destructuring
+
+```js
+function joinFirstLastName(person) {
+  const firstName = person.firstName;
+  const lastName = person.lastName;
+  return firstName + '-' + lastName;
+}
+
+joinFirstLastName(person); // "Nick-Anderson"
+```
+
+In destructuring the object parameter *person*, we get a more concise function:
+
+```js
+function joinFirstLastName({ firstName, lastName }) { // we create firstName and lastName variables by destructuring person parameter
+  return firstName + '-' + lastName;
+}
+
+joinFirstLastName(person); // "Nick-Anderson"
+```
+
+Destructuring is even more pleasant to use with [arrow functions](#arrow_func_concept):
+
+```js
+const joinFirstLastName = ({ firstName, lastName }) => firstName + '-' + lastName;
+
+joinFirstLastName(person); // "Nick-Anderson"
+```
+
+### Array
+
+#### Array Destructuring
+```js
+const rgb = [255, 200, 0];
+
+// Array Destructuring
+const [red, green, blue] = rgb;
+
+console.log(`R: ${red}, G: ${green}, B: ${blue}`); // R: 255, G: 200, B: 0
+```
+
+#### Default Values
+```js
+const rgb = [200];
+
+// Assign default values of 255 to red and blue
+const [red = 255, green, blue = 255] = rgb;
+
+console.log(`R: ${red}, G: ${green}, B: ${blue}`); // R: 200, G: undefined, B: 255
+```
+
+#### Rest Items
+```js
+const rainbow = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+
+// Assign the first and third items to red and yellow
+// Assign the remaining items to otherColors variable using the spread operator(...)
+const [red,, yellow, ...otherColors] = rainbow;
+
+console.log(otherColors); // ['green', 'blue', 'indigo', 'violet']
+```
+
+#### Skipping Items
+```js
+const rgb = [200, 255, 100];
+
+// Skip the first two items
+// Assign the only third item to the blue variable
+const [,, blue] = rgb;
+
+console.log(`Blue: ${blue}`); // Blue: 100
+```
+
+#### Nested Object
+```js
+const student = {
+    name: 'John Doe',
+    age: 16,
+    scores: {
+        maths: 74,
+        english: 63
+    }
+};
+
+// We define 3 local variables: name, maths, science
+const { name, scores: {maths, science = 50} } = student;
+
+console.log(`${name} scored ${maths} in Maths and ${science} in Elementary Science.`);
+// John Doe scored 74 in Maths and 50 in Elementary Science.
+```
+
+# References
+
+- [ES6 Features - Destructuring Assignment](http://es6-features.org/#ArrayMatching)
+- [Destructuring Objects - WesBos](http://wesbos.com/destructuring-objects/)
+- [ExploringJS - Destructuring](http://exploringjs.com/es6/ch_destructuring.html)
+- [S6 Destructuring: The Complete Guide](https://codeburst.io/es6-destructuring-the-complete-guide-7f842d08b98f)

@@ -1,0 +1,304 @@
+---
+title: "Shorthand"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+This post is all about ES6 format.
+
+Object.entries(): convert object to array
+Object.values(): get object values
+
+
+```js
+// Exponentiation
+1E3   // 1000
+2e6   // 2000000
+0.1e2 // 10
+```
+
+## Double Bitwise NOT Shorthand
+A very practical use case for the Double Bitwise NOT operator. You can use it as a replacement for Math.floor(). The advantage of the Double Bitwise NOT operator is that it performs the same operation much faster. You can read more about Bitwise operators here.
+
+There is, however, a very practical use case for the Double Bitwise NOT operator. You can use it as a replacement for `Math.floor()`. The advantage of the Double Bitwise NOT operator is that it performs the same operation much faster. You can read more about Bitwise operators [here](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators).
+
+If the operand is a number and it’s not `NaN` or `Infinity` then `~~` will have the effect of rounding it towards zero (`Math.ceil` for negative, `Math.floor` for positive).(正負數都向0走，無四捨五入)
+> Math.ceil: It rounds a number up to the next largest whole number or integer. （向0走）
+> Math.floor: It returns the largest integer less than or equal to a given number.
+
+
+## Demo list
+```js
+// Long hand
+Math.floor(4.9) === 4  //true
+
+// Short hand
+~~4.9 === 4  //true
+```
+
+
+
+```js
+// The Ternary Operator
+const answer = x > 10 ? "greater than 10" : "less than 10";
+const answer = x > 10 ? "greater than 10" : x < 5 ? "less than 5" : "between 5 and 10";
+
+
+// The Unary Operator - Converting a String into a Number
+const num1 = +"100"; // converts to int data type
+const num2 =  +"100.01"; // converts to float data type
+
+
+// Short-circuit Evaluation Shorthand
+const variable2 = variable1  || 'new';
+
+
+// Declaring Variables Shorthand
+let x, y, z=3;
+
+
+// For Loop
+const fruits = ['mango', 'peach', 'banana'];
+for (let fruit of fruits)
+for (let index in fruits)
+
+const obj = {continent: 'Africa', country: 'Kenya', city: 'Nairobi'}
+for (let key in obj)
+  console.log(key) // output: continent, country, city
+
+
+// Decimal Base Exponents
+for (let i = 0; i < 1e7; i++) {}
+
+// All the below will evaluate to true
+1e0 === 1;
+1e1 === 10;
+1e2 === 100;
+1e3 === 1000;
+1e4 === 10000;
+1e5 === 100000;
+
+
+// Object Property Shorthand
+const x = 1920, y = 1080;
+const obj = { x, y }; // equals  { x:x, y:y }
+
+
+// Arrow Functions Shorthand
+sayHello = name => console.log('Hello', name);
+setTimeout(() => console.log('Loaded'), 2000);
+list.forEach(item => console.log(item));
+
+
+// Implicit Return Shorthand
+calcCircumference = diameter => (
+  Math.PI * diameter;
+)
+
+
+// Default Parameter Values
+volume = (l, w = 3, h = 4 ) => (l * w * h);
+volume(2) //output: 24
+
+
+// Template Literals
+const welcome = `You have logged in as ${first} ${last}`;
+const db = `http://${host}:${port}/${database}`;
+
+
+
+// Destructuring Assignment Shorthand
+
+// Long hand
+const observable = require('mobx/observable');
+const action = require('mobx/action');
+const runInAction = require('mobx/runInAction');
+
+const store = this.props.store;
+const form = this.props.form;
+const loading = this.props.loading;
+const errors = this.props.errors;
+const entity = this.props.entity;
+const { store, form, loading, errors, entity:contact } = this.prop
+
+// Short hand
+import { observable, action, runInAction } from 'mobx';
+const { store, form, loading, errors, entity } = this.props;
+// --- You can even assign your own variable names:
+const { store, form, loading, errors, entity:contact } = this.props;
+
+
+
+// Spread Operator Shorthand
+// --- Long hand
+// joining arrays
+const odd = [1, 3, 5];
+const nums = [2 ,4 , 6].concat(odd);
+
+// cloning arrays
+const arr = [1, 2, 3, 4];
+const arr2 = arr.slice()
+
+// -- Short hand
+// joining arrays
+const odd = [1, 3, 5 ];
+const nums = [2 ,4 , 6, ...odd];
+console.log(nums); // [ 2, 4, 6, 1, 3, 5 ]
+
+// insert array
+const nums = [2, ...odd, 4 , 6];
+
+// cloning arrays
+const arr = [1, 2, 3, 4];
+const arr2 = [...arr];
+
+// The spread operator for ES6 destructuring notation
+const { a, b, ...z } = { a: 1, b: 2, c: 3, d: 4 };
+
+
+// ============= Array handling =============
+var array = [2, 5, 9];
+console.log(array)
+var index = array.indexOf(5);
+if (index > -1) {
+  array.splice(index, 1);
+}
+// array = [2, 9]
+
+
+
+// ============= String handling =============
+str.substring(0, str.length - 1); // Long hand
+str.slice(0, -1); // Short hand
+
+
+// Object Property Assignment
+let fname = { firstName : 'Black' };
+let lname = { lastName : 'Panther'}
+let full_names = Object.assign(fname, lname); // ES6
+let full_names = {...fname, ...lname}; // ES8
+
+
+// Array.find Shorthand
+const pets = [
+  { type: 'Dog', name: 'Max'},
+  { type: 'Cat', name: 'Karl'},
+  { type: 'Dog', name: 'Tommy'},
+]
+pet = pets.find(pet => pet.type ==='Dog' && pet.name === 'Tommy');
+console.log(pet); // { type: 'Dog', name: 'Tommy' }
+```
+
+### Template literals 
+Template literals are a new JavaScript feature introduced in ES2015 (ES6) that enhances working with strings and adds new interesting constructs used by many popular libraries such as GraphQL and styled-components. The syntax is straight forward and instead of regular double or single quotes, template literals are enclosed by `backticks`.
+
+
+
+<h3>Object[key] Shorthand</h3>
+Did you know that Foo.bar can also be written as Foo['bar']? At first, there doesn’t seem to be a reason why you should write it like that. However, this notation gives you the building block for writing re-usable code.
+
+Consider this simplified example of a validation function:
+```js
+function validate(values) {
+  if(!values.first)
+    return false;
+  if(!values.last)
+    return false;
+  return true;
+}
+
+console.log(validate({first:'Bruce',last:'Wayne'})); // true
+```
+This function does its job perfectly. However, consider a scenario where you have very many forms where you need to apply the validation but with different fields and rules. Wouldn’t it be nice to build a generic validation function that can be configured at runtime?
+```js
+// object validation rules
+const schema = {
+  first: {
+    required:true
+  },
+  last: {
+    required:true
+  }
+}
+
+// universal validation function
+const validate = (schema, values) => {
+  for(field in schema) {
+    if(schema[field].required) {
+      if(!values[field]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+console.log(validate(schema, {first:'Bruce'})); // false
+console.log(validate(schema, {first:'Bruce',last:'Wayne'})); // true
+```
+Now we have a validate function we can reuse in all forms without needing to write a custom validation function for each.
+
+
+### Object propert shorthand
+When assigning a variable to an object property, if the variable name is equal to the property name, you can do the following:
+
+```js
+const x = 10;
+const myObj = { x };
+console.log(myObj.x) // 10
+```
+
+#### Explanation
+
+Usually (pre-ES2015) when you declare a new *object literal* and want to use variables as object properties values, you would write this kind of code:
+
+```js
+const x = 10;
+const y = 20;
+
+const myObj = {
+  x: x, // assigning x variable value to myObj.x
+  y: y // assigning y variable value to myObj.y
+};
+
+console.log(myObj.x) // 10
+console.log(myObj.y) // 20
+```
+
+As you can see, this is quite repetitive because the properties name of myObj are the same as the variable names you want to assign to those properties. With ES2015, when the variable name is the same as the property name, you can do this shorthand:
+
+```js
+const x = 10;
+const y = 20;
+
+const myObj = {
+  x,
+  y
+};
+
+console.log(myObj.x) // 10
+console.log(myObj.y) // 20
+```
+
+### (function () {})();
+It’s an [Immediately-Invoked](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) Function Expression, or [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression) for short. It executes immediately after it’s created.
+
+It has nothing to do with any event-handler for any events (such as document.onload).
+Consider the part within the first pair of parentheses: (function(){})();....it is a regular function expression. Then look at the last pair (function(){})();, this is normally added to an expression to call a function; in this case, our prior expression.
+
+This pattern is often used when trying to avoid polluting the global namespace, because all the variables used inside the IIFE (like in any other normal function) are not visible outside its scope.
+This is why, maybe, you confused this construction with an event-handler for window.onload, because it’s often used as this:
+```js
+(function(){
+  // all your code here
+  var foo = function() {};
+  window.onload = foo;
+  // ...
+})();
+// foo is unreachable here (it’s undefined)
+```
+
+## References
+- [25+ JavaScript Shorthand Coding Techniques](https://www.sitepoint.com/shorthand-javascript-techniques/)
+- [JavaScript Unary Operators: Simple and Useful](https://scotch.io/tutorials/javascript-unary-operators-simple-and-useful)
+- [Property shorthand - ES6 Features](http://es6-features.org/#PropertyShorthand)

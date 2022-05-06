@@ -1,0 +1,185 @@
+---
+title: "Asterisk"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+1. Unpacking Using * (Combining Different Iterables AND Netsted Unpacking)
+2. Unpacking Using ** for dictionary literals
+3. Asterisks In Functions (Unpacking In Functions AND Packing In Functions)
+4. Keyword-Only Arguments With Positional Arguments
+5. Keyword-Only Arguments Without Positional Arguments
+
+
+
+## 1. Unpacking a list/tuple/set using the *.
+```python
+nums = [i for i in range(1, 6)]
+
+# a will be 1 and b will be a list containing remaining elements
+a, *b = nums
+print(a, b)
+
+# Result
+1 [2, 3, 4, 5]
+```
+
+```python
+## using tuple
+## here first element will assign to a and last element to c
+a, *b, c = (1, 2, 3, 4, 5)
+print(a, b, c)
+
+print("--------------------------")
+
+## using sets
+a, *b, c = {1, 4, 9, 16, 25}
+print(a, b, c)
+
+## Result
+1 [2, 3, 4] 5
+--------------------------
+1 [4, 9, 16] 25
+```
+
+### 1.1 Combining Different Iterables
+```python
+## combining a tuple, list, set
+nums = [1, 2, 3]
+nums2 = (4, 5, 6)
+nums3 = {7, 8, 9}
+
+## we convert the combined elements into any iterable we want
+## here i am converting into a list
+_list = [*nums, *nums2, *nums3]
+_tuple = (*nums, *nums2, *nums3)
+_set = {*nums, *nums2, *nums3}
+
+## Result
+[1, 2, 3, 4, 5, 6, 8, 9, 7]
+(1, 2, 3, 4, 5, 6, 8, 9, 7)
+{1, 2, 3, 4, 5, 6, 7, 8, 9}
+```
+
+### 1.2 Nested Unpacking
+```python
+languages = ["Python", "HTML", "CSS", "JS"]
+
+## unpacking
+[[first_letter, *remaining], *other] = languages
+print(first_letter, remaining, other)
+
+## Result
+P ['y', 't', 'h', 'o', 'n'] ['HTML', 'CSS', 'JS']
+```
+
+## 2. Unpacking Using ** for dictionary literals
+```python
+event_info = {'year': '2020', 'month': '01', 'day': '7', 'group': 'Python Meetup'}
+new_info = {**event_info, 'day': "14"}
+new_info
+
+# {'year': '2020', 'month': '01', 'day': '14', 'group': 'Python Meetup'}
+```
+
+
+---
+
+## 3. Asterisks In Function
+
+### 3.1. Unpacking In Functions
+The * operator is used to call a function by unpacking an iterable. Let's say we have a list and have to pass all the elements of it to the print() separately. What will you do? I think you are thinking of a loop. But, * makes this very easy for us.
+
+Just pass the iterable as ***iterable_name**. It unpacks the iterable and passes all the elements separately.
+
+```python
+nums = [i for i in range(1, 6)]
+## passsing list using the *
+print(*nums)
+>> 1 2 3 4 5
+
+
+nums = (i for i in range(1, 6))
+## passsing tuple using the *
+print(*nums, sep = ", ")
+>> 1, 2, 3, 4, 5
+```
+
+### 3.2. Packing Elements
+```python
+# *num denotes it can take an arbitrary number of **non-named variables**
+def average(*nums):
+    return sum(nums) / len(nums)
+print(average(1, 2, 3, 4, 5))
+>> 3.0
+```
+
+```python
+# **properties denotes it can take an arbitrary number of **named variables**
+def _object(name, **properties):
+    print(name, properties)
+
+_object("Car", color="Red", cost=999999, company="Ferrari")
+>> Car {'ceo': 'Louis', 'color': 'Red', 'cost': 999999, 'company': 'Ferrari'}
+```
+
+## 4. Keyword-Only Arguments With Positional Arguments
+
+- Arguments with the name are called **keyword arguments**. 
+- Other arguments are called **positional arguments**. 
+
+```python
+# name is a positional argument, color and cost are keyword arguments
+def sample(car, color = None, cost = None):
+    print("Car:-{} Color:-{}, Cost:-{}".format(car, color, cost))
+
+# The order of keyword arguments is not essential if we call them using the names defined in the function.
+sample("Ferrari", color = "Green")
+>> Car:-Ferrari Color:-Green, Cost:-None
+```
+
+```python
+# We have to use the _list and default keywords while calling the function as they come after the *items. 
+def keyword_only(*items, _list, default = False):
+    print(items)
+    print(_list)
+    print(default)
+
+nums = [i ** 2 for i in range(1, 6)]
+## calling the function
+keyword_only(1, 2, 3, 4, 5, _list = nums, default = True)
+
+>>>
+(1, 2, 3, 4, 5)
+[1, 4, 9, 16, 25]
+True
+```
+
+## 5. Keyword-Only Arguments Without Positional Arguments
+```python
+def _sample(*, name):
+    print(name)
+
+## calling the function using keyword 'name'
+_sample(name = "Datacamp")
+>>> Datacamp
+
+## calling the function without using keyword 'name'
+_sample("Datacamp")
+>>>
+---------------------------------------------------------------------------
+
+TypeError Traceback (most recent call last)
+
+<ipython-input-12-fe0d3718b56c> in <module>()
+      1 ## calling the function without using keyword 'name'
+      2 ## we will get a TypeError
+----> 3 samp("Datacamp")
+
+
+TypeError: samp() takes 0 positional arguments but 1 was given
+It's clear that the _sample() func
+```
+
+- [Usage asterisks python](https://www.datacamp.com/community/tutorials/usage-asterisks-python)
+- [Asterisks in Python: what they are and how to use them](https://treyhunner.com/2018/10/asterisks-in-python-what-they-are-and-how-to-use-them/#Asterisks_in_tuple_unpacking)

@@ -36,7 +36,7 @@ function HomepageHeader() {
         <div className={styles.links}>
           <Link
             className="button button--secondary button--lg"
-            to="/lang/">
+            to="/languages/">
             Programming languages
           </Link>
         </div>
