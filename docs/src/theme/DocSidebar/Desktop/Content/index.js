@@ -6,8 +6,8 @@ import useIsBrowser from "@docusaurus/useIsBrowser";
 
 export default function ContentWrapper(props) {
 	const isBrowser = useIsBrowser();
-	const isCloudDocs =
-		isBrowser && window.location.pathname.includes("/graphql/cloud/");
+	const isCryptoDocs =
+		isBrowser && window.location.pathname.includes("/crypto/");
 	const isCoreDocs =
 		isBrowser && window.location.pathname.includes("/graphql/core/");
 	return (
@@ -20,10 +20,10 @@ export default function ContentWrapper(props) {
 					Hasura Core
 				</VersionedLink>
 				<VersionedLink
-					to="/graphql/cloud/index/"
-					className={`${styles["link-tab"]} ${isCloudDocs ? styles['active'] : ''}`}
+					to="/crypto/index/"
+					className={`${styles["link-tab"]} ${isCryptoDocs ? styles['active'] : ''}`}
 				>
-					Hasura Cloud
+					Crypto
 				</VersionedLink>
 			</div>
 			<Content {...props} />
