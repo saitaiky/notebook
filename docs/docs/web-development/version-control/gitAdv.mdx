@@ -1,0 +1,216 @@
+---
+title: "Git advanced topics"
+metaTitle: "Git undo changes and remote controls"
+metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
+---
+
+## Rewriting history - Squash Commits (Dangerous)
+Whenever you rebase commits, Git will create a new SHA for *each commit*! This has drastic implications!
+So you should not rebase if you have already pushed the commits you want to rebase. If you're collaborating with other developers, then they might already be working with the commits you've pushed.
+They will have to do some complicated surgery to their Git repository to get their repo back in a working state...and it might not even be possible... So, tips are listed below:
+- After using `git rebase` you have to force push the branch, because GitHub was trying to prevent me from accidentally erasing the a few separate commits.  
+- A good practice is, before you do `git rebase`, you create a backup branch for those separated commits.  
+---
+
+Rebase:
+`git checkout branchname` » `git rebase master`
+or:
+`git merge master branchname`
+(The rebase moves all of the commits in `master` onto the tip of `branchname`.)
+
+Cancel rebase:
+`git rebase --abort`
+
+Squash multiple commits into one:
+`git rebase -i HEAD~3` ([source](https://www.devroom.io/2011/07/05/git-squash-your-latests-commits-into-one/))
+
+Squash-merge a feature branch (as one commit):
+`git merge --squash branchname` (commit afterwards)
+
+### Changing the Last Commit
+**[helpful]** Combine staged changes with the most recent commit(also update the commit message): `git commit --amend -m "New Message"`
+
+**[caution]** Don’t amend public commits! Amended commits are actually entirely new commits and the previous commit will no longer be on your current branch. Amending a commit that is shared with another user will potentially require confusing and lengthy merge conflict resolutions.
+
+
+## Collaborate
+### Tracking branch
+The branch that appears in the local repository tracking a branch in the remote repository. (normally it's called origin/master branch, but you can change the name)
+
+### Clone VS Fork: 
+Forking is an action that's done on a hosting service, like GitHub. **Forking** a repository creates *an identical copy* of the original repository and moves this copy to your account. You have total control over this forked repository. Modifying your forked repository does not alter the original repository in any way.
+
+Do you require a copy of a project, and do not need to sync your copy with the original project? If so, a **clone** is more suitable because it does not share a connection with the original repository.
+
+
+
+### Fetch VS Pull
+`git pull` is the same thing as a `git fetch` + `git merge`!
+One main point when you want to use git fetch rather than git pull is if your remote branch and your local branch both have changes that neither of the other ones has.
+
+In this case, you want to fetch the remote changes to get them in your local branch and then perform a merge manually. Then you can push that new merge commit back to the remote.
+
+### Origin vs Upstream Clarification
+- When Clone: Git created a connection for us automatically and gave this connection a short name of **origin** when we clone a project. We can manually set up a connection to the original or source remote repository, though. Typically, we'd name the short name **upstream**.
+- When Fork: What might be confusing is that origin does not refer to the source repository (also known as the "original" repository) that we forked from. Instead, it's pointing to our forked repository. So even though it has the word **origin** is not actually the original repository.
+- You can actually change the name of **origin** to **mine** and the name of **upstream** to **source-repo**.
+-Github suggest fork a repo on GitHub before cloning that fork locally
+
+![origin and upstream](/img/web-development/version-control/origin_and_upstream.png)
+> When a repo is cloned, it has a default remote called **origin** that points to your fork on GitHub, not the original repo it was forked from.
+> To keep track of the original repo, you need to add another remote named **upstream**.
+`git remote add upstream git://github.com/<original creator>/<original creator repo.>`
+
+### What is a remote in Git?
+A remote in Git is a common repository that all team members use to exchange their changes. In most cases, such a remote repository is stored on a code hosting service like GitHub or on an internal server.
+
+In contrast to a local repository, a remote typically does not provide a file tree of the project's current state. Instead, it only consists of the .git versioning data.
+
+### Remote init
+```bash
+# Show remote details:
+`git remote -v`
+
+# Clone to localhost:
+git clone https://github.com/user/project.git
+# OR
+`git clone ssh://user@domain.com/~/dir/.git
+
+# Clone to localhost folder:
+git clone https://github.com/user/project.git ~/dir/folder
+
+# Clone specific branch to localhost:
+git clone -b branchname https://github.com/user/project.git
+
+# Clone with token authentication (in CI environment):
+git clone https://oauth2:<token>@gitlab.com/username/repo.git
+```
+
+### Remote setup
+```bash
+# Add remote upstream from GitHub project:
+git remote add upstream https://github.com/user/project.git
+
+# Add remote upstream from existing empty project on server:
+git remote add upstream ssh://root@123.123.123.123/path/to/repository/.git
+
+# Fetch:
+git fetch upstream
+
+# Fetch a custom branch:
+git fetch upstream branchname:local_branchname
+
+# Merge fetched commits:
+git merge upstream/master
+
+# Remove origin:
+git remote rm origin
+
+# Show remote branches:
+git branch -r
+
+# Show all branches (remote and local):
+git branch -a
+
+# Create and checkout branch from a remote branch:
+git checkout -b local_branchname upstream/remote_branchname
+
+# Compare:
+git diff origin/master..master
+```
+
+
+### Remote operation
+```bash
+# Push (set default with `-u`):
+git push -u origin master
+
+# Push:
+git push origin master
+
+# Force-Push:
+git push origin master --force
+
+# Delete remote branch (push nothing):
+git push origin :branchname or:
+git push origin --delete branchname
+
+# Pull:
+git pull
+
+# Pull specific branch:
+git pull origin branchname
+
+# Fetch a pull request on GitHub by its ID and create a new branch:
+git fetch upstream pull/ID/head:new-pr-branch
+```
+
+## Stash
+The git stash command takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.
+
+```bash
+# Put in stash:
+git stash save "Message"
+
+# Show stash:
+git stash list
+
+# Show stash stats:
+git stash show stash@{0}
+
+# Show stash changes:
+git stash show -p stash@{0}
+
+# Use custom stash item and drop it:
+git stash pop stash@{0}
+
+# Use custom stash item and do not drop it:
+git stash apply stash@{0}
+
+# Use custom stash item and index:
+git stash apply --index
+
+# Create branch from stash:
+git stash branch new_branch
+
+# Delete custom stash item:
+git stash drop stash@{0}
+
+# Delete complete stash:
+git stash clear
+```
+
+## Other
+```bash
+# Delete untracked files (Dry run):
+git clean -n
+
+# Force to delete files or directories:
+git clean -f
+
+# Archive - Create a zip-archive
+git archive --format zip --output filename.zip master
+
+# Export/write custom log to a file: 
+git log --author=sven --all > log.txt
+
+# Troubleshooting
+Ignore files that have already been committed to a Git repository: http://stackoverflow.com/a/1139797/1815847
+
+# Security
+Hide Git on the web via .htaccess: 
+RedirectMatch 404 /\.git
+(more info here: http://stackoverflow.com/a/17916515/1815847)
+
+# Large File Storage
+Website: https://git-lfs.github.com/
+
+Install: 
+brew install git-lfs
+
+Track *.psd files: 
+git lfs track "*.psd" (init, add, commit and push as written above)
+```
+
+## References
+[What is the difference between origin and upstream on GitHub?](https://stackoverflow.com/questions/9257533/what-is-the-difference-between-origin-and-upstream-on-github/9257901#9257901)

@@ -1,0 +1,21 @@
+---
+title: "Node.js"
+metaTitle: "Git undo changes and remote controls"
+metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
+---
+
+## process.env.NODE_ENV
+Operating system environment variables are widely used as a method of configuring applications, especially as a way to activate behavior based on different deployment environments (such as development vs testing vs production). Node.js exposes the current process’s environment variables to the script as an object called process.env. From there, the Express web server framework popularized using an environment variable called *NODE_ENV* as a flag to indicate whether the server should be running in “development” mode vs “production” mode. At runtime, the script looks up that value by checking *process.env.NODE_ENV*.
+
+Because it was used within the Node ecosystem, browser-focused libraries also started using it to determine what environment they were running in, and using it to control optimizations and debug mode behavior. 
+
+Ultimately, it all comes down to a few key points:
+
+1. *NODE_ENV* is a system environment variable that Node exposes into running scripts.
+2. It’s used by convention to determine dev-vs-prod behavior, by both server tools, build scripts, and client-side libraries.
+3. It’s commonly used inside of build scripts (such as Webpack config generation) as both an input value and an output value, but the tie between the two is still just convention.
+4. Build tools generally do a transform step on the client-side code, replace any references to *process.env.NODE_ENV* with the desired value, and the resulting code will contain dead code blocks as debug-only code is now inside of an if(false)-type condition, ensuring that code doesn’t execute at runtime.
+5. Minifier tools such as UglifyJS will strip out the dead code blocks, leaving the production bundle smaller.
+
+## References
+[Building Better Bundles: Why process.env.NODE_ENV Matters for Optimized Builds](https://hub.packtpub.com/building-better-bundles-why-processenvnodeenv-matters-optimized-builds/)

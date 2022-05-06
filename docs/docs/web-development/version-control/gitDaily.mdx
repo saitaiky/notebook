@@ -1,0 +1,124 @@
+---
+title: "Git daily operation"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+## Gitflow Workflow
+https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+
+## Pulling a branch from another repository
+https://stackoverflow.com/questions/14383212/git-pulling-a-branch-from-another-repository
+```bash
+git remote add fork <url_of_fork>
+git fetch fork
+git checkout -b fork_branch fork/<branch>
+```
+
+
+## Rename a local and remote branch in git
+
+[How do I rename both a Git local and remote branch name?](https://stackoverflow.com/questions/30590083/how-do-i-rename-both-a-git-local-and-remote-branch-name)
+
+1. Rename your local branch.
+```bash
+#If you are on the branch you want to rename:
+git branch -m <new_name>
+
+#If you are on a different branch:
+git branch -m <old_name> <new_name>
+```
+
+2. Delete the old-branch-name remote branch and push the new-name local branch.
+
+```bash
+git push origin :<old_name> <new_name>
+
+# OR use the newer syntax (available since Git v1.7.0):
+git push origin --delete <old_name>
+```
+
+3. Reset the upstream branch for the new-name local branch.
+
+```bash
+git push origin -u <new_name>
+```
+
+So when you do something like `git push origin :old-name`, you are finding old-name branch from origin and specifying an *empty source* to update it.
+
+
+> references: [Git Internals - The Refspec](https://git-scm.com/book/en/v2/Git-Internals-The-Refspec)
+
+```bash
+# These 2 lines are equal
+git push origin master
+git push origin master:master
+
+# Use local master branch to update a remote branch called mybranch
+git push origin master:refs/for/mybranch
+```
+
+## Add new origin
+```$ git remote add origin https://github.com/schacon/simplegit-progit```
+Running the command above adds a section to your repository’s .git/config file, specifying the name of the remote (origin), the URL of the remote repository, and the refspec to be used for fetching:
+
+
+```bash
+# Origin is remote name, URL is the remote address
+# Fetch means where the data comes from and where it goes
+[remote "origin"]
+	url = https://github.com/schacon/simplegit-progit
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+The format of the refspec is, first, an optional +, followed by <src>:<dst>,
+where <src> is the pattern for references(指住某一commit既別名) on the **remote side**
+and <dst> is where those references will be tracked **locally**.
+The + tells Git to update the reference even if it isn’t a fast-forward.
+
+master其实是一个“refspec”，正常的“refspec”的形式为”+<src>:<dst>”，
+冒号前表示local branch的名字，冒号后表示remote repository下 branch的名字。
+注意，如果你省略了<dst>，git就认为你想push到remote repository下
+和local branch相同名字的branch.
+```
+
+## Remove all your local git branches but keep master
+`git branch | grep -v "master" | xargs git branch -D`
+
+## Fast forward merge with pulling in one go
+[Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
+```bash
+git checkout branchB
+git pull
+git checkout branchA
+git merge origin/branchB
+
+# can be done in one line
+git fetch <remote> <sourceBranch>:<destinationBranch>
+
+# Example: Merge remote branch origin/foo into local branch master,
+# without having to checkout foo first: 
+git fetch origin foo:master
+```
+
+## Git revert multiple git commits
+[How to revert multiple git commits?](https://stackoverflow.com/questions/1463340/how-to-revert-multiple-git-commits)
+
+For doing so you just have to use the revert command, specifying the range of commits you want to get reverted.
+
+Taking into account your example, you'd have to do this (assuming you're on branch 'master'):
+
+```bash
+git revert master~3..master
+
+#  a slightly more idiomatic way 
+# The --no-commit option lets git try to revert all the commits at once, instead of littering the history with multiple revert commit messages
+git revert --no-commit HEAD~2..
+```
+
+or git revert B...D or git revert D C B
+
+This will create a new commit in your local with the inverse commit of B, C and D (meaning that it will undo changes introduced by these commits):
+
+```bash
+A <- B <- C <- D <- BCD' <- HEAD
+```

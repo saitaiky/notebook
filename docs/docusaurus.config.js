@@ -158,9 +158,9 @@ const config = {
                 label: 'Hasura Cloud',
               },
               {
-                type: 'docSidebar',
-                sidebarId: 'webDevelopmentSidebar',
-                label: 'Programming Languages',
+                type: 'doc',
+                docId: 'web-development/index',
+                label: 'Web development',
               },
             ],
           },
