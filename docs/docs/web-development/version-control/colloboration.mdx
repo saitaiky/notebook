@@ -1,40 +1,10 @@
 ---
-title: "Git advanced topics"
+title: "Online Collaboration"
 metaTitle: "Git undo changes and remote controls"
 metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
 ---
 
-## Rewriting history - Squash Commits (Dangerous)
-Whenever you rebase commits, Git will create a new SHA for *each commit*! This has drastic implications!
-So you should not rebase if you have already pushed the commits you want to rebase. If you're collaborating with other developers, then they might already be working with the commits you've pushed.
-They will have to do some complicated surgery to their Git repository to get their repo back in a working state...and it might not even be possible... So, tips are listed below:
-- After using `git rebase` you have to force push the branch, because GitHub was trying to prevent me from accidentally erasing the a few separate commits.  
-- A good practice is, before you do `git rebase`, you create a backup branch for those separated commits.  
----
-
-Rebase:
-`git checkout branchname` » `git rebase master`
-or:
-`git merge master branchname`
-(The rebase moves all of the commits in `master` onto the tip of `branchname`.)
-
-Cancel rebase:
-`git rebase --abort`
-
-Squash multiple commits into one:
-`git rebase -i HEAD~3` ([source](https://www.devroom.io/2011/07/05/git-squash-your-latests-commits-into-one/))
-
-Squash-merge a feature branch (as one commit):
-`git merge --squash branchname` (commit afterwards)
-
-### Changing the Last Commit
-**[helpful]** Combine staged changes with the most recent commit(also update the commit message): `git commit --amend -m "New Message"`
-
-**[caution]** Don’t amend public commits! Amended commits are actually entirely new commits and the previous commit will no longer be on your current branch. Amending a commit that is shared with another user will potentially require confusing and lengthy merge conflict resolutions.
-
-
-## Collaborate
-### Tracking branch
+## Tracking branch
 The branch that appears in the local repository tracking a branch in the remote repository. (normally it's called origin/master branch, but you can change the name)
 
 ### Clone VS Fork: 
@@ -61,7 +31,7 @@ In this case, you want to fetch the remote changes to get them in your local bra
 > To keep track of the original repo, you need to add another remote named **upstream**.
 `git remote add upstream git://github.com/<original creator>/<original creator repo.>`
 
-### What is a remote in Git?
+## What is a remote in Git?
 A remote in Git is a common repository that all team members use to exchange their changes. In most cases, such a remote repository is stored on a code hosting service like GitHub or on an internal server.
 
 In contrast to a local repository, a remote typically does not provide a file tree of the project's current state. Instead, it only consists of the .git versioning data.
@@ -143,73 +113,6 @@ git pull origin branchname
 
 # Fetch a pull request on GitHub by its ID and create a new branch:
 git fetch upstream pull/ID/head:new-pr-branch
-```
-
-## Stash
-The git stash command takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.
-
-```bash
-# Put in stash:
-git stash save "Message"
-
-# Show stash:
-git stash list
-
-# Show stash stats:
-git stash show stash@{0}
-
-# Show stash changes:
-git stash show -p stash@{0}
-
-# Use custom stash item and drop it:
-git stash pop stash@{0}
-
-# Use custom stash item and do not drop it:
-git stash apply stash@{0}
-
-# Use custom stash item and index:
-git stash apply --index
-
-# Create branch from stash:
-git stash branch new_branch
-
-# Delete custom stash item:
-git stash drop stash@{0}
-
-# Delete complete stash:
-git stash clear
-```
-
-## Other
-```bash
-# Delete untracked files (Dry run):
-git clean -n
-
-# Force to delete files or directories:
-git clean -f
-
-# Archive - Create a zip-archive
-git archive --format zip --output filename.zip master
-
-# Export/write custom log to a file: 
-git log --author=sven --all > log.txt
-
-# Troubleshooting
-Ignore files that have already been committed to a Git repository: http://stackoverflow.com/a/1139797/1815847
-
-# Security
-Hide Git on the web via .htaccess: 
-RedirectMatch 404 /\.git
-(more info here: http://stackoverflow.com/a/17916515/1815847)
-
-# Large File Storage
-Website: https://git-lfs.github.com/
-
-Install: 
-brew install git-lfs
-
-Track *.psd files: 
-git lfs track "*.psd" (init, add, commit and push as written above)
 ```
 
 ## References

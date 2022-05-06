@@ -1,17 +1,10 @@
 ---
-title: "Git basic"
+title: "Basic"
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
-## Basic knowledge
-
-### Global Settings
-- Related Setup: https://gist.github.com/hofmannsven/6814278
-- Related Pro Tips: https://ochronus.com/git-tips-from-the-trenches/
-- Interactive Beginners Tutorial: http://try.github.io/
-- Git Cheatsheet by GitHub: https://services.github.com/on-demand/downloads/github-git-cheat-sheet/
-- Git workflow: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+## References
 
 ### What is references?
 
@@ -29,18 +22,6 @@ da39a3ee5e6b4b0d3255bfef95601890afd12319 refs/remotes/origin/master
 da39a3ee5e6b4b0d3255bfef95601890afd42343 refs/remotes/origin/mateusz
 da39a3ee5e6b4b0d3255bfef95601890afd12312 refs/remotes/origin/sai
 ```
-
-### Gitignore & Gitkeep
-About: https://help.github.com/articles/ignoring-files
-
-Useful templates: https://github.com/github/gitignore
-
-Add or edit gitignore:
-`nano .gitignore`
-
-Track empty dir:
-`touch dir/.gitkeep`
-
 
 ### Ancestry reference - Relative Commit References
 You may know that you can reference commits by their SHA, by tags, branches, and the special HEAD pointer. Sometimes that's not enough, though. There will be times when you'll want to reference a commit relative to another commit. For example, there will be times where you'll want to tell Git about the commit that's one before the current commit...or two before the current commit. There are special characters called "Ancestry References" that we can use to tell Git about these relative references. Those characters are:
@@ -61,124 +42,86 @@ the parent commit – the following indicate the parent commit of the current co
 
 The main difference between the ^ and the ~ is when a commit is created from a merge. A merge commit has two parents. With a merge commit, the ^ reference is used to indicate the first parent of the commit while ^2 indicates the second parent. The first parent is the branch you were on when you ran git merge while the second parent is the branch that was merged in. (Sai:  first parent 等於你做merge 技branch)
 
-### Merge Conflict Indicators Explanation
-![streams](/img/web-development/version-control/merge_conflict.gif)
 
-source: Udacity - Version control with Git
+## Commands
 
-The editor has the following merge conflict indicators:
+### add, commit, rm, mv, checkout
 
-`<<<<<<< HEAD`: everything below this line (until the next indicator) shows you what's on the current branch
+```shell
+# Initialize Git:
+git init
 
-`||||||| merged`: common ancestors everything below this line (until the next indicator) shows you what the original lines were
+# Get everything ready to commit:
+git add .
 
-`=======`: is the end of the original lines, everything that follows (until the next indicator) is what's on the branch that's being merged in
+# Get custom file ready to commit:
+git add index.html
 
-`>>>>>>> heading-update` is the ending indicator of what's on the branch that's being merged in (in this case, the heading-update branch)
+# Add and commit in one step:
+git commit -am "Description..."
 
-### Setup
-See where Git is located:
-`which git`
+# Update all changes:
+git add -u
 
-Get the version of Git:
-`git --version`
+# Tell Git not to track a file/files (The inverse of the git add command):
+git rm index.html
 
-Return current Git status of working directory :
-`git status`
+# Remove file but do not track anymore:
+git rm --cached index.html
 
-Create an alias (shortcut) for `git status`:
-`git config --global alias.st status`
+# Move or rename files:
+git mv index.html dir/index_new.html
 
+# Undo modifications (restore files from latest commited version):
+# The -- is a way to tell Git to treat what follows checkout as a file and not as a branch.
+git checkout -- <file-name>
 
-
-## General
-Initialize Git:
-`git init`
-
-Get everything ready to commit:
-`git add .`
-
-Get custom file ready to commit:
-`git add index.html`
-
-Commit changes:
-`git commit -m "Message"`
-
-Commit changes with title and description:
-`git commit -m "Title" -m "Description..."`
-
-Add and commit in one step:
-`git commit -am "Message"`
-
-Update all changes:
-`git add -u`
-
-Tell Git not to track a file/files (The inverse of the git add command):
-`git rm index.html`
-
-Remove file but do not track anymore:
-`git rm --cached index.html`
-
-Move or rename files:
-`git mv index.html dir/index_new.html`
-
-Undo modifications (restore files from latest commited version):
-The -- is a way to tell Git to treat what follows checkout as a file and not as a branch.
-`git checkout -- <file-name>`
-
-Restore file from a custom commit (in current branch):
-`git checkout 6eb715d -- index.html`
+# Restore file from a custom commit (in current branch):
+git checkout 6eb715d -- index.html
+```
 
 
-## Log
-Show commits:
-`git log`
+### Log
 
-Show changes:
-`git log -p`
+```shell
+# **[helpful]** Show  the actual changes made to files and things that have been changed in the commit:
+git log -p --stat
 
-**[helpful]** Show  the actual changes made to files and things that have been changed in the commit:
-`git log -p --stat`
+# Show stats and summary of commits:
+git log --stat --summary
 
-Show stats and summary of commits:
-`git log --stat --summary`
+# **[helpful]** Show history of commits as graph-summary:
+git log --oneline --graph --all --decorate
 
-Show history of commits as graph:
-`git log --graph`
+# Show oneline-summary of the last three commits:
+git log --oneline -3
 
-Show oneline-summary of commits:
-`git log --oneline`
+# Show only custom commits:
+git log --author="Sven"
+git log --grep="Message"
+git log --until=2013-01-01
+git log --since=2013-01-01
 
-**[helpful]** Show history of commits as graph-summary:
-`git log --oneline --graph --all --decorate`
+# Show only custom data of commit:
+git log --format=short
+git log --format=full
+git log --format=fuller
+git log --format=email
+git log --format=raw
 
-Show oneline-summary of the last three commits:
-`git log --oneline -3`
+# Show every commit since special commit for custom file only:
+git log 6eb715d.. index.html
 
-Show only custom commits:
-`git log --author="Sven"`
-`git log --grep="Message"`
-`git log --until=2013-01-01`
-`git log --since=2013-01-01`
+# Show changes of every commit since special commit for custom file only:
+git log -p 6eb715d.. index.html
 
-Show only custom data of commit:
-`git log --format=short`
-`git log --format=full`
-`git log --format=fuller`
-`git log --format=email`
-`git log --format=raw`
-
-Show every commit since special commit for custom file only:
-`git log 6eb715d.. index.html`
-
-Show changes of every commit since special commit for custom file only:
-`git log -p 6eb715d.. index.html`
-
- Show commits each contributor has added to the repository:
-`git shortlog`
+# Show commits each contributor has added to the repository:
+git shortlog
+```
 
 
-## Compare
+### Compare
+
 ```shell
 # Compare modified files:
 git diff
@@ -217,7 +160,8 @@ git diff --stat --summary 6eb715d..HEAD
 ```
 
 
-## Releases & Version Tags
+### Releases & Version Tags
+
 Tagging is generally used to capture a point in history that is used for a marked version release (i.e. v1.0.1). A tag is like a branch that doesn’t change. Unlike branches, tags, after being created, have no further history of commits.
 
 ```shell
@@ -237,21 +181,13 @@ git tag -a v1.0.0 -m 'Message'
 git checkout v1.0.0
 ```
 
-## Branch
+### Branch
+
 Git branches are effectively a pointer to a snapshot of your changes. When you want to add a new feature or fix a bug—no matter how big or how small—you spawn a new branch to encapsulate your changes. This makes it harder for unstable code to get merged into the main code base, and it gives you the chance to clean up your future's history before merging it into the main branch.
 
 ```shell
-# Show branches:
-git branch
-
-# Create branch:
-git branch branchname
-
 # Create branch on specific commit:
 git branch branchname a_commit_SHA
-
-# Change to branch:
-git checkout branchname
 
 # Create and change to new branch:
 git checkout -b branchname
@@ -271,6 +207,7 @@ git branch -D branch_to_delete
 
 
 ### Merge
+
 ```shell
 git merge branchname
 
@@ -289,3 +226,94 @@ git reset --hard origin/master
 Merge only one specific commit:
 git cherry-pick 073791e7
 ```
+:::note Merge Conflict Indicators Explanation
+
+![streams](/img/web-development/version-control/merge_conflict.gif)
+
+source: Udacity - Version control with git
+
+The editor has the following merge conflict indicators:
+
+`<<<<<<< HEAD`
+everything below this line (until the next indicator) shows you what's on the current branch
+
+`||||||| merged`
+common ancestors everything below this line (until the next indicator) shows you what the original lines were
+
+`=======`
+is the end of the original lines, everything that follows (until the next indicator) is what's on the branch that's being merged in
+
+`>>>>>>> heading-update` 
+is the ending indicator of what's on the branch that's being merged in (in this case, the heading-update branch)
+
+:::
+
+
+## Stash
+The git stash command takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.
+
+```bash
+# Put in stash:
+git stash save "Message"
+
+# Show stash:
+git stash list
+
+# Show stash stats:
+git stash show stash@{0}
+
+# Show stash changes:
+git stash show -p stash@{0}
+
+# Use custom stash item and drop it:
+git stash pop stash@{0}
+
+# Use custom stash item and do not drop it:
+git stash apply stash@{0}
+
+# Use custom stash item and index:
+git stash apply --index
+
+# Create branch from stash:
+git stash branch new_branch
+
+# Delete custom stash item:
+git stash drop stash@{0}
+
+# Delete complete stash:
+git stash clear
+```
+
+## Other
+```bash
+# Delete untracked files (Dry run):
+git clean -n
+
+# Force to delete files or directories:
+git clean -f
+
+# Archive - Create a zip-archive
+git archive --format zip --output filename.zip master
+
+# Export/write custom log to a file: 
+git log --author=sven --all > log.txt
+
+# Troubleshooting
+Ignore files that have already been committed to a Git repository: http://stackoverflow.com/a/1139797/1815847
+
+# Security
+Hide Git on the web via .htaccess: 
+RedirectMatch 404 /\.git
+(more info here: http://stackoverflow.com/a/17916515/1815847)
+```
+
+
+:::note Large File Storage
+Website: https://git-lfs.github.com/
+
+Install: 
+brew install git-lfs
+
+Track *.psd files: 
+git lfs track "*.psd" (init, add, commit and push as written above)
+:::

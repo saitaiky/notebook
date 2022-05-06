@@ -1,0 +1,34 @@
+---
+title: "Rebase"
+metaTitle: "Git undo changes and remote controls"
+metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
+---
+
+## Rewriting history - Squash Commits (Dangerous)
+Whenever you rebase commits, Git will create a new SHA for *each commit*! This has drastic implications!
+So you should not rebase if you have already pushed the commits you want to rebase. If you're collaborating with other developers, then they might already be working with the commits you've pushed.
+They will have to do some complicated surgery to their Git repository to get their repo back in a working state...and it might not even be possible... So, tips are listed below:
+- After using `git rebase` you have to force push the branch, because GitHub was trying to prevent me from accidentally erasing the a few separate commits.  
+- A good practice is, before you do `git rebase`, you create a backup branch for those separated commits.  
+---
+
+Rebase:
+`git checkout branchname` » `git rebase master`
+or:
+`git merge master branchname`
+(The rebase moves all of the commits in `master` onto the tip of `branchname`.)
+
+Cancel rebase:
+`git rebase --abort`
+
+Squash multiple commits into one:
+`git rebase -i HEAD~3` ([source](https://www.devroom.io/2011/07/05/git-squash-your-latests-commits-into-one/))
+
+Squash-merge a feature branch (as one commit):
+`git merge --squash branchname` (commit afterwards)
+
+### Changing the Last Commit
+**[helpful]** Combine staged changes with the most recent commit(also update the commit message): `git commit --amend -m "New Message"`
+
+**[caution]** Don’t amend public commits! Amended commits are actually entirely new commits and the previous commit will no longer be on your current branch. Amending a commit that is shared with another user will potentially require confusing and lengthy merge conflict resolutions.
+

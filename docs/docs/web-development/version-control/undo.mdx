@@ -1,5 +1,5 @@
 ---
-title: "Git Undo"
+title: "Undo"
 metaTitle: "Commands to undo changes in Git"
 metaDescription: "We will discuss topics related to git revert, reset, rebase"
 ---
@@ -11,7 +11,7 @@ metaDescription: "We will discuss topics related to git revert, reset, rebase"
     - --soft  (changes set to stage/index)
     - --hard  (changes set to working directory and uncommitted changes will be removed)
 
-## 1. Git revert
+## Git revert
 - **Rollback changes** you have committed.
 - Creates **a new commit** from a specified commit by inverting it. Hence, adds a new commit history to the project, but it does not modify the existing one.
 - It's recommended to **undo public changes**, since it doesn't re-write the commit history.
@@ -25,7 +25,7 @@ resource:[When to Use Git Reset, Git Revert & Git Checkout](https://dev.to/nesha
 git revert 073791e7dd71b90daa853b2c5acc2c925f02dbc6
 ```
 
-## 2. Git reset
+## Git reset
 - **Erase commits** from the current branch. So if you want to follow along with all the resetting stuff that's coming up, you'll need to create a branch on the current commit that you can use as a backup.
 - Changes which commit **a branch HEAD** is currently pointing at. It alters the existing commit history.
 - It's recommended to **undo local(private) changes**, since it will **re-write** the commit history and reset a branch backward by multiple commits as if those commits never happened.
