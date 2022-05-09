@@ -1,0 +1,235 @@
+---
+title: Service comparsion
+description: Service comparsion
+keywords:
+  - cross account sharing
+  - host account
+  - cross account
+---
+
+## Service Comparison
+
+
+### CDK vs Cloudformation 
+
+![roles-usingrole-ec2roleinstance](/img/web-development/aws/security/roles-usingrole-ec2roleinstance.png "image_tooltip")
+
+So this is a revolution, because CloudFormation template is YAML, is not type-safe, you can make errors and you only know at the very end if it worked or not. But with the CDK, you can define those using constructs and a programming language.
+
+
+### CDK VS SAM 
+
+![roles-usingrole-ec2roleinstance](/img/web-development/aws/security/roles-usingrole-ec2roleinstance.png "image_tooltip")
+
+
+
+### [Can API Gateway act as Load Balancer](https://dashbird.io/blog/can-api-gateway-act-load-balancer/)
+
+More advanced: [https://dashbird.io/blog/aws-api-gateway-vs-application-load-balancer/](https://dashbird.io/blog/aws-api-gateway-vs-application-load-balancer/)
+
+
+    TL;DR: yes, API Gateway can replace what a Load Balancer would usually provide, with a simpler interface and many more features on top of it. The downside is that it doesn’t come cheap.
+
+Load balancers have been one of the most common ways to expose a backend API to the public or even to an internal/private audience. API Gateways seem to provide the same functionality: map and connect HTTP requests to a backend service. So, are they the same or are there any differences? Can API Gateway actually provide the balancing of load? Which one is the best for [Serverless architectures](https://dashbird.io/knowledge-base/basic-concepts/what-is-serverless/?utm_source=dashbird-blog&utm_medium=article&utm_campaign=well-architected&utm_content=api-gateway-vs-alb)?
+
+**What are Load Balancers used for?**
+
+As the name suggests, one of the main purposes of using an ALB is to smooth out and balance demand across a set of resources.
+
+Traditionally, load balancers have been used to distribute requests in a horizontally scaled infrastructure cluster, with systems replicated in multiple servers, where a single server can’t have sufficient power to handle all the demand.
+
+Load Balancers also serve the purpose of decoupling clients and services, which is a good practice from a cloud architecture perspective.
+
+**How does API Gateway compare with a Load Balancer?**
+
+API Gateway can manage and balance out network traffic just as a Load Balancer, just in a different way. Instead of distributing requests evenly to a set of backend resources (e.g. a cluster of servers), an API Gateway can be configured to direct requests to specific resources based on the endpoints being requested.
+
+It plays an important role in [microservices architectures](https://dashbird.io/knowledge-base/well-architected/monolith-vs-microservices/?utm_source=dashbird-blog&utm_medium=article&utm_campaign=well-architected&utm_content=api-gateway-vs-alb), for example. Multiple services can be connected to the Gateway and mapped to particular HTTP endpoint representations. The Gateway is responsible for routing each request, on-demand, to the appropriate backend service.
+
+**How does API Gateway scale according to load?**
+
+When integrated with AWS Lambda, the API Gateway handles the network scaling in a seamless way. By default, API Gateway can handle up to [10,000 requests per second](https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html#apigateway-account-level-limits-table). Lambda will scale to match the demand of invocations coming from the API clients.
+
+In fact, developers should not worry about configuring scalability parameters, since there are none for both API Gateway and Lambda. They both [scale according to their own internal rules](https://dashbird.io/knowledge-base/aws-lambda/scalability-and-concurrency/?utm_source=dashbird-blog&utm_medium=article&utm_campaign=well-architected&utm_content=api-gateway-vs-alb). Depending on the use case, when large spikes in demand are expected, it may be necessary to request an increase in the service quotas to make sure AWS will not throttle client requests.
+
+**Additional features provided by API Gateway**
+
+The request routing based on endpoint rules can also be supported by ALB, especially when paired with Lambda functions.
+
+Nevertheless, API Gateway offers many additional features missing in ALB. For example, it handles authentication and authorization, API token issuance and management, and can even generate SDKs based on the API structure. API Gateway integrates with the IAM (Identity Access Management) service, for example, simplifying access control of the underlying resources.
+
+Although we usually want to avoid throttling of client requests, in many cases it is important to have throttling rules in place. This can help in preventing abuse, or restricting access depending on billing plans, for example. API Gateway supports throttling implementation out-of-the-box, which can save time and ensure compliance with business requirements.
+
+**API Gateway vs Application Load Balancer: Which one to choose?**
+
+If you don’t need the features provided by API Gateway, you may consider using an ALB instead, since it can be a lot cheaper in many cases – although it is difficult to compare because the [API Gateway pricing](https://aws.amazon.com/api-gateway/pricing/) depends on the number of requests, while ALB costs depend on several factors to determine its [pricing](https://aws.amazon.com/elasticloadbalancing/pricing/), such as hours, new and live connections. Usually, APIs with light traffic are more cost-effective on API Gateway, while the high-traffic ones can find cost savings by adopting an ALB instead.
+
+Technically speaking, the main limitation of API Gateway is the [timeout of 29 seconds](https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html). If a request takes more time to be processed by the backend resource (e.g. a Lambda function), the API will respond early to the client with an error. Although there is a limit in the number of requests per second, as mentioned above, it can be increased according to the demand. 
+
+A load balancer, though, can scale to hundreds of thousands, or even millions of requests per second, without any issues.
+
+For that reason, 
+
+
+
+* an ALB is more suitable for low-cost/undifferentiated applications, long-running processes, and/or ultra-high-throughput applications. 
+* API Gateway is suitable for small teams that want to reduce time-to-market, as well as sophisticated use cases that require complex security measures and access control logic.
+
+**Conclusion**
+
+Both API Gateway and Application Load Balancer can be very useful. The latter is simpler and cheaper, which makes a good option for internal APIs to connect microservices architectures based on AWS Lambda, for example. API Gateway is more suitable especially for APIs that require fine-grained access control and other features not available in ALB.
+
+
+
+
+### [Battle of the Serverless API Routers: ALB vs. API Gateway - Feature Comparison](https://blog.tinystacks.com/battle-of-the-serverless-api-routers-alb-vs-api-gateway-feature-comparison)
+
+
+#### Differences Between ALB and API Gateway
+
+Despite the similarities, there are some key differences between ALB and API Gateway that could influence your decision over which one to adopt.
+
+The major advantage of ALBs is their ability to distribute load intelligently across resources. This makes them ideal when using services such as Amazon EC2 or Amazon ECS, where a single instance or task could become non-operational if flooded with requests.
+
+Also, as we discussed previously, ALBs rule when it comes to cost at scale. API Gateway is more affordable than ALB for up to around 500,000 monthly transactions. But at larger scales, API Gateway’s costs quickly accumulate, and ALB becomes the much more affordable solution.
+
+But that doesn’t mean that API Gateway lacks advantages. The service’s direct mapping to the REST API framework and its multitude of REST-oriented features make it ideal for implementing and maintaining REST APIs at scale. While some features, like throttling, can be implemented (via AWS WAF) easily in ALB, others, such as stages, require more heavy lifting to emulate.
+
+API Gateway has additional ease of use advantages, such as its integration with services like AWS Lambda. The service also supports integrations for major AWS features such as Amazon S3 and Amazon Kinesis, simplifying the task of exposing a portion of your AWS services to your user or developer base.
+
+API Gateway also has a slight advantage with security configuration, as it supports HTTPS out of the box. ALB also supports HTTPS but requires configuring and deploying an SSL certificate to your load balancer.
+
+Finally, we’d be remiss if we didn’t point out that, sometimes, the answer to the question of ALB versus API Gateway is “both”! An HTTP API in API Gateway can itself redirect to an ALB, which then load-balances requests across back-end resources such as EC2 instances or Docker containers. Such an architecture is ideal if you want to add load balancing capabilities to the powerful REST API management capabilities of API Gateway.
+
+The following table summarizes some of the key differences between ALB and API Gateway:
+
+
+<table>
+  <tr>
+   <td>Feature
+   </td>
+   <td>API Gateway
+   </td>
+   <td>ALB
+   </td>
+  </tr>
+  <tr>
+   <td>Protocols supported
+   </td>
+   <td>HTTP/2 (HTTP API, REST API), WebSockets
+   </td>
+   <td>HTTP/2, WebSockets, gRPC
+   </td>
+  </tr>
+  <tr>
+   <td>HTTPS
+   </td>
+   <td>Out-of-the-box support
+   </td>
+   <td>SSL certificate configuration required for SSL termination
+   </td>
+  </tr>
+  <tr>
+   <td>A/B testing support
+   </td>
+   <td>Support through defining separate routes
+   </td>
+   <td>Load balancing based on % of traffic
+   </td>
+  </tr>
+  <tr>
+   <td>Load balancing strategy
+   </td>
+   <td>Round robin
+   </td>
+   <td>Round robin or least connections strategies
+   </td>
+  </tr>
+  <tr>
+   <td>AWS service integration
+   </td>
+   <td>Amazon EC2, Amazon ECS, AWS Lambda, Amazon S3, Amazon Kinesis
+   </td>
+   <td>Amazon EC2, Amazon ECS, AWS Lambda
+   </td>
+  </tr>
+  <tr>
+   <td>Sticky session support
+   </td>
+   <td>No out-of-the-box support
+   </td>
+   <td>Direct support
+   </td>
+  </tr>
+  <tr>
+   <td>REST API management support
+   </td>
+   <td>Integrated REST API management platform
+   </td>
+   <td>Requires additional coding to support
+   </td>
+  </tr>
+</table>
+
+
+
+#### Which to Use?
+
+While ALB is the clear cost-leader at a massive scale, API Gateway provides numerous features that could save development teams hours of maintenance in the long run. 
+
+
+### Which one you choose will come down to your specific application scenario, and the role that cost plays versus other factors such as speed of development and ease of maintenance.
+
+### Kinesis Data Firehose vs Kinesis Data Streams
+
+
+
+* Kinesis Data Streams provides support for real-time processing of streaming data. It provides ordering of records, as well as the ability to read and/or replay records in the same order to multiple downstream Amazon Kinesis Applications. [Output係data processing tool (Consumer)]
+* Kinesis Data Firehose is used to load streaming data into data stores ( S3, Redshift, Elasticsearch Service, and Splunk)  [Output 係datastore]
+* Kinesis Data Firehose also natively integrates with Amazon Kinesis Data Analytics which provides you with an efficient way to analyze and transform streaming data using Apache Flink and SQL applications. 
+
+
+![roles-usingrole-ec2roleinstance](/img/web-development/aws/security/roles-usingrole-ec2roleinstance.png "image_tooltip")
+
+![roles-usingrole-ec2roleinstance](/img/web-development/aws/security/roles-usingrole-ec2roleinstance.png "image_tooltip")
+
+### Kinese Data Stream vs SQS
+
+Stream: You need to manually provision shards in case the load increases or you need to use CloudWatch alarms to set up auto scaling for the shards. 
+
+
+### 
+
+
+### Kinese Agent vs Kinese Producer Library
+
+(都明明地Kinese Producer Library 做咩)
+
+Kinesis Agent is a stand-alone Java software application that offers an easy way to collect and send data to Kinesis Data Streams. The agent continuously monitors a set of files and sends new data to your stream. The agent handles file rotation, checkpointing, and retry upon failures. It delivers all of your data in a reliable, timely, and simple manner. It also emits Amazon CloudWatch metrics to help you better monitor and troubleshoot the streaming process.
+
+The KPL is an easy-to-use, highly configurable library that helps you write to a Kinesis data stream. It acts as an intermediary between your producer application code and the Kinesis Data Streams API actions. 
+
+
+### Signed URL(Cloudfront) vs Cookies (Cloudfront) vs Presigned URL
+
+[https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
+
+
+### EventBridge vs Step functions for tracking workflow 
+
+其實都唔係真正既一個比較, 但寫係到先。When you are in exam, and the case that they give is a step by step logic flow instead of event-driven case - then you can use Step function 
+
+
+![roles-usingrole-ec2roleinstance](/img/web-development/aws/security/roles-usingrole-ec2roleinstance.png "image_tooltip")
+
+
+
+Benefits of Step Functions:
+
+
+
+* Build and update apps quickly: AWS Step Functions lets you build visual workflows that enable the fast translation of business requirements into technical requirements. You can build applications in a matter of minutes, and when needs change, you can swap or reorganize components without customizing any code.
+* Improve resiliency: AWS Step Functions manages state, checkpoints and restarts for you to make sure that your application executes in order and as expected. Built-in try/catch, retry and rollback capabilities deal with errors and exceptions automatically.
+* Write less code: AWS Step Functions manages the logic of your application for you and implements basic primitives such as branching, parallel execution, and timeouts. This removes extra code that may be repeated in your microservices and functions.
+
+Amazon EventBridge is recommended when you want to build an application that reacts to events from SaaS applications and/or AWS services. Amazon EventBridge is the only event-based service that integrates directly with third-party SaaS partners.

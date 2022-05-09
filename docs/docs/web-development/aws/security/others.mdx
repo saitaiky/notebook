@@ -1,0 +1,52 @@
+---
+title: Others
+description: Others
+keywords:
+  - cross account sharing
+  - host account
+  - cross account
+---
+
+## EBS encryption is a region-specific setting
+
+Encryption by default *is a Region-specific setting*. If you enable it for a Region, you cannot disable it for individual volumes or snapshots in that Region
+
+You can configure your AWS account to enforce the encryption of *the **new** EBS volumes and snapshot copies that you create*. Encryption by default is a Region-specific setting. If you enable it for a Region, you cannot disable it for individual volumes or snapshots in that Region.
+
+
+## How can EC2 securely connect to AWS services?
+
+Use an IAM Instance Role
+
+
+
+* instead of passing your own AWS account creditental in your codebase
+* You can’t use SSM either, because you also need your credential too call the AWS SDK to get the SSM which - again you need to provide your account credential (A question of which came first: the chicken or the egg?)
+
+Each Amazon EC2 instance contains metadata that the AWS CLI can directly query for temporary credentials. When an IAM role is attached to the instance, the AWS CLI automatically and securely retrieves the credentials from the instance metadata.
+
+
+![roles-usingrole-ec2roleinstance](/img/web-development/aws/security/roles-usingrole-ec2roleinstance.png "image_tooltip")
+
+
+via - [https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
+
+
+## When do you need the secret access key or access key ID to sign the API requests?
+
+When you send HTTP requests to an AWS service - When you send HTTP requests to AWS, you sign the requests so that AWS can identify who sent them. You sign requests with your AWS access key, which consists of **an access key ID and secret access key**.
+
+When you write custom code to send HTTP requests to AWS, you need to include code to sign the requests. You might do this for the following reasons:
+
+* You are working with a programming language for which there is no AWS SDK.
+* You want complete control over how a request is sent to AWS.
+
+*You don’t need to sign when using **AWS CLI / AWS SDK** *, these tools automatically sign the requests for you with the access key that you specify when you configure the tools. When you use these tools, you don't need to learn how to sign requests yourself.
+
+
+
+## Cognito Authentication via Cognito User Pools
+
+You *can use* Cognito Authentication via Cognito User Pools for your Application Load Balancer 
+
+You *can’t use* Cognito Authentication with CloudFront distribution
