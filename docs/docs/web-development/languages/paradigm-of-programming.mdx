@@ -20,7 +20,13 @@ So the main differences are that *imperative* tells you **how** to do something 
 - Declarative: SQL, HTML
 - (Can Be) Mix: JavaScript, C#, Python
 
-## Analogy 
+
+## Comparsion
+
+![imperative-functional-comparsion](/img/web-development/others/imperative-functional-comparsion.png)
+
+### Analogy 
+
 I’m going to ask you a question. I want you to think of both an imperative response and a declarative response.
 
 “I’m right next to Wal-Mart. How do I get to your house from here?”
@@ -29,13 +35,73 @@ I’m going to ask you a question. I want you to think of both an imperative res
 
 **A declarative response:** My address is 298 West Immutable Alley, Eden, Utah 84310
 
+### Code example example
 
-## Comparsion
-![imperative-functional-comparsion](/img/web-development/others/imperative-functional-comparsion.png)
+This seciont is mostly copied from [Imperative vs Declarative Programming](https://ui.dev/imperative-vs-declarative-programming). I found this example is very clean and easy to understand.
 
-***
+For the full explaination of the example, please refer to the link.
+
+```js
+function double(arr) {
+  let results = [];
+  for (let i = 0; i < arr.length; i++) {
+    results.push(arr[i] * 2);
+  }
+  return results;
+}
+
+function add(arr) {
+  let result = 0;
+  for (let i = 0; i < arr.length; i++) {
+    result += arr[i];
+  }
+  return result;
+}
+
+$("#btn").click(function () {
+  $(this).toggleClass("highlight");
+  $(this).text() === "Add Highlight"
+    ? $(this).text("Remove Highlight")
+    : $(this).text("Add Highlight");
+});
+
+```
+By examining what all three of these imperative examples have in common, we’ll be able to better identify what actually makes them imperative.
+
+- The most obvious commonality is that they’re describing HOW to do something. In each example, we’re either explicitly iterating over an array or explicitly laying out steps for how to implement the functionality we want.
+- This one might not be as obvious if you’re not used to thinking in the declarative or even more specifically functional way. In each example, we’re mutating some piece of state (If you’re unfamiliar with the term state, it’s basically information about something held in memory — which should sound a lot like variables). In the first two examples we create a variable called results, and then we continually modify it. In the third example, we don’t have any variables, but we still have state living in the DOM itself — we then modify that state in the DOM.
+- This one is a bit subjective, but to me, the code above isn’t very readable. I can’t just glance at the code and understand what’s going on. My brain needs to step through the code just as an interpreter would while also taking into account the context in which the code lives(another negativity of mutable data).
+
+Let’s now take a look at some declarative examples. The goal is to fix all the problems from above. So each example needs to describe WHAT is happening, can’t mutate state, and should be readable at a glance.
+
+```javascript
+function double(arr) {
+  return arr.map((item) => item * 2);
+}
+
+function add(arr) {
+  return arr.reduce((prev, current) => prev + current, 0);
+}
+
+<Btn
+  onToggleHighlight={this.handleToggleHighlight}
+  highlight={this.state.highlight}>
+    {this.state.buttonText}
+</Btn>
+```
+
+Notice that in the first two examples we’re leveraging JavaScript’s built-in map and reduce methods. This goes back to what we’ve been talking about over and over in this article, the most declarative solutions are an abstraction over some imperative implementation.
+
+In every example we’re describing WHAT we want to happen rather than HOW (we don’t know HOW map and reduce are implemented, we also probably don’t care). We’re not mutating any state. All of the mutations are abstracted inside of map and reduce. It’s also more readable (once you get used to map and reduce, of course).
+
+Now, what about the last example? Well, I cheated a little bit and am using React — but note that all three imperative mistakes are still fixed. The real beauty of React is that you can create these declarative user interfaces. By looking at our Btn component, I’m able to quickly understand what the UI is going to look like. Another benefit is instead of state living in the DOM, it lives in the React component itself.
+
+Another less-spoken-of benefit to declarative code is that your program can be context-independent. This means that because your code is concerned with what the ultimate goal is— rather than the steps it takes to accomplish that goal — the same code can be used in different programs, and work just fine.
+
+Look at all three of our examples above. We can consume both functions and component in any program we want. They’re program agnostic. This is hard to do with imperative code because often times, by definition, imperative code relies on the context of the current state.
 
 ## Imperative programming (How you want it done)
+
 ```c
 // average of five number in C 
   
@@ -59,7 +125,6 @@ for(let i = 0; i < list.length; i++){
 }
 ```
 
-
 ### Object-oriented programming (OOP)
 It organizes programs as objects: data structures consisting of datafields and methods together with their interactions.
 
@@ -71,6 +136,7 @@ There are four main principles in Object Orientated Programming:
 - **Polymorphism** - It's the ability of an object to take on many forms.
 
 ![java-oops](/img/web-development/others/java-oops.png)
+
 Describes the key concepts of object-oriented programming (Source: javatpoint.com)
 
 ## Declarative programming (What you want to be done)
@@ -86,6 +152,7 @@ SELECT * FROM Users WHERE Country=’Mexico’;
   </header>
 </article>
 ```
+
 By glancing at both examples, you have a clear understanding of what is going on. They’re both declarative. They’re concerned with **WHAT** you want to be done, rather than **HOW** you want it done.
 
 You’re describing what you’re trying to achieve, without instructing how to do it. The implementation of selecting all of the users who live in Mexico has been abstracted from you. You’re not concerned with how the web browser is parsing your article and displaying it to the screen. Your **WHAT** is Mexican users or a new header and paragraph on your website.
@@ -125,71 +192,6 @@ Use cases:
 
 ![reactive-programming](/img/web-development/languages/reactive-programming.jpeg)
 Source: [Reactive Programming In JavaScript](https://javascript.plainenglish.io/reactive-programming-in-javascript-8373201a6618)
-
-
-## Imperative example VS Declarative example
-
-This seciont is mostly copied from [Imperative vs Declarative Programming](https://ui.dev/imperative-vs-declarative-programming). I found this example is very clean and easy to understand.
-
-For the full explaination of the example, please refer to the link.
-
-```js
-function double(arr) {
-  let results = [];
-  for (let i = 0; i < arr.length; i++) {
-    results.push(arr[i] * 2);
-  }
-  return results;
-}
-
-function add(arr) {
-  let result = 0;
-  for (let i = 0; i < arr.length; i++) {
-    result += arr[i];
-  }
-  return result;
-}
-
-$("#btn").click(function () {
-  $(this).toggleClass("highlight");
-  $(this).text() === "Add Highlight"
-    ? $(this).text("Remove Highlight")
-    : $(this).text("Add Highlight");
-});
-```
-By examining what all three of these imperative examples have in common, we’ll be able to better identify what actually makes them imperative.
-
-- The most obvious commonality is that they’re describing HOW to do something. In each example, we’re either explicitly iterating over an array or explicitly laying out steps for how to implement the functionality we want.
-- This one might not be as obvious if you’re not used to thinking in the declarative or even more specifically functional way. In each example, we’re mutating some piece of state (If you’re unfamiliar with the term state, it’s basically information about something held in memory — which should sound a lot like variables). In the first two examples we create a variable called results, and then we continually modify it. In the third example, we don’t have any variables, but we still have state living in the DOM itself — we then modify that state in the DOM.
-- This one is a bit subjective, but to me, the code above isn’t very readable. I can’t just glance at the code and understand what’s going on. My brain needs to step through the code just as an interpreter would while also taking into account the context in which the code lives(another negativity of mutable data).
-
-Let’s now take a look at some declarative examples. The goal is to fix all the problems from above. So each example needs to describe WHAT is happening, can’t mutate state, and should be readable at a glance.
-```javascript
-function double(arr) {
-  return arr.map((item) => item * 2);
-}
-
-function add(arr) {
-  return arr.reduce((prev, current) => prev + current, 0);
-}
-
-<Btn
-  onToggleHighlight={this.handleToggleHighlight}
-  highlight={this.state.highlight}>
-    {this.state.buttonText}
-</Btn>
-```
-Notice that in the first two examples we’re leveraging JavaScript’s built-in map and reduce methods. This goes back to what we’ve been talking about over and over in this article, the most declarative solutions are an abstraction over some imperative implementation.
-
-In every example we’re describing WHAT we want to happen rather than HOW (we don’t know HOW map and reduce are implemented, we also probably don’t care). We’re not mutating any state. All of the mutations are abstracted inside of map and reduce. It’s also more readable (once you get used to map and reduce, of course).
-
-Now, what about the last example? Well, I cheated a little bit and am using React — but note that all three imperative mistakes are still fixed. The real beauty of React is that you can create these declarative user interfaces. By looking at our Btn component, I’m able to quickly understand what the UI is going to look like. Another benefit is instead of state living in the DOM, it lives in the React component itself.
-
-Another less-spoken-of benefit to declarative code is that your program can be context-independent. This means that because your code is concerned with what the ultimate goal is— rather than the steps it takes to accomplish that goal — the same code can be used in different programs, and work just fine.
-
-Look at all three of our examples above. We can consume both functions and component in any program we want. They’re program agnostic. This is hard to do with imperative code because often times, by definition, imperative code relies on the context of the current state.
-
-
 
 ## References 
 - [Imperative vs Declarative Programming](https://tylermcginnis.com/imperative-vs-declarative-programming/)
