@@ -1,0 +1,58 @@
+---
+title: KMS Encryption
+description: KMS Encryption
+keywords:
+  - cross account sharing
+  - host account
+  - cross account
+---
+
+## KMS with EBS volume
+Amazon EBS works with AWS KMS to encrypt and decrypt your EBS volume. You can encrypt both the boot and data volumes of an EC2 instance. When you create an encrypted EBS volume and attach it to a supported instance type, the following types of data are encrypted:
+
+* At rest
+    * Data at rest inside the volume
+    * All snapshots created from the volume
+    * All volumes created from those snapshots
+* In-flight
+    * All data moving between the volume and the instance
+
+## KMS with SQS
+You can choose to have SQS encrypt messages stored in both **Standard and FIFO queues** using an encryption key provided by AWS Key Management Service (KMS).
+
+## KMS with System manager parameter store 
+With AWS Systems Manager Parameter Store, you can create SecureString parameters, which are parameters that have a plaintext parameter name and an encrypted parameter value. *Parameter Store uses AWS KMS to encrypt and decrypt the parameter values* of Secure String parameters. 
+Also, if you are using customer-managed CMKs, you can use IAM policies and key policies to manage to encrypt and decrypt permissions. *To retrieve the decrypted value you only need to do **one API call** *. 
+(If you use KMS with SSM Parameter store, it requires two API calls to get the decrypted value which is not effiecient.)
+
+## MS with CodeBuild
+- Q: How to make the build artifacts to be automatically encrypted at the end?
+- A: Specify a KMS key to use
+AWS Key Management Service (KMS) makes it easy for you to create and manage cryptographic keys and control their use across a wide range of AWS services and in your applications.
+
+For AWS CodeBuild to encrypt its build output artifacts, *it needs access to an AWS KMS customer master key (CMK)*. 
+
+By default, AWS CodeBuild uses the AWS-managed CMK for Amazon S3 in your AWS account. 
+The following environment variable provides these details:
+`CODEBUILD_KMS_KEY_ID`: The identifier of the AWS KMS key that CodeBuild is using to encrypt the build output artifact (for example, arn:aws:kms:region-ID:account-ID:key/key-ID or alias/key-alias).
+
+## KMS with Kinesis Data Streams 
+Server-side encryption is a feature in Amazon Kinesis Data Streams that automatically encrypts data before it's at rest by using an AWS KMS customer master key (CMK) you specify. 
+
+Data is encrypted before it's written to the Kinesis stream storage layer, and decrypted after it’s retrieved from storage. As a result, *your data is encrypted **at rest** * within the Kinesis Data Streams service. This allows you to meet strict regulatory requirements and enhance the security of your data.
+
+## KMS with CloudWatch log group
+Log group data is always encrypted in CloudWatch Logs. You can optionally use AWS AWS Key Management Service for this encryption. If you do, the encryption is done using an AWS KMS (AWS KMS) customer master key (CMK). Encryption using AWS KMS is enabled at the log group level, by associating a CMK with a log group, either when you create the log group or after it exists.
+
+To associate the CMK with an existing log group, you can use the associate-kms-key command.
+You can use the create-log-group command to associate the CMK with a log group when you create it.
+
+Some other notes
+After you associate a CMK with a log group, all newly ingested data for the log group is encrypted using the CMK. This data is stored in an encrypted format throughout its retention period. 
+CloudWatch Logs decrypts this data whenever it is requested. CloudWatch Logs must have permissions for the CMK whenever encrypted data is requested.
+
+## SSE-KMS vs SSE-S3
+SSE-KMS is similar to SSE-S3 but comes with some additional benefits over SSE-S3. Unlike SSE-S3 you can create and manage encryption keys yourself or you can use a default CMK key that is unique to you for the service that is being used (S3 in this case) and the region you are working in.
+
+When you create a CMK using KMS instead of using default CMK you get more flexibility as you can create, rotate and disable the encryption keys. As KMS is integrated with Cloudtrail with SSE-KMS you can also audit the usage of the key like when, by whom, for what purpose the key was used. You can also give separate permissions for the use of an envelope key.
+

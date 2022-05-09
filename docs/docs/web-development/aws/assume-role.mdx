@@ -1,0 +1,67 @@
+---
+title: AssumeRole
+description: AssumeRole
+keywords:
+  - cross account sharing
+  - host account
+  - cross account
+---
+
+## Cross account sharing (to an AWS service)
+
+[How do I configure a Lambda function to assume an IAM role in another AWS account?](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/)
+
+To have your Lambda function assume an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in another AWS account, do the following:
+
+------------------
+
+1. Configure the **home account**(111111111111) that hosts Lambda function's [execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) to allow the function to assume an IAM role in another AWS account.
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111111111111:role/my-lambda-execution-role"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+```
+
+2. A **cross-account** that includes the IAM role that the Lambda function assumes (222222222222)
+
+[Modify your cross-account IAM role's trust policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy) to allow your Lambda function to assume the role.
+
+Note: A Lambda function can assume an IAM role in another AWS account to do either of the following:
+
+* **Access resources**—For example, [accessing an Amazon Simple Storage Service (Amazon S3) bucket](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-execution-role-s3-bucket/). (Sai: or other services like DynamoDB)
+* **Do tasks**—For example, [starting and stopping instances](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-eventbridge/).
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "sts:AssumeRole",
+        "Resource": "arn:aws:iam::222222222222:role/role-on-source-account"
+    }
+}
+```
+
+3. Add the [AWS Security Token Service (AWS STS) AssumeRole API call](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) to your Lambda function's code.
+
+
+## Cross account sharing (to an AWS account)
+
+To grant cross-account permissions, you need to attach an identity-based permissions policy to an IAM role. For example, the AWS account A administrator can create a role to grant cross-account permissions to AWS account B as follows:
+
+1. The account A administrator creates an IAM role and attaches a permissions policy—that grants permissions on resources in account A—to the role.
+2. The account A administrator attaches a trust policy to the role that identifies account B as the **principal** who can assume the role.
+3. The account B administrator delegates the permission to assume the role to any users in account B. This allows users in account B to create or access queues in account A.
+
+:::caution
+Remember it isn't a service principal, but IAM user principals. For more [details](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
+:::
