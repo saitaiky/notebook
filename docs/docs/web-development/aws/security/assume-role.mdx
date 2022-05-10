@@ -10,12 +10,12 @@ keywords:
 ## Cross account sharing (to an AWS service)
 
 You may check the updated blog in this [link](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/). A Lambda function can assume an IAM role in another AWS account to do either of the following:
-* **Access resources**—For example, [accessing an Amazon Simple Storage Service (Amazon S3) bucket](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-execution-role-s3-bucket/) or other services like AWS DynamoDB.
-* **Do tasks**—For example, [starting and stopping instances](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-eventbridge/).
+- **Access resources**—For example, [accessing an Amazon Simple Storage Service (Amazon S3) bucket](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-execution-role-s3-bucket/) or other services like AWS DynamoDB.
+- **Do tasks**—For example, [starting and stopping instances](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-eventbridge/).
 
 :::note 
-* **Execution role**—The primary role in account A that gives the Lambda function permission to do its work.
-* **Assumed role**—A role in account B that the Lambda function in account A assumes to gain access to cross-account resources.
+- **Execution role**—The primary role in account A that gives the Lambda function permission to do its work.
+- **Assumed role**—A role in account B that the Lambda function in account A assumes to gain access to cross-account resources.
 :::
 
 To have your Lambda function assume an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in another AWS account, do the following:

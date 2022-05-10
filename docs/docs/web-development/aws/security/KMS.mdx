@@ -10,12 +10,12 @@ keywords:
 ## KMS with EBS volume
 Amazon EBS works with AWS KMS to encrypt and decrypt your EBS volume. You can encrypt both the boot and data volumes of an EC2 instance. When you create an encrypted EBS volume and attach it to a supported instance type, the following types of data are encrypted:
 
-* At rest
-    * Data at rest inside the volume
-    * All snapshots created from the volume
-    * All volumes created from those snapshots
-* In-flight
-    * All data moving between the volume and the instance
+- At rest
+    - Data at rest inside the volume
+    - All snapshots created from the volume
+    - All volumes created from those snapshots
+- In-flight
+    - All data moving between the volume and the instance
 
 ## KMS with SQS
 You can choose to have SQS encrypt messages stored in both **Standard and FIFO queues** using an encryption key provided by AWS Key Management Service (KMS).
