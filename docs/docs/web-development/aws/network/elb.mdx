@@ -1,7 +1,151 @@
 ---
 title: ELB
-description: Elastic Load Balancers
+description: Elastic Load Balancing
 keywords:
   - ELB
-  - Elastic Load Balancers
+  - Elastic Load Balancing
 ---
+
+
+
+## Troubleshooting
+
+### How to identify the true IP address of the client?
+
+The **X-Forwarded-For** request header helps you identify the IP address of a client when you use an HTTP or HTTPS load balancer. Because load balancers intercept traffic between clients and servers, your server access logs contain only the IP address of the load balancer.
+
+Elastic Load Balancing stores the IP address of the client in the X-Forwarded-For request header and passes the header to your server.
+
+### Healthy status but receiving timeout
+
+Imagine a health check is configured to ping the index.html page found in the root directory for the health status. When accessing the website via the internet visitors of the website receive timeout errors.
+
+Check the security group rules of your EC2 instance. You need a security group rule that allows inbound traffic from your public IPv4 address on the proper port.
+
+:::info
+**A security group** acts as a virtual firewall for your EC2 instances to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your instance, and outbound rules control the outgoing traffic from your instance.
+:::
+
+### ASG doesn't replaced a unhealthy instance 
+
+In order to automate the replacement of unhealthy instance. The health check type of your instance's Auto Scaling group, must be changed from EC2 to ELB by using a configuration file
+
+By default, the health check configuration of your Auto Scaling group is set as an EC2 type that performs a status check of EC2 instances. To automate the replacement of unhealthy EC2 instances, you must change the health check type of your instance's Auto Scaling group from EC2 to ELB by using a configuration file.
+
+:::note
+Please remember, the health check type of your instance's Auto Scaling group is strongly recommend to **use ELB instead of EC2**. So that the health status will **keep in sync** in both ELB and ASG.
+:::
+
+Reference: [EC2 vs. ELB Health Check on an Auto Scaling Group](https://kylewbanks.com/blog/ec2-vs-elb-health-check-on-an-auto-scaling-group)
+
+By setting the Health Check Type to ELB, we can be sure that if the ELB health check is failing, the instance will be terminated and a new one will take it’s place, giving you true failover in the event that your application goes down. As a bonus, if the EC2 instance itself goes down, you will still get the proper failover from an ELB health check because your application will be unreachable to the ELB, deemed unhealthy, and subsequently destroyed by the auto scaling group - the best of both worlds.
+
+
+![elb-healthcheck-setting](/img/web-development/aws/network/elb-healthcheck-setting.png "elb-healthcheck-setting")
+
+
+
+
+Q: An e-commerce company has a fleet of EC2 based web servers running into very high CPU utilization issues. The development team has determined that serving secure traffic via HTTPS is a major contributor to the high CPU load. Which of the following steps can take the high CPU load off the web servers? (Select two)
+
+A: 
+1. Configure an SSL/TLS certificate on an Application Load Balancer via AWS Certificate Manager (ACM)
+2. Create an HTTPS listener on the Application Load Balancer with SSL termination 
+
+To use an HTTPS listener, you must deploy at least one SSL/TLS server certificate on your load balancer. You can create an HTTPS listener, which uses encrypted connections (also known as SSL offload). This feature enables traffic encryption between your load balancer and the clients that initiate SSL or TLS sessions. 
+
+As the EC2 instances are under heavy CPU load, the load balancer will use the server certificate to terminate the front-end connection and then decrypt requests from clients before sending them to the EC2 instances.
+
+Please review this resource to understand how to associate an ACM SSL/TLS certificate with an Application Load Balancer: https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/
+
+**Reference: [What is SSL Termination Load Balancer](https://avinetworks.com/glossary/ssl-termination/#:~:text=SSL%20termination%20at%20load%20balancer%20alleviates%20web%20servers%20of%20the,center%20as%20the%20web%20servers.)?**
+
+SSL termination at load balancer is desired because decryption is resource and CPU intensive. Putting the decryption burden on the load balancer enables the server to spend processing power on application tasks, which helps improve performance. It also simplifies the management of SSL certificates.
+
+### ELB traffic is unequally routing
+
+Here are the reasons that why an ELB routes more traffic to one instance or Availability Zone than the others.
+
+- Clients are routing requests to an incorrect IP address of a load balancer node with a DNS record that has an expired TTL.
+- Sticky sessions (session affinity) are enabled for the load balancer. Sticky sessions use cookies to help the client maintain a connection to the same instance over a cookie's lifetime, which can cause imbalances over time.
+- Available healthy instances aren’t evenly distributed across Availability Zones.
+- Instances of a specific capacity type aren’t equally distributed across Availability Zones.
+- There are long-lived TCP connections between clients and instances.
+- The connection uses a WebSocket.
+
+## Best practice
+
+### How many load balancers do I need?
+
+As a best practice, you want **at least two load balancers** in a clustered pair. If you only have a single load balancer and it fails for any reason, then your whole system will fail. This is known as a Single Point of Failure (SPOF). With load balancers, the number you require depends on how much traffic you handle and how much uptime availability you want. Generally, the more load balancers you have, the better.  
+
+### Don’t resolve the ALB’s public IP
+
+The load balancer is highly available and **its public IP may change**. The DNS name is **constant**.
+
+When your load balancer is created, it receives a public DNS name that clients can use to send requests. The DNS servers resolve the DNS name of your load balancer to the public IP addresses of the load balancer nodes for your load balancer. Never resolve the IP of a load balancer as it can change with time. You should always use the DNS name.
+
+
+## Configuration
+
+### Rule Condition types
+
+There are 2 types that you can config.
+- host-based routing: api.smart.com and mobile.smart.com 
+- path-based routing /api and /mobile
+
+You may check other rule condition types [here](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#rule-condition-types)
+
+
+
+### Redirect actions for an ALB
+You can use query string conditions to configure rules that route requests based on key/value pairs or values in the query string. 
+
+The example condition given in the question is satisfied by requests with a query string that includes either a key/value pair of "version=v1" or any key set to "example".
+
+```json
+[
+  {
+      "Field": "query-string",
+      "QueryStringConfig": {
+          "Values": [
+            {
+                "Key": "version", 
+                "Value": "v1"
+            },
+            {
+                "Value": "*example*"
+            }
+          ]
+      }
+  }
+]
+```
+
+## Error codes
+
+- **HTTP 503**
+  - HTTP 503 indicates 'Service unavailable' error 
+  - This error in ALB is an indicator of the target groups for the load balancer having no registered targets.
+- HTTP 500
+  - HTTP 500 indicates 'Internal server' error
+  - Several reasons:
+    - A client submitted a request without an HTTP protocol
+    - The load balancer was unable to generate a redirect URL
+    - There was an error executing the web ACL rules
+- HTTP 504
+  - HTTP 504 indicates 'Gateway timeout' error
+  - Several reasons: 
+    - The load balancer failed to establish a connection to the target before the connection timeout expired
+    - The load balancer established a connection to the target but the target did not respond before the idle timeout period elapsed
+- HTTP 403
+  - HTTP 403 is 'Forbidden' error. 
+  - You configured an AWS WAF web access control list (web ACL) to monitor requests to your ALB and it blocked a request.
+
+## ALB + ECS in mutiple AZ
+
+An Application load balancer distributes incoming application traffic across multiple targets, such as EC2 instances, in multiple Availability Zones. A listener checks for connection requests from clients, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets. Each rule consists of a priority, one or more actions, and one or more conditions.
+
+![component_architecture](/img/web-development/aws/network/component_architecture.png "component_architecture")
+
+source: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
