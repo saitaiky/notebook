@@ -16,27 +16,26 @@ You can create a flow log for a VPC, a subnet, or a network interface. If you cr
 Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow.
 
 
+
 ## CloudWatch Event Rules
 
 You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
 
 Examples of Amazon CloudWatch Events rules and targets:
 
+- A rule that sends a notification when the **instance state changes**, where an EC2 instance is the event source, and Amazon SNS is the event target.
+- A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
+- A rule that detects **pipeline changes** and invokes an AWS Lambda function.
 
 
-* A rule that sends a notification when the *instance state changes*, where an EC2 instance is the event source, and Amazon SNS is the event target.
-* A rule that sends a notification when the *build phase changes*, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
-* A rule that detects *pipeline changes* and invokes an AWS Lambda function.
+## Use X-ray to debug microservices specific issues
 
+Imagine a company uses microservices-based infrastructure to process the API calls from clients, perform request filtering and cache requests using the AWS API Gateway. Users report receiving 501 error code and you have been contacted to find out what is failing. 
 
-## CloudWatch can’t help to debug microservices specific issues on AWS. Use X-ray!
+You may use X-Ray to debug the issue.
 
-**Q:** A company uses microservices-based infrastructure to process the API calls from clients, perform request filtering and cache requests using the AWS API Gateway. Users report receiving 501 error code and you have been contacted to find out what is failing.
-
-**A:** Use X-Ray service
-
-* CloudWatch can collect numbers and respond to AWS service-related events, but it can't help you debug microservices specific issues on AWS.
-* X-Ray cannot be used to capture metrics and set up alarms as per the given use-case, so this option is incorrect.
+- CloudWatch can collect numbers and respond to AWS service-related events, but it can't help you debug microservices specific issues on AWS.
+- X-Ray cannot be used to capture metrics and set up alarms as per the given use-case, so this option is incorrect.
 
 The AWS X-Ray SDK needs permission to run in resources (like Lambda)
 
@@ -95,15 +94,11 @@ Another example of write permissions for using X-Ray via an IAM policy:
 }
 ```
 
-
-
 ## CloudTail
 
-If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (need root account permission). This is referred to as an organization trail.
+If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (**need root account permission**). This is referred to as an organization trail.
 
-
-
-* S3 related
-    * By default, CloudTrail tracks only bucket-level actions. To track object-level actions, you need to enable Amazon S3 data events 
-    * A bucket owner enabled CloudTrail. It doesn’t mean he can see the object access logs. The bucket owner also needs to be object owner to get the object access logs. Otherwise, the bucket owner must get permissions, through the object ACL, for the same object API to get the same object-access API logs.
-* Member accounts will be able to see the organization trail, but cannot modify or delete it. (By default, member accounts will not have access to the log files for the organization trail in the Amazon S3 bucket.)
+- S3 related
+    - By default, CloudTrail tracks only bucket-level actions. To track object-level actions, you need to enable Amazon S3 data events 
+    - A bucket owner enabled CloudTrail. It doesn’t mean he can see the object access logs. The bucket owner **also needs to be object owner** to get the object access logs. Otherwise, the bucket owner **must get permissions**, through the object ACL, for the same object API to get the same object-access API logs.
+- Member accounts will be **able to see the organization trail**, but cannot modify or delete it. (By default, member accounts will not have access to the log files for the organization trail in the Amazon S3 bucket.)
