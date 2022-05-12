@@ -1,0 +1,71 @@
+---
+title: "Data management"
+description: Data management
+keywords:
+  - Data management
+---
+
+This article is to answer the question of - How to maintain data consistency and implement queries?
+- Database per Service - each service has its own private database 
+- Saga - use sagas, which a sequences of local transactions, to maintain data consistency across services
+- CQRS - implement queries by maintaining one or more materialized views that can be efficiently queried
+- Event sourcing - persist aggregates as a sequence of events
+
+## Database per service
+
+The service’s database is effectively part of the implementation of that service. It cannot be accessed directly by other services.
+
+There are a few different ways to keep a service’s persistent data private. You do not need to provision a database server for each service. For example, if you are using a relational database then the options are:
+- Private-tables-per-service – each service owns a set of tables that must only be accessed by that service
+- Schema-per-service – each service has a database schema that’s private to that service
+- Database-server-per-service – each service has it’s own database server.
+
+### Benefits
+- Helps ensure that the services are loosely coupled. Changes to one service’s database does not impact any other services.
+- Each service can use the type of database that is best suited to its needs. For example, a service that does text searches could use ElasticSearch. A service that manipulates a social graph could use Neo4j.
+
+### Drawbacks
+- Implementing business transactions that span multiple services is not straightforward. Distributed transactions are best avoided because of the CAP theorem. Moreover, many modern (NoSQL) databases don’t support them.
+- Implementing queries that join data that is now in multiple databases is challenging.
+- Complexity of managing multiple SQL and NoSQL databases
+
+There are various patterns/solutions for implementing transactions and queries that span services:
+
+- Implementing queries that span services:
+- Implementing transactions that span services - use the [Saga pattern](https://microservices.io/patterns/data/saga.html).
+- [API Composition](https://microservices.io/patterns/data/api-composition.html) - the application performs the join rather than the database. For example, a service (or the API gateway) could retrieve a customer and their orders by first retrieving the customer from the customer service and then querying the order service to return the customer’s most recent orders.
+- [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html) - maintain one or more materialized views that contain data from multiple services. The views are kept by services that subscribe to events that each services publishes when it updates its data. For example, the online store could implement a query that finds customers in a particular region and their recent orders by maintaining a view that joins customers and orders. The view is updated by a service that subscribes to customer and order events.
+
+## Sega pattern
+
+Implement each business transaction that spans multiple services is a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.
+
+![From_2PC_To_Saga](/img/web-development/system-design/From_2PC_To_Saga.png)
+Source: [Microservice Architecture by Kong](https://microservices.io/patterns/data/saga.html)
+
+
+The saga pattern is **a failure management pattern** that helps establish consistency in distributed applications, and coordinates transactions between multiple microservices to maintain data consistency. A microservice publishes an event for every transaction, and the next transaction is initiated based on the event's outcome. It can take two different paths, depending on the success or failure of the transactions.
+
+### How to implement it?
+Implement each business transaction that spans multiple services is a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.
+
+![enabling-diagram6](/img/web-development/system-design/enabling-diagram6.png)
+Source: [AWS Prescriptive Guidance - Saga pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/saga-pattern.html)
+
+There are two ways of coordination sagas:
+- **Choreography** - each local transaction publishes domain events that trigger local transactions in other services
+- **Orchestration** - an orchestrator (object) tells the participants what local transactions to execute 
+
+### Choreography strategy
+
+Choreography is the simplest way to implement SAGA pattern. Each local transaction in chain is independent as they don’t have direct knowledge of each other. **If your distributed transaction only includes from 2 to 4 local transactions then Choreography is very fit option.** But having too many local transactions will make tracking which services listen to which events becomes very complex.
+
+AWS EventBridge can help provide a choreography-based implementation of sagas
+
+### Orchestration strategy
+
+- Easy to maintain the whole workflow in one place — Orchestrator.
+- Avoid cyclic dependencies between services. All services only communicate with Orchestrator.
+- The complexity of transaction remains linear when new steps are added.
+
+AWS Step Functions can help provide an orchestration-style implementation of sagas
