@@ -84,3 +84,8 @@ Typically, you do this in feature branches whenever there's a change in the main
 - Rebasing doesn't play well with pull requests, because you can't see what minor changes someone made if they rebased (incidentally, the consensus inside the Bitbucket development team is to never rebase during a pull request).
 - Rebasing can be dangerous! Rewriting history of shared branches is prone to team work breakage. This can be mitigated by doing the rebase/squash on a copy of the feature branch, but rebase carries the implication that competence and carefulness must be employed.
 - It's more work: Using rebase to keep your feature branch updated requires that you resolve similar conflicts again and again. Yes, you can reuse recorded resolutions (rerere) sometimes, but merges win here: Just solve the conflicts one time, and you're set.
+
+## Tips
+
+- If at some point during the `git rebase` you got panic (due to the CONFLICT error), just do `git rebase --abort` and you’re back to normal. You can then calm down and gather your breath to see what you want to do next.
+- When resolving a conflict, the conflicted files may seem to miss some of your latest changes. This is normal because the files is at a specific commit where the conflict first occured. You may need to resolve different conflicts in the same file multiple times.
