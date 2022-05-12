@@ -38,19 +38,24 @@ There are various patterns/solutions for implementing transactions and queries t
 
 ## Sega pattern
 
-Implement each business transaction that spans multiple services is a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.
-
-![From_2PC_To_Saga](/img/web-development/system-design/From_2PC_To_Saga.png)
-Source: [Microservice Architecture by Kong](https://microservices.io/patterns/data/saga.html)
-
-
 The saga pattern is **a failure management pattern** that helps establish consistency in distributed applications, and coordinates transactions between multiple microservices to maintain data consistency. A microservice publishes an event for every transaction, and the next transaction is initiated based on the event's outcome. It can take two different paths, depending on the success or failure of the transactions.
+
+### Why is this a failure management pattern?
+In a distributed transaction, multiple services can be called before a transaction is completed. When the services store data in different data stores, it can be challenging to maintain data consistency across these data stores.
+
+To maintain consistency in a transaction, relational databases provide **two-phase commit (2PC)**. This consists of a prepare phase and a commit phase. In the prepare phase, the coordinating process requests the transaction’s participating processes (participants) to promise to commit or rollback the transaction. In the commit phase, the coordinating process requests the participants to commit the transaction. If the participants cannot agree to commit in the prepare phase, then the transaction is rolled back.
+
+In distributed systems architected with microservices, **two-phase commit** is not an option as the transaction is distributed across various databases. In this case, one solution is to use **the saga pattern**.
+
+:::info Example
+For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit. Since Orders and Customers are in different databases owned by different services the application cannot simply use a local ACID transaction.
+:::
 
 ### How to implement it?
 Implement each business transaction that spans multiple services is a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.
 
-![enabling-diagram6](/img/web-development/system-design/enabling-diagram6.png)
-Source: [AWS Prescriptive Guidance - Saga pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/saga-pattern.html)
+![From_2PC_To_Saga](/img/web-development/system-design/From_2PC_To_Saga.png)
+Source: [Microservice Architecture by Kong](https://microservices.io/patterns/data/saga.html)
 
 There are two ways of coordination sagas:
 - **Choreography** - each local transaction publishes domain events that trigger local transactions in other services
@@ -62,6 +67,12 @@ Choreography is the simplest way to implement SAGA pattern. Each local transacti
 
 AWS EventBridge can help provide a choreography-based implementation of sagas
 
+![event-bridge](/img/web-development/system-design/sega-choreography.png)
+Source: [AWS-Building a serverless distributed application using a saga orchestration pattern](https://aws.amazon.com/blogs/compute/building-a-serverless-distributed-application-using-a-saga-orchestration-pattern/)
+
+![event-bridge](/img/web-development/system-design/event-bridge.png)
+Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
+
 ### Orchestration strategy
 
 - Easy to maintain the whole workflow in one place — Orchestrator.
@@ -69,3 +80,28 @@ AWS EventBridge can help provide a choreography-based implementation of sagas
 - The complexity of transaction remains linear when new steps are added.
 
 AWS Step Functions can help provide an orchestration-style implementation of sagas
+
+![event-bridge](/img/web-development/system-design/sega-orchestration.png)
+Source: [AWS-Building a serverless distributed application using a saga orchestration pattern](https://aws.amazon.com/blogs/compute/building-a-serverless-distributed-application-using-a-saga-orchestration-pattern/)
+
+![step-functions](/img/web-development/system-design/step-functions.png)
+Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
+
+### Why the hybrid approach is bad
+
+![sega-hybrid](/img/web-development/system-design/sega-hybrid.png)
+Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
+
+I love using events to integrate different services together in a loosely-coupled way. But I think it’s a bad idea when it’s done inside the same bounded context because **the workflow doesn’t exist as a standalone concept** that is explicitly captured and source controlled.
+
+In these choreographed workflows, the workflow only exists as the sum of loosely connected functions. This makes them very difficult to reason about and debug. And there’s no easy way to implement even simple things like workflow level timeouts, or even task level tasks for that matter (e.g. timeout the order if the restaurant doesn’t accept or reject the order within 10 minutes).
+
+If this is what you have today, you should consider moving these workflows to Step Functions instead.
+
+But, between bounded contexts, I’ll publish and **subscribe to events through SNS/EventBridge/Kinesis**, etc. This is so that different parts of the larger system can stay loosely coupled and only build on each other’s events and can evolve and fail independently.
+
+![sega-pub-sub.png](/img/web-development/system-design/sega-pub-sub.png)
+Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
+
+
+Reference: [Saga pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/saga-pattern.html)

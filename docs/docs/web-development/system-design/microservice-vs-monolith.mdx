@@ -29,7 +29,7 @@ Normally, monolithic applications have one large code base and lack modularity. 
 
 - **Understanding. When a monolithic applicati
 on scales up, it becomes too complicated to understand. Also, a complex system of code within one application is hard to manage.**
-- **Making changes. It is harder to implement changes in such a large and complex application with highly tight coupling. Any code change affects the whole system so it has to be thoroughly coordinated. This makes the overall development process much longer.**
+- **Continuous deployment is difficult.** It is harder to implement changes in such a large and complex application with highly tight coupling. Any code change affects the whole system so it has to be thoroughly coordinated. This makes the overall development process much longer.
 - **Scalability.** You cannot scale components independently, only the whole application.
 - **New technology barriers.** It is extremely problematic to apply a new technology in a monolithic application because then the entire application has to be rewritten.
 
@@ -73,11 +73,29 @@ Martin Fowler
 - A complex and scalable application. The microservices architecture will make scaling and adding new capabilities to your application much easier. So if you plan to develop a large application with multiple modules and user journeys, a microservice pattern would be the best way to handle it.
 - Enough engineering skills. Since a microservice project comprises multiple teams responsible for multiple services, you need to have enough resources to handle all the processes.
 
+## Decomposition patterns to break down monolithic applications
+
+Before you begin the decomposition process, you should evaluate which monoliths to decompose, and make sure to include those with reliability or performance issues, or those that include multiple components in a tightly coupled architecture. 
+
+AWS has a [blog post](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/welcome.html) to discuss the following four cloud-native patterns that are used to decompose monoliths, and describes the **advantages** and **disadvantages** of each one:
+- [Decompose by business capability](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/decompose-business-capability.html)
+  - A business capability is what a business does to generate value (for example, sales, customer service, or marketing). Typically, an organization has multiple business capabilities and these vary by sector or industry. 
+  - Use this pattern if your team has enough insight into your organization's business units and you have subject matter experts (SMEs) for each business unit. 
+- [Decompose by subdomain](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/decompose-subdomain.html)
+  - The “Sales” and “Marketing” services are broken down into smaller microservices. 
+    - The "Purchasing" and "Claims” models are important business differentiators for "Sales," and are split into two separate microservices. 
+    - "Marketing" is decomposed by using supporting business functionalities, such as "Campaigns," "Analytics," and "Reports."
+  
+- [Decompose by transactions](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/decompose-transactions.html)
+- [Service per team pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/service-per-team.html)
+
 ## AFTERWORD
 
 Adopting a microservices architecture is not a one-size-fits-all approach. Despite being less and less popular, a monolith has its strong and durable advantages which work better for many use cases.
 
 If your business idea is fresh and you want to validate it, you should start with a monolith. With a small engineering team aiming to develop a simple and lightweight application, there is no need to implement microservices. This way, a monolithic application will be much easier to build, make changes, deploy, and provide testing.
+
+Although a monolith can be a valid option for some use cases, it is typically not suitable for a modern application. The poorly defined internal structures of a monolith can make it difficult to maintain code, which creates a steep learning curve for new developers and causes additional support costs. High coupling and low cohesion can significantly increase the time it takes to add new features, and you might be unable to scale individual components based on traffic patterns. Monoliths also require multiple teams to coordinate for one large release, which increases the collaboration and knowledge transfer burden. Finally, you can find that adding new features or building new user experiences becomes difficult when your business grows or user numbers increase.
 
 The microservices architecture is more beneficial for complex and evolving applications. It offers effective solutions for handling a complicated system of different functions and services within one application. Microservices are ideal when it comes to the platforms covering many user journeys and workflows. But without proper microservices expertise, applying this model would be impossible. 
 
