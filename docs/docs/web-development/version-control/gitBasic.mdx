@@ -4,6 +4,19 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
+## Difference between HEAD, working tree and index
+
+![git-transport.png](/img/web-development/version-control/git-transport.png)
+
+Source: [My Git Workflow](https://blog.osteele.com/2008/05/my-git-workflow/)
+
+Notes:
+- the workspace is the directory tree of (source) files that you see and edit.
+- The index is a single, large, binary file in `<baseOfRepo>/.git/index`, which lists all files in the current branch, their sha1 checksums, time stamps and the file name -- it is not another directory with a copy of files in it.
+- The local repository is a hidden directory (`.git`) including an `objects` directory containing all versions of every file in the repo (local branches and copies of remote branches) as a compressed "blob" file.
+
+Don't think of the four 'disks' represented in the image above as separate copies of the repo files.
+
 ## References
 
 ### What is references?
@@ -23,13 +36,55 @@ da39a3ee5e6b4b0d3255bfef95601890afd42343 refs/remotes/origin/mateusz
 da39a3ee5e6b4b0d3255bfef95601890afd12312 refs/remotes/origin/sai
 ```
 
-### Ancestry reference - Relative Commit References
-You may know that you can reference commits by their SHA, by tags, branches, and the special HEAD pointer. Sometimes that's not enough, though. There will be times when you'll want to reference a commit relative to another commit. For example, there will be times where you'll want to tell Git about the commit that's one before the current commit...or two before the current commit. There are special characters called "Ancestry References" that we can use to tell Git about these relative references. Those characters are:
-^ – indicates the other parents (^2, for example, for a merge).
-~ – indicates the first parent commit
+### What is HEAD in Git?
 
-- Here's how we can refer to previous commits:
-the parent commit – the following indicate the parent commit of the current commit
+`HEAD` answers the question: **Where am I right now in the repository?** It is a pointer to the currently checked out branch or commit, which in turn contains an immutable snapshot of your entire code base at a given time.
+
+Whichever commit `HEAD` is referencing, directly (using the hash) or by reference (using a branch), it'll always be the commit on which any local changes are based.
+
+:::info Why understand the concept of `HEAD` is important?
+Basically, with a good understanding of the `HEAD` pointer you're able to swiftly navigate the history of your repository and perform operations you see fit. Never again will you be lost in time, or misinterpret the information `detached HEAD` for an error!
+:::
+
+#### Attached & detached state
+
+First of all, it's important to know that the `HEAD` pointer can be in either of two states: **attached** or **detached**. Default state is **attached**, where any manipulation to the history is automatically recorded to the branch `HEAD` is currently referencing. In **detached** state, experimental changes can be made without impacting any existing branch, as `HEAD` is referencing the underlying commit directly and is not "attached" to a particular branch.
+
+Take a look at below illustration, showcasing the two states in a side-by-side comparison. Note that our history only contains two commits (**C0**& **C1**), and one branch (**master**) with its remote counterpart (**o/master**).
+
+![HEAD.001](/img/web-development/version-control/HEAD.001.png)
+
+Source: [What is HEAD in Git?](https://blog.git-init.com/what-is-head-in-git/)
+
+On the left hand side, `HEAD` is in default **attached** state where any changes are automatically recorded to a branch; in this particular case the local `master` branch. On the right, `HEAD` is in the slightly more uncommon **detached** state, referencing the commit using its unique hash `14ko3` directly.
+
+![HEAD.004](/img/web-development/version-control/HEAD.004.png)
+
+Source: [What is HEAD in Git?](https://blog.git-init.com/what-is-head-in-git/) 
+
+As you can see above, in both cases the new `commit` **C2** got created through a commit operation. The main difference being that in **attached** state the change is automatically recorded in the `master` branch, whereas in **detached** state the change did not impact any existing branch and `master` remains referencing **C1**.
+
+
+#### What is HEAD referencing?
+As already mentioned, most of the time your `HEAD` reference will be pointing to a branch, and hence be in attached state. Whenever a new commit is created on the branch, `HEAD` will automatically follow. But, in some cases and during some procedures you‘ll find yourself with `HEAD` in detached state, where it directly references a commit rather than a branch.
+
+For example, every time you explicitly checkout a commit using its hash, or if you checkout a tag, `HEAD` will go into detached state. There are also other operations such as interactive `rebase` that might leave you with `HEAD` in detached state.
+
+#### `@ ` the new HEAD alias
+
+Since version `1.8.4` of Git, the `@` symbol can be used interchangeably with `HEAD`, for convenience. For example, instead of typing `$ git show HEAD --oneline`, you can instead write `$ git show @ --oneline`.
+
+### Ancestry reference - Relative Commit References
+
+You may know that you can reference commits by their SHA, by tags, branches, and the special `HEAD` pointer. Sometimes that's not enough, though. There will be times when you'll want to reference a commit relative to another commit. For example, there will be times where you'll want to tell Git about the commit that's one before the current commit...or two before the current commit. There are special characters called "**Ancestry References**" that we can use to tell Git about these relative references. 
+
+:::info Those characters are:
+- `^` indicates the other parents (^2, for example, for a merge).
+- `~` indicates the first parent commit
+:::
+
+Here's how we can refer to previous commits:
+- the parent commit – the following indicate the parent commit of the current commit
   - HEAD^
   - HEAD~
   - HEAD~1
@@ -40,7 +95,10 @@ the parent commit – the following indicate the parent commit of the current co
   - HEAD^^^
   - HEAD~3
 
-The main difference between the ^ and the ~ is when a commit is created from a merge. A merge commit has two parents. With a merge commit, the ^ reference is used to indicate the first parent of the commit while ^2 indicates the second parent. The first parent is the branch you were on when you ran git merge while the second parent is the branch that was merged in. (Sai:  first parent 等於你做merge 技branch)
+The main difference between the ^ and the ~ is when a commit is created from a merge. A merge commit has two parents. With a merge commit, the ^ reference is used to indicate the first parent of the commit while ^2 indicates the second parent. The first parent is the branch you were on when you ran git merge while the second parent is the branch that was merged in.
+
+### How to recover from 'detached HEAD' state?
+A lot of git beginners believe the message You are in `'detached HEAD'` state to be an error, when in reality, as we've just seen, it just describes the state your `HEAD` pointer is in. “Recovering” from a detached `HEAD` state is simple, just **switch back to an existing branch or create a new one from where you’re currently at**.
 
 
 ## Commands
@@ -81,7 +139,7 @@ git checkout 6eb715d -- index.html
 ```
 
 
-### Log
+### log
 
 ```shell
 # **[helpful]** Show  the actual changes made to files and things that have been changed in the commit:
@@ -120,7 +178,7 @@ git shortlog
 ```
 
 
-### Compare
+### compare
 
 ```shell
 # Compare modified files:
@@ -160,7 +218,7 @@ git diff --stat --summary 6eb715d..HEAD
 ```
 
 
-### Releases & Version Tags
+### releases & Version Tags
 
 Tagging is generally used to capture a point in history that is used for a marked version release (i.e. v1.0.1). A tag is like a branch that doesn’t change. Unlike branches, tags, after being created, have no further history of commits.
 
@@ -181,7 +239,7 @@ git tag -a v1.0.0 -m 'Message'
 git checkout v1.0.0
 ```
 
-### Branch
+### branch
 
 Git branches are effectively a pointer to a snapshot of your changes. When you want to add a new feature or fix a bug—no matter how big or how small—you spawn a new branch to encapsulate your changes. This makes it harder for unstable code to get merged into the main code base, and it gives you the chance to clean up your future's history before merging it into the main branch.
 
@@ -206,7 +264,7 @@ git branch -D branch_to_delete
 ```
 
 
-### Merge
+### merge
 
 ```shell
 git merge branchname
