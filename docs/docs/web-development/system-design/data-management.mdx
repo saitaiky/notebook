@@ -36,6 +36,65 @@ There are various patterns/solutions for implementing transactions and queries t
 - [API Composition](https://microservices.io/patterns/data/api-composition.html) - the application performs the join rather than the database. For example, a service (or the API gateway) could retrieve a customer and their orders by first retrieving the customer from the customer service and then querying the order service to return the customer’s most recent orders.
 - [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html) - maintain one or more materialized views that contain data from multiple services. The views are kept by services that subscribe to events that each services publishes when it updates its data. For example, the online store could implement a query that finds customers in a particular region and their recent orders by maintaining a view that joins customers and orders. The view is updated by a service that subscribes to customer and order events.
 
+
+## Event sourcing (TODO!!!)
+
+Event Sourcing is a different approach to storing data. Instead of storing the current state, you’re instead going to be storing events. Events represent the state transitions of things that have occurred in your system. 
+
+
+**TODO!!!!!!!!!!!!**
+https://codeopinion.com/event-sourcing-vs-event-driven-architecture/
+
+
+
+The event sourcing pattern is typically used with the CQRS pattern to **decouple read from write workloads**, and optimize for performance, scalability, and security. Data is stored as a series of events, instead of direct updates to data stores. Microservices replay events from an event store to compute the appropriate state of their own data stores. 
+
+The pattern provides visibility for the current state of the application and additional context for how the application arrived at that state. The event sourcing pattern works effectively with the CQRS pattern because data can be reproduced for a specific event, even if the command and query data stores have different schemas.
+
+By choosing this pattern, you can **identify and reconstruct the application’s state** for any point in time. This produces a persistent audit trail and makes debugging easier. However, data eventually becomes consistent and this might not be appropriate for some use cases.
+
+This pattern can be implemented by using either **Amazon Kinesis Data Streams or Amazon EventBridge**.
+
+
+![enabling-diagram4](/img/web-development/system-design/enabling-diagram4.png)
+Source: [Event sourcing pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html)
+
+
+
+![enabling-diagram5](/img/web-development/system-design/enabling-diagram5.png)
+Source: [Event sourcing pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html)
+
+
+
+## Command Query Responsibility Segregation (CQRS)
+
+You have applied the Microservices architecture pattern and the Database per service pattern. As a result, it is no longer straightforward to implement queries that join data from multiple services. Also, if you have applied the Event sourcing pattern then the data is no longer easily queried.
+
+### Problem
+
+How to implement a query that retrieves data from multiple services in a microservice architecture?
+
+### Solution
+
+Define a view database, which is a read-only replica that is designed to support that query. The application keeps the replica up to data by subscribing to Domain events published by the service that own the data.
+
+You can use the CQRS pattern to separate updates and queries if they have different requirements for throughput, latency, or consistency. The CQRS pattern splits the application into two parts: the **command side** and the **query side**. 
+- The command side handles `create`, `update`, and `delete` requests. 
+- The query side runs the `query` part by using the read replicas.
+
+![enabling-diagram3](/img/web-development/system-design/enabling-diagram3.png)
+
+Source: [CQRS pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/cqrs-pattern.html)
+
+You should consider using this pattern if:
+- You implemented the database-per-service pattern and want to join data from multiple microservices.
+- Your read and write workloads have separate requirements for scaling, latency, and consistency.
+- Eventual consistency is acceptable for the read queries.
+
+:::caution Important
+The CQRS pattern typically results in **eventual consistency** between the data stores.
+:::
+
 ## Sega pattern
 
 The saga pattern is **a failure management pattern** that helps establish consistency in distributed applications, and coordinates transactions between multiple microservices to maintain data consistency. A microservice publishes an event for every transaction, and the next transaction is initiated based on the event's outcome. It can take two different paths, depending on the success or failure of the transactions.
@@ -43,7 +102,9 @@ The saga pattern is **a failure management pattern** that helps establish consis
 ### Why is this a failure management pattern?
 In a distributed transaction, multiple services can be called before a transaction is completed. When the services store data in different data stores, it can be challenging to maintain data consistency across these data stores.
 
-To maintain consistency in a transaction, relational databases provide **two-phase commit (2PC)**. This consists of a prepare phase and a commit phase. In the prepare phase, the coordinating process requests the transaction’s participating processes (participants) to promise to commit or rollback the transaction. In the commit phase, the coordinating process requests the participants to commit the transaction. If the participants cannot agree to commit in the prepare phase, then the transaction is rolled back.
+To maintain consistency in a transaction, relational databases provide **two-phase commit (2PC)**. This consists of a prepare phase and a commit phase. 
+1. In the prepare phase, the coordinating process requests the transaction’s participating processes (participants) to promise to commit or rollback the transaction. 
+2. In the commit phase, the coordinating process requests the participants to commit the transaction. If the participants cannot agree to commit in the prepare phase, then the transaction is rolled back.
 
 In distributed systems architected with microservices, **two-phase commit** is not an option as the transaction is distributed across various databases. In this case, one solution is to use **the saga pattern**.
 
