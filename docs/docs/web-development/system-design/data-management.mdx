@@ -37,38 +37,53 @@ There are various patterns/solutions for implementing transactions and queries t
 - [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html) - maintain one or more materialized views that contain data from multiple services. The views are kept by services that subscribe to events that each services publishes when it updates its data. For example, the online store could implement a query that finds customers in a particular region and their recent orders by maintaining a view that joins customers and orders. The view is updated by a service that subscribes to customer and order events.
 
 
-## Event sourcing (TODO!!!)
+## Event sourcing
 
-Event Sourcing is a different approach to storing data. Instead of storing the current state, you’re instead going to be storing events. Events represent the state transitions of things that have occurred in your system. 
+The event sourcing pattern is typically used with the **CQRS pattern** to **decouple read from write workloads**, and optimize for performance, scalability, and security. Data is stored as a series of events, instead of directli storing the current state to data stores. Microservices replay events from an event store to compute the appropriate state of their own data stores. 
 
+:::note
+Events represent the state transitions of things that have occurred in your system. 
+:::
 
-**TODO!!!!!!!!!!!!**
-https://codeopinion.com/event-sourcing-vs-event-driven-architecture/
-
-
-
-The event sourcing pattern is typically used with the CQRS pattern to **decouple read from write workloads**, and optimize for performance, scalability, and security. Data is stored as a series of events, instead of direct updates to data stores. Microservices replay events from an event store to compute the appropriate state of their own data stores. 
-
-The pattern provides visibility for the current state of the application and additional context for how the application arrived at that state. The event sourcing pattern works effectively with the CQRS pattern because data can be reproduced for a specific event, even if the command and query data stores have different schemas.
+The pattern provides visibility for the current state of the application and additional context for how the application arrived at that state. The event sourcing pattern works effectively with the **CQRS pattern** because data can be reproduced for a specific event, even if the command and query data stores have different schemas.
 
 By choosing this pattern, you can **identify and reconstruct the application’s state** for any point in time. This produces a persistent audit trail and makes debugging easier. However, data eventually becomes consistent and this might not be appropriate for some use cases.
 
-This pattern can be implemented by using either **Amazon Kinesis Data Streams or Amazon EventBridge**.
-
-
+### What are the events really?
 
 ![enabling-diagram4](/img/web-development/system-design/current-state.png.webp)
-Source: [Event Sourcing Example & Explained in plain English](hhttps://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
+Source: [Event Sourcing Example & Explained in plain English](https://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
 
 ![enabling-diagram4](/img/web-development/system-design/event-sourcing.webp)
-Source: [Event Sourcing Example & Explained in plain English](hhttps://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
+Source: [Event Sourcing Example & Explained in plain English](https://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
+
+### Event Sourcing Architecture
+
+Event Sourcing is an architectural design pattern that stores data in an append-only log. It is part of a wider ecosystem of design patterns that work together in various ways to allow developers to create the most effective architecture for their needs. 
+
+By deploying an Event Store as a design pattern within a wider architecture, it allows for the inclusion of other design patterns in the system that are the most suitable for the needs of the domain. For example, an event-sourced system works well within a CQRS architecture, however it's not necessary to use them together. **Event Sourcing can be deployed alongside event driven architecture, or in conjunction with CQRS, an aggregate pattern, a command handler pattern, or one of many other patterns.**
+Each individual pattern is a useful tool on its own, that can work in concert with other related patterns to make stronger, more specific patterns for your specific use case.
+
+![enabling-diagram4](/img/web-development/system-design/event-sourcing-architecture.svg)
+Source: [Event Sourcing Architecture](https://www.eventstore.com/event-sourcing#Event-Sourcing-Architecture)
+
+An event store can be a key element of a system, and that system can be as simple or as complex as the business domain requires it to be. It's useful to consider putting an event-sourced system in a part of the architecture that requires the preservation of context for all events, as this is where Event Sourcing is most effective. 
 
 
+### AWS implimentation
+
+This pattern can be implemented by using either **Amazon Kinesis Data Streams or Amazon EventBridge**.
+
+#### Amazon Kinesis Data Streams implementation
+
+In the following illustration, Kinesis Data Streams is the main component of a centralized event store. The event store captures application changes as events and persists them on Amazon Simple Storage Service (Amazon S3).
 
 ![enabling-diagram4](/img/web-development/system-design/enabling-diagram4.png)
 Source: [Event sourcing pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html)
 
+#### Amazon EventBridge implementation
 
+In the following illustration, EventBridge is used as an event store. EventBridge provides a [default event bus](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-event-bus.html) for events that are published by AWS services, and you can also create a [custom event bus](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-event-bus.html) for domain-specific buses.
 
 ![enabling-diagram5](/img/web-development/system-design/enabling-diagram5.png)
 Source: [Event sourcing pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html)
@@ -87,12 +102,16 @@ How to implement a query that retrieves data from multiple services in a microse
 
 Define a view database, which is a read-only replica that is designed to support that query. The application keeps the replica up to data by subscribing to Domain events published by the service that own the data.
 
-You can use the CQRS pattern to separate updates and queries if they have different requirements for throughput, latency, or consistency. The CQRS pattern splits the application into two parts: the **command side** and the **query side**. 
+You can use the CQRS pattern to separate updates and queries if they have different requirements for throughput, latency, or consistency. The CQRS pattern splits the application into two parts: the **command side** and the **query side** (the same definition that is used by Meyer in Command and Query Separation, a command is any method that mutates state and a query is any method that returns a value). 
 - The command side handles `create`, `update`, and `delete` requests. 
 - The query side runs the `query` part by using the read replicas.
 
-![enabling-diagram3](/img/web-development/system-design/enabling-diagram3.png)
+**CQRS**
+![CQRS-in-general](/img/web-development/system-design/CQRS-in-general.svg)
+Source: [EventStore - A Beginner’s Guide to Event Sourcing](https://www.eventstore.com/event-sourcing#CQRS)
 
+**AWS implementation**
+![CQRS-AWS](/img/web-development/system-design/CQRS-AWS.png)
 Source: [CQRS pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/cqrs-pattern.html)
 
 You should consider using this pattern if:

@@ -1,0 +1,97 @@
+---
+title: Architectures
+description: Architectures
+keywords:
+  - architectures
+---
+
+## Event-Driven Architecture
+
+![event-driven-architecture-example](/img/web-development/system-design/event-driven-architecture-example.png)
+Source: [AWS - What is an Event-Driven Architecture?](https://aws.amazon.com/event-driven-architecture/)
+
+An event-driven architecture uses events to trigger and communicate between decoupled services and is common in modern applications built with microservices. An event is a change in state, or an update, like an item being placed in a shopping cart on an e-commerce website. Events can either carry the state (the item purchased, its price, and a delivery address) or events can be identifiers (a notification that an order was shipped).
+
+Event-driven architectures have three key components: **event producers, event routers, and event consumers**. A producer publishes an event to the router, which filters and pushes the events to consumers. Producer services and consumer services are decoupled, which allows them to be scaled, updated, and deployed independently.
+
+There are two main types of routers used in event-driven architectures: **event buses** and **event topics**. At AWS, we offer [Amazon EventBridge](/eventbridge/) to build event buses and [Amazon Simple Notification Service (SNS)](/sns/) to build event topics.
+
+### Event-Driven Systems vs Request-Response Systems
+
+Event-based systems differ markedly from request-based systems. Event-based and request-based systems are duals of each other. Whereas the receipt of a request triggers the action of a request-response system, the receipt of an event triggers event-driven systems. 
+
+The nature of an event is different from that of a request. 
+
+- A request says, "Do this for me."  In contrast, an event says, "This happened." 
+- In a request-driven system, the sender chooses what action to take.  In an event-driven system, the sender merely says that something happened. 
+- Event processors have no obligation to the event generator. Event generators are obligated to report events and respond to directives. 
+Conversely, a client in a request-driven system has no obligation to the server. A client can make a request or not. Servers are expected to fulfill requests.
+- Event processors interpret what an event means. A request, on the other hand, implies that the interpretation of what should happen has already occurred. You can think of this as receiver, instead of sender, determinism.
+
+<table>
+   <thead>
+      <tr>
+         <th tabindex="0" colspan="1" scope="col" data-column="0"></th>
+         <th tabindex="0" scope="col" data-column="1">
+            <div><strong>Request-Based</strong></div>
+         </th>
+         <th tabindex="0" scope="col" data-column="2">
+            <div><strong>Event-Based</strong></div>
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td colspan="1">Signal</td>
+         <td>Request receipt</td>
+         <td>Event receipt</td>
+      </tr>
+      <tr>
+         <td colspan="1">Nature</td>
+         <td>"Do this"</td>
+         <td>"Something happened"</td>
+      </tr>
+      <tr>
+         <td colspan="1">Obligation</td>
+         <td>At server</td>
+         <td>At&nbsp;event generator (client)</td>
+      </tr>
+      <tr>
+         <td colspan="1">Interpretation</td>
+         <td>On client</td>
+         <td>On server</td>
+      </tr>
+   </tbody>
+</table>
+
+### Benfits of Event-Driven Architecture
+
+- Scale and fail independently
+  - With microservices focused on doing one thing well and no tight coupling to other services, you can individually scale the services that have the largest workload in order to ensure that each microservice is up to date with its work log.
+  - if one service has a failure, the rest will keep running. The event router acts as an elastic buffer that will accommodate surges in workloads.
+- Develop with agility
+  - You no longer need to write custom code to **poll, filter, and route events**; the event router will automatically filter and push events to consumers. 
+  - The router also removes the need for heavy coordination between producer and consumer services, speeding up your development process.
+- Audit with ease
+  - An event router acts as a **centralized location** to audit your application and define policies. These policies can restrict who can publish and subscribe to a router and control which users and resources have permission to access your data. 
+  - You can also encrypt your events both in transit and at rest.
+- Cut costs
+  - Event-driven architectures are **push-based**, so everything happens on-demand as the event presents itself in the router. 
+  - This way, you’re not paying for **continuous polling** to check for an event. This means less network bandwidth consumption, less CPU utilization, less idle fleet capacity, and less SSL/TLS handshakes.
+
+### Drawbacks of Event-Driven Architecture
+
+- **Over-engineering of processes** — Sometimes a simple call from one service to another is enough. If a process uses event driven architecture, it usually requires much more infrastructure to support it, which will add costs (as it will need a queueing system)
+- **Inconsistencies** — Because processes now rely on **eventual consistency**, it is not typical to support ACID (atomicity, consistency, isolation, durability) transactions, so handling of duplications, or out of sequence events can make service code more complicated, and harder to test and debug all situations.
+- **Rollbacks are complex** — Managing distributed transaction could be complex. There are multiple services that consume an event, as a result, if an exception occurred in one of the services, what should happen to the entire flow or implementing a rollback process is challenging.
+
+### A few points to consider when applying event-driven architecture
+
+- The durability of your event source. Your event source should be reliable and guarantee delivery if you need to process every single event. 
+- Your performance control requirements. Your application should be able to handle the asynchronous nature of event routers. 
+- Your event flow tracking. The indirection introduced by an event-driven architecture allows for dynamic tracking via monitoring services, but not static tracking via code analysis. 
+- The data in your event source. If you need to rebuild state, your event source should be deduplicated and ordered.
+
+
+
+
