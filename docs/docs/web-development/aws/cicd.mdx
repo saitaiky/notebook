@@ -1,0 +1,25 @@
+---
+title: CI/CD
+description: CI/CD in AWS
+keywords:
+  - CI/CD in AWS
+---
+
+## [Deployment policy](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
+- **CodeBuild - Jenkins**
+  - install, pre_build, build, post_build
+  - artifacts
+- **CodeDeploy - Ansible, chef, Puppe**
+  - Target services (Lambda, ECS, EC2)
+  - Lambda
+    - LambdaAllAtOnce
+    - LambdaLinear10PercentEvery10Minutes ... [Shifts 10 percent of traffic every 10 minutes until all traffic is shifted.]
+    - LambdaCanary10Percent5Minutes... [Shifts 10 percent of traffic in the first increment. The remaining 90 percent is deployed five minutes later.]
+  - ECS
+    - ECSAllAtOnce
+    - ECSCanary10Percent15Minutes..
+    - ECSLinear10PercentEvery1Minutes...
+  - EC2
+    - AllAtOnce/ HalfAtATime / OneAtATime
+      - In-place deployments
+      - Blue/green deployments (Update DNS Routing)

@@ -22,7 +22,7 @@ There are a few different ways to keep a service’s persistent data private. Yo
 
 ### Benefits
 - Helps ensure that the services are loosely coupled. Changes to one service’s database does not impact any other services.
-- Each service can use the type of database that is best suited to its needs. For example, a service that does text searches could use ElasticSearch. A service that manipulates a social graph could use Neo4j.
+- Each service can use the type of database that is best suited to its needs. For example, a service that does text searches could use **ElasticSearch**. A service that manipulates a social graph could use **Neo4j**c.
 
 ### Drawbacks
 - Implementing business transactions that span multiple services is not straightforward. Distributed transactions are best avoided because of the CAP theorem. Moreover, many modern (NoSQL) databases don’t support them.
@@ -54,6 +54,15 @@ The pattern provides visibility for the current state of the application and add
 By choosing this pattern, you can **identify and reconstruct the application’s state** for any point in time. This produces a persistent audit trail and makes debugging easier. However, data eventually becomes consistent and this might not be appropriate for some use cases.
 
 This pattern can be implemented by using either **Amazon Kinesis Data Streams or Amazon EventBridge**.
+
+
+
+![enabling-diagram4](/img/web-development/system-design/current-state.png.webp)
+Source: [Event Sourcing Example & Explained in plain English](hhttps://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
+
+![enabling-diagram4](/img/web-development/system-design/event-sourcing.webp)
+Source: [Event Sourcing Example & Explained in plain English](hhttps://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
+
 
 
 ![enabling-diagram4](/img/web-development/system-design/enabling-diagram4.png)
