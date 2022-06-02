@@ -1,0 +1,84 @@
+---
+title: "Extreme programming"
+metaTitle: ""
+metaDescription: ""
+---
+
+## What is pair programming?
+Pair programming is an Agile software development technique originating from Extreme programming (XP) in which two developers team together on one computer. The two people work together to design, code and test user stories. Ideally, the two people would be equally skilled and would each have equal time at the keyboard.
+
+Pair programming is a collaborative effort that involves a lot of communication. The idea is to have the driver and navigator communicate, discuss approaches and solve issues that might be difficult for a single developer to detect.
+
+
+### Benefits of pair programming
+Pair programming includes the following advantages:
+
+- **Fewer coding mistakes** - Another programmer is looking over the driver's code, which can help reduce mistakes and improve the quality of the code.
+- **Knowledge is spread among the pairs** - Junior developers can pick up more skills from senior developers. And those unfamiliar with a process can be paired with someone who knows more about the process.
+- **Reduced effort to coordinate** - Developers will get used to collaborating and coordinating their efforts.
+- **Increased resiliency** - Pair programming helps developers understand each part of a codebase, meaning the environment will not be dependent on a single person for repairs if something breaks.
+
+
+### Challenges of pair programming
+Pair programming includes the following pitfalls:
+
+- **Efficiency** - Common logic might dictate that pair programming would reduce productivity by 50%, because two developers are working on the same project at one time. According to a blog post on Raygun, pairs work about 15% slower, which is an improvement but is still less than the productivity of two separate programmers.
+- **Equally engaging pairs** - If both developers do not equally engage in the project, then there is less chance that knowledge will be shared, and it is highly probable that one developer will participate less than the other.
+- **Social and interactive process** - It is hard for those who work better alone. Pairs that have trouble together might be better suited to work by themselves; forcing them to collaborate may hurt their work ethic.
+- **Sustainability** - The pace may not be suited to practicing hours at a time. Likely, developers will need breaks at different times.
+
+
+## Pair programming styles and techniques
+
+### Driver/navigator style (Traditional)
+
+The **Driver** is the person at the wheel, i.e. the keyboard. She is focussed on completing the tiny goal at hand, ignoring larger issues for the moment. A driver should always talk through what she is doing while doing it.
+
+The **Navigator** is in the **observer** position, while the driver is typing. She reviews the code on-the-go, gives directions and shares thoughts. The navigator also has an eye on the larger issues, bugs, and makes notes of potential next steps or obstacles.
+
+A common flow goes like this:
+
+1. Start with a reasonably well-defined task
+2. Agree on one tiny goal at a time. This can be defined by a unit test, or by a commit message, or written on a sticky note.
+3. Switch keyboard and roles regularly (**Usally switch role when the navigator ask for the keyboard to give his input or implement his idea.**). Shared active participation keeps the energy level up and we learn and understand things better.
+4. As navigator, avoid the "tactical" mode of thinking, leave the details of the coding to the driver - your job is to take a step back and complement your pair's more tactical mode with medium-term thinking. Park next steps, potential obstacles and ideas on sticky notes and discuss them after the tiny goal is done, so as not to interrupt the driver's flow.
+
+
+#### Common mistake
+
+To efficiently carry out this style of pair programming, communication is what that makes all the difference. Sadly, this level of interaction isn’t inevitably inherent to a fresh pair. Due to this powerful communication specification, I usually consider **this type to be a more transitional way of doing pair programming** and I instruct beginners to **stay away from it**.
+
+It's easy to be in a situation where
+- driver is too focused on programming without commnicate with navigator
+- navigator loses his focus to give out ideas
+
+![driver-nevigator](/img/web-development/programming/driver-nevigator.jpeg)
+source: [Pair Programming Guide](https://medium.com/@weblab_tech/pair-programming-guide-a76ca43ff389)
+
+### Strong-Style Pairing
+
+This is a technique particularly useful for **knowledge transfer**, described in much more detail by Llewellyn Falco here.
+
+The rule: "For an idea to go from your head into the computer it MUST go through someone else's hands". In this style, the navigator is usually the person much more experienced with the setup or task at hand, while the driver is a novice (with the language, the tool, the codebase, ...). The experienced person mostly stays in the navigator role and guides the novice.
+
+An important aspect of this is the idea that the driver totally trusts the navigator and should be "comfortable with incomplete understanding". Questions of "why", and challenges to the solution should be discussed after the implementation session. In a setting where one person is a total novice, this can make the pairing much more effective.
+
+While this technique borders on micro-management, it can be a useful onboarding tool to favor active "learning by doing" over passive "learning by watching". This style is great for initial knowledge transfer, but shouldn't be overused. Keep in mind that the goal is to be able to easily switch roles after some time, and ease out of the micro management mode. That will be a sign that the knowledge transfer worked.
+
+#### Traditional style vs Strong style
+![strong-style-paring](/img/web-development/programming/strong-style-paring.jpeg)
+
+- Traditional approach, on the other hand, requires the navigator to ask for the system to give his input or implement his idea.
+- Whenever the driver requires pitching in the idea, he must handover the system to his partner and then carryout the control from the observer position. This approach completely engages the observer.
+
+### Ping-pong style
+
+![ping-pong](/img/web-development/programming/ping-pong.png)
+Source: Jim Shore’ 2007 book ‘The Art of Agile Development
+
+With the ping-pong approach, one developer writes a test and the other developer makes the test pass. Each person alternates between writing and passing tests. When two developers shift roles regularly, it is unlikely one programmer will control the workflow. This style of pair programming is normally performed in conjunction with Test-Driven Development (TDD).
+
+## Reference:
+
+- [On Pair Programming](https://martinfowler.com/articles/on-pair-programming.html#Strong-stylePairing)
+- [Pair Programming Guide](https://medium.com/@weblab_tech/pair-programming-guide-a76ca43ff389)
