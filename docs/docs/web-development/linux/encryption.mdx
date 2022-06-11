@@ -1,0 +1,47 @@
+---
+title: Encryption
+description: Encryption
+keywords:
+  - Encryption
+---
+
+## GPG encryption tool
+
+The GNU Privacy Guard (GPG or GnuPG) tool is a native/baseos security tool for encrypting files. According to the gpg man page:
+
+:::note
+gpg is the OpenPGP (Pretty Good Privacy) part of the GNU Privacy Guard (GnuPG). It is a tool to provide digital encryption and signing services using the OpenPGP standard. gpg features complete key management and all the bells and whistles you would expect from a full OpenPGP implementation.
+:::
+
+### Import a key from a keyserver
+
+OpenPGP has a lot of parts. 
+- One of those parts, the local client, is right there, on your hardware: GnuPG. 
+- Another part, though, is the keyserver.
+
+GnuPG is going to access a keyserver to obtain a key.
+
+The keyserver will look up the key by its "fingerprint", that is, a special name designed to be verifiably unique to that key.
+Here follows an example command to use the GnuPG package's gpg command to import a key called with the fingerprint from keyserver `hkp://pool.sks-keyservers.net`. You can verify the figure print of the key above from [Keybase](https://keybase.io/)
+
+`$ gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3`
+
+Reference: [Receiving a key from a keyserver in gnupg](https://superuser.com/questions/931812/receiving-a-key-from-a-keyserver-in-gnupg)
+
+### What is public key server?
+
+If you plan to send a secure message to someone who uses public key cryptography like PGP, you need to know what key to use to encrypt your message. **Public key servers act as a phonebook for such keys, allowing a person to use an email address, name, or key fingerprint to search for a full key and download it**. There are many PGP public key servers, but they usually share their key collections with each other. Keyservers can't verify whether the keys they publish are genuine or forgeries. Anyone can upload a key to a public key server—in anyone's name. That means that a key connected to a person's name or email on a keyserver might not be their real key. In order to check the authenticity of a key, you need to check its signatures, or confirm its fingerprint with the original user in a trustworthy way.
+
+:::note Finger Print
+
+The keys of public key cryptography are very large numbers, sometimes a thousand or more digits long. A fingerprint is a much smaller number or set of numbers and letters that can be used as a unique name for that key, without having to list all of the key's digits. So, for instance, if you and a friend wished to make sure you both had the same key, you could either spend a long time reading off all the hundreds of digits in the key, or you could each compare your key's fingerprints instead. 
+
+The fingerprints presented by cryptographic software usually consist of around 40 letters and numbers. If you carefully check that a fingerprint has the right value, you should be safe against impersonation using a fake key. Some software tools may offer more convenient alternative ways to verify a friend's key, but some form of verification needs to happen to prevent communications providers from easily being able to listen in. 
+
+:::
+
+PGP allows you to sign other people's keys, which is a way of using your own key to assert that a certain key is the right one to use to contact another person. This is meant to provide a way of distinguishing between genuine and fake keys; if people sign the right keys for people they know and communicate with, others can use those signatures to confirm that the genuine keys are genuine. When you download a key from a key server, it may include signatures from other people who affirm that it's the right one. If you know those people and know that you have the right key for them, you can have more confidence in the newly downloaded key. 
+
+This verification process is also called the web of trust. Its advantage is that it's decentralized and not controlled by any authority, so you don't have to believe a certain company or government about which keys to use when writing to new people. Instead, you can believe your own social networks. One important disadvantage of the web of trust is that publishing signatures for other people's keys tells the whole world who your contacts are; it creates public evidence that you know particular people. Also, using the web of trust correctly requires a good deal of  time and attention, and some communities rarely or never participate.
+
+Source: [Public key servers](https://ssd.eff.org/en/glossary/public-key-servers)
