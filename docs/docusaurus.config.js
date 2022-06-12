@@ -9,7 +9,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Sai\'s Note Book',
   tagline: 'Learn, update and iterate',
-  url: 'https://hasura.io',
+  url: 'https://sai-tai.netlify.app',
   baseUrl: '/docs/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
