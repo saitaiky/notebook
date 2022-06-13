@@ -135,7 +135,7 @@ const config = {
       // },
       // For header
       navbar: {
-        hideOnScroll: false,
+        hideOnScroll: true,
         title: '',
         logo: {
           alt: 'Hasura Logo',
@@ -146,13 +146,23 @@ const config = {
         items: [
           {
             type: 'dropdown',
-            label: 'Docs',
+            label: 'Technology',
             position: 'left',
             items: [
               {
                 type: 'doc',
                 docId: 'web-development/index',
                 label: 'Web development',
+              },
+              {
+                type: 'doc',
+                docId: 'linux/index',
+                label: 'Linux',
+              },
+              {
+                type: 'doc',
+                docId: 'industrial-knowledge/index',
+                label: 'Industrial Knowledge',
               },
             ],
           },
