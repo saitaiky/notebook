@@ -14,6 +14,7 @@ function HomepageHeader() {
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
+        {/*
         <div className={styles.links}>
           <VersionedLink
             className="button button--primary button--lg"
@@ -26,18 +27,19 @@ function HomepageHeader() {
             Hasura Cloud Docs
           </VersionedLink>
         </div>
+        */}
         <div className={styles.links}>
           <Link
-            className="button button--secondary button--lg"
-            to="/wiki/">
-            Docs Wiki
+            className="button button--primary button--lg"
+            to="/web-development/index/">
+            Web development
           </Link>
         </div>
         <div className={styles.links}>
           <Link
             className="button button--secondary button--lg"
-            to="/web-development/">
-            Web development
+            to="/wiki/">
+            Docs Wiki
           </Link>
         </div>
         <img src={hasuras} alt="Hasuras Image" />

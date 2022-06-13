@@ -1,6 +1,9 @@
 import React from "react";
 import Content from "@theme-original/DocSidebar/Desktop/Content";
-import VersionedLink from "@site/src/components/VersionedLink";
+
+//import VersionedLink from "@site/src/components/VersionedLink"; // It will add /lastest to the url
+import Link from "@docusaurus/Link";
+
 import styles from "./customStyles.module.scss";
 import useIsBrowser from "@docusaurus/useIsBrowser";
 
@@ -13,18 +16,18 @@ export default function ContentWrapper(props) {
 	return (
 		<>
 			<div className={styles["doc-sidebar-tabs"]}>
-				<VersionedLink
+				<Link
 					to="/web-development/index/"
 					className={`${styles["link-tab"]} ${isWebDevelopmentDocs ? styles['active'] : ''}`}
 				>
 					Web Development
-				</VersionedLink>
-				<VersionedLink
+				</Link>
+				<Link
 					to="/crypto/index/"
 					className={`${styles["link-tab"]} ${isCryptoDocs ? styles['active'] : ''}`}
 				>
 					Crypto
-				</VersionedLink>
+				</Link>
 			</div>
 			<Content {...props} />
 		</>

@@ -33,6 +33,7 @@ const config = {
           breadcrumbs: true,
           // showLastUpdateAuthor: true,
           // showLastUpdateTime: true,
+          /*
           lastVersion: "current",
           versions: {
             current: {
@@ -41,6 +42,7 @@ const config = {
               path: 'latest'
             },
           }
+          */
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
@@ -149,36 +151,22 @@ const config = {
             items: [
               {
                 type: 'doc',
-                docId: 'graphql/core/index',
-                label: 'Hasura GraphQL Engine',
-              },
-              {
-                type: 'docSidebar',
-                sidebarId: 'cloudDocsSidebar',
-                label: 'Hasura Cloud',
-              },
-              {
-                type: 'doc',
                 docId: 'web-development/index',
                 label: 'Web development',
               },
             ],
           },
           {
-            to: 'https://hasura.io/products/',
-            label: 'Product',
+            to: 'wiki',
+            label: 'Wiki',
             position: 'left',
           },
           {
-            to: 'https://hasura.io/blog/',
-            label: 'Blog',
+            to: 'https://docusaurus.io/docs',
+            label: 'Docusaurus',
             position: 'left',
           },
-          {
-            to: 'https://hasura.io/learn/',
-            label: 'Tutorials',
-            position: 'left',
-          },
+          /* Version control
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -190,6 +178,7 @@ const config = {
               },
             ],
           },
+          */
           {
             type: 'search',
             position: 'right',
@@ -201,9 +190,10 @@ const config = {
             'aria-label': 'GitHub repository',
           },
           {
-            to: '/aboutme',
+            to: '/about',
             label: 'About me',
             position: 'right',
+            activeBaseRegex: `/about/`,
           },
         ],
       },

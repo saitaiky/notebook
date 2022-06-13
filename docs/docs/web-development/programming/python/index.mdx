@@ -1,0 +1,206 @@
+---
+title: "Python"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+import Link from "@docusaurus/Link";
+
+## The Zen of Python, by Tim Peters
+
+```python
+>>> import this
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+```
+
+## What are the differences between type() and isinstance()?
+[ref](https://stackoverflow.com/questions/1549801/what-are-the-differences-between-type-and-isinstance)
+
+```python
+class Vehicle:
+    pass
+
+class Truck(Vehicle):
+    pass
+
+# In this case, a truck object is a Vehicle, but you'll get this:
+isinstance(Vehicle(), Vehicle)  # returns True
+type(Vehicle()) == Vehicle      # returns True
+isinstance(Truck(), Vehicle)    # returns True
+type(Truck()) == Vehicle        # returns False, and this probably won't be what you want.
+```
+
+`isinstance` caters for inheritance (an instance of a derived class is an instance of a base class, too), while checking for equality of `type` does not (it demands identity of types and rejects instances of subtypes, AKA subclasses).
+
+Normally, in Python, you want your code to support inheritance, of course (since inheritance is so handy, it would be bad to stop code using yours from using it!), so isinstance is less bad than checking identity of types because it seamlessly supports inheritance.
+
+## Built-in Functions
+
+### all() and any()
+Returns True if all items in an iterable object are true
+```python
+def all(iterable):
+    for element in iterable:
+        if not element:
+            return False
+    return True
+
+# 	Returns True if any item in an iterable object is true
+def any(iterable):
+    for element in iterable:
+        if element:
+            return True
+    return False
+```
+
+### dic()
+Returns a dictionary (Array)
+```python
+class dict(**kwarg)
+class dict(mapping, **kwarg)
+class dict(iterable, **kwarg)
+
+>>> dict(name = "John", age = 36, country = "Norway")
+{'m': 8, 'n': 9}
+
+>>> dict({'m':8, 'n':9})
+>>> dict({'m':8, 'n':9}, o=10)
+{'m': 8, 'n': 9}
+{'m': 8, 'n': 9, 'o': 10}
+
+>>> dict([('m', 8), ('n', 9)])
+>>> dict([('m', 8), ('n', 9)], o=10)
+{'m': 8, 'n': 9}
+{'m': 8, 'n': 9, 'o': 10}
+```
+
+### compile()
+Compile the source into a code or AST object. 
+
+| para  | desc  |
+|---|---|
+| source  | The source to compile, can be a String, a Bytes object, or an AST object.  |
+| filename  | The name of the file that the source comes from. If the source does not come from a file, you can write whatever you like.  |
+| mode  | eval(a single expression), exec(block), single(a single interactive statement)  |
+
+```python
+compile(source, filename, mode, ....)
+x = compile('print(55)\nprint(88)', 'test', 'exec')
+exec(x)
+```
+
+### eval() & exec()
+- eval(): Evaluates and executes an expression
+- exec(): Executes the specified code (or object)
+
+The `exec()` function accepts large blocks of code, unlike the `eval()` function which only accepts a single expression
+
+
+```python
+x = 'print(55)'
+eval(x)
+
+x = 'name = "John"\nprint(name)'
+exec(x)
+```
+
+## With statment
+The problem we want to solve is 
+Below, “set things up” could be opening a file, or acquiring some sort of external resource, and “tear things down” would then be closing the file, or releasing or removing the resource. The try-finally construct guarantees that the “tear things down” part is always executed, even if the code that does the work doesn’t finish.
+
+```python
+set things up
+try:
+    do something
+finally:
+    tear things down
+```
+
+So after contemplating a number of alternatives, GvR and the python-dev team finally came up with a generalization of the latter, using an object instead of a generator to control the behaviour of an external piece of code:
+```python
+class controlled_execution:
+    def __enter__(self):
+        set things up
+        return thing
+    def __exit__(self, type, value, traceback):
+        tear things down
+
+with controlled_execution() as thing:
+    thing.doSomeThing()
+```
+
+
+## dir()
+
+The built-in function dir() returns a list of defined names in a namespace. Without arguments, it produces an alphabetically sorted list of names in the current **local symbol table**:
+```python
+>>> dir()
+['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__',
+'__package__', '__spec__']
+
+
+>>> qux = [1, 2, 3, 4, 5]
+>>> class Bar():
+...     pass
+...
+>>> x = Bar()
+>>> dir()
+['Bar', '__annotations__', '__builtins__', '__doc__', '__loader__', '__name__',
+'__package__', '__spec__', 'qux', 'x']
+```
+
+This can be useful for identifying what exactly has been added to the namespace by an import statement:
+```python
+>>> dir()
+['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__',
+'__package__', '__spec__']
+
+
+>>> import mod
+>>> dir()
+['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__',
+'__package__', '__spec__', 'mod']
+>>> mod.s
+'If Comrade Napoleon says it, it must be right.'
+>>> mod.foo([1, 2, 3])
+arg = [1, 2, 3]
+```
+
+When given an argument that is the name of a module, dir() lists the names defined in the module:
+```python
+>>> import mod
+>>> dir(mod)
+['Foo', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__',
+'__name__', '__package__', '__spec__', 'a', 'foo', 's']
+```
+
+
+Check <Link to="/web-development/programming/python/modules-packages">Modules and Packages</Link> if you want to know more about how Python's name space works.
+
+
+
+
+## Resource
+[Understanding Python's "with" statement](https://effbot.org/zone/python-with-statement.htm)
+
+[Python modules packages](https://realpython.com/python-modules-packages/#the-module-search-path)
