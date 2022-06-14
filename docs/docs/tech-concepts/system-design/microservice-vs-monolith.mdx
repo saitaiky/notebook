@@ -11,7 +11,7 @@ This post is largely referenced this amazing blog post - [Microservices vs Monol
 
 ## MONOLITHIC ARCHITECTURE
 
-![monolithic-architectur](/img/web-development/system-design/monolithic-architecture.jpg)
+![monolithic-architectur](/img/tech-concepts/system-design/monolithic-architecture.jpg)
 
 The monolithic architecture is considered to be a traditional way of building applications. 
 
@@ -43,7 +43,7 @@ on scales up, it becomes too complicated to understand. Also, a complex system o
 
 ## MICROSERVICES ARCHITECTURE
 
-![microservice-architecture](/img/web-development/system-design/microservice-architecture.jpg)
+![microservice-architecture](/img/tech-concepts/system-design/microservice-architecture.jpg)
 
 While a monolithic application is a single unified unit, a microservices architecture breaks it down into a collection of smaller independent units. 
 
@@ -81,16 +81,16 @@ AWS has a [blog post](https://docs.aws.amazon.com/prescriptive-guidance/latest/m
 - [Decompose by business capability](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/decompose-business-capability.html)
   - A business capability is what a business does to generate value (for example, sales, customer service, or marketing). Typically, an organization has multiple business capabilities and these vary by sector or industry. 
   - Use this pattern if your team has enough insight into your organization's business units and you have subject matter experts (SMEs) for each business unit. 
-  - ![decomposing-diagram1](/img/web-development/system-design/decomposing-diagram1.png)
+  - ![decomposing-diagram1](/img/tech-concepts/system-design/decomposing-diagram1.png)
 - [Decompose by subdomain](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/decompose-subdomain.html)
   - This approach breaks down the organization’s domain model into separate subdomains that are labeled as core (a key differentiator for the business), supporting (possibly related to business but not a differentiator), or generic (not business-specific). 
-  - ![decomposing-diagram2](/img/web-development/system-design/decomposing-diagram2.png)
+  - ![decomposing-diagram2](/img/tech-concepts/system-design/decomposing-diagram2.png)
 - [Decompose by transactions](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/decompose-transactions.html)
   - In a distributed system, an application typically needs to call multiple microservices to complete one business transaction. To avoid latency issues or two-phase commit problems, you can group your microservices based on transactions. 
-  - ![decomposing-diagram3](/img/web-development/system-design/decomposing-diagram3.png)
+  - ![decomposing-diagram3](/img/tech-concepts/system-design/decomposing-diagram3.png)
 - [Service per team pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-decomposing-monoliths/service-per-team.html)
   - Each team is responsible for a business capability and owns the capability's code base. The team independently develops, tests, deploys, or scales its services, and primarily interacts with other teams to negotiate APIs.
-  - ![decomposing-diagram4](/img/web-development/system-design/decomposing-diagram4.png)
+  - ![decomposing-diagram4](/img/tech-concepts/system-design/decomposing-diagram4.png)
 
 ## AFTERWORD
 

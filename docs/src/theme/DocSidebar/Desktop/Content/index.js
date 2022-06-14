@@ -17,13 +17,13 @@ export default function ContentWrapper(props) {
 		<>
 			<div className={styles["doc-sidebar-tabs"]}>
 				<Link
-					to="/web-development/index/"
+					to="/Product/"
 					className={`${styles["link-tab"]} ${isWebDevelopmentDocs ? styles['active'] : ''}`}
 				>
 					Web Development
 				</Link>
 				<Link
-					to="/crypto/index/"
+					to="/Concept/"
 					className={`${styles["link-tab"]} ${isCryptoDocs ? styles['active'] : ''}`}
 				>
 					Crypto

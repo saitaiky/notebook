@@ -161,8 +161,8 @@ const config = {
               },
               {
                 type: 'doc',
-                docId: 'industrial-knowledge/index',
-                label: 'Industrial Knowledge',
+                docId: 'tech-concepts/index',
+                label: 'Concepts',
               },
             ],
           },
