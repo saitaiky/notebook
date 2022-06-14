@@ -9,10 +9,6 @@ sidebar_position: 0
 
 # What is Docker? Three Major Innovations
 
-Welcome to the future of software management.
-
-Today, docker is lots of things. This lecture is focused on Docker's original three innovations that changed the software world.
-
 ![Docker Friends](/img/web-development/docker/intro/docker-friends.png)
 
 Docker was not the inventor of containers, but it made them easier to use with the three steps to creating and running them:

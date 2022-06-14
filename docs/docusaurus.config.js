@@ -131,18 +131,20 @@ const config = {
       },
       announcementBar: {
         id: 'announcementBar-2', // Increment on change
-        content: `⭐️ If you think this blog may help you abit, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitai0802/docusaurus-doc-theme">GitHub</a>`,
+        content: `⭐️ If you think this blog is handy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitai0802/docusaurus-doc-theme">GitHub</a>`,
       },
       // For header
       navbar: {
         hideOnScroll: true,
-        title: '',
+        title: 'Sai\'s notebook',
+        /*
         logo: {
           alt: 'Hasura Logo',
           src: '/img/logo.svg',
           srcDark: '/img/logo-light.svg',
-          href: 'https://hasura.io'
+          href: '/'
         },
+        */
         items: [
           {
             type: 'dropdown',
