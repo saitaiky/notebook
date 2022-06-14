@@ -129,10 +129,10 @@ const config = {
         // Optional: Algolia search parameters
         // searchParameters: {},
       },
-      // announcementBar: {
-      //   id: 'announcementBar-2', // Increment on change
-      //   content: `⭐️ If you like Docusaurus, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebook/docusaurus">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/docusaurus" >Twitter</a> ${TwitterSvg}`,
-      // },
+      announcementBar: {
+        id: 'announcementBar-2', // Increment on change
+        content: `⭐️ If you think this blog may help you abit, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitai0802/docusaurus-doc-theme">GitHub</a>`,
+      },
       // For header
       navbar: {
         hideOnScroll: true,
@@ -194,7 +194,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/hasura/graphql-engine',
+            href: 'https://github.com/saitai0802/',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
