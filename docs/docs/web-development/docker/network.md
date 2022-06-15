@@ -64,11 +64,13 @@ In host and none mode are not configured directly but default bridge network can
 
 ### Bridge Mode
 
-It is the Docker **default networking mode** which will enable the connectivity to the other interfaces of the host machine as well as among containers.
+It is the Docker **default networking mode** which will enable the connectivity to the other interfaces of the host machine as well as among containers. 
 
-The **Bridge** network assigns IPs in the range of 172.17.x.x to the containers within it. The containers can reach each other using their names. This is made possible by an Embedded DNS which runs on the address **127.0.0.11**.
+The **Bridge** network assigns IPs in the range of 172.17.x.x to the containers within it. The containers can reach each other using their names. This is made possible by an Embedded DNS which runs on the address **127.0.0.11**. To access these containers from outside you need to map the ports of these containers to the ports on the host. 
 
-To access these containers from outside you need to map the ports of these containers to the ports on the host. 
+- Accessibility to other containers is possible in bridge mode.
+- Connectivity to external network.
+- Connectivity to host machine
 
 ![Default network](/img/web-development/docker/default-network.png)
 Source: [Docker Networking](https://towardsdatascience.com/docker-networking-919461b7f498)
@@ -90,12 +92,24 @@ As a reminder, on any interface on your host, you can't listen on more than one 
 
 
 ## DNS
-A built-in solution for this, and that is DNS naming. Docker uses the container names as the equivalent of a host name for containers talking to each other.
+
+Because using IP to communicate amoung containers is anti-pattern. So a built-in solution for this is **DNS naming**. Docker uses the container names as the equivalent of a host name for containers talking to each other.
 
 > Continaers shouldn't rely on IP's for inter-communication
 It may not change very much on your local machine, but if you stop containers, and then you start the same containers, and you start them in a different order, they may not have the same IP address. But their host names, or their container names, will always be the same.
 
 Always create custom networks since it's just easier that way than doing a `--link` all the time.
+
+- **User-defined bridges** provide automatic DNS resolution between containers
+- Containers on the **default bridge network** can only access each other by IP addresses, unless you use the [--link option](https://docs.docker.com/network/links/), which is considered legacy. On a user-defined bridge network, containers can resolve each other by name or alias.
+
+    Imagine an application with a web front-end and a database back-end. If you call your containers web and db, the web container can connect to the db container at db, no matter which Docker host the application stack is running on.
+
+    If you run the same application stack on the default bridge network, you need to manually create links between the containers (using the legacy --link flag). These links need to be created in both directions, so you can see this gets complex with more than two containers which need to communicate. Alternatively, you can manipulate the /etc/hosts files within the containers, but this creates problems that are difficult to debug.
+
+## Further reading
+
+[Differences between user-defined bridges and the default bridge](https://docs.docker.com/network/bridge/#differences-between-user-defined-bridges-and-the-default-bridge)
 
 
 
