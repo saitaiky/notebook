@@ -1,0 +1,30 @@
+---
+title: Others
+---
+
+## Terms
+Docker image and container image are the same term for the same thing.
+
+## Commands
+```
+// -it means
+// The t gives us a pseudo tty or a prompt similar to what you would have through ssh.
+// The i allows us to keep that session open so that we can keep running more commands.
+docker container run -it
+
+// bash shell with -it, will give you a terminal inside the running container
+docker container run -it proxy nginx bash
+
+// If we exit the bash shell
+// The containers only run as long as the command that it ran on startup runs. Since we changed it to Bash, simply exiting Bash quit it
+exit
+```
+
+
+:::info what's Alpine? 
+
+We haven't mentioned Alpine before. Alpine is another distribution of Linux, but Alpine is designed to be very small.
+
+It's actually only 5MB in size. If I do a docker pull alpine, that will pull down the latest Alpine image and if I do a docker image
+:::
+

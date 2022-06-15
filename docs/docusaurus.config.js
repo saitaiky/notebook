@@ -32,7 +32,7 @@ const config = {
           exclude: ['**/*.wip'],
           breadcrumbs: true,
           // showLastUpdateAuthor: true,
-          // showLastUpdateTime: true,
+          showLastUpdateTime: true,
           /*
           lastVersion: "current",
           versions: {
