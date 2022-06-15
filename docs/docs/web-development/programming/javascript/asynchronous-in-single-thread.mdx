@@ -11,7 +11,7 @@ Javascript is a single threaded language. This means it has one call stack and o
 
 A good example of this happening is the window alert function. `alert("Hello World")`. You can't interact with the webpage at all until you hit OK and dismiss the alert. You're stuck.
 
-:::note
+:::info
 Asynchronous functions will run and execute only after all the synchronous functions have been executed. Until then, they will be processed in the background(C++ APIs).
 
 It can't run inside a callback stack until it gets emptied. That means that after `main()` is removed from call stack, only then can all asynchronous functions start executing.

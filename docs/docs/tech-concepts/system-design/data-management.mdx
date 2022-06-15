@@ -41,7 +41,7 @@ There are various patterns/solutions for implementing transactions and queries t
 
 The event sourcing pattern is typically used with the **CQRS pattern** to **decouple read from write workloads**, and optimize for performance, scalability, and security. Data is stored as a series of events, instead of directli storing the current state to data stores. Microservices replay events from an event store to compute the appropriate state of their own data stores. 
 
-:::note
+:::info
 Events represent the state transitions of things that have occurred in your system. 
 :::
 

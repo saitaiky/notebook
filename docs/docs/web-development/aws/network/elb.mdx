@@ -32,7 +32,7 @@ In order to automate the replacement of unhealthy instance. The health check typ
 
 By default, the health check configuration of your Auto Scaling group is set as an EC2 type that performs a status check of EC2 instances. To automate the replacement of unhealthy EC2 instances, you must change the health check type of your instance's Auto Scaling group from EC2 to ELB by using a configuration file.
 
-:::note
+:::info
 Please remember, the health check type of your instance's Auto Scaling group is strongly recommend to **use ELB instead of EC2**. So that the health status will **keep in sync** in both ELB and ASG.
 :::
 
