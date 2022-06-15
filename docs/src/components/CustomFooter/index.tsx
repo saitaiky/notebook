@@ -10,8 +10,10 @@ import styles from "./styles.module.scss";
 const CustomFooter = () => (
 <footer className={styles["custom-footer-wrapper"]}>
   <div className={styles["logo-wrapper"]}>
+  {/*
     <img src={useBaseUrl("/img/logo-light.svg")} className={styles["dark-theme-logo"]} />
     <img src={useBaseUrl("/img/logo.svg")} className={styles["light-theme-logo"]} />
+  */}
   </div>
   <div className={styles["copyright"]}>
     {`© ${new Date().getFullYear()} Sai Tai. All rights reserved`}

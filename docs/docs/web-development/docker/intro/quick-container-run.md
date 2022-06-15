@@ -76,6 +76,13 @@ Let's run a [Apache Web Server](https://hub.docker.com/_/httpd) container.
 
 > Note: The image is called `httpd` rather than `apache` because the Apache web server's binary is named `httpd`.
 
+:::note Difference between `docker run` and `docker container run`
+Prior to docker 1.13 the `docker run` command was only available. The CLI commands were then refactored to have the form `docker COMMAND SUBCOMMAND`, wherein this case the COMMAND is `container` and the SUBCOMMAND is `run`. This was done to have a more intuitive grouping of commands since the number of commands at the time has grown substantially.
+
+You can read more under [CLI restructured](https://blog.docker.com/2017/01/whats-new-in-docker-1-13/).
+:::
+
+You can read more under CLI restructured.
 ```text
 > docker run -d -p 8800:80 httpd
 
@@ -92,6 +99,7 @@ Status: Downloaded newer image for httpd:latest
 ```
 
 We now have the latest version of an Apache Web Server running in a container!
+### Debrief: What Happens When We Run a Container
 
 But wait, so much happened in the background that you might have missed it, so let's go step-by-step:
 
