@@ -79,11 +79,20 @@ Docker's founder Solomon Hykes called this the "Matrix from Hell", and it's more
 
 **One of the design goals of Docker images and containers was to create a new level of abstraction**, a contract between the developers build instructions for the app (the Dockerfile) and the environment it runs in (the container runtime, in this case Docker Engine.)
 
+:::info What Is a Container Runtime?
+A container runtime, also known as container engine, is a software component that can run containers on a host operating system. In a containerized architecture, container runtimes are responsible for loading container images from a repository, monitoring local system resources, isolating system resources for use of a container, and managing container lifecycle. 
+
+Common container runtimes commonly work together with container orchestrators. The orchestrator is responsible for managing clusters of containers, taking care of concerns like container scalability, networking, and security. The container engine takes responsibility for managing the individual containers running on every compute node in the cluster.
+
+Common examples of container runtimes are **runC, containerd, Docker, and Windows Containers**. There are three main types of container runtimes—low-level runtimes, high-level runtimes, and sandboxed or virtualized runtimes.
+:::
+
 Ideally, if you've containerized an app, the matrix looks like this:
 
 ![Matrix from Containers](/img/web-development/docker/intro/matrix-from-containers.png)
 
 We've reduced the N+1 number of environments for how to build and run our software to 1.
+
 
 ## The problem of speed
 

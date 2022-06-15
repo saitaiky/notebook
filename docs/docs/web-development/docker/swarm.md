@@ -1,6 +1,8 @@
 ---
 title: Swarm
---- ## The problem
+--- 
+
+## The problem
 Without all those platform features, how do we easily deploy and maintain our dozens, or hundreds, or even thousands of containers across many servers or instances?  That brings to bear some really new problems that weren't previously problems for small organizations.
 
 - How do we automate container lifecycle?
@@ -54,3 +56,18 @@ Source: [Services, tasks, and containers](https://docs.docker.com/engine/swarm/h
 
 In this example, we've created a service using `docker service create` to spin up an Nginx service. But we've told it that we'd like three replicas. So it will use the manager nodes to decide where in the swarm to place those. By default, it tries to spread them out. Each node would get its own copy of the Nginx container up to the three replicas.
 
+### Tasks and scheduling
+
+The underlying logic of Docker swarm mode is a general purpose scheduler and orchestrator. The service and task abstractions themselves are unaware of the containers they implement. Hypothetically, you could implement other types of tasks such as virtual machine tasks or non-containerized process tasks. The scheduler and orchestrator are agnostic about the type of task. However, the current version of Docker only supports container tasks.
+
+The diagram below shows how swarm mode accepts service create requests and schedules tasks to worker nodes.
+
+![Swarm](/img/web-development/docker/Docker-swarm.webp)
+Source: [Services, tasks, and containers](https://lab.wallarm.com/is-docker-swarm-going-to-change-how-we-do-microservices-apis-a7b2782a3dea/)
+
+With Swarm, there're a bunch of background services, such as the scheduler, and the dispatcher, and the allocator and orchestrator, that help make decisions around what the workers should be executing at any given moment.
+
+- The workers are constantly reporting in to the managers and asking for new work. 
+- The managers are constantly doling out new work and evaluating what you've told them to do against what they're actually doing.
+
+Then if there's any reconciliation to happen, they will make those changes, such as to spin up three more replicate tasks in that service. The orchestrator will realize that and then issue orders down to the workers and so on.
