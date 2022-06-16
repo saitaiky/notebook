@@ -131,3 +131,4 @@ Hopefully my three points started to convince you that Docker is the right tool 
 
 - [A Brief History of Containers: From the 1970s till now (aquasec.com)](https://blog.aquasec.com/a-brief-history-of-containers-from-1970s-chroot-to-docker-2016)
 - [Docker Engine Documentation](https://docs.docker.com/engine/userguide/)
+- [What Is a Container Runtime?](https://www.aquasec.com/cloud-native-academy/container-security/container-runtime/)
