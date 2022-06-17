@@ -75,7 +75,7 @@ Source: [The Docker Swarm architecture](https://www.oreilly.com/library/view/lea
 Raft is a distributed consensus algorithm designed to be understandable and durable. In general, the algorithm is useful when we want to order the events that happen in a distributed system on different nodes.
 ### What is consensus?
 
-Consensus is a fundamental problem in fault-tolerant distributed systems. Consensus involves multiple servers agreeing on values. Once they reach a decision on a value, that decision is final. Typical consensus algorithms make progress when any majority of their servers is available; for example, a cluster of 5 servers can continue to operate even if 2 servers fail. If more servers fail, they stop making progress (but will never return an incorrect result).
+Consensus is <Highlight color="#25c2a0">a fundamental</Highlight> problem in fault-tolerant distributed systems. Consensus involves multiple servers agreeing on values. Once they reach a decision on a value, that decision is final. Typical consensus algorithms make progress when any majority of their servers is available; for example, a cluster of 5 servers can continue to operate even if 2 servers fail. If more servers fail, they stop making progress (but will never return an incorrect result).
 
 Consensus typically arises in the context of replicated state machines, a general approach to building fault-tolerant systems. Each server has a state machine and a log. The state machine is the component that we want to make fault-tolerant
 
