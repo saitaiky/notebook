@@ -35,12 +35,6 @@ As can be seen from the figure above, the Docker Swarm architecture consists of 
 - Worker Nodes: These nodes collect and run tasks from manager nodes.
 - Manager Nodes: These nodes receive service definitions from the user, and dispatch work to worker nodes. Manager nodes can also perform the duties of worker nodes. 
 
-:::info 2 notes of Manger
-- Manager node have a database locally on them known as the **Raft Database**. It stores their configuration and gives them all the information they need to have to be the authority inside a swarm.
-
-- The managers themselves can also be workers. Of course, you can demote and promote workers and managers into the two different roles. When you think of a manager, typically think of a worker with permissions to control the swarm.
-:::
-
 ### Service & Task
 
 With the Docker run command, we could only really deploy one container. Docker run command didn't have concepts around how to scale out or scale up. So we needed new commands to deal with that. That's where the Docker service command comes from. 
@@ -71,3 +65,19 @@ With Swarm, there're a bunch of background services, such as the scheduler, and 
 - The managers are constantly doling out new work and evaluating what you've told them to do against what they're actually doing.
 
 Then if there's any reconciliation to happen, they will make those changes, such as to spin up three more replicate tasks in that service. The orchestrator will realize that and then issue orders down to the workers and so on.
+
+
+## The raft consensus group
+
+![raft-consensus-group](/img/web-development/docker/raft-consensus-group.png)
+Source: [The Docker Swarm architecture](https://www.oreilly.com/library/view/learn-docker/9781838827472/170657e5-d4d2-413e-ab6f-0b7abd15a086.xhtml)
+### What is Raft
+Raft is a distributed consensus algorithm designed to be understandable and durable. In general, the algorithm is useful when we want to order the events that happen in a distributed system on different nodes.
+### What is consensus?
+
+Consensus is a fundamental problem in fault-tolerant distributed systems. Consensus involves multiple servers agreeing on values. Once they reach a decision on a value, that decision is final. Typical consensus algorithms make progress when any majority of their servers is available; for example, a cluster of 5 servers can continue to operate even if 2 servers fail. If more servers fail, they stop making progress (but will never return an incorrect result).
+
+Consensus typically arises in the context of replicated state machines, a general approach to building fault-tolerant systems. Each server has a state machine and a log. The state machine is the component that we want to make fault-tolerant
+
+- Manager node have a database locally on them known as the **Raft Database**. It stores their configuration and gives them all the information they need to have to be the authority inside a swarm.
+- The managers themselves can also be workers. Of course, you can demote and promote workers and managers into the two different roles. When you think of a manager, typically think of a worker with permissions to control the swarm.
