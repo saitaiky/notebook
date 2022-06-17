@@ -73,6 +73,7 @@ Then if there's any reconciliation to happen, they will make those changes, such
 Source: [The Docker Swarm architecture](https://www.oreilly.com/library/view/learn-docker/9781838827472/170657e5-d4d2-413e-ab6f-0b7abd15a086.xhtml)
 ### What is Raft
 Raft is a distributed consensus algorithm designed to be understandable and durable. In general, the algorithm is useful when we want to order the events that happen in a distributed system on different nodes.
+
 ### What is consensus?
 
 Consensus is a fundamental problem in fault-tolerant distributed systems. Consensus involves multiple servers agreeing on values. Once they reach a decision on a value, that decision is final. Typical consensus algorithms make progress when any majority of their servers is available; for example, a cluster of 5 servers can continue to operate even if 2 servers fail. If more servers fail, they stop making progress (but will never return an incorrect result).
@@ -81,6 +82,22 @@ Consensus typically arises in the context of replicated state machines, a genera
 
 - Manager node have a database locally on them known as the **Raft Database**. It stores their configuration and gives them all the information they need to have to be the authority inside a swarm.
 - The managers themselves can also be workers. Of course, you can demote and promote workers and managers into the two different roles. When you think of a manager, typically think of a worker with permissions to control the swarm.
+
+### Odd number of node
+Consensus algorithm (e.g. raft) requires the cluster contains an odd number of nodes to avoid the **split-brain problem**. You can start with one, but if you want true fault tolerance, you need three.
+
+A cluster of N nodes, and if `N` is odd (`N = 2k + 1`), can handle `k` node fails. As long as a majority of nodes is alive, it can work normally. If one node fails, and we still have the majority, everything is fine. Only when you lose majority of nodes, you have a problem.
+
+> Majority: more than 50% of the nodes in a cluster
+
+There is no reason to force the cluster to have an odd number of nodes, and implementations don't consider this as a problem and thus don't handle it (drop nodes). You can run a consensus algorithm on an even number of nodes, but it usually makes more sense to have it odd.
+
+- 3 node cluster can handle **1** node fail (the majority is 2 nodes).
+- 4 node cluster can handle **1** node fail (the majority is 3 nodes).
+- 5 node cluster can handle **2** node fail (the majority is 3 nodes).
+- 6 node cluster can handle **2** node fail (the majority is 4 nodes).
+
+
 
 ## Further reading
 
