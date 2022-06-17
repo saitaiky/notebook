@@ -44,6 +44,7 @@ The scheduler is responsible for distributing work or containers across multiple
 
 The controllers are the brain behind orchestration. They are responsible for noticing and responding when nodes, containers or end points goes down. It's basically a loop that's seeing the whole system and figuring out how to make everything that's currently happening the same as what you've asked it to do.
 
+Many types of Controllers inc. Deployment, ReplicaSet, StatefulSet, DaemonSet, Job, CronJob, etc.
 ### Container runtime 
 
 The container runtime is the underlying software that is used to run containers. It can be Docker, but there are other options as well.
@@ -80,3 +81,14 @@ Source: [Instance-per-Pod Webhook: IaaS-level isolation for Kubernetes Pods](htt
     - easily share the same storage space as well.
 
 
+## Others
+### service
+
+The service just means you're giving it a persistent endpoint in the cluster so that everything else can access that set of pods at a specific DNS name and port. 
+
+
+### namespace
+
+The namespace is really just a filter on your view at the command line. That's really all it is. It's not a security feature. If you're familiar with some of the internals of Docker, you hear about namespaces in Docker. **This is in no way the same thing in kubernetes**. This is simply a way for you to filter your views when you're using the kubectrl command line.
+
+A good example might be when using Docker Desktop, it defaults to the default namespace and filters out all of the system containers running Kubernetes in the background.
