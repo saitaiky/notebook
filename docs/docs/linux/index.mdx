@@ -8,10 +8,132 @@ sidebar_label: Home
 sidebar_position: 0
 ---
 
+## Kernel, Sheel, Drivers
 
-## What is the difference between Homebrew and Cask?
+A kernel is the core of an Operating System. It provides basic services for all other components of the OS. It is the main layer between the OS and hardware, and it helps with process and memory management, file systems, device control, and networking.
 
-### Homebrew
+### Dual Mode operations in OS
+
+An error in one program can adversely affect many processes, it might modify data of another program, or also can affect the operating system. For example, if a process stuck in the infinite loop then this infinite loop could affect the correct operation of other processes. So to ensure the proper execution of the operating system, there are two modes of operation: 
+
+![Kernel_Architecture](/img/linux/Kernel_Architecture.jpeg)
+Source: [Linux Kernel Architecture](https://vlinux-freak.blogspot.com/2019/02/linux-kernel-architecture.html)
+
+Memory is divided into 2 areas, known as **kernel space and user space** (synonymous to the terms – **kernel and user mode**).
+
+- **User Space** is the memory area where all **user mode** applications works and this memory can be swapped out when needed. Userspace process normally runs in its own virtual memory space and unless explicitly requested, cannot access the memory of other processes. Due to the protection afforded by this sort of isolation, crashes in **user mode** are always recoverable.
+- **Kernel Space** is strictly reserved for running the kernel, OS background process, kernel extensions and device drivers. In Linux kernel space gives full access to the hardware, although some extensions runs in the user space. Crashes in **kernel mode** are catastrophic; they will halt the entire PC.
+
+These two modes are enforced by the CPU hardware. If code executing in **User mode** attempts to do something outside, example accessing a privileged CPU instruction or modifying memory that it has no access to, then a trappable exception is thrown. Instead of your entire system crashing, only that particular application crashes.
+
+### Kernel
+
+![Linux hardware-kernal-shell](/img/linux/hardware-kernal-shell.png)
+
+Kernel is program that represent the central core of a computer operating system. It controls everything that occurs in the system. Kernel interacts with the hardwares on demand from applications.
+
+A kernel can be contrasted with a shell (such as bash, csh or ksh in Unix-like operating systems), which is the outermost part of an operating system and a program that interacts with user commands. The kernel itself does not interact directly with the user, but rather interacts with the shell and other programs as well as with the hardware devices on the system, including the processor (also called the central processing unit or CPU), memory and disk drives.
+
+Because of its critical nature, the kernel code is usually loaded into a protected area of memory, which prevents it from being overwritten by other, less frequently used parts of the operating system or by application programs.
+
+:::info Difference between Mac and Linux kernel in one line
+The macOS kernel (XNU) has been around longer than Linux and was based on a combination of two even older code bases. On the other hand, Linux is newer, written from scratch, and is used on many more devices.
+:::
+#### What the kernel does
+
+The kernel has 4 jobs:
+
+1. Memory management: Keep track of how much memory is used to store what, and where
+2. Process management: Determine which processes can use the central processing unit (CPU), when, and for how long
+3. Device drivers: Act as mediator/interpreter between the hardware and processes
+4. System calls and security: Receive requests for service from the processes
+
+source: [What is the Linux kernel?](https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel)
+
+####  Where the kernel fits within the OS
+To put the kernel in context, you can think of a Linux machine as having 3 layers:
+
+1. The hardware: The physical machine—the bottom or base of the system, made up of memory (RAM) and the processor or central processing unit (CPU), as well as input/output (I/O) devices such as storage, networking, and graphics. The CPU performs computations and reads from, and writes to, memory.
+2. The Linux kernel: The core of the OS. (See? It’s right in the middle.) It’s software residing in memory that tells the CPU what to do.
+3. User processes: These are the running programs that the kernel manages. User processes are what collectively make up user space. User processes are also known as just processes. The kernel also allows these processes and servers to communicate with each other (known as inter-process communication, or IPC).
+
+source: [What is the Linux kernel?](https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel)
+
+### Shell
+A shell is a program that provides the traditional, text-only user interface for Linux and other Unix-like operating system. The term shell derives its name from the fact that it is an outer layer of an operating system.
+
+Shell is a program which gives us the ability to interact with the operating system. The shell is a program layer which understands and execute the commands that user enters. shell is also called as command interpreter .
+
+
+#### Relationship of Kernel, Shell, Distro, OS
+**OS** is just kernel and Shell which work hand in hand.
+
+**Distro (dsitribution)** is combination of customized shell(s) working on a kernel.This means,for example-Kali,Ubuntu,fedora,Mint etc are different distros which work on Linux kernel.
+
+**Shell** acts as an interface between the user and the kernel.Shell can be command line interface or Graphic user interface.Bash,sh,Windows GUI are some shells.
+
+**Kernel** is hub of operating system.It allocates time and memory to programs and handles the filestore etc.
+
+To further explain shell and Kernel suppose you type cd . The shell searches the filestore for the file containing the program cd, and then requests the kernel, through system calls, to execute the program cd on myfile.
+
+To take a simple example- **Windows GUI **is a Shell,**Windows OS** a disribution by Microsoft.
+
+Similary,**Ubuntu OS** or **fedora OS** etc a distro working on various shell using Linux kernel.
+
+Shell or a distro does not make Kernel more user friendly to use but it makes it usable for user.
+
+So now,simply you can say Linux is a kernel. Linux + shell(Bash,Gnome etc) is a Linux distro say Ubuntu,Mint,Kali etc and each of them is a OS.
+
+source: [What's the relationship between a Linux OS and a kernel?](https://stackoverflow.com/questions/3403938/whats-the-relationship-between-a-linux-os-and-a-kernel##:~:text=OS%20is%20just%20kernel%20and,the%20user%20and%20the%20kernel.)
+
+### Drivers
+Drivers in Linux are the programs which are specifically written for the specific device.
+
+A driver communicates with the device through the computer bus or communications subsystem to which the hardware connects.
+
+The main purpose of device drivers is to provide abstraction by acting as a translator between a hardware device and the applications or operating system that use it.
+
+simply the driver is a kernel program which drives the particular device to which it is associated.
+
+for example, when we click button of mouse, particular associated driver gets invoked and it runs the further routines to give output of the clicked button.
+
+every device in the system has its associated driver.
+
+## What is X Window?
+![streams](/img/linux/simple-X-window-system-architecture.png)
+![streams](/img/linux/x_client_os.gif)
+
+有鑑於圖形使用者介面(Graphical User Interface, GUI) 的需求日益加重，在1984年由MIT與其他協力廠商首次發表了X Window System！
+
+The X Window System (X11, or simply X) is a windowing system for bitmap displays, common on Unix-like operating systems.
+
+X provides the basic framework for a GUI environment: drawing and moving windows on the display device and interacting with a mouse and keyboard. X does not mandate the user interface – this is handled by individual programs. As such, the visual styling of X-based environments varies greatly; different programs may present radically different interfaces.
+
+> X Window是Linux下的窗口系統，GNOME和KDE是基於X Window的經過不同組織進行整合之後的桌面環境，通過X Window他們才能運行。 X Window（請注意不是X Windows）並不是一個直接的圖形操作環境，而是作為圖形環境與UNIX系統內核溝通的中間橋樑，任何廠商都可以在X Window基礎上開發出不同的GUI圖形環境。
+
+![Modern X window](/img/linux/KDE_Plasma_5.16.png)A modern example of a graphical user interface using X11 and KDE Plasma 5.16
+
+X Window從邏輯上分為三層：
+- 最底層的X Server（X服務器）主要處理輸入/輸出信息並維護相關資源，它接受來自鍵盤、鼠標的操作並將它交給X Client（X客戶端）作出反饋，而由X Client傳來的輸出信息也由它來負責輸出；
+- 最外層的X Client則提供一個完整的GUI界面，負責與用戶的直接交互（KDE、Gnome都是一個X Client），而銜接X Server與X Client的就是“X Protocol(X通訊協議)”、它的任務是充當這兩者的溝通管道。儘管UNIX廠商採用相同的X Window，但由於終端的X Client並不相同，這就導致不同UNIX產品搭配的GUI界面看起來非常不一樣。
+
+> 為什麼稱圖形使用者介面為X呢？因為由英文單字來看，Window的W接的就是X啦！意指Window的下一版就是了！ 需注意的是，X Window並不是X Windows喔！
+
+## What is tty?
+In essence, tty is short for teletype, but it's more popularly known as terminal. It's basically a device (implemented in software nowadays) that allows you to interact with the system by passing on the data (you input) to the system, and displaying the output produced by the system.
+
+ttys can be of different types. For example, graphical consoles that you can access with the Ctrl+Alt+Fn key combination, or terminal emulators like Gnome terminal that run inside an X session. To learn more about tty, head here.
+
+
+- [第二十三章、X Window 設定介紹](http://linux.vbird.org/linux_basic/0590xwindow.php)
+- [What is the difference between a kernel, drivers, and shell?](https://www.quora.com/What-is-the-difference-between-a-kernel-drivers-and-shell)
+
+
+## To be categoried 
+
+### What is the difference between Homebrew and Cask?
+
+#### Homebrew
 brew is the core command for the Homebrew project.
 
 :::info
@@ -24,7 +146,7 @@ Homebrew typically deals with command line software. Most of the software is dis
 
 `brew` [prefers pre-compiled binaries](https://docs.brew.sh/FAQ#why-do-you-compile-everything) but will compile from source in some cases
 
-### Cask
+#### Cask
 `brew cask` is an extension to brew that allows management of graphical applications through the [Cask](https://caskroom.github.io/) project.
 
 :::info

@@ -5,7 +5,7 @@ description:  What is docker?
 sidebar_position: 0
 ---
 
-> This post is a clone from [BretFisher/udemy-docker-mastery](https://github.com/BretFisher/udemy-docker-mastery) with some minor modification.
+> This post is a clone from [BretFisher/udemy-docker-mastery](https://github.com/BretFisher/udemy-docker-mastery) with some minor modifications.
 
 # What is Docker? Three Major Innovations
 

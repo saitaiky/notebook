@@ -5,7 +5,7 @@ description: Play with Docker
 sidebar_position: 2
 ---
 
-> This post is a clone from [BretFisher/udemy-docker-mastery](https://github.com/BretFisher/udemy-docker-mastery) with some minor modification.
+> This post is a clone from [BretFisher/udemy-docker-mastery](https://github.com/BretFisher/udemy-docker-mastery) with some minor modifications.
 
 Now that you know the basics of what Docker is, you might be thinking that this sounds like a lot of work to re-package software so that we can run it a different way. Obviously we all were building, distributing, and running software before Docker came along, so "Why Docker, and Why Now?".
 

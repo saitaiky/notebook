@@ -5,7 +5,7 @@ description: Play with Docker
 sidebar_position: 1
 ---
 
-> This post is a clone from [BretFisher/udemy-docker-mastery](https://github.com/BretFisher/udemy-docker-mastery) with some minor modification.
+> This post is a clone from [BretFisher/udemy-docker-mastery](https://github.com/BretFisher/udemy-docker-mastery) with some minor modifications.
 
 A quick way to start a container before we get into the details.
 
