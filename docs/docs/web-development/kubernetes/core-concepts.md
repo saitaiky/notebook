@@ -44,7 +44,7 @@ The scheduler is responsible for distributing work or containers across multiple
 
 The controllers are the brain behind orchestration. They are responsible for noticing and responding when nodes, containers or end points goes down. It's basically a loop that's seeing the whole system and figuring out how to make everything that's currently happening the same as what you've asked it to do.
 
-Many types of Controllers inc. Deployment, ReplicaSet, StatefulSet, DaemonSet, Job, CronJob, etc.
+Many types of Controllers inc. **Deployment**, **ReplicaSet**, **StatefulSet**, **DaemonSet**, **Job**, **CronJob**, etc.
 ### Container runtime 
 
 The container runtime is the underlying software that is used to run containers. It can be Docker, but there are other options as well.

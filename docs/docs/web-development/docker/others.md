@@ -2,7 +2,7 @@
 title: Others
 ---
 
-## Terms
+## Glossary
 Docker image and container image are the same term for the same thing.
 
 ## Commands
