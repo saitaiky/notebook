@@ -118,10 +118,10 @@ const config = {
       },
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
-        appId: 'ZF3RFM4726',
+        appId: 'KZNS393M9I',
         // Public API key: it is safe to commit it
-        apiKey: '0bee9a11b009f38d17ddb17800b2b85c',
-        indexName: 'prod_notebook',
+        apiKey: '3959de5f63af937a2fc30ab60d661edb',
+        indexName: 'sai-tai',
         // Optional: see doc section below
         // contextualSearch: true,
         // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.

@@ -10,7 +10,7 @@ A **Cluster** is a set of nodes grouped together, this way even if one node fail
 ## Master and worker/node
 
 ### Worker/Node
-Node is a machine, physical or virtual one which Kubernetes is installed and Node is a worker machine and that is where containers will be launched by Kubernetes and doing any work assigned to them by the master node. 
+Node is a machine, laptop, physical or virtual one which Kubernetes is installed and Node is a worker machine and that is where containers will be launched by Kubernetes and doing any work assigned to them by the master node. 
 
 ### Master
 The Master is another node with Kubernetes installed in it and is configured as a Master. The Master watches over the Nodes in the cluster and is responsible for the actual orchestration of containers on the worker Nodes.
@@ -92,3 +92,11 @@ The service just means you're giving it a persistent endpoint in the cluster so 
 The namespace is really just a filter on your view at the command line. That's really all it is. It's not a security feature. If you're familiar with some of the internals of Docker, you hear about namespaces in Docker. **This is in no way the same thing in kubernetes**. This is simply a way for you to filter your views when you're using the kubectrl command line.
 
 A good example might be when using Docker Desktop, it defaults to the default namespace and filters out all of the system containers running Kubernetes in the background.
+
+
+## Further Reading 
+
+[Kubernetes Documentation - Components](https://kubernetes.io/docs/concepts/overview/components/#master-components)
+[Kubernetes Documentation -Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
+[Kubernetes Documentation -Service](https://kubernetes.io/docs/concepts/services-networking/service/)
+[Kubernetes Documentation -Name Space](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)

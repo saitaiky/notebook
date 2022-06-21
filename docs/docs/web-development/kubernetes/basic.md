@@ -20,6 +20,7 @@ $ kubectl apply (create/update anything via YAML)
 `kubectl run nginx --image nginx` created a Deployment named nginx before 1.18 (which creates a ReplicaSet, which creates a Pod)
 
 `kubectl run nginx --image nginx` creates a Pod named nginx in 1.18+
+The future plan of `kubectl run` is to act more like a docker run command.
 
 Creating a Deployment in 1.18: `kubectl create deployment nginx --image nginx`
 :::
