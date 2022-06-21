@@ -72,9 +72,9 @@ const config = {
     [
       path.resolve(__dirname, './src/plugins/docusaurus-plugin-segment-analytics'),
       {
+        // Segment write keys are technically public. Most sites have them published in the client facing JS
         prodKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
-        // devKey: 'FRKElp5cyMax6GAdM8OVyNMIFVppgEgp', 
-        
+        devKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
         // boolean (defaults to false) on whether you want
         // to include analytics.page() automatically
         trackPage: true,
