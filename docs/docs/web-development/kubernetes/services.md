@@ -20,7 +20,7 @@ There are different types of services
     - Pods can reach **service** on apps port number
 - NodePort (out-of-the-box service)
     - is designed for something outside the cluster to talk to your service through the IP addresses on the nodes
-    - High port allocated on each node (Won't be small port like port 80)
+    - High port allocated on each node (Port range: 30000-32767)
     - Port is open on every node’s IP <== Sai: not quite understand
     - Anyone can connect (if they can reach node)
     - Other pods need to be updated to this port
@@ -36,7 +36,7 @@ There are different types of services
 - Kubernetes Ingress (Final way to that traffic can get inside your cluster. Sai: Talk later)
 
 
-## Create a ClusterIP type of service
+## Create a ClusterIP service
 
 ```bash
 # Create 5 pods to listen to requests
@@ -68,8 +68,67 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP    2d18h
 $ curl 10.96.0.1:8888
 ```
 
+## Create a NodePort
 
+Let's create a NodePort to allow access from some external service. `8888:30839/TCP` - The port on the left is the port inside cluster. The port on the right is the port on your node.
+
+```bash
+$ kubectl expose deployment/httpenv --port 8888 --name httpenv-my-np --type NodePort
+
+$ kubectl get services
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+httpenv         ClusterIP   10.108.189.10   <none>        8888/TCP         3h
+httpenv-my-np   NodePort    10.97.13.195    <none>        8888:30839/TCP   9s
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP          2d21h
+```
+After you've run above command...
+- If you're on **Linux**, this NodePort is accessible on localhost now. 
+- If you're on Docker Desktop, it will provide a convenience layer with something called vpnkit that's just built into Docker Desktop where it will connect this to the localhost on your **Windows or Mac** machine. 
+
+:::info A NodePort service also creates a ClusterIP
+
+These three service types are additive, each one creates the ones above it: 
+- ClusterIP
+- NodePort (include ClusterIP)
+- LoadBalancer (include ClusterIP + NodePort)
+
+**Logic flow**: The load balancer is accepting my packet, then passing it to the NodePort, and then the NodePort is passing it to the cluster IP. There's always going to be that
+:::
+
+## Create a Loadbalancer
+
+The load balancer **wasn't built in by default**, and the only way you could use it was through an external service, usually in a **cloud service** - like with AWS, they use ALB or ELB. You would need to add that plugin in your Kubernetes so the kube API would work with those external load balancers.
+
+If you're on Docker Desktop, it provides **a built-in LoadBalancer** that publishes the `--port` on localhost. Each load balancer technically like a third-party plugin or service that's a remote API, the load balancers will all have varying features and supported stuff. 
+
+### Comamnds
+:::note
+If you're on kubeadm, minikube, or microk8s
+- No built-in LB
+- You can still run the command, it'll just stay at "pending" (but its NodePort works)
+:::
+
+```bash
+$ kubectl expose deployment/httpenv --port 8888 --name httpenv-my-lb --type LoadBalancer
+$ kubectl get services
+NAME            TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+httpenv         ClusterIP      10.108.189.10   <none>        8888/TCP         3h23m
+httpenv-my-lb   LoadBalancer   10.97.192.241   localhost     8888:32425/TCP   32s
+httpenv-my-np   NodePort       10.97.13.195    <none>        8888:30839/TCP   23m
+kubernetes      ClusterIP      10.96.0.1       <none>        443/TCP          2d21h
+
+$ curl localhost:8888
+```
+
+### 8888:32425/TCP
+
+`8888:32425/TCP `
+
+With Docker Desktop, all we did is we told it the port `8888` that was a part of the Deployment, and the load balancer service plugin from Docker will then publish it on port `8888`. The right handside of the port is 
+
+`32425` is the NodePort for a load balancer (If you're using Docker Desktop, it's the **built-in LoadBalancer**), eventhough that's not really the port the load balancer is using on my localhost.
 
 ## Further reading 
 
 [Kubernetes Documentation - Service](https://kubernetes.io/docs/concepts/services-networking/service/)
+

@@ -89,6 +89,33 @@ Here are some examples, in the format of "language: (manager, repository)":
 - Web frontend: (Bower, Bower), (Yarn, (Yarn, NPM))
 - Java: (Maven, Maven), (Gradle, (Ivy, Maven, etc.))
 
+
+## What is the difference between Homebrew and Cask?
+
+### Homebrew
+brew is the core command for the Homebrew project.
+
+:::info
+The missing package manager for OS X
+
+Homebrew installs the stuff you need that Apple didn’t.
+:::
+
+Homebrew typically deals with command line software. Most of the software is distributed under an open source licence. See the [Formulas](https://formulae.brew.sh/formula/) for a list of available installs.
+
+`brew` [prefers pre-compiled binaries](https://docs.brew.sh/FAQ#why-do-you-compile-everything) but will compile from source in some cases
+
+### Cask
+`brew cask` is an extension to brew that allows management of graphical applications through the [Cask](https://caskroom.github.io/) project.
+
+:::info
+Homebrew Cask extends Homebrew and brings its elegance, simplicity, and speed to OS X applications and large binaries alike.
+:::
+
+Cask deals with a mixture of software and licences. The software I work on is covered by a commercial licence and available via cask.
+
+Cask offers a way to command line manage the installation of graphical applications.
+
 ## Further reading
 
 - [Package Management Essentials: apt, yum, dnf, pkg](https://www.digitalocean.com/community/tutorials/package-management-basics-apt-yum-dnf-pkg)
