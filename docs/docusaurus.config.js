@@ -72,8 +72,9 @@ const config = {
     [
       path.resolve(__dirname, './src/plugins/docusaurus-plugin-segment-analytics'),
       {
-        prodKey: 'RQXoHRpNcmBKllUDihjDjupGv4AHn5TB',
-        devKey: 'FRKElp5cyMax6GAdM8OVyNMIFVppgEgp',
+        prodKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
+        // devKey: 'FRKElp5cyMax6GAdM8OVyNMIFVppgEgp', 
+        
         // boolean (defaults to false) on whether you want
         // to include analytics.page() automatically
         trackPage: true,
