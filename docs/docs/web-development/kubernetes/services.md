@@ -128,7 +128,38 @@ With Docker Desktop, all we did is we told it the port `8888` that was a part of
 
 `32425` is the NodePort for a load balancer (If you're using Docker Desktop, it's the **built-in LoadBalancer**), eventhough that's not really the port the load balancer is using on my localhost.
 
+
+## DNS
+
+DNS is **optional as a service**, or an add on, inside your Kubernetes cluster. But, everyone puts one in there. Starting with 1.11, internal DNS is provided by CoreDNS. When you create a service, you get the hostname that matches the service. But, that hostname is part of a larger name, the **FQDN (fully qualified domain name)**. We didn't get that in Docker or Swarm.
+
+:::danger
+You **can't** technically create the same pod, or the same service, or the same Deployment, with the same names, **in the same namespace**.
+:::
+
+### Service in different namespace
+We can use hostname to access Services but this only works for Services in the same Namespace. eg: `curl <hostname>`
+
+
+If we have different name space, we can use the FQDN. eg: `curl <hostname>.<namespace>.svc.cluster.local`
+
+- svc: service
+- cluster.local: default service DNS name given to your cluster when you create it or spin it up.
+
+### Namespace in K8s
+Namespaces in K8s is really just an organizational parameter, and it doesn't, out-of-the-box, control networking segmentation or anything like that. Usually, what you're going to be dealing with is the **default namespace**. 
+
+As you get larger, you will possibly make **multiple namespaces** for different applications that possibly had the same name. Or maybe you want to deploy the same thing multiple times, with the same service names, pod names, deployment names, and you wouldn't want them to clash, so you would create different namespaces for those.
+
+
+
+
+
+
 ## Further reading 
 
 [Kubernetes Documentation - Service](https://kubernetes.io/docs/concepts/services-networking/service/)
+
+[Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md)
+[Core DNS for Kubernetes](https://www.coredns.io/plugins/kubernetes/)
 
