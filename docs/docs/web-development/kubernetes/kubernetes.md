@@ -34,7 +34,7 @@ One of the simple formulas I use for whether or not to use orchestration, is
 - Servers: The number of servers that I'm going to need for particular environment
 - Change Rate: The change rate of my applications, or the environment itself
 - When you're starting out, you may only need a single server, or just a few servers
-- if you're not changing your applications very often (eg: you're only changing them once a month or less), then orchestration, and the effort involved in deploying it, managing it, securing it, may be unnecessary at your state.   Especially if you're a **solo developer or just a very small team**.
+- if you're not changing your applications very often (e.g. you're only changing them once a month or less), then orchestration, and the effort involved in deploying it, managing it, securing it, may be unnecessary at your state.   Especially if you're a **solo developer or just a very small team**.
 
 That's where things like Elastic Beanstalk, or Heroku, the application deployment platform, that's where a lot of those start to shine as alternatives to doing your own orchestration. 
 ### Options to do orchestration

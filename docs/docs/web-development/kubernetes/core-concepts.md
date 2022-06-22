@@ -96,7 +96,7 @@ A good example might be when using Docker Desktop, it defaults to the default na
 
 ## Further Reading 
 
-[Kubernetes Documentation - Components](https://kubernetes.io/docs/concepts/overview/components/#master-components)
-[Kubernetes Documentation -Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
-[Kubernetes Documentation -Service](https://kubernetes.io/docs/concepts/services-networking/service/)
-[Kubernetes Documentation -Name Space](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+- [Kubernetes Documentation - Components](https://kubernetes.io/docs/concepts/overview/components/#master-components)
+- [Kubernetes Documentation -Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
+- [Kubernetes Documentation -Service](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [Kubernetes Documentation -Name Space](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
