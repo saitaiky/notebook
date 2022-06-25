@@ -63,7 +63,7 @@ const config = {
         editCurrentVersion: true,
         docItemComponent: require.resolve('./src/components/CustomDocItem/CustomDocItemWiki.tsx'),
         // disableVersioning: true,
-        breadcrumbs: false,
+        breadcrumbs: true,
         sidebarPath: require.resolve('./sidebarsWiki.js'),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
