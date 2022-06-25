@@ -8,7 +8,7 @@ const FeatureList = [
     // Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Give me a star at here <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitai0802/">GitHub</a>
+        Let's connect in <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitai0802/">GitHub</a>
       </>
     ), 
   },

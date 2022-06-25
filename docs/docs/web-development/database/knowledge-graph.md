@@ -6,12 +6,14 @@ title: Knowledge graph
 
 A knowledge graph, also known as a **semantic** network, is a knowledge model represents a network of real-world entities—i.e. objects, events, situations, or concepts—and illustrates(interlinked descriptions) the relationship between them. This information is usually stored in a graph database and visualized as a graph structure, prompting the term knowledge “graph.”
 
+In the below diagram - A represents the subject, B represents the predicate, C represents the object
 ![Knowledge Graph basic](/img/web-development/database/Knowledge_Graph-basic.png)
-
-![Knowledge Graph table](/img/web-development/database/knowledge-graphs-table.png)
 Source: [What is a Knowledge Graph?](https://www.ibm.com/cloud/learn/knowledge-graph#:~:text=A%20knowledge%20graph%2C%20also%20known,the%20term%20knowledge%20%E2%80%9Cgraph.%E2%80%9D)
 
-In the above diagram - A represents the subject, B represents the predicate, C represents the object
+
+![500-women-scientist](/img/web-development/database/500-women-scientist.gif)
+Knowledge graph of 500 Women Scientists by [KgBase](https://www.kgbase.com/pages/release-notes/55)
+
 
 ### Key Characteristics
 
@@ -31,7 +33,14 @@ There are many different types of knowledge graphs developed by different compan
 
 Most people conducting SEO will tend to focus on the Google Knowledge Graph as it’s the most frequently used and relevant knowledge graph for SEO. As Google, being the most popular search engine and the driver behind a lot of search engine innovation, it’s important to focus on developing entities and embedding them into the knowledge graph. 
 
-![Knowledge Graph Table](/img/web-development/database/(knowledge-graphs-table.png)
+| Developer | Purpose & Function | Stage of Development       |
+|-----------|----------------------|----------------------------|
+| Microsoft | Uses knowledge graph for the Bing search engine, LinkedIn data Academics.          | Actively used in products  |
+| Google    | Knowledge graph is used as a massive categorization function across Google’s devices and directly embedded in the&nbsp;search engine. | Actively used in products  |
+| Facebook  | Develops connections between people, events and ideas, mainly focusing on news, people and events related to the social network.      | Actively used in products  |
+| IBM       | Provides a framework for other companies and/or industries to develop internal knowledge graphs.                                      | Actively used by clients   |
+| eBay      | Currently developing a knowledge graph that functions to provide connections between users and products provided on the website.      | Early Stage of Development |
+
 Source: [What is a Knowledge Graph? A comprehensive Guide](https://wordlift.io/blog/en/entity/knowledge-graph/)
 
 Microsoft’s knowledge graph is still something to pay close attention to, as while not as many people use Bing, plenty of people do use Microsoft’s services, including LinkedIn. So while Google may be the primary focus of SEO and entity development, it’s important not to forget about Microsoft. Thankfully, they both use schema markup, so developing entries for both of them shouldn’t be too difficult.
