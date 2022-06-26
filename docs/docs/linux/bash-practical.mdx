@@ -40,19 +40,19 @@ http://linux.vbird.org/linux_basic/0340bashshell-scripts.php
 
 ```bash
 範例一：找出 /etc/ 底下以 cron 為開頭的檔名
-[dmtsai@study ~]$ ll -d /etc/cron*    <==加上 -d 是為了僅顯示目錄而已
+$ ll -d /etc/cron*    <==加上 -d 是為了僅顯示目錄而已
 
 範例二：找出 /etc/ 底下檔名『剛好是五個字母』的檔名
-[dmtsai@study ~]$ ll -d /etc/?????    <==由於 ? 一定有一個，所以五個 ? 就對了
+$ ll -d /etc/?????    <==由於 ? 一定有一個，所以五個 ? 就對了
 
 範例三：找出 /etc/ 底下檔名含有數字的檔名
-[dmtsai@study ~]$ ll -d /etc/*[0-9]*  <==記得中括號左右兩邊均需 *
+$ ll -d /etc/*[0-9]*  <==記得中括號左右兩邊均需 *
 
 範例四：找出 /etc/ 底下，檔名開頭非為小寫字母的檔名：
-[dmtsai@study ~]$ ll -d /etc/[^a-z]*  <==注意中括號左邊沒有 *
+$ ll -d /etc/[^a-z]*  <==注意中括號左邊沒有 *
 
 範例五：將範例四找到的檔案複製到 /tmp/upper 中
-[dmtsai@study ~]$ mkdir /tmp/upper; cp -a /etc/[^a-z]* /tmp/upper
+$ mkdir /tmp/upper; cp -a /etc/[^a-z]* /tmp/upper
 ```
 
 ## 環境變數的功能
@@ -63,16 +63,20 @@ env & set
 
 ```bash
 
-[dmtsai@study ~]$ echo $SHELL
+$ echo $SHELL
 /bin/bash              <==可順利顯示！沒有錯誤！
-[dmtsai@study ~]$ echo $?
+
+$ echo $?
 0                      <==因為沒問題，所以回傳值為 0
-[dmtsai@study ~]$ 12name=VBird
+
+$ 12name=VBird
 bash: 12name=VBird: command not found...   <==發生錯誤了！bash回報有問題
-[dmtsai@study ~]$ echo $?
+
+$ echo $?
 127                    <==因為有問題，回傳錯誤代碼(非為0)
 # 錯誤代碼回傳值依據軟體而有不同，我們可以利用這個代碼來搜尋錯誤的原因喔！
-[dmtsai@study ~]$ echo $?
+
+$ echo $?
 0
 # 咦！怎麼又變成正確了？這是因為 "?" 只與『上一個執行指令』有關，
 # 所以，我們上一個指令是執行『 echo $? 』，當然沒有錯誤，所以是 0 沒錯！
@@ -122,20 +126,20 @@ These files are always present whenever a program is run. As explained before a 
 2>        ：將原本應該由螢幕輸出的錯誤資料輸出到 2> 的右邊去。
 /dev/null ：可以說成是黑洞裝置！
 
-[test @test test]# ls -al >  list.txt
-將顯示的結果輸出到 list.txt 檔案中，若該檔案以存在則予以取代！
+# 將顯示的結果輸出到 list.txt 檔案中，若該檔案以存在則予以取代！
+ls -al >  list.txt
 
-[test @test test]# ls -al >> list.txt
-將顯示的結果累加到 list.txt 檔案中，該檔案為累加的，舊資料保留！
+# 將顯示的結果累加到 list.txt 檔案中，該檔案為累加的，舊資料保留！
+ls -al >> list.txt
 
-[test @test test]# ls -al 1> list.txt 2> list.err
-將顯示的資料，正確的輸出到 list.txt 錯誤的資料輸出到 list.err
+# 將顯示的資料，正確的輸出到 list.txt 錯誤的資料輸出到 list.err
+ls -al 1> list.txt 2> list.err
 
-[test @test test]# ls -al 1> list.txt 2>&1
-將顯示的資料，不論正確或錯誤均輸出到 list.txt 當中！
+# 將顯示的資料，不論正確或錯誤均輸出到 list.txt 當中！
+ls -al 1> list.txt 2>&1
 
-[test @test test]# ls -al 1> list.txt 2> /dev/null
-將顯示的資料，正確的輸出到 list.txt 錯誤的資料則予以丟棄！
+# 將顯示的資料，正確的輸出到 list.txt 錯誤的資料則予以丟棄！
+ls -al 1> list.txt 2> /dev/null
 
 注意！錯誤與正確檔案輸出到同一個檔案中，則必須以上面的方法來寫！
 不能寫成其他格式！
@@ -145,11 +149,11 @@ These files are always present whenever a program is run. As explained before a 
 Many commands can accept input from a facility called standard input. By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. To redirect standard input from *a file* instead of *the keyboard*, the "<" character is used like this. 以最簡單的說法來說， 那就是『將原本需要由鍵盤輸入的資料，改由檔案內容來取代』的意思。:
 
 ```bash
-[me@linuxbox me]$ sort < file_list.txt
+$ sort < file_list.txt
 ```
 In the example above, we used the sort command to process the contents of file_list.txt. The results are output on the display since the standard output was not redirected. We could redirect standard output to another file like this:
 ```bash
-[me@linuxbox me]$ sort < file_list.txt > sorted_file_list.txt
+$ sort < file_list.txt > sorted_file_list.txt
 ```
 As you can see, a command can have both its input and output redirected. Be aware that the order of the redirection does not matter. The only requirement is that the redirection operators (the "<" and ">") must appear after the other options and arguments in the command.
 
@@ -203,7 +207,7 @@ The keyboard is the standard input device while your screen is the standard outp
 
 ```bash
 範例：我不清楚 /tmp/abc 是否存在，但就是要建立 /tmp/abc/hehe 檔案
-[dmtsai@study ~]$ ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
+$ ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
 ```
 ![command](/img/linux/cmd_1.gif)
 

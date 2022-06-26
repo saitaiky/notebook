@@ -43,6 +43,7 @@ const config = {
             },
           }
           */
+          remarkPlugins: [[require('mdx-mermaid'), { mermaid: { theme: 'dark' } }]],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
@@ -52,6 +53,7 @@ const config = {
   ],
   plugins: [
     'docusaurus-plugin-sass',
+    'plugin-image-zoom',
     [
       'content-docs',
       /** @type {import('@docusaurus/plugin-content-docs').Options} */

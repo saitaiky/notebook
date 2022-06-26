@@ -4,6 +4,9 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Bash ( bash ) is one of many available (yet the most commonly used) Unix shells.
 
 我這個使用者什麼時候可以取得 shell 來工作呢？還有， 我這個使用者預設會取得哪一個 shell 啊？還記得我們在第四章的在終端介面登入linux小節當中提到的登入動作吧？ 當我登入的時候，系統就會給我一個 shell 讓我來工作了。 而這個登入取得的 shell 就記錄在 /etc/passwd 這個檔案內！這個檔案的內容是啥？
@@ -95,19 +98,45 @@ export PATH
 我們來看看整個 login shell 的讀取流程：
 ![centos7_bashrc](/img/linux/centos7_bashrc_1.gif)
 
-## Loading sequence
+## Bash & Zsh lading sequence
 
 If you are using Mac, you may use `zshrc` instead of `bashrc`, the functionality is the same. It's just one for zsh and the other one for bash.
+
+<Tabs className="api-tabs">
+<TabItem value="bash" label="Bash">
 
 - `/bin/bash`: The bash executable
 - `/etc/profile`: The systemwide initialization file, executed for login shells
 - `~/.bash_profile`: The personal initialization file, executed for login shells
-- `~/.bashrc` or `~/.zshrc`: The individual per-interactive-shell startup file
+- `~/.bashrc`: The individual per-interactive-shell startup file. In zsh, `~/.zshrc` file does the same thing.
 - `~/.bash_logout`: The individual login shell cleanup file, executed when a login shell exits
 - `~/.inputrc`: Individual readline initialization file
 
 ![Bash-startup-file](/img/linux/bash-startup-files-order.png)
 Source: [Zsh/Bash startup files loading order (.bashrc, .zshrc etc.)](https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e)
+
+</TabItem>
+<TabItem value="zsh" label="ZSH">
+
+> Note that zsh seems to read ~/.profile as well, if ~/.zshrc is not present.
+
+|               | Interactive Login | Interactive non-login | Script |
+|---------------|-------------------|-----------------------|--------|
+| /etc/zshenv   | A                 | A                     | A      |
+| ~/.zshenv     | B                 | B                     | B      |
+| /etc/zprofile | C                 |                       |        |
+| ~/.zprofile   | D                 |                       |        |
+| /etc/zshrc    | E                 |                       |        |
+| ~/.zshrc      | F                 | C                     |        |
+| /etc/zlogin   | G                 | D                     |        |
+| ~/.zlogin     | H                 |                       |        |
+|               |                   |                       |        |
+|               |                   |                       |        |
+| ~/.zlogout    | I                 |                       |        |
+| /etc/zlogout  | J                 |                       |        |
+
+</TabItem>
+</Tabs>
 
 ## source: 讀入環境設定檔的指令
 由於 /etc/profile 與 ~/.bash_profile 都是在取得 login shell 的時候才會讀取的設定檔，所以， 如果你將自己的偏好設定寫入上述的檔案後，通常都是得登出再登入後，該設定才會生效。那麼，能不能直接讀取設定檔而不登出登入呢？ 可以的！那就得要利用 source 這個指令了！

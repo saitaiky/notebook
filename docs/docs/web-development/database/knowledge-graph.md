@@ -7,14 +7,14 @@ title: Knowledge graph
 A knowledge graph, also known as a **semantic** network, is a knowledge model represents a network of real-world entities—i.e. objects, events, situations, or concepts—and illustrates(interlinked descriptions) the relationship between them. This information is usually stored in a graph database and visualized as a graph structure, prompting the term knowledge “graph.”
 
 In the below diagram - A represents the subject, B represents the predicate, C represents the object
-![Knowledge Graph basic](/img/web-development/database/Knowledge_Graph-basic.png)
-Source: [What is a Knowledge Graph?](https://www.ibm.com/cloud/learn/knowledge-graph#:~:text=A%20knowledge%20graph%2C%20also%20known,the%20term%20knowledge%20%E2%80%9Cgraph.%E2%80%9D)
 
+```mermaid
+flowchart LR
+    id1((A)) -- B --- id2((C))
+```
 
+Below is a knowledge graph of 500 Women Scientists by [KgBase](https://www.kgbase.com/pages/release-notes/55)
 ![500-women-scientist](/img/web-development/database/500-women-scientist.gif)
-Knowledge graph of 500 Women Scientists by [KgBase](https://www.kgbase.com/pages/release-notes/55)
-
-
 ### Key Characteristics
 
 A knowledge graph is made up of three main components: nodes, edges, and labels. Any object, place, or person can be a node. An edge defines the relationship between the nodes.
