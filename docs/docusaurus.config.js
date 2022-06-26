@@ -181,6 +181,11 @@ const config = {
             label: 'Docusaurus',
             position: 'left',
           },
+          {
+            to: 'https://mermaid-js.github.io/mermaid/#/',
+            label: 'Mermaid',
+            position: 'left',
+          },
           /* Version control
           {
             type: 'docsVersionDropdown',
