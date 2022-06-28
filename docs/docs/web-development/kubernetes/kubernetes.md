@@ -74,14 +74,17 @@ Use raw GitHub upstream version of Kubernetes only for **learning how K8s works*
 
 ## Swarm vs K8s 
 
+> TL;DR - Swam is easier to deploy/manage whilist Kubernetes has more features and flexibility
+
 They're both container orchestrators that run on top of a container runtime ([check this for more explanation about container runtime](http://localhost:3000/web-development/docker/intro/why-docker/)).
 
+Swarm architecture:
+![swarm-architecture](/img/web-development/kubernetes/swarm-architecture-1800x1085.png)
 
-- Swarm: Easier to deploy/manage
-- Kubernetes: More features and flexibility
+K8s architecture:
+![k8s-notes-illustration](/img/web-development/kubernetes/k8s-nodes_Illustration-1800x1307.png)
 
-
-
+Source: [Kubernetes vs Docker Swarm](https://platform9.com/blog/kubernetes-docker-swarm-compared/)
 ### Advantages of Swarm
 
 - Comes with Docker, single vendor container platform. Which means that the container runtime, and the orchestrator, are built by the same company.

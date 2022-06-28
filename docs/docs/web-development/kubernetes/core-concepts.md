@@ -30,12 +30,13 @@ Source: [Kubernetes-CKAD](https://bhavyasree.github.io/kubernetes-CKAD/01.kubern
 
 ![Comsponents of K8s](/img/web-development/kubernetes/components-of-kubernetes.svg)
 Source: [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
+
 When you install Kubernetes on a system you're actually installing the following components
 ### The API server
 The API server acts as the front end for Kubernetes, the users, management devices, command line interfaces all talk to the API server to interact with Kubernetes cluster. 
 
 ### ETCD key store
-ETCD is a distributed reliable key-value store used by Kubernetes to store all data used to manage the cluster. When you have multiple Nodes and multiple Masters in your cluster, ETCD stores all that information on all the nodes in the cluster in a distributed manner. ETCD is responsible for implementing locks within the cluster to ensure that there are no conflicts between the Masters.
+ETCD is a distributed reliable key-value store used by Kubernetes to store configuration data used to manage the cluster. When you have multiple Nodes and multiple Masters in your cluster, ETCD stores all that information on all the nodes in the cluster in a distributed manner. ETCD is responsible for implementing locks within the cluster to ensure that there are no conflicts between the Masters.
 
 ### Scheduler
 The scheduler is responsible for distributing work or containers across multiple nodes it looks for newly created containers and assigns them to nodes.
