@@ -70,8 +70,11 @@ $ kubectl delete service/httpenv service/httpenv-my-np service/httpenv-my-lb dep
 ```
 
 
-
-
+:::info `kubectl run`
+- In the future `kubectl` is a command like docker run for one-off tasks
+- It's not recommended for production
+- Use for **simple dev/test** or **troubleshooting pods**
+:::
 
 
 

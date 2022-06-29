@@ -6,7 +6,7 @@ title: Knowledge graph
 
 A knowledge graph, also known as a **semantic** network, is a knowledge model represents a network of real-world entities—i.e. objects, events, situations, or concepts—and illustrates(interlinked descriptions) the relationship between them. This information is usually stored in a graph database and visualized as a graph structure, prompting the term knowledge “graph.”
 
-In the below diagram - A represents the subject, B represents the predicate, C represents the object
+In below diagram - A represents the subject, B represents the predicate/verb, C represents the object
 
 ```mermaid
 flowchart LR
@@ -60,7 +60,15 @@ Of course, to be able to answer this question can't be leverage only the powerfu
 
 ## Semantic Network
 
+### Definition
 A semantic network, or frame network is a knowledge base that represents **semantic relations** between **concepts** in a network. This is often used as a form of knowledge representation. It is a directed or undirected graph consisting of vertices, which represent concepts, and edges, which represent **semantic relations** between **concepts**, mapping or connecting semantic fields. A semantic network may be instantiated as, for example, a graph database or a concept map. Typical standardized semantic networks are expressed as semantic triples.
+
+:::info What is senmatic?
+By “**semantic**”, I mean that the meaning of the data is encoded alongside the data in the graph, in the form of the **ontology**. A knowledge graph is self-descriptive, or, simply put, it provides a single place to find the data and understand what it’s all about.
+
+There is an additional benefit in that you can submit queries in a style that is much closer to a natural language, using a familiar domain vocabulary. That is, the meaning of the data is typically expressed in terms of entity and relation names that are familiar to those interested in the given domain. This enables smarter search, more efficient discovery, and narrows the communication gap between data providers and consumers.
+:::
+### Example
 
 One of the semantic network example is called **[WordNet](https://wordnet.princeton.edu/)**. It's a large lexical database of English. Nouns, verbs, adjectives and adverbs are grouped into sets of cognitive synonyms (synsets), each expressing a distinct concept. Synsets are interlinked by means of conceptual-semantic and lexical relations. 
 
@@ -116,6 +124,20 @@ Knowledge Base和Knowledge Graph應該是被混用最多的二個名詞，本質
 ![ABox和TBox的實際範例](/img/web-development/database/ABox-&-TBox.png)
 
 最大的差別在於Knowledge base在提出時，並沒有想到是一個網路規模(Web scale)的應用，內容(也就是事實)如此龐大，對於資料的綱要(schema)(TBox)要求較多，相對而，knowledge graph的TBox部份就比較沒這麼複雜。另一方面，knowledge base的建立常常只是單一領域，例如，Geonames 只有地名，和knowledge graph盡量收納所有知識的基調，是完全不一樣的。
+
+
+## Knowledge Base Vs Knowledge Graph
+
+While some researchers use the terms knowledge base and knowledge graph interchangeably, the use of the term graph is intentional and there are distinctions. 
+
+**All knowledge graphs are knowledge bases, while not every knowledge base qualifies as a knowledge graph**. The key differentiator between knowledge graphs and bases is that graphs **are centered around the relationships between entities**. The primary benefits of a graph are that connections (relationships) in the data are [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen?ref=hackernoon.com), you can easily connect new data items as they are injected into the data pool, and, finally, you can easily traverse links to discover how remote parts of a domain relate to each other (there’s a huge value in linking information). That's made machine readable with the help of logically consistent, linked graphs that together constitute an interrelated group of facts. A graph in this context could be, for example, a linked **set of RDF triples**.
+
+A single RDF triple represents human knowledge in standard, machine readable form by linking a subject, verb and object (S-V-O) together known to be related. These triples resemble simple S-V-O human language sentences made machine readable, such as Sai knows Paul.
+
+```mermaid
+flowchart LR
+    id1((Sai)) -- knows --- id2((Paul))
+```
 
 ## Further Reading
 - [What is a Knowledge Graph?](https://www.ontotext.com/knowledgehub/fundamentals/what-is-a-knowledge-graph/)
