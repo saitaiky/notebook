@@ -1,5 +1,5 @@
 ---
-title: Cmmands
+title: Commands
 sidebar_position: 5
 ---
 
