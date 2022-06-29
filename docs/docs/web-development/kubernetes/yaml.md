@@ -154,7 +154,7 @@ You can have many different resources in a single file and then do the opposite 
 Each manifest describes an API object (deployment, job, secret)
 We're calling these manifests. **The full description of a resource is a manifest**, and that manifest has requirements.
 
-### manifest in YMAL
+### manifest in YAML
 
 Each manifest needs four parts (root key:values in the file) 
 ```bash
