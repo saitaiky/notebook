@@ -170,3 +170,51 @@ spec
 ```
 
 The point I want to make here is that the `kind`, plus the `API version`, are used together to decide which resource you're going to get and which API  version you're going to be able to use for that resource.
+
+
+
+### Building the YAML Stack
+
+If you use the **API online documentation** to check the configuration of the objects and the keys in the YAML file, it requires you to dig around to figure out what you're looking for.  
+
+#### Getting YAML config details via CLI (server)
+
+```bash
+# All the keys support in the YAML file
+$ kubectl explain services --recursive
+
+# Getting config details of different services
+$ kubectl explain services.spec
+$ kubectl explain services.spec.type
+
+$ kubectl explain deployment.spec.template.spec.volumes.nfs.server
+KIND:     Deployment
+VERSION:  apps/v1
+
+FIELD:    server <string>
+
+DESCRIPTION:
+     server is the hostname or IP address of the NFS server. More info:
+     https://kubernetes.io/docs/concepts/storage/volumes#nfs
+```
+
+
+#### Beware of the version between server and client is not the same
+
+I find that it's easier to work from the **command line** to check the YAML config, but the command line also doesn't deal with the versions. If you've got a different version of a client then your server version, you'll want to definitely look at the API docs because your client might be on an older or newer version than what your server can support. There's no real way, at the command line that I'm aware of, to get the different versions of the information. It's always just the version of your client.
+
+#### Build your own template
+
+You can always go use other people's / documentation YAML file. Then you'll want to sort of see if you can go from pure vanilla file by using above commands to check the YAML config details. Then you'll end up with your own little private repository of knowledge. 
+
+That'll be what you use in your company. You might even have standards for how you create deployments and standards for how you create services. Maybe they'll have special labels or annotations on them. They'll maybe have a special template features. Anyway. There's lots you could do there, but most teams end up with their own defaults in a repo of sorts that they pull from rather than completely typing from scratch.
+
+## Server dry run, diff
+• dry-run a create (client side only) - It doesn't really know on your cluster, right. It hasn't talked to the server to figure that out. 
+
+> kubectl apply -f app.yml --dry-run 
+
+dry-run a create/update on server. It will then go talk to the server and give me a proper response.
+> kubectl apply -f app.yml --server-dry-run
+
+Hopefully with that, you can create your own workflow for creating YAMLs from scratch, Managing the specs in those YAMLs, and then using the apply command over and over to make your changes. That's a much more DevOps friendly infrastructure as code type of way of doing it.
