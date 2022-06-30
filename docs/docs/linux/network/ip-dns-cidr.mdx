@@ -16,7 +16,7 @@ Example of an NS record:
 source: [What is a DNS NS record?](https://www.cloudflare.com/learning/dns/dns-records/dns-ns-record/#:~:text=NS%20stands%20for%20'name%20server,example.com)
 
 # The Two Parts of An IP Address
-![two-part-of-network](/img/linux/two-part-of-network.png)
+![two-part-of-network](/img/linux/network/two-part-of-network.png)
 A device’s IP address actually consists of two separate parts:
 
 - Network ID: The network ID is a part of the IP address starting from the left that identifies the specific network on which the device is located. On a typical home network, where a device has the IP address 192.168.1.34, the 192.168.1 part of the address will be the network ID. It’s custom to fill in the missing final part with a zero, so we might say that the network ID of the device is 192.168.1.0.
@@ -27,7 +27,7 @@ So, how does your device determine which part of the IP address is the network I
 
 On most simple networks (like the ones in homes or small businesses), you’ll see subnet masks like 255.255.255.0, where all four numbers are either 255 or 0. The position of the changes from 255 to 0 indicate the division between the network and host ID. The 255s “mask out” the network ID from the equation.
 
-![two-part-of-network](/img/linux/subnet-mask.png)
+![two-part-of-network](/img/linux/network/subnet-mask.png)
 
 Note: The basic subnet masks we’re describing here are known as default subnet masks. Things get more complicated than this on bigger networks. People often use custom subnet masks (where the position of the break between zeros and ones shifts within an octet) to create multiple subnets on the same network.
 
@@ -44,7 +44,7 @@ There are two strategies the RIRs use to allocate IP address space: the legacy s
 Classful addressing is how the early Internet was formed. IP assignments were given on the Octet boundaries:
 
 The idea behind Classful address assignments was, if you were a company that …
-![classful-diagram](/img/linux/ip-address-classes.png)
+![classful-diagram](/img/linux/network/ip-address-classes.png)
 
 - … needed 200 IP addresses, a /24 IP address block from the Class C range would be assigned.
 - … needed 50,000 IP addresses, a /16 IP address block from the Class B range would be assigned.
@@ -57,22 +57,22 @@ You could argue, why not simply assign two /24 blocks from the Class C range (pr
 With **Classless Inter-Domain Routing (CIDR)**, IP assignments are not limited to the three classes. The whole unicast range (any IP address with a first octet of 0 – 223) can be allocated in any size block. In effect, the whole concept of IP address classes is done away with entirely.
 
 ### Example 1
-![CDIR-1](/img/linux/CIDR.png)
+![CDIR-1](/img/linux/network/CIDR.png)
 
 CIDR consists of two group of bits, first group (most significant bits) represents the network prefix and second group (least significant bits) forms host identifier. In image[1], first 28 bit represents a subnet and last 4 digit represents hosts. Since it has only 4 bits to form host identifier, At max it can have 2⁴ = 16 hosts.
 
 ### Example 2
-![CDIR-2](/img/linux/CIDR2.png)
+![CDIR-2](/img/linux/network/CIDR2.png)
 Image[2] has subnet mask of 32, which means all bits will be fixed. It represents a cider block with single IP.
 
 
 ### Example 3
-![CDIR-3](/img/linux/CIDR3.png)
+![CDIR-3](/img/linux/network/CIDR3.png)
 Image[3], represents a CIDR block with 24 subnet mask. Bits which are grayed in above image can only be changed. Maximum hosts will be 2⁸ = 256 and range will be from 10.88.135.1 to 10.88.135.254. Here two IP’s are reserved 10.88.135.0 and 10.88.135.255 for network use.
 
 
 ### Example 4
-![CDIR-4](/img/linux/CIDR4.png)
+![CDIR-4](/img/linux/network/CIDR4.png)
 Image[4], Fourth octet will have range from 0 to 255. In third octet, only 4 bits can changed, so it will form total of **2⁴ = 16 hosts**. Third octet will have multiple ranges of **16 hosts**. It will be like 0 to 15, 16 to 31 and so on till 255. 
 
 0-15, 16-31, 32-47, 48-63, 64-79, 80-95, 96-111, 112-127, 128-143, 144-159... etc 
@@ -80,6 +80,6 @@ Image[4], Fourth octet will have range from 0 to 255. In third octet, only 4 bit
 In CIDR block third octet has a value of **135**, which fall between **128 to 143**. So the IP range of above CIDR will be from 10.88.128.1 to 10.88.143.254. As mentioned in previous paragraph two IP’s are reserved.
 
 ### Example 5
-![CDIR-5](/img/linux/CIDR5.png)
+![CDIR-5](/img/linux/network/CIDR5.png)
 Image[5], It also has subnet mask 20 and third octet has value 90, which falls in range of 80 to 95. So IP range will be from 10.88.80.1 to 10.88.95.254.
 
