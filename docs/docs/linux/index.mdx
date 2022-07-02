@@ -3,14 +3,20 @@ title: Linux
 description: Linux
 keywords:
   - Linux
-slug: /linux
 sidebar_label: Home
 sidebar_position: 0
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## Kernel, Sheel, Drivers
 
 A kernel is the core of an Operating System. It provides basic services for all other components of the OS. It is the main layer between the OS and hardware, and it helps with process and memory management, file systems, device control, and networking.
+
+:::info
+舉例來說，如果你想要有某個網路功能 (例如核心防火牆機制) ，但是你的核心偏偏忘記加進去這項功能， 那麼不論你如何『賣力』的設定該網路套件，很抱歉！不來電！換句話說，你想要讓電腦進行的工作，都必須要『核心有支援』才可以！這個標準不論在 Windows 或 Linux 這幾個作業系統上都相同！如果有一個人開發出來一個『全新的硬體』，目前的核心不論 Windows 或 Linux 都不支援，那麼不論你用什麼系統，哈哈！這個硬體都是英雄無用武之地啦！ 那麼是否瞭解了『核心』的重要了呢？所以我們才需要來瞭解一下如何編譯我們的核心啦！
+:::
 
 ### Dual Mode operations in OS
 
@@ -69,6 +75,23 @@ Shell is a program which gives us the ability to interact with the operating sys
 **OS** is just kernel and Shell which work hand in hand.
 
 **Distro (dsitribution)** is combination of customized shell(s) working on a kernel.This means,for example-Kali,Ubuntu,fedora,Mint etc are different distros which work on Linux kernel.
+
+<Tabs className="api-tabs">
+<TabItem value="rpm" label="RPM-based">
+  <ul>
+    <li>Red Hat</li>
+    <li>CentOS</li>
+    <li>Fedora</li>
+  </ul>
+</TabItem>
+<TabItem value="debian" label="Debian-based">
+  <ul>
+    <li>Raspberry Pi OS</li>
+    <li>Ubuntu</li>
+  </ul>
+</TabItem>
+</Tabs>
+
 
 **Shell** acts as an interface between the user and the kernel.Shell can be command line interface or Graphic user interface.Bash,sh,Windows GUI are some shells.
 
