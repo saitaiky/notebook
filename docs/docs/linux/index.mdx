@@ -15,7 +15,9 @@ import TabItem from '@theme/TabItem';
 A kernel is the core of an Operating System. It provides basic services for all other components of the OS. It is the main layer between the OS and hardware, and it helps with process and memory management, file systems, device control, and networking.
 
 :::info
-舉例來說，如果你想要有某個網路功能 (例如核心防火牆機制) ，但是你的核心偏偏忘記加進去這項功能， 那麼不論你如何『賣力』的設定該網路套件，很抱歉！不來電！換句話說，你想要讓電腦進行的工作，都必須要『核心有支援』才可以！這個標準不論在 Windows 或 Linux 這幾個作業系統上都相同！如果有一個人開發出來一個『全新的硬體』，目前的核心不論 Windows 或 Linux 都不支援，那麼不論你用什麼系統，哈哈！這個硬體都是英雄無用武之地啦！ 那麼是否瞭解了『核心』的重要了呢？所以我們才需要來瞭解一下如何編譯我們的核心啦！
+舉例來說，如果你想要有某個網路功能 (例如核心防火牆機制) ，但是你的核心偏偏忘記加進去這項功能， 那麼不論你如何『賣力』的設定該網路套件，很抱歉！不來電！換句話說，你想要讓電腦進行的工作，都必須要『核心有支援』才可以！這個標準不論在 Windows 或 Linux 這幾個作業系統上都相同！如果有一個人開發出來一個『全新的硬體』，目前的核心不論 Windows 或 Linux 都不支援，那麼不論你用什麼系統，哈哈！這個硬體都是英雄無用武之地啦！ 
+
+既然原本的 distribution 都已經幫我們考慮好如何使用核心了，那麼， 我們也不需要再重新的編譯核心啦！尤其是 distribution 都會主動的釋出新版的核心 RPM 版本， 所以，實在不需要自己重新編譯的！
 :::
 
 ### Dual Mode operations in OS
@@ -44,7 +46,20 @@ Because of its critical nature, the kernel code is usually loaded into a protect
 
 :::info Difference between Mac and Linux kernel in one line
 The macOS kernel (XNU) has been around longer than Linux and was based on a combination of two even older code bases. On the other hand, Linux is newer, written from scratch, and is used on many more devices.
+
+```bash
+$ uname -r # Get kernel version
+4.15.0-39-generic
+```
+So my Linux kernel version is 4.15.0-39, where: 
+
+- 4 : Kernel version
+- 15 : Major revision
+- 0 : Minor revision
+- 39 : Patch level or number
+- generic : Linux distro/kernel specific additional info
 :::
+
 #### What the kernel does
 
 The kernel has 4 jobs:
@@ -70,8 +85,20 @@ A shell is a program that provides the traditional, text-only user interface for
 
 Shell is a program which gives us the ability to interact with the operating system. The shell is a program layer which understands and execute the commands that user enters. shell is also called as command interpreter .
 
+### Drivers
+Drivers in Linux are the programs which are specifically written for the specific device.
 
-#### Relationship of Kernel, Shell, Distro, OS
+A driver communicates with the device through the computer bus or communications subsystem to which the hardware connects.
+
+The main purpose of device drivers is to provide abstraction by acting as a translator between a hardware device and the applications or operating system that use it.
+
+simply the driver is a kernel program which drives the particular device to which it is associated.
+
+for example, when we click button of mouse, particular associated driver gets invoked and it runs the further routines to give output of the clicked button.
+
+every device in the system has its associated driver.
+
+## Relationship of Kernel, Shell, Distro, OS
 **OS** is just kernel and Shell which work hand in hand.
 
 **Distro (dsitribution)** is combination of customized shell(s) working on a kernel.This means,for example-Kali,Ubuntu,fedora,Mint etc are different distros which work on Linux kernel.
@@ -108,19 +135,6 @@ Shell or a distro does not make Kernel more user friendly to use but it makes it
 So now,simply you can say Linux is a kernel. Linux + shell(Bash,Gnome etc) is a Linux distro say Ubuntu,Mint,Kali etc and each of them is a OS.
 
 source: [What's the relationship between a Linux OS and a kernel?](https://stackoverflow.com/questions/3403938/whats-the-relationship-between-a-linux-os-and-a-kernel##:~:text=OS%20is%20just%20kernel%20and,the%20user%20and%20the%20kernel.)
-
-### Drivers
-Drivers in Linux are the programs which are specifically written for the specific device.
-
-A driver communicates with the device through the computer bus or communications subsystem to which the hardware connects.
-
-The main purpose of device drivers is to provide abstraction by acting as a translator between a hardware device and the applications or operating system that use it.
-
-simply the driver is a kernel program which drives the particular device to which it is associated.
-
-for example, when we click button of mouse, particular associated driver gets invoked and it runs the further routines to give output of the clicked button.
-
-every device in the system has its associated driver.
 
 ## What is X Window?
 ![streams](/img/linux/simple-X-window-system-architecture.png)
