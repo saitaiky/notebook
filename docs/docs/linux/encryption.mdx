@@ -32,7 +32,7 @@ Reference: [Receiving a key from a keyserver in gnupg](https://superuser.com/que
 
 If you plan to send a secure message to someone who uses public key cryptography like PGP, you need to know what key to use to encrypt your message. **Public key servers act as a phonebook for such keys, allowing a person to use an email address, name, or key fingerprint to search for a full key and download it**. There are many PGP public key servers, but they usually share their key collections with each other. Keyservers can't verify whether the keys they publish are genuine or forgeries. Anyone can upload a key to a public key server—in anyone's name. That means that a key connected to a person's name or email on a keyserver might not be their real key. In order to check the authenticity of a key, you need to check its signatures, or confirm its fingerprint with the original user in a trustworthy way.
 
-:::info Finger Print
+:::info Fingerprint
 
 The keys of public key cryptography are very large numbers, sometimes a thousand or more digits long. A fingerprint is a much smaller number or set of numbers and letters that can be used as a unique name for that key, without having to list all of the key's digits. So, for instance, if you and a friend wished to make sure you both had the same key, you could either spend a long time reading off all the hundreds of digits in the key, or you could each compare your key's fingerprints instead. 
 

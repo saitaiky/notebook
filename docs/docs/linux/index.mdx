@@ -20,20 +20,6 @@ A kernel is the core of an Operating System. It provides basic services for all 
 既然原本的 distribution 都已經幫我們考慮好如何使用核心了，那麼， 我們也不需要再重新的編譯核心啦！尤其是 distribution 都會主動的釋出新版的核心 RPM 版本， 所以，實在不需要自己重新編譯的！
 :::
 
-### Dual Mode operations in OS
-
-An error in one program can adversely affect many processes, it might modify data of another program, or also can affect the operating system. For example, if a process stuck in the infinite loop then this infinite loop could affect the correct operation of other processes. So to ensure the proper execution of the operating system, there are two modes of operation: 
-
-![Kernel_Architecture](/img/linux/Kernel_Architecture.jpeg)
-Source: [Linux Kernel Architecture](https://vlinux-freak.blogspot.com/2019/02/linux-kernel-architecture.html)
-
-Memory is divided into 2 areas, known as **kernel space and user space** (synonymous to the terms – **kernel and user mode**).
-
-- **User Space** is the memory area where all **user mode** applications works and this memory can be swapped out when needed. Userspace process normally runs in its own virtual memory space and unless explicitly requested, cannot access the memory of other processes. Due to the protection afforded by this sort of isolation, crashes in **user mode** are always recoverable.
-- **Kernel Space** is strictly reserved for running the kernel, OS background process, kernel extensions and device drivers. In Linux kernel space gives full access to the hardware, although some extensions runs in the user space. Crashes in **kernel mode** are catastrophic; they will halt the entire PC.
-
-These two modes are enforced by the CPU hardware. If code executing in **User mode** attempts to do something outside, example accessing a privileged CPU instruction or modifying memory that it has no access to, then a trappable exception is thrown. Instead of your entire system crashing, only that particular application crashes.
-
 ### Kernel
 
 ![Linux hardware-kernal-shell](/img/linux/hardware-kernal-shell.png)
@@ -126,15 +112,30 @@ every device in the system has its associated driver.
 
 To further explain shell and Kernel suppose you type cd . The shell searches the filestore for the file containing the program cd, and then requests the kernel, through system calls, to execute the program cd on myfile.
 
-To take a simple example- **Windows GUI **is a Shell,**Windows OS** a disribution by Microsoft.
-
-Similary,**Ubuntu OS** or **fedora OS** etc a distro working on various shell using Linux kernel.
+:::info Examples
+- **Windows GUI **is a Shell,**Windows OS** a disribution by Microsoft.
+- **Ubuntu OS** or **fedora OS** etc a distro working on various shell using Linux kernel.
 
 Shell or a distro does not make Kernel more user friendly to use but it makes it usable for user.
 
 So now,simply you can say Linux is a kernel. Linux + shell(Bash,Gnome etc) is a Linux distro say Ubuntu,Mint,Kali etc and each of them is a OS.
+:::
 
 source: [What's the relationship between a Linux OS and a kernel?](https://stackoverflow.com/questions/3403938/whats-the-relationship-between-a-linux-os-and-a-kernel##:~:text=OS%20is%20just%20kernel%20and,the%20user%20and%20the%20kernel.)
+
+## Dual Mode operations in OS
+
+An error in one program can adversely affect many processes, it might modify data of another program, or also can affect the operating system. For example, if a process stuck in the infinite loop then this infinite loop could affect the correct operation of other processes. So to ensure the proper execution of the operating system, there are two modes of operation: 
+
+![Kernel_Architecture](/img/linux/Kernel_Architecture.jpeg)
+Source: [Linux Kernel Architecture](https://vlinux-freak.blogspot.com/2019/02/linux-kernel-architecture.html)
+
+Memory is divided into 2 areas, known as **kernel space and user space** (synonymous to the terms – **kernel and user mode**).
+
+- **User Space** is the memory area where all **user mode** applications works and this memory can be swapped out when needed. Userspace process normally runs in its own virtual memory space and unless explicitly requested, cannot access the memory of other processes. Due to the protection afforded by this sort of isolation, crashes in **user mode** are always recoverable.
+- **Kernel Space** is strictly reserved for running the kernel, OS background process, kernel extensions and device drivers. In Linux kernel space gives full access to the hardware, although some extensions runs in the user space. Crashes in **kernel mode** are catastrophic; they will halt the entire PC.
+
+These two modes are enforced by the CPU hardware. If code executing in **User mode** attempts to do something outside, example accessing a privileged CPU instruction or modifying memory that it has no access to, then a trappable exception is thrown. Instead of your entire system crashing, only that particular application crashes.
 
 ## What is X Window?
 ![streams](/img/linux/simple-X-window-system-architecture.png)
