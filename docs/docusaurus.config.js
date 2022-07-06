@@ -157,7 +157,12 @@ const config = {
               {
                 type: 'doc',
                 docId: 'web-development/index',
-                label: 'Web development',
+                label: 'Web Development',
+              },
+              {
+                type: 'doc',
+                docId: 'cloud-computing/aws/index',
+                label: 'AWS',
               },
               {
                 type: 'doc',
@@ -167,7 +172,7 @@ const config = {
               {
                 type: 'doc',
                 docId: 'tech-concepts/index',
-                label: 'Concepts',
+                label: 'Tech Concepts',
               },
             ],
           },
