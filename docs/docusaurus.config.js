@@ -172,18 +172,28 @@ const config = {
             ],
           },
           {
-            to: 'wiki',
-            label: 'Wiki',
+            type: 'dropdown',
+            label: 'Tools & Docs',
             position: 'left',
+            items: [
+              {
+                to: 'wiki',
+                label: 'Wiki',
+              },
+              {
+                to: 'https://docusaurus.io/docs',
+                label: 'Docusaurus',
+              },
+              {
+                to: 'https://mermaid-js.github.io/mermaid/#/',
+                label: 'Mermaid',
+              },
+            ],
           },
           {
-            to: 'https://docusaurus.io/docs',
-            label: 'Docusaurus',
-            position: 'left',
-          },
-          {
-            to: 'https://mermaid-js.github.io/mermaid/#/',
-            label: 'Mermaid',
+            label: 'Crypto',
+            type: 'doc',
+            docId: 'crypto/index',
             position: 'left',
           },
           /* Version control

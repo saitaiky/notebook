@@ -9,27 +9,35 @@ import useIsBrowser from "@docusaurus/useIsBrowser";
 
 export default function ContentWrapper(props) {
 	const isBrowser = useIsBrowser();
-	const isCryptoDocs =
-		isBrowser && window.location.pathname.includes("/crypto/");
+	const isConceptDocs =
+		isBrowser && window.location.pathname.includes("/tech-concepts/");
 	const isWebDevelopmentDocs =
 		isBrowser && window.location.pathname.includes("/web-development/");
-	return (
-		<>
-			<div className={styles["doc-sidebar-tabs"]}>
-				<Link
-					to="/web-development/"
-					className={`${styles["link-tab"]} ${isWebDevelopmentDocs ? styles['active'] : ''}`}
-				>
-					Web Development
-				</Link>
-				<Link
-					to="/tech-concepts/"
-					className={`${styles["link-tab"]} ${isCryptoDocs ? styles['active'] : ''}`}
-				>
-					Tech concepts
-				</Link>
-			</div>
+	const hideSidebar = !isConceptDocs && !isWebDevelopmentDocs;
+
+	if (hideSidebar){
+		return (
 			<Content {...props} />
-		</>
-	);
+		);
+	}else{
+		return (
+			<>
+				<div className={styles["doc-sidebar-tabs"]}>
+					<Link
+						to="/web-development/"
+						className={`${styles["link-tab"]} ${isWebDevelopmentDocs ? styles['active'] : ''}`}
+					>
+						Web Development
+					</Link>
+					<Link
+						to="/tech-concepts/"
+						className={`${styles["link-tab"]} ${isConceptDocs ? styles['active'] : ''}`}
+					>
+						Tech concepts
+					</Link>
+				</div>
+				<Content {...props} />
+			</>
+		);
+	}
 }
