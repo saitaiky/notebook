@@ -193,6 +193,14 @@ const config = {
                 to: 'https://mermaid-js.github.io/mermaid/#/',
                 label: 'Mermaid',
               },
+              {
+                to: 'https://euangoddard.github.io/clipboard2markdown/',
+                label: 'Clipboard2MD',
+              },
+              {
+                to: 'https://tabletomarkdown.com/convert-website-table-to-markdown/',
+                label: 'Table to Markdown',
+              },
             ],
           },
           {
