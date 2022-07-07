@@ -1,0 +1,33 @@
+---
+title: ASG
+description: ASG
+keywords:
+  - ASG
+sidebar_position: 3
+---
+
+
+## Auto Scaling
+
+### EC2 Auto Scaling cannot add a volume 
+
+Amazon EC2 Auto Scaling cannot add a volume (Volumne = EBS volume) to an existing instance if the existing volume is approaching capacity
+
+A volume is attached to a new instance when it is added. Amazon EC2 Auto Scaling doesn't automatically add a volume when the existing one is approaching capacity. You can use the EC2 API to add a volume to an existing instance.
+
+
+### EC2 Auto Scaling works with both ALB and NLB
+
+Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load Balancers including their health check feature.
+
+### ASG terminates unhealthy EC2 instance
+
+To maintain the same number of instances, Amazon EC2 Auto Scaling performs a periodic health check on running instances within an Auto Scaling group. When it finds that an instance is unhealthy, it terminates that instance and launches a new one. 
+
+Amazon EC2 Auto Scaling creates a new scaling activity for terminating the unhealthy instance and then terminates it. Later, another scaling activity launches a new instance to replace the terminated instance.
+
+### ASG Target Tracking Scaling Policy
+
+- ASGAverageNetworkOut -  This represents the Average number of bytes sent out on all network interfaces by the Auto Scaling group. 
+- ALBRequestCountPerTarget
+- ASGAverageCPUUtilization

@@ -5,7 +5,7 @@ title: Kubernetes
 
 > TL;DR - Kubernetes is a tool to deploy application in the form of containers on a set of machines that are configured as worker nodes in a cluster.
 
-So, lots of people think Kubernetes is the next orchestrator people should learn after Swarm (Including me). This article will show you what K8s is and try to compare K8s to Swarm side by side.
+So, lots of people think Kubernetes is the next orchestrator people should learn after Swarm. This article will show you what K8s is and try to compare K8s to Swarm side by side.
 
 Kubernetes essentially is **a set of APIs** that run on apps in containers to manage a set of servers and then execute your containers **on Docker, by default**. It can run other container runtimes that aren't **Docker**, like **containerd**.
 

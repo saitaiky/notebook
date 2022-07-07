@@ -1,0 +1,29 @@
+---
+title: EBS
+description: EBS
+keywords:
+  - EBS
+sidebar_position: 3
+---
+
+## EBS
+
+### EBS volumes are AZ locked
+When you create an EBS volume, it is automatically replicated within its Availability Zone to prevent data loss due to the failure of any single hardware component. *You can attach an EBS volume to an EC2 instance in the **same Availability Zone** *.
+
+### Update DeleteOnTermination
+
+How to update 'DeleteOnTermination' attribute set to True for an EC2 instance’ root EBS volume?
+
+1. Set the DeleteOnTermination attribute to False using the command line
+2. When an instance terminates, the value of the DeleteOnTermination attribute for each attached EBS volume determines whether to preserve or delete the volume. By default, the DeleteOnTermination attribute is set to True for the root volume and is set to False for all other volume types.
+
+### Using a single SSH key pair for all EC2 instances in all AWS Regions
+
+1. Generate a public SSH key (.pub) file from the private SSH key (.pem) file.
+2. Set the AWS Region you wish to import to.
+3. Import the public SSH key into the new Region.
+
+[https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/)
+
+

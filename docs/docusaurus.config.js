@@ -161,6 +161,11 @@ const config = {
               },
               {
                 type: 'doc',
+                docId: 'tech-concepts/index',
+                label: 'Tech Concepts',
+              },
+              {
+                type: 'doc',
                 docId: 'cloud-computing/aws/index',
                 label: 'AWS',
               },
@@ -168,11 +173,6 @@ const config = {
                 type: 'doc',
                 docId: 'linux/index',
                 label: 'Linux',
-              },
-              {
-                type: 'doc',
-                docId: 'tech-concepts/index',
-                label: 'Tech Concepts',
               },
             ],
           },
@@ -183,7 +183,7 @@ const config = {
             items: [
               {
                 to: 'wiki',
-                label: 'Wiki',
+                label: 'Theme Wiki',
               },
               {
                 to: 'https://docusaurus.io/docs',
