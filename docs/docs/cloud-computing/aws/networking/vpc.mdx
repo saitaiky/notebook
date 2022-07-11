@@ -1,0 +1,48 @@
+---
+title: VPC
+description: VPC
+keywords:
+  - VPC
+sidebar_position: 4
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Endpoints
+
+Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. They allow communication between instances in your VPC and services without imposing availability risks or bandwidth constraints on your network traffic.
+
+A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by AWS PrivateLink without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other service does not leave the Amazon network. There are two types of VPC endpoints: 
+- interface endpoints
+- gateway endpoints
+
+An interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service.
+
+A gateway endpoint is a gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services (Almost all of them)
+
+## Transit Gateway
+
+AWS Transit Gateway is a service that enables customers to connect their **Amazon VPCs** and their **on-premises networks** to a single gateway. With AWS Transit Gateway, you only have to create and manage a single connection from the central gateway into each Amazon VPC, on-premises data center, or remote office across your network.
+
+<Tabs className="api-tabs">
+<TabItem value="before" label="Without AWS Transit Gateway">
+
+![before](/img/aws/networking/tgw-before.png)
+Complexity increases with scale. You must maintain routing tables within each VPC and connect to each onsite location using separate network gateways.
+
+</TabItem>
+<TabItem value="after" label="With AWS Transit Gateway">
+
+![after](/img/aws/networking/tgw-after.png)
+Your network is streamlined and scalable. AWS Transit Gateway routes all traffic to and from each VPC or VPN, and you have one place to manage and monitor it all.
+
+</TabItem>
+</Tabs>
+
+## Bastion hosts
+
+Including **bastion hosts** in your VPC environment enables you to securely connect to your Linux instances without exposing your environment to the Internet. After you set up your bastion hosts, you can access the other instances in your VPC through **Secure Shell (SSH)** connections on Linux. Bastion hosts are also configured with security groups to provide fine-grained ingress control.
+
+You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
