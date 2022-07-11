@@ -150,3 +150,18 @@ An Application load balancer distributes incoming application traffic across mul
 ![component_architecture](/img/cloud-computing/aws/network/component_architecture.png "component_architecture")
 
 source: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
+
+
+## Layer 4 Load Balancing vs. Layer 7 Load Balancing
+
+An [Layer 4](https://www.a10networks.com/glossary/what-is-layer-4-of-the-osi-model/) load balancer works at the transport layer, using the [TCP and UDP protocols](https://en.wikibooks.org/wiki/Communication_Networks/TCP_and_UDP_Protocols) to manage transaction traffic based on a simple [load balancing](https://www.a10networks.com/blog/what-is-server-load-balancing-slb/) algorithm and basic information such as server connections and response times.
+
+An Layer 7 load balancer works at the application layer---the highest layer in the OSI model---and makes its routing decisions based on more detailed information such as the characteristics of the [HTTP/HTTPS](https://en.wikipedia.org/wiki/HTTPS) header, message content, URL type, and cookie data.
+
+### Layer 4 Load Balancing
+
+Layer 4 load balancing, operating at the transport level, manages traffic based on network information such as application ports and protocols without visibility into the actual content of messages. This is an effective approach for simple [packet-level](https://en.wikipedia.org/wiki/Network_packet) load balancing. The fact that messages are neither inspected nor decrypted allows them to be forwarded quickly, efficiently, and securely. On the other hand, because layer 4 load balancing is unable to make decisions based on content, it's not possible to route traffic based on media type, localization rules, or other criteria beyond simple algorithms such as round-robin routing.
+
+### Layer 7 Load Balancing
+
+Layer 7 load balancing operates at the application level, using protocols such as HTTP and SMTP to make decisions based on the actual content of each message. Instead of merely forwarding traffic unread, a layer 7 load balancer terminates network traffic, performs decryption as needed, inspects messages, makes content-based routing decisions, initiates a new TCP connection to the appropriate upstream server, and writes the request to the server.
