@@ -15,7 +15,20 @@ You can specify that Amazon EC2 should do one of the following when it interrupt
 - Terminate the Spot Instance (default behavoir)
 
 
-## Zonal Reserved EC2 Instance
+## Types of EC2
+
+### Spot Instance
+
+You can use Spot Instances to purchase extra computing power at a discounted price to supplement On-Demand Instances. They are a more affordable option than On-Demand EC2 pricing. Flexible and fault-tolerant applications and high-performance workloads use them. Spot Instances are also ideal for flexible workloads, such as data analysis, batch jobs, background processing, and optional tasks. For more information, see [Amazon EC2 Spot Instances](https://aws.amazon.com/ec2/spot-instances/).
+
+AWS Spot Instances help reduce On-Demand Instance costs on EC2. You can use Spot Instances **to supplement On-Demand Instances**. Spot Instances shouldn’t handle all workloads because of potential service disruptions.
+
+:::info Spot Instance interruption
+Amazon EC2 terminates, stops, or hibernates your Spot Instance when Amazon EC2 needs the capacity back. Amazon EC2 provides a Spot Instance interruption notice, which gives the instance a two-minute warning before it is interrupted.
+:::
+#### Spot Fleet
+The Spot Fleet selects the Spot Instance pools that meet your needs and launches Spot Instances to meet the target capacity for the fleet. By default, Spot Fleets are set to maintain target capacity by launching replacement instances after Spot Instances in the fleet are terminated.
+### Zonal Reserved EC2 Instance
 
 The ability to create and manage **Capacity Reservations** independently from the billing discounts offered by Savings Plans or regional Reserved Instances.
 

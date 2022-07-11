@@ -40,7 +40,6 @@ FSx for Lustre provides the ability to both process the 'hot data' in a parallel
 
 ## Amazon FSx for Windows File Server
 
-
 ![Product-Page-Diagram_Managed-File-System-How-it-Works_Updated](/img/aws/storage/Product-Page-Diagram_Managed-File-System-How-it-Works_Updated.png)
 Source: [AWS - Offical document](https://aws.amazon.com/fsx/windows/)
 

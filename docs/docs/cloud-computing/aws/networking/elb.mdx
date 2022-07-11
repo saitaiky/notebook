@@ -7,7 +7,13 @@ keywords:
 sidebar_position: 1
 ---
 
+## Behaviour 
 
+### Deregistration
+
+Deregistering an EC2 instance removes it from your load balancer. The load balancer stops routing requests to an instance as soon as it is deregistered. If demand decreases, or you need to service your instances, you can deregister instances from the load balancer. An instance that is deregistered remains running, but no longer receives traffic from the load balancer, and you can register it with the load balancer again when you are ready.
+
+Elastic Load Balancing stops sending requests to targets that are deregistering. By default, Elastic Load Balancing waits 300 seconds before completing the **deregistration process**, which can help in-flight requests to the target to complete.
 
 ## Troubleshooting
 
@@ -160,8 +166,8 @@ An Layer 7 load balancer works at the application layer---the highest layer in t
 
 ### Layer 4 Load Balancing
 
-Layer 4 load balancing, operating at the transport level, manages traffic based on network information such as application ports and protocols without visibility into the actual content of messages. This is an effective approach for simple [packet-level](https://en.wikipedia.org/wiki/Network_packet) load balancing. The fact that messages are neither inspected nor decrypted allows them to be forwarded quickly, efficiently, and securely. On the other hand, because layer 4 load balancing is unable to make decisions based on content, it's not possible to route traffic based on media type, localization rules, or other criteria beyond simple algorithms such as round-robin routing.
+Layer 4 load balancing, operating at the **transport level**, manages traffic based on network information such as application ports and protocols without visibility into the actual content of messages. This is an effective approach for simple [packet-level](https://en.wikipedia.org/wiki/Network_packet) load balancing. The fact that messages are neither inspected nor decrypted allows them to be forwarded quickly, efficiently, and securely. On the other hand, because layer 4 load balancing is unable to make decisions based on content, it's not possible to route traffic based on media type, localization rules, or other criteria beyond simple algorithms such as round-robin routing.
 
 ### Layer 7 Load Balancing
 
-Layer 7 load balancing operates at the application level, using protocols such as HTTP and SMTP to make decisions based on the actual content of each message. Instead of merely forwarding traffic unread, a layer 7 load balancer terminates network traffic, performs decryption as needed, inspects messages, makes content-based routing decisions, initiates a new TCP connection to the appropriate upstream server, and writes the request to the server.
+Layer 7 load balancing operates at the **application level**, using protocols such as HTTP and SMTP to make decisions based on the actual content of each message. Instead of merely forwarding traffic unread, a layer 7 load balancer terminates network traffic, performs decryption as needed, inspects messages, makes content-based routing decisions, initiates a new TCP connection to the appropriate upstream server, and writes the request to the server.
