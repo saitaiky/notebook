@@ -31,3 +31,9 @@ How to update 'DeleteOnTermination' attribute set to True for an EC2 instance’
 [https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/)
 
 
+### DeleteOnTermination
+
+By default, the root volume of an EC2 instance for an EBS-backed AMI is deleted when the instance terminates.
+You can set `DeleteOnTermination` to `False` to change this default behavior **to ensure that the volume persists** even after the instance terminates?
+
+If you want to disable this flag while the instance is still running, you can set `DeleteOnTermination` attribute to `False` using the **command line**

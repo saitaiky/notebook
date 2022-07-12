@@ -16,9 +16,9 @@ You can create a flow log for a VPC, a subnet, or a network interface. If you cr
 
 Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow.
 
+## CloudWatch
 
-
-## CloudWatch Event Rules
+### CloudWatch Event Rules
 
 You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
 
@@ -28,6 +28,19 @@ Examples of Amazon CloudWatch Events rules and targets:
 - A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
 - A rule that detects **pipeline changes** and invokes an AWS Lambda function.
 
+### CloudWatch alarm
+
+Setup a CloudWatch alarm to monitor the health status of the instance. In case of an Instance Health Check failure, an EC2 Reboot CloudWatch Alarm Action can be used to reboot the instance
+
+The reboot alarm action is recommended for **Instance Health Check failures** -  The system status check detects issues with the underlying host that your instance runs on. If the underlying host is unresponsive or unreachable due to network, hardware, or software issues, then this status check fails.
+
+The recover alarm action, which is suited for **System Health Check failures** - An instance status check failure indicates a problem with the instance due to operating system-level errors such as the following:
+
+-   Failure to boot the operating System
+-   Failure to mount volumes correctlySystem
+-   File system issuesSystem
+-   Incompatible driversSystem
+-   Kernel panic
 
 ## Use X-ray to debug microservices specific issues
 

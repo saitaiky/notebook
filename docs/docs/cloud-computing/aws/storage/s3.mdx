@@ -1,0 +1,156 @@
+---
+title: S3
+description: S3
+keywords:
+  - S3
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## S3 Lifecycle
+
+You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transition objects to another Amazon S3 Using Amazon S3 storage classes.Amazon S3 supports a waterfall model for transitioning between storage classes, as shown in the following diagram.
+
+![lifecycle-transitions](/img/aws/networking/lifecycle-transitions.png)
+Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html)
+
+## Features
+
+### Byte-Range Fetches
+
+Byte-Range Fetches is an option that allows you to read a file in the most efficient way. Using the Range HTTP header in a [GET Object](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html) request, you can fetch **a byte-range from an object**, transferring only the specified portion. You can use concurrent connections to Amazon S3 to fetch different byte ranges from within the same object. 
+
+- This helps you achieve higher aggregate throughput versus a single whole-object request.
+- Fetching smaller ranges of a large object also allows your application to improve retry times when requests are interrupted. For more information, see [Getting Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/GettingObjectsUsingAPIs.html).
+
+Typical sizes for byte-range requests are 8 MB or 16 MB. If objects are PUT using a multipart upload, it's a good practice to GET them in the same part sizes (or at least aligned to part boundaries) for best performance. GET requests can directly address individual parts; for example, `GET ?partNumber=N`. 
+
+You can implement byte-range fetches in 2 different ways **Parallelize GETs** and **retrieve only partial data**. 
+
+<Tabs className="api-tabs">
+<TabItem value="before" label="Parallelize GETs">
+
+It is to parallelize GETs by requesting a specific byte range. In case of failure, it has better resilience. Hence, it could be used to speed up downloads.
+
+![fetch-header](/img/aws/storage/s3/fetch-header.png)
+Source: [Optimize Your AWS S3 Performance](https://aws.plainenglish.io/optimize-your-aws-s3-performance-27b057f231a3)
+
+</TabItem>
+<TabItem value="after" label="Retrieve only partial data">
+
+The second use-case in which S3 Byte-Range Fetches could be used is to retrieve only partial data. For example, when you know the first XX bytes is the header of a file, in this case, it could be used.
+
+![fetch-parallel](/img/aws/storage/s3/fetch-parallel.png)
+Source: [Optimize Your AWS S3 Performance](https://aws.plainenglish.io/optimize-your-aws-s3-performance-27b057f231a3)
+
+</TabItem>
+</Tabs>
+
+```bash
+# S3 Byte-Range Fetches via cURL
+
+$ curl -r -1024 https://s3.amazonaws.com/mybucket/myobject -o parti 
+$ curl -r 1025- https://s3.amazonaws.com/mybucket/myobject -o part2 
+$ cat parti part2 > myobject
+```
+
+
+```javascript
+// S3 Byte-Range Fetches with AWS SDK
+
+var s3 = new AWS.530); 
+var file = require('fs').createWriteStream('parti'); 
+var params = {
+  Bucket: 'my bucket', 
+  Key: 'myobject', 
+  Range: 'bytes=-1024
+};
+
+s3.getObject(params).createReadStream().pipe(file);
+```
+
+### S3 Select
+
+S3 Select
+---------
+
+[S3 Select](https://aws.amazon.com/s3/details/#s3-select), enables applications to retrieve only a subset of data from an object by using simple SQL expressions. By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases -- in many cases you can get as much as a 400% improvement.
+
+![](https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2017/11/28/s3_select.png)
+
+As an example, let's imagine you're a developer at a large retailer and you need to analyze the weekly sales data from a single store, but the data for all 200 stores is saved in a new GZIP-ed CSV every day. **Without S3 Select, you would need to download, decompress and process the entire CSV to get the data you needed.** With S3 Select, you can use a simple SQL expression to return only the data from the store you're interested in, instead of retrieving the entire object. This means you're dealing with an order of magnitude less data which improves the performance of your underlying applications.
+
+Let's look at a quick Python example, which shows how to retrieve the first column from an object containing data in CSV format.
+
+```
+import boto3
+s3 = boto3.client('s3')
+
+r = s3.select_object_content(
+        Bucket='jbarr-us-west-2',
+        Key='sample-data/airportCodes.csv',
+        ExpressionType='SQL',
+        Expression="select * from s3object s where s.\"Country (Name)\" like '%United States%'",
+        InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}},
+        OutputSerialization = {'CSV': {}},
+)
+
+for event in r['Payload']:
+    if 'Records' in event:
+        records = event['Records']['Payload'].decode('utf-8')
+        print(records)
+    elif 'Stats' in event:
+        statsDetails = event['Stats']['Details']
+        print("Stats details bytesScanned: ")
+        print(statsDetails['BytesScanned'])
+        print("Stats details bytesProcessed: ")
+        print(statsDetails['BytesProcessed'])
+```
+
+We expect customers to use S3 Select to accelerate all sorts of applications. For example, this partial data retrieval ability is especially useful for serverless applications built with [AWS Lambda](https://aws.amazon.com/lambda/). When we modified the [Serverless MapReduce](https://github.com/awslabs/lambda-refarch-mapreduce) reference architecture to retrieve only the data needed using S3 Select we saw a 2X improvement in performance and an 80% reduction in cost.
+
+:::info Things to know
+[Amazon Athena](https://aws.amazon.com/athena), [Amazon Redshift](https://aws.amazon.com/redshift/), and [Amazon EMR](https://aws.amazon.com/emr) as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.
+:::
+
+### Things To Know
+
+[Amazon Athena](https://aws.amazon.com/athena), [Amazon Redshift](https://aws.amazon.com/redshift/), and [Amazon EMR](https://aws.amazon.com/emr) as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.
+
+
+
+## Limitation
+
+### Request per sec
+Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance. Your applications can easily achieve thousands of transactions per second in request performance when uploading and retrieving storage from Amazon S3. Amazon S3 automatically scales to high request rates. 
+
+For example, your application can achieve **at least 3,500 PUT/COPY/POST/DELETE or 5,500 GET requests per second per prefix in a bucket**.
+
+There are no limits to the number of prefixes in a bucket. You can increase your read or write performance by parallelizing reads. For example, if you create **10 prefixes** in an Amazon S3 bucket to parallelize reads, you could scale your read performance to **55,000 read requests per second**(10*5,500 GET/HEAD).
+
+For many purposes, it's often enough for applications to mitigate `503` SlowDown errors without having to randomize prefixes.
+
+However, if the the limits are not sufficient, prefixes would need to be used. A prefix has no fixed number of characters. It is any string between a bucket name and an object name, for example:
+
+- bucket/folder1/sub1/file
+- bucket/folder1/sub2/file
+- bucket/1/file
+- bucket/2/file
+
+Prefixes of the object 'file' would be: `/folder1/sub1/` , `/folder1/sub2/`, `/1/`, `/2/`. In this example, if you spread reads across all four prefixes evenly, you can achieve **22,000 requests per second.**
+
+### Glacier Vault
+
+You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault**. You need to go through S3 first and then use a lifecycle policy.
+## What is prefix
+
+In Amazon S3, you can use prefixes to organize your storage. A prefix is a logical grouping of the objects in a bucket. The prefix value is similar to a directory name that enables you to store similar data under the same directory in a bucket. When you programmatically upload objects, you can use prefixes to organize your data.
+
+In the Amazon S3 console, prefixes are called folders. You can view all your objects and folders in the S3 console by navigating to a bucket. You can also view information about each object, including object properties.
+
+## Further reading
+
+- [Best practices design patterns: optimizing Amazon S3 performance](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
+- [Stackoverflow: S3 - What Exactly Is A Prefix? And what Ratelimits apply?](https://stackoverflow.com/questions/52443839/s3-what-exactly-is-a-prefix-and-what-ratelimits-apply)

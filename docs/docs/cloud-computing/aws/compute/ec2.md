@@ -28,16 +28,18 @@ Amazon EC2 terminates, stops, or hibernates your Spot Instance when Amazon EC2 n
 :::
 #### Spot Fleet
 The Spot Fleet selects the Spot Instance pools that meet your needs and launches Spot Instances to meet the target capacity for the fleet. By default, Spot Fleets are set to maintain target capacity by launching replacement instances after Spot Instances in the fleet are terminated.
-### Zonal Reserved EC2 Instance
+### Reserved EC2 Instance
 
-The ability to create and manage **Capacity Reservations** independently from the billing discounts offered by Savings Plans or regional Reserved Instances.
+Reserved Instances provide you with significant savings on your Amazon EC2 costs compared to On-Demand Instance pricing. Reserved Instances are not physical instances, but rather **a billing discount** applied to the use of On-Demand Instances in your account. 
 
 When you purchase a Reserved Instance, you determine the scope of the Reserved Instance. The scope is either regional or zonal.
 
-- Regional: When you purchase a Reserved Instance for a Region, it's referred to as a regional Reserved Instance. **It does not reserve capacity.**
-- Zonal: When you purchase a Reserved Instance for a specific Availability Zone, it's referred to as a zonal Reserved Instance. **It reserves capacity.**
+- **Regional**: When you purchase a Reserved Instance for a Region, it's referred to as a regional Reserved Instance. **It does not reserve capacity.**
+- **Zonal**: When you purchase a Reserved Instance for a specific Availability Zone, it's referred to as a zonal Reserved Instance. **It reserves capacity.**
 
-By creating Capacity Reservations, you ensure that you always have access to EC2 capacity when you need it, for as long as you need it. [Link](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
+By creating Capacity Reservations, you ensure that you always have access to EC2 capacity when you need it, for as long as you need it. You can also sepecify the duratin for how long you want it to be
+
+[Link](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
 
 ## Placement Groups
 
@@ -72,3 +74,20 @@ Usage: Application that needs maximize HA , Critical Applications that needs to 
 - EC2 instances can get access to the partition information using metadata
 
 Usage: This strategy is typically used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka. 
+
+
+## EC2 life cycle
+
+### Hibernate
+
+When you EC2 Instance Hibernate to hibernate an instance, AWS signals the operating system to perform hibernation (suspend-to-disk). Hibernation saves the contents from the instance memory (RAM) to your Amazon EBS root volume. AWS then persists the instance's Amazon EBS root volume and any attached Amazon EBS data volumes.
+
+When you start your instance:
+- The Amazon EBS root volume is restored to its previous state
+- The RAM contents are reloaded
+- The processes that were previously running on the instance are resumed
+- Previously attached data volumes are reattached and the instance retains its instance ID
+
+Overview of EC2 hibernation: 
+![hibernate](/img/aws/compute/hibernate.png)
+Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.academy/lets-talk-about-ec2-placement-groups-and-hibernate-a6e4bed854c?gi=90ed20ac88d9)
