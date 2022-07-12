@@ -9,7 +9,14 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## S3 Lifecycle
+## Behaviour 
+
+
+### Strongly consistent
+
+All S3 GET, PUT, and LIST operations, as well as operations that change object tags, ACLs, or metadata, are **strongly consistent**. What you write is what you will read, and the results of a LIST will be an accurate reflection of what’s in the bucket.
+
+### Lifecycle
 
 You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transition objects to another Amazon S3 Using Amazon S3 storage classes.Amazon S3 supports a waterfall model for transitioning between storage classes, as shown in the following diagram.
 
@@ -17,6 +24,57 @@ You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transiti
 Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html)
 
 ## Features
+
+### S3 Select
+
+[S3 Select](https://aws.amazon.com/s3/details/#s3-select), enables applications to retrieve only a subset of data from an object by using simple SQL expressions. By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases -- in many cases you can get as much as a 400% improvement.
+
+![](https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2017/11/28/s3_select.png)
+
+As an example, let's imagine you're a developer at a large retailer and you need to analyze the weekly sales data from a single store, but the data for all 200 stores is saved in a new GZIP-ed CSV every day. **Without S3 Select, you would need to download, decompress and process the entire CSV to get the data you needed.** With S3 Select, you can use a simple SQL expression to return only the data from the store you're interested in, instead of retrieving the entire object. This means you're dealing with an order of magnitude less data which improves the performance of your underlying applications.
+
+Let's look at a quick Python example, which shows how to retrieve the first column from an object containing data in CSV format.
+
+```
+import boto3
+s3 = boto3.client('s3')
+
+r = s3.select_object_content(
+        Bucket='jbarr-us-west-2',
+        Key='sample-data/airportCodes.csv',
+        ExpressionType='SQL',
+        Expression="select * from s3object s where s.\"Country (Name)\" like '%United States%'",
+        InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}},
+        OutputSerialization = {'CSV': {}},
+)
+
+for event in r['Payload']:
+    if 'Records' in event:
+        records = event['Records']['Payload'].decode('utf-8')
+        print(records)
+    elif 'Stats' in event:
+        statsDetails = event['Stats']['Details']
+        print("Stats details bytesScanned: ")
+        print(statsDetails['BytesScanned'])
+        print("Stats details bytesProcessed: ")
+        print(statsDetails['BytesProcessed'])
+```
+
+We expect customers to use S3 Select to accelerate all sorts of applications. For example, this partial data retrieval ability is especially useful for serverless applications built with [AWS Lambda](https://aws.amazon.com/lambda/). When we modified the [Serverless MapReduce](https://github.com/awslabs/lambda-refarch-mapreduce) reference architecture to retrieve only the data needed using S3 Select we saw a 2X improvement in performance and an 80% reduction in cost.
+
+:::info Things to know
+[Amazon Athena](https://aws.amazon.com/athena), [Amazon Redshift](https://aws.amazon.com/redshift/), and [Amazon EMR](https://aws.amazon.com/emr) as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.
+:::
+
+### Notification feature 
+
+AWS notification feature enables you to receive notifications when certain events happen in your bucket. Amazon S3 supports the following destinations where it can publish events:
+- Amazon Simple Notification Service (Amazon SNS) topic
+- Amazon Simple Queue Service (Amazon SQS) queue
+- AWS Lambda
+
+## Performance
+
 
 ### Byte-Range Fetches
 
@@ -71,54 +129,48 @@ var params = {
 s3.getObject(params).createReadStream().pipe(file);
 ```
 
-### S3 Select
+### Read Replicas
 
-S3 Select
----------
+Amazon RDS Read Replicas provide enhanced performance and durability for RDS database (DB) instances. They make it easy to elastically scale out beyond the capacity constraints of a single DB instance for read-heavy database workloads. **Read replicas can be within an Availability Zone, Cross-AZ, or Cross-Region.**
 
-[S3 Select](https://aws.amazon.com/s3/details/#s3-select), enables applications to retrieve only a subset of data from an object by using simple SQL expressions. By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases -- in many cases you can get as much as a 400% improvement.
+### Upload and download speed 
 
-![](https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2017/11/28/s3_select.png)
+There are 2 approaches to improve upload and download speed across different regions. Depending on your setup, S3 Transfer Acceleration [suggested in another answer](https://stackoverflow.com/a/55148734/1081234) may still be a better option, it's certainly better documented and has more implementation examples!
 
-As an example, let's imagine you're a developer at a large retailer and you need to analyze the weekly sales data from a single store, but the data for all 200 stores is saved in a new GZIP-ed CSV every day. **Without S3 Select, you would need to download, decompress and process the entire CSV to get the data you needed.** With S3 Select, you can use a simple SQL expression to return only the data from the store you're interested in, instead of retrieving the entire object. This means you're dealing with an order of magnitude less data which improves the performance of your underlying applications.
+In terms of AWS pricing, you will be charged for "[Regional Data Transfer Out to Origin](https://aws.amazon.com/cloudfront/pricing/)" ($0.02-$0.16/GB depending on region) compared with [S3 Transfer Acceleration](https://aws.amazon.com/s3/pricing/) charges ($0.04-$0.08/GB depending on region.)
 
-Let's look at a quick Python example, which shows how to retrieve the first column from an object containing data in CSV format.
+<Tabs className="upload-download-tabs">
+<TabItem value="s3-acceleration" label="S3 Transfer Acceleration">
 
-```
-import boto3
-s3 = boto3.client('s3')
+Amazon S3 Transfer Acceleration can speed up content transfers to and from Amazon S3 by as much as 50-500% for long-distance transfer of larger objects. Transfer Acceleration takes advantage of Amazon CloudFront’s globally distributed edge locations. As the data arrives at an edge location, data is routed to Amazon S3 over an optimized network path. 
 
-r = s3.select_object_content(
-        Bucket='jbarr-us-west-2',
-        Key='sample-data/airportCodes.csv',
-        ExpressionType='SQL',
-        Expression="select * from s3object s where s.\"Country (Name)\" like '%United States%'",
-        InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}},
-        OutputSerialization = {'CSV': {}},
-)
+</TabItem>
+<TabItem value="cloudfront" label="CloudFront distribution">
 
-for event in r['Payload']:
-    if 'Records' in event:
-        records = event['Records']['Payload'].decode('utf-8')
-        print(records)
-    elif 'Stats' in event:
-        statsDetails = event['Stats']['Details']
-        print("Stats details bytesScanned: ")
-        print(statsDetails['BytesScanned'])
-        print("Stats details bytesProcessed: ")
-        print(statsDetails['BytesProcessed'])
-```
+Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 file uploads.
 
-We expect customers to use S3 Select to accelerate all sorts of applications. For example, this partial data retrieval ability is especially useful for serverless applications built with [AWS Lambda](https://aws.amazon.com/lambda/). When we modified the [Serverless MapReduce](https://github.com/awslabs/lambda-refarch-mapreduce) reference architecture to retrieve only the data needed using S3 Select we saw a 2X improvement in performance and an 80% reduction in cost.
+- **Upload** - `PUT` and `POST` operations will be sent to the origin(e.g. Amazon S3).  For a deep-dive reference, visit [AWS document](https://aws.amazon.com/blogs/aws/amazon-cloudfront-content-uploads-post-put-other-methods/)
+- **Download** - When an object from S3 that is set up with CloudFront CDN is requested, the request would come through the **Edge Location** transfer paths only for the first request. Thereafter, it would be served from the nearest edge location to the users until it expires. 
 
-:::info Things to know
-[Amazon Athena](https://aws.amazon.com/athena), [Amazon Redshift](https://aws.amazon.com/redshift/), and [Amazon EMR](https://aws.amazon.com/emr) as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.
-:::
+> Belows are the high level steps to create a cloudfront distribution. To check the detailed steps, visit [StackOverflow - Uploads to S3 through CloudFront via Signed URLs?](https://stackoverflow.com/questions/55148428/uploads-to-s3-through-cloudfront-via-signed-urls)
 
-### Things To Know
+1. Create a new CF distribution
+  -   Use target S3 bucket as origin
+  -   Configure origin S3 bucket access to use a CloudFront origin access identity. While you can automatically update the bucket policy (with `s3:GetObject` access) as a starting point, we'll be adding/changing that to `s3:PutObject` anyway.
+2. Configure S3 bucket policy
+3. Upload files to S3 using the CloudFront distribution
 
-[Amazon Athena](https://aws.amazon.com/athena), [Amazon Redshift](https://aws.amazon.com/redshift/), and [Amazon EMR](https://aws.amazon.com/emr) as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.
+  Once the distribution is updated, you would be able to add files to your bucket by making a `PUT` request to `https://your-distribution-url/desired-s3-key-name` using Postman or something. Remember to use a signed url here if that's what you've configured.
+  Your client connections to the CF edge should be consistently faster, while anecdotally S3 acceleration [speed comparison](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html) isn't always favorable.
 
+</TabItem>
+</Tabs>
+
+## Availabiltiy
+
+### Multi-AZ
+
+Multi-AZ for the RDS database helps make our database highly-available, but the standby database is not accessible and cannot be used for reads or write. It's just a database that will become primary when the other database encounters a failure.
 
 
 ## Limitation
