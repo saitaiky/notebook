@@ -1,5 +1,5 @@
 ---
-title: "Git daily operation"
+title: "Daily operations"
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
@@ -7,7 +7,35 @@ metaDescription: "This is the meta description for this page"
 ## Gitflow Workflow
 https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
-## Pulling a branch from another repository
+## Local operations
+
+### Remove all local branches but keep master
+`git branch | grep -v "master" | xargs git branch -D`
+
+### Add new origin
+```$ git remote add origin https://github.com/schacon/simplegit-progit```
+Running the command above adds a section to your repository’s .git/config file, specifying the name of the remote (origin), the URL of the remote repository, and the refspec to be used for fetching:
+
+
+```bash
+# Origin is remote name, URL is the remote address
+# Fetch means where the data comes from and where it goes
+[remote "origin"]
+	url = https://github.com/schacon/simplegit-progit
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+The format of the refspec is, first, an optional +, followed by <src>:<dst>,
+where <src> is the pattern for references(指住某一commit既別名) on the **remote side**
+and <dst> is where those references will be tracked **locally**.
+The + tells Git to update the reference even if it isn’t a fast-forward.
+
+master其实是一个“refspec”，正常的“refspec”的形式为”+<src>:<dst>”，
+冒号前表示local branch的名字，冒号后表示remote repository下 branch的名字。
+注意，如果你省略了<dst>，git就认为你想push到remote repository下
+和local branch相同名字的branch.
+```
+
+### Pulling a branch from another repository
 https://stackoverflow.com/questions/14383212/git-pulling-a-branch-from-another-repository
 ```bash
 git remote add fork <url_of_fork>
@@ -15,8 +43,27 @@ git fetch fork
 git checkout -b fork_branch fork/<branch>
 ```
 
+## In one go
 
-## Rename a local and remote branch in git
+### Fast forward merge with pulling
+[Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
+```bash
+git checkout branchB
+git pull
+git checkout branchA
+git merge origin/branchB
+
+# can be done in one line
+git fetch <remote> <sourceBranch>:<destinationBranch>
+
+# Example: Merge remote branch origin/foo into local branch master,
+# without having to checkout foo first: 
+git fetch origin foo:master
+```
+
+
+
+## Rename a local and remote branch
 
 [How do I rename both a Git local and remote branch name?](https://stackoverflow.com/questions/30590083/how-do-i-rename-both-a-git-local-and-remote-branch-name)
 
@@ -58,47 +105,8 @@ git push origin master:master
 git push origin master:refs/for/mybranch
 ```
 
-## Add new origin
-```$ git remote add origin https://github.com/schacon/simplegit-progit```
-Running the command above adds a section to your repository’s .git/config file, specifying the name of the remote (origin), the URL of the remote repository, and the refspec to be used for fetching:
 
 
-```bash
-# Origin is remote name, URL is the remote address
-# Fetch means where the data comes from and where it goes
-[remote "origin"]
-	url = https://github.com/schacon/simplegit-progit
-	fetch = +refs/heads/*:refs/remotes/origin/*
-
-The format of the refspec is, first, an optional +, followed by <src>:<dst>,
-where <src> is the pattern for references(指住某一commit既別名) on the **remote side**
-and <dst> is where those references will be tracked **locally**.
-The + tells Git to update the reference even if it isn’t a fast-forward.
-
-master其实是一个“refspec”，正常的“refspec”的形式为”+<src>:<dst>”，
-冒号前表示local branch的名字，冒号后表示remote repository下 branch的名字。
-注意，如果你省略了<dst>，git就认为你想push到remote repository下
-和local branch相同名字的branch.
-```
-
-## Remove all your local git branches but keep master
-`git branch | grep -v "master" | xargs git branch -D`
-
-## Fast forward merge with pulling in one go
-[Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
-```bash
-git checkout branchB
-git pull
-git checkout branchA
-git merge origin/branchB
-
-# can be done in one line
-git fetch <remote> <sourceBranch>:<destinationBranch>
-
-# Example: Merge remote branch origin/foo into local branch master,
-# without having to checkout foo first: 
-git fetch origin foo:master
-```
 
 ## Git revert multiple git commits
 [How to revert multiple git commits?](https://stackoverflow.com/questions/1463340/how-to-revert-multiple-git-commits)
