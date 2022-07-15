@@ -4,7 +4,30 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
-# DNS NS record
+## Static & Public IP Address
+
+### Static IP Address
+
+Your [internet service provider (ISP)](http://blog.datapath.io/what-is-an-internet-service-provider) provides you an IP address. This advertises your computer to the internet.
+
+An IP address is like your home postal address, which is a piece in a larger city block. A city block, in internet language, is a network prefix. To go one step further, network prefixes are part of autonomous systems (AS). When connecting people to the internet, ISPs will assign an IP address to your computer.
+
+The IP address that is assigned to you is most likely a **dynamic IP address**. This is the most common for residential customers. This means that the IP address changes frequently, which provides customers and ISPs cost savings. In the case of Germany, Deutsche Telekom is typically changing IP addresses every day.
+
+The alternative to this system is the **static IP address**. This is an IP address that never changes. If you are running a dynamic cloud environment, this would be necessary for advertising your content to the public internet. This is a primary function of AWS Elastic IPs, which contain the static IP address component.
+
+A static IP is useful for various reasons. In cloud computing, a static IP address is advantageous for DNS queries. If IPs are changing, this can affect the content loading process. They are common for business and cloud computing, which is why AWS includes this within the Elastic IP framework.
+
+### Public IP Address
+
+A Public IP address is how the internet identifies you. A **public IP address** is the IP address that communicates your internet connected device to the public internet.
+
+There is the ability to have a public IP address or a private IP address. A private IP address is for a private network. These are less common, and with your AWS infrastructure, not going to be in your interest when discussing Elastic IPs.
+
+An Elastic IP has the public IP address component, as you need to advertise your AWS instances to the public internet. As the AWS Elastic IP will advertise a public, static IP address that can compensate for fluctuations in your AWS infrastructure, they are necessary in dynamic cloud computing.
+
+
+## DNS NS record
 NS stands for ‘name server’ and this record indicates **which DNS server is authoritative for that domain** (which server contains the actual DNS records). A domain will often have multiple NS records which can indicate primary and backup name servers for that domain. (TTL: Time to live)
 
 Example of an NS record:
@@ -15,14 +38,14 @@ Example of an NS record:
 
 source: [What is a DNS NS record?](https://www.cloudflare.com/learning/dns/dns-records/dns-ns-record/#:~:text=NS%20stands%20for%20'name%20server,example.com)
 
-# The Two Parts of An IP Address
+## The Two Parts of An IP Address
 ![two-part-of-network](/img/linux/network/two-part-of-network.png)
 A device’s IP address actually consists of two separate parts:
 
 - Network ID: The network ID is a part of the IP address starting from the left that identifies the specific network on which the device is located. On a typical home network, where a device has the IP address 192.168.1.34, the 192.168.1 part of the address will be the network ID. It’s custom to fill in the missing final part with a zero, so we might say that the network ID of the device is 192.168.1.0.
 - Host ID: The host ID is the part of the IP address not taken up by the network ID. It identifies a specific device (in the TCP/IP world, we call devices “hosts”) on that network. Continuing our example of the IP address 192.168.1.34, the host ID would be 34—the host’s unique ID on the 192.168.1.0 network.
 
-# Subnet mask
+### Subnet mask
 So, how does your device determine which part of the IP address is the network ID and which part the host ID? For that, they use another 32-bit number that you’ll always see in association with an IP address. That number is called the subnet mask.
 
 On most simple networks (like the ones in homes or small businesses), you’ll see subnet masks like 255.255.255.0, where all four numbers are either 255 or 0. The position of the changes from 255 to 0 indicate the division between the network and host ID. The 255s “mask out” the network ID from the equation.
@@ -37,10 +60,10 @@ Note: The basic subnet masks we’re describing here are known as default subnet
 ```
 So now you know, for this example using a 255.255.255.0 subnet mask, that the network ID is 192.168.123.0, and the host address is 0.0.0.132. When a packet arrives on the 192.168.123.0 subnet (from the local subnet or a remote network), and it has a destination address of 192.168.123.132, your computer will receive it from the network and process it.
 
-# Classful and CIDR
+## Classful and CIDR
 There are two strategies the RIRs use to allocate IP address space: the legacy strategy called Classful addressing, and the current strategy of Classless addressing (known as Classless Inter-Domain Routing, or CIDR).
 
-## Classful
+### Classful
 Classful addressing is how the early Internet was formed. IP assignments were given on the Octet boundaries:
 
 The idea behind Classful address assignments was, if you were a company that …
@@ -53,25 +76,25 @@ However, this led to a lot of wasted IP addresses. If, for instance, you only ne
 
 You could argue, why not simply assign two /24 blocks from the Class C range (providing 512 IP addresses)? Good point, and this frequently was done. But what if you needed 25,000 IP addresses? That would require 98 different /24 blocks from the Class C range. Instead, a single Class B was assigned — which still meant about 40,000 IP addresses were wasted.
 
-## CIDR
+### CIDR
 With **Classless Inter-Domain Routing (CIDR)**, IP assignments are not limited to the three classes. The whole unicast range (any IP address with a first octet of 0 – 223) can be allocated in any size block. In effect, the whole concept of IP address classes is done away with entirely.
 
-### Example 1
+#### Example 1
 ![CDIR-1](/img/linux/network/CIDR.png)
 
 CIDR consists of two group of bits, first group (most significant bits) represents the network prefix and second group (least significant bits) forms host identifier. In image[1], first 28 bit represents a subnet and last 4 digit represents hosts. Since it has only 4 bits to form host identifier, At max it can have 2⁴ = 16 hosts.
 
-### Example 2
+#### Example 2
 ![CDIR-2](/img/linux/network/CIDR2.png)
 Image[2] has subnet mask of 32, which means all bits will be fixed. It represents a cider block with single IP.
 
 
-### Example 3
+#### Example 3
 ![CDIR-3](/img/linux/network/CIDR3.png)
 Image[3], represents a CIDR block with 24 subnet mask. Bits which are grayed in above image can only be changed. Maximum hosts will be 2⁸ = 256 and range will be from 10.88.135.1 to 10.88.135.254. Here two IP’s are reserved 10.88.135.0 and 10.88.135.255 for network use.
 
 
-### Example 4
+#### Example 4
 ![CDIR-4](/img/linux/network/CIDR4.png)
 Image[4], Fourth octet will have range from 0 to 255. In third octet, only 4 bits can changed, so it will form total of **2⁴ = 16 hosts**. Third octet will have multiple ranges of **16 hosts**. It will be like 0 to 15, 16 to 31 and so on till 255. 
 
@@ -79,7 +102,7 @@ Image[4], Fourth octet will have range from 0 to 255. In third octet, only 4 bit
 
 In CIDR block third octet has a value of **135**, which fall between **128 to 143**. So the IP range of above CIDR will be from 10.88.128.1 to 10.88.143.254. As mentioned in previous paragraph two IP’s are reserved.
 
-### Example 5
+#### Example 5
 ![CDIR-5](/img/linux/network/CIDR5.png)
 Image[5], It also has subnet mask 20 and third octet has value 90, which falls in range of 80 to 95. So IP range will be from 10.88.80.1 to 10.88.95.254.
 

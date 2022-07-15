@@ -9,6 +9,12 @@ sidebar_position: 4
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+
+The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the internet gateway using the NAT gateway’s Elastic IP address as the source IP address.
+
+![nat-gateway-diagram](/img/aws/networking/nat-gateway-diagram.png)
+Source: [AWS NAT Gateways](https://easycloudsupport.zendesk.com/hc/en-us/articles/360001916952-AWS-NAT-Gateways)
+
 ## Endpoints
 
 Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. They allow communication between instances in your VPC and services without imposing availability risks or bandwidth constraints on your network traffic.
@@ -47,9 +53,40 @@ Including **bastion hosts** in your VPC environment enables you to securely conn
 You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
 
 
+## Elastic IP
+
+> EIPs are used any time you need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns-cidr/#static--public-ip-address)
+
+Within the AWS infrastructure, customers have virtual private clouds (VPC), within the VPCs, users have instances. So when you launch an EC2 instance, you receive a **Public IP address** by which that instance is reachable from internet. Once you stop that instance and restart the instance you get a new Public IP for the same instance. So it's basically a problem to connect your instance from internet for not having a static IP. To overcome this problem, we attach an Elastic IP to an Instance which doesn't change after you stop / start the instance.
+
+In general, you should be good without Elastic IPs for most of the use-cases. If you're using [AWS Load Balancers](https://aws.amazon.com/elasticloadbalancing/?tag=hotoge-20), you won't want to use Elastic IPs, as your gateway address (the last endpoint before going out to the internet) is be the Load Balancer itself, which has a static hostname (but not a static IP). The load balancer runs on AWS, and you associate it with instances based on their instance IDs, not the public IP address. But, if you're using an external CDN service like [Fastly](https://www.fastly.com/), you need to use Elastic IPs, as the gateway IP is the EC2 instance's public IP.
+
+By default, all AWS accounts are limited to five (5) Elastic IP addresses per Region, because public (IPv4) internet addresses are a scarce public resource. 
+
+### Use case
+
+Let’s say you setup the apache to host a website. Now, you need to scale up that machine due to any reason or you need to move that machine into another reason , you need to stop that machine. Whenever you restart again, the public ip from associated with that machine can also change. 
+
+So it may be the case that you need to update all DNS entries again. However, You can reserve the public ip for you and that ip can be attached to any ec2 which you have, so there will be no issue regarding PUBLIC IP Change.
+
+:::caution Cost
+Elastic IP is a free service, but you’re limited to five in total (to prevent exhaustion of Amazon’s address pool). And, while they are entirely free to use, they’re actually **the only AWS service that costs money if you don’t use it** — having an Elastic IP provisioned but not attached to a running machine will cost you $7.50 a month. Make sure your machine isn’t off for extended periods of time, and if you change servers or stop using the IP, make sure to release it so you aren’t charged for letting it sit idle in your account.
+
+
+:::
+
 ## Troubleshooting
 
 ### Share subnet across accounts
 
 AWS Resource Access Manager (RAM) is a service that enables you to easily and securely share AWS resources with any AWS account or within your AWS Organization. 
 The correct solution is to share the subnet(s) within a VPC using RAM. This will allow all EC2 instances to be deployed in the same VPC (although from different accounts) and easily communicate with one another.
+
+
+### NAT in multiple AZ
+
+If you have resources in multiple Availability Zones and they share one NAT gateway, and if the NAT gateway’s Availability Zone is down, **resources in the other Availability Zones lose internet access.** 
+
+To incrase the availability of the system, you need to create an Availability Zone-independent architecture - which means you need to create a NAT gateway in each Availability Zone and configure your routing to **ensure that resources use the NAT gateway in the same Availability Zone.**
+
+> [NAT gateway basics](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)

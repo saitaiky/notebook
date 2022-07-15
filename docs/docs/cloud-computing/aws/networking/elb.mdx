@@ -15,6 +15,16 @@ Deregistering an EC2 instance removes it from your load balancer. The load balan
 
 Elastic Load Balancing stops sending requests to targets that are deregistering. By default, Elastic Load Balancing waits 300 seconds before completing the **deregistration process**, which can help in-flight requests to the target to complete.
 
+### Cross-Zone Load Balancing
+
+With cross-zone load balancing, one instance in Availability Zone A receives 20% traffic and four instances in Availability Zone B receive 20% traffic each. 
+
+Without cross-zone load balancing, one instance in Availability Zone A receives 50% traffic and four instances in Availability Zone B receive 12.5% traffic each
+
+Another example:
+
+![cross-zone-balancing](/img/aws/networking/cross-zone-balancing.png)
+
 ## Troubleshooting
 
 ### How to identify the true IP address of the client?

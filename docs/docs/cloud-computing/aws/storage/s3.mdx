@@ -11,7 +11,6 @@ import TabItem from '@theme/TabItem';
 
 ## Behaviour 
 
-
 ### Strongly consistent
 
 All S3 GET, PUT, and LIST operations, as well as operations that change object tags, ACLs, or metadata, are **strongly consistent**. What you write is what you will read, and the results of a LIST will be an accurate reflection of what’s in the bucket.
@@ -72,6 +71,18 @@ AWS notification feature enables you to receive notifications when certain event
 - Amazon Simple Notification Service (Amazon SNS) topic
 - Amazon Simple Queue Service (Amazon SQS) queue
 - AWS Lambda
+
+### Configure bucket as a static website
+
+When you configure your bucket as a static website, the website is available at the AWS Region-specific website endpoint of the bucket.
+
+Depending on your Region, your Amazon S3 website endpoints follow one of these two formats.
+- s3-website dash (-) Region
+  - http://bucket-name.s3-website.Region.amazonaws.com
+- s3-website dot (.) Region
+  - http://bucket-name.s3-website-Region.amazonaws.com
+
+These URLs return the default index document that you configure for the website.
 
 ## Performance
 
