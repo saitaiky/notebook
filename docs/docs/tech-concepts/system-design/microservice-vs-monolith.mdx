@@ -18,14 +18,14 @@ The monolithic architecture is considered to be a traditional way of building ap
 Normally, monolithic applications have one large code base and lack modularity. If developers want to update or change something, they access the same code base. So, they make changes in the whole stack at once.
 
 
-### Strengths of the Monolithic Architecture
+### Strengths
 
 - **Less cross-cutting concerns.** Cross-cutting concerns are the concerns that affect the whole application such as logging, handling, caching, and performance monitoring. In a monolithic application, this area of functionality concerns only one application so it is easier to handle it.
 - **Easier debugging and testing.** In contrast to the microservices architecture, monolithic applications are much easier to debug and test. Since a monolithic app is a single indivisible unit, you can run end-to-end testing much faster.
 - **Simple to deploy. Another advantage associated with the simplicity of monolithic apps is easier deployment. When it comes to monolithic applications, you do not have to handle many deployments – just one file or directory.**
 - **Simple to develop. As long as the monolithic approach is a standard way of building applications, any engineering team has the right knowledge and capabilities to develop a monolithic application.**
 
-### Weaknesses of the Monolithic Architecture
+### Weaknesses
 
 - **Understanding. When a monolithic applicati
 on scales up, it becomes too complicated to understand. Also, a complex system of code within one application is hard to manage.**
@@ -33,7 +33,7 @@ on scales up, it becomes too complicated to understand. Also, a complex system o
 - **Scalability.** You cannot scale components independently, only the whole application.
 - **New technology barriers.** It is extremely problematic to apply a new technology in a monolithic application because then the entire application has to be rewritten.
 
-### When to choose a monolithic architecture
+### Use cases
 
 - Small team. If you are a startup and your team is small, you may not need to deal with the complexity of the microservices architecture. A monolith can meet all your business needs so there is no emergency to follow the hype and start with microservices.
 - A simple application. Small applications which do not demand much business logic, superior scalability, and flexibility work better with monolithic architectures.
@@ -53,13 +53,13 @@ Within a microservices architecture, the entire functionality is split up into i
 In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.
 Martin Fowler
 :::
-### Strengths of the Microservice Architecture
+### Strengths
 
 - **Independent components.** Firstly, all the services can be deployed and updated independently, which gives more flexibility. Secondly, a bug in one microservice has an impact only on a particular service and does not influence the entire application. Also, it is much easier to add new features to a microservice application than a monolithic one.
 - **Easier understanding.** Split up into smaller and simpler components, a microservice application is easier to understand and manage. You just concentrate on a specific service that is related to a business goal you have.
 - **Better scalability.** Another advantage of the microservices approach is that each element can be scaled independently. So the entire process is more cost- and time-effective than with monoliths when the whole application has to be scaled even if there is no need in it. In addition, every monolith has limits in terms of scalability, so the more users you acquire, the more problems you have with your monolith. Therefore, many companies, end up rebuilding their monolithic architectures.
 
-### Weaknesses of the Microservice Architecture
+### Weaknesses
 
 - **Extra complexity.** Since a microservices architecture is a distributed system, you have to choose and set up the connections between all the modules and databases. Also, as long as such an application includes independent services, all of them have to be deployed independently.
 - **System distribution.** A microservices architecture is a complex system of multiple modules and databases so all the connections have to be handled carefully.
@@ -67,7 +67,7 @@ Martin Fowler
 - **Testing.** A multitude of independently deployable components makes testing a microservices-based solution much harder.
 
 
-### When to choose a microservices architecture
+### Use cases
 
 - Microservices expertise. Without proper skills and knowledge, building a microservice application is extremely risky. Still, just having the architecture knowledge is not enough. You need to have DevOps and Containers experts since the concepts are tightly coupled with microservices. Also, domain modelling expertise is a must. Dealing with microservices means splitting the system into separate functionalities and dividing responsibilities.
 - A complex and scalable application. The microservices architecture will make scaling and adding new capabilities to your application much easier. So if you plan to develop a large application with multiple modules and user journeys, a microservice pattern would be the best way to handle it.
