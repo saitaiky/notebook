@@ -41,8 +41,22 @@ The best time value to set for the visibility timeout will be at least the timeo
 - FIFO queues provide [exactly-once processing](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing), which means that each message is delivered once and remains available until a consumer processes it and deletes it. Duplicates are not introduced into the queue.
 ### At-least-once delivery
 
+:::info Deep dive disucssion
+I have made a note about different type of messaging system before. If you would like to learn more about his topic, visit the [Messaging within distributed system](/tech-concepts/system-design/messaging/overview) page.
+
+If you want to check the official document, visit [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
+:::
+
 Amazon SQS stores copies of your messages on multiple servers for redundancy and high availability. On rare occasions, one of the servers that stores a copy of a message might be unavailable when you receive or delete a message.
 
 If this occurs, the copy of the message isn't deleted on that unavailable server, and **you might get that message copy again** when you receive messages. Design your applications to be *idempotent* (they should not be affected adversely when processing the same message more than once).
 
-> Source: [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
+
+### Exactly-Once Delivery
+
+When duplicates can't be tolerated, [FIFO (first-in-first-out) message queues](https://aws.amazon.com/sqs/) will make sure that each message is delivered exactly once (and only once) by filtering out duplicates automatically.
+
+
+### Push and Pull Delivery
+
+Most [message queues](https://aws.amazon.com/sqs/) provide both push and pull options for retrieving messages. Pull means continuously querying the queue for new messages. Push means that a consumer is notified when a message is available (this is also called [Pub/Sub messaging](https://aws.amazon.com/pub-sub-messaging/) - SQS+SNS). You can also use long-polling to allow pulls to wait a specified amount of time for new messages to arrive before completing.

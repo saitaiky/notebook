@@ -30,6 +30,10 @@ In the [exactly-once](/tech-concepts/system-design/messaging/exact-once) page, w
 
 Consider this scenario. You and I are exchanging text messages. I need to send you an urgent text message. I send you this urgent text message and to ensure that you have received it I’m expecting **an acknowledgment response** text message from you.
 
+:::info Acknowledgment
+Acknowledgment (or "ack"). A signal sent by a subscriber to Pub/Sub after it has received a message successfully. Acknowledged messages are removed from the subscription message queue.
+:::
+
 The ideal sequence of events is that I send you this urgent text message, you read it, and then you send me an acknowledgment text message that lets me know that you have received my message. This is the happy path where everything works as expected. However, there is also the sad path where something occurs that prevents this exchange of text messages from happening as we expected.
 
 The fundamental challenge here is that when I do not receive an acknowledgment from you, I have no way of determining if you have received the message. Multiple failure scenarios will happen that result in the failure to receive an acknowledgment message. One of the failure scenarios is that you did receive the urgent text message but were unable to send me an acknowledgment. From my perspective, there is no way for me to know if you did or did not received the message. As a result, I am forced to resend the urgent text message again and again until I hear back from you. Also, as a result, you may receive my message more than once.
