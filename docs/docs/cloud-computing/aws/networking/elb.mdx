@@ -139,6 +139,28 @@ The example condition given in the question is satisfied by requests with a quer
 ]
 ```
 
+### 2 NLB targeting options
+
+A Network Load Balancer functions at **the fourth layer** of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
+
+**There are 2 ways to route request and IP Addresses**
+
+- If you specify targets using an **instance ID**, traffic is routed to instances using *the **primary private IP address** specified in the primary network interface for the instanc*. The load balancer rewrites the destination IP address from the data packet before forwarding it to the target instance.
+
+- If you specify targets using **IP addresses**, you can route traffic to an instance using* **any private IP address** from one or more network interfaces*. This enables multiple applications on an instance to use the same port. Note that each network interface can have its security group. The load balancer rewrites the destination IP address before forwarding it to the target.
+
+:::info Private IPv4 addresses
+
+A private IPv4 address is an IP address that's not reachable over the Internet. You can use private IPv4 addresses for communication between instances in the same VPC.
+
+When you launch an EC2 instance into an IPv4-only or dual stack (IPv4 and IPv6) subnet, the instance receives a primary private IP address from the IPv4 address range of the subnet. For more information, see [IP addressing](https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html#vpc-ip-addressing) in the *Amazon VPC User Guide*. If you don't specify a primary private IP address when you launch the instance, we select an available IP address in the subnet's IPv4 range for you. Each instance has a default network interface (eth0) that is assigned the primary private IPv4 address. You can also specify additional private IPv4 addresses, known as *secondary private IPv4 addresses*. Unlike primary private IP addresses, secondary private IP addresses can be reassigned from one instance to another. For more information, see [Multiple IP addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/MultipleIP.html).
+
+A private IPv4 address, regardless of whether it is a primary or secondary address, remains associated with the network interface when the instance is stopped and started, or hibernated and started, and is released when the instance is terminated.
+
+> Source: [Amazon EC2 instance IP addressing](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-private-addresses)
+
+:::
+
 ## Error codes
 
 - **HTTP 503**

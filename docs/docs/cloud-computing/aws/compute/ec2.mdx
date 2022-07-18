@@ -95,6 +95,33 @@ Overview of EC2 hibernation:
 ![hibernate](/img/aws/compute/hibernate.png)
 Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.academy/lets-talk-about-ec2-placement-groups-and-hibernate-a6e4bed854c?gi=90ed20ac88d9)
 
+
+## Configuration
+
+
+### Tenancy
+
+Each EC2 instance that you launch into a VPC has a tenancy attribute. This attribute has the following values.
+
+-   Shared (`default`) --- Multiple AWS accounts may share the same physical hardware.
+-   Dedicated Instance (`dedicated`) --- Your instance runs on single-tenant hardware.
+-   Dedicated Host (`host`) --- Your instance runs on a physical server with EC2 instance capacity fully dedicated to your use, an isolated server with configurations that you can control.
+
+The more isolated of your EC2 instance, the more expensive it will be. Here is the price ordering: Dedicated Host > Dedicated instance > Ondemand(default)
+
+:::caution Type change
+You can only change the tenancy of an instance from dedicated to host, or from host to dedicated after you've launched it. 
+:::
+
+#### Dedicated host vs Dedicated instances
+An important difference between a Dedicated Host and a Dedicated instance is that a Dedicated Host gives you additional visibility and control over how instances are placed on a physical server, and you can consistently deploy your instances to the same physical server over time. 
+
+As a result, Dedicated Hosts enable you to use your existing server-bound software licenses and address corporate compliance and regulatory requirements.
+
+**Dedicated instances**: If you stop/start instance, you can get some other hardware somewhere else. Basically, the hardware is "yours" (you are not sharing it with others) for the time your instance is running. You stop/start it, you may get different physical machine later on (maybe older, maybe newer, maybe its specs will be a bit different), and so on. *So your instance is moved around on different physical servers - whichever is not occupied by others at the time*.
+
+**Dedicated host**:  With Dedicated Host the physical server is basically yours. It does not change, *it's always the same physical machine for as long as you are paying*.
+
 ## Troubleshooting
 
 ### Availability

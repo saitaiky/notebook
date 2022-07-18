@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the internet gateway using the NAT gateway’s Elastic IP address as the source IP address.
 
-![nat-gateway-diagram](/img/aws/networking/nat-gateway-diagram.png)
+![nat-gateway-diagram](/img/aws/networking/vpc/nat-gateway-diagram.png)
 Source: [AWS NAT Gateways](https://easycloudsupport.zendesk.com/hc/en-us/articles/360001916952-AWS-NAT-Gateways)
 
 ## Endpoints
@@ -52,6 +52,17 @@ Including **bastion hosts** in your VPC environment enables you to securely conn
 
 You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
 
+## WHen to use VPN CloudHub
+
+
+![AWS_VPN_CloudHub-diagram](/img/aws/networking/vpc/AWS_VPN_CloudHub-diagram.png)
+
+Source: [VPN CloudHub](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPN_CloudHub.html)
+
+There are 2 use cases that you may consider to use VPN CloudHub:
+
+- If you have multiple AWS Site-to-Site VPN connections, you can provide secure communication between sites using the AWS VPN CloudHub.   This enables your remote sites to communicate with each other, and not just with the VPC. 
+- Sites that use AWS Direct Connect connections to the virtual private gateway can also be part of the AWS VPN CloudHub.
 
 ## Elastic IP
 
