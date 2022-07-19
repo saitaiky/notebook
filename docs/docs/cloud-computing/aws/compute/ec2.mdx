@@ -21,6 +21,12 @@ AWS Spot Instances help reduce On-Demand Instance costs on EC2. You can use Spot
 Amazon EC2 terminates, stops, or hibernates your Spot Instance when Amazon EC2 needs the capacity back. Amazon EC2 provides a Spot Instance interruption notice, which gives the instance a two-minute warning before it is interrupted.
 :::
 
+:::info Spot Instance request
+If your **Spot Instance request** is active and has an associated running **Spot Instance**, or your **Spot Instance request** is disabled and has an associated stopped **Spot Instance**, canceling the request *does not terminate the instance; you must terminate the running Spot Instance manually*. 
+
+Moreover, to cancel a persistent Spot request and terminate its Spot Instances, you must cancel the **Spot request** first and then terminate the **Spot Instances**. 
+:::
+
 #### Spot Instance Interruption behaviors 
 
 You can specify that Amazon EC2 should do one of the following when it interrupts a Spot Instance:

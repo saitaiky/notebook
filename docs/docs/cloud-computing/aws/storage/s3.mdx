@@ -150,6 +150,14 @@ There are 2 approaches to improve upload and download speed across different reg
 
 In terms of AWS pricing, you will be charged for "[Regional Data Transfer Out to Origin](https://aws.amazon.com/cloudfront/pricing/)" ($0.02-$0.16/GB depending on region) compared with [S3 Transfer Acceleration](https://aws.amazon.com/s3/pricing/) charges ($0.04-$0.08/GB depending on region.)
 
+:::info How should I choose between S3 Transfer Acceleration and Amazon CloudFront’s PUT/POST for optimisating upload?
+
+S3 Transfer Acceleration optimizes the TCP protocol and adds additional intelligence between the client and the S3 bucket, making S3 Transfer Acceleration a better choice if a higher throughput is desired. *If you have **objects that are smaller than 1 GB or if the data set is less than 1 GB in size**, you should consider using **Amazon CloudFront**'s PUT/POST commands for optimal performance.*
+
+If you has data larger than 1GB, then **S3 Transfer Acceleration** is a better option.
+
+:::
+
 <Tabs className="upload-download-tabs">
 <TabItem value="s3-acceleration" label="S3 Transfer Acceleration">
 
