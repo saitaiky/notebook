@@ -7,7 +7,29 @@ sidebar_position: 2
 ---
 
 
-## Amazon SQS delay queues
+## SQS temporary queues 
+
+Temporary queues help you save development time and deployment costs when using common message patterns such as request-response. You can use the **Temporary Queue Client** to create **high-throughput**, cost-effective, application-managed temporary queues.
+
+### Benefits
+
+The **SQS Temporary Queue Client** maps multiple temporary queues—application-managed queues created on demand for a particular process—onto a single Amazon SQS queue automatically. This allows your application *to make fewer API calls and have **a higher throughput** when the traffic to each temporary queue is low*. When a temporary queue is no longer in use, the client cleans up the temporary queue automatically, even if some processes that use the client aren't shut down cleanly.
+
+1. They serve as lightweight communication channels for specific threads or processes.
+2. They can be created and deleted without incurring additional costs.
+3. They are API-compatible with static (normal) Amazon SQS queues. This means that existing code that sends and receives messages can send messages to and receive messages from virtual queues.
+
+### Amazon SQS Temporary Queue Client
+
+This client makes it easy to create and delete many temporary messaging destinations without inflating your AWS bill. The key concept behind the client is the virtual queue. Virtual queues let you multiplex many low-traffic queues onto a single SQS queue. *Creating a virtual queue only instantiates **a local buffer** to hold messages* for consumers as they arrive; there is no API call to SQS and no costs associated with creating a virtual queue.
+
+
+![temporary-queu](/img/aws/integration-messaging/temporary-queue.png)
+
+Source: [Simple Two-way Messaging using the Amazon SQS Temporary Queue Client](https://aws.amazon.com/blogs/compute/simple-two-way-messaging-using-the-amazon-sqs-temporary-queue-client/)
+
+
+## SQS delay queues
 
 > TL;DR - What SQS delay queue accomplishes is allow some portion of your solution to run or start or complete before the message should be picked up and processed.
 
@@ -34,7 +56,7 @@ When using sqs as queuing service, when you read the message off the queue it do
 
 The best time value to set for the visibility timeout will be at least the timeout value for the consumer process. If the consumer is able to successfully complete the processing then it would delete the message off the queue else if it times out then the message reappears in the queue for other consumer to pick it again.
 
-## Does Amazon SQS guarantee delivery of messages?
+## Does SQS guarantee delivery of messages?
 
 - Standard queues provide at-least-once delivery, which means that each message is delivered at least once.
 
@@ -60,3 +82,18 @@ When duplicates can't be tolerated, [FIFO (first-in-first-out) message queues](
 ### Push and Pull Delivery
 
 Most [message queues](https://aws.amazon.com/sqs/) provide both push and pull options for retrieving messages. Pull means continuously querying the queue for new messages. Push means that a consumer is notified when a message is available (this is also called [Pub/Sub messaging](https://aws.amazon.com/pub-sub-messaging/) - SQS+SNS). You can also use long-polling to allow pulls to wait a specified amount of time for new messages to arrive before completing.
+
+
+## Trouble shooting
+
+### How to convert SQS standard queue to FIFO queue with batching?
+
+1. Delete the existing standard queue and recreate it as a FIFO queue
+2. Make sure that the name of the FIFO queue ends with the .fifo suffix
+3. Make sure that the throughput for the target FIFO queue does not exceed 3,000 messages per second
+
+:::info
+By default, FIFO queues support up to 3,000 messages per second with batching, or up to 300 messages per second (300 send, receive, or delete operations per second) without batching. 
+:::
+
+

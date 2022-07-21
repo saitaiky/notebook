@@ -52,9 +52,12 @@ SR-IOV is a method of device virtualization that provides higher I/O performance
 
 ### Elustie Fabric Adapter (EFA)
 
+![AWS: Elastic Fabric Adapter](/img/aws/networking/others/Product-Page-Diagram_Elastic-Fabric-Adapter_How-it-Works.png)
+Source: [AWS: Elastic Fabric Adapter](https://aws.amazon.com/hpc/efa/)
+
 Elastic Fabric Adapter (EFA) is a network interface for Amazon EC2 instances that enables customers to run applications requiring high levels of inter-node communications at scale on AWS. Its *custom-built operating system (OS) **bypass hardware interface** * enhances the performance of inter-instance communications, which is critical to scaling these applications. Therefore this option is correct. It **Includes all the funtionality provided by ENI and ENA**, but it is the faster and better choice.
 
-OS-bypass is an access model that allows HPC and machine learning applications to communicate directly with the network interface hardware to provide low-latency, reliable transport functionality.
+**OS-bypass** is an access model that allows HPC and machine learning applications to communicate directly with the network interface hardware to provide low-latency, reliable transport functionality.
 
 ![OS-bypass](/img/aws/networking/others/OS-bypass.png)
 Source: [AWS ENI vs EN vs EFA
@@ -62,5 +65,7 @@ Source: [AWS ENI vs EN vs EFA
 
 > The Libfabric API bypasses the operating system kernel and communicates directly with the EFA device to put packets on the network.
 
-![AWS: Elastic Fabric Adapter](/img/aws/networking/others/Product-Page-Diagram_Elastic-Fabric-Adapter_How-it-Works.png)
-Source: [AWS: Elastic Fabric Adapter](https://aws.amazon.com/hpc/efa/)
+Traditionally, HPC applications use the **Message Passing Interface (MPI)** to interface with the system's network transport. In the AWS Cloud, this has meant that applications interface with MPI, which then uses the operating system's TCP/IP stack and the ENA device driver to enable network communication between instances.
+
+With an EFA, HPC applications use MPI or NCCL to interface with the *Libfabric* API.
+

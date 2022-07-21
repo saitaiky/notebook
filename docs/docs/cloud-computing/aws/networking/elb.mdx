@@ -90,6 +90,27 @@ Here are the reasons that why an ELB routes more traffic to one instance or Avai
 - There are long-lived TCP connections between clients and instances.
 - The connection uses a WebSocket.
 
+### Error codes
+
+- **HTTP 503**
+  - HTTP 503 indicates 'Service unavailable' error 
+  - This error in ALB is an indicator of the target groups for the load balancer having no registered targets.
+- HTTP 500
+  - HTTP 500 indicates 'Internal server' error
+  - Several reasons:
+    - A client submitted a request without an HTTP protocol
+    - The load balancer was unable to generate a redirect URL
+    - There was an error executing the web ACL rules
+- HTTP 504
+  - HTTP 504 indicates 'Gateway timeout' error
+  - Several reasons: 
+    - The load balancer failed to establish a connection to the target before the connection timeout expired
+    - The load balancer established a connection to the target but the target did not respond before the idle timeout period elapsed
+- HTTP 403
+  - HTTP 403 is 'Forbidden' error. 
+  - You configured an AWS WAF web access control list (web ACL) to monitor requests to your ALB and it blocked a request.
+
+
 ## Best practice
 
 ### How many load balancers do I need?
@@ -104,6 +125,25 @@ When your load balancer is created, it receives a public DNS name that clients c
 
 
 ## Configuration
+
+### Connection Draining
+
+To ensure that an **Elastic Load Balancer** stops sending requests to instances that are de-registering or unhealthy while keeping the existing connections open, use connection draining. This enables the load balancer to complete in-flight requests made to instances that are de-registering or unhealthy. 
+
+
+### Idle Timeout 
+
+> Idle means spending time to do nothing
+
+For each request that a client makes through an **Elastic Load Balancer**, the load balancer maintains two connections. 
+- The front-end connection is between the client and the load balancer. 
+- The back-end connection is between the load balancer and a registered EC2 instance. 
+
+The load balancer has a configured "idle timeout" period that applies to its connections. If no data has been sent or received by the time that the "idle timeout" period elapses, the load balancer closes the connection
+
+
+
+
 
 ### Rule Condition types
 
@@ -139,11 +179,23 @@ The example condition given in the question is satisfied by requests with a quer
 ]
 ```
 
-### 2 NLB targeting options
+## Network Load Balancer
 
 A Network Load Balancer functions at **the fourth layer** of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
 
-**There are 2 ways to route request and IP Addresses**
+### Connect NLB to Bastion host
+
+You need to remember that Bastion Hosts are using the **SSH protocol**, which is a **TCP** based protocol on port 22. They must be publicly accessible.
+
+Here, the correct answer is to use a Network Load Balancer, which supports **TCP** traffic, and will automatically allow you to connect to the EC2 instance in the backend.
+
+:::danger ALB don't support HTTPS. NLB support HTTPS
+An ALB only supports HTTP traffic, which is **layer 7**, while the SSH protocol is based on **TCP** and is **layer 4**. So, the **Application Load Balancer** doesn't work.
+:::
+
+### Targeting options
+
+**There are 2 options in NLP to route request**
 
 - If you specify targets using an **instance ID**, traffic is routed to instances using *the **primary private IP address** specified in the primary network interface for the instanc*. The load balancer rewrites the destination IP address from the data packet before forwarding it to the target instance.
 
@@ -161,25 +213,22 @@ A private IPv4 address, regardless of whether it is a primary or secondary addre
 
 :::
 
-## Error codes
+### TLS Termination (Offload TSL)
 
-- **HTTP 503**
-  - HTTP 503 indicates 'Service unavailable' error 
-  - This error in ALB is an indicator of the target groups for the load balancer having no registered targets.
-- HTTP 500
-  - HTTP 500 indicates 'Internal server' error
-  - Several reasons:
-    - A client submitted a request without an HTTP protocol
-    - The load balancer was unable to generate a redirect URL
-    - There was an error executing the web ACL rules
-- HTTP 504
-  - HTTP 504 indicates 'Gateway timeout' error
-  - Several reasons: 
-    - The load balancer failed to establish a connection to the target before the connection timeout expired
-    - The load balancer established a connection to the target but the target did not respond before the idle timeout period elapsed
-- HTTP 403
-  - HTTP 403 is 'Forbidden' error. 
-  - You configured an AWS WAF web access control list (web ACL) to monitor requests to your ALB and it blocked a request.
+TLS Termination is an approach that we use to offload the **decryption/encryption** of TLS traffic
+
+:::info TLS is the next generation of SSL
+**TLS** evolved from a previous encryption protocol called Secure Sockets Layer (**SSL**), which was developed by Netscape.
+:::
+
+With **Network Load Balancer**, you can *offload the decryption/encryption of TLS traffic from your application servers* to the **Network Load Balancer**, which helps you optimize the performance of your backend application servers while keeping your workloads secure. Additionally, **Network Load Balancers** *preserve the source IP of the clients* to the back-end applications, while terminating TLS on the load balancer.
+
+:::caution ALB and CLB also support SSL/TLS Termination
+- The Application Load Balancersupports TLS offloading
+- The Classic Load Balancer supports SSL offloading.
+:::
+
+
 
 ## ALB + ECS in mutiple AZ
 

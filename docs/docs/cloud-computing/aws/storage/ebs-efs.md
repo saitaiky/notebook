@@ -12,6 +12,15 @@ sidebar_position: 1
 
 ## EBS
 
+### IOPS
+
+#### in GP2 volume
+
+The IOPS of EBS volume *cannot be directly increased on **a gp2 volume** without increasing its size, which is not possible due to the question's constraints.
+#### in IO1 volumne
+
+Unlike gp2, which uses a bucket and credit model to calculate performance, an io1 volume allows you to specify a consistent IOPS rate when you create the volume, and Amazon EBS delivers the provisioned performance 99.9 percent of the time.
+
 ### EBS volumes are AZ locked
 When you create an EBS volume, it is automatically replicated within its Availability Zone to prevent data loss due to the failure of any single hardware component. *You can attach an EBS volume to an EC2 instance in the **same Availability Zone** *.
 
@@ -37,3 +46,13 @@ By default, the root volume of an EC2 instance for an EBS-backed AMI is deleted 
 You can set `DeleteOnTermination` to `False` to change this default behavior **to ensure that the volume persists** even after the instance terminates?
 
 If you want to disable this flag while the instance is still running, you can set `DeleteOnTermination` attribute to `False` using the **command line**
+
+
+## EFS
+
+### 2 Modes
+
+There are 2 modes that you can use in EFS.
+
+- **Provisioned Throughput mode** is available for applications with high throughput to storage (MiB/s per TiB) ratios, or with requirements greater than those allowed by the **Bursting Throughput mode**. 
+- With **Bursting Throughput mode**, a file system's throughput scales *as the amount of data* stored in the standard storage class grows.

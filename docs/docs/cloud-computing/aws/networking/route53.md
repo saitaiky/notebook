@@ -6,6 +6,8 @@ keywords:
 sidebar_position: 2
 ---
 
+Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS – such as Amazon EC2 instances – and can also be used to route users to infrastructure outside of AWS. 
+
 ## Alias record 
 
 Amazon Route 53 alias records provide a Route 53–specific extension to DNS functionality. Alias records let you route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets. They also let you route traffic from one record in a hosted zone to another record.
@@ -30,3 +32,54 @@ When you use an alias record to route traffic to an AWS resource, Route 53 auto
 If an alias record points to an AWS resource, you can't set the time to live (TTL); Route 53 uses the default TTL for the resource. If an alias record points to another record in the same hosted zone, Route 53 uses the TTL of the record that the alias record points to. For more information about the current TTL value for Elastic Load Balancing, go to [Request routing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#request-routing) in the *Elastic Load Balancing User Guide* and search for "ttl".
 
 > Source: [Choosing between alias and non-alias records](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html)
+
+
+
+## Route53 resolver
+
+> Offical document: [Amazon Route 53 Resolver](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-getting-started.html)
+
+By default, Route 53 Resolver automatically answers DNS queries for local VPC domain names for EC2 instances. You can integrate DNS resolution between Resolver and DNS resolvers on your on-premises network by configuring forwarding rules.
+
+:::info 
+DNS resolution between AWS VPC and on-premises network can be configured over a **Direct Connect** or ****VPN connection**
+:::
+
+:::caution
+- On-premises instances cannot resolve Route 53 DNS entries 
+- Route 53 cannot resolve on-premises DNS entries
+- Route 53 Resolver is a regional service, so objects that you create in one AWS Region are available only in that Region. To use the same rule in more than one Region, you must create the rule in each Region.
+:::
+
+
+### Integrate DNS resolution for hybrid networks
+
+Imagine there are 2 requirements that we need to achieve:
+- resolve DNS queries for any resources in the on-premises network from the AWS VPC
+- resolve any DNS queries for resources in the AWS VPC from the on-premises network
+
+In order to do so, you need to
+- create **an inbound endpoint** on Route 53 Resolver and then DNS resolvers on the on-premises network can forward DNS queries to Route 53 Resolver via this endpoint
+  ![Resolver-inbound-endpoint](/img/aws/networking/route53/Resolver-inbound-endpoint.png)
+- create **an outbound endpoint** on Route 53 Resolver and then Rorute 53 Resolver can conditionally forward queries to resolvers on the on-premises network via this endpoint
+  ![Resolver-outbound-endpoint](/img/aws/networking/route53/Resolver-outbound-endpoint.png)
+
+Source: [AWS Route 53 Resolver – Hybrid DNS](https://jayendrapatil.com/aws-route-53-resolver/)
+
+### Architecture diagram for hybrid networks
+
+**Example 1**
+- Amazon Route 53 private hosted zone
+- Amazon Route 53 Resolver
+- Amazon VPC
+- AWS VPN or Direct Connect
+
+![target-architecture](/img/aws/networking/route53/target-architecture.png)
+
+Source: [Set up integrated DNS resolution for hybrid networks in Amazon Route 53](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/set-up-integrated-dns-resolution-for-hybrid-networks-in-amazon-route-53.html)
+
+
+**Example 2**
+![dns-resolvers](/img/aws/networking/route53/dns-resolvers-0.svg)
+
+Source: [DNS Resolvers](https://support.stax.io/hc/en-us/articles/4452175759119-DNS-Resolvers)

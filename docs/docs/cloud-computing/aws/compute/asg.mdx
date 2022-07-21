@@ -6,26 +6,55 @@ keywords:
 sidebar_position: 2
 ---
 
-## EC2 Auto Scaling cannot add a volume 
+## Behaviour
 
-Amazon EC2 Auto Scaling cannot add a volume (Volumne = EBS volume) to an existing instance if the existing volume is approaching capacity
+### Difference of using CLI or console to create ASG launch configuration?
 
-A volume is attached to a new instance when it is added. Amazon EC2 Auto Scaling doesn't automatically add a volume when the existing one is approaching capacity. You can use the EC2 API to add a volume to an existing instance.
-
-
-## EC2 Auto Scaling works with both ALB and NLB
-
-Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load Balancers including their health check feature.
+By default, **basic monitoring** is enabled when you use the AWS management console to create a launch configuration. 
+**Detailed monitoring** is enabled by default when you create a launch configuration using the AWS CLI
 
 
-## ASG terminates unhealthy EC2 instance
+### ASG terminates unhealthy EC2 instance
 
 To maintain the same number of instances, Amazon EC2 Auto Scaling performs a periodic health check on running instances within an Auto Scaling group. When it finds that an instance is unhealthy, it terminates that instance and launches a new one. 
 
 Amazon EC2 Auto Scaling creates a new scaling activity for terminating the unhealthy instance and then terminates it. Later, another scaling activity launches a new instance to replace the terminated instance.
 
 
-## ASG Target Tracking Scaling Policy
+###  VPC Tenancy and ASG Tenancy
+
+> Source: [Configure instance tenancy with a launch configuration](https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-dedicated-instances.html)
+
+A launch configuration is an instance configuration template that an Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the instances. Include the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping. If you've launched an EC2 instance before, you specified the same information to launch the instance.
+
+When you create a launch configuration, the default value for the instance placement tenancy is `null` and the instance tenancy is controlled by the tenancy attribute of the VPC. If you set the **Launch Configuration Tenancy** to default and the **VPC Tenancy** is set to dedicated, then the instances have dedicated tenancy. If you set the **Launch Configuration Tenancy** to dedicated and the **VPC Tenancy** is set to default, then again the instances have dedicated tenancy.
+
+**Launch Configuration Tenancy vs VPC Tenancy**
+
+| Launch configuration tenancy | VPC tenancy = `default`  | VPC tenancy = `dedicated` |
+| ---------------------------- | ------------------------ | ------------------------- |
+| not specified                | shared-tenancy instances | Dedicated Instances       |
+| `default`                    | shared-tenancy instances | Dedicated Instances       |
+| `dedicated`                  | Dedicated Instances      | Dedicated Instances
+
+
+![ec2-tenancy](/img/aws/compute/ec2-tenancy.png)
+
+Source: [New – T3 Instances on Dedicated Single-Tenant Hardware](https://aws.amazon.com/blogs/aws/new-t3-instances-on-dedicated-single-tenant-hardware/)
+
+![vpc-tenancy](/img/aws/compute/vpc-tenancy.png)
+
+Source: [How to Create AWS VPC in 10 steps, less than 10 min](https://varunmanik1.medium.com/how-to-create-aws-vpc-in-10-steps-less-than-5-min-a49ac12064aa)
+
+
+## Configuration
+
+### EC2 Auto Scaling works with both ALB and NLB
+
+Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load Balancers including their health check feature.
+
+
+### Target Tracking Scaling Policy
 
 - ASGAverageNetworkOut -  This represents the Average number of bytes sent out on all network interfaces by the Auto Scaling group. 
 - ALBRequestCountPerTarget
@@ -46,3 +75,10 @@ While testing, the *scale-out policy criteria* for both policies was met at the 
 :::info Answer
 Amazon EC2 Auto Scaling chooses the policy that provides the largest capacity, so policy with the custom metric is triggered, and two new instances will be launched by the ASG 
 :::
+
+
+### EC2 Auto Scaling cannot add a volume 
+
+Amazon EC2 Auto Scaling cannot add a volume (Volumne = EBS volume) to an existing instance if the existing volume is approaching capacity
+
+A volume is attached to a new instance when it is added. Amazon EC2 Auto Scaling doesn't automatically add a volume when the existing one is approaching capacity. You can use the EC2 API to add a volume to an existing instance.

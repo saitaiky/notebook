@@ -9,6 +9,22 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+
+## Basic
+
+### Bucket policy
+
+In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set.
+
+
+### What is prefix
+
+In Amazon S3, you can use prefixes to organize your storage. A prefix is a logical grouping of the objects in a bucket. The prefix value is similar to a directory name that enables you to store similar data under the same directory in a bucket. When you programmatically upload objects, you can use prefixes to organize your data.
+
+In the Amazon S3 console, prefixes are called folders. You can view all your objects and folders in the S3 console by navigating to a bucket. You can also view information about each object, including object properties.
+
+
+
 ## Behaviour 
 
 ### Strongly consistent
@@ -21,6 +37,7 @@ You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transiti
 
 ![lifecycle-transitions](/img/aws/networking/lifecycle-transitions.png)
 Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html)
+
 
 ## Features
 
@@ -71,6 +88,15 @@ AWS notification feature enables you to receive notifications when certain event
 - Amazon Simple Notification Service (Amazon SNS) topic
 - Amazon Simple Queue Service (Amazon SQS) queue
 - AWS Lambda
+
+:::info Events List
+- New object-created events
+- Object removal events
+- Restore object events
+- Reduced Redundancy Storage (RRS) object lost events 
+- Replication events
+:::
+
 
 ### Configure bucket as a static website
 
@@ -166,6 +192,9 @@ Amazon S3 Transfer Acceleration can speed up content transfers to and from Amazo
 </TabItem>
 <TabItem value="cloudfront" label="CloudFront distribution">
 
+> Plain English - When an object from **S3** that is set up with CloudFront CDN is requested, the request would come through **the Edge Location** transfer paths only for the first request. Thereafter, it would be served from the **nearest edge location** to the users until it expires. So in this way, you can *speed up uploads as well as downloads for the video files*.
+
+
 Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 file uploads.
 
 - **Upload** - `PUT` and `POST` operations will be sent to the origin(e.g. Amazon S3).  For a deep-dive reference, visit [AWS document](https://aws.amazon.com/blogs/aws/amazon-cloudfront-content-uploads-post-put-other-methods/)
@@ -184,6 +213,24 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 
 </TabItem>
 </Tabs>
+
+
+## Security
+
+### Client Side Encryption
+
+If you have a proprietary encryption algorithm to do the encryption, you have to leverage client-side encryption. To enable client-side encryption, you have the following options:
+- Use a customer master key (CMK) stored in AWS Key Management Service (AWS KMS).
+- Use a master key you store within your application.
+
+### Generate CloudFron URL by Lambda
+
+In general, if you’re using an Amazon **S3 bucket** as the origin for a **CloudFront distribution**, you can either 
+- allow everyone to have access to the files there 
+- or you can restrict access.
+
+If you restrict access by using, for example, CloudFront signed URLs or signed cookies, you also won’t want people to be able to view files by simply using the direct **Amazon S3 URL** for the file. Instead, *you want them to only access the files by using the **CloudFront URL** *, so your content remains protected.
+
 
 ## Availabiltiy
 
@@ -215,11 +262,6 @@ Prefixes of the object 'file' would be: `/folder1/sub1/` , `/folder1/sub2/`, `/1
 ### Glacier Vault
 
 You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault**. You need to go through S3 first and then use a lifecycle policy.
-## What is prefix
-
-In Amazon S3, you can use prefixes to organize your storage. A prefix is a logical grouping of the objects in a bucket. The prefix value is similar to a directory name that enables you to store similar data under the same directory in a bucket. When you programmatically upload objects, you can use prefixes to organize your data.
-
-In the Amazon S3 console, prefixes are called folders. You can view all your objects and folders in the S3 console by navigating to a bucket. You can also view information about each object, including object properties.
 
 ## Further reading
 

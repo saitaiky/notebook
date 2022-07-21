@@ -9,11 +9,20 @@ sidebar_position: 4
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+## Configuration 
 
-The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the internet gateway using the NAT gateway’s Elastic IP address as the source IP address.
+### 4 Configurations that are supported by the Amazon VPC console wizard 
 
-![nat-gateway-diagram](/img/aws/networking/vpc/nat-gateway-diagram.png)
-Source: [AWS NAT Gateways](https://easycloudsupport.zendesk.com/hc/en-us/articles/360001916952-AWS-NAT-Gateways)
+- **VPC with a single public subnet**
+  - We recommend this configuration if you need to run a single-tier, public-facing web application, such as a blog or a simple website.
+- **VPC with public and private subnets (with NAT)**
+  - We recommend this scenario if you want to run a public-facing web application while maintaining back-end servers that aren't publicly accessible.
+- **VPC with public and private subnets and AWS Site-to-Site VPN access**
+  - Plain english - can't access to the internet but allow access via Site-to-Site VPN access
+  - We recommend this scenario if you want to extend your network into the cloud and also directly access the Internet from your VPC.
+- **VPC with a private subnet only and AWS Site-to-Site VPN access**
+  - We recommend this scenario if you want to extend your network into the cloud using Amazon's infrastructure without exposing your network to the Internet.
+
 
 ## Endpoints
 
@@ -52,8 +61,78 @@ Including **bastion hosts** in your VPC environment enables you to securely conn
 
 You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
 
-## WHen to use VPN CloudHub
+## Internet Gateway
 
+An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
+
+An Internet Gateway serves **two purposes**: 
+
+-   to provide a target in your VPC route tables for internet-routable traffic 
+-   to perform network address translation (NAT) for instances that have been assigned public IPv4 addresses.
+
+To enable access to or from the internet for instances in a subnet in a VPC, you must do the following:
+
+1.  Attach an Internet gateway to your VPC.
+2.  Add a route to your subnet's route table that directs internet-bound traffic to the internet gateway. 
+    - If a subnet is associated with a route table that has a route to an internet gateway, it's known as **a public subnet**. 
+    - If a subnet is associated with a route table that does not have a route to an internet gateway, it's known as **a private subnet**.
+3.  Ensure that instances in your subnet have a globally unique IP address (public IPv4 address, Elastic IP address, or IPv6 address).
+4.  Ensure that your network access control lists and security group rules allow the relevant traffic to flow to and from your instance.
+
+
+## NAT 
+
+The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the internet gateway using the NAT gateway’s Elastic IP address as the source IP address.
+
+![nat-gateway-diagram](/img/aws/networking/vpc/nat-gateway-diagram.png)
+
+Source: [AWS NAT Gateways](https://easycloudsupport.zendesk.com/hc/en-us/articles/360001916952-AWS-NAT-Gateways)
+
+### NAT instance vs NAT gateway
+
+These are the most 3 important points.
+- **NAT instance** can be used as a bastion server
+- Security Groups can be associated with a **NAT instances**
+- **NAT instance** supports port forwarding
+
+The following is a high-level summary of the differences between NAT gateways and NAT instances. We recommend that you use NAT gateways because they provide better availability and bandwidth and require less effort on your part to administer.
+
+| Attribute            | NAT gateway                                                                                                                                                                                 | NAT instance                                                                                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Maintenance          | Managed by AWS. You do not need to perform any maintenance.                                                                                                                                 | Managed by you, for example, by installing software updates or operating system patches on the instance.                                                                          |
+| Cost                 | Charged depending on the number of NAT gateways you use, duration of usage, and amount of data that you send through the NAT gateways.                                                      | Charged depending on the number of NAT instances that you use, duration of usage, and instance type and size.                                                                     |
+| Public IP addresses  | Choose the Elastic IP address to associate with a public NAT gateway at creation.                                                                                                           | Use an Elastic IP address or a public IP address with a NAT instance. You can change the public IP address at any time by associating a new Elastic IP address with the instance. |
+| Private IP addresses | Automatically selected from the subnet's IP address range when you create the gateway.                                                                                                      | Assign a specific private IP address from the subnet's IP address range when you launch the instance.                                                                             |
+| Security groups      | You cannot associate security groups with NAT gateways. You can associate them with the resources behind the NAT gateway to control inbound and outbound traffic.                           | Associate with your NAT instance and the resources behind your NAT instance to control inbound and outbound traffic.                                                              |
+| Network ACLs         | Use a network ACL to control the traffic to and from the subnet in which your NAT gateway resides.                                                                                          | Use a network ACL to control the traffic to and from the subnet in which your NAT instance resides.                                                                               |
+| Port forwarding      | Not supported.                                                                                                                                                                              | Manually customize the configuration to support port forwarding.                                                                                                                  |
+| Bastion servers      | Not supported.                                                                                                                                                                              | Use as a bastion server.                                                                                                                                                          |
+
+> Full table of comparision: [Compare NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
+
+
+### NAT in multiple AZ
+
+If you have resources in multiple Availability Zones and they share one NAT gateway, and if the NAT gateway’s Availability Zone is down, **resources in the other Availability Zones lose internet access.** 
+
+To incrase the availability of the system, you need to create an Availability Zone-independent architecture - which means you need to create a NAT gateway in each Availability Zone and configure your routing to **ensure that resources use the NAT gateway in the same Availability Zone.**
+
+> [NAT gateway basics](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)
+
+## VPN
+
+### Site-to-Site VPN
+
+Amazon VPC provides the facility to create an **IPsec VPN** connection (also known as **site-to-site VPN**) between *remote customer networks and their Amazon VPC over the internet*. The following are the key concepts for a site-to-site VPN:
+
+- Virtual private gateway: A Virtual Private Gateway (also known as a VPN Gateway) is the endpoint on the AWS VPC side of your VPN connection.
+- VPN connection: A secure connection between your on-premises equipment and your VPCs.
+- VPN tunnel: An encrypted link where data can pass from the customer network to or from AWS.
+- Customer Gateway: An AWS resource that provides information to AWS about your Customer Gateway device.
+- Customer Gateway device: A physical device or software application on the customer side of the Site-to-Site VPN connection.
+
+
+### When to use VPN CloudHub
 
 ![AWS_VPN_CloudHub-diagram](/img/aws/networking/vpc/AWS_VPN_CloudHub-diagram.png)
 
@@ -93,11 +172,5 @@ Elastic IP is a free service, but you’re limited to five in total (to prevent 
 AWS Resource Access Manager (RAM) is a service that enables you to easily and securely share AWS resources with any AWS account or within your AWS Organization. 
 The correct solution is to share the subnet(s) within a VPC using RAM. This will allow all EC2 instances to be deployed in the same VPC (although from different accounts) and easily communicate with one another.
 
-
-### NAT in multiple AZ
-
-If you have resources in multiple Availability Zones and they share one NAT gateway, and if the NAT gateway’s Availability Zone is down, **resources in the other Availability Zones lose internet access.** 
-
-To incrase the availability of the system, you need to create an Availability Zone-independent architecture - which means you need to create a NAT gateway in each Availability Zone and configure your routing to **ensure that resources use the NAT gateway in the same Availability Zone.**
-
-> [NAT gateway basics](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)
+To set this up, the account that owns the VPC (owner) shares one or more subnets with other accounts (participants) that belong to the same organization from AWS Organizations. 
+After a subnet is shared, the participants can view, create, modify, and delete their application resources in the subnets shared with them. Participants cannot view, modify, or delete resources that belong to other participants or the VPC owner.

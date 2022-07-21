@@ -105,6 +105,14 @@ Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.a
 ## Configuration
 
 
+### User data scripts
+
+When you launch an instance in Amazon EC2, you have the option of passing user data to the instance that can be used to perform common automated configuration tasks and even run scripts after the instance starts. You can pass two types of user data to Amazon EC2: 
+- shell scripts 
+- cloud-init directives.
+
+By default, user data scripts and cloud-init directives run only during the boot cycle when you first launch an instance. 
+
 ### Tenancy
 
 Each EC2 instance that you launch into a VPC has a tenancy attribute. This attribute has the following values.
@@ -113,7 +121,12 @@ Each EC2 instance that you launch into a VPC has a tenancy attribute. This attri
 -   Dedicated Instance (`dedicated`) --- Your instance runs on single-tenant hardware.
 -   Dedicated Host (`host`) --- Your instance runs on a physical server with EC2 instance capacity fully dedicated to your use, an isolated server with configurations that you can control.
 
-The more isolated of your EC2 instance, the more expensive it will be. Here is the price ordering: Dedicated Host > Dedicated instance > Ondemand(default)
+
+![ec2-tenancy](/img/aws/compute/ec2-tenancy.png)
+
+Source: [New – T3 Instances on Dedicated Single-Tenant Hardware](https://aws.amazon.com/blogs/aws/new-t3-instances-on-dedicated-single-tenant-hardware/)
+
+The more isolated of your EC2 instance, the more expensive it will be. Here is the price ordering: Dedicated Host > Dedicated instance > Shared(default)
 
 :::caution Type change
 You can only change the tenancy of an instance from dedicated to host, or from host to dedicated after you've launched it. 
