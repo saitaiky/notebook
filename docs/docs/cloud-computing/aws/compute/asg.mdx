@@ -82,3 +82,12 @@ Amazon EC2 Auto Scaling chooses the policy that provides the largest capacity, s
 Amazon EC2 Auto Scaling cannot add a volume (Volumne = EBS volume) to an existing instance if the existing volume is approaching capacity
 
 A volume is attached to a new instance when it is added. Amazon EC2 Auto Scaling doesn't automatically add a volume when the existing one is approaching capacity. You can use the EC2 API to add a volume to an existing instance.
+
+
+### ALB removed an instance but ASG fail to provision
+
+Let's say you're using an ALB that routes the requests to the underlying EC2 instances and you noticed a peculiar pattern. The **ALB** removes an instance whenever it is detected as unhealthy but the **ASG** fails to kick-in and provision the replacement instance. What is the reason?
+
+If the **ASG** is using **EC2** as the health check type and the **ALB** is using its in-built health check, *there may be a situation where the ALB health check fails because the health check pings fail to receive a response from the instance*. **(Network issue)** At the same time, **ASG health check can come back as successful** because it is based on **EC2 based health check**. 
+
+Therefore, in this scenario, the **ALB** will remove the instance from its inventory, however, the **ASG** will fail to provide the replacement instance. This can lead to the scaling issues mentioned in the problem statement.

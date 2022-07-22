@@ -8,6 +8,19 @@ sidebar_position: 2
 
 Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS – such as Amazon EC2 instances – and can also be used to route users to infrastructure outside of AWS. 
 
+
+## Private hosted zones
+
+> Usage: You want to set up a custom domain for internal usage such as internaldomainexample.com
+
+A private hosted zone is a container for records for a domain that you host in one or more VPCs. You create a hosted zone for a domain (such as internaldomainexample.com), and then you create records to tell Amazon Route 53 how you want traffic *to be routed for that domain within and among your VPCs*.
+
+For each VPC that you want to associate with the Route 53 hosted zone, change the following VPC settings to true:
+
+- enableDnsHostnames
+- enableDnsSupport
+
+
 ## Alias record 
 
 Amazon Route 53 alias records provide a Route 53–specific extension to DNS functionality. Alias records let you route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets. They also let you route traffic from one record in a hosted zone to another record.

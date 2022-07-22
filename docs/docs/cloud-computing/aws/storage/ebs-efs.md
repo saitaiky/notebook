@@ -12,8 +12,11 @@ sidebar_position: 1
 
 ## EBS
 
+
+
 ### IOPS
 
+IOPS SSD (io1 or io2) is the only EBS volume to support **Multi-Attach** functionality. Amazon EBS Multi-Attach enables you to attach a single Provisioned IOPS SSD volume to multiple EC2 instances that are in the same Availability Zone.
 #### in GP2 volume
 
 The IOPS of EBS volume *cannot be directly increased on **a gp2 volume** without increasing its size, which is not possible due to the question's constraints.

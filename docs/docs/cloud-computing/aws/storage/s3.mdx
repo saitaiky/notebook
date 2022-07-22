@@ -24,6 +24,17 @@ In Amazon S3, you can use prefixes to organize your storage. A prefix is a logic
 In the Amazon S3 console, prefixes are called folders. You can view all your objects and folders in the S3 console by navigating to a bucket. You can also view information about each object, including object properties.
 
 
+### Storage Types
+
+- **S3 Intelligent-Tiering** storage is designed to optimize costs by automatically moving data to the most cost-effective access tier, without performance impact or operational overhead.
+
+- **S3 Standard-IA** is for data that is accessed less frequently but requires rapid access when needed. (high durability, high throughput, and low latency). 
+
+:::caution Use Standard-IA only when you need big thoughput
+If you need to access objects frequently and you don't need a big thoughput, don't use `standard-IA`. Because it will cost you a lot of money.
+:::
+
+
 
 ## Behaviour 
 
@@ -85,8 +96,8 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 ### Notification feature 
 
 AWS notification feature enables you to receive notifications when certain events happen in your bucket. Amazon S3 supports the following destinations where it can publish events:
-- Amazon Simple Notification Service (Amazon SNS) topic
-- Amazon Simple Queue Service (Amazon SQS) queue
+- SNS topic
+- Standard SQS queue (FIFO SQS queue is not allowed)
 - AWS Lambda
 
 :::info Events List
@@ -97,6 +108,7 @@ AWS notification feature enables you to receive notifications when certain event
 - Replication events
 :::
 
+> Document: [Event notification types and destinations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-event-types-and-destinations.html)
 
 ### Configure bucket as a static website
 

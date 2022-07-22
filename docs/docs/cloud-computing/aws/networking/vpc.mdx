@@ -61,6 +61,47 @@ Including **bastion hosts** in your VPC environment enables you to securely conn
 
 You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
 
+## VPC Direct Connect Resiliency
+
+### Maximum Resiliency for Critical Workloads
+
+Maximum resilience is achieved by separate connections terminating on separate devices in more than one location. This configuration offers customers maximum resilience to failure. As shown in the figure below, such a topology provides resilience to 
+- device failure
+- connectivity failure
+- complete location failure 
+
+You can use [AWS Direct Connect gateway](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html) to access any AWS Region (except AWS Regions in China) from any AWS Direct Connect locations.
+
+![Redundancy-Highest](/img/aws/networking/vpc/Redundancy-Highest.png)
+
+Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
+
+
+### High Resiliency for Critical Workloads
+
+For critical production workloads that require high resiliency, it is recommended to have one connection at multiple locations. As shown in the figure below, such a topology ensures resilience to 
+- connectivity failure due to a fiber cut or a device failure 
+- a complete location failure 
+
+You can use [AWS Direct Connect gateway](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html) to access any AWS Region (except AWS Regions in China) from any AWS Direct Connect location.
+
+![Redundancy-Higher](/img/aws/networking/vpc/Redundancy-Higher.png)
+
+Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
+
+
+### Non-Critical Production Workloads or Development Workloads
+
+As shown in the figure below, such a topology helps in the case of *the device failure at a location* but does not help in the event of *a total location failure*.
+
+![non-critical-direct-connect](/img/aws/networking/vpc/non-critical-direct-connect.png)
+
+Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
+
+
+
+
+
 ## Internet Gateway
 
 An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
