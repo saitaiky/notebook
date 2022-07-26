@@ -63,7 +63,7 @@ In order to automate the replacement of unhealthy instance. The health check typ
 By default, the health check configuration of your Auto Scaling group is set as an EC2 type that performs a status check of EC2 instances. To automate the replacement of unhealthy EC2 instances, you must change the health check type of your instance's Auto Scaling group from EC2 to ELB by using a configuration file.
 
 :::info
-Please remember, the health check type of your instance's Auto Scaling group is strongly recommend to **use ELB instead of EC2**. So that the health status will **keep in sync** in both ELB and ASG.
+Please remember, the health check type of your instance's Auto Scaling group is strongly recommended to **use ELB instead of EC2**. So that the health status will **keep in sync** in both ELB and ASG.
 :::
 
 Reference: [EC2 vs. ELB Health Check on an Auto Scaling Group](https://kylewbanks.com/blog/ec2-vs-elb-health-check-on-an-auto-scaling-group)
@@ -234,13 +234,17 @@ TLS Termination is an approach that we use to offload the **decryption/encryptio
 **TLS** evolved from a previous encryption protocol called Secure Sockets Layer (**SSL**), which was developed by Netscape.
 :::
 
-With **Network Load Balancer**, you can *offload the decryption/encryption of TLS traffic from your application servers* to the **Network Load Balancer**, which helps you optimize the performance of your backend application servers while keeping your workloads secure. Additionally, **Network Load Balancers** *preserve the source IP of the clients* to the back-end applications, while terminating TLS on the load balancer.
+With **Network Load Balancer**, you can *offload the decryption/encryption of TLS traffic from your application servers* to the **Network Load Balancer**, which helps you optimize the performance of your backend application servers while keeping your workloads secure. Additionally, **Network Load Balancers** *preserve the source IP of the clients* to the back-end applications, while terminating TLS on the load balancer. Steps to do SSL termination
+
+1. Configure an SSL/TLS certificate on an Application Load Balancer via AWS Certificate Manager (ACM)
+2. Create an HTTPS listener on the Application Load Balancer with SSL termination
 
 :::caution ALB and CLB also support SSL/TLS Termination
 - The Application Load Balancersupports **TLS** offloading
 - The Classic Load Balancer supports **SSL** offloading.
 :::
 
+> Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
 
 ## Layer 4 Load Balancing vs. Layer 7 Load Balancing
 

@@ -3,7 +3,7 @@ title: S3
 description: S3
 keywords:
   - S3
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 import Tabs from '@theme/Tabs';
@@ -11,11 +11,6 @@ import TabItem from '@theme/TabItem';
 
 
 ## Basic
-
-### Bucket policy
-
-In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set.
-
 
 ### What is prefix
 
@@ -49,8 +44,30 @@ You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transiti
 ![lifecycle-transitions](/img/aws/networking/lifecycle-transitions.png)
 Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html)
 
+### Deleting a bucket is eventually consistent 
+
+If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list - *Bucket configurations have an eventual **consistency model** *. If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list.
+
+> Details: [Logging requests using server access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
+
+:::danger Never push server access logs about a bucket into the same bucket 
+If you configured your server access logs this way, then there would be **an infinite loop of logs**. This is because when you write a log file to a bucket, the bucket is also accessed, which then generates another log. A log file would be generated for every log written to the bucket, which creates a loop. **This would create many logs and increase your storage costs**.
+
+Source: [Can I push server access logs about an Amazon S3 bucket into the same bucket?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-server-access-logs-same-bucket/)
+:::
 
 ## Features
+
+
+### Pre-signed URL max validation time
+
+You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. Valid up to **6 hours**.
+
+### Server access logging
+
+Server access logging provides detailed records for the requests that are made to a bucket. Server access logs are useful for many applications. For example, access log information can be useful in security and access audits. It can also help you learn about your customer base and understand your Amazon S3 bill.
+
+
 
 ### S3 Select
 
@@ -106,6 +123,10 @@ AWS notification feature enables you to receive notifications when certain event
 - Restore object events
 - Reduced Redundancy Storage (RRS) object lost events 
 - Replication events
+:::
+
+:::caution 2 Writes are made to a single non-versioned object
+If two writes are made to a single non-versioned object at the same time, it is **possible that only a single event notification** will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket. With versioning, every successful write will create a new version of your object and will also send an event notification.
 :::
 
 > Document: [Event notification types and destinations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-event-types-and-destinations.html)
@@ -228,6 +249,64 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 
 
 ## Security
+
+### HTTPS for encryption
+
+:::caution
+Among all 4 encryption types, only SSE-C requires all the requests need to through HTTPS.
+:::
+
+-   **SSE-C** - Amazon S3 will reject any requests made over HTTP.
+-   **SSE-KMS** - It is not mandatory to use HTTPS.
+-   **Client-Side Encryption** - Client-side encryption is the act of encrypting data before sending it to Amazon S3. It is not mandatory to use HTTPS for this.
+-   **SSE-S3** - It is not mandatory to use HTTPS. Amazon S3 encrypts your data at the object level as it writes it to disks in its data centers.
+
+
+### Force encryption in bucket policy
+
+In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set.
+
+- `'x-amz-server-side-encryption': 'AES256'` AES256 equals **SSE-S3**
+  - Amazon S3 server-side encryption uses one of the strongest block ciphers available to encrypt your data, 256-bit Advanced Encryption Standard (AES-256).
+- `'x-amz-server-side-encryption': 'aws:kms'`
+  - Amazon S3 uses AWS KMS customer master keys (CMKs) to encrypt your Amazon S3 objects. AWS KMS encrypts only the object data. Any object metadata is not encrypted.	You can use if you need more control over your keys like create, rotating, disabling them using AWS KMS. Otherwise, if you wish to let AWS S3 manage your keys just stick with SSE-S3.
+
+
+If you need server-side encryption for all of the objects that are stored in a bucket, use a bucket policy. For example, the following bucket policy denies permissions to upload an object unless the request includes the `x-amz-server-side-encryption` header to request server-side encryption:
+```json
+{
+  "Version": "2012-10-17",
+  "Id": "PutObjectPolicy",
+  "Statement": [
+    {
+      "Sid": "DenyIncorrectEncryptionHeader",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::awsexamplebucket1/*",
+      "Condition": {
+        "StringNotEquals": {
+          "s3:x-amz-server-side-encryption": "AES256"
+        }
+      }
+    },
+    {
+      "Sid": "DenyUnencryptedObjectUploads",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::awsexamplebucket1/*",
+      "Condition": {
+        "Null": {
+          "s3:x-amz-server-side-encryption": "true"
+        }
+      }
+    }
+  ]
+}
+```
+> AWS document: [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html)
+
 
 ### Client Side Encryption
 

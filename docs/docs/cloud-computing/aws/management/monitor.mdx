@@ -8,15 +8,18 @@ keywords:
 sidebar_position: 1
 ---
 
-## VPC Flow Logs
-
-VPC Flow Logs - VPC Flow Logs is a feature that enables you to *capture information about the IP traffic going to and from network interfaces in your VPC*. Flow log data can be published to Amazon CloudWatch Logs or Amazon S3. After you've created a flow log, you can retrieve and view its data in the chosen destination.
-
-You can create a flow log for a VPC, a subnet, or a network interface. If you create a flow log for a subnet or VPC, each network interface in that subnet or VPC is monitored.
-
-Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow.
-
 ## CloudWatch
+
+### CloudWatch integration feature with S3
+
+You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
+
+
+### CloudWatch interval
+
+- Basic monitoring Data is available automatically in 5-minute periods at no charge. (By default)
+- Detailed monitoring Data is available in 1-minute periods for an additional charge.
+
 
 ### CloudWatch Event Rules
 

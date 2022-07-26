@@ -50,7 +50,7 @@ When you purchase a Reserved Instance, you determine the scope of the Reserved I
 
 By creating Capacity Reservations, you ensure that you always have access to EC2 capacity when you need it, for as long as you need it. You can also sepecify the duratin for how long you want it to be
 
-[Link](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
+[AWS official link: On-Demand Capacity Reservations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
 
 ## Placement Groups
 
@@ -107,11 +107,17 @@ Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.a
 
 ### User data scripts
 
+User Data is generally used to perform common automated configuration tasks and even run scripts after the instance starts.
+
 When you launch an instance in Amazon EC2, you have the option of passing user data to the instance that can be used to perform common automated configuration tasks and even run scripts after the instance starts. You can pass two types of user data to Amazon EC2: 
 - shell scripts 
 - cloud-init directives.
 
-By default, user data scripts and cloud-init directives run only during the boot cycle when you first launch an instance. 
+:::caution Default behaviour
+- By default, scripts entered as user data are executed with root user privileges
+- By default, user data runs only during the boot cycle when you first launch an instance
+:::
+
 
 ### Tenancy
 
@@ -171,4 +177,17 @@ What can you do to decrease the replication cost?
 
 The answer is **to use the EC2 instances private IP for the replication** - The source of the cost is that traffic between two EC2 instances is going over the public internet, thus incurring high costs. Here, the correct answer is to use Private IP, so that the network remains private, for a minimal cost.
 
+
+### How can EC2 securely connect to AWS services?
+
+Use an IAM Instance Role
+
+* instead of passing your own AWS account creditental in your codebase
+* You can’t use SSM either, because you also need your credential too call the AWS SDK to get the SSM which - again you need to provide your account credential (A question of which came first: the chicken or the egg?)
+
+Each Amazon EC2 instance contains metadata that the AWS CLI can directly query for temporary credentials. When an IAM role is attached to the instance, the AWS CLI automatically and securely retrieves the credentials from the instance metadata.
+
+![ec2-role-instance](/img/aws/compute/roles-usingrole-ec2roleinstance.png)
+
+Source: [Using an IAM role to grant permissions to applications running on Amazon EC2 instances](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
 

@@ -16,9 +16,35 @@ By default, **basic monitoring** is enabled when you use the AWS management cons
 
 ### ASG terminates unhealthy EC2 instance
 
+:::info Scaling Sequence
+After ternminate instances, it then addes new instances.
+:::
+
 To maintain the same number of instances, Amazon EC2 Auto Scaling performs a periodic health check on running instances within an Auto Scaling group. When it finds that an instance is unhealthy, it terminates that instance and launches a new one. 
 
 Amazon EC2 Auto Scaling creates a new scaling activity for terminating the unhealthy instance and then terminates it. Later, another scaling activity launches a new instance to replace the terminated instance.
+
+
+### Rebalancing activities
+
+:::info Scaling Sequence
+After launching new instances, it then terminates old instances. [AWS - Official document](https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-benefits.html)
+:::
+
+Rebalancing activities fall into two categories: **Availability Zone rebalancing** and **capacity rebalancing**
+
+#### Availability Zone rebalancing
+
+After certain actions occur, your Auto Scaling group can become unbalanced between Availability Zones. Amazon EC2 Auto Scaling compensates by rebalancing the Availability Zones. The following actions can lead to rebalancing activity:
+
+- You change the Availability Zones for your group.
+- You explicitly terminate or detach instances and the group becomes unbalanced.
+- An Availability Zone that previously had insufficient capacity recovers and has additional capacity available.
+- An Availability Zone that previously had a Spot price above your maximum price now has a Spot price below your maximum price.
+
+#### Capacity Rebalancing
+
+You can enable Capacity Rebalancing for your Auto Scaling groups when using Spot Instances. When you turn on Capacity Rebalancing, Amazon EC2 Auto Scaling attempts to launch a Spot Instance whenever Amazon EC2 notifies that a Spot Instance is at an elevated risk of interruption. 
 
 
 ###  VPC Tenancy and ASG Tenancy
@@ -52,7 +78,6 @@ Source: [How to Create AWS VPC in 10 steps, less than 10 min](https://varunmanik
 ### EC2 Auto Scaling works with both ALB and NLB
 
 Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load Balancers including their health check feature.
-
 
 ### Target Tracking Scaling Policy
 
@@ -91,3 +116,19 @@ Let's say you're using an ALB that routes the requests to the underlying EC2 ins
 If the **ASG** is using **EC2** as the health check type and the **ALB** is using its in-built health check, *there may be a situation where the ALB health check fails because the health check pings fail to receive a response from the instance*. **(Network issue)** At the same time, **ASG health check can come back as successful** because it is based on **EC2 based health check**. 
 
 Therefore, in this scenario, the **ALB** will remove the instance from its inventory, however, the **ASG** will fail to provide the replacement instance. This can lead to the scaling issues mentioned in the problem statement.
+
+## Cost-efficient 
+
+### Don't use ALB for automatically recover
+
+Imagine you are deploying a critical monolith application that must be deployed on a single web server, as it hasn't been created to work in distributed mode. Still, you want to make sure your setup can automatically recover from the failure of an AZ.
+
+- Create an **auto-scaling group** that spans across 2 AZ, which min=1, max=1, desired=1
+- Create an **Elastic IP** and use the EC2 user-data script to attach it
+  - With an Elastic IP address, you can mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
+- Assign an EC2 Instance Role to perform the necessary API calls
+  - For that Elastic IP to be attached to our EC2 instance, we must use an EC2 user data script, and our EC2 instance must have the correct IAM permissions to perform the API call, so we need an EC2 instance role.
+
+:::caution Don't use ALB and a target group with the instance(s) of the Auto Scaling Group
+If we use an ALB, things will still work, but we will have to **pay for the provisioned ALB** which sends traffic to only one EC2 instance. 
+:::

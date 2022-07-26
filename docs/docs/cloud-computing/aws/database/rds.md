@@ -17,7 +17,14 @@ Source: [Working with read replicas](https://docs.aws.amazon.com/AmazonRDS/lates
 
 Any updates made to the primary DB instance are **asynchronously** copied to the read replica. So both these options are incorrect.
 
-## Availability (handle failover)
+## Availability 
+
+### Maintaince downtime
+
+Upgrades to the **database engine level** require **downtime**. Even if your RDS DB instance uses a Multi-AZ deployment, both *the primary and standby DB instances are upgraded at the same time*. This causes downtime until the upgrade is complete, and the duration of the downtime varies based on the size of your DB instance.
+
+Source: [How do I minimize downtime during required Amazon RDS maintenance?](https://aws.amazon.com/premiumsupport/knowledge-center/rds-required-maintenance/)
+### Handle failover
 
 ![Amazon RDS Multi-AZ Deployments](/img/aws/database/multi-az-deployments.png)
 

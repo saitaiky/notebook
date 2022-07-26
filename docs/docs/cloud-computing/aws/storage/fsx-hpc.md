@@ -1,6 +1,7 @@
 ---
 title: High Performance Computing 
 sibebar_lable: FSx - HPC
+sidebar_position: 4
 ---
 
 High Performance Computing (HPC) clusters are created to provide extreme computational power to large scale applications. This computational power often results in the creation of very large amounts of data as well as very large individual files. For quite some time, the speed of processors and memory have risen sharply, but the performance of I/O systems has lagged behind.

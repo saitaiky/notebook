@@ -181,7 +181,9 @@ While ALB is the clear cost-leader at a massive scale, API Gateway provides nume
 
 Which one you choose will come down to your specific application scenario, and the role that cost plays versus other factors such as speed of development and ease of maintenance.
 
-## Kinesis Data Firehose vs Kinesis Data Streams
+## Kinesis
+
+### Kinesis Data Firehose vs Kinesis Data Streams
 
 * Kinesis Data Streams provides support for real-time processing of streaming data. It provides ordering of records, as well as the ability to read and/or replay records in the same order to multiple downstream Amazon Kinesis Applications. [Output is data processing tool (Consumer)]
 * Kinesis Data Firehose is used to load streaming data into data stores ( S3, Redshift, Elasticsearch Service, and Splunk)  [Output is datastore]
@@ -189,11 +191,11 @@ Which one you choose will come down to your specific application scenario, and t
 
 ![kinesis-consumer](/img/cloud-computing/aws/kinesis-consumer.png "kinesis-consumer")
 
-## Kinese Data Stream vs SQS
+### Kinese Data Stream vs SQS
 
 With Kinese Data Stream, you need to manually provision shards in case the load increases or you need to use CloudWatch alarms to set up auto scaling for the shards. 
 
-## Kinese Agent vs Kinese Producer Library
+### Kinese Agent vs Kinese Producer Library
 
 Kinesis Agent is a stand-alone Java software application that offers an easy way to collect and send data to Kinesis Data Streams. The agent continuously monitors a set of files and sends new data to your stream. The agent handles file rotation, checkpointing, and retry upon failures. It delivers all of your data in a reliable, timely, and simple manner. It also emits Amazon CloudWatch metrics to help you better monitor and troubleshoot the streaming process.
 
