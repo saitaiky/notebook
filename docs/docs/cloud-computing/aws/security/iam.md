@@ -6,17 +6,22 @@ keywords:
 sidebar_position: 3
 ---
 
+## Identity vs Resource-based AWS IAM Policies
 
-You can copy an AMI across AWS Regions
-You can share an AMI with another AWS account
-Copying an AMI backed by an encrypted snapshot cannot result in an unencrypted target snapshot
+> Source: [Identity vs Resource-based AWS IAM Policies](https://sonalake.com/latest/identity-vs-resource-based-aws-iam-policies/)
 
-| Scenario | Description                | Supported |
-| -------- | -------------------------- | --------- |
-| 1        | Unencrypted-to-unencrypted | Yes       |
-| 2        | Encrypted-to-encrypted     | Yes       |
-| 3        | Unencrypted-to-encrypted   | Yes       |
-| 4        | Encrypted-to-unencrypted   | No        |
+### Identity-based Policies
 
-> Source: [AWS - Encryption and copying
-](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
+Identity-based policies grant permissions to an identity. An identity-based policy dictates whether an identity to which this policy is attached is allowed to make API calls to particular AWS resources or not. For example, the following policy would allow a user to invoke any Get or List request on any S3 resource.
+
+![](https://lh6.googleusercontent.com/JPqffNfvTOEytJOwchkTOi9BSbmMSATrFngfC9z78lCuCRRq5xpvKJnuiAtLkp_gQhpePR-gg0y-_sNO44zG7_OG-9LRbNSi5tM4jQeQ1-gMtkh1SAbcwyKSU7TvwQjEENgPLE6a3_xn72-Q_FiM6A)
+
+### Resource-based Policies
+
+Resource-based policies grant permissions to the principal (可以係user / [service - 如果係service 既話就叫service-based principal) that is specified in the policy. They specify who or what can invoke an API from a resource to which the policy is attached.
+
+For example, the policy below specifies that S3 events on the bucket arn:aws:s3:::test-bucket-cezary can be handled by the Lambda (lambda-s3) in account id 1234567890 in eu-west-1 region.
+
+![](https://lh4.googleusercontent.com/hXOsNWn5oZsj2TMPHv6VkJUy4UDZRhbUZR0bQGLLg9eYwyTlNDVill7EoN-M_dIBbL7bqmKK6l9ijKt-7e7rtJZlBQPHIXWIzYw2aoZlCRGqLd33_ah5hLsdfSqxzj8xTkhS_XowyP5smFPxzZHopQ)
+
+In this case, the principal is "a caller" who can invoke a particular action on the specific resource arn:aws:s3:::test-bucket-cezary.

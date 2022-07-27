@@ -41,7 +41,7 @@ All S3 GET, PUT, and LIST operations, as well as operations that change object t
 
 You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transition objects to another Amazon S3 Using Amazon S3 storage classes.Amazon S3 supports a waterfall model for transitioning between storage classes, as shown in the following diagram.
 
-![lifecycle-transitions](/img/aws/networking/lifecycle-transitions.png)
+![lifecycle-transitions](/img/aws/storage/s3/lifecycle-transitions.png)
 Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html)
 
 ### Deleting a bucket is eventually consistent 
@@ -203,6 +203,16 @@ s3.getObject(params).createReadStream().pipe(file);
 
 Amazon RDS Read Replicas provide enhanced performance and durability for RDS database (DB) instances. They make it easy to elastically scale out beyond the capacity constraints of a single DB instance for read-heavy database workloads. **Read replicas can be within an Availability Zone, Cross-AZ, or Cross-Region.**
 
+
+### When to use multipart uploading?
+
+> via - https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html
+
+In general, **when your object size reaches 100 MB**, you should consider using multipart uploads instead of uploading the object in a single operation.
+
+-   If you're uploading large objects over a stable high-bandwidth network, use multipart uploading to maximize the use of your available bandwidth by uploading object parts in parallel for multi-threaded performance.
+-   If you're uploading over a spotty network, use multipart uploading to increase resiliency to network errors by avoiding upload restarts.
+
 ### Upload and download speed 
 
 There are 2 approaches to improve upload and download speed across different regions. Depending on your setup, S3 Transfer Acceleration [suggested in another answer](https://stackoverflow.com/a/55148734/1081234) may still be a better option, it's certainly better documented and has more implementation examples!
@@ -249,6 +259,84 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 
 
 ## Security
+
+### User policies vs ACL vs Bucket Policies
+
+![AWS-S3-access-control-tools](/img/aws/storage/s3/AWS-S3-access-control-tools.png)
+
+Source: [Background: Amazon S3 Access Control Tools](https://www.msp360.com/resources/blog/s3-access-control-tools/)
+
+- [User Policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html): Use the AWS IAM policy syntax to grant access to IAM users in your account.
+- [Bucket Policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html): Use the AWS IAM policy syntax to manage access for a particular S3 bucket and the objects in it; (Sai: A bucket policy is a resource-based policy - [Unlike an identity-based policy, a resource-based policy specifies who (which principal) can access that resource](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html).)
+- [Access Control Lists (ACLs)](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html): Use XML syntax to grant access to specific S3 buckets or objects.
+
+
+<Tabs className="UserPolicies-ACL-BucketPolicies">
+<TabItem value="user" label="User Policies">
+
+**User policies** are attached to a particular IAM user to indicate whether that user can access various S3 buckets and objects. 
+
+In contrast, **bucket policies** and **ACLs** are attached to the resource itself *either an S3 bucket or an S3 object* to control access.
+IAM roles and resource-based policies delegate access across accounts only within a single partition. 
+
+For example, you can't add cross-account access between an account in the standard aws partition and an account in the aws-cn partition. [(reference)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)
+
+</TabItem>
+<TabItem value="acl" label="ACL">
+
+Diagram to show S3 Access Polices (Bucket and Object)
+
+![s3-policy-diagram](/img/aws/storage/s3/s3-policy-diagram.png)
+
+Source: [Sample S3 Bucket Policies — Part 01](https://crishantha.medium.com/sample-s3-bucket-policies-part-01-dcdd62772da5)
+
+
+ACL in AWS console
+![s3-policy-diagram](/img/aws/storage/s3/ACL-permission-console.png)
+
+Source: [An easier way to control access to aws resources by using the aws organization of iam principals](https://noise.getoto.net/tag/s3-bucket-policy/)
+
+
+</TabItem>
+<TabItem value="bucketpolicies" label="BucketPolicies">
+
+The following example policy grants the `s3:PutObject` and `s3:PutObjectAcl` permissions to multiple AWS accounts and requires that any request for these operations include the `public-read` canned access control list (ACL). For more information, see [Amazon S3 actions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html) and [Amazon S3 condition key examples](https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazon-s3-policy-keys.html).
+[Example Bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html)
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AddCannedAcl",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::111122223333:root",
+                    "arn:aws:iam::444455556666:root"
+                ]
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*",
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": [
+                        "public-read"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+
 
 ### HTTPS for encryption
 

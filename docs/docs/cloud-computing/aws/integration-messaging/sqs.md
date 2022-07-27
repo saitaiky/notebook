@@ -31,7 +31,7 @@ Source: [Simple Two-way Messaging using the Amazon SQS Temporary Queue Client](h
 
 ## SQS delay queues
 
-> TL;DR - What SQS delay queue accomplishes is allow some portion of your solution to run or start or complete before the message should be picked up and processed.
+> TL;DR - SQS delay quese is a queue with the setting of `DelaySeconds`. What SQS delay queue accomplishes is allow some portion of your solution to run or start or complete before the message should be picked up and processed.
 
 Delay queues let you postpone the delivery of new messages to consumers for a number of seconds, for example, **when your consumer application needs additional time to process messages**. If you create a delay queue, any messages that you send to the queue remain invisible to consumers for the duration of the delay period. The default (minimum) delay for a queue is 0 seconds. The maximum is 15 minutes.
 
