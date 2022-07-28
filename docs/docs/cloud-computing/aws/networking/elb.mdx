@@ -11,7 +11,7 @@ sidebar_position: 1
 
 An Application load balancer distributes incoming application traffic across multiple targets, such as EC2 instances, in multiple Availability Zones. A listener checks for connection requests from clients, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets. Each rule consists of a priority, one or more actions, and one or more conditions.
 
-![component_architecture](/img/cloud-computing/aws/network/component_architecture.png "component_architecture")
+![component_architecture](/img/aws/networking/elb/component_architecture.png "component_architecture")
 
 source: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
 
@@ -32,7 +32,7 @@ Without cross-zone load balancing, one instance in Availability Zone A receives 
 
 Another example:
 
-![cross-zone-balancing](/img/aws/networking/cross-zone-balancing.png)
+![cross-zone-balancing](/img/aws/networking/elb/cross-zone-balancing.png)
 
 :::caution
 By default, cross-zone load balancing is enabled (always on) for **Application Load Balancer** and disabled for **Network Load Balancer**
@@ -71,7 +71,7 @@ Reference: [EC2 vs. ELB Health Check on an Auto Scaling Group](https://kylewbank
 By setting the Health Check Type to ELB, we can be sure that if the ELB health check is failing, the instance will be terminated and a new one will take it’s place, giving you true failover in the event that your application goes down. As a bonus, if the EC2 instance itself goes down, you will still get the proper failover from an ELB health check because your application will be unreachable to the ELB, deemed unhealthy, and subsequently destroyed by the auto scaling group - the best of both worlds.
 
 
-![elb-healthcheck-setting](/img/cloud-computing/aws/network/elb-healthcheck-setting.png "elb-healthcheck-setting")
+![elb-healthcheck-setting](/img/aws/networking/elb/elb-healthcheck-setting.png "elb-healthcheck-setting")
 
 
 
