@@ -39,6 +39,30 @@ The following are the default rules for **a security group that you create**:
 - Allows no inbound traffic
 - Allows all outbound traffic
 
+### Security Group and ENI
+
+> TL;DR - When specifying a security group to a EC2 instance, its ENI specified the security group under the hood
+
+Security Groups are attached to **Elastic Network Interfaces (ENIs)**. That's why the console shows it under the *Networking* tab.
+
+This design allows different security settings if there are multiple ENIs. For example, one ENI could be used for external traffic and a different ENI could be used for internal traffic.
+
+Most Amazon EC2 instances only have one ENI, so it is easier to think of the Security Group as being associated with the instance.
+
+Source: [When specifying a security group to an instance, is its ENI specified the security group under the hood?](https://stackoverflow.com/questions/61709582/aws-when-specifying-a-security-group-to-an-instance-is-its-eni-specified-the-s)
+
+### Security Group is not only for EC2 but also other services
+
+Security Groups are not just bound to EC2 instances, in fact any resource with an ENI can have a security group attached with examples such as:
+
+-   VPC Interface endpoints
+-   RDS
+-   ElastiCache
+-   ElasticSearch Service
+-   And many more
+
+By having a single implementation of security group -> ENI, I would imagine it makes it easier for AWS to implement networking security for new VPC based resources over time.
+
 
 ## When do you need the secret access key or access key ID to sign the API requests?
 

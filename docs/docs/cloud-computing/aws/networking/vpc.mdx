@@ -9,6 +9,24 @@ sidebar_position: 4
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+
+## NACL vs Security group
+
+With Network Access Control List you can control what goes in and out of your VPC.
+
+With security groups you can control what goes in and out your instances
+
+![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)
+
+Source: [Security Group and Network Access Control List Migration between different VPCs](https://medium.com/@chaosgears/security-group-and-network-access-control-list-migration-between-different-vpcs-a81f5c9c8d64)
+
+
+![what-is-aws-network-acl](/img/aws/networking/vpc/what-is-aws-network-acl.jpeg)
+
+Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www.youtube.com/watch?v=tLAgYQlMWGo)
+
+
+
 ## Configuration 
 
 ### 4 Configurations that are supported by the Amazon VPC console wizard 
@@ -36,15 +54,29 @@ Flow log data for a monitored network interface is recorded as flow log records,
 
 ## Endpoints
 
+![](/img/aws/networking/vpc/vpc-endpoints-vs-interface-endpoint.png)
+
 Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. They allow communication between instances in your VPC and services without imposing availability risks or bandwidth constraints on your network traffic.
 
 A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by AWS PrivateLink without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other service does not leave the Amazon network. There are two types of VPC endpoints: 
 - interface endpoints
 - gateway endpoints
 
+
+![](/img/aws/networking/vpc/interface-endpoint-or-gateway-endpoint.png)
+
+### An interface endpoint
+
+Interface endpoint sits inside a subnet, and associated with a security group
+
 An interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service.
 
+### A gateway endpoint
+
+Gateway endpoint sits inside a VPC and with a route table
+
 A gateway endpoint is a gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services (Almost all of them)
+
 
 ## Transit Gateway
 
@@ -64,6 +96,26 @@ Your network is streamlined and scalable. AWS Transit Gateway routes all traffic
 
 </TabItem>
 </Tabs>
+
+
+## Internet Gateway
+
+An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
+
+An Internet Gateway serves **two purposes**: 
+
+-   to provide a target in your VPC route tables for internet-routable traffic 
+-   to perform network address translation (NAT) for instances that have been assigned public IPv4 addresses.
+
+To enable access to or from the internet for instances in a subnet in a VPC, you must do the following:
+
+1.  Attach an Internet gateway to your VPC.
+2.  Add a route to your subnet's route table that directs internet-bound traffic to the internet gateway. 
+    - If a subnet is associated with a route table that has a route to an internet gateway, it's known as **a public subnet**. 
+    - If a subnet is associated with a route table that does not have a route to an internet gateway, it's known as **a private subnet**.
+3.  Ensure that instances in your subnet have a globally unique IP address (public IPv4 address, Elastic IP address, or IPv6 address).
+4.  Ensure that your network access control lists and security group rules allow the relevant traffic to flow to and from your instance.
+
 
 ## Bastion hosts
 
@@ -108,27 +160,6 @@ As shown in the figure below, such a topology helps in the case of *the device f
 
 Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
 
-
-
-
-
-## Internet Gateway
-
-An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
-
-An Internet Gateway serves **two purposes**: 
-
--   to provide a target in your VPC route tables for internet-routable traffic 
--   to perform network address translation (NAT) for instances that have been assigned public IPv4 addresses.
-
-To enable access to or from the internet for instances in a subnet in a VPC, you must do the following:
-
-1.  Attach an Internet gateway to your VPC.
-2.  Add a route to your subnet's route table that directs internet-bound traffic to the internet gateway. 
-    - If a subnet is associated with a route table that has a route to an internet gateway, it's known as **a public subnet**. 
-    - If a subnet is associated with a route table that does not have a route to an internet gateway, it's known as **a private subnet**.
-3.  Ensure that instances in your subnet have a globally unique IP address (public IPv4 address, Elastic IP address, or IPv6 address).
-4.  Ensure that your network access control lists and security group rules allow the relevant traffic to flow to and from your instance.
 
 
 ## NAT 

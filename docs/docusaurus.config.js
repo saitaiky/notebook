@@ -201,6 +201,10 @@ const config = {
                 to: 'https://tabletomarkdown.com/convert-website-table-to-markdown/',
                 label: 'Table to Markdown',
               },
+              {
+                to: 'https://www.tablesgenerator.com/',
+                label: 'Markdown Table',
+              },
             ],
           },
           {

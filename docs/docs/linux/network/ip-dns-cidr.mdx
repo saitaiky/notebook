@@ -60,6 +60,38 @@ Note: The basic subnet masks we’re describing here are known as default subnet
 ```
 So now you know, for this example using a 255.255.255.0 subnet mask, that the network ID is 192.168.123.0, and the host address is 0.0.0.132. When a packet arrives on the 192.168.123.0 subnet (from the local subnet or a remote network), and it has a destination address of 192.168.123.132, your computer will receive it from the network and process it.
 
+
+
+## Ephemeral port : What is it and what does it do?
+
+In essence an ephemeral port is a random high port used to communicate with a known server port. For example, if I ssh from my machine to a server the connection would look like:
+
+```shell
+192.168.1.102:37852 ---> 192.168.1.105:22
+```
+
+22 is the standard SSH port I'm connecting to on the remote machine; 37852 is the ephemeral port used on my local machine
+
+## Example
+![Linux hardware-kernal-shell](/img/linux/network/why-add-ephemeral-ports-on-nacl.png)
+
+Let us try to understand that with a simple scenario. When you want to visit a webpage you use a browser type in the url, in the background, Your browser(client) sends a request to the website(web-server).
+
+The client that initiates the request chooses the ephemeral port range on which it wants to receive the payload it requested for. The range varies depending on **the client's operating system**. So, for a web server to work properly, we need to configure appropriate ephemerals ports on the web server.
+
+- Many Linux kernels (including the Amazon Linux kernel) use ports 32768-61000.
+- Requests originating from Elastic Load Balancing use ports 1024-65535.
+- Windows operating systems through Windows Server 2003 use ports 1025-5000.
+- Windows Server 2008 and later versions use ports 49152-65535.
+- A NAT gateway uses ports 1024-65535.
+- AWS Lambda functions use ports 1024-65535.
+
+For example, if a request comes into a web server in your VPC from a Windows 10 client on the internet, your network ACL must have an outbound rule to enable traffic destined for ports 49152-65535.
+
+> Further reading: [Ephemeral port : What is it and what does it do?](https://unix.stackexchange.com/questions/65475/ephemeral-port-what-is-it-and-what-does-it-do), [AWS Security - Why add Ephemeral ports to NACL](https://github.com/miztiik/dev-sec-ops/tree/master/nacl-outbound-ephemeral-ports)
+
+
+
 ## Classful and CIDR
 There are two strategies the RIRs use to allocate IP address space: the legacy strategy called Classful addressing, and the current strategy of Classless addressing (known as Classless Inter-Domain Routing, or CIDR).
 

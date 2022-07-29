@@ -42,6 +42,8 @@ via - [Link](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/
 
 ![](https://lh4.googleusercontent.com/Bu8XKpcwnq0FsZMxRNZPNw9q4YI_5S5Dl_RRgV7pNNKojJiTfzy4-bzKvAVJ43G5uiuVhSFlBfH3FCjxzkoEPIekRcFLGFWStHQFQ7_-SEFsOn-sZyp-B9syw4CS0TcNnU23mu1PgH9zCWJUuyeV1Q)
 
+Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
+
 1.  In your CloudFront distribution, specify one or more trusted key groups, which contain the public keys that CloudFront can use to verify the URL signature. You use the corresponding private keys to sign the URLs.
 
 2.  Develop your application to determine whether a user should have access to your content and to create signed URLs for the files or parts of your application that you want to restrict access to.
@@ -53,6 +55,8 @@ via - [Link](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/
 ## Signed Cookies
 
 ![](https://lh6.googleusercontent.com/YprbtFgEZGIU9x0x-6XDRZJIubNrcQi4WA3gzmW7Gw6eu03O_4HLxHBVisfIs5peVcRck36NxlnFXS_wjU8XP_SpYj7yodrJlnCD0IDXBur1R4Ne7WGFcrVs175JY8VYB3gALeMeTUOq4kRbUDe_8w)
+
+Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
 
 ## Cloudfront signers
 
