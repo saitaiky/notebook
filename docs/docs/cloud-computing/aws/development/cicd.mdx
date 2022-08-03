@@ -6,11 +6,214 @@ keywords:
 sidebar_position: 1
 ---
 
-## [Deployment policy](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
-- **CodeBuild - Jenkins**
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+## CodePipeline
+
+### [Input and output artifacts](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome-introducing-artifacts.html)
+
+CodePipeline integrates with development tools to check for code changes and then build and deploy through all of the stages of the continuous delivery process.
+
+Stages use input and output artifacts that are stored in the Amazon S3 artifact bucket you chose when you created the pipeline. CodePipeline zips and transfers the files for input or output artifacts as appropriate for the action type in the stage.
+
+For example:
+
+1.  CodePipeline triggers your pipeline to run when there is a commit to the source repository, providing the output artifact (any files to be built) from the **Source stage**.
+2.  The output artifact (any files to be built) from the previous step is ingested as an input artifact to the **Build stage**. An output artifact (the built application) from the **Build stage** can be an updated application or an updated Docker image built to a container.
+3.  The output artifact from the previous step (the built application) is ingested as an input artifact to the **Deploy stage**, such as staging or production environments in the AWS Cloud. You can deploy applications to a deployment fleet, or you can deploy container-based applications to tasks running in ECS clusters.
+
+Every action has a type. Depending on the type, the action might have one or both of the following:
+
+-   An input artifact, which is the artifact it consumes or works on over the course of the action run.
+-   An output artifact, which is the output of the action.
+
+Every output artifact in the pipeline must have a unique name. Every input artifact for an action must match the output artifact of an action earlier in the pipeline, whether that action is immediately before the action in a stage or runs in a stage several stages earlier.
+
+An artifact can be worked on by more than one action.
+
+### CodeDeploy vs CodePipeline
+
+Whereas CodeDeploy is a **deployment service**, CodePipeline is a **continuous delivery service**.
+
+**AWS CodeDeploy** is a fully managed "deployment" service that automates software deployments to a variety of compute services such as Amazon EC2, AWS Fargate, AWS Lambda, and your on-premises servers. AWS CodeDeploy makes it easier for you to rapidly release new features, helps you avoid downtime during application deployment, and handles the complexity of updating your applications.
+
+**AWS CodePipeline** is a fully managed "continuous delivery" service that helps you automate your release pipelines for fast and reliable application and infrastructure updates. CodePipeline automates the build, test, and deploy phases of your release process every time there is a code change, based on the release model you define. This enables you to rapidly and reliably deliver features and updates.
+
+
+## CodeCommit
+
+### Repositories are automatically encrypted in transit and at rest
+
+Data in AWS CodeCommit repositories is encrypted *in transit and at rest*. When data is pushed into an AWS CodeCommit repository (for example, by calling git push), AWS CodeCommit encrypts the received data as it is stored in the repository.
+
+### How to set up connections for using Git in CodeCommit
+
+-   The simplest way to set up connections to AWS CodeCommit repositories is to configure Git credentials for CodeCommit in the IAM console, and then use those credentials for HTTPS connections. 
+-   You can also use these same credentials with any third-party tool or individual development environment (IDE) that supports HTTPS authentication using a static user name and password.
+
+### EC2 Rollback behavoir
+
+Q: You are a developer handling a deployment service that automates application deployments to Amazon EC2 instances. Most of the deployments consist of code, but sometimes web and configuration files. One of your deployments failed and was rolled back by AWS CodeDeploy to the last known good application revision.
+
+During rollback which of the following instances did AWS CodeDeploy deploy first to?
+
+A: **To the failed instances**: AWS CodeDeploy rolls back deployments by 
+
+1. Remove all files that were last successfully installed. [demo](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments-rollback-and-redeploy.html#deployments-rollback-and-redeploy-workflow)
+2. Redeploy a previously deployed revision of an application as a new deployment on the failed instances.
+
+
+
+
+## AWS CodeBuild
+
+### Speed up the build time
+
+Q: CodeBuild runs a build step takes ages due to its dependency size (more than 100 library), what can you do to speed up the process?
+
+A: Cache dependencies on S3
+
+(Sai: Bundle the dependencies in the source code during the build stage of CodeBuild - Exam answer話ElasticBeanStalk 可以咁做，但唔知其他deployment group係米都可以咁做)
+
+Downloading dependencies is a critical phase in the build process. These dependent files can range in size from a few KBs to multiple MBs. Because most of the dependent files do not change frequently between builds, you can noticeably reduce your build time by caching dependencies in S3.
+
+![](https://lh4.googleusercontent.com/lmgtNdsNFE5tp0wukAx-eVI_wYgsWVPv8156v0KAocHLEt4CtHhfrFc8_G1WnB4yBoff5AhMkAGQEDNmn7xwjE_vehA4d44fxfRKsZVkjavvyJwGjOQ7PRpgmG7MkV4GzfAzUvHNczwpmhMT4Mugtw)
+
+via - <https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/>
+
+
+### Integrate S3 and CloudWatch logs
+
+AWS CodeBuild monitors functions on your behalf and reports metrics through Amazon CloudWatch. These metrics include the number of total builds, failed builds, successful builds, and the duration of builds.
+
+You can monitor your builds at two levels: Project level, AWS account level. You can export log data from your log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
+
+
+## CodeDeploy
+
+### Lifecycle
+
+You can specify one or more scripts to run in a hook. Each hook for a lifecycle event is specified with a string on a separate line.
+
+Please review the correct order of lifecycle events:
+
+![](https://lh4.googleusercontent.com/_rzEvQpMC_PFN-EcrPL1G9X09tCbklV33Kv8qQBa1bdd99huivOQw5fEdk1b9E2WqwrfA395EFQQD7OQFzWnK4N7p-ItH4efiplAXjNk7L-Zdm6JfZ_qK-m6oGfgbgdEOS22b6FNDRX_T5sAaJJvaQ)
+
+via - <https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#reference-appspec-file-structure-hooks-run-order>
+
+
+### [Working with Code Deploy](https://www.whizlabs.com/blog/working-with-code-deploy/)
+
+![](https://lh3.googleusercontent.com/3K-LVBtcOaQIEhFzj-DUiztbJcMu9HPB17VF9mekw0-phoyST6spc8BgdVmMKRn-M9kmnATBoAYfAMI7DNMSn3UvcJqkSc5WVpsjnZ1bfhBRpcLciq_qUWLhNRXCg6sJCYLRJBVu1VlE607rzx8p4A)
+
+Deployment Group
+
+You can have deployment groups for various stacks in your organization as shown below from the AWS documentation.
+
+![](https://lh5.googleusercontent.com/QBHge2bDs1WPKE7n9YbbQZM2oing896mYrggLbw_k3a-HryrsIYKDbGCNDsJiJreMVuacVqAvoPI5ie0D4u9a6ailYQxRNt7VHQFuOIgpDHW_4zOGIDdlTUqC6Wa1yXWCrCfSgoDNkTzO5i7i2T9Iw)
+
+We need to create 2 IAM Roles when deploying stuff to EC2
+
+-   The first role is required for the EC2 Instances to work and communicate with the CodeDeploy service.
+-   The second role is required by CodeDeploy to ensure it can work with the resources in the AWS account.
+
+
+## buildspec.yml & appspec.yml
+
+Alternative Products
+- CodeBuild - Jenkins
+- CodeDeploy - Ansible, chef, Puppet
+
+Both yml are sitting in the root directory
+- CodeBuild - buildspec.yml
+  - A build spec is a collection of build commands and related settings, in YAML format, that AWS CodeBuild uses to run a build. 
+  - You can include a build spec as part of the source code or you can define a build spec when you create a build project.
+- CodeDeploy - appspec.yml
+  - Deployment `TargetService` can be Lambda, ECS, EC2
+  -  Define env, phases (install, pre_build ....), artifact, cache
+  -  Map the source files in your application revision to their destinations on the instance.
+  -  Specify custom permissions for deployed files.
+  -  Specify scripts to be run on each instance at various stages of the deployment process.
+
+
+### Example
+
+<Tabs className="buildspec-appspec">
+<TabItem value="buildspec" label="buildspec.yml">
+
+Example from [AWS - Create the buildspec file](https://docs.aws.amazon.com/codebuild/latest/userguide/getting-started-cli-create-build-spec.html)
+
+```yml
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/messageUtil-1.0.jar
+```
+
+</TabItem>
+<TabItem value="appspec" label="appspec.yml">
+
+Here is an [example](https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-example.html) of an AppSpec file written in YAML for deploying an Amazon **ECS service**. 
+
+```yml
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:us-east-1:111222333444:task-definition/my-task-definition-family-name:1"
+        LoadBalancerInfo:
+          ContainerName: "SampleApplicationName"
+          ContainerPort: 80
+# Optional properties
+        PlatformVersion: "LATEST"
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets: ["subnet-1234abcd","subnet-5678abcd"]
+            SecurityGroups: ["sg-12345678"]
+            AssignPublicIp: "ENABLED"
+        CapacityProviderStrategy:
+          - Base: 1
+            CapacityProvider: "FARGATE_SPOT"
+            Weight: 2
+          - Base: 0
+            CapacityProvider: "FARGATE"
+            Weight: 1
+Hooks:
+  - BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
+  - AfterInstall: "LambdaFunctionToValidateAfterInstall"
+  - AfterAllowTestTraffic: "LambdaFunctionToValidateAfterTestTrafficStarts"
+  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeAllowingProductionTraffic"
+  - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
+```
+
+</TabItem>
+</Tabs>
+
+
+### Important config
+
+- **CodeBuild**
   - install, pre_build, build, post_build
   - artifacts
-- **CodeDeploy - Ansible, chef, Puppe**
+- **CodeDeploy** - [Deployment configurations](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
   - Target services (Lambda, ECS, EC2)
   - Lambda
     - LambdaAllAtOnce

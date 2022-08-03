@@ -1,0 +1,196 @@
+---
+title: ECS
+description: ECS
+keywords:
+  - ECS
+sidebar_position: 3
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+## ECR
+
+### Required Permision 
+Amazon ECR users require permission to call `ecr:GetAuthorizationToken` before they can authenticate to a registry and push or pull any images from any Amazon ECR repository. Amazon ECR provides several managed policies to control user access at varying levels
+
+### Pull docker images from ECR
+
+You have to run these 2 commands to get 
+The get-login command retrieves a token that is valid for a specified registry for 12 hours, and then it prints a docker login command with that authorization token. You can execute the printed command to log in to your registry with Docker, or just run it automatically using the $() command wrapper. 
+
+After you have logged in to an Amazon ECR registry with this command, you can use the Docker CLI to push and pull images from that registry until the token expires. The docker pull command is used to pull an image from the ECR registry.
+
+```bash
+# Step 1
+$(aws ecr get-login --no-include-email) 
+
+# Step 2
+docker pull 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest
+```
+
+## The ECS Stack
+
+The following stack shows how we deploy an app container into ECS.
+
+![](/img/aws/compute/ecs/diagram-of-ecs-object.webp)
+
+### Containers
+
+To deploy applications on Amazon ECS, your application components must be architected to run in *containers*. This can be done using Dockerfile, which defines a container image. These images can be hosted on a registry like ECR, more details below. ECS will be running the containers from some registry.
+
+### Service
+
+![](/img/aws/compute/ecs/services.png)
+
+Source: [Load Balanced and Auto Scaling containerized app with AWS ECS](https://solidfish.com/load-balance-auto-scale-containerized-app-with-aws-ecs/)
+
+A service defines the minimum and maximum number of tasks to run per each task definition at any one time. This includes things like auto-scaling and load balancing. The service is going to define how much performance the application will be running at – for example if the CPU utilization hits a certain threshold the Service can spin up more or less tasks.
+
+```json
+{
+    "family": "webserver",
+    "containerDefinitions": [
+        {
+            "name": "web",
+            "image": "nginx",
+            "memory": "100",
+            "cpu": "99"
+        },
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "memory": "512",
+    "cpu": "256",
+}
+```
+
+### Task
+
+![](/img/aws/compute/ecs/tasks.png)
+
+Source: [Load Balanced and Auto Scaling containerized app with AWS ECS](https://solidfish.com/load-balance-auto-scale-containerized-app-with-aws-ecs/)
+
+To prepare your application to run on Amazon ECS, you create a *task definition*. The task definition is a text file, in JSON format, that describes one or more containers, up to a maximum of ten, that form your application. It can be thought of as a blueprint for your application.
+
+### Cluster
+
+When you run tasks using Amazon ECS, you place them on a cluster, which is a logical grouping of resources. When using the Fargate launch type with tasks within your cluster, Amazon ECS manages your cluster resources. When using the EC2 launch type, then your clusters are a group of container instances you manage. An Amazon ECS container instance is an Amazon EC2 instance that is running the Amazon ECS container agent. Amazon ECS downloads your container images from a registry that you specify, and runs those images within your cluster.
+
+
+Below is an example ECS cluster, with one Service running four Tasks across two ECS Container Instances/Nodes.
+
+![](/img/aws/compute/ecs/ecs-cluster.png)
+
+Source: [Load Balanced and Auto Scaling containerized app with AWS ECS](https://solidfish.com/load-balance-auto-scale-containerized-app-with-aws-ecs/)
+
+
+
+### Container Agent
+
+The cluster is managed by the Container Agent. The *container agent* runs on each infrastructure resource within an Amazon ECS cluster. It sends information about the resource's current running tasks and resource utilization to Amazon ECS, and starts and stops tasks whenever it receives a request from Amazon ECS. For more information, see [Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_agent.html).
+
+
+## EC2 Launch Type
+### A terminated container instance resist in ECS cluster
+
+Q: A developer terminated a container instance in Amazon ECS, but the container instance continues to appear as a resource in the ECS cluster. How to fix it?
+
+> TL;DR - You can't terminate EC2 instance if the EC2 instance is `STOPPED` state in ECS becuase the state won't sync
+
+Ans: *You terminated the container instance while it was in STOPPED state*, that lead to this synchronization issues - If you terminate a container instance while it is in the STOPPED state, that container instance isn't automatically removed from the cluster. *You will need to deregister your container instance in the STOPPED state by using the Amazon ECS console or AWS Command Line Interface*. Once deregistered, the container instance will no longer appear as a resource in your Amazon ECS cluster.
+
+### Container agent configuration
+
+If your container instance was launched with a Linux variant of the Amazon ECS-optimized AMI, you can set these environment variables in the `/etc/ecs/ecs.config` file and then restart the agent. You can also write these configuration variables to your container instances with Amazon EC2 user data at launch time. For more information, see [Bootstrapping container instances with Amazon EC2 user data](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/bootstrap_container_instance.html).
+
+To check the full list, visit [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
+
+**ECS_ENABLE_TASK_IAM_ROLE**
+This configuration item is used to enable IAM roles for tasks for containers with the bridge and default network modes. (*In plain english - This allows ECS tasks to use IAM roles*)
+
+**ECS_ENGINE_AUTH_DATA**
+This refers to the authentication data within a Docker configuration file, so this is not the correct option.
+
+**ECS_AVAILABLE_LOGGING_DRIVERS**
+The Amazon ECS container agent running on a container instance must register the logging drivers available on that instance with this variable. This configuration item refers to the logging driver.
+
+**ECS_CLUSTER**
+This refers to the ECS cluster that the ECS agent should check into. This is passed to the container instance at launch through Amazon EC2 user data.
+
+### Bootstrapping container
+
+The Linux variants of the Amazon ECS-optimized AMI look for agent configuration data in the `/etc/ecs/ecs.config` file when the **container agent** starts. You can specify this configuration data at launch with Amazon EC2 user data. For more information about available Amazon ECS **container agent** configuration variables, see [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html).
+
+To set only a single agent configuration variable, such as the **cluster name**, use echo to copy the variable to the configuration file:
+
+```bash
+#!/bin/bash
+echo "ECS_CLUSTER=`MyCluster`" >> /etc/ecs/ecs.config
+```
+
+If you have multiple variables to write to `/etc/ecs/ecs.config`, use the following `heredoc` format. This format writes everything between the lines beginning with cat and `EOF` to the configuration file.
+
+```bash
+#!/bin/bash
+cat <<'EOF' >> /etc/ecs/ecs.config
+ECS_CLUSTER=MyCluster
+ECS_ENGINE_AUTH_TYPE=docker
+ECS_ENGINE_AUTH_DATA={"https://index.docker.io/v1/":{"username":"my_name","password":"my_password","email":"email@example.com"}}
+ECS_LOGLEVEL=debug
+EOF
+```
+
+### REPLICA vs DAEMON service type
+
+If you have an ECS cluster with three EC2 instances and you want to launch a new service with four tasks, the following will happen:
+
+<Tabs className="replica-daemon-tabs">
+<TabItem value="replica" label="Replica">
+
+> **Definition**: The replica scheduling strategy places and maintains the desired number of tasks across your cluster. By default, the service scheduler spreads tasks across Availability Zones. You can use task placement strategies and constraints to customize task placement decisions
+
+Your four tasks will start randomly distributed over your container instances. This can be all four on one instance or any other random distribution. This is the use case for normal micro services.
+
+</TabItem>
+<TabItem value="daemon" label="Daemon">
+
+> **Definition**: The daemon scheduling strategy deploys exactly one task on each active container instance that meets all of the task placement constraints that you specify in your cluster. When using this strategy, there is no need to specify a desired number of tasks, a task placement strategy, or use Service Auto Scaling policies.
+
+For a daemon you do not specify how many tasks you want to run. A daemon service automatically scales depending on the amount of EC2 instances you have. In this case, three. A daemon task is a pattern used when building microservices where a task is deployed onto each instance in a cluster to provide common supporting functionality like logging, monitoring, or backups for the tasks running your application code.
+</TabItem>
+</Tabs>
+
+> Further reading: 
+- [Slackoverflow - What is difference between REPLICA and DAEMON service type in Amazon EC2 Container Service?](https://stackoverflow.com/questions/51054467/what-is-difference-between-replica-and-daemon-service-type-in-amazon-ec2-contain)
+- [AWS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html#service_scheduler)
+
+
+
+## Fargate launch type
+
+The Fargate launch type is suitable for the following workloads:
+
+-   Large workloads that require low operational overhead
+-   Small workloads that have occasional burst
+-   Tiny workloads
+-   Batch workloads
+
+### When to put the two containers into a single task definition
+
+When architecting your application to run on Amazon ECS using AWS Fargate, you must decide between deploying multiple containers into the same task definition and deploying containers separately in multiple task definitions.
+
+If the following conditions are required, we recommend deploying multiple containers into the same task definition:
+
+-   Your containers share a common lifecycle (that is, they're launched and terminated together).
+-   Your containers must run on the same underlying host (that is, one container references the other on a localhost port).
+-   You require that your containers share **CPU and memory resources**.
+-   Your containers share data volumes.
+
+If these conditions aren't required, we recommend deploying containers separately in multiple task definitions. This is because, by doing so, you can scale, provision, and deprovision them separately.
+
+> Source: [Using the Fargate launch type](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html)

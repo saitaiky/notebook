@@ -43,13 +43,23 @@ The following are the default rules for **a security group that you create**:
 
 > TL;DR - When specifying a security group to a EC2 instance, its ENI specified the security group under the hood
 
-Security Groups are attached to **Elastic Network Interfaces (ENIs)**. That's why the console shows it under the *Networking* tab.
+#### EC2 
+
+Security Groups are attached to **Elastic Network Interfaces (ENIs)**. That's why the console shows it under the *Networking* tab.  not an instance. When you start an instance, it receives a default network interface (eth0). The security group will be attached to that default network interface.
 
 This design allows different security settings if there are multiple ENIs. For example, one ENI could be used for external traffic and a different ENI could be used for internal traffic.
 
 Most Amazon EC2 instances only have one ENI, so it is easier to think of the Security Group as being associated with the instance.
 
-Source: [When specifying a security group to an instance, is its ENI specified the security group under the hood?](https://stackoverflow.com/questions/61709582/aws-when-specifying-a-security-group-to-an-instance-is-its-eni-specified-the-s)
+Further reading: [When specifying a security group to an instance, is its ENI specified the security group under the hood?](https://stackoverflow.com/questions/61709582/aws-when-specifying-a-security-group-to-an-instance-is-its-eni-specified-the-s)
+
+#### Other AWS services
+
+Don't get fooled, every time you specify a security group for an AWS service, behind there is a network interface.
+
+Let's take for example AWS Elastic File System. When you create a File System, you are going to specify security groups. Does that mean that the security group control the access to the File System? Well, in some sense yes. But technically the security group are going to be attached to a Elastic Network Interface (ENI) that EFS creates on your behalf.
+
+Further reading: [AWS Networking cheat-sheet - EIP, ENI, VPC, etc](https://dev.to/napicella/aws-networking-cheat-sheet-eip-eni-vpc-etc-139m)
 
 ### Security Group is not only for EC2 but also other services
 
