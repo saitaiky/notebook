@@ -71,17 +71,11 @@ A: **To the failed instances**: AWS CodeDeploy rolls back deployments by 
 
 ### Speed up the build time
 
-Q: CodeBuild runs a build step takes ages due to its dependency size (more than 100 library), what can you do to speed up the process?
-
-A: Cache dependencies on S3
-
-(Sai: Bundle the dependencies in the source code during the build stage of CodeBuild - Exam answer話ElasticBeanStalk 可以咁做，但唔知其他deployment group係米都可以咁做)
+You can use *enable cache for dependencies* on S3 you want to speed up the process when CodeBuild runs a build step takes ages due to its dependency size (more than 100 dependencies), 
 
 Downloading dependencies is a critical phase in the build process. These dependent files can range in size from a few KBs to multiple MBs. Because most of the dependent files do not change frequently between builds, you can noticeably reduce your build time by caching dependencies in S3.
 
-![](https://lh4.googleusercontent.com/lmgtNdsNFE5tp0wukAx-eVI_wYgsWVPv8156v0KAocHLEt4CtHhfrFc8_G1WnB4yBoff5AhMkAGQEDNmn7xwjE_vehA4d44fxfRKsZVkjavvyJwGjOQ7PRpgmG7MkV4GzfAzUvHNczwpmhMT4Mugtw)
-
-via - <https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/>
+Check the section of best practices for cache of this AWS blocg post - [How to Enable Caching for AWS CodeBuild](https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/) for details.
 
 
 ### Integrate S3 and CloudWatch logs
@@ -99,25 +93,35 @@ You can specify one or more scripts to run in a hook. Each hook for a lifecycle 
 
 Please review the correct order of lifecycle events:
 
-![](https://lh4.googleusercontent.com/_rzEvQpMC_PFN-EcrPL1G9X09tCbklV33Kv8qQBa1bdd99huivOQw5fEdk1b9E2WqwrfA395EFQQD7OQFzWnK4N7p-ItH4efiplAXjNk7L-Zdm6JfZ_qK-m6oGfgbgdEOS22b6FNDRX_T5sAaJJvaQ)
+![lifecycle-event-hook](/img/aws/development/lifecycle-event-hook.png)
 
-via - <https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#reference-appspec-file-structure-hooks-run-order>
+Further reading: [AppSpec 'hooks' section](https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#reference-appspec-file-structure-hooks-run-order)
 
 
-### [Working with Code Deploy](https://www.whizlabs.com/blog/working-with-code-deploy/)
+### Working with Code Deploy
 
-![](https://lh3.googleusercontent.com/3K-LVBtcOaQIEhFzj-DUiztbJcMu9HPB17VF9mekw0-phoyST6spc8BgdVmMKRn-M9kmnATBoAYfAMI7DNMSn3UvcJqkSc5WVpsjnZ1bfhBRpcLciq_qUWLhNRXCg6sJCYLRJBVu1VlE607rzx8p4A)
+The below snapshot from the AWS documentation shows the structure of the Code Deploy service
 
-Deployment Group
+![how-codedeploy-work](/img/aws/development/how-codedeploy-work.png)
+
+Source: [Working with Code Deploy](https://www.whizlabs.com/blog/working-with-code-deploy/)
+
+The different parts of CodeDeploy are as follows
+
+1. You first ensure that your code is available for deployment. The code package must also contain a file called appspec.yml. This AppSpec file is specific to AWS Code Deploy. It tells Code Deploy how to deploy the package to the underlying Instances.
+2. You then submit this as a release Code Deploy from either Github or from an S3 bucket.
+3. The code gets deployed to EC2 Instances which are put as part of a deployment Group. These EC@ instances need to have Code Deploy agents running on them. The agents in the EC2 Instances deployment group then polls Code Deploy and gets the details of the code to pull in.
 
 You can have deployment groups for various stacks in your organization as shown below from the AWS documentation.
 
-![](https://lh5.googleusercontent.com/QBHge2bDs1WPKE7n9YbbQZM2oing896mYrggLbw_k3a-HryrsIYKDbGCNDsJiJreMVuacVqAvoPI5ie0D4u9a6ailYQxRNt7VHQFuOIgpDHW_4zOGIDdlTUqC6Wa1yXWCrCfSgoDNkTzO5i7i2T9Iw)
+![deployment-group](/img/aws/development/deployment-group.png)
+
+### EC2 deployment
 
 We need to create 2 IAM Roles when deploying stuff to EC2
 
--   The first role is required for the EC2 Instances to work and communicate with the CodeDeploy service.
--   The second role is required by CodeDeploy to ensure it can work with the resources in the AWS account.
+-   The first role is required for the EC2 Instances to *work and communicate with the CodeDeploy service*.
+-   The second role is required by CodeDeploy to ensure it can work with the *resources* in the AWS account.
 
 
 ## buildspec.yml & appspec.yml
