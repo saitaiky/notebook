@@ -166,10 +166,12 @@ You’re describing what you’re trying to achieve, without instructing how to 
 Functional Programming has to follow a set of principles:
 
 - **Pure Functions** — All functions must be pure, meaning that it should have no side effects and it should be deterministic, returns the same result if given the same arguments
+  > In computer science, an operation, function or expression is said to have a **side effect** if it modifies some state variable value(s) outside its local environment, that is to say has an observable effect besides returning a value (the main effect) to the invoker of the operation. State data updated "outside" of the operation may be maintained "inside" a stateful object or a wider stateful system within which the operation is performed [wiki](https://en.wikipedia.org/wiki/Side_effect_(computer_science))
 - **Immutability** — When data is immutable, its state cannot change after it’s created. If you want to change an immutable object, you can’t. Instead, you create a new object with a new value.
+  > Take for example creating a `List` with 3 items and storing it in a variable `my_list`. If `my_list` is immutable, you wouldn't be able to change the individual items. You would have to set `my_list` to a `new List` if you'd like to use different values.
 - **Referential Transparency** — Basically because we got pure functions and immutability, we can replace all function calls with their underlying return values and the program would still work.
-- **Functions as First-Class Entities** — It means that functions can be passed to other functions as arguments.
-- **Higher-Order Functions — Higher-Order** functions are basically functions that accept other functions as arguments and returns a function as its result.
+- **Functions as First-Class Entities** — It means that functions are treated like an object, which means it can be passed to other functions as arguments.
+- **Higher-Order Functions — Higher-Order** functions are functions that accept at least one first class function as a parameter and returns a function as its result.
 
 ```javascript
 // Generating a Fibonnaci sequence
