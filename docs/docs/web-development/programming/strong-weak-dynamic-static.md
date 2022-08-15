@@ -4,7 +4,7 @@ metaTitle: "General programming concept will be recorded in this page "
 metaDescription: "This is the meta description for this page"
 ---
 
-![strongweakstaticdynamic_type](/img/web-development/others/strongweakstaticdynamic_type.png)
+![strongweakstaticdynamic_type](/img/web-development/programming/strongweakstaticdynamic_type.png)
 
 ## Strongly typed languages vs Weakly typed languages
 A strongly-typed language is one in which variables are bound to specific data types, and will result in type errors if types do not match up as expected in the expression — regardless of when type checking occurs. Python is strong-typed, and so is Java.
