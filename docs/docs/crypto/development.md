@@ -1,4 +1,29 @@
 
+
+## Solidity
+
+From Solidity ^0.6.8 SPDX license is introduced. So you need to use SPDX-License-Identifier in the code. Have a look at this: <https://forum.openzeppelin.com/t/solidity-0-6-8-introduces-spdx-license-identifiers/2859>
+
+To use SPDX LIDs in your project’s source code,  just add a single line in the following format, tailored to your license(s) and the comment style for that file’s language.  For example in Solidity:
+```
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.7.5;
+contract TestContract {
+    // Some logic
+}
+```
+
+You need to use license according to your project. Some other licenses are:`// SPDX-License-Identifier: GPL-3.0-or-later`
+
+You can find list of licenses here: <https://spdx.org/licenses/>
+
+:::info What is Software Package Data Exchange(SPDX)?
+The right which granted by an application owner depends on which license the developer selects. Most projects use one of a few standard licenses, but they're not always clearly communicated. For example, a project may be released under "the GNU General Public License (GPL)." But which version? And can the recipient choose a later version if they wish? 
+
+SPDX is intended to solve the confusion of above questions. Futher reading: [SPDX clears confusion around software licenses](https://opensource.com/article/18/1/spdx-and-licensing)
+:::
+
 ## Libraries
 
 - `Ethers` is a very it's a great library for interacting with the Ethereum blockchain.

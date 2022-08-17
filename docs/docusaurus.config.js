@@ -151,7 +151,7 @@ const config = {
         items: [
           {
             type: 'dropdown',
-            label: 'Technology',
+            label: 'Software development',
             position: 'left',
             items: [
               {
