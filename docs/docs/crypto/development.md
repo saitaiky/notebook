@@ -2,7 +2,7 @@
 
 ## Solidity
 
-From Solidity ^0.6.8 SPDX license is introduced. So you need to use SPDX-License-Identifier in the code. Have a look at this: <https://forum.openzeppelin.com/t/solidity-0-6-8-introduces-spdx-license-identifiers/2859>
+From `solidity ^0.6.8` SPDX license is introduced. So you need to use SPDX-License-Identifier in the code. Have a look at this: <https://forum.openzeppelin.com/t/solidity-0-6-8-introduces-spdx-license-identifiers/2859>
 
 To use SPDX LIDs in your project’s source code,  just add a single line in the following format, tailored to your license(s) and the comment style for that file’s language.  For example in Solidity:
 ```
@@ -14,7 +14,10 @@ contract TestContract {
 }
 ```
 
-You need to use license according to your project. Some other licenses are:`// SPDX-License-Identifier: GPL-3.0-or-later`
+You need to use license according to your project. Some other licenses are:
+```
+// SPDX-License-Identifier: GPL-3.0-or-later
+```
 
 You can find list of licenses here: <https://spdx.org/licenses/>
 
@@ -30,8 +33,12 @@ SPDX is intended to solve the confusion of above questions. Futher reading: [SPD
 - `Hardhat` is going to be our development environment. It's what's going to allow our project to compile contracts and to deploy contracts.
 hardhat can also initialize our solidity contracts for us and get the project rolling so it can do a little bit of that boilerplate, 
 - `Web3 model` in order to be connecting with our provider.
-- `OpenZeppelin` is a library which actually contains the ERC-721 contracts already built to standard. So in this project, we're not going to be building out all of our NFT tokens from scratch. We're going to be leveraging this library, which is an excellent library and resource to use when building a Marketplace
+- `OpenZeppelin` is a library which actually contains the ERC-721 contracts already built to standard. So in this project, we're not going to be building out all of our NFT tokens from scratch. We're going to be leveraging this library, which is an excellent library and resource to use when building a Marketplace. [link](https://docs.openzeppelin.com/contracts/2.x/)
 - `ipfs-http-client` - IPFS is a decentralized way of hosting our NFT images and our files, the actual files we're going to be storing with IPFS. With IPFS client, we can actually run promises and use JavaScript to hook up to our IPFS so that when our users are actually tokenizing these NFT is they're going to be hosting it with IPFS
+
+## Services
+
+- [infura.io](https://infura.io/dashboard)
 
 
 ## ERC 721
@@ -69,4 +76,6 @@ Remember to replace "your-api-key" in New RPC URL with the API key of your Alche
 
 ### Local node devleopment
 
-So you want to go to and if you're a dot lawyer and essentially
+ERC721 **OpenZeppelin** Contracts
+**IPFS** data hosting with Infura Blockchain Suite Project Management
+Compile and Deploy Smart Contracts to Blockchain with **Hardhat** functionality

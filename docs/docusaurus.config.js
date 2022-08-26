@@ -151,7 +151,7 @@ const config = {
         items: [
           {
             type: 'dropdown',
-            label: 'Software development',
+            label: 'Software',
             position: 'left',
             items: [
               {
@@ -175,6 +175,18 @@ const config = {
                 label: 'Linux',
               },
             ],
+          },
+          {
+            label: 'Crypto',
+            type: 'doc',
+            docId: 'crypto/index',
+            position: 'left',
+          },
+          {
+            label: 'Other',
+            type: 'doc',
+            docId: 'other/index',
+            position: 'left',
           },
           {
             type: 'dropdown',
@@ -206,12 +218,6 @@ const config = {
                 label: 'Markdown Table',
               },
             ],
-          },
-          {
-            label: 'Crypto',
-            type: 'doc',
-            docId: 'crypto/index',
-            position: 'left',
           },
           /* Version control
           {

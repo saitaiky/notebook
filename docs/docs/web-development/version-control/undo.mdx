@@ -63,10 +63,12 @@ git checkout @ -- index.html
 
 
 ## When to reset and revert?
+
+:::danger
 If you've *already pushed* your commit to a remote repository, it is recommended that you *do not use `git reset`* since it rewrites the history of commits. This can make working on a repository with other developers and maintaining a consistent history of commits very difficult.
 
 Instead, it is better to use `git revert`, which undoes the changes made by a previous commit by *creating an entirely new commit, all without altering the history of commits*.
-
+:::
 
 ## Changing the message of the last commit
 Combine staged changes with the most recent commit(also update the commit message): 
