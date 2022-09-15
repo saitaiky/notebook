@@ -59,7 +59,7 @@ Working on the right problem stead of squeezing out every second to work on the 
 :::
 
 
-## Other tips from Sam Altman
+## Other tips
 
 ### From [Sam Altman](https://blog.samaltman.com/)
 
