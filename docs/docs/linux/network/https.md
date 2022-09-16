@@ -4,6 +4,7 @@ title: HTTPS
 
 ## Why we need Https?
 
+> This is a very good comic to read to understand [HOW HTTPS WORKS](https://howhttps.works/)
 ### Privacy
 
 > Privacy means that no one can eavesdrop on your messages. HTTPS uses an [encryption](https://www.cloudflare.com/learning/ssl/what-is-encryption/) protocol to encrypt communications. The protocol is called [Transport Layer Security (TLS)](https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/), although formerly it was known as [Secure Sockets Layer (SSL)](https://www.cloudflare.com/learning/ssl/what-is-ssl/). This protocol secures communications by using what's known as an [asymmetric public key infrastructure](https://www.cloudflare.com/learning/ssl/how-does-public-key-encryption-work/).
@@ -141,3 +142,4 @@ Almost every browser checks that the certificate is issued by a trusted authorit
 
 Self-signed certificates can be useful for testing, and intranets, but you should avoid using them on public sites.
 :::
+
