@@ -34,6 +34,11 @@ title: Drawing
 
 ## Lesson 2 
 
+- Shadow, at this level. We only need to due with 2 level, black and empty. 
+- Find the shape of light and shadow
+- Drawing the ratio right at the first place is so important before drawing the details
+
+## Lesson 3
 light
 shadow
 reflection
