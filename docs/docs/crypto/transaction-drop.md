@@ -30,6 +30,9 @@ Common reasons a replacement transaction is broadcasted :
 
 
 ## What is nonce?
+
+> Nonce only used in POS
+
 A nonce refers to a number or value that can only be used once. Nonces are often used on authentication protocols and cryptographic hash functions. In the context of [blockchain](https://academy.binance.com/en/articles/how-does-blockchain-work) technology, a nonce refers to a pseudo-random number that is utilized as a counter during the process of [mining](https://academy.binance.com/en/articles/what-is-cryptocurrency-mining).
 
 For instance, [Bitcoin](https://academy.binance.com/en/articles/what-is-bitcoin) miners need to try and guess a valid nonce as they perform multiple attempts to calculate a block hash that meets certain requirements (i.e., that starts with a certain number of zeros). When competing to mine a new block, the first miner to find a nonce that results in a valid block hash is granted the right to add the next block into the [blockchain](https://academy.binance.com/en/glossary/blockchain) - and is rewarded for doing so.
@@ -39,5 +42,3 @@ In other words, the process of mining consists of miners performing a myriad of 
 ### How is nonce related to the hash value of a block in blockchain?
 
 **Hash** is basically a one-way function in which you input a variable-length input and get a fixed-length unique output. and **nonce** basically means a number used once, now in bitcoin blockchain nonce is a value you add in front of a block to match the current difficulty which in bitcoin is a certain number of zeros at the start of the hash of the block. So you collect your data and get a fixed hash now you have to add a nonce value until you come equal to or closer to the difficulty level.
-
-In Ethereum, The nonce is the number of transactions sent from a given address. the value of nonce related to the address increases as the number of transaction from that address increases.
