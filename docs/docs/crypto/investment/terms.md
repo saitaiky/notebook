@@ -1,0 +1,156 @@
+## DeFi protocol
+
+> Reference: [shivsakhuja's tweet](https://twitter.com/shivsakhuja/status/1473794498081689601)
+
+### How does a DEX / AMM work?
+
+The most common type of DEX uses a "constant-product" AMM. The basic formula behind these is: 
+
+`token_a_balance * token_b_balance = k`, where k is some constant. This simple yet effective way of keeping track of moving liquidity within the actual pool was the backbone of the nascent DeFi industry we see today. In essence it allowed anyone to create a Token1/Token2 pair and set a starting price by supplying the respective tokens in equal values (not amounts).
+
+:::info Example
+Let's say you provide $500 of $ETH & $500 of $USDC. Someone now buys $50 of ETH using $50 of USDC. The pool would now have $450 of ETH and $550 of USDC. So the pool automatically adjusts the price of the ETH-USDC pair so that there is $500-$500 again.
+
+This is a simplified explanation but the gist is that the price is automatically adjusted by the AMM. As long as there is enough liquidity in the pool, this price adjustment is negligible and there is not much slippage.
+:::
+
+### Slippage
+
+If the pool is too small or the transaction size is big, there will be "slippage". This means that your trade's effective price is worse because the price is being driven up by your trade itself. Now, you might be wondering if the price on the DEX can deviate from the price on a centralized exchange (CEX) since it adjusts automatically. 
+
+Yes, it can, but usually this will only be for a short while till arbitragers come in and profit from the spread.
+
+:::info Example 
+Suppose the $ETH - $USDC pair is trading at $3800 on UniSwap but $4000 on Coinbase You could buy on UniSwap and Sell on Coinbase. This would eventually lead to prices on the DEX and CEX converging.
+:::
+
+### Pros and Cons
+
+Pro
+- Easy way to add liquidity to markets - especially useful for newer projects
+- No need to wait for a counterparty for your trades
+- Decentralized + self-executing contracts = no middlemen
+- Smart contracts can be plugged into other protocols
+
+Cons
+- High slippage if pool size is small
+- Smart contract exploit risk
+- On-chain trading increases network congestion (UniSwap is one of the biggest gas hogs on $ETH)
+- There is a risk of **Impermanent Loss** (see link)
+
+### Strategies
+
+1. If you're bullish on a coin, LP for a stable pair: 
+    - [$LUNA](https://twitter.com/search?q=%24LUNA&src=cashtag_click)/bLUNA (8% APR on[@terraswap_io](https://twitter.com/terraswap_io)) 
+    - [$FTM](https://twitter.com/search?q=%24FTM&src=cashtag_click) / [$TOMB](https://twitter.com/search?q=%24TOMB&src=cashtag_click) (206% APR on[@tombfinance](https://twitter.com/tombfinance)+ farming rewards) 
+    - [$USDC](https://twitter.com/search?q=%24USDC&src=cashtag_click)/$DAI/$fUSDT (22% APY on[@beefyfinance](https://twitter.com/beefyfinance)[$FTM](https://twitter.com/search?q=%24FTM&src=cashtag_click) chain)
+
+2. You can also stake your LP tokens to earn even more yield. 
+
+### Impermanent loss
+
+> [Youtube - What Is IMPERMANENT LOSS? ](https://www.youtube.com/watch?v=8XJ1MSTEuU0&t=29s)
+
+**As an LP**, impermanent loss risk is high if one coin moves a lot relative to the other coin in the pair.
+
+**As in invester**, if you think 2 coins will move together (ex: $MATIC & $ETH), then you can provide liquidity for the ETH-MATIC pair without worrying too much about the Impermanent Loss.
+
+
+## How Liquidity Provider (LP) Tokens Work
+
+### LP Tokens and Crypto Liquidity Providers
+
+[Automated market maker](https://www.gemini.com/cryptopedia/amm-what-are-automated-market-makers) (AMM) platforms like [Uniswap](https://www.gemini.com/cryptopedia/uniswap-decentralized-exchange-crypto-defi), [Curve](https://www.gemini.com/cryptopedia/curve-crypto-automated-market-maker), and [Balancer](https://www.gemini.com/cryptopedia/balancer-crypto-automated-pools) are a central aspect of the fast-growing [decentralized finance (DeFi)](https://www.gemini.com/cryptopedia/what-is-defi-crypto-decentralized-finance-projects) ecosystem, and present a novel approach to trading in general. A key function of automated market maker platforms is the [liquidity provider (LP) token](https://www.gemini.com/cryptopedia/glossary#liquidity-provider-lp-token). LP tokens allow AMMs to be [non-custodial](https://www.gemini.com/cryptopedia/glossary#non-custodial), meaning they do not hold on to your tokens, but instead operate via automated functions that promote decentralization and fairness. Liquidity provider tokens also unlock new layers of token trade and access across the entire DeFi ecosystem, which has facilitated growth in the form of significant network effects.
+
+The non-custodial feature of AMM platforms is key to being part of the decentralized finance ecosystem. On AMM platforms, you remain in control of your assets by receiving LP tokens in return for providing tokens like [ether (ETH)](https://www.gemini.com/cryptopedia/ethereum-blockchain-eth-fees-ether-transaction) to the crypto [liquidity pool](https://www.gemini.com/cryptopedia/glossary#liquidity-pool), which is managed by code and not by human operation. LP tokens represent a crypto liquidity provider's share of a pool, and the crypto liquidity provider remains entirely in control of the token.
+
+For example, if you contribute $10 USD worth of assets to a Balancer pool that has a total worth of $100, you would receive 10% of that pool's LP tokens. You receive 10% of the LP tokens because you own 10% of the crypto liquidity pool. The LP tokens become your claim to your share of the pool's assets. Holding these LP tokens allows you total control over when you withdraw your share of the pool without interference from anyone --- even the Balancer platform. And since LP tokens are [ERC-20 tokens](https://www.gemini.com/cryptopedia/erc20-token-standard-ethereum), they can be transferred, exchanged, and even [staked](https://www.gemini.com/cryptopedia/staking-rewards-pos-blockchains) on other protocols.
+
+
+### How LP Tokens Enhanced DeFi Liquidity
+
+Prior to the creation of liquidity provider tokens, all assets being used within the Ethereum ecosystem were inaccessible during their period of use. Tokens are most commonly locked up when they need to be staked, normally as part of a governance mechanism. For example, in Ethereum 2.0’s Proof-of-Stake (PoS) mechanism, ETH will be locked up in order to validate and add new blocks to Ethereum’s blockchain. When a token is staked in this instance, it can’t be used for other things, which means there is less liquidity in the system. Creating easily convertible assets in AMMs in the form of LP tokens solves this problem of locked crypto liquidity — at least within DeFi.
+
+With liquidity provider tokens, the same tokens can be utilized multiple times, even if they are invested in a DeFi product or staked in a platform governance mechanism. LP tokens help solve the problem of limited crypto liquidity by opening up an indirect form of staking, one where you prove you own tokens instead of staking the tokens themselves.
+
+
+### Yield Farming with LP Tokens
+
+Since DeFi is a rapidly evolving space, the terms defining the space are also constantly evolving. What this article refers to as LP tokens may have other names depending on the platform. For example, on the Balancer protocol, these tokens are referred to as balancer pool tokens (BPT), or pool tokens. On Uniswap, these tokens are referred to as either pool tokens or liquidity tokens. Curve refers to them as liquidity provider (LP) tokens. Though the terminology may be different, the definition is the same. LP tokens are mathematical proof that you provided assets to a pool --- and LP tokens hold the claim to getting those assets back.
+
+Another recent DeFi term is [yield farming](https://www.gemini.com/cryptopedia/glossary#yield-farming) --- a phrase that didn't exist in the first half of 2020 but has recently gained remarkable traction globally. The idea of yield farming is to deposit tokens in different DeFi applications in order to maximize earnings. By moving tokens in and out of different protocols, profits can be maximized.
+
+Though both yield farming and LP tokens are relatively recent ideas, they are beginning to be used together. To understand how this works, let's look at the steps to farming the [CRV token](https://www.gemini.com/cryptopedia/glossary#crv-token) on the Curve protocol using [DAI](https://www.gemini.com/cryptopedia/dai-stablecoin-what-is-dai-token):
+
+-   Deposit DAI to Curve's crypto liquidity pool
+-   Receive LP tokens
+-   Deposit received LP tokens to the Curve staking pool
+-   Receive the CRV token
+
+In this scenario, your DAI would earn interest and fees in Curve's crypto liquidity pool. At the same time, the LP token from the liquidity pool earns you CRV tokens as a reward for staking. By using LP tokens, your liquidity works double-time --- earning fees and farming yields.
+
+## APR vs. APY
+
+> Reference: [APR vs. APY: What’s the difference?](https://cointelegraph.com/explained/apr-vs-apy-whats-the-difference)
+
+### What is APR in general?
+
+*[According](https://www.consumerfinance.gov/ask-cfpb/what-is-a-credit-card-interest-rate-what-does-apr-mean-en-44/) to the Consumer Financial Protection Bureau (CFPB), the APR or annual percentage rate is the amount paid to borrow money. It's also known as a **credit card interest rate** and **is generated yearly**. *
+
+For instance, if the APR is 5%, a $100 investment will provide a $5 return a year later. In contrast, if $100 is borrowed at the same interest rate, the initial $100 loan plus $5 in interest must be repaid after a year.  In the context of credit cards, APR is typically not charged when the card is used, but the balance is paid each month by the due date.
+
+### What is APR in crypto?
+
+*In cryptocurrency, the APR is the percentage investors can expect to earn as interest on their investment, for lending their crypto or making it available for loans. It considers other fees a borrower needs to pay but does not include compound interest.*
+
+Essentially, the APR is the ordinary interest rate applied to the principal amount of an investment or loan. Since the APR is an annualized rate, prorated interest will be charged if an investment or loan is held for a shorter period. For instance, a six-month investment with a 5% APR will yield only 2.5% of the principal amount.
+
+The APR is very straightforward. Take, for example, an investment of 1.0 Ether ([ETH](https://cointelegraph.com/ethereum-price)) in a lending pool on a [decentralized finance (DeFi) network](https://cointelegraph.com/defi-101/defi-a-comprehensive-guide-to-decentralized-finance). If the expressed APR is 24%, then 0.24 Ether should be earned on top of the initial investment if it is locked in the pool for exactly one year. As a result, the investment should now total 1.24 Ether, made up of the 1.0 Ether principal and the accrued 0.24 Ether in interest (based on 24 % APR).
+
+
+![Formula](/img/crypto/invest/formula.png)
+
+For example, holding for three months is equivalent to a quarter of a year (0.25), which means the calculation will be:
+![Example](/img/crypto/invest/formula-example.png)
+
+Source: [APR vs. APY: What’s the difference?](https://cointelegraph.com/explained/apr-vs-apy-whats-the-difference)
+
+### What is APY in crypto?
+
+*The APY, short for Annual Percentage Yield, is a way to measure how much money can be earned on an interest-bearing account in a year. In crypto, the APY is the rate of return made on an investment. *
+
+Unlike the APR, which only considers ordinary interest, **the APY includes compound interest**. Compound interest is the amount earned on the interest and the principal investment. This is why the APY is more profitable than the APR.
+
+Investors can earn an APY by staking their coins and using yield farming to supply liquidity to liquidity pools. They can also earn an APY from holding their coins in savings accounts. 
+
+### How is the APY calculated?
+
+*The compound interest can be set to daily, weekly, monthly, annually or continually. *
+
+![APY-calculate](/img/crypto/invest/APY-calculate.png)
+
+For example, an investment of 1,000 coins is made at a compound interest of 10% and daily compounding. The following calculation indicates that a total of 1,105 will be collected after one year. In the following year, it should be 1,221. The earnings increase the longer it is held and at higher interest rates.
+
+Every time the computation is updated, the interest should be added to the sum comprising the initial investment and the accrued interest profits. 
+
+
+### APY vs. APR: Key differences
+
+*Both the APY and the APR are used to calculate interest for crypto investments and loans. However, they are not the same.* 
+
+The **annual percentage yield** refers to the amount of interest earned over a year, while the **annual percentage rate** is the amount that needs to be paid as interest. 
+
+:::info What does that mean to borrowers and investor?
+The difference between the APY and the APR is crucial to understanding where money is best invested. Practically speaking, APRs are advantageous to borrowers. However, individuals wishing to invest funds should consider APY rates to maximize their profits.
+
+Given that more DeFi tools and cryptocurrencies use APRs, **investors have to do manual compounding**, where they have to reinvest their gains, either daily or weekly, to get a more significant compound interest.
+:::
+
+### APR vs. APY: Which is better?
+
+*The APY provides a clear idea of an account's earning potential. The APR shows what will be owed. Both are calculated over a single year, which provides a more accurate picture than calculating the interest rate alone.*
+
+Because the APR is calculated at an annual rate, it can be more advantageous for borrowers seeking the best rates, instead of investing in crypto assets and hoping for a return.
+
+However, because the APY is based on an annualized rate that includes compounding earnings, it's more beneficial for investing crypto assets---it provides a more accurate representation of what will be earned when money is invested and compound interest kicks in.
+

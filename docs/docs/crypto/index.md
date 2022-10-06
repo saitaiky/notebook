@@ -3,6 +3,9 @@ title: Crypto
 ---
 
 
+![spectrum](/img/crypto/spectrum.png)
+Source: [The Rich DeFi Ecosystem on Moonbeam](https://moonbeam.network/networks/moonbeam/defi/)
+
 ## What is A DApp
 
 > Disruptive shift in application technology
