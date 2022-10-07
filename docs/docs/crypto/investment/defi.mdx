@@ -1,3 +1,10 @@
+---
+title: Defi
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## DeFi protocol
 
 > Reference: [shivsakhuja's tweet](https://twitter.com/shivsakhuja/status/1473794498081689601)
@@ -6,12 +13,15 @@
 
 The most common type of DEX uses a "constant-product" AMM. The basic formula behind these is: 
 
-`token_a_balance * token_b_balance = k`, where k is some constant. This simple yet effective way of keeping track of moving liquidity within the actual pool was the backbone of the nascent DeFi industry we see today. In essence it allowed anyone to create a Token1/Token2 pair and set a starting price by supplying the respective tokens in equal values (not amounts).
+`token_a_balance * token_b_balance = k`, where k is some constant. This simple yet effective way of keeping track of moving liquidity within the actual pool was the backbone of the nascent DeFi industry we see today. In essence it allowed anyone to create a Token1/Token2 pair and set a starting price by supplying the respective tokens in equal values (not amounts). 
 
-:::info Example
-Let's say you provide $500 of $ETH & $500 of $USDC. Someone now buys $50 of ETH using $50 of USDC. The pool would now have $450 of ETH and $550 of USDC. So the pool automatically adjusts the price of the ETH-USDC pair so that there is $500-$500 again.
+:::info Examples
 
-This is a simplified explanation but the gist is that the price is automatically adjusted by the AMM. As long as there is enough liquidity in the pool, this price adjustment is negligible and there is not much slippage.
+1. If there is 10ETH and 1000USDC in a given LP ETH is valued at 1000/10 = 100$.
+
+2. Let's say you provide $500 of $ETH & $500 of $USDC. Someone now buys $50 of ETH using $50 of USDC. The pool would now have $450 of ETH and $550 of USDC. So the pool automatically adjusts the price of the ETH-USDC pair so that there is $500-$500 again.
+
+    This is a simplified explanation but the gist is that the price is automatically adjusted by the AMM. As long as there is enough liquidity in the pool, this price adjustment is negligible and there is not much slippage.
 :::
 
 ### Slippage
@@ -26,17 +36,24 @@ Suppose the $ETH - $USDC pair is trading at $3800 on UniSwap but $4000 on Coinba
 
 ### Pros and Cons
 
-Pro
-- Easy way to add liquidity to markets - especially useful for newer projects
-- No need to wait for a counterparty for your trades
-- Decentralized + self-executing contracts = no middlemen
-- Smart contracts can be plugged into other protocols
-
-Cons
-- High slippage if pool size is small
-- Smart contract exploit risk
-- On-chain trading increases network congestion (UniSwap is one of the biggest gas hogs on $ETH)
-- There is a risk of **Impermanent Loss** (see link)
+<Tabs className="pro-con-tabs">
+<TabItem value="pros" label="Pros">
+    <ul>
+        <li>Easy way to add liquidity to markets - especially useful for newer projects</li>
+        <li>No need to wait for a counterparty for your trades</li>
+        <li>Decentralized + self-executing contracts = no middlemen</li>
+        <li>Smart contracts can be plugged into other protocols</li>
+    </ul>
+</TabItem>
+<TabItem value="cons" label="Cons">
+    <ul>
+        <li>High slippage if pool size is small</li>
+        <li>Smart contract exploit risk</li>
+        <li>On-chain trading increases network congestion (UniSwap is one of the biggest gas hogs on $ETH)</li>
+        <li>There is a risk of <b>Impermanent Loss</b> (see link)</li>
+    </ul>
+</TabItem>
+</Tabs>
 
 ### Strategies
 
@@ -47,13 +64,37 @@ Cons
 
 2. You can also stake your LP tokens to earn even more yield. 
 
-### Impermanent loss
+## Impermanent loss
 
-> [Youtube - What Is IMPERMANENT LOSS? ](https://www.youtube.com/watch?v=8XJ1MSTEuU0&t=29s)
+In essence, impermanent loss is a temporary loss of funds occurring when providing liquidity. It’s very often explained as a difference between holding an asset versus providing liquidity in that asset. Impermanent loss is usually observed in standard liquidity pools where the liquidity provider (LP) has to provide both assets in a correct ratio, and one of the assets is volatile in relation to the other, for example, in a Uniswap DAI/ETH 50/50 liquidity pool.
+
+If ETH goes up in value, the pool has to rely on arbitrageurs continually ensuring that the pool price reflects the real-world price to maintain the same value of both tokens in the pool. This basically leads to a situation where profit from the token that appreciated in value is taken away from the liquidity provider. At this point, if the LP decides to withdraw their liquidity, the impermanent loss becomes permanent.
 
 **As an LP**, impermanent loss risk is high if one coin moves a lot relative to the other coin in the pair.
 
 **As in invester**, if you think 2 coins will move together (ex: $MATIC & $ETH), then you can provide liquidity for the ETH-MATIC pair without worrying too much about the Impermanent Loss.
+
+### Explantion
+
+> Reference: [Youtube - What Is IMPERMANENT LOSS? ](https://www.youtube.com/watch?v=8XJ1MSTEuU0&t=29s)
+
+Consider that, we have below situation.
+![impermanent-loss-1](/img/crypto/invest/impermanent-loss-1.png)
+
+Let's calculate how much Eth arbitragers need to buy. First we need to know when the ETH in the pool will reach to $550.
+![impermanent-loss-2](/img/crypto/invest/impermanent-loss-2.png)
+
+:::info Constant Product formula breakdown
+![formula-breakdown](/img/crypto/invest/formula-breakdown.webp)
+
+Source: [What is Liquidity Pool (LP) in DeFi?](https://www.theancientbabylonians.com/what-is-liquidity-pool-lp-in-defi/#:~:text=Most%20AMM%20and%20liquidity%20pool,constant%20that%20will%20never%20change.)
+:::
+
+The we know we need to buy 0.93 Eth
+![impermanent-loss-3](/img/crypto/invest/impermanent-loss-3.png)
+
+Impermanent loss is only on the paper to the DEX, as long as it doesn't sell the asset.
+![impermanent-loss-4](/img/crypto/invest/impermanent-loss-4.png)
 
 
 ## How Liquidity Provider (LP) Tokens Work
@@ -90,6 +131,10 @@ Though both yield farming and LP tokens are relatively recent ideas, they are be
 In this scenario, your DAI would earn interest and fees in Curve's crypto liquidity pool. At the same time, the LP token from the liquidity pool earns you CRV tokens as a reward for staking. By using LP tokens, your liquidity works double-time --- earning fees and farming yields.
 
 ## APR vs. APY
+
+![](/img/crypto/invest/APR-APY.png)
+
+APR is linear while APY is exponential. Image by [JeremyDefiDance](https://www.youtube.com/channel/UCQaHb9RCZxlBmDtqKkmHv0g)
 
 > Reference: [APR vs. APY: What’s the difference?](https://cointelegraph.com/explained/apr-vs-apy-whats-the-difference)
 
@@ -154,3 +199,7 @@ Because the APR is calculated at an annual rate, it can be more advantageous for
 
 However, because the APY is based on an annualized rate that includes compounding earnings, it's more beneficial for investing crypto assets---it provides a more accurate representation of what will be earned when money is invested and compound interest kicks in.
 
+
+## Further reading
+
+- [APR/APY In-Depth Guide For DeFi](https://medium.com/kogecoin/apr-apy-in-depth-guide-for-defi-5a3bc8cb51c2)
