@@ -43,27 +43,9 @@ git fetch fork
 git checkout -b fork_branch fork/<branch>
 ```
 
-## In one go
-
-### Fast forward merge with pulling
-[Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
-```bash
-git checkout branchB
-git pull
-git checkout branchA
-git merge origin/branchB
-
-# can be done in one line
-git fetch <remote> <sourceBranch>:<destinationBranch>
-
-# Example: Merge remote branch origin/foo into local branch master,
-# without having to checkout foo first: 
-git fetch origin foo:master
-```
 
 
-
-## Rename a local and remote branch
+### Rename a local and remote branch
 
 [How do I rename both a Git local and remote branch name?](https://stackoverflow.com/questions/30590083/how-do-i-rename-both-a-git-local-and-remote-branch-name)
 
@@ -105,10 +87,30 @@ git push origin master:master
 git push origin master:refs/for/mybranch
 ```
 
+## In one go
+
+### Fast forward merge with pulling
+[Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
+```bash
+git checkout branchB
+git pull
+git checkout branchA
+git merge origin/branchB
+
+# can be done in one line
+git fetch <remote> <sourceBranch>:<destinationBranch>
+
+# Example: Merge remote branch origin/foo into local branch master,
+# without having to checkout foo first: 
+git fetch origin foo:master
+```
 
 
 
-## Git revert multiple git commits
+## Trouble shooting
+
+### Git revert multiple git commits
+
 [How to revert multiple git commits?](https://stackoverflow.com/questions/1463340/how-to-revert-multiple-git-commits)
 
 For doing so you just have to use the revert command, specifying the range of commits you want to get reverted.
@@ -130,3 +132,11 @@ This will create a new commit in your local with the inverse commit of B, C and 
 ```bash
 A <- B <- C <- D <- BCD' <- HEAD
 ```
+
+### Commit case-sensitive only filename changes
+
+As long as you're just renaming a *file*, and not a *folder*, you can just use [git mv](http://git-scm.com/docs/git-mv):`
+
+`git mv -f yOuRfIlEnAmE yourfilename`
+
+(As of [a change](https://github.com/git/git/commit/baa37bff9a845471754d3f47957d58a6ccc30058) in Git 2.0.1, the `-f` flag in the incantation above is superfluous, but it was needed in older Git versions.)
