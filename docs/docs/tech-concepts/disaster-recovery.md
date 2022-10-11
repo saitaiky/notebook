@@ -1,4 +1,6 @@
-
+---
+title: Disaster Recovery
+---
 
 
 Recovery time objective (RTO) – The time it takes a system to return to a working state after a disaster. In other words, RTO measures downtime.

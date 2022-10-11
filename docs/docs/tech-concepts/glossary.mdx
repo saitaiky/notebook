@@ -14,6 +14,46 @@ On the other hand, if users stick with the same release too long their system wi
 
 Reference: [What is an Ubuntu LTS release?](https://ubuntu.com/blog/what-is-an-ubuntu-lts-release)
 
+## Emulators and Simulators
+
+> Reference: [Emulators and Simulators](https://www.browserstack.com/emulators-simulators)
+
+The terms ’emulators’ and ‘simulators’ are often used interchangeably, but they have very different sets of capabilities. Let’s look at each to make the difference clearer.
+
+![emulator-vs-simulator](/img/tech-concepts/emulator-vs-simulator.png)
+
+Source: [What is the Difference Between Emulators and Simulators?](https://www.racksolutions.com/news/blog/what-is-the-difference-between-emulator-and-simulator/#:~:text=Emulators%20enable%20a%20computer%20system,configuration%20of%20another%20target%20device.)
+
+### Emulators
+
+Emulators mimic your target device’s hardware and software on your workstation. Android Emulator (by Android Developer Studio) is a popular example.
+
+-  **Capabilities**: The emulator can give you virtual device instances with near-native capabilities and extended controls to adjust the devices’ physical sensors, battery state, geolocation, and more.
+-  **Limitations**: These near-native capabilities come with a significant performance overhead, mostly due to binary translation.
+    
+    It is possible to speed up the ABI translation through hardware-assisted virtualization (also known as hardware acceleration). If the mobile device you’re emulating has the same **ISA** as your computer, the emulator can skip the translation and run the virtual device directly on your workstation’s hardware.
+    - First, there’s the precondition–the ISAs of your computer and target mobile device need to match. Most commercially available mobile devices run on ARM’s architecture. Almost all computers work on Intel x86. Their ISAs are categorically different from each other.
+    - You also need a sizable list of hypervisor components just to enable hardware acceleration. These are tricky to set up, even for the more experienced programmers.
+
+:::info ISA -  Instruction Set Architecture
+All computers–including mobile devices–work on an **ISA**, that is, Instruction Set Architecture. This is a set of instructions written in machine-language that your processor understands. Different processor families (think Intel, AMD, ARM, etc.) have their own instruction set architectures, which they implement in their own ways.
+:::
+
+### Simulators
+
+Simulators let you run programs that were not made for your computer’s OS. Simulators for mobile app testing are commonly used by testers to run their code, especially in the early stages. **In the context of this post, ‘simulator’ refers to the iPhone and iPad simulator in XCode**. You can also think of them as mobile simulators (especially for iPhones).
+
+:::info Note
+There are no ‘**Android simulators**’, largely because it’s simpler to emulate Android devices with freely available tools like Quick Emulator (QEMU).
+:::
+
+- **Capabilities**: The iOS simulator is significantly faster than Android emulator, purely because there’s no machine-language translation involved.
+- **Limitations**: The simulator cannot mimic battery states or cellular interrupts, unlike the Android emulator.
+  - You also cannot use the iOS simulator on platforms other than macOS. This is because the simulator needs Apple’s native Cocoa API–a massive library of frameworks–to handle GUI, runtime, and more.
+  - Porting Cocoa to a different platform is far too much trouble. Instead, developers virtualize macOS on their computer hardware–or procure a MacBook.
+
+
+
 ## Company's IP 
 
 Intellectual property – or IP – refers to anything that has been created, like designs, inventions, brand names, and literary works.
@@ -49,15 +89,6 @@ The term work-in-progress (WIP) is a production and supply-chain management term
 
 In software development WIP is the number of tasks one developer is working on in a specific moment.
 
-## SKU
-
-![sow](/img/tech-concepts/sku.webp)
-
-A SKU (pronounced “skew”) stands for Stock Keeping Unit. A retailer typically uses SKUs to identify their business’s inventory.
-
-Most retailers know that SKUs help track products from [vendor](https://www.shopify.co.uk/retail/vendor-sourcing) to customer, but few know how they work behind the scenes and why they’re so important.
-
-Reference: [What Is a SKU Number? How Retailers Can Use SKUs in Business.](https://www.shopify.co.uk/retail/what-is-a-sku-number)
 
 ## Cloud computing
 
