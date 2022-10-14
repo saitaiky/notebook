@@ -49,16 +49,3 @@ The future plan of `kubectl run` is to act more like a docker run command.
 
 Creating a Deployment in 1.18: `kubectl create deployment nginx --image nginx`
 :::
-
-
-
-
-
-
-
-
-
-
-
-
-

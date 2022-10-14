@@ -1,3 +1,7 @@
+---
+title: Deployment
+sidebar_position: 2
+---
 ## Create deployment
 ```
 $ kubectl create deployment my-nginx --image nginx

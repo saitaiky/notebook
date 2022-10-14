@@ -1,3 +1,36 @@
+---
+title: Inspection
+sidebar_position: 1
+---
+
+## Checking resources
+
+### Introspection vs. documentation
+
+**Why do we need to check the document via command line?**
+Commands like `kubectl api-resources` and `kubectl explain` perform *introspection*(they communicate with the API server and obtain the exact type definitions)
+
+Now the big difference is that the generic documentation on the website is just going to give you the official resource types and the API information for a standard Kubernetes cluster. We talked about that different distributions, and different plugins, will extend and change that resource list. It'll give you new features and new stuff to look at.
+
+```
+$ kubectl api-resources
+
+NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
+bindings                                       v1                                     true         Binding
+componentstatuses                 cs           v1                                     false        ComponentStatus
+configmaps                        cm           v1                                     true         ConfigMap
+endpoints                         ep           v1                                     true         Endpoints
+events                            ev           v1                                     true         Event
+limitranges                       limits       v1                                     true         LimitRange
+namespaces                        ns           v1                                     false        Namespace
+nodes                             no           v1                                     false        Node
+persistentvolumeclaims            pvc          v1                                     true         PersistentVolumeClaim
+persistentvolumes                 pv           v1                                     false        PersistentVolume
+pods                              po           v1                                     true         Pod
+podtemplates                                   v1                                     true         PodTemplate
+....
+```
+
 
 ## Inspection
 
@@ -49,7 +82,27 @@ Print a detailed description of the selected resources, including related resour
 `describe` also product the event status at the bottom of the log. This can be pretty handy for a quick troubleshooting technique **without having to go turn on some events or debugging logs**.
 
 ```bash
-$ kubectl describe pod/my-apache-6f45bc5bd9-68s5j
+$ kubectl describe node docker-desktop
+
+Name:               docker-desktop
+Roles:              control-plane
+Labels:             beta.kubernetes.io/arch=arm64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=arm64
+                    kubernetes.io/hostname=docker-desktop
+                    kubernetes.io/os=linux
+                    node-role.kubernetes.io/control-plane=
+                    node.kubernetes.io/exclude-from-external-load-balancers=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/cri-dockerd.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 18 Jun 2020 16:11:04 +0100
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  docker-desktop
+  AcquireTime:     <unset>
+  RenewTime:       Fri, 14 Oct 2020 17:20:46 +0100
 ```
 
 

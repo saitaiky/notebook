@@ -62,8 +62,14 @@ Since **Docker** had **Swarm** built in, it didn't really need the separate agen
 
 Control Plane is a set of containers that manage the cluster
 
-- Includes API server, scheduler, controller manager, etcd, and more
-- Sometimes called the "master"
+It includes
+-   `etcd` is our etcd server
+-   `kube-apiserver` is the API server
+-   `kube-controller-manager` and `kube-scheduler` are other control plane components
+-   `coredns` provides DNS-based service discovery ([replacing kube-dns as of 1.11](https://kubernetes.io/blog/2018/07/10/coredns-ga-for-kubernetes-cluster-dns/))
+-   `kube-proxy` is the (per-node) component managing port mappings and such
+-   `<net name>` is the **optional** (per-node) component managing the network overlay
+
 
 ## POD
 
@@ -85,14 +91,27 @@ Source: [Instance-per-Pod Webhook: IaaS-level isolation for Kubernetes Pods](htt
 ## Others
 ### service
 
+> TL;DR - A service is a stable endpoint to connect to "something"
+
 The service just means you're giving it a persistent endpoint in the cluster so that everything else can access that set of pods at a specific DNS name and port. 
 
 
 ### namespace
 
-The namespace is really just a filter on your view at the command line. That's really all it is. It's not a security feature. If you're familiar with some of the internals of Docker, you hear about namespaces in Docker. **This is in no way the same thing in kubernetes**. This is simply a way for you to filter your views when you're using the kubectrl command line.
+The namespace is really just a filter on your view at the command line. It can be used to filter out a lot of this other stuff that's maybe of only interest to a System Administrator or somebody managing the cluster.
+
+That's really all it is. It's not a security feature. If you're familiar with some of the internals of Docker, you hear about namespaces in Docker. **This is in no way the same thing in kubernetes**. This is simply a way for you to filter your views when you're using the kubectrl command line.
 
 A good example might be when using Docker Desktop, it defaults to the default namespace and filters out all of the system containers running Kubernetes in the background.
+
+Kubernetes starts with four initial namespaces:
+
+This one is really just used for installation and then eventually, connecting to something. 
+
+-   `default` The default namespace for objects with no other namespace
+-   `kube-system` The namespace for objects created by the Kubernetes system
+-   `kube-public` This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. One usage of it is to use the **ConfigMaps** for bootstrapping the cluster.
+-   `kube-node-lease` **You don't need to work on it** - This namespace holds [Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](https://kubernetes.io/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
 
 
 ## Further Reading 

@@ -1,7 +1,10 @@
+---
+title: Physical Network perspective
+sidebar_position: 1
+---
 
-## Physical Network
 
-![physical-network](/img/web-development/kubernetes/physical-network.png)
+![physical-network](/img/web-development/kubernetes/architecture/physical-network.png)
 
 Source: [A Reference Architecture for Deploying WSO2 Middleware on Kubernetes](https://medium.com/containermind/a-reference-architecture-for-deploying-wso2-middleware-on-kubernetes-d4dee7601e8e)
 
@@ -18,12 +21,12 @@ In each Kubernetes node following components are installed:
 - **Kube-proxy**: Kube-proxy is all about networking. It runs in each node for **load balancing pods**. It uses iptable rules for doing simple TCP, UDP stream forwarding or round robin TCP, UDP forwarding.
 
 
-### Inside a node
+## Inside a node
 
 - **Container runtimes**: For every OS that's running Docker as a container runtime in this case. We'll talk more about other container runtimes later. That's running containers, right. So, we got these four blocks (c1,c2,c3,cX) here. Those are maybe your app.
 
 
-### An overlay network
+## An overlay network
 
 Kubernetes make use of an overlay network for providing networking capabilities similar to a virtual machine-based environment. It allows container-to-container communication throughout the cluster and will provide unique IP addresses for each container. 
 
