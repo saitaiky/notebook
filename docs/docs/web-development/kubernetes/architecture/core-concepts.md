@@ -1,6 +1,6 @@
 ---
 title: Core concepts
-sidebar_position: 0
+sidebar_position: 1
 ---
 
 A **Cluster** is a set of nodes grouped together, this way even if one node fails you have your application still accessible from the other Nodes. Moreover having multiple nodes helps in sharing load as well.
@@ -29,6 +29,7 @@ Source: [Kubernetes-CKAD](https://bhavyasree.github.io/kubernetes-CKAD/01.kubern
 ## Components
 
 ![Comsponents of K8s](/img/web-development/kubernetes/components-of-kubernetes.svg)
+
 Source: [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
 
 When you install Kubernetes on a system you're actually installing the following components

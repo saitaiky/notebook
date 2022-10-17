@@ -1,8 +1,15 @@
 ---
 title: Services
-sidebar_position: 2
+sidebar_position: 4
 ---
 
+## Problem statement
+
+To start off with, when you've created these pods so far, there's nothing stopping the pods from talking to each other. But, what we really want is a stable DNS address for those pods that we need to talk to. 
+
+Maybe you're having an API and you want to put a web interface in front of that that talks to the API, so it needs a reliable DNS name to find that API set of pods. It doesn't matter it's one pod, maybe it's five replicas of a pod.
+
+## Solution
 This section is to take your set of deployments, your pods, and creating a persistent endpoint that can talk to them. Then we will talk about how to expose them internally, in the cluster, or also externally to outside sources.
 
 When you create pods in Kubernetes, they don't automatically get a DNS name for external connectivity with an IP address, tight. You would want to do that with creating a **service** on top of that existing pod.
@@ -11,11 +18,27 @@ When you create pods in Kubernetes, they don't automatically get a DNS name for 
 - A **service** is a stable address for pod(s)
 - CoreDNS service allows us to resolve **services** by name
 
+### Kube-proxy
+
+**The API**, of course, is providing the endpoint for us to configure this. Obviously, these rules are stored in etcd, but it's `kube-proxy` out-of-the-box that's going to control this using largely **IP tables**, which is a Linux subsystem that is a part of the kernel for controlling routing of packets and firewall stuff.
+
+The vast majority of us nowadays can largely ignore IP tables, especially in containers, because that's what Docker and Kubernetes are designed to do. They're allowing those of us that just need to use this to deploy apps to not have to be experts in the underlying technology in the kernel on how packets move around. 
+
+### Advantages of services
+-   (we resolve the IP address of the service using DNS)
+-   There are multiple service types; some of them allow external traffic (e.g. `LoadBalancer` and `NodePort`)
+-   Services provide load balancing (for both internal and external traffic)
+-   Service addresses are independent from pods' addresses (when a pod fails, the service seamlessly sends traffic to its replacement)
+
 ## Different type of servies
 
 There are four types of Kubernetes services — `ClusterIP`, `NodePort`, `LoadBalancer` and `ExternalName`. The type property in the Service's spec determines how the service is exposed to the network.
 
-There are different types of services
+:::info`kube-proxy` behind the sene
+Under the hood, a lot of this is controlled by kube-proxy. The API, of course, is providing the endpoint for us to configure this. Obviously, these rules are stored in etcd, but it's kube-proxy out-of-the-box that's going to control this using largely IP tables, which is a Linux subsystem that is a part of the kernel for controlling routing of packets and firewall stuff.
+
+The vast majority of us nowadays can largely ignore IP tables, especially in containers, because that's what Docker and Kubernetes are designed to do. They're allowing those of us that just need to use this to deploy apps to not have to be experts in the underlying technology in the kernel on how packets move around.
+:::
 
 ### ClusterIP (out-of-the-box service)
 
@@ -40,8 +63,6 @@ Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/k
 
 It is **an open port on every worker node in the cluster** that has a pod for that service. When traffic is received on that open port, it directs it to a specific port on the ClusterIP for the service it is representing. 
 
-In a single-node cluster this is very straight forward. In a multi-node cluster the internal routing can get more complicated. In that case you might want to introduce **an external load balancer** so you can spread traffic out across all the nodes and be able to handle failures a bit easier.
-
 - NodePort service is an extension of ClusterIP service. When creating a NodePort Service,  A ClusterIP Service is automatically created
 - It is designed for something outside the cluster to talk to your service through the IP addresses on the nodes
 - High port allocated on each node (Port range: 30000-32767)
@@ -53,6 +74,10 @@ In a single-node cluster this is very straight forward. In a multi-node cluster 
 - When you want to enable external connectivity to your service.
 - Using a NodePort gives you the freedom to set up your own load balancing solution, to configure environments that are not fully supported by Kubernetes, or even to expose one or more nodes’ IPs directly.
 - Prefer to place a load balancer above your nodes to avoid node failure.
+:::
+
+:::cautionA multi-node cluster
+In a single-node cluster this is very straight forward. In a multi-node cluster the internal routing can get more complicated. In that case you might want to introduce **an external load balancer** so you can spread traffic out across all the nodes and be able to handle failures a bit easier.
 :::
 
 ### LoadBalancer (Mostly used in cloud)

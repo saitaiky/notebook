@@ -1,10 +1,10 @@
 
 
-## Whe people question you?
+## Why do people question your thought?
 
 People question others when  
 - your thinking is not deep enough
-- you are lack of confidence
+- you lack confidence
 
 ### Thinking is not deep enough 
 
@@ -17,8 +17,17 @@ When doing this practise, you need to find people who can explain their opinion 
 
 ### Lack of confidence
 
+People who lack confidence usually because they weren't complimented by parents/teachers or always were reprimanded. If people who don't have parent's affection in their childhood, it's different to use a positive or affirmative way to look at themselves. Even worse is after graduated, you got beat down your at work 
 
+There are lots of ways to rebuild your confidence, but in term of having the confidence to let the people listen and trust what you said. The solution would be
 
+**Solution**
+
+Be prepared yourself and be able to construct a strategy when people challenge you. If you can do only this point, you will be able to avoid the situations where you are stunned by the others.    
+
+- Learn things in-depth. It is all about determination 
+- Think deeply. If you think deeply about what you say, even the challenger may question the authenticity of their questions.
+- Simulate the questions the audience may ask based on their mindset and situation
 ## Develop the habit of thinking at all times
 
 

@@ -34,9 +34,8 @@ podtemplates                                   v1                               
 
 ## Inspection
 
-### logs & Selector
+### Labels & Selector
 
-Labels and Selectors
 Labels are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system. Labels can be used to organize and to select subsets of objects. Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
 
 ```json
@@ -55,12 +54,6 @@ Example labels:
 - `"partition" : "customerA"`, `"partition" : "customerB"`
 - `"track" : "daily"`, `"track" : "weekly"`
 
-Show the logs combined for multiple pods based on a label that they all share.
-
-By default, it can only pull up to **five pods** at a time when it uses the **selector type** of pulling in the logs. You can always increase that, but the reality is it's taxing on the system to pull from all the different nodes these log files. 
-
-> In production, you're going to want a third-party logging system that would collect all these logs and store them over time for quicker retrieval. like [stern](https://github.com/wercker/stern) 
-
 ```bash
 # -w like the watch command in linux, will let it sit there and refresh every few seconds.
 $ kubectl get pods -w
@@ -68,11 +61,29 @@ $ kubectl get pods -w
 $ kubectl get pods --show-labels   
 NAME                         READY   STATUS    RESTARTS   AGE     LABELS
 my-apache-6f45bc5bd9-68s5j   1/1     Running   0          7m38s   app=my-apache,pod-template-hash=6f45bc5bd9
+```
 
+### Logs with selector
+
+Show the logs combined for multiple pods based on a label that they all share.
+
+By default, it can only pull up to **five pods** at a time when it uses the **selector type** of pulling in the logs. You can always increase that, but the reality is it's taxing on the system to pull from all the different nodes these log files. 
+
+> In production, you're going to want a third-party logging system that would collect all these logs and store them over time for quicker retrieval. like [stern](https://github.com/wercker/stern) 
+
+```bash
 # -l: lable
 $ kubectl logs -l  app=my-apache
 ```
 
+:::info Why can't we stream the logs of many pods?
+Pulling logs is a rather strenuous thing, especially if your apps are dumping logs en masse. 
+
+- If thousands of containers are running, this can put some stress on the API server.
+- If you're ever running a proxy or a web server, and you're capturing every connection into logs, that's a large amount of logs streaming over the network. It's pulling this from the API.
+
+We don't want to overwhelm the API. It's the most precious thing in your cluster. So, you want to protect that, and there's a natural limit here. You can change that limit, but there's probably a better way.
+:::
 
 
 ### describe

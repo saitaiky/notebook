@@ -1,6 +1,6 @@
 ---
 title: 3 ways to manage K8s workload
-sidebar_position: 5
+sidebar_position: 2
 ---
 
 ## Generators
