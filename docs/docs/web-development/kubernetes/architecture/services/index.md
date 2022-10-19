@@ -49,6 +49,16 @@ Under the hood, a lot of this is controlled by kube-proxy. The API, of course, i
 The vast majority of us nowadays can largely ignore IP tables, especially in containers, because that's what Docker and Kubernetes are designed to do. They're allowing those of us that just need to use this to deploy apps to not have to be experts in the underlying technology in the kernel on how packets move around.
 :::
 
+:::infoRelationship between LoadBalancer, NodePort and ClusterIP
+
+These three service types are additive, each one creates the ones above it: 
+- ClusterIP
+- NodePort (include ClusterIP) -  When creating a NodePort Service, A ClusterIP Service is automatically created
+- LoadBalancer (include ClusterIP + NodePort) - When creating an external load balancer, NodePort and ClusterIP Service are automatically created.
+
+**Logic flow**: The load balancer is accepting my packet, then passing it to the NodePort, and then the NodePort is passing it to the cluster IP. There's always going to be that
+:::
+
 ### ClusterIP (Default)
 
 ![ClusterIP](/img/web-development/kubernetes/clusterIP.webp)
@@ -70,7 +80,6 @@ Inter service communication within the cluster. For example, communication betwe
 Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/kubernetes-service-publishing/)
 > If we access the IP Address of one of our nodes (`10.10.50.51:30001`or`10.10.50.52:30001`) with the port we specified, we can see our nginx page.
 
-- NodePort service is an extension of ClusterIP service. When creating a NodePort Service,  A ClusterIP Service is automatically created
 - It is designed for **something outside the cluster to talk to your service** through the IP addresses on the nodes with high port allocated on each node (Port range: 30000-32767)
     - By requesting `<NodeIP>:<NodePort>` to access from outside the cluster
 - That port is made available *on all our nodes* and anybody can connect to it (we can connect to any node on that port to reach the service)
@@ -88,7 +97,6 @@ In a single-node cluster this is very straight forward. In a multi-node cluster 
 
 ### LoadBalancer (Mostly used in cloud)
 
-- LoadBalancer service is an extension of NodePort service. When creating an external load balancer, NodePort and ClusterIP Service are automatically created.
 - It exposes the Service externally using **a cloud provider’s load balancer** to access the cluster only if the underlying infrastructure provides some kind of "load balancer as a service" (e.g. ELB on AWS, GLB on GCE ...)
 - The actual creation of the load balancer happens asynchronously.
 - Each cloud provider (AWS, Azure, GCP, etc) has its own native load balancer implementation. The cloud provider will create a load balancer, which then automatically routes requests to your Kubernetes Service.
@@ -119,47 +127,6 @@ Kubernetes Ingress (Final way to that traffic can get inside your cluster. Sai: 
 
 You can also use Ingress to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules into a single resource as it can expose multiple services under the same IP address.
 
-
-
-## Create a ClusterIP service
-
-```bash
-# Create 5 pods to listen to requests
-$ kubectl create deployment httpenv --image=bretfisher/httpenv
-$ kubectl scale deployment/httpenv --replicas=5
-
-# Create service 
-$ kubectl expose deployment/httpenv --port 8888
-```
-
-### Under the hood
-
-What's interesting here is that we are telling it to expose a deployment, but it's not really routing traffic to a deployment. A deployment is just a concept. It's an abstraction. It's the pods that need to receive traffic. 
-
-So, really what's happening is in IP tables, on our nodes, we're creating rules via the kube-proxy agent. It's going to direct traffic to the pods in **a round robin fashion**, by default, on Port `8888`. It's using the deployment as a selector for deciding which pods need to be inside this service. 
-
-### How to connect
-Sending curl to the services
-- Approach 1: `curl [Service Name]:8888` 
-    - Because the service name that we created becomes part of the DNS name. So we can connect it directly via
-- Approach 2:`curl [ip of service]:8888` **Only work on Linux:** 
-    - The way that Kubernetes works is that all nodes and containers, by default, can talk to each other out-of-the-box. The node that you're on, **assuming that you're running Kubernetes on that local machine**, has access to all of these private IP addresses. 
-    - The reason that doesn't work from Docker Desktop is because you're sitting on **Mac or Windows** when you're typing those commands, and they are not on the same cluster of Kubernetes as that Linux VM running your Kubernetes for you.
-
-```bash
-# Approach 1: Create a pod to send curl requests in its bash to above 5 pods
-$ kubectl run tmp-shell --rm -it --image bretfisher/netshoot -- bash
-bash-5.1# curl httpenv:8888
-
-# Approach 2 (Only work in Linux): 
-$ kubectl get service
-NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-httpenv      ClusterIP   10.108.189.10   <none>        8888/TCP   35m
-kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP    2d18h
-
-$ curl 10.96.0.1:8888
-```
-
 ## Create a NodePort
 
 Let's create a NodePort to allow access from some external service. `8888:30839/TCP` - The port on the left is the port inside cluster. The port on the right is the port on your node.
@@ -176,16 +143,6 @@ kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP          2d21h
 After you've run above command...
 - If you're on **Linux**, this NodePort is accessible on localhost now. 
 - If you're on Docker Desktop, it will provide a convenience layer with something called vpnkit that's just built into Docker Desktop where it will connect this to the localhost on your **Windows or Mac** machine. 
-
-:::info A NodePort service also creates a ClusterIP
-
-These three service types are additive, each one creates the ones above it: 
-- ClusterIP
-- NodePort (include ClusterIP)
-- LoadBalancer (include ClusterIP + NodePort)
-
-**Logic flow**: The load balancer is accepting my packet, then passing it to the NodePort, and then the NodePort is passing it to the cluster IP. There's always going to be that
-:::
 
 ## Create a Loadbalancer
 
@@ -223,7 +180,7 @@ With Docker Desktop, all we did is we told it the port `8888` that was a part of
 
 ## DNS
 
-DNS is **optional as a service**, or an add on, inside your Kubernetes cluster. But, everyone puts one in there. Starting with 1.11, internal DNS is provided by CoreDNS. When you create a service, you get the hostname that matches the service. But, that hostname is part of a larger name, the **FQDN (fully qualified domain name)**. We didn't get that in Docker or Swarm.
+DNS is **optional as a service**, or an add on, inside your Kubernetes cluster. But, everyone puts one in there. Starting with 1.11, internal DNS is provided by [CoreDNS](https://coredns.io/). When you create a service, you get the hostname that matches the service. But, that hostname is part of a larger name, the **FQDN (fully qualified domain name)**. We didn't get that in Docker or Swarm.
 
 :::danger
 You **can't** technically create the same pod, or the same service, or the same Deployment, with the same names, **in the same namespace**.
@@ -243,9 +200,20 @@ Namespaces in K8s is really just an organizational parameter, and it doesn't, ou
 
 As you get larger, you will possibly make **multiple namespaces** for different applications that possibly had the same name. Or maybe you want to deploy the same thing multiple times, with the same service names, pod names, deployment names, and you wouldn't want them to clash, so you would create different namespaces for those.
 
+## Endpoints
 
+![ClusterIP](/img/web-development/kubernetes/architecture/endpoints.png)
 
+Source: [Services and Endpoints](https://storage.googleapis.com/static.ianlewis.org/prod/img/753/endpoints.png)
 
+Pods expose themselves through endpoints to a service. The list of pods is the same as the list of endpoints. 
+
+```bash
+# In below case, we have 3 endpoints which means 3 pods behind the httpenv service
+$ kubectl get endpoints httpenv -o wide
+NAME      ENDPOINTS                                      AGE
+httpenv   10.1.0.45:8888,10.1.0.46:8888,10.1.0.47:8888   116m
+```
 
 
 ## Further reading 
