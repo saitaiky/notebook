@@ -25,10 +25,19 @@ When you create pods in Kubernetes, they don't automatically get a DNS name for 
 The vast majority of us nowadays can largely ignore IP tables, especially in containers, because that's what Docker and Kubernetes are designed to do. They're allowing those of us that just need to use this to deploy apps to not have to be experts in the underlying technology in the kernel on how packets move around. 
 
 ### Advantages of services
--   (we resolve the IP address of the service using DNS)
+-   We resolve the IP address of the service using DNS
 -   There are multiple service types; some of them allow external traffic (e.g. `LoadBalancer` and `NodePort`)
 -   Services provide load balancing (for both internal and external traffic)
 -   Service addresses are independent from pods' addresses (when a pod fails, the service seamlessly sends traffic to its replacement)
+
+### Services are OSI layer 4 constructs 
+
+> What does that mean? That means that we can't just give a full IP address with everything complete access. 
+
+- You can assign IP addresses to services, but they are still layer 4(i.e. a service is not an IP address; it's an IP address + TCP/UDP protocol + port). 
+- This is caused by the current implementation of `kube-proxy`(it relies on mechanisms that don't support layer 3). 
+- As a result: you have to indicate the port number for your service(with some exceptions, like ExternalName or headless services, covered later)
+
 
 ## Different type of servies
 
@@ -40,35 +49,32 @@ Under the hood, a lot of this is controlled by kube-proxy. The API, of course, i
 The vast majority of us nowadays can largely ignore IP tables, especially in containers, because that's what Docker and Kubernetes are designed to do. They're allowing those of us that just need to use this to deploy apps to not have to be experts in the underlying technology in the kernel on how packets move around.
 :::
 
-### ClusterIP (out-of-the-box service)
+### ClusterIP (Default)
 
 ![ClusterIP](/img/web-development/kubernetes/clusterIP.webp)
 
 Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/kubernetes-service-publishing/)
 
-- ClusterIP is the default and most common service type
-- It provices a single, cluster-internal virtual IP address/ Thus, it's only reachable from **within cluster** (nodes and pods)
-- Pods can reach **service** on apps port number
+- ClusterIP is the default when using `expose` if you don't specify a type of service. It provides a single, **cluster-internal** virtual IP address.
+- Our code can connect to the service using the **original port number** e.g. Port 80 for web (Perfect for internal communication, within the cluster)
+- **Downside**:  It's only reachable from **within cluster** (nodes and pods)
 
 :::info Use Case
 Inter service communication within the cluster. For example, communication between the front-end and back-end components of your app.
 :::
 
-### NodePort (out-of-the-box service)
+### NodePort
 
 ![Node Port](/img/web-development/kubernetes/nodePort.webp)
 
 Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/kubernetes-service-publishing/)
 > If we access the IP Address of one of our nodes (`10.10.50.51:30001`or`10.10.50.52:30001`) with the port we specified, we can see our nginx page.
 
-It is **an open port on every worker node in the cluster** that has a pod for that service. When traffic is received on that open port, it directs it to a specific port on the ClusterIP for the service it is representing. 
-
 - NodePort service is an extension of ClusterIP service. When creating a NodePort Service,  A ClusterIP Service is automatically created
-- It is designed for something outside the cluster to talk to your service through the IP addresses on the nodes
-- High port allocated on each node (Port range: 30000-32767)
+- It is designed for **something outside the cluster to talk to your service** through the IP addresses on the nodes with high port allocated on each node (Port range: 30000-32767)
     - By requesting `<NodeIP>:<NodePort>` to access from outside the cluster
-- Any incoming packet matching one of the configured NodePorts will get destination NAT’ed to one of the healthy Endpoints and source NAT’ed (via masquerade/overload) to the address of the incoming interface.
-- The reply packet coming from the Pod will get reverse NAT’ed using the connection tracking entry set up by the incoming packet.
+- That port is made available *on all our nodes* and anybody can connect to it (we can connect to any node on that port to reach the service)
+- **Downside**: Our code needs to be changed to connect to that new port number
 
 :::info Use Cases
 - When you want to enable external connectivity to your service.
@@ -82,9 +88,8 @@ In a single-node cluster this is very straight forward. In a multi-node cluster 
 
 ### LoadBalancer (Mostly used in cloud)
 
-- LoadBalancer service is an extension of NodePort service. When createing an external load balancer, NodePort and ClusterIP Service are automatically created.
-- It exposes the Service externally using **a cloud provider’s load balancer to access the cluster**
-- Only available when infra provider gives you a LB (AWS ELB, etc)
+- LoadBalancer service is an extension of NodePort service. When creating an external load balancer, NodePort and ClusterIP Service are automatically created.
+- It exposes the Service externally using **a cloud provider’s load balancer** to access the cluster only if the underlying infrastructure provides some kind of "load balancer as a service" (e.g. ELB on AWS, GLB on GCE ...)
 - The actual creation of the load balancer happens asynchronously.
 - Each cloud provider (AWS, Azure, GCP, etc) has its own native load balancer implementation. The cloud provider will create a load balancer, which then automatically routes requests to your Kubernetes Service.
 
@@ -92,15 +97,20 @@ In a single-node cluster this is very straight forward. In a multi-node cluster 
 When you are using a cloud provider to host your Kubernetes cluster.
 :::
 
-### ExternalName (Use less often)
+### ExternalName (Rarely use)
+
+> TL-DR; - You can use that ExternalName service (as a local service) when Pods from one namespace to talk to a service in another namespace.
+
+It's usually for when the name remotely might change outside of your cluster, but you don't want to have to redeploy your services just because that external service might change. So, you create this special DNS entry(**ExternalName**) inside your Kubernetes cluster, and then you can change that on the fly. Kind of like a **CNAME**. It won't require you to re-provision your deployments and your container pods just because some name on the internet changed.
+
 - Not related inbound traffic but stuff in your cluster needing to **talk to outside services**.
 - Adds CNAME DNS record to CoreDNS only
 - Not used for Pods, but for giving pods a DNS name to use for something outside Kubernetes
-- example of using external name is doing migration. Migrating service from outside of K8s cluster that you can't control the DNS remmotely to internal K8s cluster. you could use ExternalName as a substitute to control the DNS inside your Kubernetes workflow.
 
 :::info Use Cases
-- This is commonly used to create a service within Kubernetes to represent **an external datastore** like a database that runs externally to Kubernetes.
-- You can use that ExternalName service (as a local service) when Pods from one namespace to talk to a service in another namespace.
+- Case 1: example of using external name is doing migration. Migrating service from outside of K8s cluster that you can't control the DNS remotely to internal K8s cluster. you could use ExternalName as a substitute to control the DNS inside your Kubernetes workflow.
+
+- Case 2: It is commonly used to create a service within Kubernetes to represent **an external datastore** like a database that runs externally to Kubernetes.
 :::
 
 ### Ingress
@@ -122,6 +132,13 @@ $ kubectl scale deployment/httpenv --replicas=5
 $ kubectl expose deployment/httpenv --port 8888
 ```
 
+### Under the hood
+
+What's interesting here is that we are telling it to expose a deployment, but it's not really routing traffic to a deployment. A deployment is just a concept. It's an abstraction. It's the pods that need to receive traffic. 
+
+So, really what's happening is in IP tables, on our nodes, we're creating rules via the kube-proxy agent. It's going to direct traffic to the pods in **a round robin fashion**, by default, on Port `8888`. It's using the deployment as a selector for deciding which pods need to be inside this service. 
+
+### How to connect
 Sending curl to the services
 - Approach 1: `curl [Service Name]:8888` 
     - Because the service name that we created becomes part of the DNS name. So we can connect it directly via

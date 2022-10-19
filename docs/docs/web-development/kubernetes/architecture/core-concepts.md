@@ -114,6 +114,10 @@ This one is really just used for installation and then eventually, connecting to
 -   `kube-public` This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. One usage of it is to use the **ConfigMaps** for bootstrapping the cluster.
 -   `kube-node-lease` **You don't need to work on it** - This namespace holds [Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](https://kubernetes.io/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
 
+:::cautionName collision
+In a namespace, you can have the same name for different resource types, but you can't have a name collision of the combination of the resource type and the name of the resource. So, I couldn't have two services called httpenv, but I can have a deployment called that and a service called that. 
+:::
+
 
 ## Further Reading 
 

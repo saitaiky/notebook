@@ -1,12 +1,14 @@
-
 ---
 title: Drawing
 ---
 
 
-## Lesson 1 11/09/2022
+## Basic of drawing
 
 ### Elements to handle
+
+![](/img/other/drawing/lesson1.jpeg)
+
 - Size, Placement
 - proportion
 - Relationship (ratio)
@@ -32,13 +34,28 @@ title: Drawing
 - You are not only drawing the object, but also the outer space of the object.
 - Don't adjust the bottom and top line to adjust the ratio. Always adjust things that inside your frame.
 
-## Lesson 2 
+## Different Values
 
+### 2 Level
+
+![](/img/other/drawing/lesson2-1.jpeg)
+![](/img/other/drawing/lesson2-2.jpeg)
+![](/img/other/drawing/lesson2-3.jpeg)
+
+- Charcoal control
 - Shadow, at this level. We only need to due with 2 level, black and empty. 
 - Find the shape of light and shadow
 - Drawing the ratio right at the first place is so important before drawing the details
 
-## Lesson 3
+### 5 Level
+
+![](/img/other/drawing/lesson3-1.jpeg)
+![](/img/other/drawing/lesson4.jpeg)
+![](/img/other/drawing/lesson4-1.jpeg)
 light
 shadow
 reflection
+
+### Introducing white
+
+You don't need lines to describe an object, instead, use the colour contracts.
