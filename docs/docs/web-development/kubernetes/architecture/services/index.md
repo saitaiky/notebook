@@ -1,6 +1,5 @@
 ---
 title: Services
-sidebar_position: 4
 ---
 
 ## Problem statement

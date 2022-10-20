@@ -1,9 +1,9 @@
 ---
 title: Network model
+sidebar_position: 2
 ---
 
 > TL;DR - Our cluster (nodes and pods) is one big flat IP network. You can have routing, but you can't have translation. 
-
 
 -   In detail:
     -   all nodes must be able to reach each other, without NAT

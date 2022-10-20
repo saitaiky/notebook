@@ -93,7 +93,7 @@ status:
 
 For a detailed article to explain these 2 concepts, please check the post that I written in this [section](/web-development/programming/paradigm-of-programming/).
 
-### Imperative
+### Imperative (Object & command)
 
 Imperative is easier when you already know the **state** of the object or the resource, and you're just getting started with using the tools.
 
