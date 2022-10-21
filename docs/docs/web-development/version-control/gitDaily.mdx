@@ -5,7 +5,7 @@ metaDescription: "This is the meta description for this page"
 ---
 
 ## Gitflow Workflow
-https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+[Bitbucket - Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 
 ## Local operations
 
@@ -90,20 +90,42 @@ git push origin master:refs/for/mybranch
 ## In one go
 
 ### Fast forward merge with pulling
-[Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
-```bash
-git checkout branchB
-git pull
-git checkout branchA
-git merge origin/branchB
 
-# can be done in one line
+> Reference: [Merge, update, and pull Git branches without using checkouts](https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts)
+
+```bash
+git checkout master
+git pull
+git checkout foo
+git merge origin/master
+
+# ---------------- can be done in one line ----------------
+# If you want the fetch command to fail if the update is non-fast-forward, then you simply use a refspec of the form
 git fetch <remote> <sourceBranch>:<destinationBranch>
 
-# Example: Merge remote branch origin/foo into local branch master,
-# without having to checkout foo first: 
-git fetch origin foo:master
+# If you want to allow non-fast-forward updates, then you add a + to the front of the refspec:
+git fetch <remote> +<remoteBranch>:<localBranch>
+
+
+# ============== Examples ==================
+# Merge local branch foo into local branch master,
+# without having to checkout master first.
+# Here `.` means to use the local repository as the "remote":
+git fetch . foo:master
+
+# Merge remote branch origin/foo into local branch foo,
+# without having to checkout foo first:
+git fetch origin foo:foo
 ```
+
+`<refspec>` in the `git fetch [<options>] [<repository> [<refspec>…]]`
+
+The format of a `<refspec>` parameter is an optional plus `+`, followed by the source ref `<src>`, followed by a colon `:`, followed by the destination ref `<dst>`.
+
+The remote ref that matches `<src>` is fetched, and 
+- if `<dst>` is not empty string, the local ref that matches it is fast-forwarded using `<src>`.
+- If the optional plus `+` is used, the local ref is updated even if it does not result in a fast-forward update.
+
 
 
 

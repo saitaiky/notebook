@@ -32,6 +32,8 @@ $ curl 10.96.0.1:8888
 ## Pod to Pod example
 ### Preparations
 
+#### Create a service to be accessed
+
 What's interesting here is that we are telling it to expose a deployment, but it's not really routing traffic to a deployment. A deployment is just a concept. It's an abstraction. It's the pods that need to receive traffic. 
 
 So, really what's happening is in IP tables, on our nodes, we're creating rules via the `kube-proxy` agent. It's going to direct traffic by default to the pods in **a round robin rotating** on Port `8888` through different pod to get the containers.
@@ -48,15 +50,68 @@ $ kubectl scale deployment/httpenv --replicas=5
 $ kubectl expose deployment/httpenv --port 8888
 ```
 
-### Access SH pod
+#### Attach container to access a service
+
+Let's create a container called `shpod` that you can install on your cluster, then it allows you to attach into that container(Essentially get a shell in your cluster).
+
+```yml
+# https://bret.run/shpod.yml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shpod
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: shpod
+  namespace: shpod
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: shpod
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: shpod
+  namespace: shpod
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shpod
+  namespace: shpod
+spec:
+  serviceAccountName: shpod
+  containers:
+  - name: shpod
+    image: bretfisher/shpod
+    imagePullPolicy: Always
+    stdin: true
+    tty: true
+    env:
+    - name: HOSTIP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+
+```
+
+```
+$ kubectl apply -f https://bret.run/shpod.yml
+$ kubectl attach --namespace=shpod -ti shpod 
+```
+### Access the POD
 
 When we create a service, **the control plane** set of set a bunch of commands down to the **kube-proxy**. The **kube-proxy** then added iptable rules to that **node** for the clusterIP. When we sent curl request from pod A to ser, technically went through kube-proxy, hit the clusterIP, and then round robin, one at a time, to each one of these pods on the backend.
 
-The kube-proxy is acting like the load balancer. The single IP for the clusterIP is then essentially natting to backend pods. This is known as **a userspace proxy mode** for kube-proxy.
+The kube-proxy is acting like the load balancer. The single IP for the clusterIP is then essentially NATTing to backend pods. This is known as **a userspace proxy mode** for kube-proxy.
 
 ```bash
-$ kubectl attach --namespace=shpod -ti shpod 
-
 # Store pod IP as environment variable     
 $ IP=$(kubectl get svc httpenv -o go-template --template '{{ .spec.clusterIP }}')
 

@@ -60,7 +60,13 @@ $ kubectl get pods -w
 
 $ kubectl get pods --show-labels   
 NAME                         READY   STATUS    RESTARTS   AGE     LABELS
-my-apache-6f45bc5bd9-68s5j   1/1     Running   0          7m38s   app=my-apache,pod-template-hash=6f45bc5bd9
+littletomcat-79d56f5694-mxd52   1/1     Running   0          70m   app=littletomcat,pod-template-hash=79d56f5694
+littletomcat-79d56f5694-th56d   1/1     Running   0          67m   app=littletomcat,pod-template-hash=79d56f5694
+
+$ kubectl get pods --selector=app=littletomcat -o wide
+NAME                            READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
+littletomcat-79d56f5694-mxd52   1/1     Running   0          69m   10.1.0.48   docker-desktop   <none>           <none>
+littletomcat-79d56f5694-th56d   1/1     Running   0          66m   10.1.0.49   docker-desktop   <none>           <none>
 ```
 
 ### Logs with selector

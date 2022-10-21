@@ -26,10 +26,16 @@ So, **forking is a concept while cloning is a command in Git**. Forking just act
 
 
 ### Fetch VS Pull
-`git pull` is the same thing as a `git fetch` + `git merge`!
-One main point when you want to use git fetch rather than git pull is if your remote branch and your local branch both have changes that neither of the other ones has.
 
-In this case, you want to fetch the remote changes to get them in your local branch and then perform a merge manually. Then you can push that new merge commit back to the remote.
+> TL;DR
+- `git fetch` is a primary command used to download contents from a remote repository.
+- `git pull` is the same thing as a `git fetch` + `git merge`
+
+One main point when you want to use `git fetch` rather than `git pull` is *if your remote branch and your local branch both have changes that **neither of the other ones has** *.
+
+In this case, you want to fetch the remote changes to get them under `refs/remotes/<remote>/` and then perform a merge manually. Then you can push that new merge commit back to the remote.
+
+This operation is safe to run at any time since it never changes any of your local branches under `refs/heads`.
 
 ### Origin vs Upstream Clarification
 - When Clone: Git created a connection for us automatically and gave this connection a short name of **origin** when we clone a project. We can manually set up a connection to the original or source remote repository, though. Typically, we'd name the short name **upstream**.
