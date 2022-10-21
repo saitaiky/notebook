@@ -185,6 +185,22 @@ DNS is **optional as a service**, or an add on, inside your Kubernetes cluster. 
 You **can't** technically create the same pod, or the same service, or the same Deployment, with the same names, **in the same namespace**.
 :::
 
+### How Services calls DNS name?
+
+How does each service find out the address of the other ones?
+-   We do not hard-code IP addresses in the code
+-   We do not hard-code FQDNs in the code, either
+-   We just connect to a service name, and container-magic does the rest
+    (And by container-magic, we mean "a crafty, dynamic, embedded DNS server")
+
+You might wonder in Kubernetes how these things are communicating with each other. 
+
+When you were in Docker containers back with Docker networks, we had not necessarily service names, but they were container names on bridge networks.
+
+Then if you use Docker Compose or Swarm, those were services. They all operated on the names of the services, similar to the name of the container in regular old Docker run.
+
+In Kubernetes, we have services that again, present us with nice, friendly DNS hostnames. Those are stored in **CoreDNS** and it's delivering up the results like a DNS server should.
+
 ### Service in different namespace
 
 We can use hostname to access Services but this only works for Services in the same Namespace. e.g. `curl <hostname>`

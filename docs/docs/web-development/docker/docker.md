@@ -38,6 +38,8 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 ## The Registry: Easy app distribution
 
+> TL;DR - An image registry is largely just a HTTP-based storage system that sends things through HTTP, but it stores them on hard drives
+
 ![The Docker Registry](/img/web-development/docker/intro/registry-basics.excalidraw.png)
 
 1. Called a "Docker registry", or just "registry" for short.
@@ -49,6 +51,34 @@ We’ll learn a lot more about these three innovations in this course, so for no
 1. The registry protocol is efficient. It only pushes and pulls the changed parts (layers), and stores the image in the machines local cache for fast running of new containers.
 
 > Think of the images and the registry as the universal package manager for modern computing, where we may want to build, download, and run any app on any system. This includes building and running on Linux, macOS, Windows, in the cloud, in your datacenter, on a mainframe, or a tiny Raspberry Pi. They all work with Docker.
+
+### How Docker registries work
+
+An example if you pull images from google registry, build it locally with another name and push it to your company internal Docker images registry.
+```bash
+docker pull gcr.io/google-containers/alpine-with-bash:1.0
+docker build -t registry.mycompany.io:5000/myimage:awesome .
+docker push registry.mycompany.io:5000/myimage:awesome
+```
+
+- What happens when we execute `docker run alpine` ?
+- If the Engine needs to pull the `alpine` image, it expands it into `library/alpine`
+- `library/alpine` is expanded into `index.docker.io/library/alpine`
+- The Engine communicates with `index.docker.io` to retrieve `library/alpine:latest`
+- To use something else than `index.docker.io`, we specify it in the image name
+
+
+
+### Things to consider when picking a registry
+
+So, here's a couple of tips. 
+
+- **Look at its build system**. See if it has a way to automate the building of images for you like DockerHub does. 
+- **Multi-user auth and Role-Based Access Control (RBAC)**
+- Storage features
+    - There's **replication** between registries so that you can have a global system of registries if you want to run your own. 
+    - There's **caching** of different registries so that you can have downstream registries and master registries
+    - **Garbage collection** of old images and image layers
 
 ## The Docker Container: Easy app running
 
