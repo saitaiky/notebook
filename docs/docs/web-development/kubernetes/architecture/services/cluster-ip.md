@@ -42,7 +42,7 @@ It's using the deployment as a selector for deciding which pods need to be insid
 
 ```bash
 # Create 5 pods to listen to requests.
-# httpenv docker image: Tiny HTTP server showing the environment variables on TCP 8888
+# httpenv docker image: Tiny HTTP server showing the environment variables in JSON on TCP 8888
 $ kubectl create deployment httpenv --image=bretfisher/httpenv
 $ kubectl scale deployment/httpenv --replicas=5
 
@@ -101,6 +101,7 @@ spec:
 
 ```
 
+shpod is set so that kubectl uses the default namespace as its context, which means you don't have to add -n default to all your kubectl commands.
 ```
 $ kubectl apply -f https://bret.run/shpod.yml
 $ kubectl attach --namespace=shpod -ti shpod 
@@ -111,6 +112,7 @@ When we create a service, **the control plane** set of set a bunch of commands d
 
 The kube-proxy is acting like the load balancer. The single IP for the clusterIP is then essentially NATTing to backend pods. This is known as **a userspace proxy mode** for kube-proxy.
 
+**Using IP address**
 ```bash
 # Store pod IP as environment variable     
 $ IP=$(kubectl get svc httpenv -o go-template --template '{{ .spec.clusterIP }}')
@@ -123,6 +125,17 @@ $ curl -s http://$IP:8888/ | jq .HOSTNAME
 "httpenv-787dd467b4-6jm2x"
 [0.0.0.0] (shpod:default) k8s@shpod ~
 $ curl -s http://$IP:8888/ | jq .HOSTNAME
+"httpenv-787dd467b4-d924j"
+```
+
+**Using DNS name**
+Note that shpod runs in the shpod namespace, so to find a DNS name of a different namespace in the same cluster, you should use `<hostname>.<namespace>` syntax. 
+
+```bash
+curl -s http://httpenv.default:8888 | jq .HOSTNAME
+"httpenv-787dd467b4-6jm2x"
+
+curl -s http://httpenv.default:8888 | jq .HOSTNAME
 "httpenv-787dd467b4-d924j"
 ```
 

@@ -55,10 +55,12 @@ $ kubectl get pods
 $ kubectl get pods --all-namespaces
 $ kubectl get pods --show-labels
 
+# =================== Delete ====================
 $ kubectl delete deployment my-nginx
 
 # You can also delete mutiple multiple objects at the same time. They don't have to be related objects.
 $ kubectl delete service/httpenv service/httpenv-my-np service/httpenv-my-lb deployment/httpenv
+$ kubectl delete pods --selector=app=littletomcat
 ```
 
 
