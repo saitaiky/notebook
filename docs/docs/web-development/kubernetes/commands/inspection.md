@@ -34,9 +34,9 @@ podtemplates                                   v1                               
 
 ## Inspection
 
-### Labels & Selector
+### Labels
 
-Labels are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system. Labels can be used to organize and to select subsets of objects. Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
+Labels are key-value pairs which are attached to pods, replication controller and services. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system. Labels can be used to organize and to select subsets of objects. Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
 
 ```json
 "metadata": {
@@ -56,18 +56,53 @@ Example labels:
 
 ```bash
 # -w like the watch command in linux, will let it sit there and refresh every few seconds.
+# $ kubectl get <resources>
 $ kubectl get pods -w
 
 $ kubectl get pods --show-labels   
 NAME                         READY   STATUS    RESTARTS   AGE     LABELS
 littletomcat-79d56f5694-mxd52   1/1     Running   0          70m   app=littletomcat,pod-template-hash=79d56f5694
 littletomcat-79d56f5694-th56d   1/1     Running   0          67m   app=littletomcat,pod-template-hash=79d56f5694
-
-$ kubectl get pods --selector=app=littletomcat -o wide
-NAME                            READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
-littletomcat-79d56f5694-mxd52   1/1     Running   0          69m   10.1.0.48   docker-desktop   <none>           <none>
-littletomcat-79d56f5694-th56d   1/1     Running   0          66m   10.1.0.49   docker-desktop   <none>           <none>
 ```
+
+### Selector (Label selector)
+
+:::infoSelector vs Label selector
+**Labels don't provide uniqueness**. In general, we can say many objects can carry the same labels. Labels selector are core grouping primitive in Kubernetes. They are used by the users to select a set of objects.
+:::
+
+Selectors are the glue that connect resources to each other. When you create a deployment, for example, a deployment needs to create a ReplicaSet. It uses a selector to find the labels of the things it needs to manage. The same is true of that ReplicaSet finding its pods.
+
+If any pod has `app=rng` selector, it will consider that a part of the pool of pods to round robin these connections to. Other resources, like deployments that create ReplicaSets, they use that same selector to determine which ReplicaSets they manage or they own. So, a service is always looking for pods to send connections to. 
+
+
+```bash
+$ kubectl describe  svc  rng     
+
+Name:              rng
+Namespace:         default
+Labels:            app=rng
+Annotations:       <none>
+Selector:          app=rng  <========= Label Selector 
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.102.198.230
+IPs:               10.102.198.230
+Port:              <unset>  80/TCP
+TargetPort:        80/TCP
+Endpoints:         10.1.0.76:80
+Session Affinity:  None
+Events:            <none>
+```
+
+```
+$ kubectl get pods --selector=app=littletomcat -o wide
+NAME                   READY   STATUS    RESTARTS   AGE    IP          NODE             NOMINATED NODE   READINESS GATES
+rng-576d96c88c-2fzpx   1/1     Running   0          7h     10.1.0.76   docker-desktop   <none>           <none>
+rng-zfngj              1/1     Running   0          109m   10.1.0.88   docker-desktop   <none>           <none>
+```
+
 
 ### Logs with selector
 
@@ -79,7 +114,8 @@ By default, it can only pull up to **five pods** at a time when it uses the **se
 
 ```bash
 # -l: lable
-$ kubectl logs -l  app=my-apache
+# --follow: Streaming the logs
+$ kubectl logs -l  app=my-apache --follow
 ```
 
 :::info Why can't we stream the logs of many pods?
@@ -125,3 +161,6 @@ Lease:
 
 
 
+## Tools for monitoring
+
+> [Official k8s dashboard](https://github.com/kubernetes/dashboard)

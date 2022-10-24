@@ -95,6 +95,8 @@ For a detailed article to explain these 2 concepts, please check the post that I
 
 ### Imperative (Object & command)
 
+> TL;DR - `kubectl create` is imperative because you tell K8s to build a resource and won't record the snapshot of the last building state.
+
 Imperative is easier when you already know the **state** of the object or the resource, and you're just getting started with using the tools.
 
 It's easier for us in our human minds to type these things at the CLI and K8s provides imperative commands and imperative object when use imperative appoarch to interact with K8s. That's one of the biggest drawbacks to this type of work is that it's really hard to get an automated script, or tool, to automatically handle the 
@@ -116,9 +118,12 @@ Like you know, what am I supposed to do here? It's **hard for us to automate tha
 - Think it is a middle ground as you get your feet wet in the YAML specifications that you're going to need to use 
 when you get to the full, declarative object.
 :::
+
 ### Decalarative
 
 **Declarative objects**: `apply -f file.yml` or `dir\`, `diff`
+
+> TL;DR - `kubectl apply` is declarative because you tell K8s how to build a resource and record the snapshot of the last building state in `.metadata.annotations.kubectl.kubernetes.io/last-applied-configuration`. The next time when you update the YAML, K8s will compare the difference between both previous and current version and only apply the difference.
 
 The reasons we don't get started using decalarative method is that, we don't always need. It it adds a little bit of complexity because you have to create this file, and all of the stuff in, it before you can even do it. Using the standard imperative commands makes sense. But, as you start to think about production, and automation, and doing this repetitive update process over and over. At that time, you will need a more declarative approach.
  
@@ -126,6 +131,11 @@ The reasons we don't get started using decalarative method is that, we don't alw
 
 The most important rule is don't mix the approaches (**Imperative Commands**, **Imperative Objects** and **Declarative Objects**). If you create something with run, it's going to be harder later to use the apply to manage that resource. There are little tricks of the trade you can get around with some of these commands to try to edit objects later without screwing them up. But really, if you're going to be doing production, you probably shouldn't start with those run commands on your production server. You should probably think long term and stick with the YAML.
 
+:::caution Don't mix `apply` and `create`
+When you go into production, or anywhere on a cluster server, you want to stick with the same process. 
+- If you're using apply, you should start with apply and stick with the YAML that you're using. 
+- If you're using create commands, then later on you're going to use edit commands to change things.
+:::
 
 ## Decalarative (YAML)
 

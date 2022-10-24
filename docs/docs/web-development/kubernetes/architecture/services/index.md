@@ -72,6 +72,10 @@ Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/k
 Inter service communication within the cluster. For example, communication between the front-end and back-end components of your app.
 :::
 
+:::cautionAccess ClusterIP service in the cluster
+To access a service with only clusterIP enable, you need to access the service in a pod with the same cluster.
+:::
+
 ### NodePort
 
 ![Node Port](/img/web-development/kubernetes/nodePort.webp)
@@ -92,6 +96,11 @@ Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/k
 
 :::cautionA multi-node cluster
 In a single-node cluster this is very straight forward. In a multi-node cluster the internal routing can get more complicated. In that case you might want to introduce **an external load balancer** so you can spread traffic out across all the nodes and be able to handle failures a bit easier.
+:::
+
+:::cautionAccess via localhost / IP address
+- If you're on **Docker Desktop**, you can use **localhost** to access the cluster.
+- If you're using something like **Minikube**, which won't support the localhost name, then you'll have to just get the **IP address** of your Kubernetes machine.
 :::
 
 ### LoadBalancer (Mostly used in cloud)
