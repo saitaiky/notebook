@@ -8,6 +8,10 @@ Other points:
 - In a multi-node setup, masters usually have [taints](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/) preventing pods from running there.
 - (To schedule a pod on this node anyway, the pod will require appropriate [tolerations](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/).)
 
+:::infoReplicaSet vs DaemonSet
+- The "mission" of a replica set is "Make sure that there is the right number of pods matching this spec!"
+- The "mission" of a daemon set is "Make sure that there is a pod matching this spec on each node!"
+:::
 
 ## Quickest way to create a DaemonSet
 

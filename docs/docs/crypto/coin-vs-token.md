@@ -2,7 +2,7 @@
 title: Coin vs Token
 ---
 
-> Youtube: [Crypto Coin vs Token (Differences + Examples)](https://www.youtube.com/watch?v=422HORNUfkU)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/422HORNUfkU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is a Coin?
 
