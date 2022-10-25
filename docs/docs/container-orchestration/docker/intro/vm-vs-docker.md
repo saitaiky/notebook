@@ -5,7 +5,7 @@ sidebar_position: 3
 
 > TL;DR - Let's not even compare them to virtual machines. Because really they're just a process. They're a **process** running on your host operating system. in our case - Linux. 
 
-![Containers-vs-VMs-infra](/img/web-development/docker/intro/SWTM-2060_Diagram_Containers_VirtualMachines_v03.png)
+![Containers-vs-VMs-infra](/img/container-orchestration/docker/intro/SWTM-2060_Diagram_Containers_VirtualMachines_v03.png)
 Source: [Containers vs. virtual machines](https://www.atlassian.com/microservices/cloud-computing/containers-vs-vms)
 
 
@@ -14,7 +14,7 @@ Source: [Containers vs. virtual machines](https://www.atlassian.com/microservice
 
 > TL;DR - The key differentiator between containers and virtual machines is that virtual machines virtualize an entire machine down to the hardware layers and containers only virtualize software layers above the operating system level.
 
-![Containers-vs-VMs](/img/web-development/docker/intro/containers-vs-VMs.jpeg)
+![Containers-vs-VMs](/img/container-orchestration/docker/intro/containers-vs-VMs.jpeg)
 Source: [🔎Julia Evans🔍 - twitter](https://twitter.com/b0rk/status/1237744128450072578)
 
 A natural response when first working with Docker containers is to try and frame them in terms of virtual machines. Oftentimes we hear people describe Docker containers as “lightweight VMs”. 

@@ -21,14 +21,14 @@ The Master is another node with Kubernetes installed in it and is configured as 
 - etc
 
 ### How do they communicate?
-![Master vs Worker](/img/web-development/kubernetes/master-vs-worker.png)
+![Master vs Worker](/img/container-orchestration/kubernetes/master-vs-worker.png)
 Source: [Kubernetes-CKAD](https://bhavyasree.github.io/kubernetes-CKAD/01.kubernetes-architecture/)
 - The master server has the Kube API server and that is what makes it a master. 
 - The worker nodes have to Kubelet agent that is responsible for interacting with a master to provide health information of the worker node and carry out actions requested by the Master on the worker nodes. 
 
 ## Components
 
-![Comsponents of K8s](/img/web-development/kubernetes/components-of-kubernetes.svg)
+![Comsponents of K8s](/img/container-orchestration/kubernetes/components-of-kubernetes.svg)
 
 Source: [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
 
@@ -76,7 +76,7 @@ It includes
 
 However, K8s does not deploy containers directly on the worker notes. The containers are encapsulated into a commonalties object known as pods. 
 
-![pods-relationship](/img/web-development/kubernetes/121-12many-pods.png)
+![pods-relationship](/img/container-orchestration/kubernetes/121-12many-pods.png)
 Source: [Instance-per-Pod Webhook: IaaS-level isolation for Kubernetes Pods](https://medium.com/nttlabs/instance-per-pod-bcbfb3ae2985)
 
 - A pod is a single instance of an application. 

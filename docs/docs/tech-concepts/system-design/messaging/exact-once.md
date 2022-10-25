@@ -116,7 +116,7 @@ In the case of our order and shipping scenario what we need is to exchange messa
 
 Our intuition drove us towards a push approach. You send me a text message when new orders are created. I send you a text message when I've started the packing process and another message when each order is shipped.
 
-On the [at-lease-once](/tech-concepts/system-design/messaging/at-lease-once) page, there are a lot of reliability problems with this push approach. The most basic problem is that sometimes messages are delivered, and sometimes messages are not delivered. Also, there is the uncertainty of not knowing what happened on the other side of the wire.
+On the [at-least-once](/tech-concepts/system-design/messaging/at-least-once) page, there are a lot of reliability problems with this push approach. The most basic problem is that sometimes messages are delivered, and sometimes messages are not delivered. Also, there is the uncertainty of not knowing what happened on the other side of the wire.
 
 ![at-least-once](/img/tech-concepts/system-design/messaging/atotm-at-least-once-06.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
@@ -129,7 +129,7 @@ So the message *push/retry* and *message receive one or more times* is doable bu
 
 ### Maybe pull is better?
 
-Ok, so the push messaging approach is solvable but somewhat complex when it comes to reliable messaging. What about the pull approach? The pull approach is slightly counter-intuitive, but it is typically less complicated to implement. Both the push and pull approaches were covered in detail in [at-lease-once](/tech-concepts/system-design/messaging/at-lease-once) of this series so please refer to that document for more details.
+Ok, so the push messaging approach is solvable but somewhat complex when it comes to reliable messaging. What about the pull approach? The pull approach is slightly counter-intuitive, but it is typically less complicated to implement. Both the push and pull approaches were covered in detail in [at-least-once](/tech-concepts/system-design/messaging/at-least-once) of this series so please refer to that document for more details.
 
 The push and pull approaches provide ways for implementing at-least-once delivery while the commonly used synchronous HTTP REST approach without retry offers at-most-once delivery, as discussed in [at-most-once](/tech-concepts/system-design/messaging/at-most-once).
 

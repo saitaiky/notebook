@@ -60,7 +60,7 @@ These three service types are additive, each one creates the ones above it:
 
 ### ClusterIP (Default)
 
-![ClusterIP](/img/web-development/kubernetes/clusterIP.webp)
+![ClusterIP](/img/container-orchestration/kubernetes/clusterIP.webp)
 
 Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/kubernetes-service-publishing/)
 
@@ -78,7 +78,7 @@ To access a service with only clusterIP enable, you need to access the service i
 
 ### NodePort
 
-![Node Port](/img/web-development/kubernetes/nodePort.webp)
+![Node Port](/img/container-orchestration/kubernetes/nodePort.webp)
 
 Source: [Kubernetes – Service Publishing](https://theithollow.com/2019/02/05/kubernetes-service-publishing/)
 > If we access the IP Address of one of our nodes (`10.10.50.51:30001`or`10.10.50.52:30001`) with the port we specified, we can see our nginx page.
@@ -226,7 +226,7 @@ As you get larger, you will possibly make **multiple namespaces** for different 
 
 ## Endpoints
 
-![ClusterIP](/img/web-development/kubernetes/architecture/endpoints.png)
+![ClusterIP](/img/container-orchestration/kubernetes/architecture/endpoints.png)
 
 Source: [Services and Endpoints](https://storage.googleapis.com/static.ianlewis.org/prod/img/753/endpoints.png)
 

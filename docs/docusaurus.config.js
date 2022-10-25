@@ -156,6 +156,11 @@ const config = {
             items: [
               {
                 type: 'doc',
+                docId: 'container-orchestration/index',
+                label: 'Container Orchestration',
+              },
+              {
+                type: 'doc',
                 docId: 'web-development/index',
                 label: 'Web Development',
               },

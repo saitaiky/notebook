@@ -5,7 +5,7 @@ sidebar_position: 2
 
 ## Deployment, ReplicaSet, Pod
 
-![Comsponents of K8s](/img/web-development/kubernetes/ops/deployment-replicas-pod.jpeg)
+![Comsponents of K8s](/img/container-orchestration/kubernetes/ops/deployment-replicas-pod.jpeg)
 
 Source: [Manning - 6 Scaling applications across multiple Pods with controllers](https://livebook.manning.com/book/learn-kubernetes-in-a-month-of-lunches/chapter-6/7)
 
@@ -41,7 +41,7 @@ When we typed`kubectl create deployment`:
     - The **ReplicaSet controller** ensure the specified number of Pod “replicas” are running at any one time.
     -  If you created a **Replication Controller** for a Pod and specified **3 replicas**, it will create **3 Pods** and will continuously monitor them. If one Pod dies then the Replication Controller will replace it to maintain a total count of 3. 
 
-![Kubernetes vs Docker Swarm - Overview Docker Swarm](/img/web-development/kubernetes/kubernetes_replication_controller.gif)
+![Kubernetes vs Docker Swarm - Overview Docker Swarm](/img/container-orchestration/kubernetes/kubernetes_replication_controller.gif)
 Source: [Learn the Kubernetes Key Concepts in 10 Minutes](https://omerio.com/2015/12/18/learn-the-kubernetes-key-concepts-in-10-minutes/)
 
 ### Commands 

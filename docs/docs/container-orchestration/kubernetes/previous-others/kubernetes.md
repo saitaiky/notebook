@@ -79,10 +79,10 @@ Use raw GitHub upstream version of Kubernetes only for **learning how K8s works*
 They're both container orchestrators that run on top of a container runtime ([check this for more explanation about container runtime](http://localhost:3000/web-development/docker/intro/why-docker/)).
 
 Swarm architecture:
-![swarm-architecture](/img/web-development/kubernetes/swarm-architecture-1800x1085.png)
+![swarm-architecture](/img/container-orchestration/kubernetes/swarm-architecture-1800x1085.png)
 
 K8s architecture:
-![k8s-notes-illustration](/img/web-development/kubernetes/k8s-nodes_Illustration-1800x1307.png)
+![k8s-notes-illustration](/img/container-orchestration/kubernetes/k8s-nodes_Illustration-1800x1307.png)
 
 Source: [Kubernetes vs Docker Swarm](https://platform9.com/blog/kubernetes-docker-swarm-compared/)
 ### Advantages of Swarm

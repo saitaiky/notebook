@@ -25,7 +25,7 @@ Docker Engine v1.12.0 and later allow developers to deploy containers in Swarm m
 
 A service, which can be specified declaratively, consists of tasks that can be run on Swarm nodes. Services can be replicated to run on multiple nodes. In the replicated services model, ingress load balancing and internal DNS can be used to provide highly available service endpoints. (Source: [Docker Docs: Swarm mode](https://docs.docker.com/engine/swarm/key-concepts/))
 
-![Kubernetes vs Docker Swarm - Overview Docker Swarm](/img/web-development/docker/docker-architecture-1024x617.png)
+![Kubernetes vs Docker Swarm - Overview Docker Swarm](/img/container-orchestration/docker/docker-architecture-1024x617.png)
 
 As can be seen from the figure above, the Docker Swarm architecture consists of managers and workers. The user can declaratively specify the desired state of various services to run in the Swarm cluster using YAML files. Here are some common terms associated with Docker Swarm:
 
@@ -45,7 +45,7 @@ In a swarm, it replaces the Docker run command, and allows us to add extra featu
 `docker service create --replicas 2 --name mynginx nginx`
 - Task: A task is an atomic unit of a Service scheduled on a worker node. In the example above, two tasks would be scheduled by a master node on two worker nodes (assuming they are not scheduled on the Master itself). The two tasks will run independently of each other.
 
-![Docker Build, Ship and Run](/img/web-development/docker/services-diagram.png)
+![Docker Build, Ship and Run](/img/container-orchestration/docker/services-diagram.png)
 Source: [Services, tasks, and containers](https://docs.docker.com/engine/swarm/how-swarm-mode-works/services/#services-tasks-and-containers)
 
 In this example, we've created a service using `docker service create` to spin up an Nginx service. But we've told it that we'd like three replicas. So it will use the manager nodes to decide where in the swarm to place those. By default, it tries to spread them out. Each node would get its own copy of the Nginx container up to the three replicas.
@@ -56,7 +56,7 @@ The underlying logic of Docker swarm mode is a general purpose scheduler and orc
 
 The diagram below shows how swarm mode accepts service create requests and schedules tasks to worker nodes.
 
-![Swarm](/img/web-development/docker/Docker-swarm.webp)
+![Swarm](/img/container-orchestration/docker/Docker-swarm.webp)
 Source: [Services, tasks, and containers](https://lab.wallarm.com/is-docker-swarm-going-to-change-how-we-do-microservices-apis-a7b2782a3dea/)
 
 With Swarm, there're a bunch of background services, such as the scheduler, and the dispatcher, and the allocator and orchestrator, that help make decisions around what the workers should be executing at any given moment.
@@ -69,7 +69,7 @@ Then if there's any reconciliation to happen, they will make those changes, such
 
 ## The raft consensus group
 
-![raft-consensus-group](/img/web-development/docker/raft-consensus-group.png)
+![raft-consensus-group](/img/container-orchestration/docker/raft-consensus-group.png)
 Source: [The Docker Swarm architecture](https://www.oreilly.com/library/view/learn-docker/9781838827472/170657e5-d4d2-413e-ab6f-0b7abd15a086.xhtml)
 ### What is Raft
 Raft is a distributed consensus algorithm designed to be understandable and durable. In general, the algorithm is useful when we want to order the events that happen in a distributed system on different nodes.

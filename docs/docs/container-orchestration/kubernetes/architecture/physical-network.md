@@ -4,7 +4,7 @@ sidebar_position: 2
 ---
 
 
-![physical-network](/img/web-development/kubernetes/architecture/physical-network.png)
+![physical-network](/img/container-orchestration/kubernetes/architecture/physical-network.png)
 
 Source: [A Reference Architecture for Deploying WSO2 Middleware on Kubernetes](https://medium.com/containermind/a-reference-architecture-for-deploying-wso2-middleware-on-kubernetes-d4dee7601e8e)
 

@@ -25,7 +25,7 @@ Go to: [labs.play-with-docker.com](https://labs.play-with-docker.com/) and log i
 
 Once you're in a new session (with the countdown timer at the top), click `Add New Instance` to create a new shell that has access to the Docker CLI and Docker Engine (daemon).
 
-![Add new PWD instance](/img/web-development/docker/intro/pwd-add-new-instance.png)
+![Add new PWD instance](/img/container-orchestration/docker/intro/pwd-add-new-instance.png)
 
 You should now see a shell that has access to some basic Linux commands, as well as the Docker CLI.
 
@@ -68,7 +68,7 @@ Server: Docker Engine - Community
 
 We'll get back two sets of versions, one for the "Client", which is the command-line binary we just ran, and one for the "Server", which is the Docker Engine background daemon that our Client talks to over the Docker API. In this case, the Docker Engine is running on the same machine as our Client, but it could also be running on a different machine, and we talk to it over Sockets, TCP, or SSH.
 
-![Docker Client and Server](/img/web-development/docker/intro/docker-client-server.excalidraw.png)
+![Docker Client and Server](/img/container-orchestration/docker/intro/docker-client-server.excalidraw.png)
 
 ## Run an image from Docker Hub
 
@@ -165,7 +165,7 @@ daf459a2c121   httpd     "httpd-foreground"   About a minute ago   Up About a mi
 
 These two Apache containers share nothing in common except the image and the host IP they are "published" to. The two containers can have their own Apache running on port 80 at the same time, because each container gets a virtual ethernet interface, or `veth`. The `-p` tells the Linux host's `iptables` to route the traffic from `host-ip:8800` and `host-ip:8801` to the respective container's `container-ip:80`.
 
-![Two Apache containers](/img/web-development/docker/intro/pwd-two-httpd.excalidraw.png)
+![Two Apache containers](/img/container-orchestration/docker/intro/pwd-two-httpd.excalidraw.png)
 
 From here we can run many more containers, we can use `docker logs <id>` to see the output of each container, and we can use `docker exec <id>` to run additional commands inside the container.
 

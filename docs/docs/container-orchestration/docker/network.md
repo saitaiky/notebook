@@ -72,7 +72,7 @@ The **Bridge** network assigns IPs in the range of 172.17.x.x to the containers 
 - Connectivity to external network.
 - Connectivity to host machine
 
-![Default network](/img/web-development/docker/default-network.png)
+![Default network](/img/container-orchestration/docker/default-network.png)
 Source: [Docker Networking](https://towardsdatascience.com/docker-networking-919461b7f498)
 
 
@@ -84,7 +84,7 @@ docker network create \
 	user-def
 ```
 
-![Seperated network](/img/web-development/docker/seperated-network.png)
+![Seperated network](/img/container-orchestration/docker/seperated-network.png)
 Source: [Docker Networking](https://towardsdatascience.com/docker-networking-919461b7f498)
 
 Can't have the same port at the host level

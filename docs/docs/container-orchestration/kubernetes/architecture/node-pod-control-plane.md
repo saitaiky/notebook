@@ -48,7 +48,7 @@ When we talk about the masters, I like to refer to it as the control plane becau
 
 ## POD
 
-![physical-network](/img/web-development/kubernetes/architecture/pod.png)
+![physical-network](/img/container-orchestration/kubernetes/architecture/pod.png)
 
 Source: Weaveworks
 

@@ -9,7 +9,7 @@ sidebar_position: 0
 
 # What is Docker? Three Major Innovations
 
-![Docker Friends](/img/web-development/docker/intro/docker-friends.png)
+![Docker Friends](/img/container-orchestration/docker/intro/docker-friends.png)
 
 Docker was not the inventor of containers, but it made them easier to use with the three steps to creating and running them:
 
@@ -19,7 +19,7 @@ Docker was not the inventor of containers, but it made them easier to use with t
 
 Docker calls this the "Build, Ship and Run" lifecycle.
 
-![Docker Build, Ship and Run](/img/web-development/docker/intro/build-ship-run.excalidraw.png)
+![Docker Build, Ship and Run](/img/container-orchestration/docker/intro/build-ship-run.excalidraw.png)
 
 These are the basics that all other container technology is built on. Kubernetes, Swarm, Helm and [most the cloud native tooling](https://landscape.cncf.io/) assumes you're using these three innovations.
 
@@ -27,7 +27,7 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 ## The Docker Image: Universal app packaging
 
-![The Docker Image](/img/web-development/docker/intro/image-basics.excalidraw.png)
+![The Docker Image](/img/container-orchestration/docker/intro/image-basics.excalidraw.png)
 
 1. It’s called a "Docker image", the standards name "OCI Image", or just "image" for short.
 2. Docker uses a list instructions, called a Dockerfile, which is similar to a shell script, and it layers those instructions on top of each other until it has everything you need to run the application, including all its system dependencies.
@@ -40,7 +40,7 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 > TL;DR - An image registry is largely just a HTTP-based storage system that sends things through HTTP, but it stores them on hard drives
 
-![The Docker Registry](/img/web-development/docker/intro/registry-basics.excalidraw.png)
+![The Docker Registry](/img/container-orchestration/docker/intro/registry-basics.excalidraw.png)
 
 1. Called a "Docker registry", or just "registry" for short.
 1. This innovation was the key to connecting our building of images on one machine to running our containers on another.
@@ -82,7 +82,7 @@ So, here's a couple of tips.
 
 ## The Docker Container: Easy app running
 
-![The Docker Container](/img/web-development/docker/intro/container-basics.excalidraw.png)
+![The Docker Container](/img/container-orchestration/docker/intro/container-basics.excalidraw.png)
 
  1. Called a "Docker container", the standards name "OCI Container", or just "container" for short. It's **not** called a "docker", or "dockers". Docker is many things.
  2. Docker will launch your container image into a new running container and use the command you specified in the Dockerfile to start it.

@@ -17,7 +17,7 @@ Docker *needed* to exist because the old ways were full of friction and complexi
 
 ## The problem of isolation
 
-![90s and 2000s: few servers with many apps](/img/web-development/docker/intro/isolation-bare-metal.excalidraw.png)
+![90s and 2000s: few servers with many apps](/img/container-orchestration/docker/intro/isolation-bare-metal.excalidraw.png)
 
 Long ago (decades) it was common for sysadmins to just need a few bare metal servers, and combine a bunch of unrelated software services on each. Physical servers were expensive, with long lead times to obtain more. Any one server may run several or dozens of unrelated business-related processes in order to 1. reduce the number of systems each sysadmin needed to manage and 2. get better utilization out of each expensive server.
 
@@ -25,7 +25,7 @@ The problem was each of these systems was quite complex, and we had to strike a 
 
 Over the years (2000s) the pace of software updates started to quicken, and the internet fed this fire. Updates were coming quarterly rather than yearly. Virtual machines (VMs) became a reality and in just a few years the number of systems each of us were managing exploded. We could no longer handle one-at-a-time systems management. We had to create a whole new set of tools to manage them all, including Puppet and Chef.
 
-![2000s-2010s: many servers with a few apps](/img/web-development/docker/intro/isolation-vm-cloud.excalidraw.png)
+![2000s-2010s: many servers with a few apps](/img/container-orchestration/docker/intro/isolation-vm-cloud.excalidraw.png)
 
 Once we got a handle on our sprawling VM count, we **started to operationalize around the "one app, one VM" model**. You might install the PHP app on one VM, and the Python app on another one. They got their own resources and lifecycle. The motivation here was multi-faceted: Using the OS as the isolation boundary meant we could corelate the cost, downtime, creation/destruction, and management of each VM around the app (and customers) it was designed to serve. OSs were sized for the few (or one) app they were designed to run.
 
@@ -37,7 +37,7 @@ But OSs were never designed for this. They were heavy, complex, and not designed
 
 By the 2010s, many, if not most IT organizations were starting to drown in maintenance. For every new VM, OS, and custom app configuration they had to support, there was less time left for innovation and new projects.
 
-![More Maintenance, Less Innovation](/img/web-development/docker/intro/more-maintenance-less-innovation.png)
+![More Maintenance, Less Innovation](/img/container-orchestration/docker/intro/more-maintenance-less-innovation.png)
 
 Large tech companies like Netflix and Google saw these patterns of waist and started using Linux, BSD, and Solaris features in the 2000s to create early-day isolation between apps on the same system. That way they didn't need to spin up a new VM for a new app, they could just isolate it on an existing system without fear of affecting other apps. They also starting creating custom OS builds that were purpose-fit for only managing these isolation's, rather than being a full-featured OS with hundreds of tools pre-installed.
 
@@ -53,13 +53,13 @@ They started realizing the benefits of this design, including:
 
 Docker made it easy for all of us to adopt these new ideas of what a "container" could be. It allows us to still isolate our apps, but without all the unnecessary VM sprawl. Our new design looks much like the original 90's pre-VM design, but with the benefit of app isolation:
 
-![Today: Container isolation](/img/web-development/docker/intro/isolation-docker.excalidraw.png)
+![Today: Container isolation](/img/container-orchestration/docker/intro/isolation-docker.excalidraw.png)
 
 ## The problem of environments
 
 Have you ever heard of the [Works on My Machine](https://blog.codinghorror.com/the-works-on-my-machine-certification-program/) (WOMM) problem?
 
-![WOMM Badge](/img/web-development/docker/intro/codinghorror-works-on-my-machine.png)
+![WOMM Badge](/img/container-orchestration/docker/intro/codinghorror-works-on-my-machine.png)
 
 (WOMM Badge Copyright: [Jeff Atwood](https://codinghorror.com/))
 
@@ -75,7 +75,7 @@ Combine that with the proliferation of software languages, dependency managers, 
 
 Docker's founder Solomon Hykes called this the "Matrix from Hell", and it's more common then ever.
 
-![Matrix from Hell](/img/web-development/docker/intro/matrix-from-hell.png)
+![Matrix from Hell](/img/container-orchestration/docker/intro/matrix-from-hell.png)
 
 **One of the design goals of Docker images and containers was to create a new level of abstraction**, a contract between the developers build instructions for the app (the Dockerfile) and the environment it runs in (the container runtime, in this case Docker Engine.)
 
@@ -89,7 +89,7 @@ Common examples of container runtimes are **runC, containerd, Docker, and Window
 
 Ideally, if you've containerized an app, the matrix looks like this:
 
-![Matrix from Containers](/img/web-development/docker/intro/matrix-from-containers.png)
+![Matrix from Containers](/img/container-orchestration/docker/intro/matrix-from-containers.png)
 
 We've reduced the N+1 number of environments for how to build and run our software to 1.
 
@@ -100,7 +100,7 @@ Every major shift in computing has been motivated by speed. Not necessarily the 
 
 From the mainframes of the 70s to the PCs of the 90s. From the virtualization of the 00s to the cloud of the 10s. It was motivated by getting human ideas into code, and into the customers hands as fast as possible, then repeat.
 
-![Major infrastructure shifts](/img/web-development/docker/intro/major-infrastructure-shifts.png)
+![Major infrastructure shifts](/img/container-orchestration/docker/intro/major-infrastructure-shifts.png)
 
 By combining the ideas of the image, registry, and container, Docker (and the tooling it inspired) improves the time-to-complete in nearly every part of the software lifecycle:
 
