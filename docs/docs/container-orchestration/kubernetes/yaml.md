@@ -150,3 +150,27 @@ APIServer dry-run is convenient because it lets you see how the object would be 
 ```bash
 $ kubectl delete -f just-a-pod.yaml
 ```
+
+
+## Update YAML partially
+
+We could use `kubectl edit deployment worker`, but we could also use `kubectl patch` with the exact YAML shown before
+
+```bash
+$ kubectl patch deployment worker -p "
+spec:
+  template:
+    spec:
+      containers:
+      - name: worker
+        image: dockercoins/worker:v0.1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  minReadySeconds: 10
+"
+$ kubectl rollout status deployment worker
+$ kubectl get deploy -o json worker |
+      jq "{name:.metadata.name} + .spec.strategy.rollingUpdate"
+```      
