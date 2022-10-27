@@ -56,17 +56,24 @@ So, I always encourage you to stick with the defaults as much as possible to rei
 :::
 
 
-## CNI
+## Container Network Interface (CNI)
 
-- Most Kubernetes clusters use CNI "plugins" to implement networking
-- When a pod is created, Kubernetes delegates the network setup to these plugins (it can be a single plugin, or a combination of plugins, each doing one task)
-- Typically, CNI plugins will:
-    - allocate an IP address (by calling an IPAM(IP address management) plugin)
-    - add a network interface into the pod's network namespace
-    - configure the interface as well as required routes, etc.
+> TL;DR - Networking in K8s is not a K8s thing, instead CNI defines the specification for networking then the network plugin implement this.
 
+A CNI is a specification to configure network interfaces in Linux containers, which concerned with connecting(add) and disconnecting(delete) containers to networks.
 
-:::info3 areas to think of when choosing a CNI 
+The reason to have CNI is because networking can be highly environment specific. Different projects seek to solve the networking challenges - with potential overlap. Thus, it makes sense to have standard for a common interface
+
+### Under the hood
+
+Most Kubernetes clusters use CNI "plugins" to implement networking. When a pod is created, Kubernetes delegates the network setup to these plugins (it can be a single plugin, or a combination of plugins, each doing one task). For example, one CNI can do the routing to send traffic to the current POD, the other can do the network security policy to prevent traffic from certain regions. 
+
+Typically, CNI plugins will:
+- allocate an IP address (by calling an IPAM(IP address management) plugin)
+- add a network interface into the pod's network namespace
+- configure the interface as well as required routes, etc.
+
+### 3 factors to choose a CNI 
 
 - The "pod-to-pod network" or "pod network":
     - provides communication between pods and nodes
@@ -77,4 +84,3 @@ So, I always encourage you to stick with the defaults as much as possible to rei
 - Network policies (That feature is not available in every CNI):
     - provide firewalling and isolation
     - can be bundled with the "pod network" or provided by another component
-:::

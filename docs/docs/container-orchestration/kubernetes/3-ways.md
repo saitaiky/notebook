@@ -7,7 +7,7 @@ sidebar_position: 2
 Generators you can think of like templates. They essentially create the spec to apply to the Kubernetes cluster based on your command line options.
 
 
-You think of commands like `run`, and `expose`, and `create`. They often will have generators behind them that give the template necessary with all the fields while leaving some of **the more advanced settings up to defaults** that you're not necessarily specifying at the command line. 
+`run`, and `expose`, and `create` commands use "generators" because the API only accepts YAML (actually JSON). That give the template necessary with all the fields while leaving some of **the more advanced settings up to defaults** that you're not necessarily specifying at the command line. 
 
 These generators are different for each type of thing you're creating. Whether it's a `service`, or `deployment`, or `a job`, or `a cron job`. Those generators can actually change over time as each version of Kubernetes comes out.
 
@@ -127,6 +127,8 @@ when you get to the full, declarative object.
 
 The reasons we don't get started using decalarative method is that, we don't always need. It it adds a little bit of complexity because you have to create this file, and all of the stuff in, it before you can even do it. Using the standard imperative commands makes sense. But, as you start to think about production, and automation, and doing this repetitive update process over and over. At that time, you will need a more declarative approach.
  
+The reason we use declarative is that it's what you do to make it automated. You can't really automate a solution like this unless you have full declarative approach to it.
+
 ### Don't mix the three approaches
 
 The most important rule is don't mix the approaches (**Imperative Commands**, **Imperative Objects** and **Declarative Objects**). If you create something with run, it's going to be harder later to use the apply to manage that resource. There are little tricks of the trade you can get around with some of these commands to try to edit objects later without screwing them up. But really, if you're going to be doing production, you probably shouldn't start with those run commands on your production server. You should probably think long term and stick with the YAML.
