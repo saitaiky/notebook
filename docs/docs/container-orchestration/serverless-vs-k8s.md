@@ -73,5 +73,4 @@ As we have mentioned in a [previous post](https://chaordic.io/blog/from-punch-c
 
 Things change quickly: in 2018, AWS Serverless was not yet ready for prime-time other than for a small number of use-cases. We did our first forays into Serverless in 2017, but even our 2018 recommendation would have had a very different balance than today.
 
-But the relentless pace with which AWS has improved its services across the board makes Serverless the go-to infrastructure choice for any organisation that wants to move fast in 2020.\
-If you liked this post, [please feel free to subscribe to our newsletter](https://chaordic.io/blog/serverless-vs-kubernetes/#newsletter) to get posts and insights like this straight into your mailbox!
+But the relentless pace with which AWS has improved its services across the board makes Serverless the go-to infrastructure choice for any organisation that wants to move fast in 2020.
