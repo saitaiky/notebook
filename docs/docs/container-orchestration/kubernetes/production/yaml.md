@@ -2,7 +2,6 @@
 title: YAML
 ---
 
-
 ## YAML refresher
 
 - It's technically a superset of JSON, designed for humans
@@ -16,9 +15,8 @@ title: YAML
     - Array/Lists
     - Dictionary/Maps
 
-
-
 Each file can contain one or more manifests. The manifest describes one resource object per manifest.
+
 ```yaml
 apiVersion:  # find with `kubectl api-versions`
 kind:        # find with `kubectl api-resources`
@@ -31,14 +29,23 @@ metadata:
 spec:
 ```
 
+:::dangerAlways look at the YAML information before you apply it to your system
+Because `kubectl apply` is the new `curl | sh`, so essentially, treat the YAML like it's a Superuser, because it can..
+- starts bitcoin miners on the whole cluster
+- It could hide resources in a non-default namespace so that you didn't see them.
+- it could hide things in the system namespace so you wouldn't really pay attention to that if you're just using a default. 
+- It could do things like bind mount host file systems as root.
+- It could insert SSH keys into the root account of the physical server.
+- It has root on the host machine.It could encrypt data and cause you to have a ransomware situation.
+:::
 
-It turns out that the API version in your YAML file has two parts to it. The first part is what group it is in. And then the second part is the version of that.
+The API version in your YAML file has two parts to it. The first part is what group it is in. And then the second part is the version of that.
 
 APIGROUP: API group is blank, which means it's using the root of the API. It's not an extension.
 
-
 ```bash
 $ kubectl api-resources
+
 NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
 pods                              po           v1                                     true         Pod
 podtemplates                                   v1                                     true         PodTemplate
@@ -46,14 +53,12 @@ replicationcontrollers            rc           v1                               
 ...
 ```
 
-
-
 ```bash
 $ kubectl api-versions 
 
 # Show all API groups
-# if you see some of these support multiple versions at the same time, and this is for backwards compatibility.
-# e.g. if you need storage API, you can use storage.k8s.io/v1 or storage.k8s.io/v1beta1
+# Multiple versions at the same time is for backwards compatibility.
+# e.g. below you can use both storage.k8s.io/v1 or storage.k8s.io/v1beta1 for storage API
 admissionregistration.k8s.io/v1
 apiextensions.k8s.io/v1
 apiregistration.k8s.io/v1

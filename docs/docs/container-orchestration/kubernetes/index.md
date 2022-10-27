@@ -19,34 +19,6 @@ Kubernetes essentially is **a set of APIs** that run on apps in containers to ma
     - Similar to the concept of Linux distributions. In the Linux world, there's the same Linux kernel running on all these different distributions, whether it's Ubuntu, or CentOS, or Amazon Linux. All these different distributions package up their own set of tools that a lot of us prefer one or the other. That's the same way with Kubernetes now.
     - All of those are providing a upstream version of the pure, open source Kubernetes. Then they layer on top of it all their own extra stuff to your benefit.
 - Provide a set of those APIs and command line tools to deploy and maintain the same server infrastructure
-## Not every solution needs orchestration 
-
-Orchestration is definitely increasing in popularity, but it's not the only way to run containers. We have lots of options:
-- `docker runs`
-- `docker compose`
-- There're also other platform offerings and services. You can run containers on single nodes in AWS without orchestration. By using the features of that platform to create a similar like abstraction as orchestration, where they maybe use **auto scaling groups**, **Elastic Load Balancing**, and a lot of other things that we've all used for over a decade to manage our application deployments. They have such a refined system that they just don't see a lot of benefits out of completely changing all that to orchestration.
-## Do we need orchestration?
-
-One of the simple formulas I use for whether or not to use orchestration, is 
-
->  Servers + Change Rate = Benefit of orchestration
-
-- Servers: The number of servers that I'm going to need for particular environment
-- Change Rate: The change rate of my applications, or the environment itself
-- When you're starting out, you may only need a single server, or just a few servers
-- if you're not changing your applications very often (e.g. you're only changing them once a month or less), then orchestration, and the effort involved in deploying it, managing it, securing it, may be unnecessary at your state.   Especially if you're a **solo developer or just a very small team**.
-
-That's where things like Elastic Beanstalk, or Heroku, the application deployment platform, that's where a lot of those start to shine as alternatives to doing your own orchestration. 
-### Options to do orchestration
-
-- Swarm
-- Kubernetes
-- ECS on AWS (Cloud) 
-- Foundry, or Mesos and Marathon (Cloud)
-
-If you want to go for **multicloud**, then you may not want to use Cloud specific offerings like ECS So, that was sort of a legacy solution that Amazon still supports and it's still a neat option, but only if you're specific to AWS and that's the only place you ever plan to deploy containers. 
-
-In real world senario, it is usally something like - I need something that's hybrid. Meaning that I can run it in my data center or in multicloud. It can't just run in one location only. That comes down to usually **Swarm** or **Kubernetes** because those're two solutions that are the most popular container orchestrators. They run on every cloud, and in data centers, and even small environments possibly like IoT.
 
 ## K8s distribution
 
