@@ -1,0 +1,224 @@
+---
+title: "Map, Filter, Reduce"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+## Functional Programming
+
+- [Python Functions and Functional Programming](https://www.dataquest.io/blog/introduction-functional-programming-python/)
+- [pythontips](http://book.pythontips.com/en/latest/lambdas.html)
+
+**Functional programming** is all about **expressions**. We may say that the Functional programming is an **expression oriented programming**.
+
+
+Expression oriented functions of Python provides are:
+
+1. map(function_to_apply, iterable_of_elements) <-**First class function**
+2. filter(function_to_apply, iterable_of_elements) <-**First class function**
+3. reduce(function_to_apply, iterable_of_elements) <-**First class function**
+4. lambda
+5. list comprehension
+
+
+## Map, Filter and Reduce
+
+These are three functions which facilitate a **functional approach** to programming. These functions are all convenience features in that they can be written in Python fairly easily.
+
+** If map & filter do not appear beautiful to you then you can read about list/dict/tuple comprehensions.**
+
+### Map
+One of the common things we do with list and other sequences is applying an operation to each item and collect the result.
+
+`map(aFunction, iterableSequence))`
+
+```python
+# Pseudocode for map.
+def map(func, seq):
+    # Return `Map` object with the function applied to every element.
+    return Map(
+        func(x)
+        for x in seq
+    )
+```
+
+#### Map vs for-loop
+- performance benefit: It is usually faster than a manually coded for loop.
+- Given multiple sequence arguments, it sends items taken form sequences in parallel as distinct arguments to the function. (See example 3)
+
+
+```python
+# Example 1: Classic for-loop vs Map
+
+# For loop version
+items = [1, 2, 3, 4, 5]
+squared = []
+for i in items:
+    squared.append(i**2)  
+print(squared)
+
+# Map version
+# Map allows us to implement this in a much simpler and nicer way.
+items = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, items))
+print(squared)
+
+[1, 4, 9, 16, 25]
+[1, 4, 9, 16, 25]
+```
+
+Most of the times we use lambdas with map so I did the same. Instead of a list of inputs we can even have a list of functions!
+
+
+```python
+#Example 2: List of functions as aSequence:
+
+def multiply(x):
+    return (x*x)
+
+def add(x):
+    return (x+x)
+
+funcs = [add, multiply]
+for i in range(5):
+    value = list(map(lambda x: x(i), funcs))
+    print(value)
+
+[0, 0]
+[2, 1]
+[4, 4]
+[6, 9]
+[8, 16]
+```
+```python
+# Example 3: pow function takes two arguments on each call.
+
+# We need to create a for loop to do such task
+print(pow(2,10))
+print(pow(3,11))
+print(pow(4,12))
+print("-"*50)
+
+# We can actually use map to input the pair of parameters
+print(list(map(pow, [2, 3, 4], [10, 11, 12])))
+
+"""
+If function is None, the identity function is assumed;
+if there are multiple arguments, map() returns a list consisting of tuples
+containing the corresponding items from all iterables
+"""
+print(map(None, [2, 3, 4], [10, 11, 12]))
+
+1024
+177147
+16777216
+--------------------------------------------------
+[1024, 177147, 16777216]
+<map object at 0x7fbb9c649278>
+```
+### Filter
+
+As the name suggests, filter creates a list of elements for which a function returns **true**. The filter resembles a for loop but it is a builtin function and faster.
+
+`filtered = filter(fun, sequence) `
+```python
+# Pseudocode for filter.
+def filter(evaluate, seq):
+    # Return `Map` object with
+    # the evaluate function applied to every
+    # element.
+    return Map(
+        x for x in seq
+        if evaluate(x) is True
+    )
+```
+
+```python
+# Example 1:
+
+number_list = range(-5, 5)
+print(list(number_list))
+
+less_than_zero = list(filter(lambda x: x < 0, number_list))
+print(less_than_zero)
+
+[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+[-5, -4, -3, -2, -1]
+```
+
+
+```python
+# Example 2: finding intersection of two lists by using filter()
+
+a = [1,2,3,5,7,9]
+b = [2,3,5,6,7,8]
+
+# Step 1: x equals an item from list b
+# Step 2: check item x is in a list.
+print(list(filter(lambda x: x in a, b)))
+
+[2, 3, 5, 7]
+```
+### Reduce
+
+The `reduce()` function takes in an iterable, and then reduces the iterable to a single value. Reduce is different from `filter()` and `map()`, because `reduce()` takes in a function that has two input values.
+
+e.g. `lambda x, y: x * y`
+
+![s5_reduce_function](/img/software-development/programming/python/s5_reduce_function.png)
+
+```python
+# Example 1: For-loop vs Reduce
+
+from functools import reduce
+
+product = 1
+list = [1, 2, 3, 4]
+
+for num in list:
+    product = product * num
+print(product)
+
+# Now let's try it with reduce:
+# reduce() call is much more concise and performs significantly better than the for loop.
+product = reduce((lambda x, y: x * y), [1, 2, 3, 4])
+print(product) # (((1 * 2) * 3) * 4) => 24
+
+24
+24
+```
+At each step, reduce passes the current product or division, along with the next item from the list, to the passed-in lambda function. By default, *the **first item** in the sequence initialized the starting value*.
+
+An interesting note to make is that you do not have to operate on the second value in the lambda expression. For example, you can write a function that always returns the first value of an iterable:
+
+```python
+# By convention, we add `_` as a placeholder for an input
+# we do not use.
+first_value = reduce(lambda a, _: a, list)
+print(first_value)
+1
+```
+
+
+### Lambdas
+Lambdas are one line functions. They are also known as **anonymous functions**, if we didn’t assign lambda to a variable name. You might want to use lambdas when you don’t want to use a function twice in a program. They are just like normal functions and even behave like them.
+
+`lambda argument: manipulate(argument)`
+
+```python
+# Example 1:
+add = lambda x, y: x + y
+
+print(add(3, 5))
+# Output: 8
+```
+
+
+```python
+# Example 2: List sorting
+a = [(1, 2), (4, 1), (9, 10), (13, -3)]
+a.sort(key=lambda x: x[1])
+
+print(a)
+# Output: [(13, -3), (4, 1), (1, 2), (9, 10)]
+```

@@ -48,7 +48,7 @@ Use raw GitHub upstream version of Kubernetes only for **learning how K8s works*
 
 > TL;DR - Swam is easier to deploy/manage whilist Kubernetes has more features and flexibility
 
-They're both container orchestrators that run on top of a container runtime ([check this for more explanation about container runtime](http://localhost:3000/web-development/docker/intro/why-docker/)).
+They're both container orchestrators that run on top of a container runtime ([check this for more explanation about container runtime](http://localhost:3000/software-development/docker/intro/why-docker/)).
 
 Swarm architecture:
 ![swarm-architecture](/img/container-orchestration/kubernetes/swarm-architecture-1800x1085.png)

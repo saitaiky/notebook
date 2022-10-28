@@ -1,0 +1,78 @@
+---
+title: "Undo"
+
+sidebar_position: 3
+---
+
+## Undoing changes (Revert & Reset)
+1. `git revert` creates a new commit that reverts or undos a previous commit.
+2. `git reset` on the other hand, erases commits!
+    - --mixed (changes set to working directory)
+    - --soft  (changes set to stage/index)
+    - --hard  (changes set to working directory and uncommitted changes will be removed)
+
+## Git revert
+- **Rollback changes** you have committed.
+- Creates **a new commit** from a specified commit by inverting it. Hence, adds a new commit history to the project, but it does not modify the existing one.
+- It's recommended to **undo public changes**, since it doesn't re-write the commit history.
+
+![git-revert](/img/software-development/version-control/revert.png)
+resource:[When to Use Git Reset, Git Revert & Git Checkout](https://dev.to/neshaz/when-to-use-git-reset-git-revert--git-checkout-18je)
+
+### Revert command:
+```bash
+# Go back to commit:
+git revert 073791e7dd71b90daa853b2c5acc2c925f02dbc6
+```
+
+## Git reset
+- **Erase commits** from the current branch. So if you want to follow along with all the resetting stuff that's coming up, you'll need to create a branch on the current commit that you can use as a backup.
+- Changes which commit **a branch HEAD** is currently pointing at. It alters the existing commit history.
+- It's recommended to **undo local(private) changes**, since it will **re-write** the commit history and reset a branch backward by multiple commits as if those commits never happened.
+
+**Tips:** *Create a backup branch before using `git reset`.*
+
+![git-reset](/img/software-development/version-control/reset.png)
+resource:[When to Use Git Reset, Git Revert & Git Checkout](https://dev.to/neshaz/when-to-use-git-reset-git-revert--git-checkout-18je)
+
+### Undo reset
+If you created the backup branch prior to resetting anything, then you can easily get back to having the master branch point to the same commit as the backup branch. You'll just need to:
+1. remove the uncommitted changes from the working directory
+2. merge backup into master (which will cause a Fast-forward merge and move master up to the same point as backup)
+
+### Reset commands:
+```bash
+# Soft reset (Move the changes that were made in the commit  to the staging index):
+git reset --soft 073791e7dd71b90daa853b2c5acc2c925f02dbc6
+
+# [helpful] Undo latest commit: 
+git reset --soft HEAD~ 
+
+# Mixed reset (Default reset, the changes that were made in the commit are applied to the files in the working directory.):
+git reset --mixed 073791e7dd71b90daa853b2c5acc2c925f02dbc6
+
+# Hard reset (Throw out all of the changes that were made in the commit):
+git reset --hard 073791e7dd71b90daa853b2c5acc2c925f02dbc6
+
+# Hard reset of a single file (`@` is short for `HEAD`):
+git checkout @ -- index.html
+```
+
+
+## When to reset and revert?
+
+:::danger
+If you've *already pushed* your commit to a remote repository, it is recommended that you *do not use `git reset`* since it rewrites the history of commits. This can make working on a repository with other developers and maintaining a consistent history of commits very difficult.
+
+Instead, it is better to use `git revert`, which undoes the changes made by a previous commit by *creating an entirely new commit, all without altering the history of commits*.
+:::
+
+## Changing the message of the last commit
+Combine staged changes with the most recent commit(also update the commit message): 
+```bash
+git commit --amend -m "New Message"
+```
+
+:::caution
+Don’t amend public commits! Amended commits are actually entirely new commits and the previous commit will no longer be on your current branch. Amending a commit that is shared with another user will potentially require confusing and lengthy merge conflict resolutions.
+:::

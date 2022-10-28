@@ -161,8 +161,8 @@ const config = {
               },
               {
                 type: 'doc',
-                docId: 'web-development/index',
-                label: 'Web Development',
+                docId: 'software-development/index',
+                label: 'Software Development',
               },
               {
                 type: 'doc',

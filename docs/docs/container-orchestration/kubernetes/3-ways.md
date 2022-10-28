@@ -91,7 +91,7 @@ status:
 
 ## Imperative VS Decalarative
 
-For a detailed article to explain these 2 concepts, please check the post that I written in this [section](/web-development/programming/paradigm-of-programming/).
+For a detailed article to explain these 2 concepts, please check the post that I written in this [section](/software-development/programming/paradigm-of-programming/).
 
 ### Imperative (Object & command)
 

@@ -11,9 +11,9 @@ export default function ContentWrapper(props) {
 	const isBrowser = useIsBrowser();
 	const isConceptDocs =
 		isBrowser && window.location.pathname.includes("/tech-concepts/");
-	const isWebDevelopmentDocs =
-		isBrowser && window.location.pathname.includes("/web-development/");
-	const hideSidebar = !isConceptDocs && !isWebDevelopmentDocs;
+	const isSoftwareDevelopmentDocs =
+		isBrowser && window.location.pathname.includes("/software-development/");
+	const hideSidebar = !isConceptDocs && !isSoftwareDevelopmentDocs;
 
 	if (hideSidebar){
 		return (
@@ -24,10 +24,10 @@ export default function ContentWrapper(props) {
 			<>
 				<div className={styles["doc-sidebar-tabs"]}>
 					<Link
-						to="/web-development/"
-						className={`${styles["link-tab"]} ${isWebDevelopmentDocs ? styles['active'] : ''}`}
+						to="/software-development/"
+						className={`${styles["link-tab"]} ${isSoftwareDevelopmentDocs ? styles['active'] : ''}`}
 					>
-						Web Development
+						Software Development
 					</Link>
 					<Link
 						to="/tech-concepts/"
