@@ -66,3 +66,19 @@ GitOps workflows can increase productivity and the velocity of development and d
 ## What makes GitOps work?
 
 As with any emerging technology term, GitOps isn't strictly defined the same way by everyone across the industry. GitOps principles can be applied to all types of infrastructure automation including VMs and containers, and can be very effective for teams looking to manage Kubernetes-based infrastructure. While many tools and methodologies promise faster deployment and seamless management between code and infrastructure, GitOps differs by focusing on a developer-centric experience. Infrastructure management through GitOps happens in the same version control system as the application development, enabling teams to collaborate more in a central location while benefiting from Git's built-in features.
+
+
+## Tools For GitOps
+
+In the following table, I have described different tools for each process required from code push to deployment using GitOps. I recommend comparing the tools and use the one that suits you best according to your requirements: 
+
+| Operation                   | Tools      |
+| --------------------------- | ---------- |
+| Code and Repository Storage | Git        | 
+| Git Management              | GitHub     / GitLab / BitBucket |
+| Continuous Integration      | Jenkins    / GitLab / CircleCI |
+| Continuous Delivery         | Spinnaker  / GitLab / Flux |
+| Container Registry          | DockerHub  / GitLab |
+| Configuration Management    | Puppet     / Chef / Ansible |
+| Infrastructure Provisioning | Terraform  / AWS Cloud Formation / Pulumi |
+| Container Orchestration     | Kubernetes |
