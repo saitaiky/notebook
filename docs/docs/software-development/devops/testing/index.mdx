@@ -308,22 +308,22 @@ let userID;
 describe("POST request", () => {
   
   try{
-    let userDetails;
-    beforeEach(function () {  
-        console.log("Input user details!")
-        userDetails = {
-          "name": "morpheus",
-          "job": "leader"
-      }; //new user details to be created
-      });
-    
-    afterEach(function () {
-      console.log("User is created with ID : ", userID)
-    });
+        let userDetails;
+        beforeEach(function () {  
+            console.log("Input user details!")
+            userDetails = {
+                "name": "morpheus",
+                "job": "leader"
+            }; //new user details to be created
+        });
 
-	  it("Create user data", async done => {
+        afterEach(function () {
+            console.log("User is created with ID : ", userID)
+        });
 
-        return request.request.post(`api/users`) //post() of supertest
+        it("Create user data", async done => {
+
+            return request.request.post(`api/users`) //post() of supertest
                 //.set('Authorization', `Token $  {request.token}`) //Authorization token
                 .send(userDetails) //Request header
                 .expect(201) //response to be 201
@@ -334,19 +334,18 @@ describe("POST request", () => {
                     let jsonContent = JSON.stringify({userId: res.body.id}); // create a json
                     fs.writeFile("data.json", jsonContent, 'utf8', function (err) //write user id into global json file to be used 
                     {
-                    if (err) {
-                        return console.log(err);
-                    }
-                    console.log("POST response body : ", res.body)
-                    done();
+                        if (err) {
+                            return console.log(err);
+                        }
+                        console.log("POST response body : ", res.body)
+                        done();
                     });
-                  })
                 })
-              }
-              catch(err){
-                console.log("Exception : ", err)
-              }
-        });
+            }) 
+    }catch(err){
+        console.log("Exception : ", err)
+    }
+});
 
 //GET all users      
 describe("GET all user details", () => {
