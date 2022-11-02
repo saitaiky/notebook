@@ -1,0 +1,486 @@
+---
+title: Testing
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Why we need to test
+
+Testing is essential to test the quantity of an application to meet both the functional requirements or non-functional requirements. Of course, we are able to test it manually but the problems are:
+- It’s so time-consuming and easy to overlook bugs because of the human factor. 
+- When we deploy new features or bug-fixing release, we may introduce more bugs and things need to be retest again
+
+That’s why we start to automate and write them. It gives us confidence that we made no mistake in the path of a use case and the automation speeds up the whole process. Both developers and QA engineers write tests. Anyway, we still need to do manual tests because not everything can be covered with automation, so we have also QA manual testers.
+
+
+### Types of Software Testing
+
+Software Testing is a crucial phase of the software development cycle. There are many different types of software testing. Each of these testing types has its own purpose. The type of software testing that you choose depends on your testing objective, the complexity, and functionality of your software, and your testing team. The image below lists out some of the most common types of software testing used today.
+
+![](/img/software-development/devops/testing/TestingTypes-768x644.png)
+
+Source: [Smoke Testing and Sanity Testing: How are they different?](https://www.edureka.co/blog/smoke-testing-and-sanity-testing)
+
+### Introduction To Functional Testing
+
+There must be something that defines what is acceptable behavior and what is not.
+
+This is specified in a functional or requirement specification. It is a document that describes what a user is permitted to do so, that he can determine the conformance of the application or system to it. Additionally, sometimes this could also entail the actual business side scenarios to be validated.
+
+Therefore, functionality testing can be carried out via two popular techniques:
+
+- Testing based on Requirements: Contains all the functional specifications which form a basis for all the tests to be conducted.
+- Testing based on Business scenarios: Contains the information about how the system will be perceived from a business process perspective.
+
+Testing and Quality Assurance are a huge part of the SDLC process. As a tester, we need to be aware of all the types of testing even if we're not directly involved with them daily.
+
+
+
+## Functional Testing Types
+
+Functional testing has many categories and these can be used based on the scenario.
+
+The most prominent types are briefly discussed below:
+
+[Unit Testing](https://www.softwaretestinghelp.com/unit-testing/): Unit testing is usually performed by a developer who writes different code units that could be related or unrelated to achieve a particular functionality. His, this usually entails writing unit tests which would call the methods in each unit and validate those when the required parameters are passed, and its return value is as expected.
+
+Code coverage is an important part of unit testing where the test cases need to exist to cover the below three:
+
+- Line coverage
+- Code path coverage
+- Method coverage
+
+[Smoke Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Testing that is done **after each build is released** to test to ensure build stability. It is also called as build verification testing. 
+- To execute smoke tests, **you don’t need to write new test cases**, instead, you can just pick the necessary test cases that are already defined by programmers.
+- **Objective**: Smoke Testing rejects a badly broken application so that the QA team does not waste time installing and testing the software application. Instead of performing exhaustive testing, we make sure that critical functionalities are working fine.
+- **When**: It is executed before any detailed functional or regression tests are executed. 
+
+[Sanity Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Testing that is done to ensure that all the major and vital functionalities of the application/system are working correctly. Similar to smoke testing, **you don’t need to write new test cases** unless a new feature is introduced.
+- **Objective**: Sanity test is not to verify the core functionalities, instead, it is to verify the correctness and rationality(Sanity) of the software. For instance, if your scientific calculator gives the result of 2 + 2 =5! Then, there is no point testing the advanced functionalities like sin 30 + cos 50
+- **When**: It is usually done **after a smoke test** , to ascertain if bugs have been fixed and if minor changes to the code are well tolerated.
+
+[Regression Tests](https://www.softwaretestinghelp.com/regression-testing-tools-and-methods/): Testing performed to ensure that adding new code, enhancements, fixing of bugs is not breaking the existing functionality or causing any instability and still works according to the specifications.
+
+Regression tests need not be as extensive as the actual functional tests but should ensure just the amount of coverage to certify that the functionality is stable.
+
+[Integration Tests](https://www.softwaretestinghelp.com/what-is-integration-testing/): When the system relies on multiple functional modules that might individually work perfectly, but have to work coherently when clubbed together to achieve an end to end scenario, validation of such scenarios is called Integration testing.
+
+[Beta/Usability Testing](https://www.softwaretestinghelp.com/usability-testing-guide/): Product is exposed to the actual customer in a production like an environment and they test the product. The user's comfort is derived from this and the feedback is taken. This is similar to that of User Acceptance testing.
+
+
+### Testing diagrams
+
+<Tabs className="tests">
+<TabItem value="regression" label="Regression">
+
+![](https://browserstack.wpenginepowered.com/wp-content/uploads/2019/09/Regression-testing-tutorual.png "Re")
+
+Source: [Stackify](https://stackify.com/wp-content/uploads/2017/04/regression_graph.png)
+
+</TabItem>
+</Tabs>
+
+### Smoke Testing vs Sanity Testing
+
+Smoke Testing has a goal to verify “stability” whereas Sanity Testing has a goal to verify “rationality”.
+
+![Smoke Testing vs Sanity Testing](/img/software-development/devops/testing/Sanity_Smoke_Testing.webp)
+
+Source: [guru99 - Sanity Testing Vs. Smoke Testing – Difference Between Them](https://www.guru99.com/smoke-sanity-testing.html)
+
+| Features          | Smoke Testing                                                                           | Sanity Testing                                                                        |
+|-------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| System Builds     | Tests are executed on initial builds of software product                                | Tests are done over builds that have passed smoke tests & rounds of regression tests  |
+| Motive of Testing | To measure the stability of the newly created build to face off more rigorous testing   | To evaluate rationality & originality of the functionalities of software builds       |
+| Subset of?        | Is a subset of acceptance testing                                                       | Is a subset of regression testing                                                     |
+| Documentation     | Involves documentation and scripting work                                               | Doesn’t emphasize any sort of documentation                                           |
+| Test Coverage     | Shallow & wide approach to include all the major functionalities without going too deep | Narrow & deep approach involving detailed testing of functionalities and features     |
+| Performed By?     | Executed by developers or testers                                                       | Executed by testers                                                                   |
+
+
+### Tools 
+
+#### Unit test for javascript
+
+![](/img/software-development/devops/testing/frameworks-time.png)
+![](/img/software-development/devops/testing/compare-testing-frameworks.png)
+
+Source: [Javascript unit test frameworks](https://raygun.com/blog/javascript-unit-testing-frameworks/)
+
+## Design test cases
+
+### How to perform Automated Functional Testing?
+
+The steps involved in automated functional testing are given below:
+
+- **Determine Functionality: **The first of functional testing is to determine the functionality of the product that needs to be tested and it includes testing the main functionalities, error conditions, and messages.
+- **Create Input Data: **Next step is to create the input data for the functionality to be tested as per the requirements specification.
+- **Determine Output: **After creating the input data, the output is determined for the functionality under test. 
+- **Execute test cases: **After determining the required output, the prepared test cases are executed.
+- **Compare Outputs: **Finally, the output obtained after executing the test case and the expected output are compared to find whether the functionality is working as expected or not.
+
+### Decide a test case
+
+**TO-DO:** how to know what to test https://kentcdodds.com/blog/how-to-know-what-to-test
+
+
+
+## Examples
+
+### End-to-end test with jest-puppeteer
+
+> Reference: [Jest - Using with puppeteer](https://jestjs.io/docs/puppeteer)
+
+- Jest is **a test runner**. It doesn't care what type of tests you run, and you can use it for any type of tests.
+- Jest is a JavaScript testing framework designed to ensure correctness of any JavaScript codebase. It allows you to write tests with an approachable, familiar and feature-rich API that gives you results quickly. 
+- Puppeteer framework offers **Headless Browser Testing for Google Chrome**. It allows the tester to perform the actions on the Chrome browser using commands in JavaScript. It provides a high-level API for controlling headless Chrome through Chrome DevTools Protocol. This DevTools Protocol offers tools to instrument, debug, inspect, and profile the Chromium or Chrome browsers.  
+- [Jest Puppeteer](https://github.com/smooth-code/jest-puppeteer) provides all required configuration to run your tests using Puppeteer.
+
+
+:::infoWhat is Headless Browser Testing? 
+Headless Browsers play a major role in CI/CD, as these web browsers provide automated control of the web page without any graphical user interface (GUI). This allows the tester to perform automation testing on the web application using a command-line interface without testing the whole site by performing actions through the GUI.
+
+Headless Browser Testing speeds up the QA process, which is required in CI/CD, where quick feedback is required to ensure the high performance of the application. It generates faster results even with a high volume of test cases, with due consistency and accuracy, which helps save time and resources. 
+:::
+
+:::info4 Characteristics of Jest
+- **Zero config:** "Jest aims to work out of the box, config free, on most JavaScript projects." This means you can simply install Jest as a dependency for your project, and with no or minimal adjustments, you can start writing your first test.
+- **Isolated:** Isolation is a very important property when running tests. It ensures that different tests don't influence each other's results. For Jest, tests are executed in parallel, each running in their own process. This means they can't interfere with other tests, and Jest acts as the orchestrator that collects the results from all the test processes.
+- **Snapshots:** Snapshots are a key feature for front-end testing because they allow you to verify the integrity of large objects. This means you don't have to write large tests full of assertions to check if every property is present on an object and has the right type. You can simply create a snapshot and Jest will do the magic. Later, we'll discuss in detail how snapshot testing works.
+- **Rich API:** Jest is known for having a rich API offering a lot of specific assertion types for very specific needs. Besides that, its [great documentation](https://jestjs.io/docs/en/getting-started) should help you get started quickly.
+:::
+
+1.  First, install `jest-puppeteer`
+
+- npm
+- Yarn
+
+```js
+npm install --save-dev jest-puppeteer
+```
+
+2.  Specify preset in your [Jest configuration](https://jestjs.io/docs/configuration):
+
+```js
+{  "preset": "jest-puppeteer"}
+```
+
+3.  Write your test
+
+```js
+describe('Google', () => {
+  beforeAll(async () => {
+    await page.goto('https://google.com');
+  });
+
+  it('should be titled "Google"', async () => {
+    await expect(page.title()).resolves.toMatch('Google');
+  });
+
+  it('should load without error', async () => {
+      let text = await page.evaluate(() => document.body.textContent);
+      expect(text).toContain('google');
+  });
+
+  it('should contain a Google Search and Lucky button', async () => {
+      await expect(page).toMatchElement('input[name="btnK"][value="Google Search"]');
+      await expect(page).toMatchElement(`input[name="btnI"][value="I'm Feeling Lucky"]`);
+  });
+
+  it('should have app with link and sign in button', async () => {
+    const app_btn = await expect(page).toMatchElement('.gb_D.gb_sc');
+    let text = await page.evaluate(element => element.href, app_btn);
+    expect(text).toBe('https://www.google.com.sg/intl/en/about/products?tab=wh');
+
+    const sign_btn = await expect(page).toMatchElement('#gb_70');
+    text = await page.evaluate(element => element.innerHTML, sign_btn);
+    expect(text).toBe('Sign in');
+  });
+});
+```
+
+4. Checking the result
+
+![testing result](/img/software-development/devops/testing/testing-results.png)
+
+
+There's no need to load any dependencies. Puppeteer's `page` and `browser` classes will automatically be exposed
+
+See [documentation](https://github.com/smooth-code/jest-puppeteer).
+
+
+### API Testing With Jest And SuperTest
+
+> Full tutorial: [Building A Scalable API Testing Framework With Jest And SuperTest](https://www.velotio.com/engineering-blog/scalable-api-testing-framework-with-jest-and-supertest)
+
+- [SuperTest](https://www.npmjs.com/package/supertest) is a node library, [superagent](https://www.npmjs.com/package/superagent) driven, to extensively test Restful web services. It hits the HTTP server to send requests (GET, POST, PATCH, PUT, DELETE ) and fetch response
+- [testSequencer](https://jestjs.io/docs/configuration#testsequencer-string): to invoke testSequencer.js in the workspace to customize the order of running our test files
+- [jest-stare](https://dkelosky.github.io/jest-stare/) for generating custom test reports
+
+```js 
+// testSequencer.js 
+const Sequencer = require('@jest/test-sequencer').default;
+
+class CustomSequencer extends Sequencer {
+  sort(tests) {
+    // Test structure information
+    // https://github.com/facebook/jest/blob/6b8b1404a1d9254e7d5d90a8934087a9c9899dab/packages/jest-runner/src/types.ts#L17-L21
+    const copyTests = Array.from(tests);
+    return copyTests.sort((testA, testB) => (testA.path > testB.path ? 1 : -1));
+  }
+}
+
+module.exports = CustomSequencer;
+```
+
+```json
+// package.json
+{
+  "name": "supertestjest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "jest": {
+    "verbose": true,
+    "testSequencer": "/home/abc/jest-supertest/testSequencer.js",
+    "coverageDirectory": "/home/abc/jest-supertest/coverage/my_reports/",
+    "coverageReporters": ["html","text"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  },
+  "scripts": {
+    "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest --reporters default jest-stare --coverage --detectOpenHandles --runInBand --testTimeout=60000",
+    "test:watch": "jest --verbose --watchAll"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^25.5.4",
+    "jest-serial-runner": "^1.1.0",
+    "jest-stare": "^2.0.1",
+    "supertest": "^4.0.2"
+  }
+}
+```
+
+```js
+// commonTests.js - SuperTest wrapper to store authorization token
+var supertest = require('supertest'); //require supertest
+const request = supertest('https://reqres.in/'); //supertest hits the HTTP server (your app)
+
+/*
+This piece of code is for getting the authorization token after login to your app.
+const token;
+test("Login to the application", function(){
+    return request.post(``).then((response)=>{
+        token = response.body.token  //to save the login token for further requests
+    })
+}); 
+*/
+
+module.exports = 
+{
+    request
+        //, token     -- export if token is generated
+}
+```
+
+
+```js
+/* postAndGet.test.js
+- POST requests to api/users endpoint, calls supertest.post() 
+- GET requests to api/users endpoint, calls supertest.get()
+- uses file system to write globals and read those across all the tests
+- validates response returned on hitting the HTTP endpoints
+*/
+const request = require('../commonTests');
+const fs = require('fs');
+let userID;
+
+//Create a new user
+describe("POST request", () => {
+  
+  try{
+    let userDetails;
+    beforeEach(function () {  
+        console.log("Input user details!")
+        userDetails = {
+          "name": "morpheus",
+          "job": "leader"
+      }; //new user details to be created
+      });
+    
+    afterEach(function () {
+      console.log("User is created with ID : ", userID)
+    });
+
+	  it("Create user data", async done => {
+
+        return request.request.post(`api/users`) //post() of supertest
+                //.set('Authorization', `Token $  {request.token}`) //Authorization token
+                .send(userDetails) //Request header
+                .expect(201) //response to be 201
+                .then((res) => {
+                    expect(res.body).toBeDefined(); //test if response body is defined
+                    //expect(res.body.status).toBe("success")
+                    userID = res.body.id;
+                    let jsonContent = JSON.stringify({userId: res.body.id}); // create a json
+                    fs.writeFile("data.json", jsonContent, 'utf8', function (err) //write user id into global json file to be used 
+                    {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    console.log("POST response body : ", res.body)
+                    done();
+                    });
+                  })
+                })
+              }
+              catch(err){
+                console.log("Exception : ", err)
+              }
+        });
+
+//GET all users      
+describe("GET all user details", () => {
+  
+  try{
+      beforeEach(function () {
+        console.log("GET all users details ")
+    });
+          
+      afterEach(function () {
+        console.log("All users' details are retrieved")
+    });
+
+      test("GET user output", async done =>{
+        await request.request.get(`api/users`) //get() of supertest
+                                //.set('Authorization', `Token ${request.token}`) 
+                                .expect(200).then((response) =>{
+                                console.log("GET RESPONSE : ", response.body);
+                                done();
+                    })
+      })
+    }
+  catch(err){
+    console.log("Exception : ", err)
+    }
+});
+```
+
+```js
+/* putAndDelete.test.js
+- calls data.json into ‘data’ alias which was created by the file system in our previous test to write global variables into it
+- PUT sto api/users/${data.userId} endpoint, calls supertest.put() 
+- DELETE requests to api/users/${data.userId} endpoint, calls supertest.delete() 
+- validates response returned by the endpoints
+- removes data.json (similar to unsetting global variables) after all the tests are done
+*/
+
+const request = require('../commonTests');
+const fs = require('fs'); //file system
+const data = require('../data.json'); //data.json containing the global variables
+
+//Update user data
+describe("PUT user details", () => {
+
+    try{
+        let newDetails;
+        beforeEach(function () {
+            console.log("Input updated user's details");
+            newDetails = {
+                "name": "morpheus",
+                "job": "zion resident"
+            }; // details to be updated
+  
+        });
+        afterEach(function () {
+            console.log("user details are updated");
+        });
+  
+        test("Update user now", async done =>{
+
+            console.log("User to be updated : ", data.userId)
+
+            const response = await request.request.put(`api/users/${data.userId}`).send(newDetails) //call put() of supertest
+                                //.set('Authorization', `Token ${request.token}`) 
+                                        .expect(200)
+            expect(response.body.updatedAt).toBeDefined();
+            console.log("UPDATED RESPONSE : ", response.body);
+            done();
+    })
+  }
+    catch(err){
+        console.log("ERROR : ", err)
+    }
+});
+
+//DELETE the user
+describe("DELETE user details", () =>{
+    try{
+        beforeAll(function (){
+            console.log("To delete user : ", data.userId)
+        });
+
+        test("Delete request", async done =>{
+            const response = await request.request.delete(`api/users/${data.userId}`) //invoke delete() of supertest
+                                        .expect(204) 
+            console.log("DELETE RESPONSE : ", response.body);
+            done(); 
+        });
+
+        afterAll(function (){
+            console.log("user is deleted!!")
+            fs.unlinkSync('data.json'); //remove data.json after all tests are run
+        });
+    }
+
+    catch(err){
+        console.log("EXCEPTION : ", err);
+    }
+});
+```
+
+Test results HTML report is also generated as index.html under *jest-stare/ *
+
+![API test](/img/software-development/devops/testing/api-test.png)
+
+
+### Automated Regression Testing with perfecto
+
+[Test automation](https://www.perfecto.io/blog/what-is-test-automation) is always preferred by most organizations when it comes to testing. However, finding what should be automated and how to automate it can be challenging.
+
+Creating stable and robust testing scripts can be quite complicated and requires experience to get it right. Besides, scaling the entire automation process is also another hurdle for most organizations that are inexperienced in DevOps.
+
+There are quite a number of tools that help streamline the entire testing process for you. For example, open-source modules such as Jest and Selenium are good choice to kickstart automation process in your project.
+
+In fact, you can combine it with more sophisticated tools that comes with cloud services and smart reporting. One such tool is [Perfecto](https://www.perfecto.io/free-trial), which comes with free trial version that allows you to:
+
+-   conduct live and automated testing up to 240 minutes, and
+-   access a variety of popular real mobile devices via public cloud.
+
+Also, most professional tools come with their own test data and environments which can be easily configured. This helps to simplify the entire testing process. Have a look at the following Github repository which conducts web testing on both:
+
+-   [desktop](https://github.com/PerfectoMobileSA/Jest-perfecto-sample/blob/master/test/webdesktop.spec.js)
+-   [mobile](https://github.com/PerfectoMobileSA/Jest-perfecto-sample/blob/master/test/mobileios.spec.js).
+
+You can easily automate your tests inside Perfecto to generate smart reports as illustrated by the image below.
+
+![perfecto page](/img/software-development/devops/testing/perfecto.png)
+
+Image taken from [Perfecto's](https://developers.perfectomobile.com/display/PD/Jest) official documentation
+
+
+## References
+
+- [Complete Functional Testing Guide With Its Types And Example](https://www.softwaretestinghelp.com/guide-to-functional-testing/#EntryExit_criteria)
+- [What is Automated Functional Testing: Types, Benefits & Tools](https://www.browserstack.com/guide/what-is-automated-functional-testing)
+- [How to run UI Automation Testing using Puppeteer](https://www.browserstack.com/guide/ui-automation-testing-using-puppeteer)
+
