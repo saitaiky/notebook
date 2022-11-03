@@ -68,7 +68,7 @@ Working on the right problem stead of squeezing out every second to work on the 
 - I generally try to avoid people and situations that put me in bad moods, which is good advice whether you care about productivity or not.
 - If I have a little bit too much to do - it makes me more efficient at everything, which is a way to train to avoid distractions (a great habit to build!)
 
-:::cuation Don’t neglect things that matter your life
+:::cautionDon’t neglect things that matter your life
 Don’t neglect your family and friends for the sake of productivity—that’s a very stupid tradeoff (and very likely a net productivity loss, because you’ll be less happy).  
 
 Don’t neglect doing things you love or that clear your head either.
