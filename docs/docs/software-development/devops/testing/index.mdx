@@ -51,6 +51,10 @@ End to end testing (E2E testing) is a software testing method that involves test
 
 Essentially, the test goes through every operation the application can perform to test how the application communicates with hardware, network connectivity, external dependencies, databases, and other applications. Usually, E2E testing is executed **after functional and system testing** is complete.
 
+Naturally, detecting bugs in a complex workflow entails challenges. The two major ones are explained below:
+
+- **Creating workflows**: To examine an app's workflow, test cases in an E2E test suite must be run in a particular sequence. This sequence must match the path of the end-user as they navigate through the app. Creating test suites to match this workflow can be taxing, especially since they usually involve creating and running thousands of tests.
+- **Accessing Test Environment**: It is easy to test apps in dev environments. However, every application has to be tested in client or production environments. Chances are that prod environments are not always available for testing. Testers must install local agents and log into virtual machines even when they are. Testers must also prepare for and prevent issues like system updates that might interrupt test execution.
 
 ## Functional Testing Types
 
