@@ -22,7 +22,7 @@ Software Testing is a crucial phase of the software development cycle. There are
 
 Source: [Smoke Testing and Sanity Testing: How are they different?](https://www.edureka.co/blog/smoke-testing-and-sanity-testing)
 
-### Introduction To Functional Testing
+### Functional Testing
 
 There must be something that defines what is acceptable behavior and what is not.
 
@@ -35,6 +35,21 @@ Therefore, functionality testing can be carried out via two popular techniques:
 
 Testing and Quality Assurance are a huge part of the SDLC process. As a tester, we need to be aware of all the types of testing even if we're not directly involved with them daily.
 
+### Non-Functional Testing
+
+Non-Functional Testing is a type of testing used to evaluate a software application's performance, [usability](https://www.browserstack.com/guide/website-usability-testing "Website Usability Testing: A Beginner's Guide"), dependability, and other non-functional characteristics. It is intended to test a system's readiness according to non-functional criteria that functional testing never considers.
+
+Non Functional testing is essential for confirming the software's reliability and functionality. The Software Requirements Specification (SRS) serves as the basis for this software testing method, which enables quality assurance teams to check if the system complies with user requirements. Increasing the product's usability, effectiveness, maintainability, and portability is the goal of non-functional testing. It aids in lowering the manufacturing risk associated with the product's non-functional components.
+
+There are lots of non-funational testing, to name a few well-known names - Performance testing, security testing, Reliablity testing, volumne testing, recoverying testing and visual testing. You may check the full list in [browserstack](https://www.browserstack.com/guide/what-is-non-functional-testing)
+
+
+
+### End to End Testing
+
+End to end testing (E2E testing) is a software testing method that involves testing an application’s workflow from beginning to end. This method aims to replicate real user scenarios to validate the system for integration and data integrity.
+
+Essentially, the test goes through every operation the application can perform to test how the application communicates with hardware, network connectivity, external dependencies, databases, and other applications. Usually, E2E testing is executed **after functional and system testing** is complete.
 
 
 ## Functional Testing Types
@@ -51,16 +66,18 @@ Code coverage is an important part of unit testing where the test cases need to 
 - Code path coverage
 - Method coverage
 
-[Smoke Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Testing that is done **after each build is released** to test to ensure build stability. It is also called as build verification testing. 
+[Smoke Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Smoke tests are basic tests that check the basic functionality of an application. They are meant to be quick to execute, and their goal is to give you the assurance that the major features of your system are working as expected. It is also called as **build verification testing**. 
 - To execute smoke tests, **you don’t need to write new test cases**, instead, you can just pick the necessary test cases that are already defined by programmers.
 - **Objective**: Smoke Testing rejects a badly broken application so that the QA team does not waste time installing and testing the software application. Instead of performing exhaustive testing, we make sure that critical functionalities are working fine.
-- **When**: It is executed before any detailed functional or regression tests are executed. 
+- **When**: 
+    - Testing that is done **after each build is made** to ensure build stability to decide whether or not you can run more expensive tests, 
+    - or **right after a deployment** to make sure that they application is running properly in the newly deployed environment.
 
 [Sanity Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Testing that is done to ensure that all the major and vital functionalities of the application/system are working correctly. Similar to smoke testing, **you don’t need to write new test cases** unless a new feature is introduced.
 - **Objective**: Sanity test is not to verify the core functionalities, instead, it is to verify the correctness and rationality(Sanity) of the software. For instance, if your scientific calculator gives the result of 2 + 2 =5! Then, there is no point testing the advanced functionalities like sin 30 + cos 50
-- **When**: It is usually done **after a smoke test** , to ascertain if bugs have been fixed and if minor changes to the code are well tolerated.
+- **When**: It is usually done **after a smoke test** when the build is stable, to ascertain if bugs have been fixed and if minor changes to the code are well tolerated.
 
-[Regression Tests](https://www.softwaretestinghelp.com/regression-testing-tools-and-methods/): Testing performed to ensure that adding new code, enhancements, fixing of bugs is not breaking the existing functionality or causing any instability and still works according to the specifications.
+[Regression Tests](https://www.softwaretestinghelp.com/regression-testing-tools-and-methods/): Testing performed to ensure that adding new code, enhancements, fixing of bugs is not breaking the existing functionality or causing any instability and still works according to the specifications.It is executed based on the project and availability of resources, manpower and time.
 
 Regression tests need not be as extensive as the actual functional tests but should ensure just the amount of coverage to certify that the functionality is stable.
 
@@ -68,6 +85,18 @@ Regression tests need not be as extensive as the actual functional tests but sho
 
 [Beta/Usability Testing](https://www.softwaretestinghelp.com/usability-testing-guide/): Product is exposed to the actual customer in a production like an environment and they test the product. The user's comfort is derived from this and the feedback is taken. This is similar to that of User Acceptance testing.
 
+#### Testing flow
+
+
+```mermaid
+flowchart TD
+    A[Code] --> B[Unit Test] 
+    B[Unit Test] --> C[Integration Test] 
+    C[Integration Test] --> D[Smoke Test]
+    D[Smoke Test] --> E[Sanity Test]
+    E[Sanity Test] --> F[System test / Regression test]
+    style F fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+```
 
 ### Testing diagrams
 
@@ -81,19 +110,95 @@ Source: [Stackify](https://stackify.com/wp-content/uploads/2017/04/regression_g
 </TabItem>
 </Tabs>
 
+### Unit, Integration And Functional Testing
+
+#### Cost and time
+
+![result-for-unit-testing-vs-functional-testin](/img/software-development/devops/testing/result-for-unit-testing-vs-functional-testin.png)
+
+Source: [The Differences Between Unit Testing, Integration Testing And Functional Testing](https://www.softwaretestinghelp.com/the-difference-between-unit-integration-and-functional-testing/)
+
+
+#### Example
+
+Almost every web application requires its users/customers to log in. For that, every application has to have a "Login" page which has these elements:
+
+- Account/Username
+- Password
+- Login/Sign in Button
+
+For **Unit Testing**, the following may be the test cases:
+
+- Field length - username and password fields.
+- Input field values should be valid.
+- The login button is enabled only after valid values (Format and lengthwise) are entered in both the fields.
+
+For **Integration Testing**, the following may be the test cases:
+
+- The user sees the welcome message after entering valid values and pushing the login button.
+- The user should be navigated to the welcome page or home page after valid entry and clicking the Login button.
+
+Now, after unit and integration testing are done, let us see the additional test cases that are considered for **functional testing**:
+
+1. The expected behavior is checked, i.e. is the user able to log in by clicking the login button after entering a valid username and password values.
+2. Is there a welcome message that is to appear after a successful login?
+3. Is there an error message that should appear on an invalid login?
+4. Are there any stored site cookies for login fields?
+5. Can an inactivated user log in?
+6. Is there any 'forgot password' link for the users who have forgotten their passwords?
+
+
+#### Marjar differences
+
+|                        | Unit testing                                                 | Integration testing                                                               | Functional testing                                                                                                                        |
+| ---------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Definition and purpose | Testing smallest units or modules individually.              | Testing integration of two or more units/modules combined for performing tasks.   | Testing the behavior of the application as per the requirement.                                                                           |
+| Complexity             | Not at all complex as it includes the smallest codes.        | Slightly more complex than unit tests.                                            | More complex compared to unit and integration tests.                                                                                      |
+| Testing techniques     | White box testing technique.                                 | White box and black box testing technique. Grey box testing                       | Black box testing technique.                                                                                                              |
+| Major attention        | Individual modules or units.                                 | Integration of modules or units.                                                  | Entire application functionality.                                                                                                         |
+| Error/Issues covered   | Unit tests find issues that can occur frequently in modules. | Integration tests find issues that can occur while integrating different modules. | Functional tests find issues that do not allow an application to perform its functionality. This includes some scenario-based issues too. |
+| Issue escape           | No chance of issue escape.                                   | Less chance of issue escape.                                                      | More chances of issue escape as the list of tests to run is always infinite.                                                              |
+
+
 ### Smoke Testing vs Sanity Testing
 
-Smoke Testing has a goal to verify “stability” whereas Sanity Testing has a goal to verify “rationality”.
+The are both related a build. Smoke Testing has a goal to verify “stability” whereas Sanity Testing has a goal to verify “rationality”.
 
 ![Smoke Testing vs Sanity Testing](/img/software-development/devops/testing/Sanity_Smoke_Testing.webp)
 
 Source: [guru99 - Sanity Testing Vs. Smoke Testing – Difference Between Them](https://www.guru99.com/smoke-sanity-testing.html)
 
+
+#### Smoke Testing example
+
+
+
+
+#### Sanity Testing example
+
+Consider you developing an online Food ordering app, and you want to offer a 10% discount on New Year (1st January) for your members having an elite membership.
+
+Sanity testing will verify the following:
+
+-  Elite members get the discount on the 1st January.
+-  Members, who add the elite membership to their food orders on the 1st, also get the discount.
+-  Non-elite members do not get the discount on the 1st January .
+-  No member receives that rebate before and after the 1st January.
+-  Other discount coupons can not be clubbed together with this 10% discount.
+-  Elite members, who opt for other deals, do not get the New Year deduction.
+
+Sanity testing does not verify other areas of the app, like delivery tracking or restaurant reviews. That is done by Smoke testing and Regression testing, which happen before and after Sanity testing. 
+
+If Sanity testing fails, the app is sent back to the developer for troubleshooting. However, if it succeeds, the app is sent for thorough System testing.
+
+
+#### Comparison table
+
 | Features          | Smoke Testing                                                                           | Sanity Testing                                                                        |
 |-------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | System Builds     | Tests are executed on initial builds of software product                                | Tests are done over builds that have passed smoke tests & rounds of regression tests  |
 | Motive of Testing | To measure the stability of the newly created build to face off more rigorous testing   | To evaluate rationality & originality of the functionalities of software builds       |
-| Subset of?        | Is a subset of acceptance testing                                                       | Is a subset of regression testing                                                     |
+| Subset of?        | Is a subset of **acceptance testing **                                                      | Is a subset of **regression testing**                                                     |
 | Documentation     | Involves documentation and scripting work                                               | Doesn’t emphasize any sort of documentation                                           |
 | Test Coverage     | Shallow & wide approach to include all the major functionalities without going too deep | Narrow & deep approach involving detailed testing of functionalities and features     |
 | Performed By?     | Executed by developers or testers                                                       | Executed by testers                                                                   |
@@ -479,7 +584,10 @@ Image taken from [Perfecto's](https://developers.perfectomobile.com/display/PD/
 
 ## References
 
+TO-DO
 - [Complete Functional Testing Guide With Its Types And Example](https://www.softwaretestinghelp.com/guide-to-functional-testing/#EntryExit_criteria)
+- [How to Create Test Cases for Automated tests?](https://www.browserstack.com/guide/test-cases-for-automated-tests)
+
 - [What is Automated Functional Testing: Types, Benefits & Tools](https://www.browserstack.com/guide/what-is-automated-functional-testing)
 - [How to run UI Automation Testing using Puppeteer](https://www.browserstack.com/guide/ui-automation-testing-using-puppeteer)
-
+- [The different types of software testing](https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing)
