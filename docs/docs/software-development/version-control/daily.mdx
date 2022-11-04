@@ -87,6 +87,45 @@ git push origin master:master
 git push origin master:refs/for/mybranch
 ```
 
+### Create support branch for hotfix(Gitflow) 
+
+> Reference: [Following git-flow how should you handle a hotfix of an earlier release?](https://stackoverflow.com/questions/16386323/following-git-flow-how-should-you-handle-a-hotfix-of-an-earlier-release)
+
+It seems that there is a concept of a "support" branch in git flow. This is used to add a hotfix to an earlier release.
+
+[This thread has more information](https://groups.google.com/d/msg/gitflow-users/I9sErOSzYzE/AwVH06CuKT0J), with these examples:
+
+```
+git checkout 6.0
+git checkout -b support/6.x
+git checkout -b hotfix/6.0.1
+
+```
+
+... make your fix, then:
+
+```
+git checkout support/6.x
+git merge hotfix/6.0.1
+git branch -d hotfix/6.0.1
+git tag 6.0.1
+
+```
+
+**or** using `git flow` commands
+
+```
+git flow support start 6.x 6.0
+git flow hotfix start 6.0.1 support/6.x
+
+```
+
+... make changes then:
+
+```
+git flow hotfix finish 6.0.1
+```
+
 ## In one go
 
 ### Fast forward merge with pulling

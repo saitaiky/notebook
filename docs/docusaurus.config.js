@@ -109,7 +109,7 @@ const config = {
       hideableSidebar: true,
       autoCollapseSidebarCategories: true,
       colorMode: {
-        defaultMode: 'light',
+        defaultMode: 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
