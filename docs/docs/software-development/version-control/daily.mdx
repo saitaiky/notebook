@@ -9,6 +9,22 @@ metaDescription: "This is the meta description for this page"
 
 ## Local operations
 
+### Discard unstaged changes
+
+https://stackoverflow.com/questions/52704/how-do-i-discard-unstaged-changes-in-git
+
+For all *unstaged* files in current working directory use:
+
+```bash
+git restore .
+```
+
+For a specific file use:
+
+```bash
+git restore path/to/file/to/revert
+```
+
 ### Remove all local branches but keep master
 `git branch | grep -v "master" | xargs git branch -D`
 
