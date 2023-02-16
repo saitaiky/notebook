@@ -42,9 +42,18 @@ Example: https://www.johnstonestrade.com/product/universal-primer
 Eggshell - https://www.johnstonestrade.com/product/eggshell
 
 
-## Dulux - Choose a sheen level
+## Sheen level
 
-https://www.dulux.com.au/how-to/how-to-use-colour/how-to-choose-a-sheen-level
+### What is a sheen level?
+
+> Reference: https://www.dulux.com.au/how-to/how-to-use-colour/how-to-choose-a-sheen-level
+
+Sheen refers to how shiny a paint is and how much light is reflected from its surface. Choosing the right level of sheen depends on what you are painting as well as your preferred finish.
+
+While product quality is important, one of the most essential things to consider when selecting a sheen level is the amount of foot traffic in your home, including wear and tear on the surface.
+
+
+### Difference 
 
 ![full matt painted swatch red](https://images.prismic.io/tikkurila-dev/2906f8de-3e67-407c-9f62-c923a5f67e22_1.png?auto=compress,format)
 
