@@ -59,3 +59,23 @@ reflection
 ### Introducing white
 
 You don't need lines to describe an object, instead, use the colour contracts.
+
+
+## Figure
+
+### Form shadow and Cast shadow 
+
+> 
+    - Shadow shape = form shadow + cast shadow 
+    - Form shadow is softer and Cast shadow is shaper 
+    - Terminator = the edge of light 
+
+Form shadow is the area of an object that is turned away from the light source and appears darker. To create form shadows, you need to first determine the direction of the light source and where the light hits the object. Then, shade the areas that are turned away from the light using a darker value of the base color or by crosshatching or stippling.
+
+Cast shadow is the shadow that an object creates on a surface when it blocks the light source. To create cast shadows, first, determine the direction of the light source and where it hits the object. Then, draw the outline of the cast shadow on the surface the object is resting on. Fill in the shadow with a darker value of the base color or by crosshatching or stippling.
+
+Remember to consider the shape of the object and the surface it's resting on when drawing shadows. Shadows can also be affected by the environment, such as reflections or other sources of light. Practice and observation are key to mastering the art of drawing shadows.
+
+### Mid-tone
+
+Mid-tone fall into the light and is the range of tones that fall between the highlights and shadows, and it is affected by the intensity and direction of the light source.
