@@ -90,6 +90,13 @@ So, here's a couple of tips.
  4. Now let me stress, It’s *not* virtualization. It’s application isolation, similar to chroot, FreeBSD jails, or Solaris zones, which all came before Docker.
  5. You can start many of these containers from the same container image, on the same system, and they’ll all be isolated from each other. File changes in one container don’t affect the files in another.
 
+## Practical
+### Multiple CMD commands
+In principle, there should only be one CMD command in your Dockerfile. When CMD is used multiple times, only the last instance is executed.
+
+> The CMD command​ specifies the instruction that is to be executed when a Docker container starts.  This CMD command is not really necessary for the container to work, as the echo command can be called in a RUN statement as well.
+
+
 
 ## Further reading
 
