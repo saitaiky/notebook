@@ -26,7 +26,7 @@ title: Drawing
 - There are 2 types of drawing training, visusal(perceptual) and conceptual(sculpture). Visual training is drawing via your eyes and all about lines. Conceptual training is drawing via your brain and logical construct the object. The benifit is you don't need to see the object to draw. You can imagine it and even draw the object in the other angle.
 - Envolope drawing vs 一格格分線。 You can actually mix these 2 approaches in your drawing.
 
-![](/img/other/conceptual-vs-visusal.jpeg)
+![](/img/other//drawing/conceptual-vs-visusal.jpeg)
 
 ### Common mistakes
 
