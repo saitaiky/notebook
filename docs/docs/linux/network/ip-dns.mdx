@@ -1,0 +1,99 @@
+---
+title: "Static and Public IP, DNS"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+## Static & Public IP Address
+
+### Static IP Address
+
+Your [internet service provider (ISP)](http://blog.datapath.io/what-is-an-internet-service-provider) provides you an IP address. This advertises your computer to the internet.
+
+An IP address is like your home postal address, which is a piece in a larger city block. A city block, in internet language, is a network prefix. To go one step further, network prefixes are part of autonomous systems (AS). When connecting people to the internet, ISPs will assign an IP address to your computer.
+
+The IP address that is assigned to you is most likely a **dynamic IP address**. This is the most common for residential customers. This means that the IP address changes frequently, which provides customers and ISPs cost savings. In the case of Germany, Deutsche Telekom is typically changing IP addresses every day.
+
+The alternative to this system is the **static IP address**. This is an IP address that never changes. If you are running a dynamic cloud environment, this would be necessary for advertising your content to the public internet. This is a primary function of AWS Elastic IPs, which contain the static IP address component.
+
+A static IP is useful for various reasons. In cloud computing, a static IP address is advantageous for DNS queries. If IPs are changing, this can affect the content loading process. They are common for business and cloud computing, which is why AWS includes this within the Elastic IP framework.
+
+### Public IP Address
+
+A Public IP address is how the internet identifies you. A **public IP address** is the IP address that communicates your internet connected device to the public internet.
+
+There is the ability to have a public IP address or a private IP address. A private IP address is for a private network. These are less common, and with your AWS infrastructure, not going to be in your interest when discussing Elastic IPs.
+
+An Elastic IP has the public IP address component, as you need to advertise your AWS instances to the public internet. As the AWS Elastic IP will advertise a public, static IP address that can compensate for fluctuations in your AWS infrastructure, they are necessary in dynamic cloud computing.
+
+## The Two Parts of An IP Address
+![two-part-of-network](/img/linux/network/two-part-of-network.png)
+A device’s IP address actually consists of two separate parts:
+
+- Network ID: The network ID is a part of the IP address starting from the left that identifies the specific network on which the device is located. On a typical home network, where a device has the IP address 192.168.1.34, the 192.168.1 part of the address will be the network ID. It’s custom to fill in the missing final part with a zero, so we might say that the network ID of the device is 192.168.1.0.
+- Host ID: The host ID is the part of the IP address not taken up by the network ID. It identifies a specific device (in the TCP/IP world, we call devices “hosts”) on that network. Continuing our example of the IP address 192.168.1.34, the host ID would be 34—the host’s unique ID on the 192.168.1.0 network.
+
+### Subnet mask
+So, how does your device determine which part of the IP address is the network ID and which part the host ID? For that, they use another 32-bit number that you’ll always see in association with an IP address. That number is called the subnet mask.
+
+On most simple networks (like the ones in homes or small businesses), you’ll see subnet masks like 255.255.255.0, where all four numbers are either 255 or 0. The position of the changes from 255 to 0 indicate the division between the network and host ID. The 255s “mask out” the network ID from the equation.
+
+![two-part-of-network](/img/linux/network/subnet-mask.png)
+
+Note: The basic subnet masks we’re describing here are known as default subnet masks. Things get more complicated than this on bigger networks. People often use custom subnet masks (where the position of the break between zeros and ones shifts within an octet) to create multiple subnets on the same network.
+
+```bash
+11000000.10101000.01111011.00000000 -- Network address (192.168.123.0)
+00000000.00000000.00000000.10000100 -- Host address (000.000.000.132)
+```
+So now you know, for this example using a 255.255.255.0 subnet mask, that the network ID is 192.168.123.0, and the host address is 0.0.0.132. When a packet arrives on the 192.168.123.0 subnet (from the local subnet or a remote network), and it has a destination address of 192.168.123.132, your computer will receive it from the network and process it.
+
+
+
+## Ephemeral/dynamic/temporary port
+
+:::info TL;DR
+In essence an ephemeral port is a random high port used to communicate with a known server port. For example, if I ssh from my machine to a server the connection would look like:
+
+```shell
+192.168.1.102:37852 ---> 192.168.1.105:22
+```
+
+22 is the standard SSH port I'm connecting to on the remote machine; 37852 is the ephemeral port used on my local machine
+:::
+
+In networking, an ephemeral port (also known as a dynamic port or a temporary port) is a port number that is automatically assigned by the operating system to a client application or process when it initiates a connection to a server. Ephemeral ports are used for outbound connections, typically from client devices to server devices, and are temporary in nature.
+
+Here are a few key points about ephemeral ports:
+
+1. Dynamic port range: Ephemeral ports are part of a range of port numbers reserved for this purpose. The specific range of ephemeral ports varies depending on the operating system. For example, in most modern operating systems, the dynamic port range is commonly between 49152 and 65535.
+    - Many Linux kernels (including the Amazon Linux kernel) use ports 32768-61000.
+    - Requests originating from Elastic Load Balancing use ports 1024-65535.
+    - Windows operating systems through Windows Server 2003 use ports 1025-5000.
+    - Windows Server 2008 and later versions use ports 49152-65535.
+    - A NAT gateway uses ports 1024-65535.
+    - AWS Lambda functions use ports 1024-65535.
+
+2. Temporary assignment: When a client application or process establishes a connection to a server, it is assigned an ephemeral port number from the dynamic port range. This port number is temporary and is used exclusively for that particular connection.
+
+3. Port reuse: Once the connection is terminated or closed, the ephemeral port is released back to the pool of available ports and can be reused for future connections. This allows the operating system to efficiently manage and allocate port resources.
+
+4. NAT and firewall considerations: Ephemeral ports are particularly relevant when Network Address Translation (NAT) and firewalls are involved. NAT devices typically translate the source IP address and port of outgoing traffic, including the ephemeral port, to a unique public IP address and port combination. Firewalls, on the other hand, may need to allow inbound traffic for responses to the ephemeral port used in an outgoing connection.
+
+5. Connection tracking: The operating system keeps track of the mapping between the source IP address, source port (including the ephemeral port), destination IP address, and destination port for each active connection. This information is crucial for routing incoming responses back to the correct client application or process.
+
+Ephemeral ports play a vital role in facilitating communication between client applications and servers in a scalable and efficient manner. **By assigning temporary port numbers from a dynamic range, multiple client applications can establish simultaneous connections to servers without conflicts, enabling concurrent network communication.**
+
+### Example
+![Linux hardware-kernal-shell](/img/linux/network/why-add-ephemeral-ports-on-nacl.png)
+
+Let us try to understand that with a simple scenario. When you want to visit a webpage you use a browser type in the url, in the background, Your browser(client) sends a request to the website(web-server).
+
+The client that initiates the request chooses the ephemeral port range on which it wants to receive the payload it requested for. The range varies depending on **the client's operating system**. So, for a web server to work properly, we need to configure appropriate ephemerals ports on the web server.
+
+
+For example, if a request comes into a web server in your VPC from a Windows 10 client on the internet, your network ACL must have an outbound rule to enable traffic destined for ports 49152-65535.
+
+> Further reading: [Ephemeral port : What is it and what does it do?](https://unix.stackexchange.com/questions/65475/ephemeral-port-what-is-it-and-what-does-it-do), [AWS Security - Why add Ephemeral ports to NACL](https://github.com/miztiik/dev-sec-ops/tree/master/nacl-outbound-ephemeral-ports)
+
+

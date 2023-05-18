@@ -135,3 +135,62 @@ Another drawback is that round-robin cannot be depended upon for site reliabilit
 
 Some advanced round-robin services have methods to overcome a few of the drawbacks, such as the ability to detect unresponsive servers and take them out of the round-robin rotation, but there is no way around the caching issue. 
 
+### The other alternative to Round-Robin?
+
+One alternative to Round-robin DNS is the use of a load balancer. While Round-robin DNS distributes traffic evenly across multiple servers by rotating the order of IP addresses returned for a domain, a load balancer is a dedicated device or software component designed to balance the traffic load across servers in a more intelligent and efficient manner. Load balancers have advanced algorithms and capabilities to distribute traffic based on various factors such as server health, current load, and performance metrics.
+
+There are different types of load balancers available, including:
+
+1. Hardware load balancers are dedicated devices specifically designed for load balancing. They offer high performance, scalability, and advanced features such as SSL offloading, session persistence, and health checks. These load balancers are typically used in large-scale deployments.
+
+2. Software load balancers are software-based solutions that run on standard servers or virtual machines. They leverage software algorithms to distribute traffic across multiple servers. Software load balancers provide flexibility, cost-effectiveness, and can be deployed in various environments, including on-premises or in the cloud.
+
+3. Application Load Balancer (ALB) operate at the application layer (Layer 7) of the OSI model. They can perform advanced routing decisions based on HTTP headers, content, or other application-specific parameters. ALBs are commonly used in web applications to distribute traffic based on specific URL patterns or application behavior.
+
+4. Network Load Balancer (NLB) operate at the transport layer (Layer 4) of the OSI model. They distribute traffic based on IP addresses and port numbers. NLBs are suitable for scenarios that require high throughput and low latency, such as TCP/UDP-based protocols.
+
+Load balancers offer advantages over Round-robin DNS, including:
+
+- More intelligent traffic distribution based on server health and performance.
+- Enhanced scalability and flexibility.
+- Support for advanced features like SSL termination, session persistence, and health checks.
+- Centralized management and control.
+- Real-time monitoring and analytics.
+
+It's important to note that while load balancers provide advanced traffic distribution capabilities, DNS-based load balancing is often used in conjunction with load balancers to achieve high availability and fault tolerance. DNS-based load balancing can be utilized to distribute traffic across multiple load balancer instances or geographic locations.
+
+
+## DNS record types
+
+Certainly! There are several types of DNS (Domain Name System) records that serve different purposes and provide specific information about domain names and network resources. Here are some of the commonly used DNS record types:
+
+1. A (Address) Record  maps a domain name to an IPv4 address. It translates a domain name to the corresponding IP address to facilitate the routing of network traffic.
+
+2. AAAA (IPv6 Address) Record is similar to the A record but is used for mapping a domain name to an IPv6 address. It enables the translation of a domain name to its corresponding IPv6 address.
+
+3. CNAME (Canonical Name) Record is used to create an alias or nickname for a domain or subdomain. It points a domain or subdomain to another domain name, allowing multiple names to resolve to the same IP address. 
+
+:::infoNo Top node for a CNAME record
+You should keep in mind that the DNS protocol does not allow you to create a CNAME record for the top node of a DNS namespace, also known as the zone apex.  e.g. create `CNAME` record like: `example.com` but you can create `CNAME` record like:  `www.example.com`, `newproduct.example.com`
+:::
+
+4. MX (Mail Exchanger) specifies the mail server responsible for handling email delivery for a domain. It maps the domain name to the mail server's hostname or IP address.
+
+5. TXT (Text) Record stores arbitrary text information about a domain. It is commonly used for adding human-readable information or verification data, such as SPF (Sender Policy Framework) records, DKIM (DomainKeys Identified Mail) records, or other text-based information.
+
+6. NS (Name Server) Record identifies the authoritative DNS servers for a particular domain. It specifies the DNS servers that are responsible for storing and providing the DNS records for a domain. A domain will often have multiple NS records which can indicate primary and backup name servers for that domain. 
+
+    Example of an NS record:
+
+    |example.com   |record type:   |value:   |TTL(Time to live)   |
+    |---|---|---|---|
+    |@   |NS   |ns1.exampleserver.com   |21600   |
+
+    source: [What is a DNS NS record?](https://www.cloudflare.com/learning/dns/dns-records/dns-ns-record/#:~:text=NS%20stands%20for%20'name%20server,example.com)
+
+
+7. SOA (Start of Authority) Record contains administrative information about a domain. It includes details such as the primary authoritative name server for the domain, contact information for the domain administrator, and other important parameters.
+
+8. PTR (Pointer) Record is used in reverse DNS (rDNS) to map an IP address to a domain name. It helps determine the domain name associated with a given IP address.
+
+These are just a few examples of DNS record types. There are also other record types like SRV (Service) records for specifying specific network services, SPF (Sender Policy Framework) records for email authentication, and more. Each record type serves a specific purpose in the DNS system and helps facilitate various aspects of network communication and resource resolution.
