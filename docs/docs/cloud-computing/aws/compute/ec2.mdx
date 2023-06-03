@@ -104,6 +104,24 @@ Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.a
 
 ## Configuration
 
+### Shutdown Behavior
+
+By default, the Shutdown Behavior is set to "stop" for EC2 instances. When an instance is stopped, the instance is moved to a stopped state, and the instance's Amazon EBS (Elastic Block Store) volumes are preserved. This allows you to start the instance again later and retain the data and configuration.
+
+However, you can also choose to set the Shutdown Behavior to "terminate" for an instance. In this case, when the instance is stopped, it is automatically terminated, and the instance and its associated resources, including EBS volumes, are deleted. The data and configuration stored on the instance and its volumes will be lost.
+
+> This terminate behavior is not applicable when shutting down from AWS console. You have to run shutdown command from the EC2 instance to terminate the EC2 instance.
+
+CLI Attribute: `InstanceInitiatedShutdownBehavior`
+
+
+### Termination protection
+
+This is a setting to protect against accidental termination in AWS Console or CLI
+
+We have an instance where shutdown behavior = terminate and enable terminate protection is ticked
+- We shutdown the instance from the OS, what will happen ?
+- The instance will still be terminated!
 
 ### User data scripts
 
@@ -214,3 +232,45 @@ Source: [Using an IAM role to grant permissions to applications running on Amazo
   | 3        | Unencrypted-to-encrypted   | Yes       |
   | 4        | Encrypted-to-unencrypted   | No        |
   > Source: [AWS - Encryption and copying](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
+
+### Launch Issues
+
+#### InstanceLimitExceeded
+
+:::info
+vCPU-based limits only apply to running **On-Demand instances** and **Spot instances**
+:::
+
+The InstanceLimitExceeded error in AWS occurs when you attempt to launch or create new EC2 instances but reach your account's limit for the maximum number of **vCPUs** per region. Each AWS account has certain service limits in place, including EC2 instance limits, to prevent abuse or overutilization of resources.
+
+For t2 micros, we can see we have one vCPU, but if we choose an instance such as the C59 xlarge, we have 36 vCPU, so using this instance type, it would quickly reach the limit.
+
+Resolution: Either launch the instance in a different region or request AWS to increase your limit of the region
+
+#### InsufficientInstanceCapacity
+
+If you get this error, it means AWS does not have that enough On-Demand capacity in the particular AZ where the instance is launched.
+
+#### Instance Terminates Immediately
+
+Instance Terminates Immediately means that the EC2 goes from pending to terminated
+
+- You've reached your EBS volume limit.
+- An EBS snapshot is corrupt.
+- The root EBS volume is encrypted and you do not have permissions to access
+the KMS key for decryption.
+- The instance store-backed AMI that you used to launch the instance is missing a
+required part (an image.part.xx file).
+
+### SSH Issues
+
+- Make sure the private key (pem file) on your linux machine has 400
+permissions, else you will get “Unprotected private key file” error
+- Make sure the username for the OS is given correctly when logging via SSH, else you will get “Host key not found”, “Permission denied”, or “Connection closed by [instance] port 22” error
+
+- Possible reasons for “Connection timed out” to EC2 instance via SSH:
+  - SG is not configured correctly
+  - NACL is not configured correctly
+  - Check the route table for the subnet (routes traffic destined outside VPC to IGW) 
+  - Instance doesn’t have a public IPv4
+  - CPU load of the instance is high

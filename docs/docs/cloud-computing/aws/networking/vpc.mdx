@@ -227,7 +227,9 @@ There are 2 use cases that you may consider to use VPN CloudHub:
 
 ## Elastic IP
 
-> EIPs are used any time you need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns-cidr/#static--public-ip-address)
+> EIPs are used when
+- You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns-cidr/#static--public-ip-address)
+- You want to mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
 
 Within the AWS infrastructure, customers have virtual private clouds (VPC), within the VPCs, users have instances. So when you launch an EC2 instance, you receive a **Public IP address** by which that instance is reachable from internet. Once you stop that instance and restart the instance you get a new Public IP for the same instance. So it's basically a problem to connect your instance from internet for not having a static IP. To overcome this problem, we attach an Elastic IP to an Instance which doesn't change after you stop / start the instance.
 
@@ -242,10 +244,17 @@ Let’s say you setup the apache to host a website. Now, you need to scale up th
 So it may be the case that you need to update all DNS entries again. However, You can reserve the public ip for you and that ip can be attached to any ec2 which you have, so there will be no issue regarding PUBLIC IP Change.
 
 :::caution Cost
-Elastic IP is a free service, but you’re limited to five in total (to prevent exhaustion of Amazon’s address pool). And, while they are entirely free to use, they’re actually **the only AWS service that costs money if you don’t use it** — having an Elastic IP provisioned but not attached to a running machine will cost you $7.50 a month. Make sure your machine isn’t off for extended periods of time, and if you change servers or stop using the IP, make sure to release it so you aren’t charged for letting it sit idle in your account.
+Elastic IP is a free service, but you’re limited to five in total (to prevent exhaustion of Amazon’s address pool). And, while they are entirely free to use, they’re actually **the only AWS service that costs money if you don’t use it**
 
-
+Having an Elastic IP provisioned but not attached to a running machine will cost you $7.50 a month. Make sure your machine isn’t off for extended periods of time, and if you change servers or stop using the IP, make sure to release it so you aren’t charged for letting it sit idle in your account.
 :::
+
+### How to avoid using Elastic IP
+
+- Always think if other alternatives are available to you
+- You could use a random public IP and register a DNS name to it
+- Or use a Load Balancer with a static hostname
+
 
 ## Troubleshooting
 

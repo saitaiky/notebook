@@ -1,0 +1,196 @@
+---
+title: Cloud Watch
+description: Cloud Watch
+keywords:
+- CloudWatch
+sidebar_position: 1
+---
+
+## CloudWatch integration feature with S3
+
+You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
+
+## Metrics for EC2
+
+:::caution
+RAM is NOT included in the AWS EC2 metrics
+:::
+
+- AWS Provided metrics (AWS pushes them):
+    - Basic Monitoring (default): metrics are collected at a 5 minute internal
+    - Detailed Monitoring (paid): metrics are collected at a 1 minute interval 
+    - Includes CPU, Network, Disk and Status Check Metrics
+        - CPU: CPU Utilization + Credit Usage / Balance
+        - Network: Network In / Out
+        - Status Check:
+            - Instance status = check the EC2 VM
+            - System status = check the underlying hardware
+        - Disk: Read / Write for Ops / Bytes (only for instance store)
+
+- Custom metric (yours to push):
+    - Basic Resolution: 1 minute resolution
+    - High Resolution: all the way to 1 second resolution
+    - Include RAM, application level metrics
+    - Make sure the IAM permissions on the EC2 instance to push the logs and the metrics.
+
+### The Unified CloudWatch Agent
+
+The Unified CloudWatch Agent is a software component provided by AWS that allows you to collect below information from virtual servers (EC2 instances, on-premises servers, ...)
+- Additional system-level metrics such as RAM, processes, used disk space, etc.
+- Collect logs file to send to CloudWatch Logs (No logs from inside your EC2 instance will be sent to
+CloudWatch Logs without using an agent)
+
+Other points:
+- Use SSM Parameter Store to store the json format configuration that Unified CloudWatch Agent needs
+- Make sure to attach an IAM role on the EC2 instance for accessing configuration from SSM
+
+### Procstat plugin
+
+> TL;DR - Process-level Monitoring: The plugin enables you to monitor individual processes, allowing you to gain insights into their resource consumption and performance.
+
+The CloudWatch Agent procstat plugin is a component of the CloudWatch Agent provided by AWS. The procstat plugin allows you to monitor and collect metrics from specific processes running on your Amazon EC2 instances.
+
+By configuring the procstat plugin, you can specify the processes you want to monitor and collect metrics for, such as CPU usage, memory usage, or custom metrics exposed by the process. The plugin uses the procfs file system on Linux-based systems to retrieve information about the specified processes.
+
+Some key features and use cases of the CloudWatch Agent procstat plugin include:
+
+## Status checks for EC2
+
+When status checks fail, you have 2 options to do the followup actions
+
+**Option 1**: CloudWatch Alarm
+- Send notifications using SNS
+- Recover EC2 instance with same private/public IP, EIP, metadata, and Placement Group
+
+**Option 2**: Auto Scaling Group
+- Set min/max/desired 1 to recover an instance but won't keep the same private and elastic IP
+
+### SYSTEM status checks
+
+System status checks monitor the AWS systems on which your instance runs
+- Problem with the underlying host. Example: 
+    - Loss of network connectivity
+    - Loss of system power
+    - Software issues on the physical host
+    - Hardware issues on the physical host that impact network reachability
+- Either wait for AWS to fix the host, OR
+- Move the EC2 instance to a new host = STOP & START the instance (if EBS backed)
+
+### INSTANCE status checks
+
+Instance status checks monitor the software and network configuration of your individual instance
+- Example of issues
+    - Incorrect networking or startup configuration
+    - Exhausted memory
+    - Corrupted file system
+    - Incompatible kernel
+- Requires your involvement to fix
+- Restart the EC2 instance, OR
+- Change the EC2 instance configuration
+
+
+
+## CloudWatch interval
+
+- (By default) Basic monitoring Data is available automatically in 5-minute periods at no charge. 
+- (Paid) Detailed monitoring Data is available in 1-minute periods for an additional charge. 
+
+
+## CloudWatch Event Rules
+
+You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
+
+Examples of Amazon CloudWatch Events rules and targets:
+
+- A rule that sends a notification when the **instance state changes**, where an EC2 instance is the event source, and Amazon SNS is the event target.
+- A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
+- A rule that detects **pipeline changes** and invokes an AWS Lambda function.
+
+## CloudWatch alarm
+
+Setup a CloudWatch alarm to monitor the health status of the instance. In case of an Instance Health Check failure, an EC2 Reboot CloudWatch Alarm Action can be used to reboot the instance
+
+The reboot alarm action is recommended for **Instance Health Check failures** -  The system status check detects issues with the underlying host that your instance runs on. If the underlying host is unresponsive or unreachable due to network, hardware, or software issues, then this status check fails.
+
+The recover alarm action, which is suited for **System Health Check failures** - An instance status check failure indicates a problem with the instance due to operating system-level errors such as the following:
+
+-   Failure to boot the operating System
+-   Failure to mount volumes correctlySystem
+-   File system issuesSystem
+-   Incompatible driversSystem
+-   Kernel panic
+
+# Use X-ray to debug microservices specific issues
+
+Imagine a company uses microservices-based infrastructure to process the API calls from clients, perform request filtering and cache requests using the AWS API Gateway. Users report receiving 501 error code and you have been contacted to find out what is failing. 
+
+You may use X-Ray to debug the issue.
+
+- CloudWatch can collect numbers and respond to AWS service-related events, but it can't help you debug microservices specific issues on AWS.
+- X-Ray cannot be used to capture metrics and set up alarms as per the given use-case, so this option is incorrect.
+
+The AWS X-Ray SDK needs permission to run in resources (like Lambda)
+
+Create an IAM role with write permissions and assign it to the resources running your application. You can use AWS Identity and Access Management (IAM) to grant X-Ray permissions to users and compute resources in your account. This should be one of the first places you start by checking that your permissions are properly configured before exploring other troubleshooting options.
+
+Here is an example of X-Ray Read-Only permissions via an IAM policy:
+
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries",
+                "xray:BatchGetTraces",
+                "xray:GetServiceGraph",
+                "xray:GetTraceGraph",
+                "xray:GetTraceSummaries",
+                "xray:GetGroups",
+                "xray:GetGroup"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+```
+
+
+Another example of write permissions for using X-Ray via an IAM policy:
+
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+```
+
+# CloudTail
+
+If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (**need root account permission**). This is referred to as an organization trail.
+
+- S3 related
+    - By default, CloudTrail tracks only bucket-level actions. To track object-level actions, you need to enable Amazon S3 data events 
+    - A bucket owner enabled CloudTrail. It doesn’t mean he can see the object access logs. The bucket owner **also needs to be object owner** to get the object access logs. Otherwise, the bucket owner **must get permissions**, through the object ACL, for the same object API to get the same object-access API logs.
+- Member accounts will be **able to see the organization trail**, but cannot modify or delete it. (By default, member accounts will not have access to the log files for the organization trail in the Amazon S3 bucket.)

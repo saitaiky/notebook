@@ -560,6 +560,37 @@ Test results HTML report is also generated as index.html under *jest-stare/ *
 
 ![API test](/img/software-development/devops/testing/api-test.png)
 
+### Snapshot testing with Jest
+
+:::infoWhere do we store the snapshot?
+Snapshot testing is based on history of your previous tests. When you first run a snapshot test it creates a text file including the textual render of your component tree.
+
+You need to keep these snapshot files in your VCS (git). When you make a change you can run these tests to see if it yet matches the snapshot text file or not.
+:::
+
+```javascript
+// add.js
+function add(a, b) {
+  return a + b;
+}
+
+module.exports = add;
+```
+
+```javascript
+// add.test.js
+const add = require('./add');
+
+test('add function adds two numbers correctly', () => {
+  expect(add(2, 3)).toMatchSnapshot();
+});
+```
+
+In this example, we have a simple `add` function that adds two numbers. The test case uses Jest's `toMatchSnapshot` matcher to compare the result of `add(2, 3)` against the reference snapshot.
+
+When you run the test using Jest, it will automatically create a snapshot file with the output of `add(2, 3)` if it doesn't exist. On subsequent test runs, Jest compares the current output against the saved snapshot. If the output matches the snapshot, the test passes. If there are differences, Jest displays a diff of the changes for review.
+
+Snapshot testing with Jest helps ensure that the output of a function or component remains consistent over time, making it easier to catch unexpected changes or regressions in your code.
 
 ### Automated Regression Testing with perfecto
 
