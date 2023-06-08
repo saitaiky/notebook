@@ -14,6 +14,10 @@ Adhering to the SDLC process leads to the development of the software in a syste
 
     Business analyst and Project Manager set up a meeting with the customer to gather all the information like what the customer wants to build, who will be the end-user, what is the purpose of the product. Before building a product a core understanding or knowledge of the product is very important.
 
+    :::infoThis step is importance to prevent scope creep
+    Scope creep (also called requirement creep, or kitchen sink syndrome) in project management refers to changes, continuous or uncontrolled growth in a project's scope, at any point after the project begins. This can occur when the scope of a project is not properly defined, documented, or controlled.
+    :::
+
 2. **Design** - In this phase, the requirement gathered in the Software Requirements Specification (SRS) document is used as an input and software architecture that is used for implementing system development is derived.
 
 
