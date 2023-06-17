@@ -16,6 +16,60 @@ An Application load balancer distributes incoming application traffic across mul
 source: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
 
 
+## Network Load Balancer
+
+A Network Load Balancer functions at **the fourth layer** of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
+
+### Connect NLB to Bastion host
+
+You need to remember that Bastion Hosts are using the **SSH protocol**, which is a **TCP** based protocol on port 22. They must be publicly accessible.
+
+Here, the correct answer is to use a Network Load Balancer, which supports **TCP** traffic, and will automatically allow you to connect to the EC2 instance in the backend.
+
+:::danger ALB don't support HTTPS. NLB support HTTPS
+An ALB only supports HTTP traffic, which is **layer 7**, while the SSH protocol is based on **TCP** and is **layer 4**. So, the **Application Load Balancer** doesn't work.
+:::
+
+### Targeting options
+
+**There are 2 options in NLP to route request**
+
+- If you specify targets using an **instance ID**, traffic is routed to instances using *the **primary private IP address** specified in the primary network interface for the instanc*. The load balancer rewrites the destination IP address from the data packet before forwarding it to the target instance.
+
+- If you specify targets using **IP addresses**, you can route traffic to an instance using* **any private IP address** from one or more network interfaces*. This enables multiple applications on an instance to use the same port. Note that each network interface can have its security group. The load balancer rewrites the destination IP address before forwarding it to the target.
+
+:::info Private IPv4 addresses
+
+A private IPv4 address is an IP address that's not reachable over the Internet. You can use private IPv4 addresses for communication between instances in the same VPC.
+
+When you launch an EC2 instance into an IPv4-only or dual stack (IPv4 and IPv6) subnet, the instance receives a primary private IP address from the IPv4 address range of the subnet. For more information, see [IP addressing](https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html#vpc-ip-addressing) in the *Amazon VPC User Guide*. If you don't specify a primary private IP address when you launch the instance, we select an available IP address in the subnet's IPv4 range for you. Each instance has a default network interface (eth0) that is assigned the primary private IPv4 address. You can also specify additional private IPv4 addresses, known as *secondary private IPv4 addresses*. Unlike primary private IP addresses, secondary private IP addresses can be reassigned from one instance to another. For more information, see [Multiple IP addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/MultipleIP.html).
+
+A private IPv4 address, regardless of whether it is a primary or secondary address, remains associated with the network interface when the instance is stopped and started, or hibernated and started, and is released when the instance is terminated.
+
+> Source: [Amazon EC2 instance IP addressing](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-private-addresses)
+
+:::
+
+### TLS Termination (Offload TSL)
+
+TLS Termination is an approach that we use to offload the **decryption/encryption** of TLS traffic
+
+:::info TLS is the next generation of SSL
+**TLS** evolved from a previous encryption protocol called Secure Sockets Layer (**SSL**), which was developed by Netscape.
+:::
+
+With **Network Load Balancer**, you can *offload the decryption/encryption of TLS traffic from your application servers* to the **Network Load Balancer**, which helps you optimize the performance of your backend application servers while keeping your workloads secure. Additionally, **Network Load Balancers** *preserve the source IP of the clients* to the back-end applications, while terminating TLS on the load balancer. Steps to do SSL termination
+
+1. Configure an SSL/TLS certificate on an Application Load Balancer via AWS Certificate Manager (ACM)
+2. Create an HTTPS listener on the Application Load Balancer with SSL termination
+
+:::caution ALB and CLB also support SSL/TLS Termination
+- The Application Load Balancersupports **TLS** offloading
+- The Classic Load Balancer supports **SSL** offloading.
+:::
+
+> Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
+
 ## Behaviour 
 
 ### Deregistration
@@ -41,6 +95,28 @@ By default, cross-zone load balancing is enabled (always on) for **Application L
 ### Ephemeral port range of ELB
 
 Requests originating from Elastic Load Balancing use ports 1024-65535. For a detailed explaination, visit [Ephemeral port : What is it and what does it do?](/linux/network/ip-dns-cidr/#ephemeral-port--what-is-it-and-what-does-it-do)
+
+### Target group contains only unhealthy targets?
+
+If a target group contains only unhealthy targets, ELB routes requests across its unhealthy targets. It assumes that the health check is wrong, but maybe the health, the instance can still work for some cases, okay. This is a best effort scenario. 
+
+## Target group settings
+
+### Slow start mode
+
+Slow start is a feature in AWS load balancer target groups that controls the gradual ramp-up of traffic to newly registered or recovered targets. When targets are added to a target group or become healthy after being unhealthy, the slow start feature allows the load balancer to gradually increase the number of requests it sends to those targets over a specified duration. 
+
+This helps to prevent overwhelming the newly added or recovered targets with a sudden surge of traffic, allowing them to warm up and stabilize before handling full load. Slow start helps maintain the overall stability and performance of the application during these transitional periods.
+
+### Request Routing Algorithms
+
+There are 2 algorithms which only work for **ALB/CLB**.
+- Least Oustanding requests: The next instance to receive the request is the instance that has the lowest number of pending/unfinished requests.
+- Round Robin: Equally choose the targets from the target group.
+
+There is only one algorithm which only work for **NLB**, which is Flow Hash
+- Selects a target based on the protocol, source/destination IP address, source/destination por t, and TCP sequence number
+- Each TCP/UDP connection is routed to a single target for the life of the connection
 
 
 ## Troubleshooting
@@ -110,20 +186,23 @@ Here are the reasons that why an ELB routes more traffic to one instance or Avai
 
 ### Error codes
 
-- **HTTP 503**
-  - HTTP 503 indicates 'Service unavailable' error 
-  - This error in ALB is an indicator of the target groups for the load balancer having no registered targets.
+> TL;DR - 4XX codes are client-side errors and 5xx errors are going to be server problems
+
 - HTTP 500
   - HTTP 500 indicates 'Internal server' error
   - Several reasons:
     - A client submitted a request without an HTTP protocol
     - The load balancer was unable to generate a redirect URL
     - There was an error executing the web ACL rules
+- **HTTP 503**
+  - HTTP 503 indicates 'Service unavailable' error 
+  - This error in ALB is an indicator of the target groups for the load balancer having no registered targets.
 - HTTP 504
   - HTTP 504 indicates 'Gateway timeout' error
   - Several reasons: 
     - The load balancer failed to establish a connection to the target before the connection timeout expired
     - The load balancer established a connection to the target but the target did not respond before the idle timeout period elapsed
+- HTTP 400 indicates 'The client sent a malformed request that does not meet HTTP specifications.'
 - HTTP 403
   - HTTP 403 is 'Forbidden' error. 
   - You configured an AWS WAF web access control list (web ACL) to monitor requests to your ALB and it blocked a request.
@@ -160,10 +239,18 @@ For each request that a client makes through an **Elastic Load Balancer**, the l
 The load balancer has a configured "idle timeout" period that applies to its connections. If no data has been sent or received by the time that the "idle timeout" period elapses, the load balancer closes the connection
 
 
+### Listener rules
 
+Listener rules are setup on ALB allow you to define how incoming traffic is routed based on various conditions. Listener rules are configured on the listener level and determine which target group should receive the incoming request based on criteria such as the request path, host header, HTTP headers, query parameters, or source IP address.
 
+By defining specific rules, you can implement routing policies, redirect requests, or conditionally route traffic to different target groups. Listener rules provide flexibility in directing traffic to different application components based on specific conditions, enabling you to build dynamic and customized routing configurations.
 
-### Rule Condition types
+![alb_fixed_rule_2](https://media.amazonwebservices.com/blog/2019/alb_condition_menu_2.png)
+
+Resource: [New – Advanced Request Routing for AWS Application Load Balancers
+](https://aws.amazon.com/blogs/aws/new-advanced-request-routing-for-aws-application-load-balancers/)
+
+#### Rule Condition types
 
 There are 2 types that you can config.
 - host-based routing: api.smart.com and mobile.smart.com 
@@ -196,60 +283,6 @@ The example condition given in the question is satisfied by requests with a quer
   }
 ]
 ```
-
-## Network Load Balancer
-
-A Network Load Balancer functions at **the fourth layer** of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
-
-### Connect NLB to Bastion host
-
-You need to remember that Bastion Hosts are using the **SSH protocol**, which is a **TCP** based protocol on port 22. They must be publicly accessible.
-
-Here, the correct answer is to use a Network Load Balancer, which supports **TCP** traffic, and will automatically allow you to connect to the EC2 instance in the backend.
-
-:::danger ALB don't support HTTPS. NLB support HTTPS
-An ALB only supports HTTP traffic, which is **layer 7**, while the SSH protocol is based on **TCP** and is **layer 4**. So, the **Application Load Balancer** doesn't work.
-:::
-
-### Targeting options
-
-**There are 2 options in NLP to route request**
-
-- If you specify targets using an **instance ID**, traffic is routed to instances using *the **primary private IP address** specified in the primary network interface for the instanc*. The load balancer rewrites the destination IP address from the data packet before forwarding it to the target instance.
-
-- If you specify targets using **IP addresses**, you can route traffic to an instance using* **any private IP address** from one or more network interfaces*. This enables multiple applications on an instance to use the same port. Note that each network interface can have its security group. The load balancer rewrites the destination IP address before forwarding it to the target.
-
-:::info Private IPv4 addresses
-
-A private IPv4 address is an IP address that's not reachable over the Internet. You can use private IPv4 addresses for communication between instances in the same VPC.
-
-When you launch an EC2 instance into an IPv4-only or dual stack (IPv4 and IPv6) subnet, the instance receives a primary private IP address from the IPv4 address range of the subnet. For more information, see [IP addressing](https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html#vpc-ip-addressing) in the *Amazon VPC User Guide*. If you don't specify a primary private IP address when you launch the instance, we select an available IP address in the subnet's IPv4 range for you. Each instance has a default network interface (eth0) that is assigned the primary private IPv4 address. You can also specify additional private IPv4 addresses, known as *secondary private IPv4 addresses*. Unlike primary private IP addresses, secondary private IP addresses can be reassigned from one instance to another. For more information, see [Multiple IP addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/MultipleIP.html).
-
-A private IPv4 address, regardless of whether it is a primary or secondary address, remains associated with the network interface when the instance is stopped and started, or hibernated and started, and is released when the instance is terminated.
-
-> Source: [Amazon EC2 instance IP addressing](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-private-addresses)
-
-:::
-
-### TLS Termination (Offload TSL)
-
-TLS Termination is an approach that we use to offload the **decryption/encryption** of TLS traffic
-
-:::info TLS is the next generation of SSL
-**TLS** evolved from a previous encryption protocol called Secure Sockets Layer (**SSL**), which was developed by Netscape.
-:::
-
-With **Network Load Balancer**, you can *offload the decryption/encryption of TLS traffic from your application servers* to the **Network Load Balancer**, which helps you optimize the performance of your backend application servers while keeping your workloads secure. Additionally, **Network Load Balancers** *preserve the source IP of the clients* to the back-end applications, while terminating TLS on the load balancer. Steps to do SSL termination
-
-1. Configure an SSL/TLS certificate on an Application Load Balancer via AWS Certificate Manager (ACM)
-2. Create an HTTPS listener on the Application Load Balancer with SSL termination
-
-:::caution ALB and CLB also support SSL/TLS Termination
-- The Application Load Balancersupports **TLS** offloading
-- The Classic Load Balancer supports **SSL** offloading.
-:::
-
-> Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
 
 ## Layer 4 Load Balancing vs. Layer 7 Load Balancing
 

@@ -75,6 +75,8 @@ Patch Manager in SSM is a service that simplifies the process of patching and ma
 
 ## Session Manager
 
+> TL;DR - Web interface as EC2 CLI
+
 - Allows you to start a secure shell on your EC2 and on- premises servers
 - Access through AWS Console, AWS CLI, or Session Manager SDK
 - Does not need SSH access, bastion hosts, or SSH keys
@@ -87,3 +89,12 @@ You just need the instance with the SSM agents and the right IAM role, and then 
 
 All the data of the session is going to be logged or could be logged into Amazon S3 or CloudWatch logs. In contract, if someone uses an SSH command into an EC2 instance, you do not have the history of all the commands that will run, and so **less security, less compliance**.
 :::
+
+## OpsWorks
+
+OpsWorks lets you use Chef and Puppet to automate how servers are configured, deployed, and managed across your **Amazon EC2 instances or on-premises** compute environments.
+
+- It’s an alternative to AWS SSM
+- AWS OpsWorks = Managed **Chef & Puppet**
+- Chef & Puppet help you perform server configuration automatically, or repetitive actions
+- Chef / Puppet have similarities with SSM / Beanstalk / CloudFormation but they’re open-source tools that work cross-cloud
