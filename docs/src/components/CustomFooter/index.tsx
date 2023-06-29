@@ -21,7 +21,7 @@ const CustomFooter = () => (
   <div className={styles["footerSocialIconsWrapper"]}>
     <div className={styles["socialBrands"]}>
       <Link
-        href={"https://github.com/saitai0802/"}
+        href={"https://github.com/saitaiky/"}
         rel="noopener noreferrer"
         aria-label={"Github"}
       >

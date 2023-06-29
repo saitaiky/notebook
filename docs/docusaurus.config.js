@@ -134,7 +134,7 @@ const config = {
       },
       announcementBar: {
         id: 'announcementBar-2', // Increment on change
-        content: `⭐️ If you think this blog is handy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitai0802/docusaurus-doc-theme">GitHub</a>`,
+        content: `⭐️ If you think this blog is handy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitaiky/docusaurus-doc-theme">GitHub</a>`,
       },
       // For header
       navbar: {
@@ -242,7 +242,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/saitai0802/',
+            href: 'https://github.com/saitaiky/',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
