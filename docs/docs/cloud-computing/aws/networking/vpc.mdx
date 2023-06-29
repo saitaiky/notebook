@@ -228,7 +228,7 @@ There are 2 use cases that you may consider to use VPN CloudHub:
 ## Elastic IP
 
 > EIPs are used when
-- You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns-cidr/#static--public-ip-address)
+- You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns/)
 - You want to mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
 
 Within the AWS infrastructure, customers have virtual private clouds (VPC), within the VPCs, users have instances. So when you launch an EC2 instance, you receive a **Public IP address** by which that instance is reachable from internet. Once you stop that instance and restart the instance you get a new Public IP for the same instance. So it's basically a problem to connect your instance from internet for not having a static IP. To overcome this problem, we attach an Elastic IP to an Instance which doesn't change after you stop / start the instance.
