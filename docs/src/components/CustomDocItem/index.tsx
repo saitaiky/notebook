@@ -10,7 +10,7 @@ const CustomDocItem = (props) => (
     <ActualDocItem {...props} />
     <div className={styles['custom_doc_item_footer']}>
       <PageHelpful />
-      <GraphQLWithHasuraBanner />
+      {/* <GraphQLWithHasuraBanner /> */}
       <CustomFooter />
     </div>
   </div>

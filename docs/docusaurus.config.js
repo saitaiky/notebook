@@ -182,6 +182,12 @@ const config = {
             ],
           },
           {
+            label: 'AI',
+            type: 'doc',
+            docId: 'ai/index',
+            position: 'left',
+          },
+          {
             label: 'Crypto',
             type: 'doc',
             docId: 'crypto/index',

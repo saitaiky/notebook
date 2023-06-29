@@ -17,7 +17,7 @@ const FeatureList = [
     // Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Technical architect at Builder.ai (Series C)
+        Technical architect at Builder.ai (Series D AI startup)
       </>
     ),
   },

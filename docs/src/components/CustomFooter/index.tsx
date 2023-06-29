@@ -30,15 +30,6 @@ const CustomFooter = () => (
     </div>
     <div className={styles["socialBrands"]}>
       <Link
-        href={"https://twitter.com/SaiTai79438340"}
-        rel="noopener noreferrer"
-        aria-label={"Twitter"}
-      >
-        <TwitterIcon />
-      </Link>
-    </div>
-    <div className={styles["socialBrands"]}>
-      <Link
         href={"https://www.linkedin.com/in/saitai/"}
         rel="noopener noreferrer"
         aria-label={"Linkedin"}
