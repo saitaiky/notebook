@@ -58,3 +58,25 @@ SSE-KMS is similar to SSE-S3 but comes with some additional benefits over SSE-S3
 When you create a CMK using KMS instead of using default CMK you get more flexibility as you can create, rotate and disable the encryption keys. As KMS is integrated with Cloudtrail with SSE-KMS you can also audit the usage of the key like when, by whom, for what purpose the key was used. You can also give separate permissions for the use of an envelope key.
 
 
+## Security Manager
+
+- Newer service, meant for storing secrets
+- Capability to force rotation of secrets every X days
+- Automate generation of secrets on rotation (uses Lambda)
+- Integration with Amazon RDS (MySQL, PostgreSQL, Aurora) 
+- Secrets are encrypted using KMS
+- Mostly meant for RDS integration
+
+### SSM Parameter Store vs Secrets Manager
+
+- Secrets Manager ($$$):
+  - Automatic rotation of secrets with AWS Lambda
+  - Lambda function is provided for RDS, Redshift, DocumentDB - KMS encryption is mandatory\
+  - Can integration with CloudFormation
+
+- SSM Parameter Store ($):
+  -  Simple API
+  -  No secret rotation (can enable rotation using Lambda triggered by CW Events)
+  -  KMS encryption is optional
+  -  Can integration with CloudFormation
+  -  Can pull a Secrets Manager secret using the SSM Parameter Store API
