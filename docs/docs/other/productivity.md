@@ -63,8 +63,6 @@ Working on the right problem stead of squeezing out every second to work on the 
 
 ### Interesting points which I want to verify
 
-#### 80/20 rule
-A well-known trader who I know believes in the 80/20 rule for achieving 80% success in 20% of the time. However, for the trading job, it requires 100% or 110% perfection. Unlike studying a master's program, they don't need to aim for a perfect 4.0 GPA and are open to using tools to save time.
 ### From other productive people
 
 - Focus completely for 2-4 hours daily on higher priorities, avoiding contact switch and social media apps.

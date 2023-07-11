@@ -16,6 +16,14 @@ Event-driven architectures have three key components: **event producers, event r
 
 There are two main types of routers used in event-driven architectures: **event buses** and **event topics**. At AWS, we offer [Amazon EventBridge](https://aws.amazon.com/eventbridge/) to build event buses and [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/) to build event topics.
 
+:::info What Does Decoupled Mean?
+Decoupled, or decoupling, is a state of an IT environment in which two or more systems somehow work or are connected without being directly connected.
+
+In a decoupled microservices architecture, for example, software services have none or very little knowledge about the other services. In theory, this means that a change can be made to one service without the developer having to worry about how the change will impact other services -- as long as the service's application programming interface (API) remains the same.
+
+A decoupled architecture allows software development teams to **build, execute, test and debug application modules independently**. This approach also allows each module to be developed and maintained by a different team of software developers.
+:::
+
 ### Event-Driven Systems vs Request-Response Systems
 
 Event-based systems differ markedly from request-based systems. Event-based and request-based systems are duals of each other. Whereas the receipt of a request triggers the action of a request-response system, the receipt of an event triggers event-driven systems. 
