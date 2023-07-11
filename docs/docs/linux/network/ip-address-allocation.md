@@ -16,6 +16,9 @@ IP address allocation, on the other hand, is the process of assigning IP address
 
 While network segmentation can influence IP address allocation by dividing a network into smaller segments or subnets, network segmentation is not solely concerned with IP address allocation. It focuses on creating logical boundaries and organizing network traffic, whereas IP address allocation specifically addresses the assignment and management of IP addresses.
 
+:::infoHow does IPv6 solve the problem of IPv4 address exhaustion?
+IPv6 uses 128-bit addresses as opposed to the 32-bit addresses used by IPv4, allowing for a substantially larger number of possible addresses. With each bit corresponding to a ‘0’ or ‘1’, this theoretically allows 2^128 combinations or 340 trillion, trillion, trillion addresses. By contrast, IPv4 permits 2^32 combinations for a maximum of approximately 4.3 billion addresses.
+:::
 
 ## Strategies to allocate IPs
 

@@ -10,20 +10,74 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-## NACL vs Security group
+**Some good posts**
 
-With Network Access Control List you can control what goes in and out of your VPC.
-
-With security groups you can control what goes in and out your instances
-
-![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)
-
-Source: [Security Group and Network Access Control List Migration between different VPCs](https://medium.com/@chaosgears/security-group-and-network-access-control-list-migration-between-different-vpcs-a81f5c9c8d64)
+- [Getting started with IPv6 on AWS](https://cloudonaut.io/getting-started-with-ipv6-on-aws/)
 
 
-![what-is-aws-network-acl](/img/aws/networking/vpc/what-is-aws-network-acl.jpeg)
+## Compare IPv4 and IPv6
 
-Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www.youtube.com/watch?v=tLAgYQlMWGo)
+The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support).
+
+<div class="table-container"><div class="table-contents disable-scroll"><table id="w285aac11c11b5"><thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>IPv4</th>
+      <th>IPv6</th>
+    </tr>
+  </thead>
+    <tbody><tr>
+      <td>VPC size</td>
+      <td>Up to 5 CIDRs from /16 to /28. This <a href="./amazon-vpc-limits.html#vpc-limits-vpcs-subnets">quota</a> is adjustable.</td>
+      <td>Up to 5 CIDRs fixed at /56. This quota is not adjustable.</td>
+    </tr>
+    <tr>
+      <td>Subnet size</td>
+      <td>From /16 to /28</td>
+      <td>Fixed at /64</td>
+    </tr>
+    <tr>
+      <td>Address selection</td>
+      <td>You can choose the IPv4 CIDR block for your VPC or you can allocate a
+        CIDR block from Amazon VPC IP Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+        <em>Amazon VPC IPAM User Guide</em>.
+      </td>
+      <td>You can bring your own IPv6 CIDR block to AWS for your VPC, choose an
+        Amazon-provided IPv6 CIDR block, or you can allocate a CIDR block from Amazon VPC IP
+        Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+        <em>Amazon VPC IPAM User Guide</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>Internet access</td>
+      <td>Requires an <a href="./VPC_Internet_Gateway.html">internet gateway</a>.</td>
+      <td>Requires an internet gateway. Supports outbound-only communication using an <a href="./egress-only-internet-gateway.html">egress-only internet gateway</a>.</td>
+    </tr>
+    <tr>
+      <td>Elastic IP addresses</td>
+      <td>Supported. Gives an EC2 instance a permanent, static public IPv4 address.</td>
+      <td>Not supported. EIPs keep the public IPv4 address of an instance static on
+        instance restart. IPv6 addresses are static by default.</td>
+    </tr>
+    <tr>
+      <td>NAT gateways</td>
+      <td>
+        <p>Supported. Instances in private subnets can connect to the internet using a
+          public NAT gateway or to resources in other VPCs using a private NAT gateway.</p>
+      </td>
+      <td>Supported. You can use a NAT gateway with NAT64 to enable instances in IPv6-only
+        subnets to communicate with IPv4-only resources within VPCs, between VPCs, in your
+        on-premises networks, or over the internet.</td>
+    </tr>
+    <tr>
+      <td>DNS names</td>
+      <td>Instances receive Amazon-provided IPBN or RBN-based DNS names. The DNS name
+        resolves to the DNS records selected for the instance.</td>
+      <td>Instance receive Amazon-provided IPBN or RBN-based DNS names. The DNS name
+        resolves to the DNS records selected for the instance.</td>
+    </tr>
+  </tbody>
+</table></div></div>
 
 
 
@@ -265,3 +319,18 @@ The correct solution is to share the subnet(s) within a VPC using RAM. This will
 
 To set this up, the account that owns the VPC (owner) shares one or more subnets with other accounts (participants) that belong to the same organization from AWS Organizations. 
 After a subnet is shared, the participants can view, create, modify, and delete their application resources in the subnets shared with them. Participants cannot view, modify, or delete resources that belong to other participants or the VPC owner.
+
+### NACL vs Security group
+
+With Network Access Control List you can control what goes in and out of your VPC.
+
+With security groups you can control what goes in and out your instances
+
+![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)
+
+Source: [Security Group and Network Access Control List Migration between different VPCs](https://medium.com/@chaosgears/security-group-and-network-access-control-list-migration-between-different-vpcs-a81f5c9c8d64)
+
+
+![what-is-aws-network-acl](/img/aws/networking/vpc/what-is-aws-network-acl.jpeg)
+
+Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www.youtube.com/watch?v=tLAgYQlMWGo)
