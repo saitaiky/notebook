@@ -15,7 +15,9 @@ sidebar_position: 1
 
 Source: [Working with read replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
 
-Any updates made to the primary DB instance are **asynchronously** copied to the read replica. So both these options are incorrect.
+- Any updates made to the primary DB instance are **asynchronously** copied to the read replica. So both these options are incorrect.
+- Writing to tables on a read replica can break the replication
+- If the value for the `max_allowed_packet` parameter for a read replica is less than the `max_allowed_packet` parameter for the source DB instance, replica errors occur. 
 
 ## Availability 
 

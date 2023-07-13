@@ -445,9 +445,15 @@ However, if the the limits are not sufficient, prefixes would need to be used. A
 
 Prefixes of the object 'file' would be: `/folder1/sub1/` , `/folder1/sub2/`, `/1/`, `/2/`. In this example, if you spread reads across all four prefixes evenly, you can achieve **22,000 requests per second.**
 
-### Glacier Vault
+### Snowball
 
-You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault**. You need to go through S3 first and then use a lifecycle policy.
+AWS Snowball is a physical data transfer device offered by Amazon Web Services (AWS) that simplifies the process of moving large volumes of data between on-premises locations and the AWS cloud. It is designed to overcome challenges related to network limitations, long transfer times, and high costs associated with transferring large amounts of data over the internet.
+
+:::danger
+*You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault** *. You need to go through S3 first and then use a lifecycle policy.
+:::
+
+> Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
 
 ## Further reading
 

@@ -101,19 +101,66 @@ Overview of EC2 hibernation:
 ![hibernate](/img/aws/compute/hibernate.png)
 Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.academy/lets-talk-about-ec2-placement-groups-and-hibernate-a6e4bed854c?gi=90ed20ac88d9)
 
+## Status checks
+
+When status checks fail, you have 2 options to do the followup actions
+
+- **Option 1**: CloudWatch Alarm
+    - Send notifications using SNS
+    - Recover EC2 instance with same private/public IP, EIP, metadata, and Placement Group
+- **Option 2**: Auto Scaling Group
+    - Set min/max/desired 1 to recover an instance but won't keep the same private and elastic IP
+
+### SYSTEM status checks
+
+System status checks monitor the AWS systems on which your instance runs
+- Problem with the underlying host. Example: 
+    - Loss of network connectivity
+    - Loss of system power
+    - Software issues on the physical host
+    - Hardware issues on the physical host that impact network reachability
+- Either wait for AWS to fix the host, OR
+- Move the EC2 instance to a new host = STOP & START the instance (if EBS backed)
+
+### INSTANCE status checks
+
+Instance status checks monitor the software and network configuration of your individual instance
+- Example of issues
+    - Incorrect networking or startup configuration
+    - Exhausted memory
+    - Corrupted file system
+    - Incompatible kernel
+- Requires your involvement to fix
+- Restart the EC2 instance, OR
+- Change the EC2 instance configuration
 
 ## Configuration
 
 ### Shutdown Behavior
 
-By default, the Shutdown Behavior is set to "stop" for EC2 instances. When an instance is stopped, the instance is moved to a stopped state, and the instance's Amazon EBS (Elastic Block Store) volumes are preserved. This allows you to start the instance again later and retain the data and configuration.
+#### InstanceInitiatedShutdownBehavior
+By default, the Shutdown Behavior is set to "`stop`" for EC2 instances. When an instance is stopped, the instance is moved to a stopped state, and the instance's Amazon EBS (Elastic Block Store) volumes are preserved. This allows you to start the instance again later and retain the data and configuration.
 
-However, you can also choose to set the Shutdown Behavior to "terminate" for an instance. In this case, when the instance is stopped, it is automatically terminated, and the instance and its associated resources, including EBS volumes, are deleted. The data and configuration stored on the instance and its volumes will be lost.
+However, you can also choose to set the Shutdown Behavior to "`terminate`" for an instance. In this case, when the instance is stopped, it is automatically terminated, and the instance and its associated resources, **including EBS volumes, are deleted**. The data and configuration stored on the instance and its volumes will be lost.
 
-> This terminate behavior is not applicable when shutting down from AWS console. You have to run shutdown command from the EC2 instance to terminate the EC2 instance.
+```
+  aws ec2 run-instance --region ap-south-1 \
+  --count 1 \
+  --image-id myamiid \
+  --security-group-ids mysgid \
+  --subnet-id mysubnetid \
+  --key-name mykeypair \
+  --instance-type t2.micro \
+  --tag-specification 'ResourceType=instance,Tags=[{Key=Name,Value=Myinstance}]'
+  --instance-initiated-shutdown-behavior=terminate
+```
 
-CLI Attribute: `InstanceInitiatedShutdownBehavior`
+> This terminate behavior is not applicable when shutting down from AWS console. You have to run **shutdown command by using operating system command from the EC2 instance** to terminate the EC2 instance.
 
+
+#### DisableApiTermination
+
+By default, you can terminate your instance using the Amazon EC2 console, command line interface, or API. To prevent your instance from being accidentally terminated using Amazon EC2, you can enable termination protection for the instance. The `DisableApiTermination` attribute controls whether the instance can be terminated using the console, CLI, or API. By default, termination protection is disabled for your instance. You can set the value of this attribute when you launch the instance, while the instance is running, or while the instance is stopped (for Amazon EBS-backed instances).
 
 ### Termination protection
 
@@ -147,7 +194,7 @@ Each EC2 instance that you launch into a VPC has a tenancy attribute. This attri
 -   Dedicated Host (`host`) --- Your instance runs on a physical server with EC2 instance capacity fully dedicated to your use, an isolated server with configurations that you can control.
 
 
-![ec2-tenancy](/img/aws/compute/ec2-tenancy.png)
+![ec2-tenancy](/img/aws/compute/asg/ec2-tenancy.png)
 
 Source: [New – T3 Instances on Dedicated Single-Tenant Hardware](https://aws.amazon.com/blogs/aws/new-t3-instances-on-dedicated-single-tenant-hardware/)
 
@@ -171,14 +218,14 @@ As a result, Dedicated Hosts enable you to use your existing server-bound softwa
 
 ### No-Reboot Option
 
-- By default, it’s not selected (AWS will shut down the instance before creating an AMI to maintain the **file system integrity**)
-- Enabling this option allowing you to create an AMI without shutting down your instance. It is beneficial in situations where you want to create an AMI without disrupting the availability or continuity of your applications.
+![ami-no-reboot](/img/aws/compute/ami-no-reboot.png)
 
-:::caution
-**OS Buffers** are not flushed to disk before the snapshot is created when enabling the no-reboot option
-:::
+- By default, when Amazon EC2 creates the new AMI, it reboots the instance so that it can take snapshots of the attached volumes while data is at rest, in order to ensure a consistent state (**file system integrity**).
+- Enabling this option allowing you to create an AMI without shutting down your instance. 
+  - It is beneficial in situations where you want to create an AMI without disrupting the availability or continuity of your applications.
+  -  The AMI will be **crash-consistent** (all the volumes are snapshotted at the same time), but not **application-consistent** (all the operating system buffers are not flushed to disk before the snapshots are created).
 
-You can use AWS Backup to create a backup plan by configuring backup policies and monitoring activity for your AWS resources in one place. Rembmer *a backup plan* doesn't reboot the instances while taking EBS snapshots with AMI no-reboot behavior
+You can use AWS Backup to create a backup plan by configuring backup policies and monitoring activity for your AWS resources in one place. Rembmer *a backup plan* doesn't reboot the instances while taking EBS snapshots with AMI `no-reboot` behavior
 - With this behavior, the AMI can't guarantee **file system integrity** since it doesn't reboot the EC2
 - To maintain **file system integrity** you need to provide the reboot parameter while taking images (EventBridge + Lambda + CreateImage API with reboot parament)
 
@@ -224,7 +271,7 @@ Source: [AWS backup](https://aws.amazon.com/backup/)
 
 ### Availability
 
-An application is currently hosted on four EC2 instances (behind Application Load Balancer) deployed in a single Availability Zone (AZ). To maintain an acceptable level of end-user experience, the application needs at least 4 instances to be always available. 
+An application is currently hosted on four EC2 instances (behind Application Load Balancer) deployed in a single Availability Zone (AZ). To maintain an acceptable level of end-user experience, the application needs **at least 4 instances** to be always available. 
 
 What is your recommandation to achieve high availability with MINIMUM cost?
 
@@ -264,6 +311,13 @@ Each Amazon EC2 instance contains metadata that the AWS CLI can directly query f
 
 Source: [Using an IAM role to grant permissions to applications running on Amazon EC2 instances](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
 
+### Change the EC2 instance type which is backed by EBS  
+
+In order to change the EC2 instance type, you must stop your Amazon EBS–backed instance before you can change its instance type. When you stop and start an instance, AWS moves the instance to new hardware; however, the instance ID does not change.
+
+:::infoChange EC2 instance type in an Auto Scaling group 
+If your instance is in an **Auto Scaling group**, the Amazon EC2 Auto Scaling service marks the stopped instance as unhealthy, and may terminate it and launch a replacement instance. To prevent this, you can suspend the scaling processes for the group while you're resizing your instance.
+:::
 
 ### Launch Issues
 
@@ -306,3 +360,11 @@ permissions, else you will get “Unprotected private key file” error
   - Check the route table for the subnet (routes traffic destined outside VPC to IGW) 
   - Instance doesn’t have a public IPv4
   - CPU load of the instance is high
+
+### Using a single SSH key pair for all EC2 instances in all AWS Regions
+
+1. Generate a public SSH key (.pub) file from the private SSH key (.pem) file.
+2. Set the AWS Region you wish to import to.
+3. Import the public SSH key into the new Region.
+
+[https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/)

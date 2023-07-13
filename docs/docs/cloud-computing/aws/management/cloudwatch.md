@@ -6,6 +6,10 @@ keywords:
 sidebar_position: 1
 ---
 
+## Behaviour
+
+- Alarms continue to evaluate metrics against the configured threshold, even after they have already triggered. You can adjust the alarm threshold if you do not want it to be in ALARM state
+
 ## CloudWatch integration feature with S3
 
 You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
@@ -21,7 +25,7 @@ RAM is NOT included in the AWS EC2 metrics
     - Detailed Monitoring (paid): metrics are collected at a 1 minute interval 
     - Includes CPU, Network, Disk and Status Check Metrics
         - CPU: CPU Utilization + Credit Usage / Balance
-        - Network: Network In / Out
+        - Network: `NetworkIn` and `NetworkOut` 
         - Status Check:
             - Instance status = check the EC2 VM
             - System status = check the underlying hardware
@@ -54,39 +58,7 @@ By configuring the procstat plugin, you can specify the processes you want to mo
 
 Some key features and use cases of the CloudWatch Agent procstat plugin include:
 
-## Status checks for EC2
 
-When status checks fail, you have 2 options to do the followup actions
-
-**Option 1**: CloudWatch Alarm
-- Send notifications using SNS
-- Recover EC2 instance with same private/public IP, EIP, metadata, and Placement Group
-
-**Option 2**: Auto Scaling Group
-- Set min/max/desired 1 to recover an instance but won't keep the same private and elastic IP
-
-### SYSTEM status checks
-
-System status checks monitor the AWS systems on which your instance runs
-- Problem with the underlying host. Example: 
-    - Loss of network connectivity
-    - Loss of system power
-    - Software issues on the physical host
-    - Hardware issues on the physical host that impact network reachability
-- Either wait for AWS to fix the host, OR
-- Move the EC2 instance to a new host = STOP & START the instance (if EBS backed)
-
-### INSTANCE status checks
-
-Instance status checks monitor the software and network configuration of your individual instance
-- Example of issues
-    - Incorrect networking or startup configuration
-    - Exhausted memory
-    - Corrupted file system
-    - Incompatible kernel
-- Requires your involvement to fix
-- Restart the EC2 instance, OR
-- Change the EC2 instance configuration
 
 
 

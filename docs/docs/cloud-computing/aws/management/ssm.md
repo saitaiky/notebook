@@ -1,6 +1,6 @@
 ---
-title: SSM
-description: SSM
+title: AWS Systems Manager
+description: AWS Systems Manager (Systems Manager) was formerly known as "Amazon Simple Systems Manager (SSM)" and "Amazon EC2 Systems Manager (SSM)". The original abbreviated name of the service, "SSM", is still reflected in various AWS resources, including a few other service consoles.
 ---
 
 ## AWS resource group
@@ -12,9 +12,18 @@ AWS resource group is a collection of related AWS resources, allowing you to org
 Resource: [Use new resource types in AWS Resource Groups to support day-to-day operations](https://aws.amazon.com/blogs/mt/use-new-resource-types-in-aws-resource-groups-to-support-day-to-day-operations/)
 
 
-## SSM document
+## Services
 
-AWS SSM document, part of AWS Systems Manager, is a JSON or YAML script that defines the actions to be performed on instances. It can be used to automate operational tasks, such as software installation, configuration management, and security patching, across a fleet of instances in a consistent and scalable manner.
+### Automation
+
+A Systems Manager Automation document defines the Automation workflow (the actions that Systems Manager performs on your managed instances and AWS resources). Automation includes several pre-defined Automation documents that you can use to perform common tasks like restarting one or more EC2 instances or creating an Amazon Machine Image (AMI). Automation workflows can be triggered manually or scheduled to run at specific times or events.
+
+![devops-992-02-Figure3](https://d2908q01vomqb2.cloudfront.net/972a67c48192728a34979d9a35164c1295401b71/2021/06/08/devops-992-02-Figure3.png)
+Resource: [Use AWS Systems Manager Automation runbooks to resolve operational tasks](https://aws.amazon.com/blogs/mt/use-aws-systems-manager-automation-runbooks-to-resolve-operational-tasks/)
+
+### Document
+
+A Systems Manager Automation document, part of AWS Systems Manager, is a JSON or YAML script that defines the actions to be performed on instances. It can be used to automate operational tasks, such as software installation, configuration management, and security patching, across a fleet of instances in a consistent and scalable manner.
 
 ![SSM document](https://d2908q01vomqb2.cloudfront.net/972a67c48192728a34979d9a35164c1295401b71/2018/05/01/Image1-1.png)
 Resource: [Writing your own AWS Systems Manager documents](https://aws.amazon.com/blogs/mt/writing-your-own-aws-systems-manager-documents/)
@@ -27,14 +36,19 @@ You can also run commands via SSM document and choose which EC2 targets you want
 ![rc_create_doc_3](https://media.amazonwebservices.com/blog/2016/rc_create_doc_3.png)
 Resource: [EC2 Systems Manager – Configure & Manage EC2 and On-Premises Systems](https://aws.amazon.com/blogs/mt/writing-your-own-aws-systems-manager-documents/)
 
+:::infoExample
+Use the `AWSSupport-ExecuteEC2Rescue` document to recover impaired instances. An instance can become unreachable for a variety of reasons, including network misconfigurations, RDP issues, or firewall settings. 
 
-## SSM automation
+Troubleshooting and regaining access to the instance previously required dozens of manual steps before you could regain access. The `AWSSupport-ExecuteEC2Rescue` document lets you regain access by specifying an instance ID and clicking a button.
+:::
 
-With AWS Automation, you can automate tasks like instance patching, software installations, and system maintenance, reducing manual effort and ensuring consistency and efficiency in your operations. Automation workflows can be triggered manually or scheduled to run at specific times or events.
+### Patch Manager
 
-![devops-992-02-Figure3](https://d2908q01vomqb2.cloudfront.net/972a67c48192728a34979d9a35164c1295401b71/2021/06/08/devops-992-02-Figure3.png)
-Resource: [Use AWS Systems Manager Automation runbooks to resolve operational tasks](https://aws.amazon.com/blogs/mt/use-aws-systems-manager-automation-runbooks-to-resolve-operational-tasks/)
+AWS Systems Manager Patch Manager automates the patching process for managed instances, covering both security-related and other updates. It supports patching for operating systems, applications, Service Packs on Windows, and minor version upgrades on Linux. Patch Manager uses **patch baselines** that include rules for auto-approving patches and allows you to manage approved and rejected patches.
 
+Patching can be scheduled using maintenance windows or performed individually or in groups using Amazon EC2 tags. Patch Manager offers scanning and compliance reporting options, along with the ability to install patches on a schedule or on-demand.
+
+The service integrates with AWS Identity and Access Management (IAM), AWS CloudTrail, and Amazon EventBridge to provide a secure patching experience, including event notifications and auditing capabilities.
 
 ## Inventory & State Manager
 
@@ -58,13 +72,13 @@ Resource: [AWS Systems Manager Inventory](https://docs.aws.amazon.com/systems-ma
 
 ### State Manager
 
-- Specify a schedule for applying the desired state to instances (**EC2/On- premises**) that you defined with the SSM document
+- Specify a schedule for applying the desired state to instances (**EC2/On- premises**) that you defined with the document
 - Use cases: bootstrap instances with software, patch OS/software updates on a schedule ...
 - State Manager Association:
     - Defines the state that you want to maintain to your managed instances
     - Example: port 22 must be closed, antivirus must be installed ... 
     - Specify a schedule when this configuration is applied
-- Uses SSM Documents to create an Association (e.g., SSM Document to configure CW Agent)
+- Uses Documents to create an Association (e.g., Document to configure CW Agent)
 
 ![association-details](https://static.us-east-1.prod.workshops.aws/public/f6ed2ac8-8808-4ca7-8456-c7ee04aba55c/static/remote_management/State_Manager/association-details.png)
 Resource: [Configuration management using State Manager](https://catalog.workshops.aws/getting-started-with-com/en-US/remote-management/state-manager)

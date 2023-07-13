@@ -115,7 +115,7 @@ When you are using a cloud provider to host your Kubernetes cluster.
 
 ### ExternalName (Rarely use)
 
-> TL-DR; - You can use that ExternalName service (as a local service) when Pods from one namespace to talk to a service in another namespace.
+> TL;DR - You can use that ExternalName service (as a local service) when Pods from one namespace to talk to a service in another namespace.
 
 It's usually for when the name remotely might change outside of your cluster, but you don't want to have to redeploy your services just because that external service might change. So, you create this special DNS entry(**ExternalName**) inside your Kubernetes cluster, and then you can change that on the fly. Kind of like a **CNAME**. It won't require you to re-provision your deployments and your container pods just because some name on the internet changed.
 

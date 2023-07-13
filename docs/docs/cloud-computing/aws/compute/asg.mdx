@@ -20,6 +20,10 @@ By default, **basic monitoring** is enabled when you use the AWS management cons
 After ternminate instances, it then addes new instances.
 :::
 
+![healthchecktype](/img/aws/compute/asg/healthchecktype.jpg)
+
+By default, the health check configuration of your Auto Scaling group is set as **an EC2 type** that performs a status check of EC2 instances. (You can change the health check type of an Auto Scaling group **from an EC2 type to ELB type**. - reference: [Add Elastic Load Balancing health checks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-add-elb-healthcheck.html))
+
 To maintain the same number of instances, Amazon EC2 Auto Scaling performs a periodic health check on running instances within an Auto Scaling group. When it finds that an instance is unhealthy, it terminates that instance and launches a new one. 
 
 Amazon EC2 Auto Scaling creates a new scaling activity for terminating the unhealthy instance and then terminates it. Later, another scaling activity launches a new instance to replace the terminated instance.
@@ -64,11 +68,11 @@ When you create a launch configuration, the default value for the instance place
 | `dedicated`                  | Dedicated Instances      | Dedicated Instances
 
 
-![ec2-tenancy](/img/aws/compute/ec2-tenancy.png)
+![ec2-tenancy](/img/aws/compute/asg/ec2-tenancy.png)
 
 Source: [New – T3 Instances on Dedicated Single-Tenant Hardware](https://aws.amazon.com/blogs/aws/new-t3-instances-on-dedicated-single-tenant-hardware/)
 
-![vpc-tenancy](/img/aws/compute/vpc-tenancy.png)
+![vpc-tenancy](/img/aws/compute/asg/vpc-tenancy.png)
 
 Source: [How to Create AWS VPC in 10 steps, less than 10 min](https://varunmanik1.medium.com/how-to-create-aws-vpc-in-10-steps-less-than-5-min-a49ac12064aa)
 
@@ -84,6 +88,23 @@ Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load B
 - ASGAverageNetworkOut -  This represents the Average number of bytes sent out on all network interfaces by the Auto Scaling group. 
 - ALBRequestCountPerTarget
 - ASGAverageCPUUtilization
+
+### Instance scale-in protection.
+
+![ec2_console_menu_set_scale_in_protection_1](/img/aws/compute/asg/ec2_console_menu_set_scale_in_protection_1.png)
+
+To control whether an Auto Scaling group can terminate a particular instance when scaling in, use instance scale-in protection. You can enable the instance scale-in protection setting on an Auto Scaling group or an individual Auto Scaling instance.
+
+Imagine there is a server infrastructure on a fleet of Amazon EC2 instances running behind an Auto Scaling Group (ASG). The SysOps Administrator has configured the instances to be protected from termination during scale-in. When a scale-in event has occurred. What is the outcome of the event?
+
+If all instances in an Auto Scaling group are protected from termination during scale in, and a scale-in event occurs, its desired capacity is decremented. However, the Auto Scaling group can't terminate the required number of instances until their instance scale-in protection settings are disabled.
+
+Instance scale-in protection does not protect Auto Scaling instances from the following:
+
+1.  Manual termination through the Amazon EC2 console, the `terminate-instances` command, or the TerminateInstances action. To protect Auto Scaling instances from manual termination, enable Amazon EC2 termination protection.
+2.  Health check replacement if the instance fails health checks. To prevent Amazon EC2 Auto Scaling from terminating unhealthy instances, suspend the ReplaceUnhealthy process.
+3.  Spot Instance interruptions. A Spot Instance is terminated when capacity is no longer available or the Spot price exceeds your maximum price.
+
 
 
 ## Troubleshooting
@@ -116,6 +137,10 @@ Let's say you're using an ALB that routes the requests to the underlying EC2 ins
 If the **ASG** is using **EC2** as the health check type and the **ALB** is using its in-built health check, *there may be a situation where the ALB health check fails because the health check pings fail to receive a response from the instance*. **(Network issue)** At the same time, **ASG health check can come back as successful** because it is based on **EC2 based health check**. 
 
 Therefore, in this scenario, the **ALB** will remove the instance from its inventory, however, the **ASG** will fail to provide the replacement instance. This can lead to the scaling issues mentioned in the problem statement.
+
+:::infoAnother point
+If your application crashes, the load balancer removes the unhealthy instances from its target. However, your Auto Scaling group doesn't automatically replace the unhealthy instances marked by the load balancer.
+:::
 
 ## Cost-efficient 
 

@@ -43,6 +43,20 @@ How to resolve a situation where wait condition didn't receive the required numb
   - For example, run: curl -I https://aws.amazon.com
 
 
+## StackSets
+
+![StackSetsArchitecture](/img/aws/development/StackSetsArchitecture.png)
+> TL;DR - You can imagine template is just a class and stackset is a instance of a class which has configured the attributes as same as programming. 
+
+AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with AWS Organizations, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
+
+StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. Enable data sharing, use the StackSets console, and leverage the service-managed permission model for seamless deployment across your organization.
+
+How to use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization:
+![Deployment options](/img/aws/development/stackset.png)
+
+Reference: [Use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization](https://aws.amazon.com/blogs/aws/new-use-aws-cloudformation-stacksets-for-multiple-accounts-in-an-aws-organization/)
+
 ## Nested Stack
 
 A nested stack is a way to encapsulate and manage reusable components within a CloudFormation template. It allows you to create separate CloudFormation templates for individual components and then reference them as a resource within a main CloudFormation template. 
@@ -72,8 +86,13 @@ Resources:
 ## ChangeSet
 
 ![update-stack-changesets-diagram](https://docs.aws.amazon.com/images/AWSCloudFormation/latest/UserGuide/images/update-stack-changesets-diagram.png)
-[Updating stacks using change sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
+Reference: [Updating stacks using change sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
 
+Change sets allow you to preview how proposed changes to a stack might impact your existing resources, for example, whether your changes will delete or replace any critical resources, AWS CloudFormation makes the changes to your stack only when you decide to execute the change set, allowing you to decide whether to proceed with your proposed changes or explore other changes by creating another change set. You can create and manage change sets using the AWS CloudFormation console, AWS CLI, or AWS CloudFormation API.
+
+:::caution
+After you execute a change, AWS CloudFormation removes all change sets that are associated with the stack because they aren't applicable to the updated stack.
+:::
 
 ## DeletionPolicy
 

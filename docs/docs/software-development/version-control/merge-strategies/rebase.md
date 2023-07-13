@@ -6,7 +6,7 @@ metaDescription: "We will discuss topics related to git revert, reset, rebase, s
 sidebar_position: 1
 ---
 
-> TL-DR; `rebase` moves the entire feature branch to begin on the tip of the master branch, effectively incorporating all of the new commits in master.
+> TL;DR - `rebase` moves the entire feature branch to begin on the tip of the master branch, effectively incorporating all of the new commits in master.
 
 ## Overview
 
@@ -65,7 +65,7 @@ a---b
         - a cleaner history
 ## Use case
 
-:::info TL-DR; 
+:::info TL;DR - 
 To choose which one to use, it depends on what is most important - a tidy history or a true representation of the sequence of development
 
 If a tidy history is the most important, then you would rebase first and then merge your changes, so it is clear exactly what the new code is. **If you have already pushed your branch, don't rebase unless you can deal with the consequences.**

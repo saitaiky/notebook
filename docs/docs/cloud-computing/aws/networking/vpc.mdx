@@ -14,72 +14,28 @@ import TabItem from '@theme/TabItem';
 
 - [Getting started with IPv6 on AWS](https://cloudonaut.io/getting-started-with-ipv6-on-aws/)
 
+## Behaviour
 
-## Compare IPv4 and IPv6
+### EC2 communication via public IP addresses
 
-The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support).
+When two instances communicate using public IP addresses, the following three scenarios are possible:
 
-<div class="table-container"><div class="table-contents disable-scroll"><table id="w285aac11c11b5"><thead>
-    <tr>
-      <th>Characteristic</th>
-      <th>IPv4</th>
-      <th>IPv6</th>
-    </tr>
-  </thead>
-    <tbody><tr>
-      <td>VPC size</td>
-      <td>Up to 5 CIDRs from /16 to /28. This <a href="./amazon-vpc-limits.html#vpc-limits-vpcs-subnets">quota</a> is adjustable.</td>
-      <td>Up to 5 CIDRs fixed at /56. This quota is not adjustable.</td>
-    </tr>
-    <tr>
-      <td>Subnet size</td>
-      <td>From /16 to /28</td>
-      <td>Fixed at /64</td>
-    </tr>
-    <tr>
-      <td>Address selection</td>
-      <td>You can choose the IPv4 CIDR block for your VPC or you can allocate a
-        CIDR block from Amazon VPC IP Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
-        <em>Amazon VPC IPAM User Guide</em>.
-      </td>
-      <td>You can bring your own IPv6 CIDR block to AWS for your VPC, choose an
-        Amazon-provided IPv6 CIDR block, or you can allocate a CIDR block from Amazon VPC IP
-        Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
-        <em>Amazon VPC IPAM User Guide</em>.
-      </td>
-    </tr>
-    <tr>
-      <td>Internet access</td>
-      <td>Requires an <a href="./VPC_Internet_Gateway.html">internet gateway</a>.</td>
-      <td>Requires an internet gateway. Supports outbound-only communication using an <a href="./egress-only-internet-gateway.html">egress-only internet gateway</a>.</td>
-    </tr>
-    <tr>
-      <td>Elastic IP addresses</td>
-      <td>Supported. Gives an EC2 instance a permanent, static public IPv4 address.</td>
-      <td>Not supported. EIPs keep the public IPv4 address of an instance static on
-        instance restart. IPv6 addresses are static by default.</td>
-    </tr>
-    <tr>
-      <td>NAT gateways</td>
-      <td>
-        <p>Supported. Instances in private subnets can connect to the internet using a
-          public NAT gateway or to resources in other VPCs using a private NAT gateway.</p>
-      </td>
-      <td>Supported. You can use a NAT gateway with NAT64 to enable instances in IPv6-only
-        subnets to communicate with IPv4-only resources within VPCs, between VPCs, in your
-        on-premises networks, or over the internet.</td>
-    </tr>
-    <tr>
-      <td>DNS names</td>
-      <td>Instances receive Amazon-provided IPBN or RBN-based DNS names. The DNS name
-        resolves to the DNS records selected for the instance.</td>
-      <td>Instance receive Amazon-provided IPBN or RBN-based DNS names. The DNS name
-        resolves to the DNS records selected for the instance.</td>
-    </tr>
-  </tbody>
-</table></div></div>
+- Traffic between two EC2 instances **in the same AWS Region** stays within the AWS network, even when it goes over public IP addresses.
 
+- Traffic between EC2 instances **in different AWS Regions**
+  - Traffic **stays within** the AWS network if there is an **Inter-Region VPC Peering connection** between the VPCs where the two instances reside.
+  - Traffic is **not guaranteed** to stay within the AWS network where there is **no Inter-Region VPC Peering connection** between the VPCs where these instances reside.
 
+:::infoWhat is VPC peering?
+
+![vpc-peering](/img/aws/networking/vpc/peering-intro-diagram.webp)
+
+Resource: [Understanding Inter-Region VPC Peering with Hands-On!](https://nileshjoshi.medium.com/understanding-inter-region-vpc-peering-with-hands-on-57b622a96c8b)
+
+A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses. Instances in either VPC can communicate with each other as if they are within the same network. You can create a VPC peering connection between your own VPCs, or with a VPC in another AWS account. 
+
+The VPCs can be in different Regions (also known as **an inter-Region VPC peering connection**).
+:::
 
 ## Configuration 
 
@@ -112,7 +68,7 @@ Flow log data for a monitored network interface is recorded as flow log records,
 
 Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. They allow communication between instances in your VPC and services without imposing availability risks or bandwidth constraints on your network traffic.
 
-A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by AWS PrivateLink without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other service does not leave the Amazon network. There are two types of VPC endpoints: 
+A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by **AWS PrivateLink** without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other service does not leave the Amazon network. There are two types of VPC endpoints: 
 - interface endpoints
 - gateway endpoints
 
@@ -131,10 +87,20 @@ Gateway endpoint sits inside a VPC and with a route table
 
 A gateway endpoint is a gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services (Almost all of them)
 
+### AWS PrivateLink
 
-## Transit Gateway
+AWS PrivateLink enables private network connectivity between VPCs and AWS services **without using the public internet**. It establishes a secure and direct connection over the AWS network backbone, allowing VPC resources to securely access AWS services, such as Amazon S3, Amazon EC2, or AWS Lambda, privately and without exposure to the internet. 
+
+PrivateLink ensures data privacy and reduces security risks by keeping traffic within the AWS network. It simplifies network architecture, eliminates the need for public IPs, and enhances performance and reliability by leveraging the low-latency, high-bandwidth AWS infrastructure.
+
+
+## Gateway
+
+### Transit Gateway
 
 AWS Transit Gateway is a service that enables customers to connect their **Amazon VPCs** and their **on-premises networks** to a single gateway. With AWS Transit Gateway, you only have to create and manage a single connection from the central gateway into each Amazon VPC, on-premises data center, or remote office across your network.
+
+It also supports IP Multicast. Multicast is a communication protocol used for delivering a single stream of data to multiple receiving computers simultaneously. Transit Gateway supports routing multicast traffic between subnets of attached VPCs, and it serves as a multicast router for instances sending traffic destined for multiple receiving instances.
 
 <Tabs className="Transit Gateway">
 <TabItem value="before" label="Without AWS Transit Gateway">
@@ -152,7 +118,9 @@ Your network is streamlined and scalable. AWS Transit Gateway routes all traffic
 </Tabs>
 
 
-## Internet Gateway
+### Internet Gateway
+
+> TL;DR - TO provide internet access for instnaces that have public IPs 
 
 An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
 
@@ -170,14 +138,15 @@ To enable access to or from the internet for instances in a subnet in a VPC, you
 3.  Ensure that instances in your subnet have a globally unique IP address (public IPv4 address, Elastic IP address, or IPv6 address).
 4.  Ensure that your network access control lists and security group rules allow the relevant traffic to flow to and from your instance.
 
+### NAT Gateway
 
-## Bastion hosts
+> TL;DR - TO provide internet access for instnaces that don't have public IPs 
 
-Including **bastion hosts** in your VPC environment enables you to securely connect to your Linux instances without exposing your environment to the Internet. After you set up your bastion hosts, you can access the other instances in your VPC through **Secure Shell (SSH)** connections on Linux. Bastion hosts are also configured with security groups to provide fine-grained ingress control.
+NAT Gateway enables private subnets within a Virtual Private Cloud (VPC) to access the internet while keeping the instances within those subnets private and protected. The NAT Gateway acts as a gateway between the private subnet and the public internet, allowing outgoing internet traffic from the private instances and providing them with a public IP address. It simplifies the configuration and management of outbound internet connectivity, ensuring secure and controlled access for resources within the private subnets.
 
-You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
+## Direct Connect Resiliency
 
-## VPC Direct Connect Resiliency
+AWS Direct Connect is a network service that provides an alternative to using the Internet to utilize AWS cloud services. AWS Direct Connect enables customers to have low latency and private connections to AWS for workloads that require higher speed or lower latency than the internet. Direct Connect is a paid service and is available only if the customer opts for it.
 
 ### Maximum Resiliency for Critical Workloads
 
@@ -247,6 +216,12 @@ The following is a high-level summary of the differences between NAT gateways an
 > Full table of comparision: [Compare NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
 
 
+:::infoWhat is Bastion hosts? 
+Including **bastion hosts** in your VPC environment enables you to securely connect to your Linux instances without exposing your environment to the Internet. After you set up your bastion hosts, you can access the other instances in your VPC through **Secure Shell (SSH)** connections on Linux. Bastion hosts are also configured with security groups to provide fine-grained ingress control.
+
+You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
+:::
+
 ### NAT in multiple AZ
 
 If you have resources in multiple Availability Zones and they share one NAT gateway, and if the NAT gateway’s Availability Zone is down, **resources in the other Availability Zones lose internet access.** 
@@ -310,15 +285,19 @@ Having an Elastic IP provisioned but not attached to a running machine will cost
 - Or use a Load Balancer with a static hostname
 
 
-## Troubleshooting
+## Troubleshooting & others
 
 ### Share subnet across accounts
 
 AWS Resource Access Manager (RAM) is a service that enables you to easily and securely share AWS resources with any AWS account or within your AWS Organization. 
-The correct solution is to share the subnet(s) within a VPC using RAM. This will allow all EC2 instances to be deployed in the same VPC (although from different accounts) and easily communicate with one another.
+You can share the subnet(s) within a VPC using RAM. This will allow all EC2 instances to be deployed in the same VPC (although from different accounts) and easily communicate with one another.
 
 To set this up, the account that owns the VPC (owner) shares one or more subnets with other accounts (participants) that belong to the same organization from AWS Organizations. 
 After a subnet is shared, the participants can view, create, modify, and delete their application resources in the subnets shared with them. Participants cannot view, modify, or delete resources that belong to other participants or the VPC owner.
+
+:::infoAWS Resource Access Manager
+AWS RAM enables you to share specified AWS resources that you own with other AWS accounts. It's a centralized service that provides a consistent experience for sharing different types of AWS resources across multiple accounts. 
+:::
 
 ### NACL vs Security group
 
@@ -334,3 +313,68 @@ Source: [Security Group and Network Access Control List Migration between differ
 ![what-is-aws-network-acl](/img/aws/networking/vpc/what-is-aws-network-acl.jpeg)
 
 Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www.youtube.com/watch?v=tLAgYQlMWGo)
+
+
+### Compare IPv4 and IPv6
+
+The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support).
+
+<div class="table-container"><div class="table-contents disable-scroll"><table id="w285aac11c11b5"><thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>IPv4</th>
+      <th>IPv6</th>
+    </tr>
+  </thead>
+    <tbody><tr>
+      <td>VPC size</td>
+      <td>Up to 5 CIDRs from /16 to /28. This <a href="./amazon-vpc-limits.html#vpc-limits-vpcs-subnets">quota</a> is adjustable.</td>
+      <td>Up to 5 CIDRs fixed at /56. This quota is not adjustable.</td>
+    </tr>
+    <tr>
+      <td>Subnet size</td>
+      <td>From /16 to /28</td>
+      <td>Fixed at /64</td>
+    </tr>
+    <tr>
+      <td>Address selection</td>
+      <td>You can choose the IPv4 CIDR block for your VPC or you can allocate a
+        CIDR block from Amazon VPC IP Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+        <em>Amazon VPC IPAM User Guide</em>.
+      </td>
+      <td>You can bring your own IPv6 CIDR block to AWS for your VPC, choose an
+        Amazon-provided IPv6 CIDR block, or you can allocate a CIDR block from Amazon VPC IP
+        Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+        <em>Amazon VPC IPAM User Guide</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>Internet access</td>
+      <td>Requires an <a href="./VPC_Internet_Gateway.html">internet gateway</a>.</td>
+      <td>Requires an internet gateway. Supports outbound-only communication using an <a href="./egress-only-internet-gateway.html">egress-only internet gateway</a>.</td>
+    </tr>
+    <tr>
+      <td>Elastic IP addresses</td>
+      <td>Supported. Gives an EC2 instance a permanent, static public IPv4 address.</td>
+      <td>Not supported. EIPs keep the public IPv4 address of an instance static on
+        instance restart. IPv6 addresses are static by default.</td>
+    </tr>
+    <tr>
+      <td>NAT gateways</td>
+      <td>
+        <p>Supported. Instances in private subnets can connect to the internet using a
+          public NAT gateway or to resources in other VPCs using a private NAT gateway.</p>
+      </td>
+      <td>Supported. You can use a NAT gateway with NAT64 to enable instances in IPv6-only
+        subnets to communicate with IPv4-only resources within VPCs, between VPCs, in your
+        on-premises networks, or over the internet.</td>
+    </tr>
+    <tr>
+      <td>DNS names</td>
+      <td>Instances receive Amazon-provided IPBN or RBN-based DNS names. The DNS name
+        resolves to the DNS records selected for the instance.</td>
+      <td>Instance receive Amazon-provided IPBN or RBN-based DNS names. The DNS name
+        resolves to the DNS records selected for the instance.</td>
+    </tr>
+  </tbody>
+</table></div></div>

@@ -30,7 +30,7 @@ Source: [A Beginner’s Guide to Squashing Commits with Git Rebase](https://medi
 
 ## Squash and merge
 
-> TL-DR; retains the changes but omits the individual commits from history
+> TL;DR - retains the changes but omits the individual commits from history
 
 `git merge --squash branchname` will produce a squashed commit on the destination branch, without marking any merge relationship. It *does not produce a commit* right away. You need an additional `git commit -m "squash branch"`
 
