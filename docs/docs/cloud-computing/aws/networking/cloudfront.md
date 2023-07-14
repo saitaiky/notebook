@@ -15,14 +15,30 @@ via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/lates
 
 ## Serving Static and Dynamic content
 
-You can configure CloudFront with multiple origins to serve *both static and dynamic content* at low latency to global users. Each of these origins can include their own cache behaviours which enable you to define whether they should be cached and how long.
+Amazon CloudFront is commonly utilized for distributing static content stored in an Amazon S3 bucket, including images, videos, and other objects. However, it offers more than that. You can leverage Amazon CloudFront to distribute dynamic content from web applications built on platforms like Ruby on Rails or PHP. 
+
+By doing so, you can take advantage of AWS's widespread network infrastructure, ensuring fast and reliable delivery of your dynamic content to users around the world.
 
 ![](/img/aws/networking/cloudfront/static-dynamic-content.png)
 
-If you want to split between static and dynamic content you would *create an origin for each type of content (static & dynamic) within the same distribution*. One would be the default origin whilst the other would be matched based on a file path (/css or /images). 
+If you want to split between static and dynamic content you would *create an origin for each type of content (static & dynamic) within the same distribution*. The origins can be S3 or web servers (aws instances), etc. CloudFront can serve both static and dynamic content by following these steps:
 
+- Serving Static Content
+  1. Upload your static files (e.g., HTML, CSS, JavaScript) to an Amazon S3 bucket.
+  2. Configure the bucket for static website hosting, specifying the index and error documents.
+  3. Create a CloudFront distribution, setting the S3 bucket as the origin and configuring caching settings.
+  4. Associate a domain name with the CloudFront distribution using a custom SSL certificate if needed.
+  5. Update DNS records to point to the CloudFront distribution's domain name.
+- Serving Dynamic Content
+  1. Set up a web server (e.g., EC2 instance) or an application server (e.g., Lambda@Edge) to generate dynamic content.
+  2. Configure the server to handle requests and generate appropriate responses for dynamic content.
+  3. Create an Application Load Balancer (ALB) or an API Gateway and integrate it with your server.
+  4. Set up the ALB or API Gateway as the origin for your CloudFront distribution.
+  5. Configure caching behaviors and TTLs for dynamic content based on your application's requirements.
+  6. Associate a domain name with the CloudFront distribution and update DNS records accordingly.
 
 > Futher reading: 
+- [What is the difference between static and dynamic content?](https://www.cloudflare.com/en-gb/learning/cdn/caching-static-and-dynamic-content/)
 - [Serving Dynamic Websites with Amazon CloudFront](https://blog.shikisoft.com/serving-dynamic-website-with-amazon-cloudfront/)
 - [StackOverflow - How AWS Cloudfront works for both static website and dynamic website](https://stackoverflow.com/questions/62773107/how-aws-cloudfront-works-for-both-static-website-and-dynamic-website-when-websit)
 
@@ -40,7 +56,8 @@ via - [Link](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/
 
 ## Signed URLs 
 
-![](https://lh4.googleusercontent.com/Bu8XKpcwnq0FsZMxRNZPNw9q4YI_5S5Dl_RRgV7pNNKojJiTfzy4-bzKvAVJ43G5uiuVhSFlBfH3FCjxzkoEPIekRcFLGFWStHQFQ7_-SEFsOn-sZyp-B9syw4CS0TcNnU23mu1PgH9zCWJUuyeV1Q)
+
+![](/img/aws/networking/cloudfront/signed-url.png)
 
 Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
 
@@ -54,7 +71,8 @@ Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroo
 
 ## Signed Cookies
 
-![](https://lh6.googleusercontent.com/YprbtFgEZGIU9x0x-6XDRZJIubNrcQi4WA3gzmW7Gw6eu03O_4HLxHBVisfIs5peVcRck36NxlnFXS_wjU8XP_SpYj7yodrJlnCD0IDXBur1R4Ne7WGFcrVs175JY8VYB3gALeMeTUOq4kRbUDe_8w)
+
+![](/img/aws/networking/cloudfront/signed-cookies.png)
 
 Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
 

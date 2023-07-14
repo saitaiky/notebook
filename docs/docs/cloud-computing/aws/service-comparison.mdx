@@ -217,3 +217,16 @@ There is a execellent post that you would check - [CloudFront Signed URLs / Cook
 Whereas **AWS WAF** is a web application firewall that helps protect your web applications from common web exploits that could affect application availability, compromise security, or consume excessive resources. It gives you control over which traffic to allow or block to your Amazon Web Services. 
 
 You can use **AWS WAF** to create custom rules that block common attack patterns, such as SQL injection or cross-site scripting, and rules that are designed for your specific application.
+
+
+## A VPC SG and an EC2 security
+
+> TL;DR - Your ec2 instance is assigned to a vpc, so the VPC-SG security group becomes the outer most security layer and EC2-SG security group comes next.
+
+A Virtual Private Cloud (VPC) Security Group (SG) and an Elastic Compute Cloud (EC2) Security Group are both types of security groups that are used to control inbound and outbound traffic to resources in the AWS environment.
+
+A VPC Security Group is associated with a VPC and is used to control the traffic to resources such as instances, subnets, and network interfaces within that VPC. It acts as a virtual firewall for the VPC and can be used to control traffic to and from the Internet, as well as traffic between different resources within the VPC.
+
+An EC2 Security Group, on the other hand, is associated with an EC2 instance and is used to control the traffic to that specific instance. It acts as a virtual firewall for the instance and can be used to control traffic to and from the Internet, as well as traffic between different instances within the VPC.
+
+In summary, a VPC Security Group controls the traffic to resources within a VPC, while an EC2 Security Group controls the traffic to a specific EC2 instance.

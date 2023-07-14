@@ -51,13 +51,23 @@ After certain actions occur, your Auto Scaling group can become unbalanced betwe
 You can enable Capacity Rebalancing for your Auto Scaling groups when using Spot Instances. When you turn on Capacity Rebalancing, Amazon EC2 Auto Scaling attempts to launch a Spot Instance whenever Amazon EC2 notifies that a Spot Instance is at an elevated risk of interruption. 
 
 
+## Launch configuration
+
+A launch configuration in AWS Auto Scaling group is a template that defines the configuration for launching instances. It includes details such as the Amazon Machine Image (AMI), instance type, security groups, and user data. When scaling actions are triggered, the launch configuration is referenced to provision new instances. It provides a consistent setup for instances within the Auto Scaling group and enables easy replication of configurations across multiple instances.
+
+:::caution
+You can't modify a launch configuration after you've created it.
+:::
+
 ###  VPC Tenancy and ASG Tenancy
 
 > Source: [Configure instance tenancy with a launch configuration](https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-dedicated-instances.html)
 
 A launch configuration is an instance configuration template that an Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the instances. Include the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping. If you've launched an EC2 instance before, you specified the same information to launch the instance.
 
-When you create a launch configuration, the default value for the instance placement tenancy is `null` and the instance tenancy is controlled by the tenancy attribute of the VPC. If you set the **Launch Configuration Tenancy** to default and the **VPC Tenancy** is set to dedicated, then the instances have dedicated tenancy. If you set the **Launch Configuration Tenancy** to dedicated and the **VPC Tenancy** is set to default, then again the instances have dedicated tenancy.
+When you create a launch configuration, the default value for the instance placement tenancy is `null` and the instance tenancy is controlled by the tenancy attribute of the VPC. 
+- If you set the **Launch Configuration Tenancy** to default and the **VPC Tenancy** is set to dedicated, then the instances have dedicated tenancy.
+- If you set the **Launch Configuration Tenancy** to dedicated and the **VPC Tenancy** is set to default, then again the instances have dedicated tenancy.
 
 **Launch Configuration Tenancy vs VPC Tenancy**
 

@@ -60,7 +60,7 @@ Spread placement groups are recommended for applications that have a small numbe
 
 A spread placement group can span multiple Availability Zones in the same Region. You can have **a maximum of 7 running instances per Availability Zone per group**. Therefore, to deploy 15 EC2 instances in a single Spread placement group, the company needs to use 3 AZs.
 
-![placementgroups](/img/aws/compute/placementgroups.jpeg)
+![placementgroups](/img/aws/compute//ec2/placementgroups.jpeg)
 Source: [AWS - Placement Groups](https://tridentsys.net/aws-placement-groups/)
 
 ### Cluster
@@ -86,8 +86,9 @@ Usage: Application that needs maximize HA , Critical Applications that needs to 
 
 Usage: This strategy is typically used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka. 
 
-## EC2 life cycle
-### Hibernate
+## Behavior
+
+### EC2 life cycle - Hibernate
 
 When you EC2 Instance Hibernate to hibernate an instance, AWS signals the operating system to perform hibernation (suspend-to-disk). Hibernation saves the contents from the instance memory (RAM) to your Amazon EBS root volume. AWS then persists the instance's Amazon EBS root volume and any attached Amazon EBS data volumes.
 
@@ -98,8 +99,22 @@ When you start your instance:
 - Previously attached data volumes are reattached and the instance retains its instance ID
 
 Overview of EC2 hibernation: 
-![hibernate](/img/aws/compute/hibernate.png)
+![hibernate](/img/aws/compute/ec2/hibernate.png)
 Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.academy/lets-talk-about-ec2-placement-groups-and-hibernate-a6e4bed854c?gi=90ed20ac88d9)
+
+### Scheduled events
+
+> TL;DR - AWS manages regional scheduled events for all the EC2 instances
+
+AWS allows for scheduling events on instances, such as reboot, stop/start, or retirement. These events are infrequent and trigger notifications via email, providing event details and timing. Scheduled events are managed by AWS which means **you can't configure scheduled events for your instances**, but you can customize notifications and take actions during events. 
+
+Amazon EC2 can create the following types of events for your instances, where the event occurs at a scheduled time:
+- **Instance stop**: At the scheduled time, the instance is stopped. When you start it again, it's migrated to a new host. Applies only to instances backed by Amazon EBS.
+- **Instance retirement**: At the scheduled time, the instance is stopped if it is backed by Amazon EBS, or terminated if it is backed by instance store.
+- **Instance reboot**: At the scheduled time, the instance is rebooted.
+- **System reboot**: At the scheduled time, the host for the instance is rebooted.
+- **System maintenance**: At the scheduled time, the instance might be temporarily affected by network maintenance or power maintenance.
+
 
 ## Status checks
 
@@ -183,7 +198,7 @@ When you launch an instance in Amazon EC2, you have the option of passing user d
 - By default, user data runs only during the boot cycle when you first launch an instance
 :::
 
-![ec2-bootstrap-script](/img/aws/compute/ec2-bootstrap-script.png)
+![ec2-bootstrap-script](/img/aws/compute/ec2/ec2-bootstrap-script.png)
 
 ### Tenancy
 
@@ -218,7 +233,7 @@ As a result, Dedicated Hosts enable you to use your existing server-bound softwa
 
 ### No-Reboot Option
 
-![ami-no-reboot](/img/aws/compute/ami-no-reboot.png)
+![ami-no-reboot](/img/aws/compute/ec2/ami-no-reboot.png)
 
 - By default, when Amazon EC2 creates the new AMI, it reboots the instance so that it can take snapshots of the attached volumes while data is at rest, in order to ensure a consistent state (**file system integrity**).
 - Enabling this option allowing you to create an AMI without shutting down your instance. 
@@ -229,7 +244,7 @@ You can use AWS Backup to create a backup plan by configuring backup policies an
 - With this behavior, the AMI can't guarantee **file system integrity** since it doesn't reboot the EC2
 - To maintain **file system integrity** you need to provide the reboot parameter while taking images (EventBridge + Lambda + CreateImage API with reboot parament)
 
-![Product-Page-Diagram_AWS-Backup](/img/aws/compute/Product-Page-Diagram_AWS-Backup.png)
+![Product-Page-Diagram_AWS-Backup](/img/aws/compute/ec2/Product-Page-Diagram_AWS-Backup.png)
 
 Source: [AWS backup](https://aws.amazon.com/backup/)
 [What is AWS backup?](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
@@ -307,7 +322,7 @@ Use an IAM Instance Role
 
 Each Amazon EC2 instance contains metadata that the AWS CLI can directly query for temporary credentials. When an IAM role is attached to the instance, the AWS CLI automatically and securely retrieves the credentials from the instance metadata.
 
-![ec2-role-instance](/img/aws/compute/roles-usingrole-ec2roleinstance.png)
+![ec2-role-instance](/img/aws/compute/ec2/roles-usingrole-ec2roleinstance.png)
 
 Source: [Using an IAM role to grant permissions to applications running on Amazon EC2 instances](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
 
@@ -368,3 +383,22 @@ permissions, else you will get “Unprotected private key file” error
 3. Import the public SSH key into the new Region.
 
 [https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/)
+
+
+### EBS keeps showing `attaching`
+
+![ec2-role-instance](/img/aws/compute/ec2/ebs-attaching.png)
+
+> TL;DR - Check that the device name you specified when you attempted to attach the EBS volume isn't already in use. Attempt to attach the volume to the instance, again, but **use a different device name**
+
+To address the issue of an Amazon EBS volume being stuck in the `attaching` state when attached to an EC2 instance, the following solutions are suggested:
+
+- Check device name usage: Ensure that the device name specified for attaching the EBS volume is not already in use by the block device driver of the EC2 instance. If it is, the attachment will fail. Consider using a different device name.
+
+- Remapping of device name: On an HVM EC2 instance, device names like /dev/sda1 remap to /dev/xvda. Attempting to attach a secondary EBS volume to /dev/xvda may cause it to be stuck in the attaching state. Avoid attaching secondary volumes to remapped device names.
+
+- Turnaround time of releasing a device name: If a forced detach of an EBS volume was initiated by a user, the block device driver of the EC2 instance may not immediately release the device name for reuse. This can lead to an attachment failure and the EBS volume being stuck. Consider choosing a different device name or rebooting the instance to resolve the issue.
+
+To resolve the problem, you have 2 solutions
+- Force detach the volume and attempt reattachment using a different device name. 
+- Rebooting the instance or stopping and starting it can also help migrate it to new underlying hardware, but note that stopping an instance will result in the loss of instance store data.

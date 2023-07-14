@@ -125,3 +125,11 @@ testing
 - You can't update a stack in this state
 - For nested stacks, rolling back the parent stack will attempt to roll back all the child stacks as well
 :::
+
+## Trouble shooting
+
+### Template contains custom named IAM resources
+
+If your template contains **custom named IAM resources**, **don't create multiple stacks reusing the same template**. IAM resources must be globally unique within your account. If you use the same template to create multiple stacks in different Regions, your stacks might share the same IAM resources, instead of each having a unique one. 
+
+Shared resources among stacks can have unintended consequences from which you can't recover. For example, if you delete or update shared IAM resources in one stack, you will unintentionally modify the resources of other stacks.

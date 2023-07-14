@@ -205,8 +205,8 @@ kubectl label pod -l app=rng,pod-template-hash enabled-
 
 - When a pod is misbehaving, we can delete it, then another one will be recreated.
 - But we can also change its labels.
-  1. It will be removed from the load balancer (it won't receive traffic anymore)
-  2. Another pod will be recreated immediately
+    1. It will be removed from the load balancer (it won't receive traffic anymore)
+    2. Another pod will be recreated immediately
 - But the problematic pod is still here, and we can inspect and debug it
 - We can even re-add it to the rotation if necessary
 

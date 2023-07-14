@@ -1,6 +1,6 @@
 ---
-title: Cloud Watch
-description: Cloud Watch
+title: CloudWatch
+description: CloudWatch
 keywords:
 - CloudWatch
 sidebar_position: 1
@@ -10,9 +10,59 @@ sidebar_position: 1
 
 - Alarms continue to evaluate metrics against the configured threshold, even after they have already triggered. You can adjust the alarm threshold if you do not want it to be in ALARM state
 
-## CloudWatch integration feature with S3
+
+## Features
+### CloudWatch Synthetics
+
+You can use Amazon CloudWatch Synthetics to create canaries, configurable scripts that run on a schedule, to monitor your endpoints and APIs. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.
+
+Canaries are Node.js scripts. They create Lambda functions in your account that use Node.js as a framework. Canaries work over both HTTP and HTTPS protocols.
+
+UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see Puppeteer.
+
+Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI. They monitor your REST APIs, URLs, and website content, and they can check for unauthorized changes from phishing, code injection and cross-site scripting.
+
+
+### CloudWatch Event Rules
+
+You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
+
+Examples of Amazon CloudWatch Events rules and targets:
+
+- A rule that sends a notification when the **instance state changes**, where an EC2 instance is the event source, and Amazon SNS is the event target.
+- A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
+- A rule that detects **pipeline changes** and invokes an AWS Lambda function.
+
+### CloudWatch alarm
+
+Setup a CloudWatch alarm to monitor the health status of the instance. In case of an Instance Health Check failure, an EC2 Reboot CloudWatch Alarm Action can be used to reboot the instance
+
+The reboot alarm action is recommended for **Instance Health Check failures** -  The system status check detects issues with the underlying host that your instance runs on. If the underlying host is unresponsive or unreachable due to network, hardware, or software issues, then this status check fails.
+
+The recover alarm action, which is suited for **System Health Check failures** - An instance status check failure indicates a problem with the instance due to operating system-level errors such as the following:
+
+-   Failure to boot the operating System
+-   Failure to mount volumes correctlySystem
+-   File system issuesSystem
+-   Incompatible driversSystem
+-   Kernel panic
+
+## CloudWatch integration
+
+### S3
 
 You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
+
+### Monitor Trusted Advisor
+
+You can use Amazon CloudWatch Events to detect and react to changes in the status of Trusted Advisor checks. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
+
+![monitor-trusted-advisor-service-check](/img/aws/management/monitor-trusted-advisor-service-check.jpeg)
+
+Depending on the type of status change, you might want to send notifications, capture status information, take corrective action, initiate events, or take other actions.
+
+[Monitor Trusted Advisor - Service limits](https://docs.aws.amazon.com/awssupport/latest/user/service-limits.html)
+[AWS trusted-advisor](https://aws.amazon.com/premiumsupport/technology/trusted-advisor/best-practice-checklist/)
 
 ## Metrics for EC2
 
@@ -68,31 +118,8 @@ Some key features and use cases of the CloudWatch Agent procstat plugin include:
 - (Paid) Detailed monitoring Data is available in 1-minute periods for an additional charge. 
 
 
-## CloudWatch Event Rules
 
-You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
-
-Examples of Amazon CloudWatch Events rules and targets:
-
-- A rule that sends a notification when the **instance state changes**, where an EC2 instance is the event source, and Amazon SNS is the event target.
-- A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
-- A rule that detects **pipeline changes** and invokes an AWS Lambda function.
-
-## CloudWatch alarm
-
-Setup a CloudWatch alarm to monitor the health status of the instance. In case of an Instance Health Check failure, an EC2 Reboot CloudWatch Alarm Action can be used to reboot the instance
-
-The reboot alarm action is recommended for **Instance Health Check failures** -  The system status check detects issues with the underlying host that your instance runs on. If the underlying host is unresponsive or unreachable due to network, hardware, or software issues, then this status check fails.
-
-The recover alarm action, which is suited for **System Health Check failures** - An instance status check failure indicates a problem with the instance due to operating system-level errors such as the following:
-
--   Failure to boot the operating System
--   Failure to mount volumes correctlySystem
--   File system issuesSystem
--   Incompatible driversSystem
--   Kernel panic
-
-# Use X-ray to debug microservices specific issues
+## Use X-ray to debug microservices specific issues
 
 Imagine a company uses microservices-based infrastructure to process the API calls from clients, perform request filtering and cache requests using the AWS API Gateway. Users report receiving 501 error code and you have been contacted to find out what is failing. 
 
@@ -158,7 +185,7 @@ Another example of write permissions for using X-Ray via an IAM policy:
 }
 ```
 
-# CloudTail
+## CloudTail
 
 If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (**need root account permission**). This is referred to as an organization trail.
 

@@ -98,7 +98,9 @@ Requests originating from Elastic Load Balancing use ports 1024-65535. For a det
 
 ### Target group contains only unhealthy targets?
 
-If a target group contains only unhealthy targets, ELB routes requests across its unhealthy targets. It assumes that the health check is wrong, but maybe the health, the instance can still work for some cases, okay. This is a best effort scenario. 
+If a target group contains only unhealthy targets, ELB routes requests across its unhealthy targets. It assumes that the health check is wrong, but maybe the instance can still work for some cases. This is a best effort scenario. 
+
+Hence, it is advised to configure an Auto Scaling Group, if the instances are hosting a business-critical application.
 
 ## Target group settings
 

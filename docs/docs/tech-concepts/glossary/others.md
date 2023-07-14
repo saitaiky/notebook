@@ -1,8 +1,6 @@
 ---
-title: Glossary
-description: Glossary
-keywords:
-  - Glossary
+title: Others
+description: Others
 ---
 
 ## What does LTS mean?
@@ -98,7 +96,7 @@ Software as a service (SaaS) is a software distribution model in which a cloud p
 
 SaaS is one of three main categories of cloud computing, alongside infrastructure as a service (IaaS) and platform as a service (PaaS). A range of IT professionals, business users and personal users use SaaS applications.
 
-![what-is-sass](/img/tech-concepts/industrial-knowledge/what-is-saas.png)
+![what-is-sass](/img/tech-concepts/glossary/what-is-saas.png)
 Reference: [What is SaaS?](https://azure.microsoft.com/en-gb/resources/cloud-computing-dictionary/what-is-saas/)
 
 #### Examples

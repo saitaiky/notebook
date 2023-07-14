@@ -104,9 +104,9 @@ We now have the latest version of an Apache Web Server running in a container!
 But wait, so much happened in the background that you might have missed it, so let's go step-by-step:
 
 1. The Docker Client tells our Docker Engine to:
-   1. `run` the `httpd` image in a new container.
-   2. `-d` run it in the background (detached).
-   3. `-p 8800:80` Open port 8800 on our host IP and forward traffic into the containers port 80.
+      1. `run` the `httpd` image in a new container.
+      2. `-d` run it in the background (detached).
+      3. `-p 8800:80` Open port 8800 on our host IP and forward traffic into the containers port 80.
 2. Docker Engine didn't see us specify a version of Apache, so it assumes `latest`, similar to how other package managers default to the latest version.
 3. Docker Engine can't find a cached image locally called `httpd:latest`, so it downloads it from Docker Hub first.
 4. Docker Engine creates a new container from the `httpd:latest` image.

@@ -16,6 +16,29 @@ import TabItem from '@theme/TabItem';
 
 ## Behaviour
 
+### AWS Global vs Regional vs AZ resources
+
+- Virtual Private Cloud
+  - VPC -- Regional
+      - VPCs are created within a region
+  - Subnet -- **Availability Zone**
+      - A subnet can span only a single Availability Zone
+  - Security groups -- Regional
+      - A security group is tied to a region and can be assigned only to instances in the same region.
+  - VPC Endpoints-- Regional
+      - VPC Gateway & Interface Endpoints cannot be created between a VPC and an AWS service in a different region.
+  - VPC Peering -- ~~Regional~~
+      - VPC Peering can be performed across VPC in the same account of different AWS accounts ~~but only within the same region. They cannot span across regions~~
+      - VPC Peering can now span inter-region
+  - Elastic IP Address -- Regional
+      - Elastic IP addresses created within the region can be assigned to instances within the region only.
+  - Elastic Network Interface -- Availability Zone
+
+### Some points to remember
+
+- Regardless of the type of subnet, the internal IPv4 address range of the subnet is always private. AWS never announces these address blocks to the internet.
+- By default, all subnets can route between each other without the need for any further configuration, whether they are private or public. Subnets created in a VPC can communicate with each other. The main route table facilitates this communication.
+
 ### EC2 communication via public IP addresses
 
 When two instances communicate using public IP addresses, the following three scenarios are possible:
@@ -49,6 +72,7 @@ The VPCs can be in different Regions (also known as **an inter-Region VPC peerin
   - Plain english - can't access to the internet but allow access via Site-to-Site VPN access
   - We recommend this scenario if you want to extend your network into the cloud and also directly access the Internet from your VPC.
 - **VPC with a private subnet only and AWS Site-to-Site VPN access**
+  - The subnet is known as a VPN-only subnet
   - We recommend this scenario if you want to extend your network into the cloud using Amazon's infrastructure without exposing your network to the Internet.
 
 
@@ -60,7 +84,26 @@ You can create a flow log for a VPC, a subnet, or a network interface. If you cr
 
 Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow.
 
+### Routing table example
 
+The following is an example of the route table for the **public subnets**, with routes for both IPv4 and IPv6. If you create IPv4-only subnets instead of dual stack subnets, your route table includes only the IPv4 routes.
+
+| Destination | Target |
+| --- | --- |
+| `10.0.0.0/16` | local |
+| `2001:db8:1234:1a00::/56` | local |
+| 0.0.0.0/0 | `igw-id` |
+| ::/0 | `igw-id` |
+
+The following is an example of a route table for one of the **private subnets**, with routes for both IPv4 and IPv6. If you created IPv4-only subnets, the route table includes only the IPv4 routes. The last route sends traffic destined for Amazon S3 to the gateway VPC endpoint.
+
+| Destination | Target |
+| --- | --- |
+| `10.0.0.0/16` | local |
+| `2001:db8:1234:1a00::/56` | local |
+| 0.0.0.0/0 | `nat-gateway-id` |
+| ::/0 | `eigw-id` |
+| `s3-prefix-list-id` | `s3-gateway-id` |
 
 ## Endpoints
 
@@ -143,6 +186,18 @@ To enable access to or from the internet for instances in a subnet in a VPC, you
 > TL;DR - TO provide internet access for instnaces that don't have public IPs 
 
 NAT Gateway enables private subnets within a Virtual Private Cloud (VPC) to access the internet while keeping the instances within those subnets private and protected. The NAT Gateway acts as a gateway between the private subnet and the public internet, allowing outgoing internet traffic from the private instances and providing them with a public IP address. It simplifies the configuration and management of outbound internet connectivity, ensuring secure and controlled access for resources within the private subnets.
+
+### Egress-only Internet Gateway
+
+An egress-only internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows outbound communication over IPv6 from instances in your VPC to the internet, and prevents the internet from initiating an IPv6 connection with your instances.
+
+:::caution
+An egress-only internet gateway is for use with **IPv6 traffic** only. To enable outbound-only internet communication over IPv4, use a **NAT gateway** instead.
+:::
+
+In the following diagram, the VPC has both IPv4 and IPv6 CIDR blocks, and the subnet both IPv4 and IPv6 CIDR blocks. The VPC has an egress-only internet gateway.
+![engress-only](/img/aws/networking/vpc/engress-only.jpg)
+Reference: [Enable outbound IPv6 traffic using an egress-only internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html#egress-only-internet-gateway-create)
 
 ## Direct Connect Resiliency
 

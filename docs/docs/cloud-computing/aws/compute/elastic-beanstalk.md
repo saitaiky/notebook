@@ -53,6 +53,25 @@ Reference: *You must use saved configurations to migrate an Elastic Beanstalk en
 Saved configurations are YAML formatted templates that define an environment's platform version, tier, configuration option settings, and tags.
 
 
+## Decouple the database from EB without downtime
+
+:::cautionThis solution has downtime
+Take a snapshot of the database and terminate the current environment. Create a new one without attaching an RDS instance directly to it (from the snapshot).
+:::
+
+Attaching an RDS DB instance to an Elastic Beanstalk environment is ideal for development and testing environments. However, it's not recommended for production environments because the lifecycle of the database instance is tied to the lifecycle of your application environment. If you terminate the environment, then you lose your data because the RDS DB instance is deleted by the environment.
+
+To resolve the issue of avoiding downtime on the database while decoupling it from the Elastic Beanstalk environment, follow these steps:
+
+1. Perform an Elastic Beanstalk blue/green deployment to decouple the RDS DB instance from **environment A**.
+    1. Take an RDS DB snapshot for backup purposes.
+    2. Enable `Deletion Protectio`n for the RDS DB instance to prevent accidental deletion.
+2. Create a new Elastic Beanstalk environment (**environment B**) without including the RDS DB instance in the same application.
+    1. Configure environment B with the necessary information to connect to the RDS DB instance.
+    2. This ensures the database remains intact while deploying and managing the new environment.
+    These steps will allow you to maintain database availability while decoupling it from the original Elastic Beanstalk environment.
+
+
 ## option_settings in .ebextensions/ 
 
 You can use the `option_settings` key to modify the Elastic Beanstalk configuration and define variables that can be retrieved from your application using environment variables. Some namespaces allow you to extend the number of parameters, and specify the parameter names. For a list of namespaces and configuration options, see [Configuration options](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html).

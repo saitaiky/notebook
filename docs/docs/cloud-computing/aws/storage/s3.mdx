@@ -65,9 +65,9 @@ You create a pre-signed URL for your object, you must provide your security cred
 
 ### Server access logging
 
-Server access logging provides detailed records for the requests that are made to a bucket. Server access logs are useful for many applications. For example, access log information can be useful in security and access audits. It can also help you learn about your customer base and understand your Amazon S3 bill.
+Server access logging in Amazon S3 provides detailed records of requests made to a bucket, which can be valuable for security, access audits, understanding customer behavior, and monitoring costs. Enabling server access logging tracks access requests and generates logs with information such as requester, bucket name, request time, action, response status, and error codes. 
 
-
+**Enabling logging is free, but log files stored in the bucket incur storage charges**. You can delete log files as needed, and subsequent access to log files incurs standard charges. Logging is disabled by default, and logs are stored in the same AWS Region as the source bucket.
 
 ### S3 Select
 
@@ -259,6 +259,14 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 
 
 ## Security
+
+
+### Root user access
+
+If an IAM user, with full access to IAM and Amazon S3, assigns a bucket policy to an Amazon S3 bucket and doesn't specify the AWS account root user as a principal, the root user is denied access to that bucket
+
+However, as the root user, you can still access the bucket. To do that, modify the bucket policy to allow root user access from the Amazon S3 console or the AWS CLI. Use the following principal, replacing 123456789012 with the ID of the AWS account.`"Principal": { "AWS": "arn:aws:iam::123456789012:root" }`
+
 
 ### Cross Account
 
