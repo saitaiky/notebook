@@ -27,12 +27,21 @@ An elastic network interface is a logical networking component in a VPC that rep
 
 ## Elastic Network Adoptor (ENA)
 
-Using a single root I/O virtualization (SR-IOV) to provide high performance. Use ENA when the ENI's **package per second** is not sufficient.
+Amazon EC2 provides enhanced networking capabilities through the Elastic Network Adapter (ENA). To use enhanced networking, you must install the required ENA module and enable ENA support.
 
-:::info What is SR-IOV?
+Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities on [supported instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking.html#supported_instances). SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking.
+
+Use ENA when the ENI's **package per second** is not sufficient. For example:
+- If your packets-per-second rate reaches its ceiling, consider moving to enhanced networking. If your rate reaches its ceiling, you've likely reached the upper thresholds of the virtual network interface driver.
+- If your throughput is near or exceeding 20K packets per second (PPS) on the VIF driver, it's a best practice to use enhanced networking.
+
+:::infoWhat is SR-IOV?
 SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to **traditional virtualized network interfaces**. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking.
 :::
 
+:::infoWhat is enhanced networking?
+Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities on supported instance types. SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking.
+:::
 
 ## Elustie Fabric Adapter (EFA)
 

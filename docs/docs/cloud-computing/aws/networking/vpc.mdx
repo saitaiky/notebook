@@ -107,7 +107,12 @@ The following is an example of a route table for one of the **private subnets**,
 
 ## Endpoints
 
-![](/img/aws/networking/vpc/vpc-endpoints-vs-interface-endpoint.png)
+![vpc-endpoints-vs-interface-endpoint](/img/aws/networking/vpc/vpc-endpoints-vs-interface-endpoint.png)
+
+![endpoints-arch](/img/aws/networking/vpc/endpoints-arch.png)
+
+Source: [What are VPC endpoints?](https://docs.aws.amazon.com/whitepapers/latest/aws-privatelink/what-are-vpc-endpoints.html)
+
 
 Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. They allow communication between instances in your VPC and services without imposing availability risks or bandwidth constraints on your network traffic.
 
@@ -136,6 +141,9 @@ AWS PrivateLink enables private network connectivity between VPCs and AWS servic
 
 PrivateLink ensures data privacy and reduces security risks by keeping traffic within the AWS network. It simplifies network architecture, eliminates the need for public IPs, and enhances performance and reliability by leveraging the low-latency, high-bandwidth AWS infrastructure.
 
+:::caution
+You do not need to use an internet gateway, NAT device, public IP address, AWS Direct Connect connection, or AWS Site-to-Site VPN connection to allow communication with the service **from your private subnets**. Therefore, you control the specific API endpoints, sites, and services that are reachable from your VPC.
+:::
 
 ## Gateway
 
@@ -433,3 +441,19 @@ The following table summarizes the differences between IPv4 and IPv6 in Amazon E
     </tr>
   </tbody>
 </table></div></div>
+
+
+### Wavelength & Carrier gateway
+
+**AWS Wavelength** embeds AWS compute and storage services within 5G networks, providing mobile edge computing infrastructure for developing, deploying, and scaling ultra-low-latency applications.
+
+**Some use cases of wavelength are**: Game streaming, live video and event streaming, and machine learning (ML) video inference are examples of emerging interactive applications. To ensure ultra-low latency for end-users and devices connecting via mobile networks, these workloads necessitate computing and storage close to the edge. Furthermore, use cases such as industrial automation, smart cities, IoT, and autonomous vehicles necessitate data processing and retrieval close to the edge in order to meet application performance requirements. AWS Wavelength and Wavelength Zones can help with all of these use cases.
+
+![aws-wz-carrier-gateway](/img/aws/networking/vpc/aws-wz-carrier-gateway.png)
+
+Source: [How AWS Wavelength works](https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html)
+
+**A carrier gateway** serves two purposes. It allows inbound traffic from a carrier network in a specific location, and it allows outbound traffic to the carrier network and internet. There is no inbound connection configuration from the internet to a Wavelength Zone through the carrier gateway.
+
+
+

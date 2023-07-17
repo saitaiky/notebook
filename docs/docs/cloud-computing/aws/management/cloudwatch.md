@@ -66,6 +66,10 @@ Depending on the type of status change, you might want to send notifications, ca
 
 ## Metrics for EC2
 
+:::infoWhat is Metrics?
+Metrics, sometimes called time series, are concerned with events aggregated across time. They count how often each type of event happens, how long each type of event takes and how much data was processed by the event type.
+:::
+
 :::caution
 RAM is NOT included in the AWS EC2 metrics
 :::
@@ -87,17 +91,6 @@ RAM is NOT included in the AWS EC2 metrics
     - Include RAM, application level metrics
     - Make sure the IAM permissions on the EC2 instance to push the logs and the metrics.
 
-### The Unified CloudWatch Agent
-
-The Unified CloudWatch Agent is a software component provided by AWS that allows you to collect below information from virtual servers (EC2 instances, on-premises servers, ...)
-- Additional system-level metrics such as RAM, processes, used disk space, etc.
-- Collect logs file to send to CloudWatch Logs (No logs from inside your EC2 instance will be sent to
-CloudWatch Logs without using an agent)
-
-Other points:
-- Use SSM Parameter Store to store the json format configuration that Unified CloudWatch Agent needs
-- Make sure to attach an IAM role on the EC2 instance for accessing configuration from SSM
-
 ### Procstat plugin
 
 > TL;DR - Process-level Monitoring: The plugin enables you to monitor individual processes, allowing you to gain insights into their resource consumption and performance.
@@ -108,9 +101,38 @@ By configuring the procstat plugin, you can specify the processes you want to mo
 
 Some key features and use cases of the CloudWatch Agent procstat plugin include:
 
+## CloudWatch Agent
+
+:::infoAWS Unified CloudWatch Agent & AWS CloudWatch Agent
+"AWS Unified CloudWatch Agent" and "AWS CloudWatch Agent" are the same thing. AWS Unified CloudWatch Agent is the latest version of the agent used to collect and send logs and metrics to Amazon CloudWatch.
+:::
+
+- You must attach the `CloudWatchAgentServerRole` IAM role to the EC2 instance to be able to run the CloudWatch agent on the instance. This role enables the CloudWatch agent to perform actions on the instance.
+- If your AMI contains a CloudWatch agent, it’s automatically installed on EC2 instances when you create an EC2 Auto Scaling group. With the stock Amazon Linux AMI, you need to install it (AWS recommends to install via yum).
+
+### The appended option in configuration file 
+You can set up the CloudWatch agent to use multiple configuration files. For example, you can use a common configuration file that collects a set of metrics and logs that you always want to collect from all servers in your infrastructure. You can then use additional configuration files that collect metrics from certain applications or in certain situations.
+
+To set this up, first create the configuration files that you want to use. Any configuration files that will be used together on the same server must have different file names. You can store the configuration files on servers or in Parameter Store.
+
+Start the CloudWatch agent using the `fetch-config` option and specify the first configuration file. To append the second configuration file to the running agent, use the same command but with the `append-config` option. All metrics and logs listed in either configuration file are collected.
+
+Any configuration files appended to the configuration must have different file names from each other and from the initial configuration file. If you use `append-config` with a configuration file **with the same file name** as a configuration file that the agent is already using, the append command overwrites the information from the first configuration file instead of appending to it. This is true even if the two configuration files with the same file name are on different file paths.
+:::
+
+A CloudWatch Agent is a software component provided by AWS that allows you to collect below information from virtual servers (EC2 instances, on-premises servers, ...)
+- Additional system-level metrics such as RAM, processes, used disk space, etc.
+- Collect logs file to send to CloudWatch Logs (No logs from inside your EC2 instance will be sent to
+CloudWatch Logs without using an agent)
+
+Other points:
+- Use SSM Parameter Store to store the json format configuration that Unified CloudWatch Agent needs
+- Make sure to attach an IAM role on the EC2 instance for accessing configuration from SSM
 
 
+### StatsD & collectd
 
+You can retrieve custom metrics from your applications or services using the `StatsD` and `collectd` protocols. `StatsD` is supported on both Linux servers and servers running Windows Server. collectd is supported only on Linux servers. Here, the instances are running on Windows servers, hence `StatsD` is the right protocol.
 
 ## CloudWatch interval
 

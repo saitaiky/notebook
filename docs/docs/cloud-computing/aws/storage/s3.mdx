@@ -127,6 +127,13 @@ AWS notification feature enables you to receive notifications when certain event
 
 :::caution 2 Writes are made to a single non-versioned object
 If two writes are made to a single non-versioned object at the same time, it is **possible that only a single event notification** will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket. With versioning, every successful write will create a new version of your object and will also send an event notification.
+
+With versioning, you can easily recover from both unintended user actions and application failures. When you enable versioning for a bucket, if Amazon S3 receives multiple write requests for the same object simultaneously, it stores all of the objects.
+
+Versioning-enabled buckets enable you to recover objects from accidental deletion or overwrite. For example:
+
+1.  If you delete an object, instead of removing it permanently, Amazon S3 inserts a delete marker, which becomes the current object version. You can always restore the previous version.
+2.  If you overwrite an object, it results in a new object version in the bucket. You can always restore the previous version.
 :::
 
 > Document: [Event notification types and destinations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-event-types-and-destinations.html)
@@ -143,8 +150,15 @@ Depending on your Region, your Amazon S3 website endpoints follow one of these t
 
 These URLs return the default index document that you configure for the website.
 
-## Performance
+### Retain Until Date
 
+![Choose-operation-Object-Lock-retention](/img/aws/storage/s3/Choose-operation-Object-Lock-retention.png)
+
+A retention period safeguards an object version for a specified duration in Amazon S3. When applied, a timestamp is added to the object version's metadata to mark the expiration of the retention period. Once the period ends, the object version can be modified or deleted, unless a legal hold is also in place. This is where the lifecycle policy kicks in and deletes the object 5 years after the object is created.
+
+You can set a retention period explicitly by defining a "Retain Until Date" for the object version, or use a bucket default setting. Amazon S3 preserves the object version until the specified retention period concludes based on the "Retain Until Date" metadata.
+
+## Performance
 
 ### Byte-Range Fetches
 

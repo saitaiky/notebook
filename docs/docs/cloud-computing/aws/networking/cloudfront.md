@@ -92,3 +92,26 @@ Whereas, with **CloudFront key groups**, you can associate a higher number of pu
 
 
 Reference: <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-trusted-signers.html>
+
+## Restricting access to files on custom origins
+
+Reference: [Restricting access to files on custom origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html#forward-custom-headers-restrict-access)
+
+If you use a custom origin, you can optionally set up custom headers to restrict access. For CloudFront to get your files from a custom origin, the files must be accessible by CloudFront using a standard HTTP (or HTTPS) request. But by using custom headers, you can further restrict access to your content so that users can access it only through CloudFront, not directly. This step isn't required to use signed URLs, but we recommend it.
+
+To require that users access content through CloudFront, change the following settings in your CloudFront distributions:
+
+1. Origin Custom Headers
+   - Configure CloudFront to forward custom headers to your origin. See [Configuring CloudFront to add custom headers to origin requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html#add-origin-custom-headers-configure).
+2. Viewer Protocol Policy
+    - Configure your distribution to require viewers to use HTTPS to access CloudFront. See [Viewer protocol policy](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesViewerProtocolPolicy).
+3. Origin Protocol Policy
+    - Configure your distribution to require CloudFront to use the same protocol as viewers to forward requests to the origin. See [Protocol (custom origins only)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginProtocolPolicy).
+
+After you've made these changes, update your application on your custom origin to only accept requests that include the custom headers that you've configured CloudFront to send.
+
+The combination of Viewer Protocol Policy and Origin Protocol Policy ensure that the custom headers are encrypted in transit. However, we recommend that you **periodically do the following to rotate the custom header**s that CloudFront forwards to your origin:
+
+1.  Update your CloudFront distribution to begin forwarding a new header to your custom origin.
+2.  Update your application to accept the new header as confirmation that the request is coming from CloudFront.
+3.  When requests no longer include the header that you're replacing, update your application to no longer accept the old header as confirmation that the request is coming from CloudFront.

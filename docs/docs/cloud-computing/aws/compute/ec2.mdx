@@ -118,7 +118,7 @@ Amazon EC2 can create the following types of events for your instances, where th
 
 ## Status checks
 
-When status checks fail, you have 2 options to do the followup actions
+Status checks are built into Amazon EC2, so they cannot be disabled or deleted. When status checks fail, you have 2 options to do the followup actions
 
 - **Option 1**: CloudWatch Alarm
     - Send notifications using SNS
@@ -280,7 +280,15 @@ Source: [AWS backup](https://aws.amazon.com/backup/)
 
 - If you copy an AMI that has been shared with your account, you are the owner of the target AMI in your account
 - The owner of the source AMI must grant you read permissions for the storage that backs the AMI (EBS Snapshot)
-- If the shared AMI has encrypted snapshots, the owner must share the key or keys with you as well
+- You do not need to share the Amazon EBS snapshots that an AMI references in order to share the AMI, because the system automatically provides the access to the referenced Amazon EBS snapshots for the launch.
+- You can only share AMIs that have **unencrypted volumes** and **volumes that are encrypted with a customer-managed CMK**. If you share an AMI with encrypted volumes, you as a owner must share any CMKs used to encrypt them to the account that you want to share.
+
+### Recover/rebuild the accidentally deleted AMI
+
+Once an AMI is deleted or deregistered, it cannot be restored or recovered. However, you have two options to create an identical AMI:
+
+- Use Amazon EBS snapshots created during the AMI creation process: If you accidentally delete the AMI, you can launch an identical AMI using one of the retained EBS snapshots.
+- Recover from existing EC2 instances: If the AMI and snapshots are deleted, you can still recover the AMI from existing EC2 instances launched using the deleted AMI. Note that this process may require rebooting the instance unless the "No reboot" option was selected during instance launch.
 
 ## Troubleshooting
 
@@ -402,3 +410,4 @@ To address the issue of an Amazon EBS volume being stuck in the `attaching` stat
 To resolve the problem, you have 2 solutions
 - Force detach the volume and attempt reattachment using a different device name. 
 - Rebooting the instance or stopping and starting it can also help migrate it to new underlying hardware, but note that stopping an instance will result in the loss of instance store data.
+

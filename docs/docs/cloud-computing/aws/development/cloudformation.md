@@ -45,7 +45,7 @@ How to resolve a situation where wait condition didn't receive the required numb
 
 ## StackSets
 
-![StackSetsArchitecture](/img/aws/development/StackSetsArchitecture.png)
+![StackSetsArchitecture](/img/aws/development/cf/StackSetsArchitecture.png)
 > TL;DR - You can imagine template is just a class and stackset is a instance of a class which has configured the attributes as same as programming. 
 
 AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with AWS Organizations, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
@@ -53,7 +53,7 @@ AWS Accounts in multiple regions can now be managed effortlessly with StackSets.
 StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. Enable data sharing, use the StackSets console, and leverage the service-managed permission model for seamless deployment across your organization.
 
 How to use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization:
-![Deployment options](/img/aws/development/stackset.png)
+![Deployment options](/img/aws/development/cf/stackset.png)
 
 Reference: [Use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization](https://aws.amazon.com/blogs/aws/new-use-aws-cloudformation-stacksets-for-multiple-accounts-in-an-aws-organization/)
 
@@ -94,6 +94,32 @@ Change sets allow you to preview how proposed changes to a stack might impact yo
 After you execute a change, AWS CloudFormation removes all change sets that are associated with the stack because they aren't applicable to the updated stack.
 :::
 
+## Stack Policy
+
+Stack policies help protect critical stack resources from unintentional updates that could cause resources to be interrupted or even replaced. A stack policy is a JSON document that describes what update actions can be performed on designated resources. Specify a stack policy whenever you create a stack that has critical resources.
+
+During a stack update, you must explicitly specify the protected resources that you want to update; otherwise, no changes are made to protected resources.
+
+```json
+{
+  "Statement" : [
+    {
+      "Effect" : "Allow",
+      "Action" : "Update:*",
+      "Principal": "*",
+      "Resource" : "*"
+    },
+    {
+      "Effect" : "Deny",
+      "Action" : "Update:*",
+      "Principal": "*",
+      "Resource" : "LogicalResourceId/ProductionDatabase"
+    }
+  ]
+}
+```
+
+
 ## DeletionPolicy
 
 You can put a DeletionPolicy on any resource to control what happens when the CloudFormation template is deleted
@@ -133,3 +159,11 @@ testing
 If your template contains **custom named IAM resources**, **don't create multiple stacks reusing the same template**. IAM resources must be globally unique within your account. If you use the same template to create multiple stacks in different Regions, your stacks might share the same IAM resources, instead of each having a unique one. 
 
 Shared resources among stacks can have unintended consequences from which you can't recover. For example, if you delete or update shared IAM resources in one stack, you will unintentionally modify the resources of other stacks.
+
+### Import an existing resource into a stack using the AWS Management Console
+
+![stack-actions-import](/img/aws/development/cf/stack-actions-import.png)
+
+If you created an AWS resource outside of AWS CloudFormation management, you can bring this existing resource into AWS CloudFormation management using `resource import`. You can manage your resources using AWS CloudFormation regardless of where they were created without having to delete and re-create them as part of a stack.
+
+For a list of AWS resources that support import operations, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html).

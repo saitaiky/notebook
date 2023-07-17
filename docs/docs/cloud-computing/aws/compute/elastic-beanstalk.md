@@ -6,6 +6,22 @@ keywords:
 sidebar_position: 4
 ---
 
+## Overview
+### Elastic Beanstalk Architecture
+
+When deploying an app on Elastic Beanstalk, the service creates the following:
+
+- Elastic Beanstalk Environment: This is the runtime environment for the application. The service automatically creates a URL for access to the application and a CNAME.
+- EC2 Instances: These are the compute nodes for the application. 
+- Autoscaling Group: It handles scaling the compute nodes. Although the autoscaling group handles provisioning, developers can configure how many to establish. They can also specify when autoscaling can start.
+- Elastic Load Balancer: It distributes web requests across the compute nodes.
+- Security Groups: Specifies what network traffic is allowed in and out of the application.
+- Host Manager: The host manager is a service on each compute node that monitors the node for performance issues.
+
+### Auto Scaling group default alarms
+
+The Auto Scaling group in your Elastic Beanstalk environment uses two Amazon CloudWatch alarms to trigger scaling operations. The default triggers scale when the average outbound network traffic from each instance is higher than 6 MB or lower than 2 MB over a period of five minutes.
+
 ## Workflow of Elastic Beanstalk.
 
 To use Elastic Beanstalk, you create an application, upload an application version in the form of an application source bundle (for example, a Java .war file) to Elastic Beanstalk, and then provide some information about the application. Elastic Beanstalk automatically launches an environment and creates and configures the AWS resources needed to run your code. After your environment is launched, you can then manage your environment and deploy new application versions.

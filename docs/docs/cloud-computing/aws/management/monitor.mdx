@@ -1,8 +1,8 @@
 ---
-title: X-ray, Cloud Trail, Cloud Config
+title: X-ray, Cloud Trail, AWS Config
 description: Monitor
 keywords:
-- X-ray, Cloud Trail, Cloud Config
+- X-ray, Cloud Trail, AWS Config
 sidebar_position: 2
 ---
 
@@ -74,9 +74,22 @@ Another example of write permissions for using X-Ray via an IAM policy:
 
 ## CloudTail
 
+![hibernate](/img/aws/management/organizations/organizational-units-900x572.png)
+
 If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (**need root account permission**). This is referred to as an organization trail.
 
 - S3 related
     - By default, CloudTrail tracks only bucket-level actions. To track object-level actions, you need to enable Amazon S3 data events 
     - A bucket owner enabled CloudTrail. It doesn’t mean he can see the object access logs. The bucket owner **also needs to be object owner** to get the object access logs. Otherwise, the bucket owner **must get permissions**, through the object ACL, for the same object API to get the same object-access API logs.
 - Member accounts will be **able to see the organization trail**, but cannot modify or delete it. (By default, member accounts will not have access to the log files for the organization trail in the Amazon S3 bucket.)
+
+## AWS Config
+
+![config1](/img/aws/management/monitor/config1.png)
+![config2](/img/aws/management/monitor/config2.png)
+
+AWS Config is a service that tracks and evaluates the configuration and compliance of AWS resources. It uses configurable rules to assess resources against desired settings, such as logging for S3 buckets or MFA for IAM users. 
+
+AWS Lambda functions perform compliance evaluations, and auto-remediation can automatically correct non-compliant resources. 
+
+AWS Config includes auto-remediation for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
