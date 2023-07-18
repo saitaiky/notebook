@@ -7,11 +7,13 @@ title: Drawing
 
 ### Elements to handle
 
-![](/img/other/drawing/lesson1.jpeg)
-
-- Size, Placement
-- proportion
-- Relationship (ratio)
+- Size
+- Placement
+- Heigh to With = proportion
+- Shapes relative to each other (ratio)
+- Simplify
+- Look at negative shapes
+- Step back
 
 ### Angle
 - Keep stepping backward with the same angle as you draw. 
@@ -38,9 +40,7 @@ title: Drawing
 
 ### 2 Level
 
-![](/img/other/drawing/lesson2-1.jpeg)
-![](/img/other/drawing/lesson2-2.jpeg)
-![](/img/other/drawing/lesson2-3.jpeg)
+![](/img/other/drawing/lesson2.png)
 
 - Charcoal control
 - Shadow, at this level. We only need to due with 2 level, black and empty. 
@@ -49,16 +49,25 @@ title: Drawing
 
 ### 5 Level
 
-![](/img/other/drawing/lesson3-1.jpeg)
+![](/img/other/drawing/lesson3.png)
 ![](/img/other/drawing/lesson4.jpeg)
 ![](/img/other/drawing/lesson4-1.jpeg)
 light
 shadow
 reflection
 
-### Introducing white
+### Oil painting
 
-You don't need lines to describe an object, instead, use the colour contracts.
+- 3 things that affect colour
+    - Value is the most important thing in colour. take the colour off
+    - Hue (can be warmer or colder) 係指pallet direction
+    - saturation 
+- 畫筆可以做eraser 
+    - if ur brush takes colours from the painting, you have to wrap it off
+    - 打橫筆觸makes the colour looks lighter. vertical makes it darker
+- use new colour to cover the transition rather than make it fade 推開佢
+- it is easy to make the colour darker but it is hard to make it lighter
+
 
 
 ## Figure
@@ -79,3 +88,28 @@ Remember to consider the shape of the object and the surface it's resting on whe
 ### Mid-tone
 
 Mid-tone fall into the light and is the range of tones that fall between the highlights and shadows, and it is affected by the intensity and direction of the light source.
+
+
+### Steps
+
+- Layer 1
+    - alignment (the most difficult - because you have to a tract real light object)
+    - 12-16lines approx 
+    - complicated shape = put more lines
+    - simple shape 
+- layer2
+    - clarify overlay
+    - more fine
+- Layer3
+    - light affect the form
+    - the form affect the light
+    - 2 values
+- Layer4
+    - 3 values 
+- Layer5
+    - detailing shape and form 
+
+### Notes
+- one surface, one colour value
+- different angles, look upward nose level becomes the same as eyes
+- Look downward nose level becomes the same as month 
