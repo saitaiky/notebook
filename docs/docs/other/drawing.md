@@ -38,9 +38,11 @@ title: Drawing
 
 ## Different Values
 
+![different-values](/img/other/drawing/different-values.jpg)
+
 ### 2 Level
 
-![](/img/other/drawing/lesson2.png)
+![lesson2](/img/other/drawing/lesson2.png)
 
 - Charcoal control
 - Shadow, at this level. We only need to due with 2 level, black and empty. 
@@ -49,12 +51,13 @@ title: Drawing
 
 ### 5 Level
 
-![](/img/other/drawing/lesson3.png)
-![](/img/other/drawing/lesson4.jpeg)
-![](/img/other/drawing/lesson4-1.jpeg)
-light
-shadow
-reflection
+![lesson3](/img/other/drawing/lesson3.png)
+![lesson4](/img/other/drawing/lesson4.jpeg)
+![lesson4-1](/img/other/drawing/lesson4-1.jpeg)
+
+- light
+- shadow
+- reflection
 
 ### Oil painting
 

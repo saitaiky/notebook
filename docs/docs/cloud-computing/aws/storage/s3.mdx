@@ -12,6 +12,12 @@ import TabItem from '@theme/TabItem';
 
 ## Basic
 
+:::danger Never push server access logs about a bucket into the same bucket 
+If you configured your server access logs this way, then there would be **an infinite loop of logs**. This is because when you write a log file to a bucket, the bucket is also accessed, which then generates another log. A log file would be generated for every log written to the bucket, which creates a loop. **This would create many logs and increase your storage costs**.
+
+Source: [Can I push server access logs about an Amazon S3 bucket into the same bucket?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-server-access-logs-same-bucket/)
+:::
+
 ### What is prefix
 
 In Amazon S3, you can use prefixes to organize your storage. A prefix is a logical grouping of the objects in a bucket. The prefix value is similar to a directory name that enables you to store similar data under the same directory in a bucket. When you programmatically upload objects, you can use prefixes to organize your data.
@@ -50,24 +56,22 @@ If you delete a bucket and immediately list all buckets, the deleted bucket migh
 
 > Details: [Logging requests using server access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
 
-:::danger Never push server access logs about a bucket into the same bucket 
-If you configured your server access logs this way, then there would be **an infinite loop of logs**. This is because when you write a log file to a bucket, the bucket is also accessed, which then generates another log. A log file would be generated for every log written to the bucket, which creates a loop. **This would create many logs and increase your storage costs**.
-
-Source: [Can I push server access logs about an Amazon S3 bucket into the same bucket?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-server-access-logs-same-bucket/)
-:::
-
 ## Features
 
 
 ### Pre-signed URL max validation time
 
-You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. Valid up to **6 hours**.
+You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. 
+
+The default pre-signed URL expiration time is 15 minutes and maximum valid up to **6 hours**. Make sure to adjust this value to your specific needs. Security-wise, you should keep it to the minimum possible — eventually, it depends on your design.
 
 ### Server access logging
 
 Server access logging in Amazon S3 provides detailed records of requests made to a bucket, which can be valuable for security, access audits, understanding customer behavior, and monitoring costs. Enabling server access logging tracks access requests and generates logs with information such as requester, bucket name, request time, action, response status, and error codes. 
 
-**Enabling logging is free, but log files stored in the bucket incur storage charges**. You can delete log files as needed, and subsequent access to log files incurs standard charges. Logging is disabled by default, and logs are stored in the same AWS Region as the source bucket.
+- **Enabling logging is free, but log files stored in the bucket incur storage charges**. 
+- You can delete log files as needed, and subsequent access to log files incurs standard charges. 
+- Logging is disabled by default, and logs are stored in the same AWS Region as the source bucket.
 
 ### S3 Select
 
@@ -380,6 +384,17 @@ Among all 4 encryption types, only SSE-C requires all the requests need to throu
 
 
 ### Force encryption in bucket policy
+
+:::infoUpdate January 5, 2023
+
+> Reference: [Amazon S3 now automatically encrypts all new objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-encryption-faq.html)
+
+Amazon S3 now applies server-side encryption with Amazon S3 managed keys (SSE-S3) as the base level of encryption for every bucket in Amazon S3. Starting January 5, 2023, all new object uploads to Amazon S3 are automatically encrypted at no additional cost and with no impact on performance. 
+
+All Amazon S3 buckets have encryption configured by default, and all new objects that are uploaded to an S3 bucket are automatically encrypted at rest. Server-side encryption with Amazon S3 managed keys (SSE-S3) is the default encryption configuration for every bucket in Amazon S3. To use a different type of encryption, you can either specify the type of server-side encryption to use in your S3 `PUT` requests, or you can set the default encryption configuration in the destination bucket.
+
+If you want to specify a different encryption type in your `PUT` requests, you can use server-side encryption with AWS Key Management Service (AWS KMS) keys (SSE-KMS), dual-layer server-side encryption with AWS KMS keys (DSSE-KMS), or server-side encryption with customer-provided keys (SSE-C). If you want to set a different default encryption configuration in the destination bucket, you can use SSE-KMS or DSSE-KMS.
+:::
 
 In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set.
 

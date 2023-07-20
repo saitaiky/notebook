@@ -17,3 +17,10 @@ keywords:
 AWS Directory Service for Microsoft Active Directory (Standard Edition or Enterprise Edition) is an actual Microsoft Active Directory in the AWS Cloud. It automatically creates an AWS security group in your VPC with network rules for traffic in and out of AWS managed domain controllers. The default inbound rules allow traffic from any source (0.0.0.0/0) to ports required by Active Directory. These rules do not introduce security vulnerabilities, as traffic to the domain controllers is limited to traffic from your VPC, other peered VPCs, or networks connected using AWS Direct Connect, AWS Transit Gateway or Virtual Private Network.
 
 In addition, the ENIs the security group is attached to, do not and cannot have Elastic IPs attached to them, limiting inbound traffic to local VPC and VPC routed traffic.
+
+## Others
+
+- Aws neptune (Fully Managed Graph Database)
+- Security
+  - AWS Shield is a managed Distributed Denial of Service (DDoS) protection service that safeguards applications running on AWS. 
+  - AWS GuardDuty is a threat detection service that monitors malicious activity and unauthorized behavior to protect your AWS account.

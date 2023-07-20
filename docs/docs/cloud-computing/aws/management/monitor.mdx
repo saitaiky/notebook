@@ -92,4 +92,7 @@ AWS Config is a service that tracks and evaluates the configuration and complian
 
 AWS Lambda functions perform compliance evaluations, and auto-remediation can automatically correct non-compliant resources. 
 
-AWS Config includes auto-remediation for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
+### Some practices
+
+- AWS Config includes auto-remediation for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
+- You can use an EventBridge rule with a custom event pattern and an input transformer to match an AWS Config evaluation rule output as NON_COMPLIANT. Then, route the response to an Amazon Simple Notification Service (Amazon SNS) topic.

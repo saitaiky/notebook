@@ -48,7 +48,9 @@ The StatsD approach to collection is limiting in terms of scale; it’s not unus
 
 ## Prometheus
 
-Prometheus takes a different approach than our previous examples. Collection happens where possible inside the application. For third-party applications where that’s not possible, rather than having one collector per machine, there’s one exporter per application. This approach can be easier to manage, at the cost of increased resource usage. In containerized environments like Kubernetes, the exporter would be managed as a sidecar container of the main container. The Prometheus server handles ingestion, processing, alerting and storage. However, to avoid tying a distributed system into critical monitoring, the local Prometheus storage is more like a cache. A separate, non-critical distributed storage system handles longer term storage. This approach offers both monitoring reliability and durability for long-term data.
+Prometheus takes a different approach than our previous examples. Collection happens where possible inside the application. For third-party applications where that’s not possible, rather than having one collector per machine, there’s one exporter per application. This approach can be easier to manage, at the cost of increased resource usage. In containerized environments like Kubernetes, the exporter would be managed as a sidecar container of the main container. 
+
+The Prometheus server handles ingestion, processing, alerting and storage. However, to avoid tying a distributed system into critical monitoring, the local Prometheus storage is more like a cache. A separate, non-critical distributed storage system handles longer term storage. This approach offers both monitoring reliability and durability for long-term data.
 
 ![collectd_arch](/img/tech-concepts/prometheus_arch.png)
 
@@ -56,3 +58,15 @@ Source: [The Classes of Container Monitoring](https://thenewstack.io/classes-con
 
 Figure 5: Metrics handling in Prometheus.
 While Prometheus decides what alerts to fire, it does not send emails or pages to users. Alerts are, instead, sent to an Alertmanager, which deduplicates and aggregates alerts from multiple Prometheus servers, and sends notifications.
+
+### Prometheus Architecture
+
+![Prometheus-Server_Chart](/img/tech-concepts/Prometheus-Server_Chart.png)
+
+Source: [Kubernetes Monitoring: Install Prometheus and Grafana using Helm](https://k21academy.com/docker-kubernetes/prometheus-grafana-monitoring/)
+
+At its core, Prometheus has a main component called Prometheus Server, responsible for the actual monitoring work. The Prometheus server consists of:
+
+- **Time Series Database** that stores all the metric data like current CPU usage, memory usage etc.
+- **Data Retrieval Worker** is responsible for all the data pulling activities from applications, services, servers etc. and pushing them into the database.
+- **HTTP Server API** meant to accept queries for the stored data. The Server API is used to display the data in a dashboard or a Web UI.

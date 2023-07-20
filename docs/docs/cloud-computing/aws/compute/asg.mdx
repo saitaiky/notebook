@@ -8,11 +8,10 @@ sidebar_position: 2
 
 ## Behaviour
 
-### Difference of using CLI or console to create ASG launch configuration?
-
-By default, **basic monitoring** is enabled when you use the AWS management console to create a launch configuration. 
+Some points to remember: 
+- By default, **basic monitoring** is enabled when you use the AWS management console to create a launch configuration. 
 **Detailed monitoring** is enabled by default when you create a launch configuration using the AWS CLI
-
+- You have an ASG in which the Terminate process is suspended and itgoes into a rebalance.It'll start and the EC2 instances will launch, the ASG will grow up to 10% of its size. The instances will not get terminated because **this is allowed temporarily during rebalancing activities**.
 
 ### ASG terminates unhealthy EC2 instance
 

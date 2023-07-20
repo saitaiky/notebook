@@ -52,6 +52,21 @@ By creating Capacity Reservations, you ensure that you always have access to EC2
 
 [AWS official link: On-Demand Capacity Reservations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
 
+### T2 Unlimited Mode
+
+When you use t2.unlimited, it doesn’t actually mean that you have unlimited resources. Instead, it changes what happens when you exhaust your burst credits. Instead of being throttled, unlimited mode creates extra charges to your AWS account. From the AWS doc page on [Unlimited Mode](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode.html):
+
+> A burstable performance instance configured as unlimited can burst above the baseline for as long as required. This enables you to enjoy the low instance hourly price for a wide variety of general-purpose applications, and ensures that your instances are never held to the baseline performance.  
+
+You can think of unlimited mode as an “unlimited burst” mode, where more bursting costs you more money, but you can burst as much as your application requires.
+
+There are many burstable resources in AWS. GP2 and magnetic EBS volumes have burstable capacity and certain instance types have burstable CPU. From the same AWS documentation page as above:
+
+> - T3 instances are launched as unlimited by default.
+- T2 instances are launched as standard by default.
+
+To enable unlimited mode for T2 instance, check [T2 Unlimited – Going Beyond the Burst with High Performance](https://aws.amazon.com/blogs/aws/new-t2-unlimited-going-beyond-the-burst-with-high-performance/)
+
 ## Placement Groups
 
 **A Spread placement group** is a group of instances that are each placed on distinct racks, with each rack having its own network and power source.
@@ -275,6 +290,10 @@ Source: [AWS backup](https://aws.amazon.com/backup/)
 
 - Sharing an AMI does not affect the ownership of the AMI
 - If you're sharing the AMI with an encrypted volume that means that you need to share any key that is attached to that volume as well that was used to encrypt and decrypt that volume otherwise the targeted account cannot use your volume.
+- What will happen if an AMI shared from account A to account B and then **de-registered** the AMI in a few days?
+  - You can't launch new instances from the AMI in account A or in account B
+  - The instances already launched from the shared AMI in account B, are not impacted by this de-registration
+- You can share an AMI with specific AWS accounts from the AMI Console UI without making the AMI public. All you need is the **AWS account IDs**.
 
 ### Cross-accounts copying AMI
 

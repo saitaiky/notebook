@@ -7,6 +7,14 @@ sidebar_position: 1
 ---
 
 
+## Feature
+
+### Ensure all connections to RDS are encrypted
+
+In the **DB parameter groups** - You can allow only SSL connections to your RDS for PostgreSQL database instance by enabling the rds.force_ssl parameter ("0" by default) through the parameter groups page on the RDS Console or through the CLI.
+
+Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
+
 ## Scalability
 
 ### Read scalability

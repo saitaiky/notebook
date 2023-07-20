@@ -54,7 +54,7 @@ The service integrates with AWS Identity and Access Management (IAM), AWS CloudT
 
 ### Inventory
 
-AWS Inventory allows you to collect metadata about your managed instances, such as operating system details, installed software, and configuration settings. It provides a centralized inventory view of your resources, making it easier to track and manage them. 
+AWS Inventory allows you to **collect metadata about your managed instances**, such as operating system details, installed software, and configuration settings. It provides a centralized inventory view of your resources, making it easier to track and manage them. 
 
 You can use this information for compliance, auditing, and asset management purposes. Inventory data can be queried, filtered, and exported to other AWS services or external systems for further analysis and automation.
 

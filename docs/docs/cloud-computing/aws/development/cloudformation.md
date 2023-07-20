@@ -9,6 +9,8 @@ sidebar_position: 2
 
 ## User Data in EC2 for CloudFormation
 
+> Check [user data scripts](cloud-computing/aws/compute/ec2/#user-data-scripts) for more information.
+
 - We can have user data at EC2 instance launch through the console
 - We can also include it in CloudFormation
 - The important thing to pass is the entire script through the function
@@ -25,23 +27,44 @@ UserData:
 ```
 
 
-## cfn-init
+## Helper scripts
 
-`cfn-init` is a component of AWS CloudFormation that allows you to configure and initialize Amazon EC2 instances as part of the stack creation process. It is used to install packages, run commands, and configure settings on EC2 instances. cfn-init reads the configuration metadata defined in the CloudFormation template and performs the specified actions on the instances. 
+![cfn-init&cfn-signal](/img/aws/development/cf/cfn-init&cfn-signal.jpg)
 
-First, it reads how the instance should be initialized from the CloudFormation stack and executes it. 
-Second, it signals CloudFormation whether it’s finished or there was an error, so it fits into the lifecycle of the stack. CloudFormation waits until the initialization is complete, and it also rolls back if there was an error.
+Source: [CloudFormation – 3 – User data, cfn](http://miro.borodziuk.eu/index.php/2021/03/28/cloudformation-cfn/)
+### cfn-init
 
-## cfn-signal and wait conditions
+- `cfn-init` is a helper script that is executed on an EC2 instance as part of the instance's user data during stack creation or update.
+- It is used to handle the instance configuration and perform tasks such as installing packages, setting up configurations, and running custom scripts.
+- `cfn-init` processes the metadata defined in the CloudFormation template under the "AWS::CloudFormation::Init" key and performs the specified tasks accordingly. The metadata can include packages to install, files to create, services to enable, and commands to execute during instance initialization.
 
-How to resolve a situation where wait condition didn't receive the required number of signals from an Amazon EC2 Instance?
+### cfn-signal
 
+- `cfn-signal` is a helper script to signal the status of an AWS CloudFormation stack resource.
+- It is commonly used in conjunction with AWS CloudFormation Auto Scaling groups and Amazon EC2 instances.
+- During the stack creation or update process, `cfn-signal` is typically called from within user data scripts running on EC2 instances to notify AWS CloudFormation about the successful initialization of the instance. This signals that the instance is ready and healthy to proceed with the stack creation or update process.
+### Wait conditions
+
+Wait Conditions, as the name suggests, is a tool used to control the order of creation of the AWS resources in a CloudFormation stack. It can pause the creation of a stack and wait for a signal to ensure that specific resources and configurations were properly launched before resuming the stack creation process.
+
+For example, you might want to download and configure applications on an Amazon EC2 instance before considering the creation of that Amazon EC2 instance complete.
+
+Q: How to resolve a situation where wait condition didn't receive the required number of signals from an Amazon EC2 Instance?
+
+Answer:
 - Ensure that the AMI you're using has the AWS CloudFormation **helper scripts** installed. If the AMI doesn't include the helper scripts, you can also download them to your instance.
-- Verify that the **cfn-init & cfn-signal** command was successfully run on the instance. You can view logs, such as /var/log/cloud-init.log or /var/log/cfn-init.log, to help you debug the instance launch.
+- Verify that the **cfn-init & cfn-signal** command was successfully run on the instance. You can view logs, such as `/var/log/cloud-init.log` or `/var/log/cfn-init.log`, to help you debug the instance launch.
 - You can retrieve the logs by logging in to your instance, but you **must disable rollback on failure** or else by default AWS CloudFormation deletes the instance after your stack fails to create.
 - Verify that the instance has a connection to the Internet. If the instance is in a VPC, the instance should be able to connect to the Internet through a NAT device if it's is in a private subnet or through an Internet gateway if it's in a public subnet.
   - For example, run: curl -I https://aws.amazon.com
 
+## Actions
+
+### CreateStack
+
+You can use the OnFailure property of the CloudFormation CreateStack call for this use-case. The OnFailure property determines what action will be taken if stack creation fails. This must be one of `DO_NOTHING`, `ROLLBACK`, or `DELETE`. You can specify either OnFailure or DisableRollback, but not both.
+
+Using the OnFailure property, you can prevent the termination of the EC2 instances created by the CloudFormation stack.
 
 ## StackSets
 
@@ -135,8 +158,6 @@ You can put a DeletionPolicy on any resource to control what happens when the Cl
 
 
 ## Rolling back an update
-
-testing 
 
 - Behavoir:
   - A stack goes into the UPDATE_ROLLBACK_FAILED state when CloudFormation can't roll back all changes during an update

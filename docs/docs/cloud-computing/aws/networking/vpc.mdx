@@ -151,7 +151,7 @@ You do not need to use an internet gateway, NAT device, public IP address, AWS D
 
 AWS Transit Gateway is a service that enables customers to connect their **Amazon VPCs** and their **on-premises networks** to a single gateway. With AWS Transit Gateway, you only have to create and manage a single connection from the central gateway into each Amazon VPC, on-premises data center, or remote office across your network.
 
-It also supports IP Multicast. Multicast is a communication protocol used for delivering a single stream of data to multiple receiving computers simultaneously. Transit Gateway supports routing multicast traffic between subnets of attached VPCs, and it serves as a multicast router for instances sending traffic destined for multiple receiving instances.
+It also supports **IP Multicast**. Multicast is a communication protocol used for delivering a single stream of data to multiple receiving computers simultaneously. Transit Gateway supports routing multicast traffic between subnets of attached VPCs, and it serves as a multicast router for instances sending traffic destined for multiple receiving instances.
 
 <Tabs className="Transit Gateway">
 <TabItem value="before" label="Without AWS Transit Gateway">
@@ -391,7 +391,7 @@ The following table summarizes the differences between IPv4 and IPv6 in Amazon E
   </thead>
     <tbody><tr>
       <td>VPC size</td>
-      <td>Up to 5 CIDRs from /16 to /28. This <a href="./amazon-vpc-limits.html#vpc-limits-vpcs-subnets">quota</a> is adjustable.</td>
+      <td>Up to 5 CIDRs from /16 to /28. This <a href="https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html#vpc-limits-vpcs-subnets">quota</a> is adjustable.</td>
       <td>Up to 5 CIDRs fixed at /56. This quota is not adjustable.</td>
     </tr>
     <tr>
@@ -413,8 +413,8 @@ The following table summarizes the differences between IPv4 and IPv6 in Amazon E
     </tr>
     <tr>
       <td>Internet access</td>
-      <td>Requires an <a href="./VPC_Internet_Gateway.html">internet gateway</a>.</td>
-      <td>Requires an internet gateway. Supports outbound-only communication using an <a href="./egress-only-internet-gateway.html">egress-only internet gateway</a>.</td>
+      <td>Requires an <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html">internet gateway</a>.</td>
+      <td>Requires an internet gateway. Supports outbound-only communication using an <a href="https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html">egress-only internet gateway</a>.</td>
     </tr>
     <tr>
       <td>Elastic IP addresses</td>

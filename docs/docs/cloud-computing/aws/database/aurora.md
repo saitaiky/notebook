@@ -25,3 +25,14 @@ In the event of an outage that impacts an entire Availability Zone (AZ) and rend
 - Manual
   - However, if the cluster only contains a single DB instance or all reader instances are in the affected AZ, manual creation of new DB instances in another AZ is necessary to restore the database's availability.
 
+## Features
+
+### Aurora Reader Endpoint
+
+![reader-endpoin](/img/aws/database/reader-endpoint.webp)
+
+Source: [AWS Aurora — Why is it better?](https://crishantha.medium.com/aws-aurora-why-is-it-better-6faae33a0ed0)
+
+The reader endpoint in Aurora DB clusters enables load-balancing for read-only connections, distributing read operations among Aurora Replicas. This reduces the primary instance's workload and allows the cluster to handle simultaneous SELECT queries, scaling capacity based on the number of Aurora Replicas. 
+
+Each Aurora DB cluster has one reader endpoint, which load-balances connections among the Aurora Replicas for read-only statements like SELECT queries.

@@ -79,6 +79,6 @@ In the following table, I have described different tools for each process requir
 | Continuous Integration      | Jenkins    / GitLab / CircleCI |
 | Continuous Delivery         | Spinnaker  / GitLab / Flux |
 | Container Registry          | DockerHub  / GitLab |
-| Configuration Management    | Puppet     / Chef / Ansible |
+| Configuration Management / IaC    | Puppet     / Chef / Ansible |
 | Infrastructure Provisioning | Terraform  / AWS Cloud Formation / Pulumi |
 | Container Orchestration     | Kubernetes |
