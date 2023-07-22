@@ -125,9 +125,9 @@ There is only one algorithm which only work for **NLB**, which is Flow Hash
 
 ### Request of true IP address
 
-The **X-Forwarded-For** request header helps you identify the IP address of a client when you use an HTTP or HTTPS load balancer. Because load balancers intercept traffic between clients and servers, your server access logs contain only the IP address of the load balancer.
+The `X-Forwarded-For` request header is automatically added and helps you identify the IP address of a client when you use an HTTP or HTTPS load balancer. Because load balancers intercept traffic between clients and servers, your server access logs contain only the IP address of the load balancer.
 
-Elastic Load Balancing stores the IP address of the client in the X-Forwarded-For request header and passes the header to your server.
+Elastic Load Balancing stores the IP address of the client in the `X-Forwarded-For` request header and passes the header to your server.
 
 ### Healthy status but receiving timeout
 
@@ -214,7 +214,7 @@ Here are the reasons that why an ELB routes more traffic to one instance or Avai
 
 ### How many load balancers do I need?
 
-As a best practice, you want **at least two load balancers** in a clustered pair. If you only have a single load balancer and it fails for any reason, then your whole system will fail. This is known as a Single Point of Failure (SPOF). With load balancers, the number you require depends on how much traffic you handle and how much uptime availability you want. Generally, the more load balancers you have, the better.  
+As a best practice, you want **at least two load balancers** in a clustered pair. If you only have a single load balancer and it fails for any reason, then your whole system will fail. This is known as a **Single Point of Failure (SPOF)**. With load balancers, the number you require depends on how much traffic you handle and how much uptime availability you want. Generally, the more load balancers you have, the better.  
 
 ### Don’t resolve the ALB’s public IP
 
@@ -222,6 +222,11 @@ The load balancer is highly available and **its public IP may change**. The DNS 
 
 When your load balancer is created, it receives a public DNS name that clients can use to send requests. The DNS servers resolve the DNS name of your load balancer to the public IP addresses of the load balancer nodes for your load balancer. Never resolve the IP of a load balancer as it can change with time. You should always use the DNS name.
 
+### How to handle expected flash traffic 
+
+ELB can handle the vast majority of use cases for the customers without requiring "pre-warming" (configuring the load balancer to have the appropriate level of capacity based on expected traffic). 
+
+In certain scenarios, such as when flash traffic is expected, or in the case where a load test cannot be configured to gradually increase traffic, AWS recommends that you contact AWS to have your load balancer "pre-warmed". AWS will then configure the load balancer to have the appropriate level of capacity based on the traffic that you expect.
 
 ## Configuration
 

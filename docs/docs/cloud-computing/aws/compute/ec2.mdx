@@ -246,6 +246,11 @@ As a result, Dedicated Hosts enable you to use your existing server-bound softwa
 
 ## AMI
 
+- As the AMI is tied to a specific AWS Region, you need to copy the AMI to other AWS Regions if required. 
+- You can copy both Amazon EBS-backed AMIs and instance-store-backed AMIs. 
+- You can change or deregister the source AMI with no effect on the target AMI.
+- Copying a source AMI results in an identical but distinct target AMI with its own **unique identifier(AMI ID)**. 
+
 ### No-Reboot Option
 
 ![ami-no-reboot](/img/aws/compute/ec2/ami-no-reboot.png)
@@ -264,27 +269,27 @@ You can use AWS Backup to create a backup plan by configuring backup policies an
 Source: [AWS backup](https://aws.amazon.com/backup/)
 [What is AWS backup?](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
 
-### Copying AMIs across regions
+### Copy AMIs across regions
 
-- You can copy an AMI across AWS Regions
-- You can share an AMI with another AWS account
+As the AMI is tied to a specific AWS Region, you need to copy the AMI to other AWS Regions if required. 
 
-  You can copy an AMI within or across AWS Regions using the AWS Management Console, the AWS Command Line Interface or SDKs, or the Amazon EC2 API, all of which support the CopyImage action. You can copy both Amazon EBS-backed AMIs and instance-store-backed AMIs. You can copy AMIs with encrypted snapshots and also change encryption status during the copy process. 
+![copy-AMI](/img/aws/compute/copy-AMI.png)
+> Source: [AWS - Encryption and copying](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
 
-  ![copy-AMI](/img/aws/compute/copy-AMI.png)
-  > Source: [AWS - Encryption and copying](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
+### Copy encrypted snapshot
 
 - Copying an AMI backed by an encrypted snapshot cannot result in an unencrypted target snapshot.
+- You can copy AMIs with encrypted snapshots and also change encryption status during the copy process. 
 
-  The following table shows encryption support for various AMI-copying scenarios. While it is possible to copy an unencrypted snapshot to yield an encrypted snapshot, you cannot copy an encrypted snapshot to yield an unencrypted one. 
+The following table shows encryption support for various AMI-copying scenarios. While it is possible to copy an unencrypted snapshot to yield an encrypted snapshot, you cannot copy an encrypted snapshot to yield an unencrypted one. 
 
-  | Scenario | Description                | Supported |
-  | -------- | -------------------------- | --------- |
-  | 1        | Unencrypted-to-unencrypted | Yes       |
-  | 2        | Encrypted-to-encrypted     | Yes       |
-  | 3        | Unencrypted-to-encrypted   | Yes       |
-  | 4        | Encrypted-to-unencrypted   | No        |
-  > Source: [AWS - Encryption and copying](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
+| Scenario | Description                | Supported |
+| -------- | -------------------------- | --------- |
+| 1        | Unencrypted-to-unencrypted | Yes       |
+| 2        | Encrypted-to-encrypted     | Yes       |
+| 3        | Unencrypted-to-encrypted   | Yes       |
+| 4        | Encrypted-to-unencrypted   | No        |
+> Source: [AWS - Encryption and copying](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
 
 ### Cross-accounts sharing AMIs 
 

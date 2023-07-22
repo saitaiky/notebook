@@ -26,10 +26,10 @@ Ultimately, the choice between EC2 with or without EBS depends on specific needs
 
 For data that you want to retain longer, or if you want to encrypt the data, use [Amazon EBS volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) instead. EBS volumes have the following features:
 
--   EBS volumes preserve their data through instance stops and terminations.
--   You can back up EBS volumes with EBS snapshots.
--   You can remove EBS volumes from one instance, and reattach them to another.
--   EBS volumes support full-volume encryption.
+- EBS volumes preserve their data through instance stops and terminations.
+- You can back up EBS volumes with EBS snapshots.
+- You can remove EBS volumes from one instance, and reattach them to another.
+- EBS volumes support full-volume encryption.
 
 To prevent unintentional changes or data loss, it's a best practice to [frequently create snapshots](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes.html#backup-benefit). You can use [AWS Backup](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html) to automate snapshot creation.
 
@@ -106,3 +106,12 @@ How to update 'DeleteOnTermination' attribute set to True for an EC2 instance’
 1. Set the DeleteOnTermination attribute to False using the command line
 2. When an instance terminates, the value of the DeleteOnTermination attribute for each attached EBS volume determines whether to preserve or delete the volume. By default, the DeleteOnTermination attribute is set to True for the root volume and is set to False for all other volume types.
 
+### Raid 0 & Raid 1
+
+![raid0_raid1](/img/aws/storage/ebs/raid0_raid1.png)
+
+Source: [EC2 Storage — EBS, EFS, and Instance Store fundamentals](https://medium.com/geekculture/ebs-efs-and-instance-store-aws-solutions-architect-associate-87dc0ac6d1ae)
+
+With Amazon EBS, you can use any of the standard RAID configurations that you can use with a traditional bare metal server, as long as that particular RAID configuration is supported by the operating system for your instance. This is because all RAID is accomplished at the software level.
+
+For greater I/O performance than you can achieve with a single volume, RAID 0 can stripe multiple volumes together; for on-instance redundancy, RAID 1 can mirror two volumes together. So for the given use-case, to increase the performance, you should use RAID 0.

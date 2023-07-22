@@ -90,6 +90,7 @@ RAM is NOT included in the AWS EC2 metrics
     - High Resolution: all the way to 1 second resolution
     - Include RAM, application level metrics
     - Make sure the IAM permissions on the EC2 instance to push the logs and the metrics.
+    - For example, the following command publishes a Buffers metric with two dimensions named InstanceId and InstanceType: `aws cloudwatch put-metric-data --metric-name Buffers --namespace MyNameSpace --unit Bytes --value 231434333 --dimensions InstanceId=1-23456789,InstanceType=m1.small`
 
 ### Procstat plugin
 
