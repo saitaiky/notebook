@@ -156,6 +156,18 @@ You can put a DeletionPolicy on any resource to control what happens when the Cl
   - Note: for AWS::RDS::DBCluster resources, the default policy is Snapshot
   - Note: to delete an S3 bucket, you need to first empty the bucket of its content
 
+```yml
+NewVolume:
+  Type: AWS::EC2::Volume
+  Properties:
+    Size: 100
+    Encrypted: true
+    AvailabilityZone: !GetAtt Ec2Instance.AvailabilityZone
+    Tags:
+      - Key: MyTag
+        Value: TagValue
+  DeletionPolicy: Snapshot
+```
 
 ## Rolling back an update
 

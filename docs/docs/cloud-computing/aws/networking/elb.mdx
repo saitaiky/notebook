@@ -16,7 +16,7 @@ An Application load balancer distributes incoming application traffic across mul
 source: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
 
 
-## Network Load Balancer
+## NLB
 
 A Network Load Balancer functions at **the fourth layer** of the Open Systems Interconnection (OSI) model. It can handle millions of requests per second. After the load balancer receives a connection request, it selects a target from the target group for the default rule. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration.
 
@@ -69,6 +69,14 @@ With **Network Load Balancer**, you can *offload the decryption/encryption of TL
 :::
 
 > Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
+
+## Features
+
+### ELB access logs 
+
+ELB access logs is an optional feature of Elastic Load Balancing that is disabled by default. The access logs capture detailed information about requests sent to your load balancer. Each log contains information such as the time the request was received, the client's IP address, latencies, request paths, and server responses. 
+
+You can use these access logs to analyze traffic patterns and troubleshoot issues. Each access log file is automatically encrypted using SSE-S3 before it is stored in your S3 bucket and decrypted when you access it. You do not need to take any action; the encryption and decryption is performed transparently.
 
 ## Behaviour 
 

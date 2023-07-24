@@ -22,6 +22,9 @@ UI canaries offer programmatic access to a headless Google Chrome Browser via Pu
 
 Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI. They monitor your REST APIs, URLs, and website content, and they can check for unauthorized changes from phishing, code injection and cross-site scripting.
 
+### CloudWatch action
+
+A valid CloudWatch action can be sending a notification to an Amazon SNS topic, performing an Amazon EC2 action or an Auto Scaling action, or creating a Systems Manager OpsItem.
 
 ### CloudWatch Event Rules
 

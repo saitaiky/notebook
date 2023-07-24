@@ -1,6 +1,10 @@
 ## What are the types of AWS cost allocation tags?
 
-There are two types of cost allocation tags:
+There are two types of cost allocation tags: AWS-generated cost allocation tags and User-defined cost allocation tags 
+
+![cost-allocation-tags-console](/img/aws/other/cost-allocation-tags-console.png)
+
+### AWS-generated cost allocation tags
 
 AWS-generated cost allocation tags - Amazon Web Services or the AWS Marketplace ISV creates, defines, and applies these tags on your behalf. This means you have no control over these tags and can't customize them. They have an "*aws:createdBy*" format.
 
@@ -17,6 +21,8 @@ AWS-generated cost allocation tags do not apply to all AWS services. Specificall
 -   Amazon Kinesis
 -   Elastic Load Balancing
 -   Amazon Relational Database Service
+
+### User-defined cost allocation tags
 
 User-defined cost allocation tags - You create these custom tags to organize resource consumption and related costs according to your preferences. You create the tags using the [AWS Tag Editor](https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html). By using the "user:" prefix, these tags can identify who created a specific resource, for example.
 

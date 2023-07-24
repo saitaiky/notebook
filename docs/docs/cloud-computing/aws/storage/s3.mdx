@@ -189,6 +189,7 @@ You can implement byte-range fetches in 2 different ways **Parallelize GETs** an
 It is to parallelize GETs by requesting a specific byte range. In case of failure, it has better resilience. Hence, it could be used to speed up downloads.
 
 ![fetch-header](/img/aws/storage/s3/fetch-header.png)
+
 Source: [Optimize Your AWS S3 Performance](https://aws.plainenglish.io/optimize-your-aws-s3-performance-27b057f231a3)
 
 </TabItem>
@@ -197,6 +198,7 @@ Source: [Optimize Your AWS S3 Performance](https://aws.plainenglish.io/optimize-
 The second use-case in which S3 Byte-Range Fetches could be used is to retrieve only partial data. For example, when you know the first XX bytes is the header of a file, in this case, it could be used.
 
 ![fetch-parallel](/img/aws/storage/s3/fetch-parallel.png)
+
 Source: [Optimize Your AWS S3 Performance](https://aws.plainenglish.io/optimize-your-aws-s3-performance-27b057f231a3)
 
 </TabItem>
@@ -272,8 +274,8 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 > Belows are the high level steps to create a cloudfront distribution. To check the detailed steps, visit [StackOverflow - Uploads to S3 through CloudFront via Signed URLs?](https://stackoverflow.com/questions/55148428/uploads-to-s3-through-cloudfront-via-signed-urls)
 
 1. Create a new CF distribution
-  -   Use target S3 bucket as origin
-  -   Configure origin S3 bucket access to use a CloudFront origin access identity. While you can automatically update the bucket policy (with `s3:GetObject` access) as a starting point, we'll be adding/changing that to `s3:PutObject` anyway.
+  - Use target S3 bucket as origin
+  - Configure origin S3 bucket access to use a CloudFront origin access identity (OAI). While you can automatically update the bucket policy (with `s3:GetObject` access) as a starting point, we'll be adding/changing that to `s3:PutObject` anyway.
 2. Configure S3 bucket policy
 3. Upload files to S3 using the CloudFront distribution
 
@@ -462,6 +464,16 @@ In general, if you’re using an Amazon **S3 bucket** as the origin for a **Clou
 
 If you restrict access by using, for example, CloudFront signed URLs or signed cookies, you also won’t want people to be able to view files by simply using the direct **Amazon S3 URL** for the file. Instead, *you want them to only access the files by using the **CloudFront URL** *, so your content remains protected.
 
+### Restricting only CloudFront access
+
+CloudFront provides two ways to send authenticated requests to an Amazon S3 origin: *origin access control* (OAC) and *origin access identity* (OAI). We recommend using OAC because it supports:
+
+-   All Amazon S3 buckets in all AWS Regions, including opt-in Regions launched after December 2022
+-   Amazon S3 [server-side encryption with AWS KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (SSE-KMS)
+-   Dynamic requests (`PUT` and `DELETE`) to Amazon S3
+
+Reference: [Restricting access to an Amazon S3 origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
+
 
 ## Availabiltiy
 
@@ -498,7 +510,9 @@ AWS Snowball is a physical data transfer device offered by Amazon Web Services (
 *You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault** *. You need to go through S3 first and then use a lifecycle policy.
 :::
 
-> Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
+> 
+  - Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
+  - Glacier Vault provides [S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) for WORM compliance.
 
 ## Further reading
 
