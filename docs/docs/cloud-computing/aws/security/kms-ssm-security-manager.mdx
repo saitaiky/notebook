@@ -22,9 +22,22 @@ Amazon EBS works with AWS KMS to encrypt and decrypt your EBS volume. You can en
 You can choose to have SQS encrypt messages stored in both **Standard and FIFO queues** using an encryption key provided by AWS Key Management Service (KMS).
 
 ## KMS with System manager parameter store 
-With AWS Systems Manager Parameter Store, you can create SecureString parameters, which are parameters that have a plaintext parameter name and an encrypted parameter value. *Parameter Store uses AWS KMS to encrypt and decrypt the parameter values* of Secure String parameters. 
-Also, if you are using customer-managed CMKs, you can use IAM policies and key policies to manage to encrypt and decrypt permissions. *To retrieve the decrypted value you only need to do **one API call** *. 
-(If you use KMS with SSM Parameter store, it requires two API calls to get the decrypted value which is not effiecient.)
+With AWS Systems Manager Parameter Store, you can create **SecureString** parameters, which are parameters that have a plaintext parameter name and an encrypted parameter value.
+
+### Secure String parameters vs KMS
+**Secure String parameters - Only one API Call**
+Parameter Store uses AWS KMS to encrypt and decrypt the parameter values* of Secure String parameters. *To retrieve the decrypted value you only need to do **one API call**. 
+
+**KMS with SSM Parameter store - 2 API Calls**
+If you encrypt first with KMS then store in SSM Parameter store,  it requires **two API calls** to get the decrypted value which is not effiecient.
+
+### Share a CMK to users and roles in another account 
+
+To permit the usage of a CMK to users and roles in another account, you must use **two different types of policies**:
+
+- The key policy for the CMK must give the external account (or users and roles in the external account) permission to use the CMK. The key policy is in the account that owns the CMK.
+- IAM policies in the external account must delegate the key policy permissions to its users and roles. These policies are set in the external account and give permissions to users and roles in that account.
+
 
 ## KMS with CodeBuild
 - Q: How to make the build artifacts to be automatically encrypted at the end?
@@ -80,3 +93,9 @@ When you create a CMK using KMS instead of using default CMK you get more flexib
   -  KMS encryption is optional
   -  Can integration with CloudFormation
   -  Can pull a Secrets Manager secret using the SSM Parameter Store API
+
+### Delete an exsisting key and create a new key with the same name
+
+When you delete a secret, the Secrets Manager deprecates it with a seven-day recovery window. This means that you can't recreate a secret using the same name using the AWS Management Console until seven days have passed. You can permanently delete a secret without any recovery window using the AWS Command Line Interface (AWS CLI).
+
+Run the `DeleteSecret` API call with the `ForceDeleteWithoutRecovery` parameter to delete the secret permanently. If you receive errors when running AWS CLI commands, make sure that you're using the most recent version of the AWS CLI. Secrets deleted using the `ForceDeleteWithoutRecovery` parameter can't be recovered or restored.

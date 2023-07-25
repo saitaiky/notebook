@@ -56,36 +56,21 @@ If you delete a bucket and immediately list all buckets, the deleted bucket migh
 
 > Details: [Logging requests using server access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
 
-## Features
+## Tools
 
-### MFA-Delete
+### Inventory
 
-MFA-Delete represents another layer of security wherein you can configure a bucket to enable MFA-Delete, which requires additional authentication for either of the following operations:
+![inventory](/img/aws/storage/s3/inventory.png)
 
-- Change the versioning state of your bucket
-- Permanently delete an object version
+Amazon S3 Inventory helps manage storage by providing reports on **object replication status and encryption status** for business, compliance, and regulatory needs. It offers a scheduled alternative to S3 synchronous List API operations, simplifying and speeding up workflows and big data jobs without affecting bucket request rates. 
 
-You should note that only the bucket owner (root account) can enable MFA Delete **only via the AWS CLI**. However, the bucket owner, the AWS account that created the bucket (root account), and all authorized IAM users can enable versioning.
-
-### Pre-signed URL max validation time
-
-You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. 
-
-The default pre-signed URL expiration time is 15 minutes and maximum valid up to **6 hours**. Make sure to adjust this value to your specific needs. Security-wise, you should keep it to the minimum possible — eventually, it depends on your design.
-
-### Server access logging
-
-Server access logging in Amazon S3 provides detailed records of requests made to a bucket, which can be valuable for security, access audits, understanding customer behavior, and monitoring costs. Enabling server access logging tracks access requests and generates logs with information such as requester, bucket name, request time, action, response status, and error codes. 
-
-- **Enabling logging is free, but log files stored in the bucket incur storage charges**. 
-- You can delete log files as needed, and subsequent access to log files incurs standard charges. 
-- Logging is disabled by default, and logs are stored in the same AWS Region as the source bucket.
+Reports are generated in CSV, ORC, or Parquet format on a daily or weekly basis, depending on your preference, for an S3 bucket or objects with shared prefixes. Weekly reports are generated every Sunday (UTC time zone) after the initial report.
 
 ### S3 Select
 
-[S3 Select](https://aws.amazon.com/s3/details/#s3-select), enables applications to retrieve only a subset of data from an object by using simple SQL expressions. By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases -- in many cases you can get as much as a 400% improvement.
+[S3 Select](https://aws.amazon.com/s3/details/#s3-select), enables applications to retrieve **only a subset of data from an object** by using simple SQL expressions. By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases -- in many cases you can get as much as a 400% improvement.
 
-![](https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2017/11/28/s3_select.png)
+![up-to-400%-faster](https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2017/11/28/s3_select.png)
 
 As an example, let's imagine you're a developer at a large retailer and you need to analyze the weekly sales data from a single store, but the data for all 200 stores is saved in a new GZIP-ed CSV every day. **Without S3 Select, you would need to download, decompress and process the entire CSV to get the data you needed.** With S3 Select, you can use a simple SQL expression to return only the data from the store you're interested in, instead of retrieving the entire object. This means you're dealing with an order of magnitude less data which improves the performance of your underlying applications.
 
@@ -121,6 +106,31 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 :::info Things to know
 [Amazon Athena](https://aws.amazon.com/athena), [Amazon Redshift](https://aws.amazon.com/redshift/), and [Amazon EMR](https://aws.amazon.com/emr) as well as partners like Cloudera, DataBricks, and Hortonworks will all support S3 Select.
 :::
+
+## Features
+
+### MFA-Delete
+
+MFA-Delete represents another layer of security wherein you can configure a bucket to enable MFA-Delete, which requires additional authentication for either of the following operations:
+
+- Change the versioning state of your bucket
+- Permanently delete an object version
+
+You should note that only the bucket owner (root account) can enable MFA Delete **only via the AWS CLI**. However, the bucket owner, the AWS account that created the bucket (root account), and all authorized IAM users can enable versioning.
+
+### Pre-signed URL max validation time
+
+You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. 
+
+The default pre-signed URL expiration time is 15 minutes and maximum valid up to **6 hours**. Make sure to adjust this value to your specific needs. Security-wise, you should keep it to the minimum possible — eventually, it depends on your design.
+
+### Server access logging
+
+Server access logging in Amazon S3 provides detailed records of requests made to a bucket, which can be valuable for security, access audits, understanding customer behavior, and monitoring costs. Enabling server access logging tracks access requests and generates logs with information such as requester, bucket name, request time, action, response status, and error codes. 
+
+- **Enabling logging is free, but log files stored in the bucket incur storage charges**. 
+- You can delete log files as needed, and subsequent access to log files incurs standard charges. 
+- Logging is disabled by default, and logs are stored in the same AWS Region as the source bucket.
 
 ### Notification feature 
 
@@ -162,13 +172,15 @@ Depending on your Region, your Amazon S3 website endpoints follow one of these t
 
 These URLs return the default index document that you configure for the website.
 
-### Retain Until Date
+:::infoCloudFront can only use HTTP to connect to S3 as a website endpoint
+If your Amazon S3 bucket is configured as a website endpoint, you can't configure CloudFront to use HTTPS to communicate with your origin because Amazon S3 **doesn't support HTTPS connections** in that configuration.
+:::
+
+### Retention period 
 
 ![Choose-operation-Object-Lock-retention](/img/aws/storage/s3/Choose-operation-Object-Lock-retention.png)
 
-A retention period safeguards an object version for a specified duration in Amazon S3. When applied, a timestamp is added to the object version's metadata to mark the expiration of the retention period. Once the period ends, the object version can be modified or deleted, unless a legal hold is also in place. This is where the lifecycle policy kicks in and deletes the object 5 years after the object is created.
-
-You can set a retention period explicitly by defining a "Retain Until Date" for the object version, or use a bucket default setting. Amazon S3 preserves the object version until the specified retention period concludes based on the "Retain Until Date" metadata.
+A retention period in AWS S3 protects an object version for a specific duration. It is set either explicitly with a `Retain Until Date` on an object version or through a bucket default setting. After the period expires, the object version can be overwritten or deleted, unless a legal hold is in place. Each object version can have its own retention mode and period, and you can extend the retention period by submitting a new lock request with a later date.
 
 ## Performance
 
@@ -406,13 +418,12 @@ All Amazon S3 buckets have encryption configured by default, and all new objects
 If you want to specify a different encryption type in your `PUT` requests, you can use server-side encryption with AWS Key Management Service (AWS KMS) keys (SSE-KMS), dual-layer server-side encryption with AWS KMS keys (DSSE-KMS), or server-side encryption with customer-provided keys (SSE-C). If you want to set a different default encryption configuration in the destination bucket, you can use SSE-KMS or DSSE-KMS.
 :::
 
-In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set.
+In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set via HTTP.
 
 - `'x-amz-server-side-encryption': 'AES256'` AES256 equals **SSE-S3**
   - Amazon S3 server-side encryption uses one of the strongest block ciphers available to encrypt your data, 256-bit Advanced Encryption Standard (AES-256).
 - `'x-amz-server-side-encryption': 'aws:kms'`
   - Amazon S3 uses AWS KMS customer master keys (CMKs) to encrypt your Amazon S3 objects. AWS KMS encrypts only the object data. Any object metadata is not encrypted.	You can use if you need more control over your keys like create, rotating, disabling them using AWS KMS. Otherwise, if you wish to let AWS S3 manage your keys just stick with SSE-S3.
-
 
 If you need server-side encryption for all of the objects that are stored in a bucket, use a bucket policy. For example, the following bucket policy denies permissions to upload an object unless the request includes the `x-amz-server-side-encryption` header to request server-side encryption:
 ```json

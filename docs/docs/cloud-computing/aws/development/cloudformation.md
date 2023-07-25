@@ -119,9 +119,11 @@ After you execute a change, AWS CloudFormation removes all change sets that are 
 
 ## Stack Policy
 
+> TL;DR - Think Stack Policy as a temperate protection to the resources that going to be affected by a stack update.
+
 Stack policies help protect critical stack resources from unintentional updates that could cause resources to be interrupted or even replaced. A stack policy is a JSON document that describes what update actions can be performed on designated resources. Specify a stack policy whenever you create a stack that has critical resources.
 
-During a stack update, you must explicitly specify the protected resources that you want to update; otherwise, no changes are made to protected resources.
+During **a stack update**, you must explicitly specify the protected resources that you want to update; otherwise, no changes are made to protected resources.
 
 ```json
 {
@@ -184,6 +186,16 @@ NewVolume:
 - You can't update a stack in this state
 - For nested stacks, rolling back the parent stack will attempt to roll back all the child stacks as well
 :::
+
+
+## Important functions
+
+- `!ImportValue` - returns the value of the `Export` field in the output section by another stack. You typically use this function to create cross-stack references
+- `!Ref` - Returns the value of the specified parameter or resource.
+- `!GetAtt`- Returns the value of an attribute from a resource in the template.
+- `!Sub` - Substitutes variables in an input string with values that you specify.
+
+### ImportValue
 
 ## Trouble shooting
 

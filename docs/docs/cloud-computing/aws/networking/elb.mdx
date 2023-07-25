@@ -133,7 +133,7 @@ There is only one algorithm which only work for **NLB**, which is Flow Hash
 
 ### Request of true IP address
 
-The `X-Forwarded-For` request header is automatically added and helps you identify the IP address of a client when you use an HTTP or HTTPS load balancer. Because load balancers intercept traffic between clients and servers, your server access logs contain only the IP address of the load balancer.
+The `X-Forwarded-For` request header is automatically added and helps you identify the IP address of a client when you use an HTTP or HTTPS load balancer. Because load balancers intercept traffic between clients and servers, your server access logs contain only **the IP address of the load balancer**.
 
 Elastic Load Balancing stores the IP address of the client in the `X-Forwarded-For` request header and passes the header to your server.
 

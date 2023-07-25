@@ -8,7 +8,7 @@ keywords:
 ---
 
 
-## When do you need the secret access key or access key ID to sign the API requests?
+## When do you need the secret access key or access key ID to sign the AWS API requests?
 
 When you send HTTP requests to an AWS service - When you send HTTP requests to AWS, you sign the requests so that AWS can identify who sent them. You sign requests with your AWS access key, which consists of **an access key ID and secret access key**.
 
@@ -72,15 +72,3 @@ Security Groups are not just bound to EC2 instances, in fact any resource with a
 -   And many more
 
 By having a single implementation of security group -> ENI, I would imagine it makes it easier for AWS to implement networking security for new VPC based resources over time.
-
-
-## When do you need the secret access key or access key ID to sign the API requests?
-
-*When you send HTTP requests to an AWS service* - When you send HTTP requests to AWS, you sign the requests so that AWS can identify who sent them. You sign requests with your AWS access key, which consists of *an access key ID and secret access key*.
-
-When you write custom code to send HTTP requests to AWS, you need to include code to sign the requests. You might do this for the following reasons:
-
--   You are working with a programming language for which there is no AWS SDK.
--   You want complete control over how a request is sent to AWS.
-
-You don't need to sign when using **AWS CLI / AWS SDK**, these tools automatically sign the requests for you with the access key that you specify when you configure the tools. When you use these tools, you don't need to learn how to sign requests yourself.

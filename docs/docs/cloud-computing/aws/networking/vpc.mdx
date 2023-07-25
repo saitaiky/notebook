@@ -79,11 +79,19 @@ A VPC peering connection is a networking connection between two VPCs that enable
 
 ### VPC Flow Logs
 
+![](/img/aws/networking/vpc/vpc-flow-log.png)
+
+Source: [Learn From Your VPC Flow Logs With Additional Meta-Data](https://aws.amazon.com/blogs/aws/learn-from-your-vpc-flow-logs-with-additional-meta-data/)
+
 VPC Flow Logs is a feature that enables you to *capture information about the IP traffic going to and from network interfaces in your VPC*. Flow log data can be published to Amazon CloudWatch Logs or Amazon S3. After you've created a flow log, you can retrieve and view its data in the chosen destination.
 
 You can create a flow log for a VPC, a subnet, or a network interface. If you create a flow log for a subnet or VPC, each network interface in that subnet or VPC is monitored.
 
 Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow.
+
+:::cautionFlow log is immutable
+After you've created a flow log, you cannot change its configuration or the flow log record format. For example, you can't associate a different IAM role with the flow log or add or remove fields in the flow log record. Instead, you can delete the flow log and create a new one with the required configuration.
+:::
 
 ### Routing table example
 

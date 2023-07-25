@@ -201,10 +201,17 @@ Kinesis Agent is a stand-alone Java software application that offers an easy way
 
 The KPL is an easy-to-use, highly configurable library that helps you write to a Kinesis data stream. It acts as an intermediary between your producer application code and the Kinesis Data Streams API actions. 
 
+## Cloudfront
 
-## Signed URL(Cloudfront) vs Cookies (Cloudfront) vs Presigned URL
+### Signed URL(Cloudfront) vs Cookies (Cloudfront) vs Presigned URL
 
 There is a execellent post that you would check - [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
+
+### S3 and CloudFront signed URLs
+
+As a rule of thumb, if the content is stored in S3 then opt for S3 signed URLs as they provide the greatest flexibility.
+
+If you need to serve a lot of files and want to take advantage of the request multiplexing of HTTP/2, [tunnel S3 signed URLs through CloudFront](https://advancedweb.hu/how-to-use-s3-signed-urls-with-cloudfront/).
 
 ## Web Application Firewall (WAF) VS AWS Shield Advanced 
 

@@ -190,7 +190,13 @@ However, you can also choose to set the Shutdown Behavior to "`terminate`" for a
 
 #### DisableApiTermination
 
-By default, you can terminate your instance using the Amazon EC2 console, command line interface, or API. To prevent your instance from being accidentally terminated using Amazon EC2, you can enable termination protection for the instance. The `DisableApiTermination` attribute controls whether the instance can be terminated using the console, CLI, or API. By default, termination protection is disabled for your instance. You can set the value of this attribute when you launch the instance, while the instance is running, or while the instance is stopped (for Amazon EBS-backed instances).
+By default, you can terminate your instance using the Amazon EC2 console, command line interface, or API. To prevent your instance from being accidentally terminated using Amazon EC2, you can enable termination protection for the instance. The `DisableApiTermination` attribute controls whether the instance can be terminated using **the console, CLI, or API**. By default, termination protection is disabled for your instance. You can set the value of this attribute when you launch the instance, while the instance is running, or while the instance is stopped (for Amazon EBS-backed instances).
+
+:::caution
+You can still terminate the `DisableApiTermination` EC2 instance 
+- by initiating shutdown from the instance
+- or shutdown by ASG
+:::
 
 ### Termination protection
 
@@ -235,13 +241,12 @@ You can only change the tenancy of an instance from dedicated to host, or from h
 :::
 
 #### Dedicated host vs Dedicated instances
-An important difference between a Dedicated Host and a Dedicated instance is that a Dedicated Host gives you additional visibility and control over how instances are placed on a physical server, and you can consistently deploy your instances to the same physical server over time. 
 
-As a result, Dedicated Hosts enable you to use your existing server-bound software licenses and address corporate compliance and regulatory requirements.
+**Dedicated instances**: If you stop/start instance, you can get some other hardware somewhere else. Basically, the hardware is "yours" (you are not sharing it with others) for the time your instance is running. You stop/start it, you may get different physical machine later on (maybe older, maybe newer, maybe its specs will be a bit different), and so on. *So your instance is moved around on different physical servers - whichever is not occupied by others at the time*. Thus it may share hardware with other instances from the same AWS account that are not Dedicated Instances.
 
-**Dedicated instances**: If you stop/start instance, you can get some other hardware somewhere else. Basically, the hardware is "yours" (you are not sharing it with others) for the time your instance is running. You stop/start it, you may get different physical machine later on (maybe older, maybe newer, maybe its specs will be a bit different), and so on. *So your instance is moved around on different physical servers - whichever is not occupied by others at the time*.
-
-**Dedicated host**:  With Dedicated Host the physical server is basically yours. It does not change, *it's always the same physical machine for as long as you are paying*.
+**Dedicated host**:  With Dedicated Host the physical server is basically yours. It does not change, *it's always the same physical machine for as long as you are paying*. It also enable you to use
+- your existing server-bound software licenses (e.g. your existing per-socket, per-core, or per-VM software licenses, including Windows Server, Microsoft SQL Server, SUSE, and Linux Enterprise Server.)
+- address corporate compliance and regulatory requirements. 
 
 ### Detailed monitoring
 

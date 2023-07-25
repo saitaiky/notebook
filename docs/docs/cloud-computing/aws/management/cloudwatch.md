@@ -36,7 +36,6 @@ Examples of Amazon CloudWatch Events rules and targets:
 - A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
 - A rule that detects **pipeline changes** and invokes an AWS Lambda function.
 
-### CloudWatch alarm
 
 Setup a CloudWatch alarm to monitor the health status of the instance. In case of an Instance Health Check failure, an EC2 Reboot CloudWatch Alarm Action can be used to reboot the instance
 
@@ -73,6 +72,16 @@ Depending on the type of status change, you might want to send notifications, ca
 Metrics, sometimes called time series, are concerned with events aggregated across time. They count how often each type of event happens, how long each type of event takes and how much data was processed by the event type.
 :::
 
+:::infoWhat is Dimensions?
+> TL;DR - Thank Dimension as a label 
+
+The key to distinguishing between Metrics with the same Name are Dimensions:
+
+A dimension is a name/value pair that is part of the identity of a metric. You can assign up to 10 dimensions to a metric.
+
+Every metric has specific characteristics that describe it, and you can think of dimensions as categories for those characteristics. Dimensions help you design a structure for your statistics plan. Because dimensions are part of the unique identifier for a metric, whenever you add a unique name/value pair to one of your metrics, you are creating a new variation of that metric.
+:::
+
 :::caution
 RAM is NOT included in the AWS EC2 metrics
 :::
@@ -104,6 +113,11 @@ The CloudWatch Agent procstat plugin is a component of the CloudWatch Agent prov
 By configuring the procstat plugin, you can specify the processes you want to monitor and collect metrics for, such as CPU usage, memory usage, or custom metrics exposed by the process. The plugin uses the procfs file system on Linux-based systems to retrieve information about the specified processes.
 
 Some key features and use cases of the CloudWatch Agent procstat plugin include:
+
+### Metrics for SQS
+
+- Amazon SQS sends a number of metrics to CloudWatch, some of which are ApproximateAgeOfOldestMessage, ApproximateNumberOfMessagesDelayed, NumberOfMessagesDeleted and so on
+- The only dimension that Amazon SQS sends to CloudWatch is QueueName.
 
 ## CloudWatch Agent
 
@@ -210,12 +224,3 @@ Another example of write permissions for using X-Ray via an IAM policy:
     ]
 }
 ```
-
-## CloudTail
-
-If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (**need root account permission**). This is referred to as an organization trail.
-
-- S3 related
-    - By default, CloudTrail tracks only bucket-level actions. To track object-level actions, you need to enable Amazon S3 data events 
-    - A bucket owner enabled CloudTrail. It doesn’t mean he can see the object access logs. The bucket owner **also needs to be object owner** to get the object access logs. Otherwise, the bucket owner **must get permissions**, through the object ACL, for the same object API to get the same object-access API logs.
-- Member accounts will be **able to see the organization trail**, but cannot modify or delete it. (By default, member accounts will not have access to the log files for the organization trail in the Amazon S3 bucket.)

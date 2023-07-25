@@ -15,6 +15,14 @@ In the **DB parameter groups** - You can allow only SSL connections to your RDS 
 
 Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
 
+###  Enhanced Monitoring
+
+Enhanced Monitoring for RDS provides the following **OS level metrics** which are free memory, active memory, swap free, processes running, file system used. It is useful when you want to see how **different processes or threads** on a DB instance use the CPU.
+
+:::infoNormal CloudWatch metrics vs Enhanced Monitoring
+- **[Basic level]** CloudWatch gathers metrics about CPU utilization from the hypervisor for a DB instance 
+- **[OS level]** Enhanced Monitoring gathers its metrics from an agent on the instance.
+:::
 ## Scalability
 
 ### Read scalability
