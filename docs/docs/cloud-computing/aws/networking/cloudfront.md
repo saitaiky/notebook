@@ -6,12 +6,13 @@ keywords:
 sidebar_position: 2
 ---
 
-## What options of HTTPS are available in AWS CloudFront
 
-Between clients and CloudFront as well as between CloudFront and backend
+## Notes for exam
 
-via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html), [Cloudfront to Origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html)
-
+- What options of HTTPS are available in AWS CloudFront? 
+  - Between clients and CloudFront as well as between CloudFront and origin
+    via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html), [Cloudfront to Origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html)
+- IAM users can't create CloudFront key pairs. You must log in using **root credentials to create key pairs**.
 
 ## Serving Static and Dynamic content
 

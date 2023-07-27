@@ -16,6 +16,21 @@ There are three circumstances where policies are used for an IAM role:
 - Identity-based policies ([inline and managed](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)) -- These policies define the permissions that the user of the role is able to perform (or is [denied from performing](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#AccessPolicyLanguage_Interplay)), and on which resources.
 - Permissions boundary -- A [permissions boundary](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) is an advanced feature for using a managed policy to set the maximum permissions for a role. A principal's permissions boundary allows it to perform only the actions that are allowed by both its identity-based permissions policies and its permissions boundaries. You can use permissions boundaries to [delegate permissions management tasks, such as IAM role creation, to non-administrators](https://aws.amazon.com/blogs/security/how-to-let-builders-create-iam-resources-while-improving-security-and-agility-for-your-organization/) so that they can create roles in self-service.
 
+## IAM role vs IAM user
+
+![role-vs-user](/img/aws/management/iam/role-vs-user.png)
+
+Source: [A foolproof guide to AWS IAM Roles](https://www.archerimagine.com/articles/aws/aws-iam-roles.html)
+
+IAM roles are used for three main purposes: 
+- One AWS service using another service, like EC2 instance accessing S3, 
+- Non-AWS users needing temporary access to AWS resources in a hybrid environment,
+- Developers needing cross-account access to resources. 
+
+IAM roles act like "**hats**" granting permissions when worn and reverting to the original state when removed. An example can be - An EC2 instances should use IAM roles instead of storing IAM user credentials. A role can be attached during instance creation but not after. Only one IAM role can be attached to an EC2 instance at a time.
+
+To simplify, use IAM roles for resources and temporary access by physical users, while IAM users are for permanent user accounts. IAM roles and IAM users serve different purposes in managing access and permissions in AWS.
+
 ## Identity vs Resource-based AWS IAM Policies
 
 > Reference: [Identity vs Resource-based AWS IAM Policies](https://sonalake.com/latest/identity-vs-resource-based-aws-iam-policies/)
@@ -36,7 +51,7 @@ Resource-based policies are supported by various AWS services and resources, inc
 
 Identity-based policies grant permissions to an identity. An identity-based policy dictates whether an identity to which this policy is attached is allowed to make API calls to particular AWS resources or not. For example, the following policy would allow a user to invoke any Get or List request on any S3 resource.
 
-![](/img/aws/management/identity-based-policies.png)
+![](/img/aws/management/iam/identity-based-policies.png)
 
 ### Resource-based Policies
 
@@ -45,7 +60,7 @@ Resource-based policies grant permissions to the principal (可以係user / [ser
 For example, the policy below specifies that S3 events on the bucket arn:aws:s3:::test-bucket-cezary can be handled by the Lambda (lambda-s3) in account id 1234567890 in eu-west-1 region.
 
 
-![](/img/aws/management/resource-based-policy.png)
+![](/img/aws/management/iam/resource-based-policy.png)
 
 In this case, the principal is "a caller" who can invoke a particular action on the specific resource arn:aws:s3:::test-bucket-cezary.
 

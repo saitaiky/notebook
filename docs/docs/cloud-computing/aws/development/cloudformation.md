@@ -6,6 +6,15 @@ keywords:
 sidebar_position: 2
 ---
 
+## Termination protection
+
+![termination-protection](/img/aws/development/cf/termination-protection.png)
+
+You cannot delete stacks that have termination protection enabled. If you attempt to delete a stack with termination protection enabled, the deletion fails and the stack(including its status) remains unchanged. 
+  - Solution: Disable termination protection on the stack, then perform the delete operation again.
+
+This includes nested stacks whose root stacks have termination protection enabled. 
+  - Solution:  Disable termination protection on the root stack, then perform the delete operation again. It is strongly recommended that you do not delete nested stacks directly, but only delete them as part of deleting the root stack and all its resources.
 
 ## User Data in EC2 for CloudFormation
 
@@ -212,3 +221,4 @@ Shared resources among stacks can have unintended consequences from which you ca
 If you created an AWS resource outside of AWS CloudFormation management, you can bring this existing resource into AWS CloudFormation management using `resource import`. You can manage your resources using AWS CloudFormation regardless of where they were created without having to delete and re-create them as part of a stack.
 
 For a list of AWS resources that support import operations, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html).
+

@@ -8,6 +8,36 @@ keywords:
 sidebar_position: 2
 ---
 
+## CMK
+
+![kms-console](/img/aws/security/kms-console.png)
+
+In AWS Key Management Service (KMS), CMK stands for Customer Master Key. It is a fundamental component of KMS and is used to encrypt and decrypt data in AWS services and applications securely. CMKs are created, owned, and managed by AWS customers, allowing them to have control over their encryption keys.
+
+## Envelope Encryption
+
+
+Envelope encryption is a data encryption technique where a data encryption key (DEK) is used to encrypt the actual data, and this DEK is further encrypted using a master key, known as the Key Encryption Key (KEK). The encrypted DEK, along with the encrypted data, forms an "envelope" that provides an additional layer of security and separation of responsibilities. Envelope encryption ensures that sensitive data remains protected and allows for efficient and secure key management.
+
+![envelope-encryption](/img/aws/security/envelope-encryption.jpeg)
+
+Source: [AWS KMS Envelope Encryption](https://dev.to/chiragdm/aws-kms-envelope-encryption-3689)
+
+The full steps to encrypt and decrypt a data in the envelope encryption manner
+
+1.  The symmetric key is generated from software or hardware.
+2.  The generated symmetric data key is used to encrypt plaintext data.
+3.  The key encrypts data using an algorithm such as AES and generates encrypted ciphertext data.
+4.  The encrypted data is stored in targeted storage.
+5.  As the data key needs to be stored with ciphered data, the data key needs to be encrypted further. The user gets the customer master key stored in the key management systems to encrypt the data key.
+6.  The data key is encrypted using the master key. Your master key is the key encryption key as it encrypts the data encryption key. Only the master key can encrypt multiple data keys, and it is securely stored in the key management systems, with restricted access.
+7.  The master key encrypts the data key, and encrypted data key store along with\
+    ciphered data in storage, where master key securely stores in key management system with restricted access.
+
+If a user wants to decrypt data, then they first need a master key that has, in turn, an encrypted data encryption key. This master key can be stored in a separate access system such as a hardware security module (HSM) or software-based key management service provided by cloud providers such as AWS. Let's look into this in more detail.
+
+Reference: [Envelope encryption](https://subscription.packtpub.com/book/programming/9781838645649/8/ch08lvl1sec21/envelope-encryption)
+
 ## KMS with EBS volume
 Amazon EBS works with AWS KMS to encrypt and decrypt your EBS volume. You can encrypt both the boot and data volumes of an EC2 instance. When you create an encrypted EBS volume and attach it to a supported instance type, the following types of data are encrypted:
 
@@ -66,10 +96,13 @@ After you associate a CMK with a log group, all newly ingested data for the log 
 CloudWatch Logs decrypts this data whenever it is requested. CloudWatch Logs must have permissions for the CMK whenever encrypted data is requested.
 
 ### SSE-KMS vs SSE-S3
+
+
 SSE-KMS is similar to SSE-S3 but comes with some additional benefits over SSE-S3. Unlike SSE-S3 you can *create and manage encryption keys yourself or you can use a default CMK key* that is unique to you for the service that is being used (S3 in this case) and the region you are working in.
 
-When you create a CMK using KMS instead of using default CMK you get more flexibility as you can create, rotate and disable the encryption keys. As KMS is integrated with Cloudtrail with SSE-KMS you can also audit the usage of the key like when, by whom, for what purpose the key was used. You can also give separate permissions for the use of an envelope key.
+When you create a CMK using KMS instead of using default CMK you get more flexibility as you can create, rotate and disable the encryption keys whilist **with SSE-S3 everything are managed by AWS**.
 
+As KMS is integrated with Cloudtrail with SSE-KMS you can also **audit the usage of the key like when, by whom, for what purpose the key was used** whilist SSE-S3 **does not provide the ability to audit trail** the usage of the encryption keys. You can also give separate permissions for the use of an envelope key.
 
 ## Security Manager
 

@@ -22,9 +22,13 @@ Ultimately, the choice between EC2 with or without EBS depends on specific needs
 
 ### Instance store volume vs EBS volume
 
+![ebs-vs-instance-store](/img/aws/storage/ebs/ebs-vs-instance-store.webp)
+
+Source: [AWS — Difference between EBS and Instance Store](https://medium.com/awesome-cloud/aws-difference-between-ebs-and-instance-store-f030c4407387)
+
 [Some Amazon EC2 instance types](https://aws.amazon.com/ec2/instance-types/) come with a form of directly attached, block-device storage known as an [instance store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html). Use the instance store for temporary storage. Data that's stored in instance store volumes isn't persistent through instance stops, terminations, or hardware failures.
 
-For data that you want to retain longer, or if you want to encrypt the data, use [Amazon EBS volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) instead. EBS volumes have the following features:
+For data that you want to retain longer, or if you want to encrypt the data, use [Amazon EBS volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) instead. EBS volume is network attached drive which results in slow performance but data is persistent meaning even if you reboot the instance data will be there. It has the following features:
 
 - EBS volumes preserve their data through instance stops and terminations.
 - You can back up EBS volumes with EBS snapshots.
@@ -67,11 +71,11 @@ IOPS SSD (io1 or io2) is the only EBS volume to support **Multi-Attach** functio
 
 > Source: [Amazon EBS volume types](https://aws.amazon.com/ebs/volume-types/),  [Amazon EBS volume types - document](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
 
-**Example 1: Max IOPS of io1 EBS volume?**
+**Example 1(exam)**: Max IOPS of io1 EBS volume?
 
-The maximum ratio of provisioned **IOPS SSD (io1) volumes** to requested volume size (in GiB) is 50:1. So, for a 200 GiB volume size, max IOPS possible is 200*50 = 10000 IOPS.
+The maximum ratio of provisioned **IOPS SSD (io1) volumes** to requested volume size (in GiB) is **50:1**. So, for a 200 GiB volume size, max IOPS possible is 200*50 = 10000 IOPS.
 
-**Example 2:  Which gp2 volume size will their test environment hit the max IOPS?**
+**Example 2**:  Which gp2 volume size will their test environment hit the max IOPS?
 
 16000 IOPS /3 IOPS = 5.3 TiB / 5,334 GiB   
 
@@ -98,6 +102,10 @@ By default, the root volume of an EC2 instance for an EBS-backed AMI is deleted 
 You can set `DeleteOnTermination` to `False` to change this default behavior **to ensure that the volume persists** even after the instance terminates?
 
 If you want to disable this flag while the instance is still running, you can set `DeleteOnTermination` attribute to `False` using the **command line**
+
+:::cautionData on a non-root EBS volume is preserved even if the instance is shutdown or terminated
+By default, when you attach a non-root EBS volume to an instance, its `DeleteOnTermination` attribute is set to false. Therefore, the default is to preserve these volumes. After the instance terminates, you can take a snapshot of the preserved volume or attach it to another instance. You must delete a volume to avoid incurring further charges.
+:::
 
 ### Update DeleteOnTermination
 

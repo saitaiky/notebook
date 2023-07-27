@@ -82,6 +82,7 @@ If you have created an organization in AWS Organizations, you can also create a 
     - By default, CloudTrail traczks only bucket-level actions. To track object-level actions, you need to enable Amazon S3 data events 
     - A bucket owner enabled CloudTrail. It doesn’t mean he can see the object access logs. The bucket owner **also needs to be object owner** to get the object access logs. Otherwise, the bucket owner **must get permissions**, through the object ACL, for the same object API to get the same object-access API logs.
 - Member accounts will be **able to see the organization trail**, but cannot modify or delete it. (By default, member accounts will not have access to the log files for the organization trail in the Amazon S3 bucket.)
+- Organization trails must be created in the master account, and when specified as applying to an organization, are automatically applied to all member accounts in the organization.
 
 ### Events
 

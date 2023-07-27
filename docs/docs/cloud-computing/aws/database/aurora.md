@@ -16,6 +16,11 @@ With an Aurora global database, you can choose from two different approaches to 
 - Managed planned failover
 - Unplanned failover
 
+## Logging for MySQL-compatible DB cluster
+
+By design, Aurora Serverless connects to a proxy fleet of DB instances that scales automatically. Because there isn't a direct DB instance to access and host the log files, you can't view the logs directly from the Amazon Relational Database Service (Amazon RDS) console. However, you can view and download logs that are sent to the CloudWatch console.
+
+Further reading: [How can I enable logs on an Aurora Serverless cluster so I can view and download the logs?](https://aws.amazon.com/premiumsupport/knowledge-center/aurora-serverless-logs-enable-view/)
 ## Failover
 
 In the event of an outage that impacts an entire Availability Zone (AZ) and renders the primary instance of an Amazon Aurora cluster unavailable, the appropriate action to bring the database online depends on the cluster's configuration.
@@ -35,4 +40,4 @@ Source: [AWS Aurora — Why is it better?](https://crishantha.medium.com/aws-aur
 
 The reader endpoint in Aurora DB clusters enables load-balancing for read-only connections, distributing read operations among Aurora Replicas. This reduces the primary instance's workload and allows the cluster to handle simultaneous SELECT queries, scaling capacity based on the number of Aurora Replicas. 
 
-Each Aurora DB cluster has one reader endpoint, which load-balances connections among the Aurora Replicas for read-only statements like SELECT queries.
+Each Aurora DB cluster **has one reader endpoint**, which load-balances connections among the Aurora Replicas for read-only statements like SELECT queries.

@@ -52,7 +52,7 @@ Source: [Deploying applications to Elastic Beanstalk environments](https://docs.
 
 ## Deployment failure
 
->  Using **Blue/Green deployment** to redeploy is the quickest among all the others deployment methods,  the rollback process is very quick via swapping the URLs for the two environments.
+>  Using **Blue/Green deployment** to redeploy is the quickest among all the others deployment methods,  the rollback process is very quick via swapping the CNAMEs via Route 53 for the two environments.
 
 
 - **Rolling** -  The rollback process is via manual redeploy, so it's not as quick as the Immutable deployment.

@@ -6,6 +6,17 @@ keywords:
 sidebar_position: 1
 ---
 
+## Behaviour
+
+### Replication
+
+- These 2 are the most important points to remember for SysOps exam
+  - Multi-AZ follows **synchronous replication** and spans at least two Availability Zones within a single region. 
+  - Read replicas follow **asynchronous replication** and can be within an Availability Zone, Cross-AZ, or Cross-Region
+
+![read replica table](/img/aws/database/rds/read-replica-table.png)
+
+Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-replicas/)
 
 ## Feature
 
@@ -27,7 +38,7 @@ Enhanced Monitoring for RDS provides the following **OS level metrics** which ar
 
 ### Read scalability
 
-![read replica](/img/aws/database/read-replica.png)
+![read replica](/img/aws/database/rds/read-replica.png)
 
 Source: [Working with read replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
 
@@ -44,7 +55,7 @@ Upgrades to the **database engine level** require **downtime**. Even if your RDS
 Source: [How do I minimize downtime during required Amazon RDS maintenance?](https://aws.amazon.com/premiumsupport/knowledge-center/rds-required-maintenance/)
 ### Handle failover
 
-![Amazon RDS Multi-AZ Deployments](/img/aws/database/multi-az-deployments.png)
+![Amazon RDS Multi-AZ Deployments](/img/aws/database/rds/multi-az-deployments.png)
 
 Source: [Amazon RDS Multi-AZ Deployments](https://www.amazonaws.cn/en/rds/features/multi-az/)
 

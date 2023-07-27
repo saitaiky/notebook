@@ -18,6 +18,8 @@ import TabItem from '@theme/TabItem';
 
 ### AWS Global vs Regional vs AZ resources
 
+Most of the AWS-managed services are regional-based services with few exceptions being Global (e.g. IAM, Route53, CloudFront, etc) or AZ bound.
+
 - Virtual Private Cloud
   - VPC -- Regional
       - VPCs are created within a region
@@ -33,6 +35,8 @@ import TabItem from '@theme/TabItem';
   - Elastic IP Address -- Regional
       - Elastic IP addresses created within the region can be assigned to instances within the region only.
   - Elastic Network Interface -- Availability Zone
+
+> Future reading: [AWS Global vs Regional vs AZ resources](https://jayendrapatil.com/aws-global-vs-regional-vs-az-resources/#Global_vs_Regional_vs_AZ_Resource_locations)
 
 ### Some points to remember
 
@@ -214,7 +218,28 @@ An egress-only internet gateway is for use with **IPv6 traffic** only. To enable
 
 In the following diagram, the VPC has both IPv4 and IPv6 CIDR blocks, and the subnet both IPv4 and IPv6 CIDR blocks. The VPC has an egress-only internet gateway.
 ![engress-only](/img/aws/networking/vpc/engress-only.jpg)
+
 Reference: [Enable outbound IPv6 traffic using an egress-only internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html#egress-only-internet-gateway-create)
+
+
+## Dedicated vs Hosted connection 
+
+A dedicated connection is made through a 1 Gbps, 10 Gbps, or 100 Gbps Ethernet port dedicated to a single customer. Hosted connections are sourced from a AWS Direct Connect Partner that has a network link between themselves and AWS. 
+
+## Direct Connect vs Site-to-Site VPN
+
+-   **AWS Direct Connect** is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
+    - Connections go over **private network**
+-   **AWS Site-to-Site VPN** is a great connection option for businesses that are just starting to use AWS. It is quick and easy to set up. But keep in mind that the VPN connection normally uses the public Internet, which may have **unpredictable performance**, and **although it is encrypted**, there may still be security concerns.
+    - Connections go over **public network**
+
+## Direct Connect + Site-to-Site VPN
+
+![direct-connect](/img/aws/networking/vpc/direct-connect.png)
+
+Source: [AWS Direct Connect + AWS Site-to-Site VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-site-to-site-vpn.html)
+
+AWS Direct Connect is a network service that provides a dedicated and private connection between an organization's on-premises data center or office and the AWS cloud. It offers a reliable, low-latency, and high-bandwidth link, bypassing the public internet, to improve the performance, security, and cost-effectiveness of data transfer between the customer's network and AWS resources.
 
 ## Direct Connect Resiliency
 
@@ -222,7 +247,7 @@ AWS Direct Connect is a network service that provides an alternative to using th
 
 ### Maximum Resiliency for Critical Workloads
 
-Maximum resilience is achieved by separate connections terminating on separate devices in more than one location. This configuration offers customers maximum resilience to failure. As shown in the figure below, such a topology provides resilience to 
+Maximum resilience is achieved by separate connections terminating on **separate devices in more than one location**. This configuration offers customers maximum resilience to failure. As shown in the figure below, such a topology provides resilience to 
 - device failure
 - connectivity failure
 - complete location failure 
@@ -236,7 +261,7 @@ Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/d
 
 ### High Resiliency for Critical Workloads
 
-For critical production workloads that require high resiliency, it is recommended to have one connection at multiple locations. As shown in the figure below, such a topology ensures resilience to 
+For critical production workloads that require high resiliency, it is recommended to have **one connection at multiple locations**. As shown in the figure below, such a topology ensures resilience to 
 - connectivity failure due to a fiber cut or a device failure 
 - a complete location failure 
 
@@ -256,6 +281,13 @@ As shown in the figure below, such a topology helps in the case of *the device f
 Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
 
 
+### VIF
+
+![vif-propogation](/img/aws/networking/vpc/vif-propogation.png)
+
+Source: [Virtual interfaces (VIF)](https://docs.aws.amazon.com/whitepapers/latest/aws-direct-connect-for-amazon-connect/virtual-interfaces-vif.html)
+
+A virtual interface (VIF) is necessary to access AWS services, and is either public or private. **A public virtual interface** enables access to public services, such as Amazon S3. **A private virtual interface** enables access to your VPC. For more information, see [AWS Direct Connect virtual interfaces](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html).
 
 ## NAT 
 
@@ -332,6 +364,8 @@ There are 2 use cases that you may consider to use VPN CloudHub:
 - You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns/)
 - You want to mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
 
+![elastic-ip](/img/aws/networking/vpc/elastic-ip.png)
+
 Within the AWS infrastructure, customers have virtual private clouds (VPC), within the VPCs, users have instances. So when you launch an EC2 instance, you receive a **Public IP address** by which that instance is reachable from internet. Once you stop that instance and restart the instance you get a new Public IP for the same instance. So it's basically a problem to connect your instance from internet for not having a static IP. To overcome this problem, we attach an Elastic IP to an Instance which doesn't change after you stop / start the instance.
 
 In general, you should be good without Elastic IPs for most of the use-cases. If you're using [AWS Load Balancers](https://aws.amazon.com/elasticloadbalancing/?tag=hotoge-20), you won't want to use Elastic IPs, as your gateway address (the last endpoint before going out to the internet) is be the Load Balancer itself, which has a static hostname (but not a static IP). The load balancer runs on AWS, and you associate it with instances based on their instance IDs, not the public IP address. But, if you're using an external CDN service like [Fastly](https://www.fastly.com/), you need to use Elastic IPs, as the gateway IP is the EC2 instance's public IP.
@@ -349,6 +383,11 @@ Elastic IP is a free service, but you’re limited to five in total (to prevent 
 
 Having an Elastic IP provisioned but not attached to a running machine will cost you $7.50 a month. Make sure your machine isn’t off for extended periods of time, and if you change servers or stop using the IP, make sure to release it so you aren’t charged for letting it sit idle in your account.
 :::
+
+### Reallocate Elastic IP address
+
+You can move an Elastic IP (EIP) address in AWS from one EC2 instance to another within the same region. Elastic IPs are designed to be easily reassigned and are not bound to a specific EC2 instance permanently. This allows you to maintain the same public IP address even when you stop or terminate an EC2 instance, or when you want to **associate the IP address with a different EC2 instance** for **uninterrupted service to your application**.
+
 
 ### How to avoid using Elastic IP
 
@@ -373,9 +412,13 @@ AWS RAM enables you to share specified AWS resources that you own with other AWS
 
 ### NACL vs Security group
 
-With Network Access Control List you can control what goes in and out of your VPC.
-
-With security groups you can control what goes in and out your instances
+- Network Access Control List
+    - You can control what goes in and out of your **VPC**
+    - It is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
+    - Your VPC automatically comes with a modifiable default network ACL. By default, it allows all inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic.
+- Security groups 
+    - You can control what goes in and out your **instances**
+    - A security group acts as a virtual firewall for your instance to control inbound and outbound traffic. Security groups act at the instance level, not the subnet level. Therefore, each instance in a subnet in your VPC can be assigned to a different set of security groups.
 
 ![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)
 
