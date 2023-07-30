@@ -87,10 +87,27 @@ If you have created an organization in AWS Organizations, you can also create a 
 ### Events
 
 - **Management Events**: These events track management operations performed on AWS resources, such as creating, modifying, or deleting resources. Examples include EC2 instance launches, S3 bucket creations, IAM policy updates, etc.
-
 - **Data Events**: These events capture data-related operations performed on AWS resources. Examples include S3 object access, AWS Lambda function invocations, and Amazon RDS database queries.
-
 - **CloudTrail Insights Events**: CloudTrail Insights helps identify unusual or potentially harmful activity in your AWS account. It generates events for specific patterns identified as potentially high-risk actions.
+
+### Log file integrity validation(digest file)
+
+> TL;DR - Log file integrity validation is for auditing integrity of the CloudTrail log files by using digest file
+
+When you enable log file integrity validation, CloudTrail creates a hash for every log file that it delivers. Every hour, CloudTrail also **creates and delivers a file that references the log files for the last hour and contains a hash of each**. This file is called a digest file. CloudTrail signs each digest file using the private key of a public and private key pair. After delivery, you can use the public key to validate the digest file. CloudTrail uses different key pairs for each AWS region.
+
+These digest files are stored in the same Amazon S3 bucket as the log files but in a separate folder. This separation allows for granular security policies and ensures compatibility with existing log processing solutions. Each digest file also includes the digital signature of the previous digest file (if available) in its metadata properties.
+
+![file-integrity-validation](/img/aws/management/monitor/file-integrity-validation.jpg)
+Source: [CloudTrail log file Integrity Validation](https://www.youtube.com/watch?v=rk0RHxQCD8Q)
+
+The image below illustrate - if we trust the latest digest file that we have, we can identify if any of the digests are missing or invalid, and this gives us a chain of digest file trust. If we trust the latest, then we trust them all.
+
+
+### Notes
+
+- CloudTrail can deliver log files from multiple regions to a single Amazon S3 bucket. As long as CloudTrail has permissions to write to an S3 bucket, the bucket for a multi-Region trail does not have to be in the trail's home Region.
+    - You can configure CloudTrail to deliver log files from multiple Regions to a single S3 bucket for a single account. For example, you have a trail in the US West (Oregon) Region that is configured to deliver log files to a S3 bucket, and a CloudWatch Logs log group. When you change an existing single-Region trail to log all Regions, CloudTrail logs events from all Regions that are in a single AWS partition in your account. CloudTrail delivers log files to the same S3 bucket and CloudWatch Logs log group.  ref: [Receiving CloudTrail log files from multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html)
 
 
 ## AWS Config

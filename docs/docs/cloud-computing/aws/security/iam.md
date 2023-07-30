@@ -6,6 +6,34 @@ keywords:
 sidebar_position: 3
 ---
 
+
+## Access control policy
+
+In AWS, an access control policy is a set of rules that define what actions are allowed or denied on AWS resources. These policies are primarily used with AWS Identity and Access Management (IAM) to manage permissions for users, groups, and roles. Access control policies help ensure security and compliance by governing who can access specific resources and what actions they can perform.
+
+AWS access control policies are written in JSON (JavaScript Object Notation) format and consist of statements. Each statement defines a specific permission effect (allow or deny) for certain actions on particular AWS resources.
+
+In this example policy, when attached to the IAM group "Developers," will grant read-only access to the S3 bucket "example-bucket" for all members of that group.:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::example-bucket/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:PrincipalTag/GroupName": "Developers"
+                }
+            }
+        }
+    ]
+}
+```
+
+
 ## Managing access to IAM roles
 
 Let's dive into how you can control access to IAM roles by understanding the policy types that you can apply to an IAM role.

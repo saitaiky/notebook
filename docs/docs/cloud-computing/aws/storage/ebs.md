@@ -18,6 +18,9 @@ When using EC2 with **EBS**, the EC2 instance runs on top of the EBS volume, pro
 
 EC2 without EBS relies on **instance store**, which provides ephemeral storage that is deleted when the instance is stopped or terminated. The benefits include lower cost (since instance store volumes are included in the EC2 instance cost) and high I/O performance for workloads with low latency requirements. However, there is no persistence, making it challenging to store and retrieve data between instances, and capacity is limited compared to EBS volumes.
 
+
+**Conclusion**
+
 Ultimately, the choice between EC2 with or without EBS depends on specific needs. Consider factors like cost, performance, scalability, durability, and ease of use. Testing both options is recommended to determine the best fit for your workload.
 
 ### Instance store volume vs EBS volume
