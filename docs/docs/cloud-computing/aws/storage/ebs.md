@@ -61,6 +61,10 @@ You can configure your AWS account to enforce the encryption of *the **new** EBS
 ### EBS volumes are AZ locked
 When you create an EBS volume, it is automatically replicated within its Availability Zone to prevent data loss due to the failure of any single hardware component. *You can attach an EBS volume to an EC2 instance in the **same Availability Zone** *.
 
+### How to recover
+
+You can't recover a volume in an `error` state, you can restore the lost data from your backup. It’s a best practice to keep backups of your EC2 resources, including EBS volumes. You can use **Amazon Data Lifecycle Manager, AWS Backup, or regular EBS snapshots** for maintaining regular backups of your critical volumes to avoid data loss.
+
 ## IOPS
 
 IOPS SSD (io1 or io2) is the only EBS volume to support **Multi-Attach** functionality. Amazon EBS Multi-Attach enables you to attach a single Provisioned IOPS SSD volume to multiple EC2 instances that are in the same Availability Zone.
@@ -125,4 +129,13 @@ Source: [EC2 Storage — EBS, EFS, and Instance Store fundamentals](https://medi
 
 With Amazon EBS, you can use any of the standard RAID configurations that you can use with a traditional bare metal server, as long as that particular RAID configuration is supported by the operating system for your instance. This is because all RAID is accomplished at the software level.
 
-For greater I/O performance than you can achieve with a single volume, RAID 0 can stripe multiple volumes together; for on-instance redundancy, RAID 1 can mirror two volumes together. So for the given use-case, to increase the performance, you should use RAID 0.
+- For greater I/O performance than you can achieve with a single volume, RAID 0 can stripe multiple volumes together.
+- For on-instance redundancy, RAID 1 can mirror two volumes together. So for the given use-case, to increase the performance, you should use RAID 0.
+
+### Decrease latency for newly created EBS from a snapshot
+
+There is a significant increase in latency when you first access each block of data on a new EBS volume that was created from a snapshot. You can avoid this performance lag by using one of the following options:
+
+- Access each block before putting the volume into production. This process is called initialization (formerly known as pre-warming).
+- Enable fast snapshot to restore on a snapshot to ensure that the EBS volumes created from it are fully-initialized at creation and instantly deliver all of their provisioned performance.
+

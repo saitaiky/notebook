@@ -18,9 +18,17 @@ AWS Directory Service for Microsoft Active Directory (Standard Edition or Enterp
 
 In addition, the ENIs the security group is attached to, do not and cannot have Elastic IPs attached to them, limiting inbound traffic to local VPC and VPC routed traffic.
 
+
+## CloudHSM (Hardware Security Module))
+
+AWS CloudHSM (Hardware Security Module) is a cloud-based service that provides secure hardware for generating and storing cryptographic keys and performing cryptographic operations in a tamper-resistant environment.
+
+:::infoKMS vs HSM
+If you need to secure your encryption keys in a service backed by FIPS-validated HSMs, but you do not need to manage the HSM, you should use KMS.
+:::
+
 ## Others
 
 - Aws neptune (Fully Managed Graph Database)
 - Security
-  - AWS Shield is a managed Distributed Denial of Service (DDoS) protection service that safeguards applications running on AWS. 
   - AWS GuardDuty is a threat detection service that monitors malicious activity and unauthorized behavior to protect your AWS account.

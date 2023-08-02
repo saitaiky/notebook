@@ -54,6 +54,23 @@ Patching can be scheduled using maintenance windows or performed individually or
 
 The service integrates with AWS Identity and Access Management (IAM), AWS CloudTrail, and Amazon EventBridge to provide a secure patching experience, including event notifications and auditing capabilities.
 
+## Session Manager
+
+> TL;DR - Web interface as EC2 CLI
+
+- Allows you to start a secure shell on your EC2 and on- premises servers
+- Access through AWS Console, AWS CLI, or Session Manager SDK
+- Does not need SSH access, bastion hosts, or SSH keys
+
+:::infoWhy use Session manager instead of SSH?
+> TL;DR - Way more control and a lot more compliance around it
+Using SSH, you need to create inbound rules in security group for the users with specific IP addresses as a session to our instance, but using session manager, we don't need any inbound rules. 
+
+You just need the instance with the SSM agents and the right IAM role, and then a user with a correct IAM permission can use session manager to run commands against our EC2 instance.
+
+All the data of the session is going to be logged or could be logged into Amazon S3 or CloudWatch logs. In contract, if someone uses an SSH command into an EC2 instance, you do not have the history of all the commands that will run, and so **less security, less compliance**.
+:::
+
 ## Inventory & State Manager
 
 ### Inventory
@@ -84,29 +101,9 @@ Resource: [AWS Systems Manager Inventory](https://docs.aws.amazon.com/systems-ma
     - Specify a schedule when this configuration is applied
 - Uses Documents to create an Association (e.g., Document to configure CW Agent)
 
-![association-details](https://static.us-east-1.prod.workshops.aws/public/f6ed2ac8-8808-4ca7-8456-c7ee04aba55c/static/remote_management/State_Manager/association-details.png)
+![association-details](/img/aws/management/system-manager.png)
 Resource: [Configuration management using State Manager](https://catalog.workshops.aws/getting-started-with-com/en-US/remote-management/state-manager)
 
-## Pack Manager
-
-Patch Manager in SSM is a service that simplifies the process of patching and managing software(e.g. Windows and Amazon Linux) updates on instances. It provides automated patching capabilities, including patch assessment, approval workflows, and patch deployment. Patch Manager helps keep your instances secure and up to date with the latest patches and security updates.
-
-## Session Manager
-
-> TL;DR - Web interface as EC2 CLI
-
-- Allows you to start a secure shell on your EC2 and on- premises servers
-- Access through AWS Console, AWS CLI, or Session Manager SDK
-- Does not need SSH access, bastion hosts, or SSH keys
-
-:::infoWhy use Session manager instead of SSH?
-> TL;DR - Way more control and a lot more compliance around it
-Using SSH, you need to create inbound rules in security group for the users with specific IP addresses as a session to our instance, but using session manager, we don't need any inbound rules. 
-
-You just need the instance with the SSM agents and the right IAM role, and then a user with a correct IAM permission can use session manager to run commands against our EC2 instance.
-
-All the data of the session is going to be logged or could be logged into Amazon S3 or CloudWatch logs. In contract, if someone uses an SSH command into an EC2 instance, you do not have the history of all the commands that will run, and so **less security, less compliance**.
-:::
 
 ## OpsWorks
 
@@ -116,3 +113,7 @@ OpsWorks lets you use Chef and Puppet to automate how servers are configured, de
 - AWS OpsWorks = Managed **Chef & Puppet**
 - Chef & Puppet help you perform server configuration automatically, or repetitive actions
 - Chef / Puppet have similarities with SSM / Beanstalk / CloudFormation but they’re open-source tools that work cross-cloud
+
+## Manage on-premises servers
+
+With AWS Systems Manager, you can manage servers running on AWS, in your on-premises data center, and devices such as Raspberry Pi through a single interface. Systems Manager securely communicates with a lightweight agent installed on your servers and devices to execute management tasks. This helps you manage resources for Windows, Linux, and Raspbian operating systems.

@@ -13,7 +13,7 @@ sidebar_position: 2
   - Between clients and CloudFront as well as between CloudFront and origin
     via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html), [Cloudfront to Origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html)
 - IAM users can't create CloudFront key pairs. You must log in using **root credentials to create key pairs**.
-
+- You can configure CloudFront to forward to your origin some or all of the cookies in viewer requests, and to cache separate versions of your objects based on the cookie values that it forwards. 
 ## Serving Static and Dynamic content
 
 Amazon CloudFront is commonly utilized for distributing static content stored in an Amazon S3 bucket, including images, videos, and other objects. However, it offers more than that. You can leverage Amazon CloudFront to distribute dynamic content from web applications built on platforms like Ruby on Rails or PHP. 

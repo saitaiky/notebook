@@ -68,6 +68,12 @@ With **Network Load Balancer**, you can *offload the decryption/encryption of TL
 - The Classic Load Balancer supports **SSL** offloading.
 :::
 
+:::infoWhat is ACM?
+AWS ACM (Amazon Certificate Manager) is a service that provides free, automated SSL/TLS certificates for secure encryption and authentication of data in transit for AWS resources and applications.
+
+Important: The ACM certificate must be requested or imported **in the same AWS Region as your load balancer or CloudFront distribution.**
+:::
+
 > Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
 
 ## Features
@@ -77,6 +83,10 @@ With **Network Load Balancer**, you can *offload the decryption/encryption of TL
 ELB access logs is an optional feature of Elastic Load Balancing that is disabled by default. The access logs capture detailed information about requests sent to your load balancer. Each log contains information such as the time the request was received, the client's IP address, latencies, request paths, and server responses. 
 
 You can use these access logs to analyze traffic patterns and troubleshoot issues. Each access log file is automatically encrypted using SSE-S3 before it is stored in your S3 bucket and decrypted when you access it. You do not need to take any action; the encryption and decryption is performed transparently.
+
+:::cautionExam
+You cannot use CloudTrail Logs to analyze the network traffic passing through the ELB.
+:::
 
 ## Behaviour 
 
@@ -102,7 +112,9 @@ By default, cross-zone load balancing is enabled (always on) for **Application L
 
 ### Ephemeral port range of ELB
 
-Requests originating from Elastic Load Balancing use ports 1024-65535. For a detailed explaination, visit [Ephemeral port : What is it and what does it do?](/linux/network/ip-dns/#ephemeraldynamictemporary-port)
+The client that initiates the request chooses the ephemeral port range. The range varies depending on the client's operating system. Requests originating from Elastic Load Balancing use ports 1024-65535. So remember to add a rule to the Network ACLs to allow outbound traffic on ports 1024 - 65535 to send the result back to a client.
+
+For a detailed explaination, visit [Ephemeral port : What is it and what does it do?](/linux/network/ip-dns/#ephemeraldynamictemporary-port)
 
 ### Target group contains only unhealthy targets?
 

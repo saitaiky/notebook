@@ -7,6 +7,8 @@ sidebar_position: 4
 ---
 
 ## Overview
+
+Elastic Beanstalk is a PaaS-like layer on top of AWS's IaaS services which abstracts away the underlying EC2 instances, Elastic Load Balancers, auto-scaling groups, etc. This makes it a lot easier for developers, who don't want to be dealing with all the systems stuff, to get their application quickly deployed on AWS.
 ### Elastic Beanstalk Architecture
 
 When deploying an app on Elastic Beanstalk, the service creates the following:

@@ -109,6 +109,14 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 
 ## Features
 
+### S3 Access Points
+
+> TL;DR - A indepentent DNS access folder which you can use access poing policy to control permission, so that you don't need to create a complicated S3 bucket policy for multiple group of users.
+
+Amazon S3 Access Points simplify data access management for shared datasets on S3. They provide unique hostnames with distinct permissions and network controls for each application, allowing easy scaling for hundreds of applications.
+
+Access points can be restricted to Virtual Private Clouds (VPCs) to secure S3 data access within private networks. Each access point is associated with a single bucket and configured with specific access policies, providing granular control over data access. S3 Access Points are available in all regions at no extra cost and offer an auditable way to enforce VPC restrictions using AWS Service Control Policies.
+
 ### MFA-Delete
 
 MFA-Delete represents another layer of security wherein you can configure a bucket to enable MFA-Delete, which requires additional authentication for either of the following operations:
@@ -172,8 +180,14 @@ Depending on your Region, your Amazon S3 website endpoints follow one of these t
 
 These URLs return the default index document that you configure for the website.
 
-:::infoCloudFront can only use HTTP to connect to S3 as a website endpoint
+:::cautionCloudFront can only use HTTP to connect to S3 as a website endpoint
 If your Amazon S3 bucket is configured as a website endpoint, you can't configure CloudFront to use HTTPS to communicate with your origin because Amazon S3 **doesn't support HTTPS connections** in that configuration.
+:::
+
+:::cautionYou must give the S3 bucket the same name as the record that you want to use to route traffic to the bucket
+When you configure an Amazon S3 bucket for website hosting, you must give the bucket the same name as the record that you want to use to route traffic to the bucket. 
+
+For example, to route traffic for "example.com" to an Amazon S3 bucket that's configured for website hosting, the bucket name must be "example.com".
 :::
 
 ### Retention period 
@@ -300,6 +314,11 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 
 ## Security
 
+### Bucket owner
+
+- As a bucket owner, how to give permissions on all objects created by AWS account A to another AWS account B?
+  - The bucket owner has no permissions on those objects created by other AWS accounts
+  - The AWS account that created the objects must first grant permission to the bucket owner for delegating permissions to other entities
 
 ### Root user access
 
@@ -521,9 +540,11 @@ AWS Snowball is a physical data transfer device offered by Amazon Web Services (
 *You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault** *. You need to go through S3 first and then use a lifecycle policy.
 :::
 
-> 
-  - Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
-  - Glacier Vault provides [S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) for WORM compliance.
+:::infoWhat is Glacier?
+- Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
+- Glacier Vault provides [S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) for WORM compliance.
+- You can retrieve 10 GB of your Amazon S3 Glacier data per month for free
+:::
 
 ## Further reading
 

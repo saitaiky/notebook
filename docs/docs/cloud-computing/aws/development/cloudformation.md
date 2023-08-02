@@ -132,7 +132,11 @@ After you execute a change, AWS CloudFormation removes all change sets that are 
 
 Stack policies help protect critical stack resources from unintentional updates that could cause resources to be interrupted or even replaced. A stack policy is a JSON document that describes what update actions can be performed on designated resources. Specify a stack policy whenever you create a stack that has critical resources.
 
-During **a stack update**, you must explicitly specify the protected resources that you want to update; otherwise, no changes are made to protected resources.
+- When you create a stack, all update actions are allowed on all resources. By default, anyone with stack update permissions can update all of the resources in the stack. You can prevent stack resources from being unintentionally updated or deleted during a stack update by using a stack policy. 
+- After you set a stack policy, all of the resources in the stack are protected by default. To allow updates on specific resources, you specify an explicit `Allow` statement for those resources in your stack policy; otherwise, no changes are made to protected resources.
+
+
+The following example stack policy prevents updates to the ProductionDatabase resource:
 
 ```json
 {
@@ -152,6 +156,23 @@ During **a stack update**, you must explicitly specify the protected resources t
   ]
 }
 ```
+
+This policy allows updates to all resources except for the MyDatabase, which is denied by default.
+
+```json
+{
+  "Statement" : [
+    {
+      "Effect" : "Allow",
+      "Action" : "Update:*",
+      "Principal": "*",
+      "NotResource" : "LogicalResourceId/MyDatabase"
+    }
+  ]
+}
+```
+
+> Further reading: [Prevent updates to stack resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
 
 
 ## DeletionPolicy
