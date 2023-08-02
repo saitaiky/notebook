@@ -17,13 +17,35 @@ Here are the steps to follow:
 3. Accept the invite to the new organization from the member account
 
 
-## Service Control Policies (SCP) related
-
+## Service Control Policies (SCP) 
 
 ![hibernate](/img/aws/management/organizations/organizational-units-900x572.png)
 
 Source: [Getting a grip on your AWS permission policies](https://oblcc.com/blog/getting-a-grip-on-your-aws-permission-policies/)
 
--   If a user or role has an IAM permission policy that grants access to an action that is either not allowed or explicitly denied by the applicable SCPs, the user or role can't perform that action
--   SCPs affect all users and roles in attached accounts, including the root user
--   SCPs do not affect service-linked role
+- If a user or role has an IAM permission policy that grants access to an action that is either not allowed or explicitly denied by the applicable SCPs, the user or role can't perform that action
+- SCPs affect all users and roles in attached accounts, including the root user
+- SCPs do not affect service-linked role
+
+### Enforcing Encryption of Data at Rest
+
+You can define service control policies (SCPs) inside AWS Organizations to enforce EFS encryption for all AWS accounts in your organization.
+
+
+```json
+{
+  “Version”: “2012-10-17”,
+  “Statement”: [
+    {
+      “Sid”: “VisualEditior0”,
+      “Effect”: “Allow”,
+      “Action”: “elasticfilesystem:CreateFileSystem”,
+      “Condition”: {
+        “Bool”: {
+          “elasticfilesystem:Encrypted”: “true”
+        }
+      },
+      “Resource”: “*”
+    }
+}
+```

@@ -76,6 +76,70 @@ Important: The ACM certificate must be requested or imported **in the same AWS R
 
 > Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
 
+
+## Configuration
+
+### Connection Draining
+
+To ensure that an **Elastic Load Balancer** stops sending requests to instances that are de-registering or unhealthy while keeping the existing connections open, use connection draining. This enables the load balancer to complete in-flight requests made to instances that are de-registering or unhealthy. 
+
+
+### Idle Timeout 
+
+> Idle means spending time to do nothing
+
+For each request that a client makes through an **Elastic Load Balancer**, the load balancer maintains two connections. 
+- The front-end connection is between the client and the load balancer. 
+- The back-end connection is between the load balancer and a registered EC2 instance. 
+
+The load balancer has a configured "idle timeout" period that applies to its connections. If no data has been sent or received by the time that the "idle timeout" period elapses, the load balancer closes the connection
+
+
+### Listener rules
+
+Listener rules are setup on ALB allow you to define how incoming traffic is routed based on various conditions. Listener rules are configured on the listener level and determine which target group should receive the incoming request based on criteria such as the request path, host header, HTTP headers, query parameters, or source IP address.
+
+By defining specific rules, you can implement routing policies, redirect requests, or conditionally route traffic to different target groups. Listener rules provide flexibility in directing traffic to different application components based on specific conditions, enabling you to build dynamic and customized routing configurations.
+
+![alb_fixed_rule_2](https://media.amazonwebservices.com/blog/2019/alb_condition_menu_2.png)
+
+Resource: [New – Advanced Request Routing for AWS Application Load Balancers
+](https://aws.amazon.com/blogs/aws/new-advanced-request-routing-for-aws-application-load-balancers/)
+
+#### Rule Condition types
+
+There are 2 types that you can config.
+- host-based routing: api.smart.com and mobile.smart.com 
+- path-based routing /api and /mobile
+
+You may check other rule condition types [here](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#rule-condition-types)
+
+
+
+### Redirect actions for an ALB
+You can use query string conditions to configure rules that route requests based on key/value pairs or values in the query string. 
+
+The example condition given in the question is satisfied by requests with a query string that includes either a key/value pair of "version=v1" or any key set to "example".
+
+```json
+[
+  {
+      "Field": "query-string",
+      "QueryStringConfig": {
+          "Values": [
+            {
+                "Key": "version", 
+                "Value": "v1"
+            },
+            {
+                "Value": "*example*"
+            }
+          ]
+      }
+  }
+]
+```
+
 ## Features
 
 ### ELB access logs 
@@ -87,6 +151,24 @@ You can use these access logs to analyze traffic patterns and troubleshoot issue
 :::cautionExam
 You cannot use CloudTrail Logs to analyze the network traffic passing through the ELB.
 :::
+
+## Target group settings
+
+### Slow start mode
+
+Slow start is a feature in AWS load balancer target groups that controls the gradual ramp-up of traffic to newly registered or recovered targets. When targets are added to a target group or become healthy after being unhealthy, the slow start feature allows the load balancer to gradually increase the number of requests it sends to those targets over a specified duration. 
+
+This helps to prevent overwhelming the newly added or recovered targets with a sudden surge of traffic, allowing them to warm up and stabilize before handling full load. Slow start helps maintain the overall stability and performance of the application during these transitional periods.
+
+### Request Routing Algorithms
+
+There are 2 algorithms which only work for **ALB/CLB**.
+- Least Oustanding requests: The next instance to receive the request is the instance that has the lowest number of pending/unfinished requests.
+- Round Robin: Equally choose the targets from the target group.
+
+There is only one algorithm which only work for **NLB**, which is Flow Hash
+- Selects a target based on the protocol, source/destination IP address, source/destination por t, and TCP sequence number
+- Each TCP/UDP connection is routed to a single target for the life of the connection
 
 ## Behaviour 
 
@@ -121,25 +203,6 @@ For a detailed explaination, visit [Ephemeral port : What is it and what does it
 If a target group contains only unhealthy targets, ELB routes requests across its unhealthy targets. It assumes that the health check is wrong, but maybe the instance can still work for some cases. This is a best effort scenario. 
 
 Hence, it is advised to configure an Auto Scaling Group, if the instances are hosting a business-critical application.
-
-## Target group settings
-
-### Slow start mode
-
-Slow start is a feature in AWS load balancer target groups that controls the gradual ramp-up of traffic to newly registered or recovered targets. When targets are added to a target group or become healthy after being unhealthy, the slow start feature allows the load balancer to gradually increase the number of requests it sends to those targets over a specified duration. 
-
-This helps to prevent overwhelming the newly added or recovered targets with a sudden surge of traffic, allowing them to warm up and stabilize before handling full load. Slow start helps maintain the overall stability and performance of the application during these transitional periods.
-
-### Request Routing Algorithms
-
-There are 2 algorithms which only work for **ALB/CLB**.
-- Least Oustanding requests: The next instance to receive the request is the instance that has the lowest number of pending/unfinished requests.
-- Round Robin: Equally choose the targets from the target group.
-
-There is only one algorithm which only work for **NLB**, which is Flow Hash
-- Selects a target based on the protocol, source/destination IP address, source/destination por t, and TCP sequence number
-- Each TCP/UDP connection is routed to a single target for the life of the connection
-
 
 ## Troubleshooting
 
@@ -247,69 +310,6 @@ When your load balancer is created, it receives a public DNS name that clients c
 ELB can handle the vast majority of use cases for the customers without requiring "pre-warming" (configuring the load balancer to have the appropriate level of capacity based on expected traffic). 
 
 In certain scenarios, such as when flash traffic is expected, or in the case where a load test cannot be configured to gradually increase traffic, AWS recommends that you contact AWS to have your load balancer "pre-warmed". AWS will then configure the load balancer to have the appropriate level of capacity based on the traffic that you expect.
-
-## Configuration
-
-### Connection Draining
-
-To ensure that an **Elastic Load Balancer** stops sending requests to instances that are de-registering or unhealthy while keeping the existing connections open, use connection draining. This enables the load balancer to complete in-flight requests made to instances that are de-registering or unhealthy. 
-
-
-### Idle Timeout 
-
-> Idle means spending time to do nothing
-
-For each request that a client makes through an **Elastic Load Balancer**, the load balancer maintains two connections. 
-- The front-end connection is between the client and the load balancer. 
-- The back-end connection is between the load balancer and a registered EC2 instance. 
-
-The load balancer has a configured "idle timeout" period that applies to its connections. If no data has been sent or received by the time that the "idle timeout" period elapses, the load balancer closes the connection
-
-
-### Listener rules
-
-Listener rules are setup on ALB allow you to define how incoming traffic is routed based on various conditions. Listener rules are configured on the listener level and determine which target group should receive the incoming request based on criteria such as the request path, host header, HTTP headers, query parameters, or source IP address.
-
-By defining specific rules, you can implement routing policies, redirect requests, or conditionally route traffic to different target groups. Listener rules provide flexibility in directing traffic to different application components based on specific conditions, enabling you to build dynamic and customized routing configurations.
-
-![alb_fixed_rule_2](https://media.amazonwebservices.com/blog/2019/alb_condition_menu_2.png)
-
-Resource: [New – Advanced Request Routing for AWS Application Load Balancers
-](https://aws.amazon.com/blogs/aws/new-advanced-request-routing-for-aws-application-load-balancers/)
-
-#### Rule Condition types
-
-There are 2 types that you can config.
-- host-based routing: api.smart.com and mobile.smart.com 
-- path-based routing /api and /mobile
-
-You may check other rule condition types [here](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#rule-condition-types)
-
-
-
-### Redirect actions for an ALB
-You can use query string conditions to configure rules that route requests based on key/value pairs or values in the query string. 
-
-The example condition given in the question is satisfied by requests with a query string that includes either a key/value pair of "version=v1" or any key set to "example".
-
-```json
-[
-  {
-      "Field": "query-string",
-      "QueryStringConfig": {
-          "Values": [
-            {
-                "Key": "version", 
-                "Value": "v1"
-            },
-            {
-                "Value": "*example*"
-            }
-          ]
-      }
-  }
-]
-```
 
 ## Layer 4 Load Balancing vs. Layer 7 Load Balancing
 
