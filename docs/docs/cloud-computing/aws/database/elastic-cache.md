@@ -6,7 +6,14 @@ keywords:
 sidebar_position: 5
 ---
 
-## Redis Cluster Mode
+## Redis
+
+:::cautionExam alert
+- When choosing the replica to promote to primary, ElastiCache for Redis chooses the replica with **the least replication lag**
+- You can manually promote read replicas to primary on Redis (cluster mode disabled), only **when Multi-AZ** and **automatic failover are disabled**.
+:::
+
+### Cluster Mode
 
 You can leverage ElastiCache for Redis with cluster mode enabled to enhance reliability and availability with little change to your existing workload. Cluster Mode comes with the primary benefit of horizontal scaling up and down of your Redis cluster, with almost zero impact on the performance of the cluster.
 

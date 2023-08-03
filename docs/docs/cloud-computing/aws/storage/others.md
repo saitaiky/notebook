@@ -1,8 +1,7 @@
 ---
 title: Others
-description: AWS Snowball, Storage Gateway
+description: 
 keywords:
-  - AWS Snowball 
   - AWS Storage Gateway
 ---
 

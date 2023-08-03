@@ -29,6 +29,10 @@ If you need to secure your encryption keys in a service backed by FIPS-validated
 
 ##  AWS Service Catalog
 
+![sc-diagram-updated](/img/aws/other/sc-diagram-updated.png)
+
+Source: [Initial Administrator Workflow](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html) & [AWS Service catalog](https://aws.amazon.com/servicecatalog/)
+
 AWS Service Catalog lets you centrally manage your cloud resources to achieve governance at scale of your **infrastructure as code (IaC) templates**, written in CloudFormation or Terraform. With AWS Service Catalog, you can meet your compliance requirements while making sure your customers can quickly deploy the cloud resources they need.
 
 To make your AWS Service Catalog products available to users who are not in your AWS account, such as users who belong to other organizations or other AWS accounts in your organization, you share your portfolios with them. You can share in several ways, including **account-to-account sharing, organizational sharing, and deploying catalogs using stack sets**.
@@ -39,10 +43,6 @@ When you share a portfolio using **account-to-account sharing or AWS Organizatio
 
 This imported portfolio isn't an independent copy. The products and constraints in the imported portfolio **stay in sync with changes** that you make to the shared portfolio, the original portfolio that you shared. 
 
-Reference: 
-- [AWS Service catalog](https://aws.amazon.com/servicecatalog/)
-- [Initial Administrator Workflow](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html)
-
 
 
 ## Others
@@ -50,3 +50,5 @@ Reference:
 - Aws neptune (Fully Managed Graph Database)
 - Security
   - AWS GuardDuty is a threat detection service that monitors malicious activity and unauthorized behavior to protect your AWS account.
+- Compliance
+  - AWS Artifact is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)

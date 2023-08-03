@@ -29,6 +29,10 @@ Source: [Choosing the Right DynamoDB Partition Key](https://aws.amazon.com/blogs
 
 ## Feature
 
+### DynamoDB Stream for a hybrid solution
+
+DynamoDB can take advantage of DynamoDB Streams and AWS Lambda to integrate seamlessly with one or more existing relational database systems. To check what 3 steps to be implemented, check this blog [Best practices for implementing a hybrid database system](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-hybrid.html#bp-hybrid-problems)
+
 ### Conditional writes
 
 DynamoDB optionally supports conditional writes for write operations (PutItem, UpdateItem, DeleteItem). A conditional write succeeds only if the item attributes meet one or more expected conditions. Otherwise, it returns an error.
@@ -126,3 +130,12 @@ Keep in mind that `Scan` api with `FilterExpression`  won't improve the preforma
 ![partition-key](/img/aws/database/dynamodb/parallel-scan.png)
 
 Source: [Parallel scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan)
+
+
+## Practices
+
+### Export table to S3 bucket from other account
+
+When you export your tables to an S3 bucket in Account B, the objects are still owned by you. The AWS IAM users in Account B can't access the objects by default. The export function doesn't write data with the access control list (ACL) bucket-owner-full-control. 
+
+As a workaround to this object ownership issue, **include the `PutObjectAcl` permission on all exported objects after the export is complete**. This workaround grants access to all exported objects for the bucket

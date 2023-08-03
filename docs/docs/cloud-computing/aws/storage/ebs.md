@@ -114,6 +114,12 @@ If you want to disable this flag while the instance is still running, you can se
 By default, when you attach a non-root EBS volume to an instance, its `DeleteOnTermination` attribute is set to false. Therefore, the default is to preserve these volumes. After the instance terminates, you can take a snapshot of the preserved volume or attach it to another instance. You must delete a volume to avoid incurring further charges.
 :::
 
+:::cautionAmazon EBS volumes deleted with the `TerminateInstances` API call continue to show for some time on AWS Config console
+Amazon EC2 deletes the Amazon EBS volume that has the `DeleteOnTermination` attribute set to true, but it does not publish the `DeleteVolume` API call. 
+
+This is because AWS Config uses the `DeleteVolume` API call as a trigger with the rule, and the resource changes aren't recorded for the EBS volume. The EBS volume still shows as compliant or noncompliant in  AWS Config console until the baseline check every 6 hours. 
+:::
+
 ### Update DeleteOnTermination
 
 How to update 'DeleteOnTermination' attribute set to True for an EC2 instance’ root EBS volume?

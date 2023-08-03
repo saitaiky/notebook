@@ -57,14 +57,24 @@ You can export log data from your CloudWatch log groups to an Amazon S3 bucket a
 
 ### Monitor Trusted Advisor
 
+![ta-dashboard](/img/aws/management/cw/ta-dashboard.png)
+
+Source: [trusted-advisor-console-basic](https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/)
+
 You can use Amazon CloudWatch Events to detect and react to changes in the status of Trusted Advisor checks. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
 
-![monitor-trusted-advisor-service-check](/img/aws/management/monitor-trusted-advisor-service-check.jpeg)
+![monitor-trusted-advisor-service-check](/img/aws/management/cw/monitor-trusted-advisor-service-check.jpeg)
 
 Depending on the type of status change, you might want to send notifications, capture status information, take corrective action, initiate events, or take other actions.
 
 [Monitor Trusted Advisor - Service limits](https://docs.aws.amazon.com/awssupport/latest/user/service-limits.html)
 [AWS trusted-advisor](https://aws.amazon.com/premiumsupport/technology/trusted-advisor/best-practice-checklist/)
+
+
+## Metrics for Aurora
+
+- `AuroraReplicaLagMaximum` - This metric captures the maximum amount of lag between the **primary instance and each Aurora DB instance** in the DB cluster.
+- `AuroraBinlogReplicaLag` - This metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition lags behind the source DB cluster.  (replica 慢過Aurora source DB 幾多)
 
 ## Metrics for EC2
 
