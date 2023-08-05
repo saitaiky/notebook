@@ -1,6 +1,6 @@
 ---
 title: Others
-description: 
+description: Others
 keywords:
   - AWS Storage Gateway
 ---

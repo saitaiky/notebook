@@ -6,6 +6,8 @@ keywords:
 sidebar_position: 1
 ---
 
+Amazon RDS (Relational Database Service) is a managed database service offered by AWS that simplifies the process of setting up, operating, and scaling relational databases in the cloud. It allows you to choose from various database engines such as MySQL, PostgreSQL, MariaDB, Oracle, and Microsoft SQL Server, and provides automated tasks like hardware provisioning, patching, backup, recovery, and scaling. RDS enables developers to focus on building applications without worrying about the complexities of database management, while ensuring high availability, durability, and security of the underlying database infrastructure.
+
 ## Behaviour
 
 ### Replication
@@ -20,9 +22,15 @@ Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-re
 
 ## Feature
 
+### RDS Proxy for overwhelmed connections
+
+Amazon RDS Proxy enhances database efficiency and scalability for applications, including modern serverless ones, **by pooling and sharing connections to the database**. This helps prevent memory and compute exhaustion caused by **frequent opening and closing of connections**. 
+
+RDS Proxy reduces failover times, integrates with AWS Secrets Manager and IAM for secure access, and efficiently manages variable workloads, allowing multiple application connections to share resources and regulating connection openings. Enabling RDS Proxy requires no code changes or additional infrastructure management, making it a seamless solution for optimizing database performance and application availability.
+
 ### Ensure all connections to RDS are encrypted
 
-In the **DB parameter groups** - You can allow only SSL connections to your RDS for PostgreSQL database instance by enabling the rds.force_ssl parameter ("0" by default) through the parameter groups page on the RDS Console or through the CLI.
+In the **DB parameter groups** - You can allow only SSL connections to your RDS for PostgreSQL database instance by enabling the `rds.force_ssl` parameter ("0" by default) through the parameter groups page on the RDS Console or through the CLI.
 
 Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
 

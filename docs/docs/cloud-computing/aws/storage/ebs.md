@@ -73,7 +73,7 @@ IOPS SSD (io1 or io2) is the only EBS volume to support **Multi-Attach** functio
 
 | EBS type        | io2         | Io2 Block Express | io1         | gp3         | gp2                        |
 |-----------------|-------------|-------------------|-------------|-------------|----------------------------|
-| Max IOPS/GB     | 500 IOPS/GB | Unknown           | 50 IOPS/GB  | 3,000 IOPS  | IOPS                       |
+| Max IOPS/GB     | 500 IOPS/GB | Unknown           | 50 IOPS/GB  | 3,000 IOPS  | 3 IOPS                     |
 | Max IOPS/Volume | 64,000 IOPS | Unknown           | 64,000 IOPS | 16,000 IOPS | 16,000 IOPS (Min:100 IOPS) |
 
 > Source: [Amazon EBS volume types](https://aws.amazon.com/ebs/volume-types/),  [Amazon EBS volume types - document](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
@@ -82,7 +82,7 @@ IOPS SSD (io1 or io2) is the only EBS volume to support **Multi-Attach** functio
 
 The maximum ratio of provisioned **IOPS SSD (io1) volumes** to requested volume size (in GiB) is **50:1**. So, for a 200 GiB volume size, max IOPS possible is 200*50 = 10000 IOPS.
 
-**Example 2**:  Which gp2 volume size will their test environment hit the max IOPS?
+**Example 2**:  Which gp2 volume size will hit the max IOPS?
 
 16000 IOPS /3 IOPS = 5.3 TiB / 5,334 GiB   
 
@@ -93,11 +93,29 @@ Even if you add extra volumne(GB) to this EBS, it won't add more IOPS. Because t
 The performance of gp2 volumes is tied to volume size, which determines the baseline performance level of the volume and how quickly it accumulates I/O credits; larger volumes have higher baseline performance levels and accumulate I/O credits
 
 
+### Comparsion
 
-### in GP2 volume
+Amazon Elastic Block Store (EBS) provides different types of block storage volumes optimized for various performance and cost requirements. Here are the use cases and reasons for each EBS volume type:
 
-The IOPS of EBS volume *cannot be directly increased on **a gp2 volume** without increasing its size, which is not possible due to the question's constraints.
-### in IO1 volumne
+- **General Purpose (gp2/gp3) EBS:**
+   - **Use Case:** Suitable for a wide range of workloads, including boot volumes, small to medium-sized databases, and development/testing environments.
+   - **Reasons:** gp2 volumes offer a balance between performance and cost, providing baseline performance with the ability to burst when needed. They are a cost-effective choice for applications with moderate I/O requirements.
+- **Provisioned IOPS (io1/io2) EBS:**
+   - **Use Case:** Ideal for I/O-intensive applications such as large databases, high-performance workloads, and applications requiring consistent and predictable performance.
+   - **Reasons:** io1/io2 volumes offer high IOPS (Input/Output Operations Per Second) performance with configurable levels of provisioned IOPS, making them suitable for applications demanding low-latency and high-throughput storage.
+- **Throughput Optimized (st1) EBS:**
+   - **Use Case:** Best suited for large, sequential workloads such as data warehouses, log processing, and big data applications.
+   - **Reasons:** st1 volumes provide high throughput and are optimized for sequential read and write operations, making them cost-effective for data-intensive applications that require efficient data streaming.
+- **Cold HDD (sc1) EBS:**
+   - **Use Case:** Designed for infrequently accessed, throughput-intensive workloads, including large data sets, backups, and data archives.
+   - **Reasons:** sc1 volumes offer the lowest cost per gigabyte of all EBS types, making them suitable for scenarios where cost is a primary consideration and occasional access to data is acceptable.
+
+### Specify IOPS in GP/IO EBS
+
+#### You can only update the IOPS via size in GP EBS
+
+The IOPS of EBS volume cannot be directly increased on **a gp2 volume** without increasing its size, which is not possible due to the question's constraints.
+#### You can directly update the IOPS via size in IO EBS
 
 Unlike gp2, which uses a bucket and credit model to calculate performance, an io1 volume allows you to specify a consistent IOPS rate when you create the volume, and Amazon EBS delivers the provisioned performance 99.9 percent of the time.
 

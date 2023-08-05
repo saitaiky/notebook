@@ -125,6 +125,19 @@ AWS Config is a service that tracks and evaluates the configuration and complian
 
 AWS Lambda functions perform compliance evaluations, and auto-remediation can automatically correct non-compliant resources. 
 
+### Triggers
+
+![specifying_triggers_for_aws_config_rules](/img/aws/management/monitor/specifying_triggers_for_aws_config_rules.jpg)
+
+When you add a rule to your account, you can specify when you want AWS Config to run the rule; this is called a trigger. AWS Config evaluates your resource configurations against the rule when the trigger occurs. There are two types of triggers:
+
+- Configuration changes: AWS Config runs evaluations for the rule when certain types of resources are created, changed, or deleted.
+- Periodic: AWS Config runs evaluations for the rule at a frequency that you choose (for example, every 24 hours).
+
+:::infoYou can use both types in one rule
+If you choose **both configuration changes and periodic to the same rule**, AWS Config invokes your Lambda function when it detects a configuration change and also at the frequency that you specify. 
+:::
+
 ### Some practices
 
 - AWS Config includes auto-remediation for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.

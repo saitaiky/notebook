@@ -6,6 +6,8 @@ keywords:
 sidebar_position: 5
 ---
 
+> A really good reference from AWS: [Caching Overview](https://aws.amazon.com/caching/)
+
 ## Redis
 
 :::cautionExam alert
@@ -83,3 +85,18 @@ Source: [AWS: Session Management](https://aws.amazon.com/caching/session-managem
 :::caution Sticky session in ALB
 Enable sticky sessions in the Application Load Balancer is not an option here! - As the Application Load Balancer itself is replaced on each new deployment, so maintaining sticky sessions via the Application Load Balancer will not work. 
 :::
+
+
+## Redis VS Memcached
+**Amazon ElastiCache** supports both **Memcached** and **Redis** as in-memory caching engines. Each has its own use cases and reasons for implementation:
+
+**Memcached:**
+- **Use Cases:** Memcached is ideal for use cases that require simple and fast caching of frequently accessed data. It's suited for scenarios where data does not need to be persisted long-term, and cache eviction can be managed based on Least Recently Used (LRU) principles.
+- **Reasons:** Memcached offers high-speed, low-latency caching, making it well-suited for applications that require rapid data retrieval, such as session caching, real-time analytics, and temporary data storage.
+
+**Redis:**
+- **Use Cases:** Redis is versatile and suits a wide range of use cases, including caching, real-time analytics, session management, and more. Its advanced features, like data persistence, data structures, and publish/subscribe capabilities, make it suitable for more complex caching needs and scenarios requiring data manipulation.
+- **Reasons:** Redis provides richer data types, supports more advanced caching strategies, and can be used for both caching and as a data store. Its persistence options, including snapshots and AOF (Append-Only File), enable data durability and recovery, making it a choice for applications that need both caching and data persistence.
+
+In summary, choose **Memcached** for straightforward(simplest model), high-speed caching where data persistence is not a primary concern, and select **Redis** when you need a more versatile caching solution with advanced data structures, persistence options, and additional features beyond caching.
+

@@ -23,7 +23,7 @@ For each VPC that you want to associate with the Route 53 hosted zone, change th
 
 ## Alias record 
 
-Amazon Route 53 alias records provide a Route 53–specific extension to DNS functionality. Alias records let you route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets. They also let you route traffic from one record in a hosted zone to another record.
+Amazon Route 53 alias records provide a Route 53–specific extension to DNS functionality. Alias records let you **route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets**. They also let you route traffic from one record in a hosted zone to another record.
 
 :::caution Only alias record can record top node of DNS namespace. CNAME can't
 Unlike a **CNAME record**, you can create **an alias record** at the top node of a DNS namespace, also known as the zone apex. For example, if you register the DNS name example.com, the zone apex is example.com. You can't create a **CNAME record** for example.com, but you can create **an alias record** for example.com that routes traffic to www.example.com (as long as www.example.com doesn't already have a CNAME record).

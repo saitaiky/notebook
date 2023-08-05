@@ -6,17 +6,8 @@ keywords:
 sidebar_position: 2
 ---
 
-## Termination protection
-
-![termination-protection](/img/aws/development/cf/termination-protection.png)
-
-You cannot delete stacks that have termination protection enabled. If you attempt to delete a stack with termination protection enabled, the deletion fails and the stack(including its status) remains unchanged. 
-  - Solution: Disable termination protection on the stack, then perform the delete operation again.
-
-This includes nested stacks whose root stacks have termination protection enabled. 
-  - Solution:  Disable termination protection on the root stack, then perform the delete operation again. It is strongly recommended that you do not delete nested stacks directly, but only delete them as part of deleting the root stack and all its resources.
-
-## User Data in EC2 for CloudFormation
+## EC2 interaction
+### User Data in EC2
 
 > Check [user data scripts](cloud-computing/aws/compute/ec2/#user-data-scripts) for more information.
 
@@ -36,7 +27,7 @@ UserData:
 ```
 
 
-## Helper scripts
+## EC2 Helper scripts
 
 ![cfn-init&cfn-signal](/img/aws/development/cf/cfn-init&cfn-signal.jpg)
 
@@ -67,55 +58,60 @@ Answer:
 - Verify that the instance has a connection to the Internet. If the instance is in a VPC, the instance should be able to connect to the Internet through a NAT device if it's is in a private subnet or through an Internet gateway if it's in a public subnet.
   - For example, run: curl -I https://aws.amazon.com
 
-## Actions
+## Configuration
 
-### CreateStack
+
+### DeletionPolicy
+
+You can put a DeletionPolicy on any resource to control what happens when the CloudFormation template is deleted
+- DeletionPolicy=Retain:
+  - Specify on resources to preserve / backup in case of CloudFormation deletes 
+  - To keep a resource, specify Retain (works for any resource / nested stack)
+- DeletionPolicy=Snapshot:
+  - EBS Volume, ElastiCache Cluster, ElastiCache ReplicationGroup 
+  - RDS DBInstance, RDS DBCluster, Redshift Cluster
+- DeletePolicy=Delete (default behavior):
+  - Note: for AWS::RDS::DBCluster resources, the default policy is Snapshot
+  - Note: to delete an S3 bucket, you need to first empty the bucket of its content
+
+```yml
+NewVolume:
+  Type: AWS::EC2::Volume
+  Properties:
+    Size: 100
+    Encrypted: true
+    AvailabilityZone: !GetAtt Ec2Instance.AvailabilityZone
+    Tags:
+      - Key: MyTag
+        Value: TagValue
+  DeletionPolicy: Snapshot
+```
+
+### OnFailure for CreateStack call
 
 You can use the OnFailure property of the CloudFormation CreateStack call for this use-case. The OnFailure property determines what action will be taken if stack creation fails. This must be one of `DO_NOTHING`, `ROLLBACK`, or `DELETE`. You can specify either OnFailure or DisableRollback, but not both.
 
-Using the OnFailure property, you can prevent the termination of the EC2 instances created by the CloudFormation stack.
+Using the OnFailure property, you can prevent the termination of the EC2 instances created by the CloudFormation stack. Below is the example
 
-## StackSets
-
-![StackSetsArchitecture](/img/aws/development/cf/StackSetsArchitecture.png)
-> TL;DR - You can imagine template is just a class and stackset is a instance of a class which has configured the attributes as same as programming. 
-
-AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with AWS Organizations, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
-
-StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. Enable data sharing, use the StackSets console, and leverage the service-managed permission model for seamless deployment across your organization.
-
-How to use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization:
-![Deployment options](/img/aws/development/cf/stackset.png)
-
-Reference: [Use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization](https://aws.amazon.com/blogs/aws/new-use-aws-cloudformation-stacksets-for-multiple-accounts-in-an-aws-organization/)
-
-## Nested Stack
-
-A nested stack is a way to encapsulate and manage reusable components within a CloudFormation template. It allows you to create separate CloudFormation templates for individual components and then reference them as a resource within a main CloudFormation template. 
-
-This modular approach simplifies template management, promotes reusability, and improves the organization and readability of complex infrastructure deployments. The nested stack acts as a standalone unit with its own set of resources, parameters, and outputs, enabling you to independently create, update, or delete the nested stack while working within the main stack.
-
-:::caution
-- To update a nested stack, always update the parent (root stack)
-:::
-
-![cfn-console-nested-stacks](https://docs.aws.amazon.com/images/AWSCloudFormation/latest/UserGuide/images/cfn-console-nested-stacks.png)
-Resource: [Working with nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
-
-```ymal
-AWSTemplateFormatVersion: '2010-09-09'
-Resources:
-  myStackWithParams:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/cloudformation-templates-us-east-2/EC2ChooseAMI.template
-      Parameters:
-        InstanceType: t1.micro
-        KeyName: mykey
+```
+https://cloudformation.us-east-1.amazonaws.com/
+ ?Action=CreateStack
+ &StackName=MyStack
+ &TemplateBody=[Template Document]
+ &NotificationARNs.member.1=arn:aws:sns:us-east-1:1234567890:my-topic
+ &Parameters.member.1.ParameterKey=AvailabilityZone
+ &Parameters.member.1.ParameterValue=us-east-1a
+ &Version=2010-05-15
+ &SignatureVersion=2
+ &Timestamp=2010-07-27T22%3A26%3A28.000Z
+ &AWSAccessKeyId=[AWS Access KeyID]
+ &Signature=[Signature]
+ &OnFailure=DO_NOTHING
 ```
 
 
-## ChangeSet
+## Features
+### ChangeSet
 
 ![update-stack-changesets-diagram](https://docs.aws.amazon.com/images/AWSCloudFormation/latest/UserGuide/images/update-stack-changesets-diagram.png)
 Reference: [Updating stacks using change sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
@@ -126,7 +122,7 @@ Change sets allow you to preview how proposed changes to a stack might impact yo
 After you execute a change, AWS CloudFormation removes all change sets that are associated with the stack because they aren't applicable to the updated stack.
 :::
 
-## Stack Policy
+### Stack Policy
 
 > TL;DR - Think Stack Policy as a temperate protection to the resources that going to be affected by a stack update.
 
@@ -174,40 +170,64 @@ This policy allows updates to all resources except for the MyDatabase, which is 
 
 > Further reading: [Prevent updates to stack resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
 
+### Termination protection
 
-## DeletionPolicy
+![termination-protection](/img/aws/development/cf/termination-protection.png)
 
-You can put a DeletionPolicy on any resource to control what happens when the CloudFormation template is deleted
-- DeletionPolicy=Retain:
-  - Specify on resources to preserve / backup in case of CloudFormation deletes 
-  - To keep a resource, specify Retain (works for any resource / nested stack)
-- DeletionPolicy=Snapshot:
-  - EBS Volume, ElastiCache Cluster, ElastiCache ReplicationGroup 
-  - RDS DBInstance, RDS DBCluster, Redshift Cluster
-- DeletePolicy=Delete (default behavior):
-  - Note: for AWS::RDS::DBCluster resources, the default policy is Snapshot
-  - Note: to delete an S3 bucket, you need to first empty the bucket of its content
+You cannot delete stacks that have termination protection enabled. If you attempt to delete a stack with termination protection enabled, the deletion fails and the stack(including its status) remains unchanged. 
+  - Solution: Disable termination protection on the stack, then perform the delete operation again.
 
-```yml
-NewVolume:
-  Type: AWS::EC2::Volume
-  Properties:
-    Size: 100
-    Encrypted: true
-    AvailabilityZone: !GetAtt Ec2Instance.AvailabilityZone
-    Tags:
-      - Key: MyTag
-        Value: TagValue
-  DeletionPolicy: Snapshot
+This includes nested stacks whose root stacks have termination protection enabled. 
+  - Solution:  Disable termination protection on the root stack, then perform the delete operation again. It is strongly recommended that you do not delete nested stacks directly, but only delete them as part of deleting the root stack and all its resources.
+
+## Stack
+### StackSets
+
+![StackSetsArchitecture](/img/aws/development/cf/StackSetsArchitecture.png)
+> TL;DR - You can imagine template is just a class and stackset is a instance of a class which has configured the attributes as same as programming. 
+
+AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with AWS Organizations, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
+
+StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. Enable data sharing, use the StackSets console, and leverage the service-managed permission model for seamless deployment across your organization.
+
+How to use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization:
+![Deployment options](/img/aws/development/cf/stackset.png)
+
+Reference: [Use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization](https://aws.amazon.com/blogs/aws/new-use-aws-cloudformation-stacksets-for-multiple-accounts-in-an-aws-organization/)
+
+### Nested Stack
+
+A nested stack is a way to encapsulate and manage reusable components within a CloudFormation template. It allows you to create separate CloudFormation templates for individual components and then reference them as a resource within a main CloudFormation template. 
+
+This modular approach simplifies template management, promotes reusability, and improves the organization and readability of complex infrastructure deployments. The nested stack acts as a standalone unit with its own set of resources, parameters, and outputs, enabling you to independently create, update, or delete the nested stack while working within the main stack.
+
+:::caution
+- To update a nested stack, always update the parent (root stack)
+:::
+
+![cfn-console-nested-stacks](https://docs.aws.amazon.com/images/AWSCloudFormation/latest/UserGuide/images/cfn-console-nested-stacks.png)
+Resource: [Working with nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
+
+```ymal
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  myStackWithParams:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/cloudformation-templates-us-east-2/EC2ChooseAMI.template
+      Parameters:
+        InstanceType: t1.micro
+        KeyName: mykey
 ```
 
-## Rolling back an update
+
+## Behavoirs
+### Roll back an update
 
 - Behavoir:
   - A stack goes into the UPDATE_ROLLBACK_FAILED state when CloudFormation can't roll back all changes during an update
   - A resource can't return to its original state, causing the rollback to fail
   - Example: roll back to an old database instance that was deleted outside CloudFormation
-
 - Solutions
   - Fix the errors manually outside of CloudFormation and then
   - Skip the resources that can't rollback successfully (CloudFormation will mark the failed resources as UPDATE_COMPLETE)
@@ -217,13 +237,15 @@ NewVolume:
 - For nested stacks, rolling back the parent stack will attempt to roll back all the child stacks as well
 :::
 
+### Self-managed permissions or Service-managed permissions to create Stack sets  
 
-## Important functions
+> TL:DR - If you require custom access controls or want to align permissions with your existing IAM setup, self-managed permissions provide more flexibility. On the other hand, if you prefer a simpler setup and want AWS to handle the IAM roles for you, service-managed permissions offer convenience and consistency.
 
-- `!ImportValue` - returns the value of the `Export` field in the output section by another stack. You typically use this function to create cross-stack references
-- `!Ref` - Returns the value of the specified parameter or resource.
-- `!GetAtt`- Returns the value of an attribute from a resource in the template.
-- `!Sub` - Substitutes variables in an input string with values that you specify.
+Stack sets can be created using either **self-managed permissions** or **service-managed permissions**. 
+
+With service-managed permissions, you can deploy stack instances to accounts managed by AWS Organizations. Using this permissions model, you don't have to create the necessary IAM roles; StackSets creates the IAM roles on your behalf. 
+- **An administrator account** is the AWS account in which you create stack sets. The administrator account is either the organization's management account or a delegated administrator account. **A target account** is an account into which you create, update, or delete one or more stacks in your stack set. 
+- Before you can use a stack set to create stacks in a target account, you must set up **a trust relationship** between the administrator and target accounts.
 
 
 ## Trouble shooting
@@ -243,6 +265,13 @@ If you created an AWS resource outside of AWS CloudFormation management, you can
 For a list of AWS resources that support import operations, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html).
 
 ## Template study
+
+### Important functions
+
+- `!ImportValue` - returns the value of the `Export` field in the output section by another stack. You typically use this function to create cross-stack references
+- `!Ref` - Returns the value of the specified parameter or resource.
+- `!GetAtt`- Returns the value of an attribute from a resource in the template.
+- `!Sub` - Substitutes variables in an input string with values that you specify.
 
 
 ### S3

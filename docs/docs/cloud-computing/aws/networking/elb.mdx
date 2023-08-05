@@ -71,7 +71,9 @@ With **Network Load Balancer**, you can *offload the decryption/encryption of TL
 :::infoWhat is ACM?
 AWS ACM (Amazon Certificate Manager) is a service that provides free, automated SSL/TLS certificates for secure encryption and authentication of data in transit for AWS resources and applications.
 
-Important: The ACM certificate must be requested or imported **in the same AWS Region as your load balancer or CloudFront distribution.**
+Important: 
+- The ACM certificate must be requested or imported **in the same AWS Region as your load balancer or CloudFront distribution.**
+- ACM-issued certificates can’t be installed on an EC2 instance. These certificates are intended to be used with AWS services like **Elastic Load Balancing, CloudFront, and API Gateway**.To enable end-to-end encryption between load balancer and an EC2 instance, you must use a third-party SSL certificate
 :::
 
 > Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
@@ -180,17 +182,19 @@ Elastic Load Balancing stops sending requests to targets that are deregistering.
 
 ### Cross-Zone Load Balancing
 
-With cross-zone load balancing, one instance in Availability Zone A receives 20% traffic and four instances in Availability Zone B receive 20% traffic each. 
-
-Without cross-zone load balancing, one instance in Availability Zone A receives 50% traffic and four instances in Availability Zone B receive 12.5% traffic each
-
-Another example:
-
-![cross-zone-balancing](/img/aws/networking/elb/cross-zone-balancing.png)
+If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications.
 
 :::caution
-By default, cross-zone load balancing is enabled (always on) for **Application Load Balancer** and disabled for **Network Load Balancer**
+- By default, cross-zone load balancing is enabled (always on) for **ALB** and disabled for **NLB**
+- You **cannot disable** Availability Zones for a Network Load Balancer **after you create it**
 :::
+
+**Example 1:**
+- With cross-zone load balancing, one instance in Availability Zone A receives 20% traffic and four instances in Availability Zone B receive 20% traffic each. 
+- Without cross-zone load balancing, one instance in Availability Zone A receives 50% traffic and four instances in Availability Zone B receive 12.5% traffic each
+
+**Example 2:**
+![cross-zone-balancing](/img/aws/networking/elb/cross-zone-balancing.png)
 
 ### Ephemeral port range of ELB
 
@@ -271,7 +275,7 @@ Here are the reasons that why an ELB routes more traffic to one instance or Avai
 
 ### Error codes
 
-> TL;DR - 4XX codes are client-side errors and 5xx errors are going to be server problems
+> TL;DR - 4XX codes are **client-side errors** and 5xx errors are **server(target) problems**
 
 - HTTP 500
   - HTTP 500 indicates 'Internal server' error
@@ -287,7 +291,7 @@ Here are the reasons that why an ELB routes more traffic to one instance or Avai
   - Several reasons: 
     - The load balancer failed to establish a connection to the target before the connection timeout expired
     - The load balancer established a connection to the target but the target did not respond before the idle timeout period elapsed
-- HTTP 400 indicates 'The client sent a malformed request that does not meet HTTP specifications.'
+- HTTP 400 indicates 'The client sent **a malformed request** that does not meet HTTP specifications.'
 - HTTP 403
   - HTTP 403 is 'Forbidden' error. 
   - You configured an AWS WAF web access control list (web ACL) to monitor requests to your ALB and it blocked a request.

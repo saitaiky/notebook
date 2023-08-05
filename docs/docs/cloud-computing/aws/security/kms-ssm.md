@@ -1,5 +1,5 @@
 ---
-title: KMS, Security Manager
+title: KMS
 description: KMS
 keywords:
   - cross account sharing
@@ -103,32 +103,3 @@ SSE-KMS is similar to SSE-S3 but comes with some additional benefits over SSE-S3
 When you create a CMK using KMS instead of using default CMK you get more flexibility as you can create, rotate and disable the encryption keys whilist **with SSE-S3 everything are managed by AWS**.
 
 As KMS is integrated with Cloudtrail with SSE-KMS you can also **audit the usage of the key like when, by whom, for what purpose the key was used** whilist SSE-S3 **does not provide the ability to audit trail** the usage of the encryption keys. You can also give separate permissions for the use of an envelope key.
-
-## Security Manager
-
-- Newer service, meant for storing secrets
-- Capability to force rotation of secrets every X days
-- Automate generation of secrets on rotation (uses Lambda)
-- Integration with Amazon RDS (MySQL, PostgreSQL, Aurora) 
-- Secrets are encrypted using KMS
-- Mostly meant for RDS integration
-
-### SSM Parameter Store vs Secrets Manager
-
-- Secrets Manager ($$$):
-  - Automatic rotation of secrets with AWS Lambda
-  - Lambda function is provided for RDS, Redshift, DocumentDB - KMS encryption is mandatory\
-  - Can integration with CloudFormation
-
-- SSM Parameter Store ($):
-  -  Simple API
-  -  No secret rotation (can enable rotation using Lambda triggered by CW Events)
-  -  KMS encryption is optional
-  -  Can integration with CloudFormation
-  -  Can pull a Secrets Manager secret using the SSM Parameter Store API
-
-### Delete an exsisting key and create a new key with the same name
-
-When you delete a secret, the Secrets Manager deprecates it with a seven-day recovery window. This means that you can't recreate a secret using the same name using the AWS Management Console until seven days have passed. You can permanently delete a secret without any recovery window using the AWS Command Line Interface (AWS CLI).
-
-Run the `DeleteSecret` API call with the `ForceDeleteWithoutRecovery` parameter to delete the secret permanently. If you receive errors when running AWS CLI commands, make sure that you're using the most recent version of the AWS CLI. Secrets deleted using the `ForceDeleteWithoutRecovery` parameter can't be recovered or restored.

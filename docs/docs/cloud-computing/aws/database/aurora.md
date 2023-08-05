@@ -6,6 +6,19 @@ keywords:
 sidebar_position: 4
 ---
 
+Amazon Aurora is a fully managed relational database engine developed by AWS. It offers high performance, availability, and scalability, while being compatible with MySQL and PostgreSQL. Aurora's architecture is designed for cloud-native capabilities and provides features like automatic backups, replication, and seamless scaling to meet the demands of modern applications.
+
+## Notes for networking
+
+To connect to an Amazon Aurora DB cluster **directly from outside the VPC**, the instances in the cluster must meet the following requirements:
+- The Aurora DB instance must have a public IP address
+- The Aurora DB instance must be running in a publicly accessible subnet and create the Aurora DB instance from this subnet group
+- Enable the VPC attributes `DNS hostnames` and `DNS resolution`
+
+![ip&public-access.png](/img/aws/database/aurora/ip&public-access.png)
+
+![vpc-settings](/img/aws/database/aurora/vpc-settings.png)
+
 ## Global Database
 
 With [Global Database](https://aws.amazon.com/rds/aurora/global-database/), a single Aurora database can span multiple AWS regions to enable fast local reads and quick disaster recovery between regions. 
@@ -34,7 +47,7 @@ In the event of an outage that impacts an entire Availability Zone (AZ) and rend
 
 ### Aurora Reader Endpoint
 
-![reader-endpoin](/img/aws/database/reader-endpoint.webp)
+![reader-endpoin](/img/aws/database/aurora/reader-endpoint.webp)
 
 Source: [AWS Aurora — Why is it better?](https://crishantha.medium.com/aws-aurora-why-is-it-better-6faae33a0ed0)
 
