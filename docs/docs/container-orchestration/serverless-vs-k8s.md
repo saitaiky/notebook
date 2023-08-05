@@ -69,8 +69,4 @@ If we inspect the concept of "even" load, we quickly notice that this is actuall
 
 ## Conclusions
 
-As we have mentioned in a [previous post](https://chaordic.io/blog/from-punch-cards-to-serverless/), we believe Serverless & Kubernetes will live side-by-side in the future, with the lines blurring over time.
-
-Things change quickly: in 2018, AWS Serverless was not yet ready for prime-time other than for a small number of use-cases. We did our first forays into Serverless in 2017, but even our 2018 recommendation would have had a very different balance than today.
-
-But the relentless pace with which AWS has improved its services across the board makes Serverless the go-to infrastructure choice for any organisation that wants to move fast in 2020.
+As of 2023, I believe Serverless & Kubernetes or other container-orchestration platforms will live side-by-side in the future, with the lines blurring over time. a combination of both technologies might be appropriate, where you use serverless for specific functions or components within a larger Kubernetes-managed application.
