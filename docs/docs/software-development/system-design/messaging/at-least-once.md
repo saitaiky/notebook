@@ -41,7 +41,7 @@ The fundamental challenge here is that when I do not receive an acknowledgment f
 
 ## Workflow
 
-![event-driven-architecture-example](/img/tech-concepts/system-design/messaging/at-least-once.png)
+![event-driven-architecture-example](/img/software-development/system-design/messaging/at-least-once.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 
@@ -75,7 +75,7 @@ With the push approach, the burden of responsibility for at-least-once message d
 
 Consider the case where you are trying to send a message that must be delivered to me, and there is a problem that is preventing the successful delivery of that message. Ok, one of the first things that you can do is implement a retry loop, where you retry the delivery of unacknowledged messages until you have confirmation that they have been delivered to the receiver.
 
-![at-least-once](/img/tech-concepts/system-design/messaging/atotm-at-least-once-06.png)
+![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-06.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 That should work, right? Well, you need to **ask yourself what can go wrong**?  When you are designing for reliability you must face facts; things will break. Software, servers, and networks will fail. And some of these failures will happen at the worst possible time. Like when one or more undelivered messages are currently stuck in a retry loop.
@@ -95,7 +95,7 @@ Say you are keeping a journal that records all of the people that you are tasked
 
 In a software implementation of this process, this would be implemented as two distinct database transactions, one transaction that adds a task to a journal and second transaction that adds the message to a persistent list or queue.
 
-![at-least-once](/img/tech-concepts/system-design/messaging/atotm-at-least-once-07.png)
+![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-07.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 Now you have this two-step process that records tasks in a journal and adds the corresponding message to a to be delivered list. Are there any vulnerabilities here? What will go wrong? For the vulnerablilities of this push approah, visit [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
@@ -108,7 +108,7 @@ With the pull approach, we still have a message sender or producer, and we also 
 
 For implementations of the pull approach, the message producer’s primary responsibility is to place all messages in a list or log. The consumer’s responsibility is to maintain a pointer or offset into the producer’s log that identifies the next message to be transmitted and processed. As the producer is consuming messages, in below image, the offset is incremented to the next message.
 
-![at-least-once](/img/tech-concepts/system-design/messaging/atotm-at-least-once-10.png)
+![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-10.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 ### Adding state(offset) to overcome vulnerability
@@ -119,7 +119,7 @@ In the case where the message consumer is performing persistent state changes wh
 
 When it is not possible to combine these two steps into a single atomic operation, then one possible solution is that the persistence of the offset follows the state change persistence step. This two-step process, as shown in below image, requires that the first step is **idempotent**. **That is when the same message is processed more than once the outcome of the first step is the same**.
 
-![at-least-once](/img/tech-concepts/system-design/messaging/atotm-at-least-once-11.png)
+![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-11.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 Here is an example of a process that must be **idempotent** but is challenging to implement. Consider that the messages sent to the consumer are bank account deposits or withdrawals. The state of the bank account is altered and persisted when these deposit and withdrawal messages are processed. Obviously, it is essential that each bank account cannot be corrupted with duplicate deposits or withdrawals.

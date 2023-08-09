@@ -31,7 +31,7 @@ In this three step process, there are three opportunities where a failure will b
 
 ## Failure
 
-![event-driven-architecture-example](/img/tech-concepts/system-design/messaging/atmost-once-failure.png)
+![event-driven-architecture-example](/img/software-development/system-design/messaging/atmost-once-failure.png)
 Source: [How Akka Works: 'At Most Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-most-once-message-delivery)
 
 From the perspective of the message sender, there are no clues as to where the failure occurred. As shown above, a failure may occur in any one of the three legs of the request to response journey. One of the biggest issue is that the sender does not know if the receiver performed the requested re-action. There is no indication that the failure happened before, during, or after the receiver reacted to the message. In situations where the receiver is performing an operation that must occur, like persisting a required state change, the sender has no idea if the state change happened or not.

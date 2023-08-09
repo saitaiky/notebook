@@ -28,7 +28,7 @@ In this article, we have been using an order processing example where you and I 
 
 In the two generals scenario let's pretend that you and I are the two generals. We are planning on conducting a coordinated attack on a single enemy. As it happens, your army is located in one valley, the enemy is in the next valley, and my army is located in a third valley over a ridge from the enemy.
 
-![The Two Generals Problem](/img/tech-concepts/system-design/messaging/exactly-once-image-9.png)
+![The Two Generals Problem](/img/software-development/system-design/messaging/exactly-once-image-9.png)
 Source: [singlestore - Getting to Exactly-Once Semantics with Apache Kafka
 and SingleStore Pipelines (Webcast On-Demand)](https://www.singlestore.com/blog/exactly-once-semantics-with-apache-kafka/)
 
@@ -63,7 +63,7 @@ In either case, I have no way of knowing what happened.
 
 ### Msg being altered
 
-![Msg being altered](/img/tech-concepts/system-design/messaging/exactly-once-image-10.png)
+![Msg being altered](/img/software-development/system-design/messaging/exactly-once-image-10.png)
 Source: [singlestore - Getting to Exactly-Once Semantics with Apache Kafka
 and SingleStore Pipelines (Webcast On-Demand)](https://www.singlestore.com/blog/exactly-once-semantics-with-apache-kafka/)
 
@@ -118,7 +118,7 @@ Our intuition drove us towards a push approach. You send me a text message when 
 
 On the [at-least-once](/tech-concepts/system-design/messaging/at-least-once) page, there are a lot of reliability problems with this push approach. The most basic problem is that sometimes messages are delivered, and sometimes messages are not delivered. Also, there is the uncertainty of not knowing what happened on the other side of the wire.
 
-![at-least-once](/img/tech-concepts/system-design/messaging/atotm-at-least-once-06.png)
+![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-06.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 But we can make the push approach work - with some terms and conditions. First, you must implement a message retry approach. You keep trying to send me each message until you receive a reply from me. The Ts&Cs here is that you need to harden the retry process to the point that failures and restarts on your end do not result in your losing any messages. To do this, you will need some form of resilience on your delivered messages list, as shown above. These are all solvable problems, but it does *add a level of complexity to your message sending processing*.
@@ -142,11 +142,11 @@ The essentially-once message approach is a matter of perspective. On the receivi
 
 First, let's set the playing field in our order and shipping example scenario. On your order processing end, you store the state of orders in a local persistence store. On my end, I've got another local to me persistence store for maintaining the state of the order shipping processes. In between, we have a message bus, such as [Kafka](https://kafka.apache.org/), [Pulsar](http://pulsar.apache.org/), [ActiveMQ](http://activemq.apache.org/), and many other pub-sub and queue brokers. To be clear, we each have our independent persistence stores, and we cannot perform any single transactions that spans our two persistence stores.
 
-![Example messaging setup](/img/tech-concepts/system-design/messaging/exactly-once-image-12.png)
+![Example messaging setup](/img/software-development/system-design/messaging/exactly-once-image-12.png)
 
 The message bus also provides transactional guarantees. Once a given message is successfully delivered to the message bus it guarantees that message is eventually delivered to the message receivers or consumers. One of the challenges in this message delivery flow is the non-transactional gaps between the event bus and the message senders and receivers, as shown in above image. The details for handling this were also covered in [at-most-once](/tech-concepts/system-design/messaging/at-most-once).
 
-![Transactionally store offset and state together](/img/tech-concepts/system-design/messaging/exactly-once-image-13.png)
+![Transactionally store offset and state together](/img/software-development/system-design/messaging/exactly-once-image-13.png)
 
 An essentially-once solution is to use the pull approach where the message producer logs all messages, and the message consumers each maintain an offset that points to the next message to be consumed, as shown in above image. The essentially-once “trick” is for the message consumer to persist that offset in the same transaction used to persist the state change. This transactional pull approach nicely handles failures. A message is pulled from the log at the current offset. Then the state change operations are performed. When a failure occurs after a message has been pulled, but before the transaction is committed, the message consumer will restart after the failure at the same non-updated offset.
 

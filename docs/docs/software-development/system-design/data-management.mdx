@@ -51,10 +51,10 @@ By choosing this pattern, you can **identify and reconstruct the application’s
 
 ### What are the events really?
 
-![enabling-diagram4](/img/tech-concepts/system-design/current-state.png.webp)
+![enabling-diagram4](/img/software-development/system-design/current-state.png.webp)
 Source: [Event Sourcing Example & Explained in plain English](https://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
 
-![enabling-diagram4](/img/tech-concepts/system-design/event-sourcing.webp)
+![enabling-diagram4](/img/software-development/system-design/event-sourcing.webp)
 Source: [Event Sourcing Example & Explained in plain English](https://codeopinion.com/event-sourcing-example-explained-in-plain-english/)
 
 ### Event Sourcing Architecture
@@ -64,7 +64,7 @@ Event Sourcing is an architectural design pattern that stores data in an append-
 By deploying an Event Store as a design pattern within a wider architecture, it allows for the inclusion of other design patterns in the system that are the most suitable for the needs of the domain. For example, an event-sourced system works well within a CQRS architecture, however it's not necessary to use them together. **Event Sourcing can be deployed alongside event driven architecture, or in conjunction with CQRS, an aggregate pattern, a command handler pattern, or one of many other patterns.**
 Each individual pattern is a useful tool on its own, that can work in concert with other related patterns to make stronger, more specific patterns for your specific use case.
 
-![enabling-diagram4](/img/tech-concepts/system-design/event-sourcing-architecture.svg)
+![enabling-diagram4](/img/software-development/system-design/event-sourcing-architecture.svg)
 Source: [Event Sourcing Architecture](https://www.eventstore.com/event-sourcing#Event-Sourcing-Architecture)
 
 An event store can be a key element of a system, and that system can be as simple or as complex as the business domain requires it to be. It's useful to consider putting an event-sourced system in a part of the architecture that requires the preservation of context for all events, as this is where Event Sourcing is most effective. 
@@ -78,14 +78,14 @@ This pattern can be implemented by using either **Amazon Kinesis Data Streams or
 
 In the following illustration, Kinesis Data Streams is the main component of a centralized event store. The event store captures application changes as events and persists them on Amazon Simple Storage Service (Amazon S3).
 
-![enabling-diagram4](/img/tech-concepts/system-design/enabling-diagram4.png)
+![enabling-diagram4](/img/software-development/system-design/enabling-diagram4.png)
 Source: [Event sourcing pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html)
 
 #### Amazon EventBridge implementation
 
 In the following illustration, EventBridge is used as an event store. EventBridge provides a [default event bus](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-event-bus.html) for events that are published by AWS services, and you can also create a [custom event bus](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-event-bus.html) for domain-specific buses.
 
-![enabling-diagram5](/img/tech-concepts/system-design/enabling-diagram5.png)
+![enabling-diagram5](/img/software-development/system-design/enabling-diagram5.png)
 Source: [Event sourcing pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html)
 
 
@@ -107,11 +107,11 @@ You can use the CQRS pattern to separate updates and queries if they have differ
 - The query side runs the `query` part by using the read replicas.
 
 **CQRS**
-![CQRS-in-general](/img/tech-concepts/system-design/CQRS-in-general.svg)
+![CQRS-in-general](/img/software-development/system-design/CQRS-in-general.svg)
 Source: [EventStore - A Beginner’s Guide to Event Sourcing](https://www.eventstore.com/event-sourcing#CQRS)
 
 **AWS implementation**
-![CQRS-AWS](/img/tech-concepts/system-design/CQRS-AWS.png)
+![CQRS-AWS](/img/software-development/system-design/CQRS-AWS.png)
 Source: [CQRS pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/cqrs-pattern.html)
 
 You should consider using this pattern if:
@@ -143,7 +143,7 @@ For example, let’s imagine that you are building an e-commerce store where cus
 ### How to implement it?
 Implement each business transaction that spans multiple services is a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.
 
-![From_2PC_To_Saga](/img/tech-concepts/system-design/From_2PC_To_Saga.png)
+![From_2PC_To_Saga](/img/software-development/system-design/From_2PC_To_Saga.png)
 Source: [Microservice Architecture by Kong](https://microservices.io/patterns/data/saga.html)
 
 There are two ways of coordination sagas:
@@ -156,10 +156,10 @@ Choreography is the simplest way to implement SAGA pattern. Each local transacti
 
 AWS EventBridge can help provide a choreography-based implementation of sagas
 
-![event-bridge](/img/tech-concepts/system-design/sega-choreography.png)
+![event-bridge](/img/software-development/system-design/sega-choreography.png)
 Source: [AWS-Building a serverless distributed application using a saga orchestration pattern](https://aws.amazon.com/blogs/compute/building-a-serverless-distributed-application-using-a-saga-orchestration-pattern/)
 
-![event-bridge](/img/tech-concepts/system-design/event-bridge.png)
+![event-bridge](/img/software-development/system-design/event-bridge.png)
 Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
 
 ### Orchestration strategy
@@ -170,15 +170,15 @@ Source: [Choreography vs Orchestration in the land of serverless](https://thebur
 
 AWS Step Functions can help provide an orchestration-style implementation of sagas
 
-![event-bridge](/img/tech-concepts/system-design/sega-orchestration.png)
+![event-bridge](/img/software-development/system-design/sega-orchestration.png)
 Source: [AWS-Building a serverless distributed application using a saga orchestration pattern](https://aws.amazon.com/blogs/compute/building-a-serverless-distributed-application-using-a-saga-orchestration-pattern/)
 
-![step-functions](/img/tech-concepts/system-design/step-functions.png)
+![step-functions](/img/software-development/system-design/step-functions.png)
 Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
 
 ### Why the hybrid approach is bad
 
-![sega-hybrid](/img/tech-concepts/system-design/sega-hybrid.png)
+![sega-hybrid](/img/software-development/system-design/sega-hybrid.png)
 Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
 
 I love using events to integrate different services together in a loosely-coupled way. But I think it’s a bad idea when it’s done inside the same bounded context because **the workflow doesn’t exist as a standalone concept** that is explicitly captured and source controlled.
@@ -189,7 +189,7 @@ If this is what you have today, you should consider moving these workflows to St
 
 But, between bounded contexts, I’ll publish and **subscribe to events through SNS/EventBridge/Kinesis**, etc. This is so that different parts of the larger system can stay loosely coupled and only build on each other’s events and can evolve and fail independently.
 
-![sega-pub-sub.png](/img/tech-concepts/system-design/sega-pub-sub.png)
+![sega-pub-sub.png](/img/software-development/system-design/sega-pub-sub.png)
 Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
 
 

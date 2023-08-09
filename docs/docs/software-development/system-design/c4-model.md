@@ -19,7 +19,7 @@ At this level, the internal details of each component are shown, including class
 
 Here is an example of a C4 model diagram:
 
-![C4 model](/img/tech-concepts/system-design/c4-overview.png)
+![C4 model](/img/software-development/system-design/c4-overview.png)
 Source: [C4 Model, Architecture Viewpoint and Archi 4.7](https://www.archimatetool.com/blog/2020/04/18/c4-model-architecture-viewpoint-and-archi-4-7/)
 
 

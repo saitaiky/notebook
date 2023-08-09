@@ -221,6 +221,10 @@ const config = {
                 label: 'Clipboard2MD',
               },
               {
+                to: 'https://products.aspose.app/words/conversion/image-to-html/',
+                label: 'Image to HTML',
+              },
+              {
                 to: 'https://tabletomarkdown.com/convert-website-table-to-markdown/',
                 label: 'Table to Markdown',
               },
