@@ -64,7 +64,7 @@ The best time value to set for the visibility timeout will be at least the timeo
 ### At-least-once delivery
 
 :::info Deep dive disucssion
-I have made a note about different type of messaging system before. If you would like to learn more about his topic, visit the [Messaging within distributed system](/tech-concepts/software-development/messaging/overview) page.
+I have made a note about different type of messaging system before. If you would like to learn more about his topic, visit the [Messaging within distributed system](/software-development/system-design/messaging/overview) page.
 
 If you want to check the official document, visit [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
 :::
