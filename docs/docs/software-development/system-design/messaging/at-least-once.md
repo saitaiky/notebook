@@ -23,7 +23,7 @@ Conceptually an exactly-once message approach is much more desirable. But, as th
 
 For now, consider that implementing an exactly-once messaging solution is on the same level as *creating a vehicle that can travel faster than the speed of light*. There are ways to get close, that is to deliver messages essentially-once but it is impossible to implement an exactly-once process that works. 
 
-In the [exactly-once](/tech-concepts/system-design/messaging/exact-once) page, we will look at this in more detail.
+In the [exactly-once](/tech-concepts/software-development/messaging/exact-once) page, we will look at this in more detail.
 :::
 
 ## Scenario
@@ -126,7 +126,7 @@ Here is an example of a process that must be **idempotent** but is challenging t
 
 ### How to be idempotent to eliminate duplicate messages
 
-So how do we eliminate duplicate messages that cause cumulative state changes? The answer is that some evidence that a given message has been processed must be recorded as part of the cumulative state change’s transaction. This evidence could be persisting the current message offset in the same transaction. Another approach is to store all or part of the message itself so that incoming duplicate messages may be eliminated. One more strategy is first to log each incoming message, which then triggers the cumulative state change operations as a follow-on step. This final approach is known as event logging. We will look at this in detail in the [exactly-once](/tech-concepts/system-design/messaging/exact-once) page.
+So how do we eliminate duplicate messages that cause cumulative state changes? The answer is that some evidence that a given message has been processed must be recorded as part of the cumulative state change’s transaction. This evidence could be persisting the current message offset in the same transaction. Another approach is to store all or part of the message itself so that incoming duplicate messages may be eliminated. One more strategy is first to log each incoming message, which then triggers the cumulative state change operations as a follow-on step. This final approach is known as event logging. We will look at this in detail in the [exactly-once](/tech-concepts/software-development/messaging/exact-once) page.
 
 
 ## Push versus Pull at-least-once Message Delivery
@@ -138,4 +138,4 @@ There are some common features and considerations for both message delivery appr
 - For both push and pull implementations the message producer is **responsible for maintaining a list or queue or log of messages**. When pushing messages, this list is used to retransmit messages that have so far failed to be delivered. When pulling messages, this list is used by the message consumer to retrieve and process pending messages.
 - Another common feature for both the push and pull approach is that *the consumer may have to implement some form of idempotency*. **Idempotency** is essential when the same message is delivered more than once to a message handler that performs state changes, such as a bank account message example previously discussed.
 
-You can now go to the [exactly-once](/tech-concepts/system-design/messaging/exact-once) page. While theoretically, an exactly-once approach for message delivery is appealing once we look into the challenges and limitations I think you will see that the at-least-once approach is a more practical way to go.
+You can now go to the [exactly-once](/tech-concepts/software-development/messaging/exact-once) page. While theoretically, an exactly-once approach for message delivery is appealing once we look into the challenges and limitations I think you will see that the at-least-once approach is a more practical way to go.
