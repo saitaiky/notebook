@@ -36,11 +36,12 @@ EFS Access Points and EFS Mount Targets in AWS are both used to facilitate acces
 
 The EFS mount helper is a tool or utility that simplifies the process of mounting an Amazon EFS (Elastic File System) file system onto an Amazon EC2 instance. The mount helper is pre-installed on **Amazon Linux-based EC2 instances**, and it's also available for **other Linux distributions**.
 
-Using the EFS mount helper, you have the following options for mounting your Amazon EFS file system: - Mounting on supported EC2 instances 
-- Mounting with **IAM authorization **
+Using the EFS mount helper, you have the following options for mounting your Amazon EFS file system:
+- You can mount with **IAM authorization**
+- **Auto-mounting when an EC2 instance reboots** 
+- Mounting on supported EC2 instances 
 - Mounting with Amazon EFS access points 
 - Mounting with an on-premise Linux client 
-- Auto-mounting when an EC2 instance reboots 
 - Mounting a file system **when a new EC2 instance launches**
 
 ## Some metrics

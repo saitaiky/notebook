@@ -36,7 +36,7 @@ Source: [CloudFormation – 3 – User data, cfn](http://miro.borodziuk.eu/index
 
 - `cfn-init` is a helper script that is executed on an EC2 instance as part of the instance's user data during stack creation or update.
 - It is used to handle the instance configuration and perform tasks such as installing packages, setting up configurations, and running custom scripts.
-- `cfn-init` processes the metadata defined in the CloudFormation template under the "AWS::CloudFormation::Init" key and performs the specified tasks accordingly. The metadata can include packages to install, files to create, services to enable, and commands to execute during instance initialization.
+- `cfn-init` processes the metadata defined in the CloudFormation template under the "`AWS::CloudFormation::Init`" key and performs the specified tasks accordingly. The metadata can include packages to install, files to create, services to enable, and commands to execute during instance initialization.
 
 ### cfn-signal
 
@@ -276,9 +276,9 @@ For a list of AWS resources that support import operations, see [Resources that
 
 ### S3
 
-The template above creates a bucket as a website. The AccessControl property is set to the canned ACL PublicRead (public read permissions are required for buckets set up for website hosting). 
-
-Because this bucket resource has a DeletionPolicy attribute set to Retain, AWS CloudFormation will not delete this bucket when it deletes the stack. The Output section uses `Fn::GetAtt` to retrieve the WebsiteURL attribute and DomainName attribute of the S3Bucket resource.
+- The template above creates a bucket as a website. The AccessControl property is set to the canned ACL PublicRead (public read permissions are required for buckets set up for website hosting). 
+- Because this bucket resource has a DeletionPolicy attribute set to Retain, AWS CloudFormation will not delete this bucket when it deletes the stack. 
+- When run from AWS CLI, URL of the website hosted on S3 will be displayed as output. The Output section uses `Fn::GetAtt` to retrieve the WebsiteURL attribute and DomainName attribute of the S3Bucket resource.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09

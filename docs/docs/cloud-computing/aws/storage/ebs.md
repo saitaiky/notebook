@@ -61,7 +61,7 @@ You can configure your AWS account to enforce the encryption of *the **new** EBS
 ### EBS volumes are AZ locked
 When you create an EBS volume, it is automatically replicated within its Availability Zone to prevent data loss due to the failure of any single hardware component. *You can attach an EBS volume to an EC2 instance in the **same Availability Zone** *.
 
-### How to recover
+### How to recover `error` state
 
 You can't recover a volume in an `error` state, you can restore the lost data from your backup. It’s a best practice to keep backups of your EC2 resources, including EBS volumes. You can use **Amazon Data Lifecycle Manager, AWS Backup, or regular EBS snapshots** for maintaining regular backups of your critical volumes to avoid data loss.
 
@@ -132,10 +132,12 @@ If you want to disable this flag while the instance is still running, you can se
 By default, when you attach a non-root EBS volume to an instance, its `DeleteOnTermination` attribute is set to false. Therefore, the default is to preserve these volumes. After the instance terminates, you can take a snapshot of the preserved volume or attach it to another instance. You must delete a volume to avoid incurring further charges.
 :::
 
-:::cautionAmazon EBS volumes deleted with the `TerminateInstances` API call continue to show for some time on AWS Config console
-Amazon EC2 deletes the Amazon EBS volume that has the `DeleteOnTermination` attribute set to true, but it does not publish the `DeleteVolume` API call. 
+:::cautionAmazon EBS volumes deleted with the EC2 `TerminateInstances` API call will continue to show for some time on AWS Config console
+**Context** - You can delete Amazon EBS volumes by:
+- Stopping the Amazon EC2 instance, detaching the Amazon EBS volume, and then running the [DeleteVolume](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteVolume.html) API call to remove the EBS volume from the  the list of resources in AWS Config.
+- Setting the [DeleteOnTermination](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#preserving-volumes-on-termination) attribute to true, and then running the [TerminateInstances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_TerminateInstances.html) API call.
 
-This is because AWS Config uses the `DeleteVolume` API call as a trigger with the rule, and the resource changes aren't recorded for the EBS volume. The EBS volume still shows as compliant or noncompliant in  AWS Config console until the baseline check every 6 hours. 
+If you use the second approach, it does not publish the `DeleteVolume` API call.  This is because AWS Config uses the `DeleteVolume` API call as a trigger with the rule, and the resource changes aren't recorded for the EBS volume. The EBS volume still shows as compliant or noncompliant in  AWS Config console until the baseline check every 6 hours. 
 :::
 
 ### Update DeleteOnTermination
@@ -160,6 +162,6 @@ With Amazon EBS, you can use any of the standard RAID configurations that you ca
 
 There is a significant increase in latency when you first access each block of data on a new EBS volume that was created from a snapshot. You can avoid this performance lag by using one of the following options:
 
-- Access each block before putting the volume into production. This process is called initialization (formerly known as pre-warming).
-- Enable fast snapshot to restore on a snapshot to ensure that the EBS volumes created from it are fully-initialized at creation and instantly deliver all of their provisioned performance.
+- Access each block before putting the volume into production. This process is called initialization (formerly known as **pre-warming**).
+- **Enable fast snapshot** to restore on a snapshot to ensure that the EBS volumes created from it are fully-initialized at creation and instantly deliver all of their provisioned performance.
 

@@ -22,7 +22,7 @@ Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-re
 
 ## Feature
 
-### RDS Proxy for overwhelmed connections
+### RDS Proxy as a connection pool for overwhelmed connections
 
 Amazon RDS Proxy enhances database efficiency and scalability for applications, including modern serverless ones, **by pooling and sharing connections to the database**. This helps prevent memory and compute exhaustion caused by **frequent opening and closing of connections**. 
 

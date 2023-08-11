@@ -10,7 +10,7 @@ High Performance Computing (HPC) clusters are created to provide extreme computa
 
 While processors and memory have improved in cost/performance exponentially over the last 20 years, disk drives still essentially spin at the same speeds, and drive access times are still measured in numbers of milliseconds. As such, poor I/O performance can severely degrade the overall performance of even the fastest clusters. This is especially true of today's multi-petabyte clusters.
 
-The Lustre file system is a parallel file system used in a wide range of HPC environments, small to large, such as AI/ML, oil and gas, seismic processing, the movie industry, and scientific research to address a common problem they all have and that is the ever increasing large amounts of data being created and needing to be processed in a timely manner. In fact it is the most widely used file system by the world's Top 500 HPC sites.
+**The Lustre file system** is a parallel file system used in a wide range of HPC environments, small to large, such as AI/ML, oil and gas, seismic processing, the movie industry, and scientific research to address a common problem they all have and that is the ever increasing large amounts of data being created and needing to be processed in a timely manner. In fact it is the most widely used file system by the world's Top 500 HPC sites.
 
 With Lustre in use it's common to see end-to-end data throughput over 100GigE networks in excess of 10 GB/sec and InfiniBand EDR links reach bandwidths up to 10 GB/sec. Lustre can scale to tens of thousands of clients. At Oak Ridge National Laboratory their production file system, Spider, runs Lustre with over 25,000 clients, over 20PB of storage, and achieves a peak aggregate IO throughput of 2TB/sec.
 

@@ -12,7 +12,7 @@ Amazon Aurora is a fully managed relational database engine developed by AWS. It
 
 To connect to an Amazon Aurora DB cluster **directly from outside the VPC**, the instances in the cluster must meet the following requirements:
 - The Aurora DB instance must have a public IP address
-- The Aurora DB instance must be running in a publicly accessible subnet and create the Aurora DB instance from this subnet group
+- Configure a public subnets for the Aurora DB subnet group
 - Enable the VPC attributes `DNS hostnames` and `DNS resolution`
 
 ![ip&public-access.png](/img/aws/database/aurora/ip&public-access.png)

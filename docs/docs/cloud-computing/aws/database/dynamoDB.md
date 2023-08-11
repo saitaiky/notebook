@@ -136,6 +136,6 @@ Source: [Parallel scan](https://docs.aws.amazon.com/amazondynamodb/latest/develo
 
 ### Export table to S3 bucket from other account
 
-When you export your tables to an S3 bucket in Account B, the objects are still owned by you. The AWS IAM users in Account B can't access the objects by default. The export function doesn't write data with the access control list (ACL) bucket-owner-full-control. 
+When you export your DynamoDB tables to an S3 bucket in Account B, the objects are still owned by you. The AWS IAM users in Account B can't access the objects by default. The export function doesn't write data with the access control list (ACL) bucket-owner-full-control. 
 
 As a workaround to this object ownership issue, **include the `PutObjectAcl` permission on all exported objects after the export is complete**. This workaround grants access to all exported objects for the bucket

@@ -361,6 +361,10 @@ There are 2 use cases that you may consider to use VPN CloudHub:
 
 ## Elastic IP
 
+:::cautionAuto detach public IP when attach an Elastic IP
+AWS releases your instance's public IP address when you associate an Elastic IP address with it. When you disassociate the Elastic IP address from your instance, it receives a new public IP address.
+:::
+
 > EIPs are used when
 - You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns/)
 - You want to mask the failure of an instance or software by rapidly remapping the address to another instance in your account.

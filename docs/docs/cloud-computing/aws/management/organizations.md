@@ -57,17 +57,13 @@ To configure many AWS services, you must pass an IAM role to the service. This a
 
 To pass a role (and its permissions) to an AWS service, a user must have permission to pass the role to the service. This helps administrators ensure that only approved users can configure a service with a role that grants permissions. To allow a user to pass a role to an AWS service, you must grant the PassRole permission to the user's IAM user, role, or group.
 
+The given policy applies to roles only starting with `RDS-`, so the overall policy allows you to assign IAM Roles to EC2 if they start with "RDS-".
+
 ```json
 {
     "Version": "2012-10-17",
     "Id": "Secret Policy",
     "Statement": [
-        {
-            "Sid": "EC2",
-            "Effect": "Allow",
-            "Action": "ec2:*",
-            "Resource": "*"
-        },
         {
             "Sid": "Passrole",
             "Effect": "Allow",
@@ -77,5 +73,23 @@ To pass a role (and its permissions) to an AWS service, a user must have permiss
             "Resource": "arn:aws:iam:::role/RDS-*"
         }
     ]
+}
+```
+
+### A policy to assign a specific role
+
+An IAM *permissions policy* attached to the IAM user that allows the user to pass only those approved roles. You usually add `iam:GetRole` to `iam:PassRole` so the user can get the details of the role to be passed. In this example, the user can pass only roles that exist in the specified account with names beginning with `EC2-roles-for-XYZ-`:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": [
+            "iam:GetRole",
+            "iam:PassRole"
+        ],
+        "Resource": "arn:aws:iam::account-id:role/EC2-roles-for-XYZ-*"
+    }]
 }
 ```

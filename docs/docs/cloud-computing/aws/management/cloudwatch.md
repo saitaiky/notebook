@@ -73,8 +73,8 @@ Depending on the type of status change, you might want to send notifications, ca
 
 ## Metrics for Aurora
 
-- `AuroraReplicaLagMaximum` - This metric captures the maximum amount of lag between the **primary instance and each Aurora DB instance** in the DB cluster.
-- `AuroraBinlogReplicaLag` - This metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition lags behind the source DB cluster.  (replica 慢過Aurora source DB 幾多)
+- `AuroraReplicaLagMaximum` - This metric captures the maximum amount of lag of **all types of Aurora Replicas**, regardless of the replication mechanism (e.g., standard Aurora replication or Aurora Binlog replication).
+- `AuroraBinlogReplicaLag` - This metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition **lags behind the source DB cluster**.  (replica 慢過Aurora source DB 幾多) This metric is useful for monitoring replica lag between Aurora DB clusters that are replicating across different AWS Regions.
 
 ## Metrics for EC2
 

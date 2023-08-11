@@ -28,6 +28,9 @@ via - [Link](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/
 - CloudFront fails over to the secondary origin only when the HTTP method of the viewer request is `GET`, `HEAD` or `OPTIONS`. CloudFront does not failover when the viewer sends a different HTTP method (for example POST, PUT, and so on).
 - CloudFront routes all incoming requests to the primary origin, even when a previous request failed over to the secondary origin. CloudFront only sends requests to the secondary origin after a request to the primary origin fails.
 
+### 404 is always from origin
+
+CloudFront always caches a few of the HTTP 4xx and 5xx status codes returned by your origin. CloudFront doesn't generate 404 responses. If a requested object isn't found in a CloudFront cache, the request is sent to the origin and the origin generates the 404 response if the object is not found on the origin server as well.
 
 ## Features
 

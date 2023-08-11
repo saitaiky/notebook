@@ -110,10 +110,10 @@ The image above illustrate - if we trust the latest digest file that we have, we
 
 ### Notes
 
-- CloudTrail can deliver log files from multiple regions to a single Amazon S3 bucket. As long as CloudTrail has permissions to write to an S3 bucket, **the bucket for a multi-Region trail does not have to be in the trail's home Region**.
+- CloudTrail can deliver log files **from multiple regions to a single Amazon S3 bucket**. As long as CloudTrail has permissions to write to an S3 bucket, **the bucket for a multi-Region trail does not have to be in the trail's home Region**.
     - You can configure CloudTrail to deliver log files from multiple Regions to a single S3 bucket for a single account. For example, you have a trail in the US West (Oregon) Region that is configured to deliver log files to a S3 bucket, and a CloudWatch Logs log group. When you change an existing single-Region trail to log all Regions, CloudTrail logs events from all Regions that are in a single AWS partition in your account. CloudTrail delivers log files to the same S3 bucket and CloudWatch Logs log group.  ref: [Receiving CloudTrail log files from multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html)
-- Digest files are encrypted with Amazon S3-managed encryption keys (SSE-S3).
-- Log files encryption is encrypted by **SSE-S3** by default but you can change it to use **SSE-KMS**.
+- **Digest files** can only be encrypted with Amazon S3-managed encryption keys (SSE-S3).
+- **Log files** is encrypted by **SSE-S3** by default but you can change it to use **SSE-KMS**.
 
 
 ## AWS Config
@@ -142,4 +142,4 @@ If you choose **both configuration changes and periodic to the same rule**, AWS 
 
 - AWS Config includes auto-remediation for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
 - You can use an EventBridge rule with a custom event pattern and an input transformer to match an AWS Config evaluation rule output as NON_COMPLIANT. Then, route the response to an Amazon Simple Notification Service (Amazon SNS) topic.
-- AWS Config sends notifications only when the compliance status changes.  If a resource was previously non-compliant and is still non-compliant, Config will not send a new notification.
+- AWS Config sends notifications **only when the compliance status changes**.  If a resource was previously non-compliant and is still non-compliant, Config will not send a new notification.
