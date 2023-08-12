@@ -8,6 +8,20 @@ sidebar_position: 5
 
 > A really good reference from AWS: [Caching Overview](https://aws.amazon.com/caching/)
 
+## Memcached
+
+> Reference: [Scaling ElastiCache for Memcached clusters](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Scaling.html#Scaling.Memcached.Vertically)
+
+### Scaling Memcached Horizontally
+The Memcached engine supports partitioning your data across multiple nodes. Because of this, Memcached clusters scale horizontally easily. A Memcached cluster can have from 1 to 40 nodes. To horizontally scale your Memcached cluster, merely add or remove nodes.
+
+### Scaling Memcached vertically
+
+![memcache](/img/aws/database/elastic-cache/memcache.png)
+
+When you scale your Memcached cluster up or down, you must create a new cluster. Memcached clusters always start out empty unless your application populates it.
+
+
 ## Redis
 
 :::cautionExam alert

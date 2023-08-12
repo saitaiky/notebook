@@ -59,8 +59,3 @@ Amazon Athena is similar to Redshift Spectrum, though the two services typically
 Alternatively, Athena is a simpler way to run interactive, ad hoc queries on data stored in S3. It doesn't require any cluster management, and an analyst only needs to define a table to make a standard SQL query.
 
 Other cloud vendors also offer similar services, such as [Google BigQuery](https://www.techtarget.com/searchdatamanagement/definition/Google-BigQuery) and Microsoft Azure SQL Data Warehouse.
-
-## Amazon FSx for Lustre
-Amazon FSx for Lustre makes it easy and cost-effective to launch and run the world’s most popular high-performance file system. It is used for workloads such as machine learning, high-performance computing (HPC), video processing, and financial modeling. The open-source Lustre file system is designed for applications that require fast storage – where you want your storage to keep up with your compute. **FSx for Lustre integrates with Amazon S3, making it easy to process data sets with the Lustre file system. When linked to an S3 bucket, an FSx for Lustre file system transparently presents S3 objects as files and allows you to write changed data back to S3.**
-
-FSx for Lustre provides the ability to both process the 'hot data' in a parallel and distributed fashion as well as easily store the 'cold data' on Amazon S3. Therefore this option is the BEST fit for the given problem statement.

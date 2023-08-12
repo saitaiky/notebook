@@ -72,3 +72,14 @@ Security Groups are not just bound to EC2 instances, in fact any resource with a
 -   And many more
 
 By having a single implementation of security group -> ENI, I would imagine it makes it easier for AWS to implement networking security for new VPC based resources over time.
+
+
+## Amazon Certificate Manager(ACM)
+AWS ACM (Amazon Certificate Manager) is a service that provides free, automated SSL/TLS certificates for secure encryption and authentication of data in transit for AWS resources and applications.
+
+Exam notes: 
+- The ACM certificate must be requested or imported **in the same AWS Region as your load balancer or CloudFront distribution.**
+- ACM-issued certificates can’t be installed on an EC2 instance. These certificates are intended to be used with AWS services like **Elastic Load Balancing, CloudFront, and API Gateway**.To enable end-to-end encryption between load balancer and an EC2 instance, you must use a third-party SSL certificate
+
+## AWS Private CA
+AWS Private CA—This service is for enterprise customers building a public key infrastructure (PKI) inside the AWS cloud and intended for private use within an organization. With AWS Private CA, you can create your own CA hierarchy and issue certificates with it for authenticating internal users, computers, applications, services, servers, and other devices, and for signing computer code. Certificates issued by a private CA are trusted only within your organization, not on the internet.

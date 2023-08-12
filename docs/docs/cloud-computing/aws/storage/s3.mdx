@@ -109,6 +109,15 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 
 ## Features
 
+### S3 encryption
+
+- AWS KMS, you can..
+  - define access controls and audit the customer-managed CMK
+  - manage the lifecycle of the key material
+  - create, rotate, and disable customer-managed CMK
+- SSE-S3, you can..
+  - Audit trail and lifecycle management is not possible
+
 ### S3 Access Points
 
 > TL;DR - A indepentent DNS access folder which you can use access poing policy to control permission, so that you don't need to create a complicated S3 bucket policy for multiple group of users.

@@ -68,14 +68,6 @@ With **Network Load Balancer**, you can *offload the decryption/encryption of TL
 - The Classic Load Balancer supports **SSL** offloading.
 :::
 
-:::infoWhat is ACM?
-AWS ACM (Amazon Certificate Manager) is a service that provides free, automated SSL/TLS certificates for secure encryption and authentication of data in transit for AWS resources and applications.
-
-Important: 
-- The ACM certificate must be requested or imported **in the same AWS Region as your load balancer or CloudFront distribution.**
-- ACM-issued certificates can’t be installed on an EC2 instance. These certificates are intended to be used with AWS services like **Elastic Load Balancing, CloudFront, and API Gateway**.To enable end-to-end encryption between load balancer and an EC2 instance, you must use a third-party SSL certificate
-:::
-
 > Further reading: [How can I associate an ACM SSL/TLS certificate with a Classic, Application, or Network Load Balancer?](https://aws.amazon.com/premiumsupport/knowledge-center/associate-acm-certificate-alb-nlb/)
 
 
@@ -146,7 +138,11 @@ The example condition given in the question is satisfied by requests with a quer
 
 ### ELB access logs 
 
-ELB access logs is an optional feature of Elastic Load Balancing that is disabled by default. The access logs capture detailed information about requests sent to your load balancer. Each log contains information such as the time the request was received, the client's IP address, latencies, request paths, and server responses. 
+ELB access logs is an optional feature of Elastic Load Balancing that is disabled by default. The access logs capture detailed information about requests sent to your load balancer. Each log contains information such as 
+- the time the request was received
+- the client's IP address, latencies
+- request paths
+- server responses
 
 You can use these access logs to analyze traffic patterns and troubleshoot issues. Each access log file is automatically encrypted using SSE-S3 before it is stored in your S3 bucket and decrypted when you access it. You do not need to take any action; the encryption and decryption is performed transparently.
 
@@ -323,7 +319,9 @@ An Layer 7 load balancer works at the application layer---the highest layer in t
 
 ### Layer 4 Load Balancing
 
-Layer 4 load balancing, operating at the **transport level**, manages traffic based on network information such as application ports and protocols without visibility into the actual content of messages. This is an effective approach for simple [packet-level](https://en.wikipedia.org/wiki/Network_packet) load balancing. The fact that messages are neither inspected nor decrypted allows them to be forwarded quickly, efficiently, and securely. On the other hand, because layer 4 load balancing is unable to make decisions based on content, it's not possible to route traffic based on media type, localization rules, or other criteria beyond simple algorithms such as round-robin routing.
+Layer 4 load balancing, operating at the **transport level**, manages traffic based on network information such as application ports and protocols without visibility into the actual content of messages. This is an effective approach for simple [packet-level](https://en.wikipedia.org/wiki/Network_packet) load balancing. The fact that messages are neither inspected nor decrypted allows them to be forwarded quickly, efficiently, and securely. 
+
+On the other hand, because layer 4 load balancing is unable to make decisions based on content, it's not possible to route traffic based on media type, localization rules, or other criteria beyond simple algorithms such as round-robin routing.
 
 ### Layer 7 Load Balancing
 

@@ -280,6 +280,13 @@ For a list of AWS resources that support import operations, see [Resources that
 - Because this bucket resource has a DeletionPolicy attribute set to Retain, AWS CloudFormation will not delete this bucket when it deletes the stack. 
 - When run from AWS CLI, URL of the website hosted on S3 will be displayed as output. The Output section uses `Fn::GetAtt` to retrieve the WebsiteURL attribute and DomainName attribute of the S3Bucket resource.
 
+:::infoOutputs section
+- The optional `Outputs` section declares output values that you can
+  - [import into other stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html)(to [create cross-stack references](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)) by using Export
+  - return in response in CLI (to describe stack calls)
+  - [view on the AWS CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-view-stack-data-resources.html)
+:::
+
 ```
 AWSTemplateFormatVersion: 2010-09-09
 Resources:

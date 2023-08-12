@@ -40,7 +40,7 @@ Using the EFS mount helper, you have the following options for mounting your Ama
 - You can mount with **IAM authorization**
 - **Auto-mounting when an EC2 instance reboots** 
 - Mounting on supported EC2 instances 
-- Mounting with Amazon EFS access points 
+- Mounting with Amazon **EFS access points** 
 - Mounting with an on-premise Linux client 
 - Mounting a file system **when a new EC2 instance launches**
 
