@@ -33,7 +33,7 @@ Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high
 
 Use ENA when the ENI's **package per second** is not sufficient. For example:
 - If your packets-per-second rate reaches its ceiling, consider moving to enhanced networking. If your rate reaches its ceiling, you've likely reached the upper thresholds of the virtual network interface driver.
-- If your throughput is near or exceeding 20K packets per second (PPS) on the VIF driver, it's a best practice to use enhanced networking.
+- If your throughput is near or exceeding 20K packets per second (PPS) on the **VIF driver**, it's a best practice to use enhanced networking.
 
 :::infoWhat is SR-IOV?
 SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to **traditional virtualized network interfaces**. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking.

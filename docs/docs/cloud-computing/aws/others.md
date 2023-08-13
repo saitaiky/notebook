@@ -61,3 +61,4 @@ This imported portfolio isn't an independent copy. The products and constraints 
   - AWS GuardDuty is a threat detection service that monitors malicious activity and unauthorized behavior to protect your AWS account.
 - Compliance
   - AWS Artifact is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)
+- **Amazon Inspector** is an automated security assessment service that helps you test the network accessibility of your Amazon EC2 instances and the security state of your applications running on the instances. 

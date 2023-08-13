@@ -50,6 +50,8 @@ Enhanced Monitoring for RDS provides the following **OS level metrics** which ar
 
 Source: [Working with read replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
 
+Important points:
+
 - Any updates made to the primary DB instance are **asynchronously** copied to the read replica. So both these options are incorrect.
 - Writing to tables on a read replica can break the replication
 - If the value for the `max_allowed_packet` parameter for a read replica is less than the `max_allowed_packet` parameter for the source DB instance, replica errors occur. 

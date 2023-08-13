@@ -42,7 +42,7 @@ In the event of an outage that impacts an entire Availability Zone (AZ) and rend
 - Automatic
   - If the cluster includes reader instances in other AZs, Aurora's failover mechanism is utilized, promoting one of the reader instances to become the new primary instance. 
 - Manual
-  - However, if the cluster only contains a single DB instance or all reader instances are in the affected AZ, manual creation of new DB instances in another AZ is necessary to restore the database's availability.
+  - However, if the cluster only contains **a single DB instance or all reader instances are in the affected AZ**, manual creation of new DB instances in another AZ is necessary to restore the database's availability.
 
 ## Features
 

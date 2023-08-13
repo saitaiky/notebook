@@ -188,7 +188,9 @@ This includes nested stacks whose root stacks have termination protection enable
 
 AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with AWS Organizations, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
 
-StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. Enable data sharing, use the StackSets console, and leverage the service-managed permission model for seamless deployment across your organization.
+- StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. 
+- You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. 
+- Enable data sharing, use the StackSets console, and leverage the service-managed permission model for seamless deployment across your organization.
 
 How to use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization:
 ![Deployment options](/img/aws/development/cf/stackset.png)
@@ -260,9 +262,13 @@ Shared resources among stacks can have unintended consequences from which you ca
 
 ![stack-actions-import](/img/aws/development/cf/stack-actions-import.png)
 
-If you created an AWS resource outside of AWS CloudFormation management, you can bring this existing resource into AWS CloudFormation management using `resource import`. You can manage your resources using AWS CloudFormation regardless of where they were created without having to delete and re-create them as part of a stack.
+If you created an AWS resource outside of AWS CloudFormation management, you can bring this existing resource *which managed manually* into AWS CloudFormation management using `resource import`. You can manage your resources using AWS CloudFormation regardless of where they were created without having to delete and re-create them as part of a stack.
 
 For a list of AWS resources that support import operations, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html).
+
+:::infoDrift detection
+Performing a drift detection operation on a stack determines whether the stack has drifted from its expected template configuration, and returns detailed information about the drift status of each resource in the stack that supports drift detection. It is not useful for importing resources into CloudFormation.
+:::
 
 ## Template study
 

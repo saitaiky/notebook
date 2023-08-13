@@ -108,7 +108,7 @@ Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load B
 - ALBRequestCountPerTarget
 - ASGAverageCPUUtilization
 
-### Instance scale-in protection.
+### Instance scale-in protection
 
 ![ec2_console_menu_set_scale_in_protection_1](/img/aws/compute/asg/ec2_console_menu_set_scale_in_protection_1.png)
 
@@ -116,7 +116,7 @@ To control whether an Auto Scaling group can terminate a particular instance whe
 
 Imagine there is a server infrastructure on a fleet of Amazon EC2 instances running behind an Auto Scaling Group (ASG). The SysOps Administrator has configured the instances to be protected from termination during scale-in. When a scale-in event has occurred. What is the outcome of the event?
 
-If all instances in an Auto Scaling group are protected from termination during scale in, and a scale-in event occurs, its desired capacity is decremented. However, the Auto Scaling group can't terminate the required number of instances until their instance scale-in protection settings are disabled.
+If all instances in an Auto Scaling group are protected from termination during scale in, and a scale-in event occurs, **its desired capacity is decremented**. However, **the ASG can't terminate the required number of instances** until their instance scale-in protection settings are disabled.
 
 Instance scale-in protection does not protect Auto Scaling instances from the following:
 
@@ -127,6 +127,16 @@ Instance scale-in protection does not protect Auto Scaling instances from the fo
 
 
 ## Troubleshooting
+
+### Client.InternalError: Client error on launch
+
+`Client.InternalError: Client error on launch` error is caused when an Auto Scaling group attempts to launch an instance that has an encrypted EBS volume, but the service-linked role does not have access to the customer-managed CMK used to encrypt it. Additional setup is required to allow the Auto Scaling group to launch instances.
+
+There are two scenarios possible: 
+- CMK and Auto Scaling group are in the same AWS account, 
+- CMK and Auto Scaling group are in different AWS accounts.
+
+To check the detailed actions, check [Troubleshoot Amazon EC2 Auto Scaling: EC2 instance launch failure](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html#ts-as-instancelaunchfailure-12)
 
 ### 2 policy being trickered at the same time
 

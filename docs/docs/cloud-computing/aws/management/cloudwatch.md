@@ -14,13 +14,11 @@ sidebar_position: 1
 ## Features
 ### CloudWatch Synthetics
 
-You can use Amazon CloudWatch Synthetics to create canaries, configurable scripts that run on a schedule, to monitor your endpoints and APIs. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.
+You can use Amazon CloudWatch Synthetics to create *canaries* which is a **configurable script**s that run on a schedule, to monitor your endpoints and APIs. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.
 
-Canaries are Node.js scripts. They create Lambda functions in your account that use Node.js as a framework. Canaries work over both HTTP and HTTPS protocols.
-
-UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see Puppeteer.
-
-Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI. They monitor your REST APIs, URLs, and website content, and they can check for unauthorized changes from phishing, code injection and cross-site scripting.
+- Canaries are Node.js scripts. They create Lambda functions in your account that use Node.js as a framework. Canaries work over both HTTP and HTTPS protocols.
+- UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see Puppeteer.
+- Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI. They monitor your REST APIs, URLs, and website content, and they can check for unauthorized changes from phishing, code injection and cross-site scripting.
 
 ### CloudWatch action
 
@@ -55,7 +53,7 @@ The recover alarm action, which is suited for **System Health Check failures** -
 
 You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
 
-### Monitor Trusted Advisor
+### Trusted Advisor
 
 ![ta-dashboard](/img/aws/management/cw/ta-dashboard.png)
 
@@ -135,7 +133,7 @@ Some key features and use cases of the CloudWatch Agent procstat plugin include:
 "AWS Unified CloudWatch Agent" and "AWS CloudWatch Agent" are the same thing. AWS Unified CloudWatch Agent is the latest version of the agent used to collect and send logs and metrics to Amazon CloudWatch.
 :::
 
-- You must attach the `CloudWatchAgentServerRole` IAM role to the EC2 instance to be able to run the CloudWatch agent on the instance. This role enables the CloudWatch agent to perform actions on the instance.
+- You **must attach** the `CloudWatchAgentServerRole` IAM role to the EC2 instance to be able to run the CloudWatch agent on the instance. This role enables the CloudWatch agent to perform actions on the instance.
 - If your AMI contains a CloudWatch agent, it’s automatically installed on EC2 instances when you create an EC2 Auto Scaling group. With the stock Amazon Linux AMI, you need to install it (AWS recommends to install via yum).
 
 ### The appended option in configuration file 
@@ -145,13 +143,12 @@ To set this up, first create the configuration files that you want to use. Any c
 
 Start the CloudWatch agent using the `fetch-config` option and specify the first configuration file. To append the second configuration file to the running agent, use the same command but with the `append-config` option. All metrics and logs listed in either configuration file are collected.
 
-Any configuration files appended to the configuration must have different file names from each other and from the initial configuration file. If you use `append-config` with a configuration file **with the same file name** as a configuration file that the agent is already using, the append command overwrites the information from the first configuration file instead of appending to it. This is true even if the two configuration files with the same file name are on different file paths.
-:::
+Any configuration files appended to the configuration must have different file names from each other and from the initial configuration file. If you use `append-config` with a configuration file **with the same file name** as a configuration file that the agent is already using, **the append command overwrites the information from the first configuration file instead of appending to it**. This is true even if the two configuration files with the same file name are on different file paths.
+
 
 A CloudWatch Agent is a software component provided by AWS that allows you to collect below information from virtual servers (EC2 instances, on-premises servers, ...)
 - Additional system-level metrics such as RAM, processes, used disk space, etc.
-- Collect logs file to send to CloudWatch Logs (No logs from inside your EC2 instance will be sent to
-CloudWatch Logs without using an agent)
+- Collect logs file to send to CloudWatch Logs (No logs from inside your EC2 instance will be sent to CloudWatch Logs without using an agent)
 
 Other points:
 - Use SSM Parameter Store to store the json format configuration that Unified CloudWatch Agent needs
@@ -160,7 +157,9 @@ Other points:
 
 ### StatsD & collectd
 
-You can retrieve custom metrics from your applications or services using the `StatsD` and `collectd` protocols. `StatsD` is supported on both Linux servers and servers running Windows Server. collectd is supported only on Linux servers. Here, the instances are running on Windows servers, hence `StatsD` is the right protocol.
+You can retrieve custom metrics from your applications or services using the `StatsD` and `collectd` protocols. 
+- `StatsD` is supported on both Linux servers and servers running Windows Server. 
+- `collectd` is supported only on Linux servers. 
 
 ## CloudWatch interval
 

@@ -126,3 +126,9 @@ If you want to split between static and dynamic content you would *create an ori
 - [Serving Dynamic Websites with Amazon CloudFront](https://blog.shikisoft.com/serving-dynamic-website-with-amazon-cloudfront/)
 - [StackOverflow - How AWS Cloudfront works for both static website and dynamic website](https://stackoverflow.com/questions/62773107/how-aws-cloudfront-works-for-both-static-website-and-dynamic-website-when-websit)
 
+## Trouble shooting
+
+### Error messages
+
+- `The authorization header is malformed; the region '<AWS Region>' is wrong; expecting '<AWS Region>'`
+  - This error indicates the configured Amazon S3 bucket has been moved from one AWS Region to the other. That is, deleted from one AWS Region and created with the same name in another. To fix this error, update your CloudFront distribution so that it finds the S3 bucket in the bucket's current AWS Region

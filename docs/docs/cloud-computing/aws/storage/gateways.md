@@ -3,6 +3,10 @@ title: Storage Gateway
 description: Gateways
 ---
 
+## Exam
+
+Encryption
+- By default, Storage Gateway uses Amazon S3-Managed Encryption Keys (**SSE-S3**) to server-side encrypt all data it stores in Amazon S3. Another option is **SSE-KMS**
 
 ## Volume gateway
 

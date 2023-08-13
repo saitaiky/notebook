@@ -6,7 +6,12 @@ keywords:
 sidebar_position: 2
 ---
 
-## Use X-ray to debug microservices specific issues
+## X-ray
+
+These are the points for exam
+- **Application Load balancers do not send data to X-Ray** - Load balancers add a trace ID to incoming HTTP requests in a header named X-Amzn-Trace-Id. Load balancers do not send data to X-Ray and do not appear as a node on your service map.
+
+### Use X-ray to debug microservices specific issues
 
 Imagine a company uses microservices-based infrastructure to process the API calls from clients, perform request filtering and cache requests using the AWS API Gateway. Users report receiving 501 error code and you have been contacted to find out what is failing. 
 

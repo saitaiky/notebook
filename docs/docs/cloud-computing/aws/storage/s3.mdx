@@ -335,12 +335,12 @@ If an IAM user, with full access to IAM and Amazon S3, assigns a bucket policy t
 
 However, as the root user, you can still access the bucket. To do that, modify the bucket policy to allow root user access from the Amazon S3 console or the AWS CLI. Use the following principal, replacing 123456789012 with the ID of the AWS account.`"Principal": { "AWS": "arn:aws:iam::123456789012:root" }`
 
+### User Policy example
 
-### Cross Account
+Q: Imagine there is an organization has multiple AWS accounts to manage different lines of business. A user from the Finance account has to access reports stored in Amazon S3 buckets of two other AWS accounts (belonging to the HR and Audit departments) and copy these reports back to the S3 bucket in the Finance account. How will you set up the **identity-based IAM policies** and ** resource-based** policies?
 
-S3 Cross Account refers to a configuration in Amazon Simple Storage Service (S3) that allows access and sharing of S3 buckets across multiple AWS accounts. It enables a secure and controlled way to share data between different AWS accounts while maintaining granular access control.
+A: Create identity-based IAM policy in the Finance account that allows the user to make a request to the S3 buckets in the HR and Audit accounts. Also, create resource-based IAM policies in the HR, Audit accounts that will allow the requester from the Finance account to access the respective S3 buckets
 
-With S3 Cross Account, you can grant permissions to users, groups, or roles from other AWS accounts to access and interact with your S3 buckets. This feature is particularly useful in scenarios where you have separate AWS accounts for different teams or organizations and need to collaborate or share data between them.
 
 
 ### User policies vs ACL vs Bucket Policies
@@ -359,11 +359,11 @@ Source: [Background: Amazon S3 Access Control Tools](https://www.msp360.com/reso
 
 **User policies** are attached to a particular IAM user to indicate whether that user can access various S3 buckets and objects. 
 
-In contrast, **bucket policies** and **ACLs** are attached to the resource itself *either an S3 bucket or an S3 object* to control access.
-IAM roles and resource-based policies delegate access across accounts only within a single partition. 
+In contrast, **bucket policies** and **ACLs** are attached to the resource itself *either an S3 bucket or an S3 object* to control access. 
 
-For example, you can't add cross-account access between an account in the standard aws partition and an account in the aws-cn partition. [(reference)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)
-
+:::infoNote
+**IAM roles** and **resource-based policies** delegate access across accounts only within a single partition. For example, you can't add cross-account access between an account in the standard `aws` partition and an account in the `aws-cn` partition. [(reference)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)
+:::
 </TabItem>
 <TabItem value="acl" label="ACL">
 
@@ -504,6 +504,14 @@ In general, if you’re using an Amazon **S3 bucket** as the origin for a **Clou
 If you restrict access by using, for example, CloudFront signed URLs or signed cookies, you also won’t want people to be able to view files by simply using the direct **Amazon S3 URL** for the file. Instead, *you want them to only access the files by using the **CloudFront URL** *, so your content remains protected.
 
 ### Restricting only CloudFront access
+
+:::infoWhen to use OAI/OAC?
+Use an Origin Access Identity (OAI) in AWS S3 when you want to securely deliver private content stored in an S3 bucket through a CloudFront distribution. OAI restricts direct access to S3 objects while allowing controlled distribution via CloudFront edge locations, enhancing performance and security for delivering sensitive or restricted content to users.
+:::
+
+:::cautionNo OAI for S3 static website
+If you use an Amazon S3 bucket configured as a website endpoint, you must set it up with CloudFront as a custom origin. That means you can't use OAC (or OAI). However, you can restrict access to a custom origin by setting up custom headers and configuring the origin to require them. For more information, see [Restricting access to files on custom origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html#forward-custom-headers-restrict-access).
+:::
 
 CloudFront provides two ways to send authenticated requests to an Amazon S3 origin: *origin access control* (OAC) and *origin access identity* (OAI). We recommend using OAC because it supports:
 

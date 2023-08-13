@@ -41,18 +41,18 @@ Most of the AWS-managed services are regional-based services with few exceptions
 ### Some points to remember
 
 - Regardless of the type of subnet, the internal IPv4 address range of the subnet is always private. AWS never announces these address blocks to the internet.
-- By default, all subnets can route between each other without the need for any further configuration, whether they are private or public. Subnets created in a VPC can communicate with each other. The main route table facilitates this communication.
+- By default, all subnets can route between each other without the need for any further configuration, whether they are private or public. The main route table facilitates this communication.
 - If the public IP address of your instance in a VPC has been released, it will not receive a new one if there is more than one network interface attached to your instance. Reference: [Unable to access EC2 Instance over the Public IP Address](https://repost.aws/questions/QUnM1Vpq9cSS2PEhGXtlX9yA/unable-to-access-ec2-instance-over-the-public-ip-address)
 
-### EC2 communication via public IP addresses
+### EC2 communication within AWS network
 
 When two instances communicate using public IP addresses, the following three scenarios are possible:
 
 - Traffic between two EC2 instances **in the same AWS Region** stays within the AWS network, even when it goes over public IP addresses.
 
 - Traffic between EC2 instances **in different AWS Regions**
-  - Traffic **stays within** the AWS network if there is an **Inter-Region VPC Peering connection** between the VPCs where the two instances reside.
-  - Traffic is **not guaranteed** to stay within the AWS network where there is **no Inter-Region VPC Peering connection** between the VPCs where these instances reside.
+  - [**Situation 1**]: Traffic **stays within** the AWS network if there is an **Inter-Region VPC Peering connection** between the VPCs where the two instances reside.
+  - [**Situation 2**]: Traffic is **not guaranteed** to stay within the AWS network where there is **no Inter-Region VPC Peering connection** between the VPCs where these instances reside.
 
 :::infoWhat is VPC peering?
 
@@ -150,6 +150,12 @@ Gateway endpoint sits inside a VPC and with a route table
 A gateway endpoint is a gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services (Almost all of them)
 
 ### AWS PrivateLink
+
+> Interface endpoint and gateway endpoint are both backed by a technology called **AWS PrivateLink**
+
+![privatelink](/img/aws/networking/vpc/privatelink.png)
+
+Source: [Connect your VPC to services using AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-overview.html)
 
 AWS PrivateLink enables private network connectivity between VPCs and AWS services **without using the public internet**. It establishes a secure and direct connection over the AWS network backbone, allowing VPC resources to securely access AWS services, such as Amazon S3, Amazon EC2, or AWS Lambda, privately and without exposure to the internet. 
 
@@ -282,13 +288,19 @@ As shown in the figure below, such a topology helps in the case of *the device f
 Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
 
 
-### VIF
+### Virtual interfaces (VIF)
 
 ![vif-propogation](/img/aws/networking/vpc/vif-propogation.png)
 
 Source: [Virtual interfaces (VIF)](https://docs.aws.amazon.com/whitepapers/latest/aws-direct-connect-for-amazon-connect/virtual-interfaces-vif.html)
 
-A virtual interface (VIF) is necessary to access AWS services, and is either public or private. **A public virtual interface** enables access to public services, such as Amazon S3. **A private virtual interface** enables access to your VPC. For more information, see [AWS Direct Connect virtual interfaces](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html).
+You must create one of the following virtual interfaces to begin using your **AWS Direct Connect connection**.
+
+- A public virtual interface (public VIF) enables access to public services such as Amazon S3 or Amazon Connect. 
+- A private virtual interface (private VIF) enables access to your VPC and hosted workloads. 
+- A transit virtual interface (transit VIF) is used to access one or more Amazon Transit Gateways associated with Direct Connect gateways.
+
+For more information, see [AWS Direct Connect virtual interfaces](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html).
 
 ## NAT 
 

@@ -20,9 +20,11 @@ When deploying an app on Elastic Beanstalk, the service creates the following:
 - Security Groups: Specifies what network traffic is allowed in and out of the application.
 - Host Manager: The host manager is a service on each compute node that monitors the node for performance issues.
 
-### Auto Scaling group default alarms
+### 2 default alarms in ASG
 
-The Auto Scaling group in your Elastic Beanstalk environment uses two Amazon CloudWatch alarms to trigger scaling operations. The default triggers scale when the average outbound network traffic from each instance is higher than 6 MB or lower than 2 MB over a period of five minutes.
+The Auto Scaling group in your Elastic Beanstalk environment uses **two Amazon CloudWatch alarms** to trigger scaling operations. The default triggers scale when..
+- the average outbound network traffic from each instance is higher than 6 MB
+- or lower than 2 MB over a period of five minutes.
 
 ## Workflow of Elastic Beanstalk.
 
@@ -77,7 +79,7 @@ Saved configurations are YAML formatted templates that define an environment's p
 Take a snapshot of the database and terminate the current environment. Create a new one without attaching an RDS instance directly to it (from the snapshot).
 :::
 
-Attaching an RDS DB instance to an Elastic Beanstalk environment is ideal for development and testing environments. However, it's not recommended for production environments because the lifecycle of the database instance is tied to the lifecycle of your application environment. If you terminate the environment, then you lose your data because the RDS DB instance is deleted by the environment.
+Attaching an RDS DB instance to an Elastic Beanstalk environment is ideal for development and testing environments. However, it's not recommended for production environments because **the lifecycle of the database instance is tied to the lifecycle of your application environment**. If you terminate the environment, then you lose your data because the RDS DB instance is deleted by the environment.
 
 To resolve the issue of avoiding downtime on the database while decoupling it from the Elastic Beanstalk environment, follow these steps:
 

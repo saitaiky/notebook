@@ -40,11 +40,15 @@ For data that you want to retain longer, or if you want to encrypt the data, use
 
 To prevent unintentional changes or data loss, it's a best practice to [frequently create snapshots](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes.html#backup-benefit). You can use [AWS Backup](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html) to automate snapshot creation.
 
-### Resizing
+### Resizing (Change instance type)
 
-- Instance volume vs Instance store volume
-  - If the root device for your instance is an EBS volume, you can change the size of the instance simply by changing its instance type, which is known as resizing it. 
-  - If the root device for your instance is an instance store volume, you must migrate your application to a new instance with the instance type that you need.
+:::cautionStop your Amazon EBS–backed EC2 instance before resizing
+You must stop your Amazon EBS–backed instance before you can change its instance type. AWS moves the instance to new hardware; however, the instance ID does not change
+:::
+
+- EBS volume vs Instance store volume
+  - If the root device for your instance is **an EBS volume**, you can change the size of the instance simply by changing its instance type, which is known as resizing it. 
+  - If the root device for your instance is **an instance store volume**, you must migrate your application to a new instance with the instance type that you need.
 - After you increase the size of an EBS volume, you must use **the file-system specific commands to extend the file system to the larger size**. Here are the steps to extend a Linux file system. Reference: [AWS document](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html)
   1. Identify the resized EBS volume using the `lsblk` command to check the available block devices.
   2. Run `sudo resize2fs /dev/xvdf1` to resize the file system to utilize the newly resized EBS volume space. ( `/dev/xvdf1` is the path of the device you want to extend the file system on)
