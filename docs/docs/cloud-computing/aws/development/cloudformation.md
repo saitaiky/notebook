@@ -181,12 +181,12 @@ This includes nested stacks whose root stacks have termination protection enable
   - Solution:  Disable termination protection on the root stack, then perform the delete operation again. It is strongly recommended that you do not delete nested stacks directly, but only delete them as part of deleting the root stack and all its resources.
 
 ## Stack
-### StackSets
+### StackSets with AWS Organizations
 
 ![StackSetsArchitecture](/img/aws/development/cf/StackSetsArchitecture.png)
 > TL;DR - You can imagine template is just a class and stackset is a instance of a class which has configured the attributes as same as programming. 
 
-AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with AWS Organizations, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
+AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with **AWS Organizations**, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
 
 - StackSets allow you to easily orchestrate any AWS CloudFormation service across accounts and regions. 
 - You can deploy IAM roles, EC2 instances, or Lambda functions across your organization's accounts and regions. StackSets simplify cross-account permissions configuration and automate resource creation and deletion when joining or removing accounts from your Organization. 

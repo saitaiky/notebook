@@ -110,8 +110,6 @@ Amazon EC2 Auto Scaling works with Application Load Balancers and Network Load B
 
 ### Instance scale-in protection
 
-![ec2_console_menu_set_scale_in_protection_1](/img/aws/compute/asg/ec2_console_menu_set_scale_in_protection_1.png)
-
 To control whether an Auto Scaling group can terminate a particular instance when scaling in, use instance scale-in protection. You can enable the instance scale-in protection setting on an Auto Scaling group or an individual Auto Scaling instance.
 
 Imagine there is a server infrastructure on a fleet of Amazon EC2 instances running behind an Auto Scaling Group (ASG). The SysOps Administrator has configured the instances to be protected from termination during scale-in. When a scale-in event has occurred. What is the outcome of the event?
@@ -124,17 +122,26 @@ Instance scale-in protection does not protect Auto Scaling instances from the fo
 2.  Health check replacement if the instance fails health checks. To prevent Amazon EC2 Auto Scaling from terminating unhealthy instances, suspend the ReplaceUnhealthy process.
 3.  Spot Instance interruptions. A Spot Instance is terminated when capacity is no longer available or the Spot price exceeds your maximum price.
 
+You can protect instances from termination by simply selecting them in the Auto Scaling Console and then choosing Instance Protection from the Actions menu:
+
+![ec2_console_menu_set_scale_in_protection_1](/img/aws/compute/asg/ec2_console_menu_set_scale_in_protection_1.png)
+
+![ec2_console_see_as_instance_prot_1](/img/aws/compute/asg/ec2_console_see_as_instance_prot_1.png)
+
+Source: [Instance Protection for Auto Scaling](https://aws.amazon.com/blogs/aws/new-instance-protection-for-auto-scaling/)
 
 
 ## Troubleshooting
 
 ### Client.InternalError: Client error on launch
 
-`Client.InternalError: Client error on launch` error is caused when an Auto Scaling group attempts to launch an instance that has an encrypted EBS volume, but the service-linked role does not have access to the customer-managed CMK used to encrypt it. Additional setup is required to allow the Auto Scaling group to launch instances.
+`Client.InternalError: Client error on launch` error is caused when an Auto Scaling group attempts to launch an instance that has an encrypted EBS volume, but the service-linked role **does not have access to the customer-managed CMK** used to encrypt it. Additional setup is required to allow the Auto Scaling group to launch instances.
 
 There are two scenarios possible: 
-- CMK and Auto Scaling group are in the same AWS account, 
+- CMK and Auto Scaling group are in the same AWS account
+  - Copy and re-encrypt the snapshot with another CMK that belongs to the same account as the Auto Scaling group. Allow the service-linked role to use the new CMK.
 - CMK and Auto Scaling group are in different AWS accounts.
+  - Determine which service-linked role to use for this Auto Scaling group. Allow the Auto Scaling group account access to the CMK. Define an IAM user or role in the Auto Scaling group account that can create a grant. Create a grant to the CMK with the service-linked role as the grantee principal. Update the Auto Scaling group to use the service-linked role.
 
 To check the detailed actions, check [Troubleshoot Amazon EC2 Auto Scaling: EC2 instance launch failure](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html#ts-as-instancelaunchfailure-12)
 

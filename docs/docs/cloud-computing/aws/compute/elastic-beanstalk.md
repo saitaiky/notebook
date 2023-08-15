@@ -85,7 +85,7 @@ To resolve the issue of avoiding downtime on the database while decoupling it fr
 
 1. Perform an Elastic Beanstalk blue/green deployment to decouple the RDS DB instance from **environment A**.
     1. Take an RDS DB snapshot for backup purposes.
-    2. Enable `Deletion Protectio`n for the RDS DB instance to prevent accidental deletion.
+    2. Enable `Deletion Protection` for the RDS DB instance to prevent accidental deletion.
 2. Create a new Elastic Beanstalk environment (**environment B**) without including the RDS DB instance in the same application.
     1. Configure environment B with the necessary information to connect to the RDS DB instance.
     2. This ensures the database remains intact while deploying and managing the new environment.

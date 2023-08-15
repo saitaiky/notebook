@@ -41,7 +41,7 @@ Most of the AWS-managed services are regional-based services with few exceptions
 ### Some points to remember
 
 - Regardless of the type of subnet, the internal IPv4 address range of the subnet is always private. AWS never announces these address blocks to the internet.
-- By default, all subnets can route between each other without the need for any further configuration, whether they are private or public. The main route table facilitates this communication.
+- By default, all subnets can route between each other without the need for any further configuration, whether they are private or public. The [main route table](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html) facilitates this communication. 
 - If the public IP address of your instance in a VPC has been released, it will not receive a new one if there is more than one network interface attached to your instance. Reference: [Unable to access EC2 Instance over the Public IP Address](https://repost.aws/questions/QUnM1Vpq9cSS2PEhGXtlX9yA/unable-to-access-ec2-instance-over-the-public-ip-address)
 
 ### EC2 communication within AWS network
@@ -522,7 +522,7 @@ The following table summarizes the differences between IPv4 and IPv6 in Amazon E
 
 Source: [How AWS Wavelength works](https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html)
 
-**A carrier gateway** serves two purposes. It allows inbound traffic from a carrier network in a specific location, and it allows outbound traffic to the carrier network and internet. There is no inbound connection configuration from the internet to a Wavelength Zone through the carrier gateway.
+Carrier gateways are only available for VPCs that contain subnets in a Wavelength Zone. The carrier gateway provides connectivity (inbounda and outbound traffic) between your Wavelength Zone and the telecommunication carrier, and devices on the telecommunication carrier network. 
 
 ### PrivateLink connectivity between AWS Storage Gateway and Amazon S3
 

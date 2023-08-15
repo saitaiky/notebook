@@ -14,7 +14,7 @@ sidebar_position: 1
 ## Features
 ### CloudWatch Synthetics
 
-You can use Amazon CloudWatch Synthetics to create *canaries* which is a **configurable script**s that run on a schedule, to monitor your endpoints and APIs. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.
+You can use Amazon CloudWatch Synthetics to create *canaries* which is a **configurable scripts** that run on a schedule, to monitor your endpoints and APIs. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.
 
 - Canaries are Node.js scripts. They create Lambda functions in your account that use Node.js as a framework. Canaries work over both HTTP and HTTPS protocols.
 - UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see Puppeteer.
