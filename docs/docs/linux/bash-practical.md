@@ -88,13 +88,13 @@ $? expands to the exit status of the most recently executed foreground pipeline.
 
 
 
-## Command Redirect / Process substitution
+## Command Redirect
 
 In Linux/Unix, everything is a file. Regular file, Directories, and even Devices are files. Every File has an associated number called **File Descriptor (FD)**.
 
 Your screen also has a File Descriptor. When a program is executed the output is sent to File Descriptor of the screen, and you see program output on your monitor. If the output is sent to File Descriptor of the printer, the program output would have been printed.
 
-Whenever you execute a program/command at the terminal, 3 files are always open, viz., standard input, standard output, standard error.
+Whenever you execute a program/command at the terminal, 3 files are always open, viz., standard input (stdin), standard output (stdout), and standard error (stderr).
 
 ![streams](/img/linux/redirection.jpg)
 
@@ -121,41 +121,32 @@ These files are always present whenever a program is run. As explained before a 
 
 ### Standard output and Standard error output:
 ```bash
->         ：將原本由螢幕輸出的正確資料輸出到 > 右邊的 file ( 檔案名稱 ) 或 device ( 裝置，如 printer )去；
->>        ：Appending more content to an existing file.
-2>        ：將原本應該由螢幕輸出的錯誤資料輸出到 2> 的右邊去。
+>: Redirects standard output to a file or device(like printer), overwriting the file if it already exists.
+>>: Redirects standard output to a file, appending to the file if it already exists.
+<: Redirects standard input from a file.
+2>: Redirects standard error to a file.
+2>&1: Redirects standard error to the same location as standard output.
+&> or &>>: Redirects both standard output and standard error to a file.
 /dev/null ：可以說成是黑洞裝置！
 
 # 將顯示的結果輸出到 list.txt 檔案中，若該檔案以存在則予以取代！
-ls -al >  list.txt
+ls -al > list.txt
 
 # 將顯示的結果累加到 list.txt 檔案中，該檔案為累加的，舊資料保留！
 ls -al >> list.txt
 
 # 將顯示的資料，正確的輸出到 list.txt 錯誤的資料輸出到 list.err
-ls -al 1> list.txt 2> list.err
+ls -al 1 > list.txt 2 > list.err
 
 # 將顯示的資料，不論正確或錯誤均輸出到 list.txt 當中！
-ls -al 1> list.txt 2>&1
+ls -al 1 > list.txt 2 >&1
 
 # 將顯示的資料，正確的輸出到 list.txt 錯誤的資料則予以丟棄！
-ls -al 1> list.txt 2> /dev/null
+ls -al 1 > list.txt 2 > /dev/null
 
 注意！錯誤與正確檔案輸出到同一個檔案中，則必須以上面的方法來寫！
 不能寫成其他格式！
 ```
-### Standard input
-
-Many commands can accept input from a facility called standard input. By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. To redirect standard input from *a file* instead of *the keyboard*, the "<" character is used like this. 以最簡單的說法來說， 那就是『將原本需要由鍵盤輸入的資料，改由檔案內容來取代』的意思。:
-
-```bash
-$ sort < file_list.txt
-```
-In the example above, we used the sort command to process the contents of file_list.txt. The results are output on the display since the standard output was not redirected. We could redirect standard output to another file like this:
-```bash
-$ sort < file_list.txt > sorted_file_list.txt
-```
-As you can see, a command can have both its input and output redirected. Be aware that the order of the redirection does not matter. The only requirement is that the redirection operators (the "<" and ">") must appear after the other options and arguments in the command.
 
 ### Why do we need command redirect?
 - 當螢幕輸出的資訊很重要，而且我們需要將他存下來的時候；
@@ -171,6 +162,19 @@ The keyboard is the standard input device while your screen is the standard outp
 - `<` is the input redirection operator
 - `>&`re-directs output of one file to another.
 - ` `` ` 兩個『 ` 』中間為可以先執行的指令，亦可使用 $()
+
+## Process substitution
+
+Many commands can accept input from a facility called standard input. By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. To redirect standard input from *a file* instead of *the keyboard*, the "<" character is used like this. 以最簡單的說法來說， 那就是『將原本需要由鍵盤輸入的資料，改由檔案內容來取代』的意思。:
+
+```bash
+$ sort < file_list.txt
+```
+In the example above, we used the sort command to process the contents of file_list.txt. The results are output on the display since the standard output was not redirected. We could redirect standard output to another file like this:
+```bash
+$ sort < file_list.txt > sorted_file_list.txt
+```
+As you can see, a command can have both its input and output redirected. Be aware that the order of the redirection does not matter. The only requirement is that the redirection operators (the "<" and ">") must appear after the other options and arguments in the command.
 
 
 ## $? (指令回傳值) 與 && 或 ||

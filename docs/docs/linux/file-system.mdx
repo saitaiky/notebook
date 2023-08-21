@@ -52,9 +52,25 @@ If you're looking to perform more tasks within `some_directory`, you need to add
 
 ```shell
 all:
-        cd some_dir; echo "I'm in some_dir"; \
-          gcc -Wall -o myTest myTest.c
+  cd some_dir; echo "I'm in some_dir"; gcc -Wall -o myTest myTest.c
 ```
 
-## Learn Xargs in the future
-[12 Practical Examples of Linux Xargs Command for Beginners](https://www.tecmint.com/xargs-command-examples/)
+## NTFS vs ext4
+
+NTFS (New Technology File System) and ext4 (Fourth Extended File System) are two different file systems used in different operating systems. Here's a comparison of NTFS and ext4:
+
+NTFS:
+- **Origin**: NTFS was developed by Microsoft and is the default file system used in Windows operating systems.
+- **Features**: NTFS offers advanced features like support for large file sizes, file compression, file encryption, access control lists (ACLs), and journaling, which helps in recovering from system crashes or power failures.
+- **Compatibility**: NTFS is primarily used on Windows systems. It has limited support on other operating systems, which may be read-only or require third-party tools for full access.
+- **Performance**: NTFS generally provides good performance, especially on Windows systems. It's optimized for use on modern hardware and supports features like defragmentation.
+- **Limitations**: NTFS has limitations when it comes to full interoperability with non-Windows systems. Its advanced features might not be fully accessible on other platforms.
+
+ext4:
+- **Origin**: ext4 is a widely used file system in the Linux ecosystem and is the successor to ext3.
+- **Features**: ext4 offers features like support for large file sizes, journaling for better recovery, improved performance through delayed allocation, and support for extents (contiguous ranges of blocks) which helps improve file storage efficiency.
+- **Compatibility**: ext4 is the default file system for many Linux distributions. While it is natively supported on Linux systems, it may not be fully supported on Windows or other operating systems without third-party tools.
+- **Performance**: ext4 is known for its solid performance on Linux systems. It is well-suited for a wide range of workloads and use cases.
+- **Limitations**: Like NTFS, ext4 may have limitations when it comes to cross-platform compatibility. While ext4 can be accessed on Windows systems with third-party tools, it may not fully support all ext4 features.
+
+In summary, NTFS and ext4 are both modern file systems that offer various features for managing files, but they are associated with different operating systems (Windows for NTFS and Linux for ext4). When choosing between them, consider the platform you're working with, the specific features you need, and the compatibility requirements for your data and applications.
