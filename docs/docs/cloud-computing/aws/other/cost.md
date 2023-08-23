@@ -12,15 +12,15 @@ You can apply and compute these tags when you create a new AWS resource that is 
 
 AWS-generated cost allocation tags do not apply to all AWS services. Specifically, they apply to:
 
--   AWS CloudFormation
--   Amazon Elastic Compute Cloud (EC2)
--   Amazon Elastic Beanstalk
--   Amazon S3 Glacier
--   Amazon ElasticCache
--   AWS Data Pipeline
--   Amazon Kinesis
--   Elastic Load Balancing
--   Amazon Relational Database Service
+- AWS CloudFormation
+- Amazon Elastic Compute Cloud (EC2)
+- Amazon Elastic Beanstalk
+- Amazon S3 Glacier
+- Amazon ElasticCache
+- AWS Data Pipeline
+- Amazon Kinesis
+- Elastic Load Balancing
+- Amazon Relational Database Service
 
 ### User-defined cost allocation tags
 
@@ -31,3 +31,7 @@ Here is an example of how the tags might appear in two Amazon EC2 instances (for
 ![cost-allocation-tags](/img/aws/other/cost-allocation-tags.png)
 
 Source: [Using AWS cost allocation tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+
+### Automation tags
+
+![SOAF36-Automation-Tag](/img/aws/other/SOAF36-Automation-Tags.png)

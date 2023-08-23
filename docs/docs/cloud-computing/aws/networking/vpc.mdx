@@ -121,6 +121,8 @@ The following is an example of a route table for one of the **private subnets**,
 
 ## Endpoints
 
+> TL;DR - Enables **private connectivity** to services hosted in AWS, from within your VPC withoutusing and Internet Gateway, VPN, NAT devices, or firewall proxies.
+
 ![vpc-endpoints-vs-interface-endpoint](/img/aws/networking/vpc/vpc-endpoints-vs-interface-endpoint.png)
 
 ![endpoints-arch](/img/aws/networking/vpc/endpoints-arch.png)
@@ -139,15 +141,13 @@ A VPC endpoint enables you to privately connect your VPC to supported AWS servic
 
 ### An interface endpoint
 
-Interface endpoint sits inside a subnet, and associated with a security group
-
-An interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service.
+- Interface endpoint sits inside a subnet, and associated with a **security group**
+- An interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service.
 
 ### A gateway endpoint
 
-Gateway endpoint sits inside a VPC and with a route table
-
-A gateway endpoint is a gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services (Almost all of them)
+- [Gateway endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) sits inside a VPC and with a **route table**
+- Gateway endpoints provide reliable connectivity to Amazon S3 and DynamoDB without requiring an internet gateway or a NAT device for your VPC. Gateway endpoints do not use AWS PrivateLink, unlike other types of VPC endpoints.
 
 ### AWS PrivateLink
 
@@ -191,7 +191,7 @@ Your network is streamlined and scalable. AWS Transit Gateway routes all traffic
 
 ### Internet Gateway
 
-> TL;DR - TO provide internet access for instnaces that have public IPs 
+> TL;DR - To provide internet access for instnaces that have public IPs 
 
 An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
 
@@ -211,9 +211,15 @@ To enable access to or from the internet for instances in a subnet in a VPC, you
 
 ### NAT Gateway
 
-> TL;DR - TO provide internet access for instnaces that don't have public IPs 
+> TL;DR - To provide internet access for instnaces that don't have public IPs 
 
 NAT Gateway enables private subnets within a Virtual Private Cloud (VPC) to access the internet while keeping the instances within those subnets private and protected. The NAT Gateway acts as a gateway between the private subnet and the public internet, allowing outgoing internet traffic from the private instances and providing them with a public IP address. It simplifies the configuration and management of outbound internet connectivity, ensuring secure and controlled access for resources within the private subnets.
+
+:::infoBlackhole status in NAT
+The `blackhole` status indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).
+
+![nat-blackhole](/img/aws/networking/vpc/nat-blackhole.png)
+:::
 
 ### Egress-only Internet Gateway
 
@@ -431,10 +437,12 @@ AWS RAM enables you to share specified AWS resources that you own with other AWS
 
 - Network Access Control List
     - You can control what goes in and out of your **VPC**
+    - You can associate a network ACL with **multiple subnets**; howevery, a subnet can be associated with only one network ACL at a time.
     - It is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
     - Your VPC automatically comes with a modifiable default network ACL. By default, it allows all inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic.
 - Security groups 
     - You can control what goes in and out your **instances**
+    - Security groups are associated with **network interfaces**
     - A security group acts as a virtual firewall for your instance to control inbound and outbound traffic. Security groups act at the instance level, not the subnet level. Therefore, each instance in a subnet in your VPC can be assigned to a different set of security groups.
 
 ![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)

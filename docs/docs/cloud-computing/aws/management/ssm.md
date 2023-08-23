@@ -27,7 +27,7 @@ Resource: [Use AWS Systems Manager Automation runbooks to resolve operational ta
 
 ### Document
 
-A Systems Manager Automation document, part of AWS Systems Manager, is a JSON or YAML script that defines the actions to be performed on instances. It can be used to automate operational tasks, such as software installation, configuration management, and security patching, across a fleet of instances in a consistent and scalable manner.
+A Systems Manager Automation document, part of AWS Systems Manager, is a JSON or YAML script that defines the actions to be performed on instances. It can be used to automate operational tasks, such as **software installation, configuration management, and security patching, across a fleet of instances** in a consistent and scalable manner.
 
 ![SSM document](https://d2908q01vomqb2.cloudfront.net/972a67c48192728a34979d9a35164c1295401b71/2018/05/01/Image1-1.png)
 Resource: [Writing your own AWS Systems Manager documents](https://aws.amazon.com/blogs/mt/writing-your-own-aws-systems-manager-documents/)
@@ -40,10 +40,14 @@ You can also run commands via SSM document and choose which EC2 targets you want
 ![rc_create_doc_3](https://media.amazonwebservices.com/blog/2016/rc_create_doc_3.png)
 Resource: [EC2 Systems Manager – Configure & Manage EC2 and On-Premises Systems](https://aws.amazon.com/blogs/mt/writing-your-own-aws-systems-manager-documents/)
 
-:::infoExample
+:::infoRescue EC2 via Document
 Use the `AWSSupport-ExecuteEC2Rescue` document to recover impaired instances. An instance can become unreachable for a variety of reasons, including network misconfigurations, RDP issues, or firewall settings. 
 
 Troubleshooting and regaining access to the instance previously required dozens of manual steps before you could regain access. The `AWSSupport-ExecuteEC2Rescue` document lets you regain access by specifying an instance ID and clicking a button.
+:::
+
+:::infoRescue EC2 via EC2Rescue tool
+![EC2Rescue tool](/img/aws/management/ssm/SOAF37-EC2Rescue-tool-for-troubleshooting-Amazon-EC2-issues.png)
 :::
 
 ### Patch Manager
@@ -101,7 +105,7 @@ Resource: [AWS Systems Manager Inventory](https://docs.aws.amazon.com/systems-ma
     - Specify a schedule when this configuration is applied
 - Uses Documents to create an Association (e.g., Document to configure CW Agent)
 
-![association-details](/img/aws/management/system-manager.png)
+![association-details](/img/aws/management/ssm/system-manager.png)
 Resource: [Configuration management using State Manager](https://catalog.workshops.aws/getting-started-with-com/en-US/remote-management/state-manager)
 
 

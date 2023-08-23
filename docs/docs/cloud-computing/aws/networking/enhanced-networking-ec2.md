@@ -25,7 +25,7 @@ An elastic network interface is a logical networking component in a VPC that rep
 - A description
 
 
-## Elastic Network Adoptor (ENA)
+## Elastic Network Adaptor (ENA)
 
 Amazon EC2 provides enhanced networking capabilities through the Elastic Network Adapter (ENA). To use enhanced networking, you must install the required ENA module and enable ENA support.
 
@@ -43,7 +43,13 @@ SR-IOV is a method of device virtualization that provides higher I/O performance
 Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities on supported instance types. SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking.
 :::
 
-## Elustie Fabric Adapter (EFA)
+:::infoEnable Elastic Network Adapter
+From your local computer, enable the enhanced networking attribute using one of the following commands:
+
+`aws ec2 modify-instance-attribute --instance-id instance_id --ena-support`
+:::
+
+## Elastic Fabric Adapter (EFA)
 
 ![AWS: Elastic Fabric Adapter](/img/aws/networking/others/Product-Page-Diagram_Elastic-Fabric-Adapter_How-it-Works.png)
 Source: [AWS: Elastic Fabric Adapter](https://aws.amazon.com/hpc/efa/)

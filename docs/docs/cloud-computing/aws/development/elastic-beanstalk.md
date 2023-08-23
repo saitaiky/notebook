@@ -32,7 +32,7 @@ To use Elastic Beanstalk, you create an application, upload an application versi
 
 The following diagram illustrates the workflow of Elastic Beanstalk.
 
-![](/img/aws/compute/beanstalk-workflow.png)
+![](/img/aws/development/beanstalk-workflow.png)
 
 Source: [What is AWS Elastic Beanstalk?](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
 
@@ -43,7 +43,7 @@ After you create and deploy your application, information about the applicationâ
 
 The following list provides summary information about the different deployment policies and adds related considerations.
 
-![](/img/aws/compute/beanstalk-deployment-method.png)
+![](/img/aws/development/beanstalk-deployment-method.png)
 
 Source: [Deploying applications to Elastic Beanstalk environments](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html)
 

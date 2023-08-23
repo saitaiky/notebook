@@ -23,10 +23,15 @@ Source: [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-r
 
 ## AWS Directory Service
 
-AWS Directory Service for Microsoft Active Directory (Standard Edition or Enterprise Edition) is an actual Microsoft Active Directory in the AWS Cloud. It automatically creates an AWS security group in your VPC with network rules for traffic in and out of AWS managed domain controllers. The default inbound rules allow traffic from any source (0.0.0.0/0) to ports required by Active Directory. These rules do not introduce security vulnerabilities, as traffic to the domain controllers is limited to traffic from your VPC, other peered VPCs, or networks connected using AWS Direct Connect, AWS Transit Gateway or Virtual Private Network.
+:::cautionExam alert
+The default inbound rules **allow traffic from any source (0.0.0.0/0)** to ports required by Active Directory. These rules do not introduce security vulnerabilities, **as traffic to the domain controllers is limited** to traffic from your VPC, other peered VPCs, or networks connected using AWS Direct Connect, AWS Transit Gateway or Virtual Private Network. 
+
+If you see "Security Groups - Unrestricted Access." in a security check, you can ignore or suppress the red flag, in this scenario.
+:::
+
+AWS Directory Service for Microsoft Active Directory (Standard Edition or Enterprise Edition) is an actual Microsoft Active Directory in the AWS Cloud. It automatically creates an AWS security group in your VPC with network rules for traffic in and out of AWS managed domain controllers. 
 
 In addition, the ENIs the security group is attached to, do not and cannot have Elastic IPs attached to them, limiting inbound traffic to local VPC and VPC routed traffic.
-
 
 ## CloudHSM (Hardware Security Module)
 
@@ -53,6 +58,11 @@ When you share a portfolio using **account-to-account sharing or AWS Organizatio
 This imported portfolio isn't an independent copy. The products and constraints in the imported portfolio **stay in sync with changes** that you make to the shared portfolio, the original portfolio that you shared. 
 
 
+### TagOption library
+
+To allow administrators to easily manage tags on provisioned products, Service Catalog provides a TagOption library. A TagOption is a key-value pair managed in Service Catalog. It is not an AWS tag, but serves as a template for creating an AWS tag based on the TagOption.
+
+You can use TagOption library to enforce the tagging of all instances that will be launched in the VPC.
 
 ## Others
 
@@ -62,3 +72,15 @@ This imported portfolio isn't an independent copy. The products and constraints 
 - Compliance
   - AWS Artifact is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)
 - **Amazon Inspector** is an automated security assessment service that helps you test the network accessibility of your Amazon EC2 instances and the security state of your applications running on the instances. 
+- **AWS Compute Optimizer** helps avoid overprovisioning and underprovisioning four  types of AWS resources—Amazon Elastic Compute Cloud (EC2) instance types, Amazon Elastic Block Store (EBS) volumes, Amazon Elastic Container Service (ECS) services on AWS Fargate, and AWS Lambda functions—based on your utilization data.
+
+## May need to jot after preparing exam
+
+- IAM access analyzer
+- EFS
+  - Elastic throughput
+  - MAX I/O
+  - MAX throughput
+  - Bursting Throughput
+- VPC - Traffic mirroring
+- AWS Datasync

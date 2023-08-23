@@ -140,8 +140,8 @@ AWS Lambda functions perform compliance evaluations, and **auto-remediation can 
 
 When you add a rule to your account, you can specify when you want AWS Config to run the rule; this is called a trigger. AWS Config evaluates your resource configurations against the rule when the trigger occurs. There are two types of triggers:
 
-- Configuration changes: AWS Config runs evaluations for the rule when certain types of resources are created, changed, or deleted.
-- Periodic: AWS Config runs evaluations for the rule at a frequency that you choose (for example, every 24 hours).
+- **Configuration changes**: AWS Config runs evaluations for the rule when certain types of resources are created, changed, or deleted.
+- **Periodic**: AWS Config runs evaluations for the rule at a frequency that you choose (for example, every 24 hours).
 
 :::infoYou can use both types in one rule
 If you choose **both configuration changes and periodic to the same rule**, AWS Config invokes your Lambda function when it detects a configuration change and also at the frequency that you specify. 

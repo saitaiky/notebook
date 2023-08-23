@@ -8,6 +8,45 @@ sidebar_label: EBS
 sidebar_position: 1
 ---
 
+## SSD VS HDD
+
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0pky">Features</th>
+    <th class="tg-0pky">SSD</th>
+    <th class="tg-0pky">HDD</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">Best for workloads with</td>
+    <td class="tg-0pky"><b>small and random</b> I/O operations</td>
+    <td class="tg-0pky"><b>large and sequential</b> I/O operations</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Can be used as a bootable volume</td>
+    <td class="tg-0pky">Yes</td>
+    <td class="tg-0pky">No</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Suitable Use Cases</td>
+    <td class="tg-0pky">- Best for <b>transactional workloads</b><br/><br/>- Critical business applications that require sustained IOPS<br/><br/>- Large database workloads such as MongoDB, Oracle, Microsoft SQL Server and many others..</td>
+    <td class="tg-0pky">- Best for <b>large streaming workloads</b> requiring consistent, dast throughput at a low price<br/><br/>- Big data, Data warehouses, Log processing<br/><br/>- Throughput-oriented storage for large volumes of data that is <b>infrequently</b> accessed</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Cost</td>
+    <td class="tg-0pky">Moderate/high</td>
+    <td class="tg-0pky">Low</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Dominant Performance Attrivute</td>
+    <td class="tg-0pky">IOPS</td>
+    <td class="tg-0pky">Throughtput (MiB/s)</td>
+  </tr>
+</tbody>
+</table>
+
 ## Amazon EC2 with or without EBS
 
 **Using EC2 with EBS**
@@ -101,6 +140,8 @@ The performance of gp2 volumes is tied to volume size, which determines the base
 
 Amazon Elastic Block Store (EBS) provides different types of block storage volumes optimized for various performance and cost requirements. Here are the use cases and reasons for each EBS volume type:
 
+![SOAF9-EBS-Volume-Types](/img/aws/storage/ebs/SOAF9-EBS-Volume-Types.png)
+
 - **General Purpose (gp2/gp3) EBS:**
    - **Use Case:** Suitable for a wide range of workloads, including boot volumes, small to medium-sized databases, and development/testing environments.
    - **Reasons:** gp2 volumes offer a balance between performance and cost, providing baseline performance with the ability to burst when needed. They are a cost-effective choice for applications with moderate I/O requirements.
@@ -156,6 +197,8 @@ How to update 'DeleteOnTermination' attribute set to True for an EC2 instance’
 ![raid0_raid1](/img/aws/storage/ebs/raid0_raid1.png)
 
 Source: [EC2 Storage — EBS, EFS, and Instance Store fundamentals](https://medium.com/geekculture/ebs-efs-and-instance-store-aws-solutions-architect-associate-87dc0ac6d1ae)
+
+![raid0_raid1](/img/aws/storage/ebs/SOAF5-RAID-0-vs.-RAID-1.png)
 
 With Amazon EBS, you can use any of the standard RAID configurations that you can use with a traditional bare metal server, as long as that particular RAID configuration is supported by the operating system for your instance. This is because all RAID is accomplished at the software level.
 

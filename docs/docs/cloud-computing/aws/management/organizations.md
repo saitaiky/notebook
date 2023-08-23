@@ -23,6 +23,8 @@ Here are the steps to follow:
 
 Source: [Getting a grip on your AWS permission policies](https://oblcc.com/blog/getting-a-grip-on-your-aws-permission-policies/)
 
+![SOAF29-AWS-Organizations-Service-Control-Policies](/img/aws/management/organizations/SOAF29-AWS-Organizations-Service-Control-Policies.png)
+
 - If a user or role has an IAM permission policy that grants access to an action that is either not allowed or explicitly denied by the applicable SCPs, the user or role can't perform that action
 - SCPs affect all users and roles in attached accounts, including the root user
 - SCPs do not affect service-linked role

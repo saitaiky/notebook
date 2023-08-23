@@ -6,7 +6,7 @@ keywords:
 sidebar_position: 4
 ---
 
-Amazon Aurora is a fully managed relational database engine developed by AWS. It offers high performance, availability, and scalability, while being compatible with MySQL and PostgreSQL. Aurora's architecture is designed for cloud-native capabilities and provides features like automatic backups, replication, and seamless scaling to meet the demands of modern applications.
+Amazon Aurora is a fully managed relational database engine developed by AWS. It offers high performance, availability, and scalability, while being compatible with **MySQL and PostgreSQL**. Aurora's architecture is designed for cloud-native capabilities and provides features like automatic backups, replication, and seamless scaling to meet the demands of modern applications.
 
 ## Notes for networking
 
@@ -48,9 +48,11 @@ In the event of an outage that impacts an entire Availability Zone (AZ) and rend
 
 ### Aurora Reader Endpoint
 
-![reader-endpoin](/img/aws/database/aurora/reader-endpoint.webp)
+![reader-endpoint](/img/aws/database/aurora/reader-endpoint.webp)
 
 Source: [AWS Aurora — Why is it better?](https://crishantha.medium.com/aws-aurora-why-is-it-better-6faae33a0ed0)
+
+![AuroraMySQLConnect](/img/aws/database/aurora/AuroraMySQLConnect.png)
 
 The reader endpoint in Aurora DB clusters enables load-balancing for read-only connections, distributing read operations among Aurora Replicas. This reduces the primary instance's workload and allows the cluster to handle simultaneous SELECT queries, scaling capacity based on the number of Aurora Replicas. 
 

@@ -12,17 +12,31 @@ AWS Cognito is a web and mobile app authentication, authorization, and user mana
 
 The User pools and Identity pools can be used independently or jointly.
 
-On the other hand, Azure Active Directory (Azure AD) is a cloud-based identity and access management (IAM) solution for enterprises. You can think of it as the backbone of the Office 365 system, which syncs with on-premise Active Directory and provides OAuth authentication to other cloud-based applications.
+## Allowing unauthenticated guest access to your application using Amazon Cognito
+
+You can use Amazon Cognito authentication as an alternative to directly using AWS Identity and Access Management (IAM) with both frontend SDKs and direct HTTPS requests.
+
+You may want to use this form of authentication for the following reasons:
+
+- Unauthenticated users - If you have a website with anonymous users, you can use Amazon Cognito identity pools. For more information, see the section on Allowing unauthenticated guest access to your application using Amazon Cognito.
+- Your own authentication - If you would like to use your own authentication process, or combine multiple authentication methods, you can use Amazon Cognito Federated Identities. For more information, see [Getting Started with Federated Identities](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html) in the *Amazon Cognito Developer Guide*.
+
+To enable unauthenticated identities in identity pool in console, go to identity pool in the aws console and click on edit identity pool. Now scroll down to unauthenticated identities and enable it. **Unauthenticated Identities** permissions. Now you can 
+- **make unauthenticated calls using cognito sdk** 
+- if you don't provide credentials, **you will be given credentials for the unauthenticated role**.
+
+![unauthenticaed-identities](/img/aws/other/unauthenticaed-identities.jpeg)
+
+Source: [Get started with Amazon Elasticsearch Service: Use Amazon Cognito for Kibana access control](https://aws.amazon.com/blogs/database/get-started-with-amazon-elasticsearch-service-use-amazon-cognito-for-kibana-access-control/)
+## Single Sign-On (SSO) using AWS Cognito and Azure AD
+
+Azure Active Directory (Azure AD) is a cloud-based identity and access management (IAM) solution for enterprises. You can think of it as the backbone of the Office 365 system, which syncs with on-premise Active Directory and provides OAuth authentication to other cloud-based applications.
 
 Azure AD will act as an identity provider (IdP), and AWS Cognito will act as a service provider (SP).
 
-Before granting the user access to AWS services, AWS Cognito verifies the user's rights with the identity provider while Azure AD checks user identification (e.g., emails, passwords) and asserts to AWS Cognito that the user should have access and that the user's identity if it is legitimate. The Single Sign-On authentication is based on the following steps:
+Before granting the user access to AWS services, AWS Cognito verifies the user's rights with the identity provider while Azure AD checks user identification (e.g., emails, passwords) and asserts to AWS Cognito that the user should have access and that the user's identity if it is legitimate. 
 
--   The user visits an application, which sends them to an AWS Cognito-hosted website.
--   AWS Cognito determines the user's origin (by client id, application subdomain, and so on) and leads them to the identity provider for authentication. In our case, to the Azure Active Directory login page. This is a request for SAML authentication.
--   The user is redirected to an SSO URL on their browser. The user either already has an active browser session with the identity provider or creates one by logging in. The identity provider (Azure AD) creates the authentication response in the XML document format, which could contain the user's username, email address (and additional characteristics if set), and it is then signed with an X.509 certificate. The result is returned to the service provider (AWS Cognito) --- This is the authentication response for SAML.
--   The authentication response is retrieved and validated using the certificate fingerprint by the service provider, who already knows the identity provider and has a certificate fingerprint. With the access token in the URL, the user's identity is confirmed, and the user is granted app access.
-
+Reference: [Single Sign-On (SSO) using AWS Cognito and Azure AD](https://blog.getambassador.io/single-sign-on-sso-using-aws-cognito-and-azure-ad-356951536218)
 ## Cognito User Pools vs Identity Pools
 - Cognito User Pools (for authentication = identity verification):
   - Database of users for your web and mobile application

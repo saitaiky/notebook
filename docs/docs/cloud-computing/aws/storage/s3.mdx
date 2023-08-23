@@ -124,7 +124,7 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 
 Amazon S3 Access Points simplify data access management for shared datasets on S3. They provide unique hostnames with distinct permissions and network controls for each application, allowing easy scaling for hundreds of applications.
 
-Access points can be restricted to Virtual Private Clouds (VPCs) to secure S3 data access within private networks. Each access point is associated with a single bucket and configured with specific access policies, providing granular control over data access. S3 Access Points are available in all regions at no extra cost and offer an auditable way to enforce VPC restrictions using AWS Service Control Policies.
+Access points can be restricted to VPCs to secure S3 data access within private networks. Each access point is associated with a single bucket and configured with specific access policies, providing granular control over data access. S3 Access Points are available in all regions at no extra cost and offer an auditable way to enforce VPC restrictions using AWS Service Control Policies.
 
 ### MFA-Delete
 
@@ -278,20 +278,19 @@ In general, **when your object size reaches 100 MB**, you should consider using 
 
 ### Upload and download speed 
 
-There are 2 approaches to improve upload and download speed across different regions. Depending on your setup, S3 Transfer Acceleration [suggested in another answer](https://stackoverflow.com/a/55148734/1081234) may still be a better option, it's certainly better documented and has more implementation examples!
+There are 2 approaches to improve upload and download speed across different regions. They're S3 Transfer Acceleration and Amazon CloudFront’s PUT/POST. According to [AWS- General S3 FAQs](https://aws.amazon.com/s3/faqs/), we should choose..
+
+- If you have objects that are **smaller than 1 GB or if the data set is less than 1 GB in size**, you should consider using **Amazon CloudFront**'s PUT/POST commands for optimal performance.
+- **S3 Transfer Acceleration** optimizes the TCP protocol and adds additional intelligence between the client and the S3 bucket, making it a better choice if a higher throughput is desired..
 
 In terms of AWS pricing, you will be charged for "[Regional Data Transfer Out to Origin](https://aws.amazon.com/cloudfront/pricing/)" ($0.02-$0.16/GB depending on region) compared with [S3 Transfer Acceleration](https://aws.amazon.com/s3/pricing/) charges ($0.04-$0.08/GB depending on region.)
 
-:::info How should I choose between S3 Transfer Acceleration and Amazon CloudFront’s PUT/POST for optimisating upload?
-
-S3 Transfer Acceleration optimizes the TCP protocol and adds additional intelligence between the client and the S3 bucket, making S3 Transfer Acceleration a better choice if a higher throughput is desired. *If you have **objects that are smaller than 1 GB or if the data set is less than 1 GB in size**, you should consider using **Amazon CloudFront**'s PUT/POST commands for optimal performance.*
-
-If you has data larger than 1GB, then **S3 Transfer Acceleration** is a better option.
-
-:::
-
 <Tabs className="upload-download-tabs">
 <TabItem value="s3-acceleration" label="S3 Transfer Acceleration">
+
+> **Amazon S3 transfer acceleration is using Cloudfront under the scene.** As the data arrives at an edge location, data is routed to Amazon S3 over an optimized network path.
+
+
 
 Amazon S3 Transfer Acceleration can speed up content transfers to and from Amazon S3 by as much as 50-500% for long-distance transfer of larger objects. Transfer Acceleration takes advantage of Amazon CloudFront’s globally distributed edge locations. As the data arrives at an edge location, data is routed to Amazon S3 over an optimized network path. 
 
@@ -309,8 +308,8 @@ Use Amazon CloudFront distribution with origin as the S3 bucket to ingest S3 fil
 > Belows are the high level steps to create a cloudfront distribution. To check the detailed steps, visit [StackOverflow - Uploads to S3 through CloudFront via Signed URLs?](https://stackoverflow.com/questions/55148428/uploads-to-s3-through-cloudfront-via-signed-urls)
 
 1. Create a new CF distribution
-  - Use target S3 bucket as origin
-  - Configure origin S3 bucket access to use a CloudFront origin access identity (OAI). While you can automatically update the bucket policy (with `s3:GetObject` access) as a starting point, we'll be adding/changing that to `s3:PutObject` anyway.
+    1. Use target S3 bucket as origin
+    2. Configure origin S3 bucket access to use a CloudFront origin access identity (OAI). While you can automatically update the bucket policy (with `s3:GetObject` access) as a starting point, we'll be adding/changing that to `s3:PutObject` anyway.
 2. Configure S3 bucket policy
 3. Upload files to S3 using the CloudFront distribution
 

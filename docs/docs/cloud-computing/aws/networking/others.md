@@ -8,9 +8,10 @@ keywords:
 ## AWS Global Accelerator
 
 There are few use cases that can leverage the features provided by AWS Global Accelerator.
-- Improving latency and availability for **single region applications**
-- Simplified and resilient traffic routing for **multi-Region applications**
-- Accelerated and simplified **storage for multi-Region applications**
+- Associate the static IP addresses provided by AWS Global Accelerator to regional AWS resources or endpoints, such as **Network Load Balancers, Application Load Balancers, EC2 Instances, and Elastic IP addresses**. The IP addresses are anycast from AWS edge locations so they provide onboarding to the AWS global network close to your users.
+- Easily move endpoints between Availability Zones or AWS Regions without needing to update your DNS configuration or change client-facing applications.
+- Dial traffic up or down for a specific AWS Region by configuring a traffic dial percentage for your endpoint groups. This is especially useful for testing performance and releasing updates.
+- Control the proportion of traffic directed to each endpoint within an endpoint group by assigning weights across the endpoints.
 - For other use cases, check [AWS Global Accelerator](https://aws.amazon.com/global-accelerator/?blogs-global-accelerator.sort-by=item.additionalFields.createdDate&blogs-global-accelerator.sort-order=desc&aws-global-accelerator-wn.sort-by=item.additionalFields.postDateTime&aws-global-accelerator-wn.sort-order=desc)
 ### Multi-Region applications
 

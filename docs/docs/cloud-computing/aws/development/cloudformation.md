@@ -184,7 +184,7 @@ This includes nested stacks whose root stacks have termination protection enable
 ### StackSets with AWS Organizations
 
 ![StackSetsArchitecture](/img/aws/development/cf/StackSetsArchitecture.png)
-> TL;DR - You can imagine template is just a class and stackset is a instance of a class which has configured the attributes as same as programming. 
+> TL;DR - You can imagine template is just **a class** and stackset is **a instance of a class** which has configured the attributes as same as programming. 
 
 AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with **AWS Organizations**, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 
 
@@ -279,6 +279,11 @@ Performing a drift detection operation on a stack determines whether the stack h
 - `!GetAtt`- Returns the value of an attribute from a resource in the template.
 - `!Sub` - Substitutes variables in an input string with values that you specify.
 
+### Export and ImportValue
+
+![DOPF19-CloudFormation-Cross-stack-reference](/img/aws/development/cf/DOPF19-CloudFormation-Cross-stack-reference.png)
+
+Source: [tutorialsdojo](https://tutorialsdojo.com/aws-cloudformation/)
 
 ### S3
 

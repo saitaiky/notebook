@@ -6,7 +6,7 @@ keywords:
 sidebar_position: 1
 ---
 
-Amazon RDS (Relational Database Service) is a managed database service offered by AWS that simplifies the process of setting up, operating, and scaling relational databases in the cloud. It allows you to choose from various database engines such as MySQL, PostgreSQL, MariaDB, Oracle, and Microsoft SQL Server, and provides automated tasks like hardware provisioning, patching, backup, recovery, and scaling. RDS enables developers to focus on building applications without worrying about the complexities of database management, while ensuring high availability, durability, and security of the underlying database infrastructure.
+Amazon RDS (Relational Database Service) is a managed database service offered by AWS that simplifies the process of setting up, operating, and scaling relational databases in the cloud. It allows you to choose from various database engines such as **MySQL, PostgreSQL, MariaDB, Oracle**, and **Microsoft SQL Server**, and provides automated tasks like hardware provisioning, patching, backup, recovery, and scaling. 
 
 ## Behaviour
 
@@ -21,6 +21,22 @@ Amazon RDS (Relational Database Service) is a managed database service offered b
 Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-replicas/)
 
 ## Feature
+
+### Transparent Data Encryption (TDE)
+
+In order to enable Transparent Data Encryption for your RDS, you need to 
+1. Creating an option group and add Transparent Data Encryption (TDE) option
+2. Associating the option group to the DB instance
+3. Creating database encryption key (DEK) on the database and enable encryption on the database
+
+![read replica table](/img/aws/database/rds/option-group-to-enable-transparent-data-encryption.png)
+
+![read replica table](/img/aws/database/rds/transparent-data-encryption-in-aws-rds-option-grou.png)
+
+:::infoWhat is option group?
+Some DB engines offer additional features that make it easier to manage data and databases, and to provide additional security for your database. Amazon RDS uses **option groups** to enable and configure these features. An *option group* can specify features, called options, that are available for a particular Amazon RDS DB instance. 
+:::
+
 
 ### RDS Proxy as a connection pool for overwhelmed connections
 

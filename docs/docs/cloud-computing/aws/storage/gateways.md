@@ -3,15 +3,20 @@ title: Storage Gateway
 description: Gateways
 ---
 
-## Exam
 
-Encryption
-- By default, Storage Gateway uses Amazon S3-Managed Encryption Keys (**SSE-S3**) to server-side encrypt all data it stores in Amazon S3. You can change to use **SSE-KMS**
+![volume-gateway-diagram](/img/aws/storage/volume-gateway-diagram.png)
+
+Source: [AWS - Volume Gateway](https://aws.amazon.com/storagegateway/volume/)
+
+**AWS Storage Gateway** is a hybrid cloud storage service that gives you on-premises access to virtually unlimited cloud storage. The service provides three different types of gateways – Tape Gateway, File Gateway, and Volume Gateway – that seamlessly connect on-premises applications to cloud storage, caching data locally for low-latency access. With cached volumes, the AWS Volume Gateway stores the full volume in its Amazon S3 service bucket, and just the recently accessed data is retained in the gateway’s local cache for low-latency access.
 
 ## Volume gateway
 
 > TL;DR - cached mode optimizes local storage while providing quick access to frequently used data, while stored mode prioritizes cloud storage durability and availability by keeping a complete copy of all data in the cloud. The choice between the two modes depends on your specific storage requirements and performance needs.
 
+There are 2 modes in Storage Gateway: 
+- In the **Cached Volume Gateway mode**, your primary data is stored in Amazon S3, while retaining your frequently accessed data locally in the cache for low latency access.
+- In the **Stored Volume Gateway mode**, your primary data is stored locally and your entire dataset is available for low latency access on premises while also asynchronously getting backed up to Amazon S3. 
 ### Cached volumes architecture
 
 ![aws-storage-gateway-cached-diagram](/img/aws/storage/gateways/aws-storage-gateway-cached-diagram.png)
@@ -47,3 +52,8 @@ In stored mode, all data is stored in the cloud, and only a minimal cache is mai
     - For cached volumes gateways, you recover data from a recovery snapshot. 
     - For stored volumes gateways, you can recover data from your most recent uploaded Amazon EBS snapshot of the volume in Amazon S3. 
 - For tape gateways, you recover one or more tapes from a recovery point to a new tape gateway.
+
+## Exam
+
+Encryption
+- By default, Storage Gateway uses Amazon S3-Managed Encryption Keys (**SSE-S3**) to server-side encrypt all data it stores in Amazon S3. You can change to use **SSE-KMS**
