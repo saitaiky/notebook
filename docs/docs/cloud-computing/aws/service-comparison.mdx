@@ -242,7 +242,7 @@ An EC2 Security Group, on the other hand, is associated with an EC2 instance and
 
 In summary, a VPC Security Group controls the traffic to resources within a VPC, while an EC2 Security Group controls the traffic to a specific EC2 instance.
 
-## Personal Health Dashboard vs AWS Service Health Dashboard
+## Personal Health Dashboard(AWS Health) vs AWS Service Health Dashboard
 
 ![phd_open_issues_2](/img/aws/other/phd_open_issues_2.png)
 
@@ -255,3 +255,13 @@ The AWS Health API provides programmatic access to the AWS Health information th
 
 You must have **a Business or Enterprise Support plan** from AWS Support to use the AWS Health API. If you call the AWS Health API from an AWS account that doesn't have a Business or Enterprise Support plan, you receive a `SubscriptionRequiredException` error.
 :::
+
+## AWS SSO VS AWS Cognito
+
+- **Amazon Cognito** is an identity management solution for developers building B2C or B2B apps for their customers, which makes it a **customer-targeted IAM and user directory solution**.
+  - It also provide access to certain security feature such as Advance security feature, integration with WAF, customizing the login page, which would provide you an edge with your web application. 
+- **AWS SSO** is focused on SSO for **employees accessing AWS and business apps**, initially with Microsoft AD as the underlying employee directory.
+
+Reference: 
+- [Cognito vs Identity Center (SSO)](https://repost.aws/questions/QUwlJN_Id4Sy2YWWRUasEo8Q/cognito-vs-identity-center-sso)
+- [What's the difference between AWS SSO and AWS Cognito?](https://stackoverflow.com/questions/48767172/whats-the-difference-between-aws-sso-and-aws-cognito)
