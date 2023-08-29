@@ -3,6 +3,11 @@ title: AWS Systems Manager
 description: AWS Systems Manager (Systems Manager) was formerly known as "Amazon Simple Systems Manager (SSM)" and "Amazon EC2 Systems Manager (SSM)". The original abbreviated name of the service, "SSM", is still reflected in various AWS resources, including a few other service consoles.
 ---
 
+## Systems Manager Agent (SSM Agent)
+
+- On many AMIs, the SSM Agent is already installed. For a list of Amazon Machine Images (AMIs) with SSM Agent preinstalled, see [Amazon Machine Images (AMIs) with SSM Agent preinstalled](https://docs.aws.amazon.com/systems-manager/latest/userguide/ami-preinstalled-agent.html).
+- The SSM agent allows you to communicate with your EC2 or Service in a secure(Enable TLS 1.2) channel that the agent implements with the AWS system Manager. In other words, you can send commands to your EC2 to be executed without using a direct connection to your EC2.
+
 ## AWS resource group
 
 AWS resource group is a collection of related AWS resources, allowing you to organize and manage them together based on criteria like tags, resource types, or regions. It provides a consolidated view and simplifies management tasks by enabling actions on multiple resources simultaneously.
@@ -37,7 +42,8 @@ You can also run commands via SSM document and choose which EC2 targets you want
 - There are rate and error control parameters.
 - You don't need SSH to connect to the EC2 instance.
 
-![rc_create_doc_3](https://media.amazonwebservices.com/blog/2016/rc_create_doc_3.png)
+![doucment](/img/aws/management/ssm/doucment.png)
+
 Resource: [EC2 Systems Manager – Configure & Manage EC2 and On-Premises Systems](https://aws.amazon.com/blogs/mt/writing-your-own-aws-systems-manager-documents/)
 
 :::infoRescue EC2 via Document
@@ -70,7 +76,7 @@ The service integrates with AWS Identity and Access Management (IAM), AWS CloudT
 > TL;DR - Way more control and a lot more compliance around it
 Using SSH, you need to create inbound rules in security group for the users with specific IP addresses as a session to our instance, but using session manager, we don't need any inbound rules. 
 
-You just need the instance with the SSM agents and the right IAM role, and then a user with a correct IAM permission can use session manager to run commands against our EC2 instance.
+You just need the instance with the **SSM agents** and the right IAM role, and then a user with a correct IAM permission can use session manager to run commands against our EC2 instance.
 
 All the data of the session is going to be logged or could be logged into Amazon S3 or CloudWatch logs. In contract, if someone uses an SSH command into an EC2 instance, you do not have the history of all the commands that will run, and so **less security, less compliance**.
 :::

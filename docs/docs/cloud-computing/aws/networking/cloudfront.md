@@ -34,6 +34,14 @@ CloudFront always caches a few of the HTTP 4xx and 5xx status codes returned by 
 
 ## Features
 
+### Report
+
+Amazon CloudFront includes a variety of reports that the Administrator can use to see usage and activity that is occurring in the CloudFront distributions.
+
+- Popular Objects Report can determine what objects are frequently being accessed and get statistics on those objects. 
+- Usage Reports tells you the number of HTTP and HTTPS requests that CloudFront responds to from edge locations in selected regions. 
+- Viewers Reports can determine the locations of the viewers that access your content most frequently.
+
 ### Signed URLs 
 
 

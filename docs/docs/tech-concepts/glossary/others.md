@@ -119,3 +119,25 @@ The earliest challenges that inhibited building a data lake were keeping track o
 ### Heterogeneous Database Migrations  (異構數據庫遷移)
 
 AWS provides [AWS Database Migration Service](https://aws.amazon.com/dms/) for Heterogeneous Database Migration
+
+
+## Hypervisor
+
+
+A hypervisor, also known as a virtual machine monitor (VMM), is a software or hardware component that creates and manages multiple virtual environments, known as virtual machines (VMs), on a single physical computer. It allows these VMs to run independently, each with its own operating system and applications, while sharing the underlying hardware resources such as CPU, memory, storage, and networking. The hypervisor ensures isolation, security, and efficient resource allocation among the virtual machines, enabling better utilization of the physical hardware and facilitating server consolidation and cloud computing.
+
+![how-does-a-hypervisor-work-1500x732](/img/tech-concepts/how-does-a-hypervisor-work-1500x732.png)
+
+Source: [What Is a Hypervisor? – Types, Benefits & How Does It Work?](https://www.parkplacetechnologies.com/blog/what-is-hypervisor-types-benefits/)
+
+If that definition isn’t intuitive for you, allow us to take one step back. To understand what a hypervisor is, you must know about virtual machines, an advance on physical servers. Think back to the early days of computing. In that era, each physical server could only have one operating system. There was no partitioning and workloads affected each other. It was a fine way to do things, but limited.
+
+Enter virtualization. This technology allows multiple virtual machines to run on one server. Now, a single piece of equipment in the physical world can actually look and act like multiple independent servers in the virtual world. (We’ll get to the advantages of a virtualization environment in a moment.)
+
+A hypervisor might be hardware, or it could be a program to manage virtual machines, whether software or firmware. What makes a hypervisor a hypervisor is what it’s used for—it creates, monitors, and manages virtual machines.
+
+:::infoHypervisor vs. Virtual Machine?
+It is possible to have VMs without a hypervisor. Such virtualization typically takes the form of containers, basically tinier, cheaper, more portable VMs that use the same O/S as the host machine.
+
+It’s probably best to think of hypervisors and VMs as a package deal, however, with containers representing a different architecture with its own advantages and use cases.
+:::

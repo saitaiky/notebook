@@ -24,6 +24,8 @@ You can use Amazon CloudWatch Synthetics to create *canaries* which is a **confi
 
 A valid CloudWatch action can be sending a notification to an Amazon SNS topic, performing an Amazon EC2 action or an Auto Scaling action, or creating a Systems Manager OpsItem.
 
+![AWS-CW-Alarm](/img/aws/management/cw/AWS-CW-Alarm.png)
+
 ### CloudWatch Event Rules
 
 You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
@@ -53,12 +55,13 @@ The recover alarm action, which is suited for **System Health Check failures** -
 
 You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
 
-### Trusted Advisor
+### Service limit from Trusted Advisor
+
+> Service limit is a feature provided by Trusted Advisor a reference implementation that automatically provisions the services necessary to proactively track resource usage and send notifications as you approach limits. 
 
 ![ta-dashboard](/img/aws/management/cw/ta-dashboard.png)
 
-Source: [trusted-advisor-console-basic](https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/)
-
+Source: [Monitoring Service Limits with Trusted Advisor and Amazon CloudWatch](https://aws.amazon.com/blogs/mt/monitoring-service-limits-with-trusted-advisor-and-amazon-cloudwatch/)
 You can use Amazon CloudWatch Events to detect and react to changes in the status of Trusted Advisor checks. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
 
 ![monitor-trusted-advisor-service-check](/img/aws/management/cw/monitor-trusted-advisor-service-check.jpeg)
@@ -110,7 +113,9 @@ RAM is NOT included in the AWS EC2 metrics
     - High Resolution: all the way to 1 second resolution
     - Include RAM, application level metrics
     - Make sure the IAM permissions on the EC2 instance to push the logs and the metrics.
-    - **[Exam]**The following command publishes a Buffers metric with two dimensions named InstanceId and InstanceType: `aws cloudwatch put-metric-data --metric-name Buffers --namespace MyNameSpace --unit Bytes --value 231434333 --dimensions InstanceId=1-23456789,InstanceType=m1.small`
+    - **[Exam]**: `put-metric-data` CLI/API
+        - The following command publishes a metric called *Buffers* with two dimensions named InstanceId and InstanceType: `aws cloudwatch put-metric-data --metric-name Buffers --namespace MyNameSpace --unit Bytes --value 231434333 --dimensions InstanceId=1-23456789,InstanceType=m1.small`
+        - `aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 2 --timestamp 2018-10-10-14T08:00:00.000Z`
 
 ### Procstat plugin
 
@@ -124,8 +129,25 @@ Some key features and use cases of the CloudWatch Agent procstat plugin include:
 
 ## Metrics for SQS
 
-- Amazon SQS sends a number of metrics to CloudWatch, some of which are ApproximateAgeOfOldestMessage, ApproximateNumberOfMessagesDelayed, NumberOfMessagesDeleted and so on
+- Amazon SQS sends a number of metrics to CloudWatch, some of which are `ApproximateAgeOfOldestMessage`, `ApproximateNumberOfMessages`, `ApproximateNumberOfMessagesDelayed`, `NumberOfMessagesDeleted` and so on
 - The only dimension that Amazon SQS sends to CloudWatch is QueueName.
+
+You can also use the aws cli, [get-queue-attributes](https://docs.aws.amazon.com/cli/latest/reference/sqs/get-queue-attributes.html) to get the SQS mertrics in EC2 or lambda to send a custom metric to Amazon CloudWatch.
+
+```
+aws sqs get-queue-attributes --queue-url https://sqs.<region>.amazonaws.com/<accountId>/<SQS name> --attribute-names VisibilityTimeout ApproximateNumberOfMessages ApproximateNumberOfMessagesNotVisible ApproximateNumberOfMessagesDelayed
+```
+
+```json
+{
+    "Attributes": {
+        "VisibilityTimeout": "60",
+        "ApproximateNumberOfMessages": "0",
+        "ApproximateNumberOfMessagesNotVisible": "3",
+        "ApproximateNumberOfMessagesDelayed": "0"
+    }
+}
+```
 
 ## Unified CloudWatch Agent
 
@@ -133,8 +155,35 @@ Some key features and use cases of the CloudWatch Agent procstat plugin include:
 "AWS Unified CloudWatch Agent" and "AWS CloudWatch Agent" are the same thing. AWS Unified CloudWatch Agent is the latest version of the agent used to collect and send logs and metrics to Amazon CloudWatch.
 :::
 
-- You **must attach** the `CloudWatchAgentServerRole` IAM role to the EC2 instance to be able to run the CloudWatch agent on the instance. This role enables the CloudWatch agent to perform actions on the instance.
-- If your AMI contains a CloudWatch agent, it’s automatically installed on EC2 instances when you create an EC2 Auto Scaling group. With the stock Amazon Linux AMI, you need to install it (AWS recommends to install via yum).
+### Installation
+
+- If your AMI contains a CloudWatch agent, it’s **automatically installed on EC2 instances** when you create an EC2 Auto Scaling group. 
+- With the stock Amazon Linux AMI, you need to install it (AWS recommends to install via yum).
+
+### Permission
+
+You **must create and attach** a IAM role to the EC2 instance to be able to run the CloudWatch agent on the instance. This role enables the CloudWatch agent to perform actions on the instance. In the screenshot, we have a role call `CloudWatchAgentServerRole` with below 4 essential policies:  
+![CloudWatchAgentServerRole](/img/aws/management/cw/CloudWatchAgentServerRole.png)
+```json
+{
+"Version": "2012-10-17",
+"Statement": [
+    {
+    "Effect": "Allow",
+    "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
+    ],
+    "Resource": [
+        "arn:aws:logs:*:*:*"
+    ]
+}
+]
+}
+```
+
 
 ### Features
 

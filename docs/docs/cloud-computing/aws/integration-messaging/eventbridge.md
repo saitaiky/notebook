@@ -2,13 +2,22 @@
 title: EventBridge
 ---
 
-Amazon EventBridge is recommended when you want to build an application that reacts to events from SaaS applications and/or AWS services. Amazon EventBridge is the only **event-based service** that integrates directly with third-party SaaS partners.
-
 :::infoIs EventBridge same as CloudWatch?
 Amazon EventBridge is the preferred way to manage your events. CloudWatch Events and EventBridge are the same underlying service and API, but EventBridge provides more features. Changes you make in either CloudWatch or EventBridge will appear in each console. 
 [What Is Amazon CloudWatch Events?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)
 :::
-## Target
+
+Amazon EventBridge is recommended when you want to build an application that reacts to events from SaaS applications and/or AWS services. Amazon EventBridge is the only **event-based service** that integrates directly with third-party SaaS partners.
+
+You can select the following types of targets when using EventBridge as a part of your AWS Health workflow:
+
+– AWS Lambda functions
+– Kinesis streams
+– Amazon SQS queues
+– Amazon SNS topics
+– Templated targets (CloudWatch alarm actions)
+
+## Templated targets
 
 ### EBS
 

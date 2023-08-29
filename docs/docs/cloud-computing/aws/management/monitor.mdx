@@ -134,6 +134,16 @@ AWS Config is a service that tracks and evaluates the configuration and complian
 
 AWS Lambda functions perform compliance evaluations, and **auto-remediation can automatically correct non-compliant resources**. 
 
+### Notification
+
+AWS Config sends notifications for the following events:
+- Configuration item change for a resource.
+- Configuration history for a resource was delivered for your account.
+- Configuration snapshot for recorded resources was started and delivered for your account.
+- Compliance state of your resources and whether they are compliant with your rules.
+- Evaluation started for a rule against your resources.
+- AWS Config failed to deliver the notification to your account.
+
 ### Triggers
 
 ![specifying_triggers_for_aws_config_rules](/img/aws/management/monitor/specifying_triggers_for_aws_config_rules.jpg)

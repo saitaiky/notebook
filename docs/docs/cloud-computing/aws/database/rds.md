@@ -55,8 +55,13 @@ Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest
 Enhanced Monitoring for RDS provides the following **OS level metrics** which are free memory, active memory, swap free, processes running, file system used. It is useful when you want to see how **different processes or threads** on a DB instance use the CPU.
 
 :::infoNormal CloudWatch metrics vs Enhanced Monitoring
-- **[Basic level]** CloudWatch gathers metrics about CPU utilization from the hypervisor for a DB instance 
-- **[OS level]** Enhanced Monitoring gathers its metrics from an agent on the instance.
+A hypervisor creates and runs virtual machines (VMs). Using a hypervisor, an instance can support multiple guest VMs by virtually sharing memory and CPU. **CloudWatch** gathers metrics about CPU utilization from the **hypervisor** for a DB instance. In contrast, **Enhanced Monitoring** gathers its metrics from an agent on the DB instance.
+
+You might find differences between the CloudWatch and Enhanced Monitoring measurements, because the hypervisor layer performs a small amount of work. The differences can be greater if your DB instances use smaller instance classes. In this scenario, more virtual machines (VMs) are probably managed by the hypervisor layer on a single physical instance.
+
+Reference: 
+- [Overview of Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.overview.html)
+- [Hypervisor](/tech-concepts/glossary/others/#hypervisor)
 :::
 ## Scalability
 

@@ -34,6 +34,12 @@ UserData:
 Source: [CloudFormation – 3 – User data, cfn](http://miro.borodziuk.eu/index.php/2021/03/28/cloudformation-cfn/)
 ### cfn-init
 
+:::info`cfn-init` vs user-data
+A major benefit of `AWS::CloudFormation::Init` over `UserData` is that the former is updatable -- if you modify the `AWS::CloudFormation::Init` section, CloudFormation will update your EC2 instance ***in place***, whereas if you modify the `UserData` property of an EC2 resource in your template and update your stack, CloudFormation will ***replace*** that EC2 instance.
+
+This is handy, for example, if you want to update the packages you have installed on your EC2 instance without recreating it.
+:::
+
 - `cfn-init` is a helper script that is executed on an EC2 instance as part of the instance's user data during stack creation or update.
 - It is used to handle the instance configuration and perform tasks such as installing packages, setting up configurations, and running custom scripts.
 - `cfn-init` processes the metadata defined in the CloudFormation template under the "`AWS::CloudFormation::Init`" key and performs the specified tasks accordingly. The metadata can include packages to install, files to create, services to enable, and commands to execute during instance initialization.
@@ -41,8 +47,48 @@ Source: [CloudFormation – 3 – User data, cfn](http://miro.borodziuk.eu/index
 ### cfn-signal
 
 - `cfn-signal` is a helper script to signal the status of an AWS CloudFormation stack resource.
-- It is commonly used in conjunction with AWS CloudFormation Auto Scaling groups and Amazon EC2 instances.
-- During the stack creation or update process, `cfn-signal` is typically called from within user data scripts running on EC2 instances to notify AWS CloudFormation about the successful initialization of the instance. This signals that the instance is ready and healthy to proceed with the stack creation or update process.
+- It is commonly used in conjunction with a `CreationPolicy` in **CloudFormation** and an **Auto Scaling group** with a `WaitOnResourceSignals` update policy. 
+- When AWS CloudFormation creates or updates resources with those policies, it suspends work on the stack until the resource receives the requisite number of signals or until the timeout period is exceeded.
+- During the stack creation or update process, `cfn-signal` is typically called from within `user-data` scripts running on EC2 instances to notify AWS CloudFormation about the successful initialization of the instance.  Tt suspends work on the stack until.. 
+  - the resource receives the requisite number of signals (This signals that the instance is ready and healthy to proceed with the stack creation or update process.) or 
+  - the timeout period is exceeded
+
+Example:
+```yaml
+AutoScalingGroup:
+  Type: AWS::AutoScaling::AutoScalingGroup
+  Properties:
+    AvailabilityZones:
+      Fn::GetAZs: ''
+    LaunchConfigurationName:
+      Ref: LaunchConfig
+    DesiredCapacity: '3'
+    MinSize: '1'
+    MaxSize: '4'
+  CreationPolicy:
+    ResourceSignal:
+      Count: '3'
+      Timeout: PT15M
+  UpdatePolicy:
+    AutoScalingScheduledAction:
+      IgnoreUnmodifiedGroupSizeProperties: 'true'
+    AutoScalingRollingUpdate:
+      MinInstancesInService: '1'
+      MaxBatchSize: '2'
+      PauseTime: PT1M
+      WaitOnResourceSignals: 'true'
+LaunchConfig:
+  Type: AWS::AutoScaling::LaunchConfiguration
+  Properties:
+    ImageId: ami-16d18a7e
+    InstanceType: t2.micro
+    UserData:
+      "Fn::Base64":
+        !Sub |
+          #!/bin/bash -xe
+          yum update -y aws-cfn-bootstrap
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
+```
 ### Wait conditions
 
 Wait Conditions, as the name suggests, is a tool used to control the order of creation of the AWS resources in a CloudFormation stack. It can pause the creation of a stack and wait for a signal to ensure that specific resources and configurations were properly launched before resuming the stack creation process.

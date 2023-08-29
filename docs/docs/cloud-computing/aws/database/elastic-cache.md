@@ -90,18 +90,19 @@ Source: [Amazon ElastiCache for Redis](https://aws.amazon.com/elasticache/redis/
 
 Q: An IT company uses a blue/green deployment policy to provision new Amazon EC2 instances in an Auto Scaling group behind a new Application Load Balancer for each new application version. The current set up requires the users to log in after every new deployment. What will you do to solve the issue?
 
-A: To address scalability and to provide a shared data storage for sessions that can be accessed from any individual web server, you can abstract the HTTP sessions from the web servers themselves. (The benifit to decouple the caching part.)
+A: To address scalability and to provide a shared data storage for sessions, using ElastiCache can be accessed from any individual web server, you can abstract the HTTP sessions from the web servers themselves. (The benefit to decouple the caching part.)
 
 ![caching-session-management-diagram](/img/aws/database/elastic-cache/caching-session-management-diagram-v2.png)
 
 Source: [AWS: Session Management](https://aws.amazon.com/caching/session-management/)
 
-:::caution Sticky session in ALB
-Enable sticky sessions in the Application Load Balancer is not an option here! - As the Application Load Balancer itself is replaced on each new deployment, so maintaining sticky sessions via the Application Load Balancer will not work. 
+:::cautionEnable sticky sessions in the ALB is not an option!
+As the Application Load Balancer itself is replaced on each new deployment, so maintaining sticky sessions via the Application Load Balancer will not work. 
 :::
 
 
 ## Redis VS Memcached
+
 **Amazon ElastiCache** supports both **Memcached** and **Redis** as in-memory caching engines. Each has its own use cases and reasons for implementation:
 
 **Memcached:**
