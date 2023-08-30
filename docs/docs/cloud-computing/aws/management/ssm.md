@@ -119,8 +119,8 @@ Resource: [Configuration management using State Manager](https://catalog.worksho
 
 OpsWorks lets you use Chef and Puppet to automate how servers are configured, deployed, and managed across your **Amazon EC2 instances or on-premises** compute environments.
 
-- It’s an alternative to AWS SSM
 - AWS OpsWorks = Managed **Chef & Puppet**
+- It’s an alternative to AWS SSM
 - Chef & Puppet help you perform server configuration automatically, or repetitive actions
 - Chef / Puppet have similarities with SSM / Beanstalk / CloudFormation but they’re open-source tools that work cross-cloud
 

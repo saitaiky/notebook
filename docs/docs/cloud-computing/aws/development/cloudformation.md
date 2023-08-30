@@ -47,7 +47,9 @@ This is handy, for example, if you want to update the packages you have installe
 ### cfn-signal
 
 - `cfn-signal` is a helper script to signal the status of an AWS CloudFormation stack resource.
-- It is commonly used in conjunction with a `CreationPolicy` in **CloudFormation** and an **Auto Scaling group** with a `WaitOnResourceSignals` update policy. 
+- It is commonly used in conjunction with `UpdatePolicy` in `WaitOnResourceSignals` and `CreationPolicy`
+  - `CreationPolicy` - Associate the CreationPolicy attribute with a resource to prevent its status from reaching create complete until AWS CloudFormation receives a specified number of success signals or the timeout period is exceeded
+  - You want to make sure the newly deployed instances are healthy first before the old instances are taken down for replacement. To solve this, you will need to use the `UpdatePolicy` attribute on CloudFormation and enable the `WaitOnResourceSignals` property.
 - When AWS CloudFormation creates or updates resources with those policies, it suspends work on the stack until the resource receives the requisite number of signals or until the timeout period is exceeded.
 - During the stack creation or update process, `cfn-signal` is typically called from within `user-data` scripts running on EC2 instances to notify AWS CloudFormation about the successful initialization of the instance.  Tt suspends work on the stack until.. 
   - the resource receives the requisite number of signals (This signals that the instance is ready and healthy to proceed with the stack creation or update process.) or 
@@ -89,11 +91,34 @@ LaunchConfig:
           yum update -y aws-cfn-bootstrap
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
 ```
-### Wait conditions
+### WaitCondition
 
-Wait Conditions, as the name suggests, is a tool used to control the order of creation of the AWS resources in a CloudFormation stack. It can pause the creation of a stack and wait for a signal to ensure that specific resources and configurations were properly launched before resuming the stack creation process.
+`WaitCondition`, as the name suggests, is a tool used to control the order of creation of the AWS resources in a CloudFormation stack. It can pause the creation of a stack and wait for a signal to ensure that specific resources and configurations were properly launched before resuming the stack creation process. For example, you might want to download and configure applications on an Amazon EC2 instance before considering the creation of that Amazon EC2 instance complete.
 
-For example, you might want to download and configure applications on an Amazon EC2 instance before considering the creation of that Amazon EC2 instance complete.
+Below is an example of `WaitCondition` that waits for the desired number of instances in a web server group
+
+```yaml
+WebServerGroup:
+  Type: AWS::AutoScaling::AutoScalingGroup
+  Properties:
+    AvailabilityZones:
+      Fn::GetAZs: ''
+      LaunchConfigurationName: !Ref 'LaunchConfig'
+    MinSize: '1'
+    MaxSize: '5'
+    DesiredCapacity: !Ref 'WebServerCapacity'
+    LoadBalancerNames:
+      - !Ref 'ElasticLoadBalancer'
+WaitHandle:
+  Type: AWS::CloudFormation::WaitConditionHandle
+WaitCondition:
+  Type: AWS::CloudFormation::WaitCondition
+  DependsOn: WebServerGroup
+  Properties:
+    Handle: !Ref 'WaitHandle'
+    Timeout: '300'
+    Count: !Ref 'WebServerCapacity'
+```
 
 Q: How to resolve a situation where wait condition didn't receive the required number of signals from an Amazon EC2 Instance?
 
@@ -104,8 +129,16 @@ Answer:
 - Verify that the instance has a connection to the Internet. If the instance is in a VPC, the instance should be able to connect to the Internet through a NAT device if it's is in a private subnet or through an Internet gateway if it's in a public subnet.
   - For example, run: curl -I https://aws.amazon.com
 
-## Configuration
+### WaitCondition vs CreationPolicy
 
+Currently, only AutoScalingGroup, EC2 Instance & WaitCondition resources support the CreationPolicy attribute. Both WaitCondition & CreationPolicy delay the creation of the stack until they receive a specified number of “success signals”.
+
+- While CreationPolicy causes the creation status of its parent resource to stay in `CREATE_IN_PROGRESS`, a WaitCondition on the other hand, **being a resource in itself**, waits in `CREATE_IN_PROGRESS` state, thus blocking the stack from reaching the CREATE_COMPLETE state.
+- Use cases
+  - When you need to pause the creation of multiple instances in an auto-scaling group & make the stack wait for applications to be installed & started on the instances, think CreationPolicy.
+  - When you want to coordinate a resource creation with actions **external to the stack**, think WaitCondition with a DependsOn attribute on the resource.
+
+## Configuration
 
 ### DeletionPolicy
 

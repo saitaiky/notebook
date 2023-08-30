@@ -83,19 +83,19 @@ A spread placement group can span multiple Availability Zones in the same Region
 Source: [AWS - Placement Groups](https://tridentsys.net/aws-placement-groups/)
 
 ### Cluster
-- Same rack and same availability zone
+- Same rack and **same availability zone**
 - Great network, low latency (10Gbps bandwidth between instances)
 - Cons: if rack fails then all the EC2 instances will fail at the same time
 
 Usage: Big data job that needs to complete fast, Application with low latency and high throughput.
 
 ### Spread
-- All EC2 instance will be located on different hardware
+- All EC2 instance will be located on **different hardware**
 - Span across multiple AZ
 - Reduced risk of simultaneous failure
 - Limit of **7 instances** per AZ per placement group
 
-Usage: Application that needs maximize HA , Critical Applications that needs to be isolated from failure from each other
+Usage: Application that needs maximize highly availability, Critical Applications that needs to be isolated from failure from each other
 
 ### Partition
 - Up to 7 partitions per AZ with **100s** of EC2 instances
@@ -260,15 +260,25 @@ Your instance is enabled for basic monitoring **by default**. You can optionally
 
 ## AMI
 
-- As the AMI is **tied to a specific AWS Region**, you need to copy the AMI to other AWS Regions if required. 
-- Linux paravirtual (PV) AMIs **aren't supported in all AWS Regions** and copying these across unsupported Regions results in this error
-- You can copy both Amazon EBS-backed AMIs and instance-store-backed AMIs. 
-- You can change or deregister the source AMI with no effect on the target AMI.
-- You can't restore or recover a deleted or deregistered AMI. The only option is to create a new, identical AMI
-- Copying a source AMI results in an identical but distinct target AMI with its own **unique identifier(AMI ID)**. 
+- An AMI includes the following:
+  - A template for the root volume for the instance (for example, an operating system, an application server, and applications)
+  - Launch permissions that control which AWS accounts can use the AMI to launch instances
+  - A block device mapping that specifies the volumes to attach to the instance when it’s launched
+- Behaviours
+  - As the AMI is **tied to a specific AWS Region**, you need to copy the AMI to other AWS Regions if required. 
+  - Linux paravirtual (PV) AMIs **aren't supported in all AWS Regions** and copying these across unsupported Regions results in this error
+  - Copy & recover
+    - You can copy both Amazon EBS-backed AMIs and instance-store-backed AMIs. 
+    - Copying a source AMI results in an identical but distinct target AMI with its own **unique identifier(AMI ID)**. 
+    - You can change or deregister the source AMI with no effect on the target AMI.
+    - You can't restore or recover a deleted or deregistered AMI. The only option is to create a new, identical AMI
+- Automation
+  - **EC2 Image Builder** is a service AWS offer that allows you to automate the process of building custom Amazon Machine Images (AMIs). It also handles the full pipeline for creating, testing and even distributing the machine images.
+  - Image Builder uses the AWS Task Orchestrator and Executor (AWSTOE) component management application to orchestrate complex workflows. Build and test components that work with the AWSTOE application are based on YAML documents that define the scripts to customize or test your image. 
+    - For AMI images, Image Builder installs components and the AWSTOE component management application on its Amazon EC2 build and test instances. 
+    - For container images, the components and AWSTOE component management application are installed inside of the running container.
 - **A Golden AMI** is an AMI that you standardize through configuration, consistent security patching, and hardening. It also contains agents you approve for logging, security, performance monitoring, etc. Reference: [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
-- ASG need to have permission to access the customer-managed customer master keys (CMKs) when an IAM is encrypted.
--  
+- **ASG** need to have permission to access the customer-managed customer master keys (CMKs) when an IAM is encrypted.
 
 > Reference: [Linux AMI virtualization types (HVM & PV)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)
 

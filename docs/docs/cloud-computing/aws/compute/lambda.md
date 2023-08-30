@@ -45,9 +45,11 @@ When configuring Lambda functions for VPC access, it is an HA best practice to c
 :::
 ### When do you need a VPC Access?
 
-If your Lambda function does not need to reach private resources inside your VPC (e.g. an RDS database or Elasticsearch cluster) then do not configure the Lambda function to connect to the VPC.
+If your Lambda function *does not need to reach private resources* inside your VPC (e.g. an RDS database or Elasticsearch cluster) then do not configure the Lambda function to connect to the VPC.
 
-If your Lambda function does need to reach private resources inside your VPC, then configure the Lambda function to connect to private subnets (and only private subnets).
+If your Lambda function *does need to reach private resources* inside your VPC, then configure the Lambda function to connect to private subnets (and only private subnets). When you configure your Lambda function to connect to your own VPC, it creates an elastic network interface in your VPC and then does a cross-account attachment. These network interfaces allow network access from your Lambda functions to your private resources. Check the below image
+
+![aws-lambda-function-connection-to-vpc.jpg](/img/aws/compute/lambda/aws-lambda-function-connection-to-vpc.jpg)
 
 ### When do you need to connect to NAT?
 
