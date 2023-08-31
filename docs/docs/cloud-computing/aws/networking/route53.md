@@ -11,22 +11,32 @@ Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS
 
 ## Private hosted zones
 
-> Usage: You want to set up a custom domain for internal usage such as internaldomainexample.com
+> Usage: You want to set up a custom domain for internal usage **within an Amazon VPC**. In contact, A public hosted zone determines **how traffic is routed on the internet**.
 
 A private hosted zone is a container for records for a domain that you host in one or more VPCs. You create a hosted zone for a domain (such as internaldomainexample.com), and then you create records to tell Amazon Route 53 how you want traffic *to be routed for that domain within and among your VPCs*.
 
 For each VPC that you want to associate with the Route 53 hosted zone, change the following VPC settings to true:
-
 - enableDnsHostnames
 - enableDnsSupport
 
+:::cautionA record or CName for creating a custom domain to connect to a database in a private hosted zone?
+Question: Should I use A/CName record to route traffic to a custom domain db.yourMainDomain.com for your database in a private subnet?
+
+Answer: You should use A record directly to point the traffic to db.yourMainDomain.com instead of using CNAME, because it will cost an extra DNS lookup instead of routing to the DB IP address directly. 
+
+![private-hosted-zone](/img/aws/networking/route53/private-hosted-zone.jpg)
+
+Credit: tutorialsdojo.com
+:::
 
 ## Alias record 
 
 Amazon Route 53 alias records provide a Route 53–specific extension to DNS functionality. Alias records let you **route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets**. They also let you route traffic from one record in a hosted zone to another record.
 
 :::caution Only alias record can record top node of DNS namespace. CNAME can't
-Unlike a **CNAME record**, you can create **an alias record** at the top node of a DNS namespace, also known as the zone apex. For example, if you register the DNS name example.com, the zone apex is example.com. You can't create a **CNAME record** for example.com, but you can create **an alias record** for example.com that routes traffic to www.example.com (as long as www.example.com doesn't already have a CNAME record).
+Unlike a **CNAME record**, you can create **an alias record** at the top node of a DNS namespace, also known as the zone apex. For example, if you register the DNS name example.com, the zone apex is example.com. 
+
+You can't create a **CNAME record** for example.com, but you can create **an alias record** for example.com that routes traffic to www.example.com (as long as www.example.com doesn't already have a CNAME record).
 :::
 
 When Route 53 receives a DNS query for an alias record, Route 53 responds with the applicable value for that resource:

@@ -164,11 +164,11 @@ It's important to note that while load balancers provide advanced traffic distri
 
 Certainly! There are several types of DNS (Domain Name System) records that serve different purposes and provide specific information about domain names and network resources. Here are some of the commonly used DNS record types:
 
-1. A (Address) Record  **maps a domain name to an IPv4 address**. It translates a domain name to the corresponding IP address to facilitate the routing of network traffic.
+1. A/AAAA Record
+    - A (Address) Record maps **a domain or subdomain to an IPv4 address**. It translates a domain name to the corresponding IP address to facilitate the routing of network traffic.
+    - AAAA (IPv6 Address) Record is similar to the A record but is used for mapping a domain name to an IPv6 address. It enables the translation of a domain name to its corresponding IPv6 address.
 
-2. AAAA (IPv6 Address) Record is similar to the A record but is used for mapping a domain name to an IPv6 address. It enables the translation of a domain name to its corresponding IPv6 address.
-
-3. CNAME (Canonical Name) Record is used to create **an alias or nickname for a domain or subdomain**. It points a domain or subdomain to another domain name, allowing multiple names to resolve to the same IP address. 
+2. CNAME (Canonical Name) Record is used to create **an alias or nickname for a domain or subdomain**. It points a domain or subdomain to another domain name, allowing multiple names to resolve to the same IP address. 
 
 :::infoNo Top node for a CNAME record
 You should keep in mind that the DNS protocol does not allow you to create a CNAME record for the top node of a DNS namespace, also known as the zone apex.  e.g. create `CNAME` record like: `example.com` but you can create `CNAME` record like:  `www.example.com`, `newproduct.example.com`

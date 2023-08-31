@@ -100,7 +100,16 @@ After you've created a flow log, you cannot change its configuration or the flow
 
 ### Routing table example
 
+A route table contains a set of rules, called routes, that are used to determine where network traffic from your subnet or gateway is directed. To put it simply, a route table tells network packets which way they need to go to get to their destination.
+
+Within a VPC, route tables are assigned to individual subnets. With only 1 route table created in a VPC, all of the subnets would be assigned to that route table. A subnet can only be associated with one route table at a time, but you can associate multiple subnets with the same subnet route table.
+
+#### Example 1
+
 The following is an example of the route table for the **public subnets**, with routes for both IPv4 and IPv6. If you create IPv4-only subnets instead of dual stack subnets, your route table includes only the IPv4 routes.
+
+- `Destination: 10.0.0.0/16 and Target: local` and `Destination: 2001:db8:1234:1a00::/56 and Target: local` are the default entry for local routing in the VPC; this entry enables the instances in the VPC to communicate with each other over IPv4 and IPv6. 
+- `Destination: 0.0.0.0/0 and Target: igw-id` and `Destination: ::/0 and Target: igw-id` route all other IPv4 subnet traffic to the Internet gateway (gw-id) which should have a value of 0.0.0.0/0 for its destination.
 
 | Destination | Target |
 | --- | --- |
@@ -108,6 +117,8 @@ The following is an example of the route table for the **public subnets**, with 
 | `2001:db8:1234:1a00::/56` | local |
 | 0.0.0.0/0 | `igw-id` |
 | ::/0 | `igw-id` |
+
+#### Example 2
 
 The following is an example of a route table for one of the **private subnets**, with routes for both IPv4 and IPv6. If you created IPv4-only subnets, the route table includes only the IPv4 routes. The last route sends traffic destined for Amazon S3 to the gateway VPC endpoint.
 
@@ -118,6 +129,11 @@ The following is an example of a route table for one of the **private subnets**,
 | 0.0.0.0/0 | `nat-gateway-id` |
 | ::/0 | `eigw-id` |
 | `s3-prefix-list-id` | `s3-gateway-id` |
+
+#### Example 3
+
+![default-vpc-diagram](/img/aws/networking/vpc/default-vpc-diagram.png)
+
 
 ## Endpoints
 
@@ -226,7 +242,12 @@ The `blackhole` status indicates that the route's target isn't available (for ex
 An egress-only internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows outbound communication over IPv6 from instances in your VPC to the internet, and prevents the internet from initiating an IPv6 connection with your instances.
 
 :::caution
-An egress-only internet gateway is for use with **IPv6 traffic** only. To enable outbound-only internet communication over IPv4, use a **NAT gateway** instead.
+Egress-only Internet gateway works as a NAT gateway, but for IPv6 traffic.
+
+- To enable outbound-only internet communication over IPv6, use a **egress-only internet gateway** instead.
+  - Don't forget to assign an IPv6 address to the instance in private subnet otherwise the instance cannot access IPv6 websites.
+- To enable outbound-only internet communication over IPv4, use a **NAT gateway** instead.
+  - A public IPv4 address is not needed for the instance in private subnet. We can access IPv4 websites without it.
 :::
 
 In the following diagram, the VPC has both IPv4 and IPv6 CIDR blocks, and the subnet both IPv4 and IPv6 CIDR blocks. The VPC has an egress-only internet gateway.
@@ -241,10 +262,10 @@ A dedicated connection is made through a 1 Gbps, 10 Gbps, or 100 Gbps Ethernet p
 
 ## Direct Connect vs Site-to-Site VPN
 
--   **AWS Direct Connect** is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
-    - Connections go over **private network**
--   **AWS Site-to-Site VPN** is a great connection option for businesses that are just starting to use AWS. It is quick and easy to set up. But keep in mind that the VPN connection normally uses the public Internet, which may have **unpredictable performance**, and **although it is encrypted**, there may still be security concerns.
-    - Connections go over **public network**
+- **AWS Direct Connect** is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS because it establishes a **dedicated network connection** from your premises to AWS. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
+  - Connections go over **private network**
+- **AWS Site-to-Site VPN** is a great connection option for businesses that are just starting to use AWS. It is quick and easy to set up. But keep in mind that the VPN connection normally uses the public Internet, which may have **unpredictable performance**, and **although it is encrypted**, there may still be security concerns.
+  - Connections go over **public network**
 
 ## Direct Connect + Site-to-Site VPN
 
@@ -433,7 +454,10 @@ After a subnet is shared, the participants can view, create, modify, and delete 
 AWS RAM enables you to share specified AWS resources that you own with other AWS accounts. It's a centralized service that provides a consistent experience for sharing different types of AWS resources across multiple accounts. 
 :::
 
+
 ### NACL vs Security group
+
+> In most cases, security groups can meet your needs; however, you can also use network ACLs if you want an additional layer of security for your VPC.
 
 - Network Access Control List
     - You can control what goes in and out of your **VPC**
@@ -454,10 +478,26 @@ Source: [Security Group and Network Access Control List Migration between differ
 
 Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www.youtube.com/watch?v=tLAgYQlMWGo)
 
+:::infoVPC flow log to show ACL is stateless
+This is a VPC flow log to demostrate what it looks like when Network ACL permits inbound ICMP traffic but does not permit outbound ICMP traffic. In this example, I usde the ping command from your home computer (IP address is 203.0.113.12) to an EC2 instance (the network interface’s private IP address is 172.31.16.139)
+
+Apparently, the first one is an ACCEPT record, and the second one is a REJECT record, which means that the incoming traffic was successfully accepted by your EC2 instance, but the response, or the outgoing traffic, was rejected by either your security group or network ACL.
+
+```
+2 123456789010 eni-1235b8ca 110.237.99.166 172.31.17.140 0 0 1 4 336 1432917027 1432917142 ACCEPT OK
+2 123456789010 eni-1235b8ca 172.31.17.140 110.237.99.166 0 0 1 4 336 1432917094 1432917142 REJECT OK
+```
+:::
 
 ### Compare IPv4 and IPv6
 
 The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support).
+
+:::caution
+You can create a custom VPC with both IPV4 and IPV6 support (Dual Support).
+- IPV4 CIDR Block: 10.0.0.0/16
+- IPV6 CIDR Block: AWS will provide you a /56 IPV6 CIDR Block (You cannot explicitly specify an IP range for IPv6, as this is only provided by Amazom)
+:::
 
 <div class="table-container"><div class="table-contents disable-scroll"><table id="w285aac11c11b5"><thead>
     <tr>

@@ -66,11 +66,14 @@ You can use TagOption library to enforce the tagging of all instances that will 
 
 ## Others
 
-- Aws neptune (Fully Managed Graph Database)
+- Data
+  - **Amazon EMR** (previously called Amazon Elastic MapReduce) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. Using these frameworks and related open-source projects, you can process data for analytics purposes and business intelligence workloads. 
+  - Aws neptune (Fully Managed Graph Database)
 - Security
-  - AWS **GuardDuty** is a threat detection service that monitors malicious activity and unauthorized behavior to protect your AWS account.
+  - Amazon **GuardDuty** is a continuous security monitoring service that analyzes and processes the following data sources: AWS CloudTrail management event logs, AWS CloudTrail data events for S3, DNS logs, EKS audit logs, and VPC flow logs. <br/>
+  It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and machine learning to identify unexpected and potentially unauthorized and malicious activity within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or communication with malicious IP addresses, or domains.
 - Compliance
-  - AWS Artifact is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)
+  - **AWS Artifact** is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)
 - **Amazon Inspector** is an automated security assessment service that helps you test the network accessibility of your Amazon EC2 instances and the security state of your applications running on the instances. 
 - **AWS Compute Optimizer** helps avoid overprovisioning and underprovisioning four  types of AWS resources—Amazon Elastic Compute Cloud (EC2) instance types, Amazon Elastic Block Store (EBS) volumes, Amazon Elastic Container Service (ECS) services on AWS Fargate, and AWS Lambda functions—based on your utilization data.
 
