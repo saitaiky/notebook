@@ -8,16 +8,33 @@ sidebar_position: 2
 
 Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS – such as Amazon EC2 instances – and can also be used to route users to infrastructure outside of AWS. 
 
+## Routing policies
+
+1. **Simple Routing**: Distributes traffic across multiple resources, such as EC2 instances, in a round-robin manner.
+
+2. **Weighted Routing**: Allows you to assign different weights to resources, directing a proportion of traffic based on those weights.
+
+3. **Latency-Based Routing**: Routes traffic to the resource with the lowest latency for a user's geographic location. (If your application is hosted in multiple AWS Regions, you can **improve performance** for your users by serving their requests from the AWS Region that provides the lowest latency.)
+
+4. **Failover Routing**: Routes traffic to a standby resource in case the primary resource becomes unhealthy.
+
+5. **Geolocation Routing**: Directs traffic based on the geographic location of the user, helping tailor content for different regions.
+
+6. **Geoproximity Routing**: Routes traffic based on the geographic location of the user, with the ability to define bias towards specific resources.
+
+7. **Multivalue Answer Routing**: Returns multiple healthy records in response to DNS queries, offering a simple form of load balancing.
+
+8. **Traffic Flow**: Allows you to create advanced routing policies using a visual editor to define complex routing logic.
+
+9. **Private DNS for Amazon VPC**: Routes traffic between resources within a Virtual Private Cloud (VPC) using custom DNS names.
+
+10. **Hybrid Routing**: Combines the use of on-premises DNS servers with Route 53 for a hybrid architecture.
 
 ## Private hosted zones
 
 > Usage: You want to set up a custom domain for internal usage **within an Amazon VPC**. In contact, A public hosted zone determines **how traffic is routed on the internet**.
 
 A private hosted zone is a container for records for a domain that you host in one or more VPCs. You create a hosted zone for a domain (such as internaldomainexample.com), and then you create records to tell Amazon Route 53 how you want traffic *to be routed for that domain within and among your VPCs*.
-
-For each VPC that you want to associate with the Route 53 hosted zone, change the following VPC settings to true:
-- enableDnsHostnames
-- enableDnsSupport
 
 :::cautionA record or CName for creating a custom domain to connect to a database in a private hosted zone?
 Question: Should I use A/CName record to route traffic to a custom domain db.yourMainDomain.com for your database in a private subnet?
@@ -29,6 +46,31 @@ Answer: You should use A record directly to point the traffic to db.yourMainDoma
 Credit: tutorialsdojo.com
 :::
 
+### enableDnsHostnames and enableDnsSupport
+
+For each VPC that you want to associate with the Route 53 hosted zone, change the following VPC settings to true:
+- `enableDnsHostnames` - Indicates whether instances launched in the VPC receive public DNS hostnames that correspond to their public IP addresses.
+  - For non-default VPCs that aren't created using the Amazon VPC wizard, this option is turned off by default. If you create a private hosted zone for a domain and create records without turning on DNS hostnames, private hosted zones aren't turned on.
+  - To use a private hosted zone, this option must be turned on.
+- `enableDnsSupport` - Indicates whether the DNS resolution is supported for the VPC. 
+  - Private hosted zones accept DNS queries only from a [VPC DNS server](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html#AmazonDNS). The IP address of the VPC DNS server is the reserved IP address at the base of the VPC IPv4 network range plus two. Turning on DNS resolution allows you to use the VPC DNS server as a resolver for performing DNS resolution.
+  - Keep this option turned off if you're using a custom DNS server in the DHCP options set and you're not using a private hosted zone.
+  - This option and DNS hostnames must be turned on to resolve endpoint domains to private IP addresses for AWS Managed Services. Examples of these services include AWS PrivateLink and Amazon Relational Database Service (Amazon RDS).
+
+![AWS-VPC-Settings-DNS](/img/aws/networking/route53/AWS-VPC-Settings-DNS.png)
+
+- By default, both attributes are set to `true` in a default VPC or a VPC created by the VPC wizard. 
+- By default, only the `enableDnsSupport` attribute is set to `true` in a VPC created on the Your VPCs page of the VPC console or using the AWS CLI, API, or an AWS SDK.
+
+If both attributes are set to `true`, the following occurs:
+- Your instance receives a public DNS hostname.
+- The Amazon-provided DNS server can resolve Amazon-provided private DNS hostnames.
+
+If either or both of the attributes is set to `false`, the following occurs:
+- Your instance does not receive a public DNS hostname that can be viewed in the Amazon EC2 console or described by a command line tool or AWS SDK.
+- The Amazon-provided DNS server cannot resolve Amazon-provided private DNS hostnames.
+- Your instance receives a custom private DNS hostname if you've specified a custom domain name in your [DHCP options set](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html). If you are not using the Amazon-provided DNS server, your custom domain name servers must resolve the hostname as appropriate.
+
 ## Alias record 
 
 Amazon Route 53 alias records provide a Route 53–specific extension to DNS functionality. Alias records let you **route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets**. They also let you route traffic from one record in a hosted zone to another record.
@@ -39,7 +81,7 @@ Unlike a **CNAME record**, you can create **an alias record** at the top node of
 You can't create a **CNAME record** for example.com, but you can create **an alias record** for example.com that routes traffic to www.example.com (as long as www.example.com doesn't already have a CNAME record).
 :::
 
-When Route 53 receives a DNS query for an alias record, Route 53 responds with the applicable value for that resource:
+When Route 53 receives a DNS query for an alias record, Route 53 responds with the applicable value for that resource(You can't create alias records for EC2):
 
 - **An Amazon API Gateway custom regional API or edge-optimized API** - Route 53 responds with one or more IP addresses for your API.
 - **An Amazon VPC interface endpoint** - Route 53 responds with one or more IP addresses for your interface endpoint.
@@ -66,6 +108,11 @@ If an alias record points to an AWS resource, you can't set the time to live (TT
 - **Health checks that monitor other health checks (calculated health checks)** – You can create a health check that monitors whether Route 53 considers other health checks healthy or unhealthy. One situation where this might be useful is when you have multiple resources that perform the same function, such as multiple web servers, and your chief concern is whether some minimum number of your resources are healthy. You can *create a health check for each resource without configuring notifications for those health checks*. Then you can create a health check that monitors the status of the other health checks, and that notifies you only when the number of available web resources drops below a specified threshold.
 - **Health checks that monitor CloudWatch alarms** – You can create CloudWatch alarms that monitor the status of CloudWatch metrics, such as the number of throttled read events for an Amazon DynamoDB database or the number of Elastic Load Balancing hosts that are considered healthy. After you create an alarm, you can create a health check that monitors the same data stream that CloudWatch monitors for the alarm.
 
+### Evaluate Target Health
+
+This option is only available when you create an alias record 
+
+If you set the target of a record as ALB with a true “Evaluate Target Health” flag on Route 53. Route 53 will check both ALB entry to ensure that your ALBs are responding. Route 53 will then decide to which ALB it will direct the user. If one region goes down, Route 53 will know it via the “Evaluate Target Health” setting and will not redirect users to that region’s ALB.
 
 ## Route53 resolver
 

@@ -49,21 +49,19 @@ Most of the AWS-managed services are regional-based services with few exceptions
 When two instances communicate using public IP addresses, the following three scenarios are possible:
 
 - Traffic between two EC2 instances **in the same AWS Region** stays within the AWS network, even when it goes over public IP addresses.
-
 - Traffic between EC2 instances **in different AWS Regions**
   - [**Situation 1**]: Traffic **stays within** the AWS network if there is an **Inter-Region VPC Peering connection** between the VPCs where the two instances reside.
   - [**Situation 2**]: Traffic is **not guaranteed** to stay within the AWS network where there is **no Inter-Region VPC Peering connection** between the VPCs where these instances reside.
 
 :::infoWhat is VPC peering?
 
-![vpc-peering](/img/aws/networking/vpc/peering-intro-diagram.webp)
-
-Resource: [Understanding Inter-Region VPC Peering with Hands-On!](https://nileshjoshi.medium.com/understanding-inter-region-vpc-peering-with-hands-on-57b622a96c8b)
+![vpc-peering](/img/aws/networking/vpc/three-vpcs-peered-diagram.png)
 
 A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses. Instances in either VPC can communicate with each other as if they are within the same network. You can create a VPC peering connection between your own VPCs, or with a VPC in another AWS account. 
 
-- The VPCs can be in different Regions (also known as **an inter-Region VPC peering connection**).
+- VPCs can be in different Regions. Those VPCs would not be able to communicate unless you establish **an inter-Region VPC peering connection**. Some other methods can be public IP addresses, NAT gateway, NAT instances, VPN Connections or Direct Connect connections. [reference](https://aws.amazon.com/vpc/faqs/#:~:text=public%20AWS%20network.-,Q.,Connections%20or%20Direct%20Connect%20connections.)
 - Both VPCs for peering need to update their route table for communication
+- You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks.
 :::
 
 ## Configuration 
@@ -177,10 +175,6 @@ AWS PrivateLink enables private network connectivity between VPCs and AWS servic
 
 PrivateLink ensures data privacy and reduces security risks by keeping traffic within the AWS network. It simplifies network architecture, eliminates the need for public IPs, and enhances performance and reliability by leveraging the low-latency, high-bandwidth AWS infrastructure.
 
-:::caution
-You do not need to use an internet gateway, NAT device, public IP address, AWS Direct Connect connection, or AWS Site-to-Site VPN connection to allow communication with the service **from your private subnets**. Therefore, you control the specific API endpoints, sites, and services that are reachable from your VPC.
-:::
-
 ## Gateway
 
 ### Transit Gateway
@@ -225,17 +219,6 @@ To enable access to or from the internet for instances in a subnet in a VPC, you
 3.  Ensure that instances in your subnet have a globally unique IP address (public IPv4 address, Elastic IP address, or IPv6 address).
 4.  Ensure that your network access control lists and security group rules allow the relevant traffic to flow to and from your instance.
 
-### NAT Gateway
-
-> TL;DR - To provide internet access for instnaces that don't have public IPs 
-
-NAT Gateway enables private subnets within a Virtual Private Cloud (VPC) to access the internet while keeping the instances within those subnets private and protected. The NAT Gateway acts as a gateway between the private subnet and the public internet, allowing outgoing internet traffic from the private instances and providing them with a public IP address. It simplifies the configuration and management of outbound internet connectivity, ensuring secure and controlled access for resources within the private subnets.
-
-:::infoBlackhole status in NAT
-The `blackhole` status indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).
-
-![nat-blackhole](/img/aws/networking/vpc/nat-blackhole.png)
-:::
 
 ### Egress-only Internet Gateway
 
@@ -262,7 +245,7 @@ A dedicated connection is made through a 1 Gbps, 10 Gbps, or 100 Gbps Ethernet p
 
 ## Direct Connect vs Site-to-Site VPN
 
-- **AWS Direct Connect** is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS because it establishes a **dedicated network connection** from your premises to AWS. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
+- **AWS Direct Connect**(拉線) is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS because it establishes a **dedicated network connection** from your premises to AWS. It links one end of the cable is connected to your router, and the other to an AWS Direct Connect router. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
   - Connections go over **private network**
 - **AWS Site-to-Site VPN** is a great connection option for businesses that are just starting to use AWS. It is quick and easy to set up. But keep in mind that the VPN connection normally uses the public Internet, which may have **unpredictable performance**, and **although it is encrypted**, there may still be security concerns.
   - Connections go over **public network**
@@ -273,7 +256,9 @@ A dedicated connection is made through a 1 Gbps, 10 Gbps, or 100 Gbps Ethernet p
 
 Source: [AWS Direct Connect + AWS Site-to-Site VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-site-to-site-vpn.html)
 
-AWS Direct Connect is a network service that provides a dedicated and private connection between an organization's on-premises data center or office and the AWS cloud. It offers a reliable, low-latency, and high-bandwidth link, bypassing the public internet, to improve the performance, security, and cost-effectiveness of data transfer between the customer's network and AWS resources.
+This solution combines the benefits of the end-to-end secure IPsec connection with low latency and increased bandwidth of the AWS Direct Connect to provide a more consistent network experience than internet-based VPN connections. 
+
+A BGP connection session is established between AWS Direct Connect and your router on the public VIF. Another BGP session or a static route will be established between the virtual private gateway and your router on the IPsec VPN tunnels.
 
 ## Direct Connect Resiliency
 
@@ -331,18 +316,37 @@ For more information, see [AWS Direct Connect virtual interfaces](https://docs.
 
 ## NAT 
 
+
+
+### NAT Gateway
+
+> TL;DR - To provide internet access for instnaces that don't have public IPs.
+
+NAT Gateway enables private subnets within a Virtual Private Cloud (VPC) to access the internet while keeping the instances within those subnets private and protected. The NAT Gateway acts as a gateway between the private subnet and the public internet, allowing outgoing internet traffic from the private instances and providing them with a public IP address. It simplifies the configuration and management of **outbound internet connectivity**, ensuring secure and controlled access for resources within the private subnets.
+
 The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the internet gateway using the NAT gateway’s Elastic IP address as the source IP address.
 
 ![nat-gateway-diagram](/img/aws/networking/vpc/nat-gateway-diagram.png)
 
 Source: [AWS NAT Gateways](https://easycloudsupport.zendesk.com/hc/en-us/articles/360001916952-AWS-NAT-Gateways)
 
+Here are the stpes to create a NAT Gateway:
+1. You must also specify an Elastic IP address to associate with the NAT gateway when you create it. 
+2. After you’ve created a NAT gateway, you must update the route table associated with one or more of your private subnets to point Internet-bound traffic to the NAT gateway. This enables instances in your private subnets to communicate with the internet.
+
+:::infoBlackhole status in NAT
+The `blackhole` status indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).
+
+![nat-blackhole](/img/aws/networking/vpc/nat-blackhole.png)
+:::
+
 ### NAT instance vs NAT gateway
 
-These are the most 3 important points.
+These are the most important points.
 - **NAT instance** can be used as a bastion server
 - Security Groups can be associated with a **NAT instances**
 - **NAT instance** supports port forwarding
+- Both **NAT instance** and **NAT gateway** need to sit in a **public subnet** (a subnet that has a route table with a route to the internet gateway) for the internet access.
 
 The following is a high-level summary of the differences between NAT gateways and NAT instances. We recommend that you use NAT gateways because they provide better availability and bandwidth and require less effort on your part to administer.
 
@@ -380,12 +384,15 @@ To incrase the availability of the system, you need to create an Availability Zo
 
 Amazon VPC provides the facility to create an **IPsec VPN** connection (also known as **site-to-site VPN**) between *remote customer networks and their Amazon VPC over the internet*. The following are the key concepts for a site-to-site VPN:
 
-- Virtual private gateway: A Virtual Private Gateway (also known as a VPN Gateway) is the endpoint on the AWS VPC side of your VPN connection.
+- Virtual private gateway: A Virtual Private Gateway (also known as a **VPN Gateway**) is the endpoint on the AWS VPC side of your VPN connection.
 - VPN connection: A secure connection between your on-premises equipment and your VPCs.
 - VPN tunnel: An encrypted link where data can pass from the customer network to or from AWS.
 - Customer Gateway: An AWS resource that provides information to AWS about your Customer Gateway device.
 - Customer Gateway device: A physical device or software application on the customer side of the Site-to-Site VPN connection.
 
+![AWS-VPN-Connection](/img/aws/networking/vpc/AWS-VPN-Connection.png)
+
+The route table in the VPC and ensure that there is a route that sends traffic to the on-premises network via the virtual private gateway. This is achieved by adding a Virtual Private Gateway (VGW) route with the destination of your on-premises network in the route table.
 
 ### VPN CloudHub
 
@@ -463,10 +470,13 @@ AWS RAM enables you to share specified AWS resources that you own with other AWS
     - You can control what goes in and out of your **VPC**
     - You can associate a network ACL with **multiple subnets**; howevery, a subnet can be associated with only one network ACL at a time.
     - It is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
-    - Your VPC automatically comes with a modifiable default network ACL. By default, it allows all inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic.
+    - Your VPC automatically comes with a modifiable default network ACL. By default, **it allows all inbound and outbound** IPv4 and IPv6 on **all ports**.
+    - Rules are evaluated starting with the **lowest numbered rule**. As soon as a rule matches traffic, it's applied regardless of any higher-numbered rule that might contradict it.Asterisk is for 包底
+      ![nacl-rule-number](/img/aws/networking/vpc/nacl-rule-number.png)
 - Security groups 
     - You can control what goes in and out your **instances**
     - Security groups are associated with **network interfaces**
+    - Security groups only support **allow rules** 
     - A security group acts as a virtual firewall for your instance to control inbound and outbound traffic. Security groups act at the instance level, not the subnet level. Therefore, each instance in a subnet in your VPC can be assigned to a different set of security groups.
 
 ![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)

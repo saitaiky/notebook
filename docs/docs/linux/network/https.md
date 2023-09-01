@@ -69,6 +69,7 @@ Further reading: [Cloudflare - What is a TLS handshake?](https://www.cloudflare.
 
 ## Certificate authority (CA)
 
+> A very good comic to teach how [Certificate Authorities](https://howhttps.works/certificate-authorities/) works
 
 A certificate authority (CA) is a third-party organization with 3 main objectives:
 
