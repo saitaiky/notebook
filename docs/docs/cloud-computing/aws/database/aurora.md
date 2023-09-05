@@ -35,7 +35,7 @@ With an Aurora global database, you can choose from two different approaches to 
 By design, Aurora Serverless connects to a proxy fleet of DB instances that scales automatically. Because there isn't a direct DB instance to access and host the log files, you can't view the logs directly from the Amazon Relational Database Service (Amazon RDS) console. However, you can view and download logs that are sent to the CloudWatch console.
 
 Further reading: [How can I enable logs on an Aurora Serverless cluster so I can view and download the logs?](https://aws.amazon.com/premiumsupport/knowledge-center/aurora-serverless-logs-enable-view/)
-## Failover
+## Failover in region
 
 In the event of an outage that impacts an entire Availability Zone (AZ) and renders the primary instance of an Amazon Aurora cluster unavailable, the appropriate action to bring the database online depends on the cluster's configuration.
 
@@ -45,6 +45,14 @@ In the event of an outage that impacts an entire Availability Zone (AZ) and rend
   - However, if the cluster only contains **a single DB instance or all reader instances are in the affected AZ**, manual creation of new DB instances in another AZ is necessary to restore the database's availability.
 
 ## Features
+
+### Replica for Read
+
+Aurora Replicas are independent endpoints in an Aurora DB cluster, best used for scaling read operations and increasing availability. Up to 15 Aurora Replicas can be distributed across the Availability Zones that a DB cluster spans within an AWS Region. The DB cluster volume is made up of multiple copies of the data for the DB cluster. However, the data in the cluster volume is represented as a single, logical volume to the primary instance and to Aurora Replicas in the DB cluster.
+
+### Multi-Master For Write
+
+You can use Amazon Aurora Multi-Master which is a feature of the Aurora MySQL-compatible edition that adds the ability to scale out write performance across multiple Availability Zones, allowing applications to direct read/write workloads to multiple instances in a database cluster and operate with higher availability.
 
 ### Aurora Reader Endpoint
 

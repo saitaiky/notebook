@@ -259,6 +259,15 @@ You cannot delete stacks that have termination protection enabled. If you attemp
 This includes nested stacks whose root stacks have termination protection enabled. 
   - Solution:  Disable termination protection on the root stack, then perform the delete operation again. It is strongly recommended that you do not delete nested stacks directly, but only delete them as part of deleting the root stack and all its resources.
 
+### Custom resource
+
+Custom resources allow you to programmatically provision AWS resources anytime a cloudformation stack has been created, updated(if you changed the custom resource) or deleted.
+
+When specifying a Lambda function as the target of a custom resource, the function is invoked whenever *the custom resource is created, updated, or deleted*. AWS CloudFormation calls a Lambda API to invoke the function and to pass all the request data (such as the request type and resource properties) to the function. The power and customizability of Lambda functions in combination with AWS CloudFormation enable a wide range of scenarios, such as dynamically looking up AMI IDs during stack creation, or implementing and using utility functions, such as string reversal functions.
+
+:::infoUse Case: S3 bucket copying
+To copy all the objects from an existing S3 bucket to a new S3 bucket created by the CloudFormation template, you need to create a custom Lambda function that can copy the objects from the source bucket to the new S3 bucket. You can also define the options you want Amazon S3 to apply during replication, such as server-side encryption, replica ownership, and transitioning replicas to another storage class.
+:::
 ## Stack
 ### StackSets
 

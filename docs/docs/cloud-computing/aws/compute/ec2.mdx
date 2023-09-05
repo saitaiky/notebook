@@ -293,7 +293,7 @@ Your instance is enabled for basic monitoring **by default**. You can optionally
 
 You can use AWS Backup to create a backup plan by configuring backup policies and monitoring activity for your AWS resources in one place. Rembmer *a backup plan* doesn't reboot the instances while taking EBS snapshots with AMI `no-reboot` behavior
 - With this behavior, the AMI can't guarantee **file system integrity** since it doesn't reboot the EC2
-- To maintain **file system integrity** you need to provide the reboot parameter while taking images (EventBridge + Lambda + CreateImage API with reboot parament)
+- To maintain **file system integrity** you need to provide the reboot parameter while taking images (EventBridge + Lambda + **CreateImage API with reboot paramenter**)
 
 ![Product-Page-Diagram_AWS-Backup](/img/aws/compute/ec2/Product-Page-Diagram_AWS-Backup.png)
 

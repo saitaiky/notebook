@@ -215,3 +215,16 @@ There is a significant increase in latency when you first access each block of d
 - Access each block before putting the volume into production. This process is called initialization (formerly known as **pre-warming**).
 - **Enable fast snapshot** to restore on a snapshot to ensure that the EBS volumes created from it are fully-initialized at creation and instantly deliver all of their provisioned performance.
 
+## Features
+
+### Data Lifecycle Manager
+
+![DLM](/img/aws/storage/ebs/DLM.png)
+
+DLM for EBS Snapshots provides a simple, automated way to back up data stored on Amazon EBS volumes, thus you no longer have to rely on custom scripts to create and manage your backups. You can define backup and retention schedules for EBS snapshots by creating lifecycle policies based on tags.
+
+Automating snapshot management helps you to:
+
+- Protect valuable data by enforcing a regular backup schedule.
+- Retain backups as required by auditors or internal compliance.
+- Reduce storage costs by deleting outdated backups.

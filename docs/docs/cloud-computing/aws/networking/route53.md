@@ -50,11 +50,11 @@ Credit: tutorialsdojo.com
 
 For each VPC that you want to associate with the Route 53 hosted zone, change the following VPC settings to true:
 - `enableDnsHostnames` - Indicates whether instances launched in the VPC receive public DNS hostnames that correspond to their public IP addresses.
-  - For non-default VPCs that aren't created using the Amazon VPC wizard, this option is turned off by default. If you create a private hosted zone for a domain and create records without turning on DNS hostnames, private hosted zones aren't turned on.
-  - To use a private hosted zone, this option must be turned on.
+  - For non-default VPCs that aren't created using the Amazon VPC wizard, this option is turned off by default.
+  - To use a private hosted zone, this option must be turned on. If you create a private hosted zone for a domain and create records without turning on DNS hostnames, private hosted zones aren't turned on.
 - `enableDnsSupport` - Indicates whether the DNS resolution is supported for the VPC. 
   - Private hosted zones accept DNS queries only from a [VPC DNS server](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html#AmazonDNS). The IP address of the VPC DNS server is the reserved IP address at the base of the VPC IPv4 network range plus two. Turning on DNS resolution allows you to use the VPC DNS server as a resolver for performing DNS resolution.
-  - Keep this option turned off if you're using a custom DNS server in the DHCP options set and you're not using a private hosted zone.
+  - Keep this option turned off if you're using **a custom DNS server in the DHCP options set and you're not using a private hosted zone**.
   - This option and DNS hostnames must be turned on to resolve endpoint domains to private IP addresses for AWS Managed Services. Examples of these services include AWS PrivateLink and Amazon Relational Database Service (Amazon RDS).
 
 ![AWS-VPC-Settings-DNS](/img/aws/networking/route53/AWS-VPC-Settings-DNS.png)
@@ -110,9 +110,15 @@ If an alias record points to an AWS resource, you can't set the time to live (TT
 
 ### Evaluate Target Health
 
-This option is only available when you create an alias record 
+> Note: This option is only available when you create **an alias record** to route traffic to other AWS services.
 
 If you set the target of a record as ALB with a true “Evaluate Target Health” flag on Route 53. Route 53 will check both ALB entry to ensure that your ALBs are responding. Route 53 will then decide to which ALB it will direct the user. If one region goes down, Route 53 will know it via the “Evaluate Target Health” setting and will not redirect users to that region’s ALB.
+
+### Same name, type, routing policy
+
+If you configure health checking for all the records in a group of records that have the same name, the same type (such as A or AAAA), and the same routing policy (such as weighted or failover), Route 53 responds to DNS queries by choosing a healthy record and returning the applicable value from that record.
+
+For example, suppose you create three weighted A records, and you assign health checks to all three. If the health check for one of the records is unhealthy, Route 53 responds to DNS queries with the IP addresses in one of the other two records.
 
 ## Route53 resolver
 

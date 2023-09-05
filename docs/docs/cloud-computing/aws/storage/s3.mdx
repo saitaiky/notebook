@@ -66,6 +66,12 @@ Amazon S3 Inventory helps manage storage by providing reports on **object replic
 
 Reports are generated in CSV, ORC, or Parquet format on a daily or weekly basis, depending on your preference, for an S3 bucket or objects with shared prefixes. Weekly reports are generated every Sunday (UTC time zone) after the initial report.
 
+:::cautionWhat happen when an object has more than 1 million version?
+When you have objects with millions of versions, Amazon S3 automatically **throttles requests to the bucket to protect the customer** from an excessive amount of request traffic, which could potentially impede other requests made to the same bucket.
+
+To determine which S3 objects have millions of versions, use the Amazon S3 inventory tool. The inventory tool generates a report that provides a flat file list of the objects in a bucket.
+:::
+
 ### S3 Select
 
 [S3 Select](https://aws.amazon.com/s3/details/#s3-select), enables applications to retrieve **only a subset of data from an object** by using simple SQL expressions. By using S3 Select to retrieve only the data needed by your application, you can achieve drastic performance increases -- in many cases you can get as much as a 400% improvement.
@@ -282,7 +288,7 @@ In general, **when your object size reaches 100 MB**, you should consider using 
 
 ### Upload and download speed 
 
-There are 2 approaches to improve upload and download speed across different regions. They're S3 Transfer Acceleration and Amazon CloudFront’s PUT/POST. According to [AWS- General S3 FAQs](https://aws.amazon.com/s3/faqs/), we should choose..
+There are 2 approaches to improve **both upload and download speed** across different regions. They're S3 Transfer Acceleration and Amazon CloudFront’s PUT/POST. According to [AWS- General S3 FAQs](https://aws.amazon.com/s3/faqs/), we should choose..
 
 - If you have objects that are **smaller than 1 GB or if the data set is less than 1 GB in size**, you should consider using **Amazon CloudFront**'s PUT/POST commands for optimal performance.
 - **S3 Transfer Acceleration** optimizes the TCP protocol and adds additional intelligence between the client and the S3 bucket, making it a better choice if a higher throughput is desired..
