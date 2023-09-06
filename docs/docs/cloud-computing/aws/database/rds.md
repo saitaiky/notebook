@@ -25,35 +25,39 @@ Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-re
 Amazon RDS creates a storage volume snapshot of your DB instance, backing up the entire DB instance and not just individual databases. Creating this DB snapshot on a Single-AZ DB instance results in a brief I/O suspension that can last from a few seconds to a few minutes, depending on the size and class of your DB instance. **Multi-AZ DB instances are not affected by this I/O suspension(outages)** since the backup is taken on standby.
 ## Feature
 
-### Transparent Data Encryption (TDE)
+### TDE for Oracle
+
+Oracle Transparent Data Encryption (TDE), a feature of the Oracle Advanced Security option available in Oracle Enterprise Edition. This feature automatically encrypts data before it is written to storage and automatically decrypts data when the data is read from storage.
 
 In order to enable Transparent Data Encryption for your RDS, you need to 
-1. Creating an option group and add Transparent Data Encryption (TDE) option
+1. Creating an **option group** and add Transparent Data Encryption (TDE) option
 2. Associating the option group to the DB instance
 3. Creating database encryption key (DEK) on the database and enable encryption on the database
 
-![read replica table](/img/aws/database/rds/option-group-to-enable-transparent-data-encryption.png)
+![option-group-to-enable-transparent-data-encryption](/img/aws/database/rds/option-group-to-enable-transparent-data-encryption.png)
 
-![read replica table](/img/aws/database/rds/transparent-data-encryption-in-aws-rds-option-grou.png)
+![transparent-data-encryption-in-aws-rds-option-grou](/img/aws/database/rds/transparent-data-encryption-in-aws-rds-option-grou.png)
 
 :::infoWhat is option group?
 Some DB engines offer additional features that make it easier to manage data and databases, and to provide additional security for your database. Amazon RDS uses **option groups** to enable and configure these features. An *option group* can specify features, called options, that are available for a particular Amazon RDS DB instance. 
 :::
 
 
-### RDS Proxy as a connection pool for overwhelmed connections
+### RDS Proxy
 
+> TL;DR - RDS Proxy as a connection pool for overwhelmed connections
+ 
 Amazon RDS Proxy enhances database efficiency and scalability for applications, including modern serverless ones, **by pooling and sharing connections to the database**. This helps prevent memory and compute exhaustion caused by **frequent opening and closing of connections**. 
 
 RDS Proxy reduces failover times, integrates with AWS Secrets Manager and IAM for secure access, and efficiently manages variable workloads, allowing multiple application connections to share resources and regulating connection openings. Enabling RDS Proxy requires no code changes or additional infrastructure management, making it a seamless solution for optimizing database performance and application availability.
 
-### Ensure all connections to RDS are encrypted
+### SSL connection
 
 In the **DB parameter groups** - You can allow only SSL connections to your RDS for PostgreSQL database instance by enabling the `rds.force_ssl` parameter ("0" by default) through the parameter groups page on the RDS Console or through the CLI.
 
 Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
 
-###  Enhanced Monitoring
+### Enhanced Monitoring
 
 Enhanced Monitoring for RDS provides the following **OS level metrics** which are free memory, active memory, swap free, processes running, file system used. It is useful when you want to see how **different processes or threads** on a DB instance use the CPU.
 
@@ -101,3 +105,11 @@ When you provision an RDS Multi-AZ DB Instance, Amazon RDS automatically creates
 ## Security
 
 Amazon RDS Read Replicas - If the master database is encrypted, the read replicas are encrypted.
+
+## Troubleshooting
+
+### Error when Backup retention set to 0
+
+RDS retains backups of a DB Instance for a limited, user-specified period of time called the retention period, which by default is 7 days but can be set to up to 35 days. 
+
+There are several reasons why you may need to set the backup retention period to 0. For example, you can **disable automatic backups immediately** by setting the retention period to 0. If you set the value to 0 and receive a message saying that the retention period must be between 1 and 35, check to make sure you haven’t setup a read replica for the instance. **Read replicas require backups for managing read replica logs**, thus, you can’t set the retention period of 0.

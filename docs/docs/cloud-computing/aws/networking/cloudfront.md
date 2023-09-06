@@ -136,7 +136,15 @@ If you want to split between static and dynamic content you would *create an ori
 
 ## Trouble shooting
 
+### Invalidating cache
+
+If you need to remove a file from CloudFront edge caches before it expires, you can do one of the following:
+
+- Invalidate the file from edge caches. The next time a viewer requests the file, CloudFront returns to the origin to fetch the latest version of the file.
+  ![cloudfront_console_inval_example](/img/aws/networking/cloudfront/cloudfront_console_inval_example.png)
+- Use file versioning to serve a different version of the file that has a different name. For more information, see [Updating existing files using versioned file names](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/UpdatingExistingObjects.html#ReplacingObjects). For example, instead of naming a graphic file image.jpg, you might call it image_1.jpg. When you want to start serving a new version of the file, you'd name the new file image_2.jpg, and you'd update the links in your web application or website to point to image_2.jpg.
+
 ### Error messages
 
 - `The authorization header is malformed; the region '<AWS Region>' is wrong; expecting '<AWS Region>'`
-  - This error indicates the configured Amazon S3 bucket has been moved from one AWS Region to the other. That is, deleted from one AWS Region and created with the same name in another. To fix this error, update your CloudFront distribution so that it finds the S3 bucket in the bucket's current AWS Region
+  - This error indicates the configured Amazon S3 bucket **has been moved from one AWS Region to the other**. That is, deleted from one AWS Region and created with the same name in another. To fix this error, update your CloudFront distribution so that it finds the S3 bucket in the bucket's current AWS Region
