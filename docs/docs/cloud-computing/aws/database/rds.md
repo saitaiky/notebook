@@ -8,6 +8,13 @@ sidebar_position: 1
 
 Amazon RDS (Relational Database Service) is a managed database service offered by AWS that simplifies the process of setting up, operating, and scaling relational databases in the cloud. It allows you to choose from various database engines such as **MySQL, PostgreSQL, MariaDB, Oracle**, and **Microsoft SQL Server**, and provides automated tasks like hardware provisioning, patching, backup, recovery, and scaling. 
 
+Important points to remember:
+- You can only enable encryption for an Amazon RDS DB instance when you create it
+- You can’t disable encryption on an encrypted DB instance
+- *You can’t have an encrypted Read Replica of an unencrypted DB instance or an unencrypted Read Replica of an encrypted DB instance*
+- You *can’t restore an unencrypted backup or snapshot to an encrypted DB instance*.
+- To copy an encrypted snapshot from one region to another, you must specify the KMS key identifier of the destination region.
+
 ## Behaviour
 
 ### Replication
@@ -24,6 +31,20 @@ Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-re
 
 Amazon RDS creates a storage volume snapshot of your DB instance, backing up the entire DB instance and not just individual databases. Creating this DB snapshot on a Single-AZ DB instance results in a brief I/O suspension that can last from a few seconds to a few minutes, depending on the size and class of your DB instance. **Multi-AZ DB instances are not affected by this I/O suspension(outages)** since the backup is taken on standby.
 ## Feature
+
+### Encryption in flight
+
+In the **DB parameter groups** - You can allow only SSL connections to your RDS for PostgreSQL database instance by enabling the `rds.force_ssl` parameter ("0" by default) through the parameter groups page on the RDS Console or through the CLI.
+
+Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
+
+:::infoFor application doesn't accept certificate chains
+A root certificate that works for all regions can be downloaded from the AWS website. It is the trusted root entity and should work in most cases but might fail if your application doesn’t accept certificate chains. If your application doesn’t accept certificate chains, download the AWS Region–specific certificate from AWS. Ref: [Using SSL/TLS to encrypt a connection to a DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
+:::
+
+### Encryption at rest
+
+You can only enable encryption for an Amazon RDS DB instance when you create it, not after the DB instance is created. However, because **you can encrypt a copy of an unencrypted DB snapshot**, you can effectively add encryption to an unencrypted DB instance. That is, you can create a snapshot of your DB instance and then create an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot, and thus you have an encrypted copy of your original DB instance.
 
 ### TDE for Oracle
 
@@ -50,12 +71,6 @@ Some DB engines offer additional features that make it easier to manage data and
 Amazon RDS Proxy enhances database efficiency and scalability for applications, including modern serverless ones, **by pooling and sharing connections to the database**. This helps prevent memory and compute exhaustion caused by **frequent opening and closing of connections**. 
 
 RDS Proxy reduces failover times, integrates with AWS Secrets Manager and IAM for secure access, and efficiently manages variable workloads, allowing multiple application connections to share resources and regulating connection openings. Enabling RDS Proxy requires no code changes or additional infrastructure management, making it a seamless solution for optimizing database performance and application availability.
-
-### SSL connection
-
-In the **DB parameter groups** - You can allow only SSL connections to your RDS for PostgreSQL database instance by enabling the `rds.force_ssl` parameter ("0" by default) through the parameter groups page on the RDS Console or through the CLI.
-
-Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
 
 ### Enhanced Monitoring
 

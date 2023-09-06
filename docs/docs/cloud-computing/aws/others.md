@@ -35,7 +35,7 @@ In addition, the ENIs the security group is attached to, do not and cannot have 
 
 ## CloudHSM (Hardware Security Module)
 
-AWS CloudHSM (Hardware Security Module) is a cloud-based service that provides secure hardware for generating and storing cryptographic keys and performing cryptographic operations in a tamper-resistant environment.
+AWS CloudHSM (Hardware Security Module) is a cloud-based service that provides **secure hardware** for generating and storing cryptographic keys and performing cryptographic operations in a tamper-resistant environment.
 
 :::infoKMS vs HSM
 If you need to secure your encryption keys in a service backed by FIPS-validated HSMs, but you do not need to manage the HSM, you should use KMS.
@@ -72,11 +72,13 @@ You can use TagOption library to enforce the tagging of all instances that will 
   - **Amazon EMR** (previously called Amazon Elastic MapReduce) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. Using these frameworks and related open-source projects, you can process data for analytics purposes and business intelligence workloads. 
   - Aws neptune (Fully Managed Graph Database)
 - Security
-  - Amazon **GuardDuty** is a continuous security monitoring service that analyzes and processes the following data sources: AWS CloudTrail management event logs, AWS CloudTrail data events for S3, DNS logs, EKS audit logs, and VPC flow logs. <br/>
+  - Amazon **GuardDuty** is a continuous security monitoring service that analyzes and processes the following data sources: AWS CloudTrail management event logs, AWS CloudTrail data events for S3, DNS logs, EKS audit logs, and VPC flow logs. <br/><br/>
   It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and machine learning to identify unexpected and potentially unauthorized and malicious activity within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or communication with malicious IP addresses, or domains.
+  - **Amazon Macie** is a fully managed data security and data privacy service that uses machine learning and pattern matching to help you discover, monitor, and protect sensitive data in your AWS environment. Macie automates the discovery of sensitive data, such as personally identifiable information (PII) and financial data, to provide you with a better understanding of the data that your organization stores in Amazon S3(**Amazon Macie only supports S3 as a data source**).
+  - **Amazon Inspector** enables you to analyze the behavior of your AWS resources and helps you to identify potential security issues. You can create an assessment template and launch a security assessment run of this target.
+  ![inspector](/img/aws/other/inspector.png) [ref](https://aws.amazon.com/blogs/aws/amazon-inspector-now-scans-aws-lambda-functions-for-vulnerabilities/)
 - Compliance
   - **AWS Artifact** is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)
-- **Amazon Inspector** is an automated security assessment service that helps you test the network accessibility of your Amazon EC2 instances and the security state of your applications running on the instances. 
 - **AWS Compute Optimizer** helps avoid overprovisioning and underprovisioning four  types of AWS resources—Amazon Elastic Compute Cloud (EC2) instance types, Amazon Elastic Block Store (EBS) volumes, Amazon Elastic Container Service (ECS) services on AWS Fargate, and AWS Lambda functions—based on your utilization data.
 
 ## May need to jot after preparing exam

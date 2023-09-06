@@ -143,8 +143,15 @@ MFA-Delete represents another layer of security wherein you can configure a buck
 - Change the versioning state of your bucket
 - Permanently delete an object version
 
-You should note that only the bucket owner (root account) can enable MFA Delete **only via the AWS CLI**. However, the bucket owner, the AWS account that created the bucket (root account), and all authorized IAM users can enable versioning.
+:::cautionHow to delete a bucket which enabled Versioning and MFA Delete features
+Before jump to the answer, you should know:
+- Only the bucket owner (root account) can enable/suspend the MFA-Delete on the objects.
+- However, both the bucket owner(root account) and all authorized IAM users **can enable versioning**.
 
+![s3-lifecycle-rule-delete-objects-after-creation](/img/aws/storage/s3/s3-lifecycle-rule-delete-objects-after-creation.jpg)
+
+To simplify the deletion of both objects and versioned objects, you can set **a lifecycle rule** to remove all objects in a bucket one day after creation. If your bucket has versioning enabled, you can configure the rule to expire non-current objects.
+:::
 ### Pre-signed URL max validation time
 
 You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. 
@@ -360,8 +367,7 @@ Source: [Background: Amazon S3 Access Control Tools](https://www.msp360.com/reso
 
 - [User Policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html): Use the AWS IAM policy syntax to grant access to IAM users in your account.
 - [Bucket Policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html): Use the AWS IAM policy syntax to manage access for a particular S3 bucket and the objects in it; (Sai: A bucket policy is a resource-based policy - [Unlike an identity-based policy, a resource-based policy specifies who (which principal) can access that resource](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html).)
-- [Access Control Lists (ACLs)](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html): Use XML syntax to grant access to specific S3 buckets or objects.
-
+- [Access Control Lists (ACLs)](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html): It enables you to manage access to buckets and objects. Each bucket and object has an ACL attached to it as a subresource. 
 
 <Tabs className="UserPolicies-ACL-BucketPolicies">
 <TabItem value="user" label="User Policies">
@@ -388,7 +394,45 @@ ACL in AWS console
 
 Source: [An easier way to control access to aws resources by using the aws organization of iam principals](https://noise.getoto.net/tag/s3-bucket-policy/)
 
+The below table is the set of ACL permissions is the same for an object ACL and a bucket ACL. The important one are `WRITE_ACP` and `READ_ACP` to control **whether the grantee can read/create ACL or not**  Ref:[What permissions can I grant?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html)
+<table><thead><tr><th class="table-header" colspan="100"><div class="title">ACL permissions</div></th></tr>
+<tr>
+<th>Permission</th>
+<th>When granted on a bucket</th>
+<th>When granted on an object</th>
+</tr>
+</thead>
+<tbody><tr>
+<td tabindex="-1"><code class="code">READ</code></td>
+<td tabindex="-1">Allows grantee to list the objects in the bucket</td>
+<td tabindex="-1">Allows grantee to read the object data and its metadata</td>
+</tr>
+<tr>
+<td tabindex="-1"><code class="code">WRITE</code></td>
+<td tabindex="-1">Allows grantee to create new objects in the bucket. For the bucket and object owners
+of existing objects, also allows deletions and overwrites of those
+objects</td>
+<td tabindex="-1">Not applicable</td>
+</tr>
+<tr>
+<td tabindex="-1"><code class="code">READ_ACP</code></td>
+<td tabindex="-1">Allows grantee to read the bucket ACL</td>
+<td tabindex="-1">Allows grantee to read the object ACL</td>
+</tr>
+<tr>
+<td tabindex="-1"><code class="code">WRITE_ACP</code></td>
+<td tabindex="-1">Allows grantee to write the ACL for the applicable bucket</td>
+<td tabindex="-1">Allows grantee to write the ACL for the applicable object</td>
+</tr>
+<tr>
+<td tabindex="-1"><code class="code">FULL_CONTROL</code></td>
+<td tabindex="-1">Allows grantee the <code class="code">READ</code>, <code class="code">WRITE</code>, <code class="code">READ_ACP</code>, and
+<code class="code">WRITE_ACP</code> permissions on the bucket</td>
+<td tabindex="-1">Allows grantee the <code class="code">READ</code>, <code class="code">READ_ACP</code>, and
+<code class="code">WRITE_ACP</code> permissions on the object</td>
+</tr>
 
+</tbody></table>
 </TabItem>
 <TabItem value="bucketpolicies" label="BucketPolicies">
 

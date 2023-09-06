@@ -33,7 +33,7 @@ Run the `DeleteSecret` API call with the `ForceDeleteWithoutRecovery` parame
 
 ### Automatic secret key rotation
 
-Secrets Manager uses a Lambda rotation function to communicate with both Secrets Manager and the database or service.
+Secrets Manager uses **a Lambda rotation function** to communicate with both Secrets Manager and the database or service.
 
 AWS Secrets Manager has built-in rotation support for secrets for the following:
 - Amazon RDS databases
@@ -41,3 +41,17 @@ AWS Secrets Manager has built-in rotation support for secrets for the following:
 - Amazon Redshift clusters
 
 Reference: [What is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
+
+### Use AWS Secrets Manager secrets to store database credential
+
+![aws_lambda_rds_secrets](/img/aws/security/aws_lambda_rds_secrets.png)
+
+To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up. You can set a schedule to rotate after a period of time, for example every 30 days, or you can create a cron expression. See [Schedule expressions](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html). If you also manually update your secret value while automatic rotation is set up, then Secrets Manager considers that a valid rotation when it calculates the next rotation date.
+
+For security, Secrets Manager only permits a Lambda rotation function to rotate the secret directly. The rotation function can't call a second Lambda function to rotate the secret.
+
+![aws_secrets_manager_store_secret_for_rds_db](/img/aws/security/aws_secrets_manager_store_secret_for_rds_db.png)
+
+1. While creating the secret, select *credential for your database* so that the Secrets Manager will use a Lambda function to rotate the password for the database automatically. 
+2. Specify the automatic rotation schedule to 30 days. 
+3. Modify all the Lambda functions that you use in your application to access the DB password from Secrets Manager.

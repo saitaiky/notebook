@@ -83,6 +83,8 @@ Another example of write permissions for using X-Ray via an IAM policy:
 
 Source: [Field Notes: Analyze Cross-Account AWS KMS Call Usage with AWS CloudTrail and Amazon Athena](https://aws.amazon.com/blogs/architecture/field-notes-analyze-cross-account-aws-kms-call-usage-with-aws-cloudtrail-and-amazon-athena/)
 
+AWS CloudTrail is a service that records actions as events taken by a user, role, or an AWS service. Events include actions taken in the AWS Management Console, AWS CLI, and AWS SDKs and APIs. For an ongoing record of events in your AWS account, you create a trail. A trail enables CloudTrail to deliver log files of events to an Amazon S3 bucket.
+
 ### Organization
 
 If you have created an organization in AWS Organizations, you can also create a trail that will log all events for all AWS accounts in that organization (**need root account permission**). This is referred to as an organization trail.
@@ -106,6 +108,8 @@ If you have created an organization in AWS Organizations, you can also create a 
 :::infoTips
 You can use Amazon S3 MFA Delete on the S3 bucket that holds CloudTrail logs and digest files to secure the CloudTrail logs
 :::
+
+![AWS-CloudTrail-LogFileValidation](/img/aws/management/monitor/AWS-CloudTrail-LogFileValidation.png)
 
 When you enable log file integrity validation, CloudTrail creates a hash for every log file that it delivers. Every hour, CloudTrail also **creates and delivers a file that references the log files for the last hour and contains a hash of each**. This file is called a digest file. CloudTrail signs each digest file using the private key of a public and private key pair. After delivery, you can use the public key to validate the digest file. CloudTrail uses different key pairs for each AWS region.
 

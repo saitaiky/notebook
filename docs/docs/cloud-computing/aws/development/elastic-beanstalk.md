@@ -26,6 +26,22 @@ The Auto Scaling group in your Elastic Beanstalk environment uses **two Amazon C
 - the average outbound network traffic from each instance is higher than 6 MB
 - or lower than 2 MB over a period of five minutes.
 
+## Permission
+
+When you create an environment, AWS Elastic Beanstalk prompts you to provide the following AWS Identity and Access Management (IAM) roles:
+
+- [Service role](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-service.html): Elastic Beanstalk assumes a service role to use other AWS services on your behalf when manage and deploy your web applications.
+- [Instance profile](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-instance.html) Elastic Beanstalk applies instances profile to the EC2 instances in your environment. It allows them to do the following:
+  - Retrieve [application versions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.html#concepts-version) from Amazon Simple Storage Service (Amazon S3).
+  - Upload logs to Amazon S3.
+  - Perform other tasks that vary depending on the environment type and platform.
+
+:::cautionInsufficient permission
+Q: While creating an Elastic bean stalk environment via CLI, you receive an error message - `The instance profile aws-elasticbeanstalk-ec2-role associated with the environment does not exist`. Why does this happen?
+
+A: AWS EB CLI cannot create the **instance profile** for your beanstalk environment if your IAM role has no permission to creating roles.
+:::
+
 ## Workflow of Elastic Beanstalk.
 
 To use Elastic Beanstalk, you create an application, upload an application version in the form of an application source bundle (for example, a Java .war file) to Elastic Beanstalk, and then provide some information about the application. Elastic Beanstalk automatically launches an environment and creates and configures the AWS resources needed to run your code. After your environment is launched, you can then manage your environment and deploy new application versions.
