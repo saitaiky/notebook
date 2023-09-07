@@ -13,6 +13,10 @@ ENI, ENA and EFA are all intended to improve the **EC2 network performance** as 
 
 ## Elastics Network Interface (ENI)
 
+:::info What is a network card?
+A network card is a hardware component in a laptop that enables it to connect to and communicate with computer networks, such as Wi-Fi or Ethernet. It serves as the interface between the laptop's internal electronics and external networks, facilitating data transmission and internet connectivity.
+:::
+
 An elastic network interface is a logical networking component in a VPC that represents a **traditional virtual network card**. It can include the following attributes:
 - A primary private IPv4 address from the IPv4 address range of your VPC
 - One or more secondary private IPv4 addresses from the IPv4 address range of your VPC

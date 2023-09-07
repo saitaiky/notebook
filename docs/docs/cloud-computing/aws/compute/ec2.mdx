@@ -36,8 +36,42 @@ You can specify that Amazon EC2 should do one of the following when it interrupt
 - Terminate the Spot Instance (default behavoir)
 #### Spot Fleet
 
-The Spot Fleet selects the Spot Instance pools that meet your needs and launches Spot Instances to meet the target capacity for the fleet. By default, Spot Fleets are set to maintain target capacity by launching replacement instances after Spot Instances in the fleet are terminated.
+The Spot Fleet selects the Spot Instance pools that meet your needs and launches Spot Instances to meet the target capacity for the fleet. By default, Spot Fleets are set to maintain target capacity by launching replacement instances after Spot Instances in the fleet are terminated. 
 
+When launching instances, Spot Fleet uses the allocation strategy that you specify to pick the specific pools from all your possible pools. You can specify one of the following allocation strategies:
+- priceCapacityOptimized
+- capacityOptimized
+- diversified
+- lowestPrice
+- InstancePoolsToUseCount
+
+![ec2-allocation](/img/aws/compute/ec2/ec2-allocation.png)
+
+<details>
+  <summary>Examples</summary>
+  <div>
+    <div>
+    If your fleet is large or runs for a long time, you can improve the availability of your fleet by distributing the Spot Instances across multiple pools using the diversified strategy.
+    </div>
+    <div>
+    For example, if your Spot Fleet specifies 10 pools and a target capacity of 100 instances, the fleet launches 10 Spot Instances in each pool. If the Spot price for one pool exceeds your maximum price for this pool, only 10% of your fleet is affected. Using this strategy also makes your fleet less sensitive to increases in the Spot price in any one pool over time. With the diversified strategy, the Spot Fleet does not launch Spot Instances into any pools with a Spot price that is equal to or higher than the On-Demand price.
+    </div>
+    <br/>
+    <div>
+    To create an inexpensive and diversified fleet, use the lowestPrice strategy in combination with InstancePoolsToUseCount. For example, if your target capacity is 10 Spot Instances, and you specify 2 Spot capacity pools (for InstancePoolsToUseCount), Spot Fleet will draw on the two lowest-priced pools to fulfill your Spot capacity.
+    </div>
+    <div>
+    You can use a low or high number of Spot capacity pools across which to allocate your Spot Instances. For example, if you run batch processing, it is recommended to specify a low number of Spot capacity pools (for example, InstancePoolsToUseCount=2) to ensure that your queue always has compute capacity while maximizing savings.
+    </div>
+    <div>
+    If you run a web service, AWS recommends specifying a high number of Spot capacity pools (for example, InstancePoolsToUseCount=10) to minimize the impact if a Spot capacity pool becomes temporarily unavailable.
+    </div>
+    <br/>
+    <div>
+    Take note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best-effort basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will continue to fulfill your request by drawing from the next lowest-priced pool. To ensure that your target capacity is met, you might receive Spot Instances from more than the number of pools that you specified. Similarly, if most of the pools have no Spot capacity, you might receive your full target capacity from fewer than the number of pools that you specified.
+    </div>
+  </div>
+</details>
 
 ### Reserved Instance
 
@@ -79,7 +113,7 @@ Spread placement groups are recommended for applications that have a small numbe
 
 A spread placement group can span multiple Availability Zones in the same Region. You can have **a maximum of 7 running instances per Availability Zone per group**. Therefore, to deploy 15 EC2 instances in a single Spread placement group, the company needs to use 3 AZs.
 
-![placementgroups](/img/aws/compute//ec2/placementgroups.jpeg)
+![placementgroups](/img/aws/compute/ec2/placementgroups.jpeg)
 Source: [AWS - Placement Groups](https://tridentsys.net/aws-placement-groups/)
 
 ### Cluster

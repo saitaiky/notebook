@@ -30,7 +30,9 @@ Automation workflows can be triggered manually or scheduled to run at specific t
 ![devops-992-02-Figure3](https://d2908q01vomqb2.cloudfront.net/972a67c48192728a34979d9a35164c1295401b71/2021/06/08/devops-992-02-Figure3.png)
 Resource: [Use AWS Systems Manager Automation runbooks to resolve operational tasks](https://aws.amazon.com/blogs/mt/use-aws-systems-manager-automation-runbooks-to-resolve-operational-tasks/)
 
-### Document
+### Documents (runbooks)
+
+> If you see custom workflows or use pre-defined workflows to manage EC2 instance, think runbooks
 
 A Systems Manager Automation document, part of AWS Systems Manager, is a JSON or YAML script that defines the actions to be performed on instances. It can be used to automate operational tasks, such as **software installation, configuration management, and security patching, across a fleet of instances** in a consistent and scalable manner.
 
@@ -62,7 +64,7 @@ AWS Systems Manager Patch Manager automates the patching process for managed ins
 
 Patching can be scheduled using maintenance windows or performed individually or in groups using Amazon EC2 tags. Patch Manager offers scanning and compliance reporting options, along with the ability to install patches on a schedule or on-demand.
 
-The service integrates with AWS Identity and Access Management (IAM), AWS CloudTrail, and Amazon EventBridge to provide a secure patching experience, including event notifications and auditing capabilities.
+The service integrates with AWS Identity and Access Management (IAM), AWS CloudTrail, and Amazon EventBridge to provide a secure patching experience, including event notifications and auditing capabilities. 
 
 ## Session Manager
 

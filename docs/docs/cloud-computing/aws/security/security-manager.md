@@ -52,6 +52,9 @@ For security, Secrets Manager only permits a Lambda rotation function to rotate 
 
 ![aws_secrets_manager_store_secret_for_rds_db](/img/aws/security/aws_secrets_manager_store_secret_for_rds_db.png)
 
+Source: [Rotate AWS Secrets Manager secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)
+
+Here are the steps to use security manager to store credentials for DB connections:
 1. While creating the secret, select *credential for your database* so that the Secrets Manager will use a Lambda function to rotate the password for the database automatically. 
 2. Specify the automatic rotation schedule to 30 days. 
 3. Modify all the Lambda functions that you use in your application to access the DB password from Secrets Manager.

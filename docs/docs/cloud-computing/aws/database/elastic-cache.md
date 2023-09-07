@@ -27,6 +27,7 @@ When you scale your Memcached cluster up or down, you must create a new cluster.
 :::cautionExam alert
 - When choosing the replica to promote to primary, ElastiCache for Redis chooses the replica with **the least replication lag**
 - You can manually promote read replicas to primary on Redis (cluster mode disabled), only **when Multi-AZ** and **automatic failover are disabled**.
+- To maintain high availability, you have to make sure that there are **at least two nodes in the cluster**. 
 :::
 
 ### Cluster Mode
@@ -38,13 +39,12 @@ Enabling Cluster Mode provides a number of additional benefits in scaling your c
   Configure the slots in your new cluster differently than they were in the old cluster. Offline method only.
 - **Vertical Scaling** - Change the node type to resize the cluster. The online vertical scaling allows **scaling up/down** while the cluster continues serving incoming requests. [[AWS: Online vertical scaling by modifying node type]](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/redis-cluster-vertical-scaling.html)
 
-:::info Notes
-- All the nodes in a Redis cluster must reside in the same region
+:::infoNotes
+- Limitation
   - All the nodes in a Redis cluster (cluster mode enabled or cluster mode disabled) must reside in the same region.
-- While using Redis with cluster mode enabled, you cannot manually promote any of the replica nodes to primary
-  - You cannot manually promote any of the replica nodes to primary.
-  - Multi-AZ is required.
-  - You can only change the structure of a cluster, the node type, and the number of nodes by restoring from a backup.
+  - While using Redis with cluster mode enabled, you cannot manually promote any of the replica nodes to primary.
+- Cost
+  - When doing vertical scaling by changing the node type **via online resizing**, you won’t have to pay for backups and migration costs, all you have to pay for are the resources provisioned when a scale up or scale out is performed. 
 :::
 ### Cluster Mode Disabled vs Enabled 
 

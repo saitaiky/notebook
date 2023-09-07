@@ -1,5 +1,9 @@
 ## What are the types of AWS cost allocation tags?
 
+:::infoOnly a Master account can activate this AWS generated tags feature
+If you have a Master account for AWS, you can activate AWS generated tags from the Billing and Cost Management console. You must know that if you activate the tags from your master account, it will activate tags for all the member accounts as well.
+:::
+
 There are two types of cost allocation tags: AWS-generated cost allocation tags and User-defined cost allocation tags 
 
 ![cost-allocation-tags-console](/img/aws/other/cost-allocation-tags-console.png)
@@ -35,3 +39,10 @@ Source: [Using AWS cost allocation tags](https://docs.aws.amazon.com/awsaccountb
 ### Automation tags
 
 ![SOAF36-Automation-Tag](/img/aws/other/SOAF36-Automation-Tags.png)
+
+
+
+
+You can turn on billing alert in your Preferences page.
+
+![billing-alerts](/img/aws/cost/billing-alerts.png)
