@@ -21,8 +21,8 @@ Resource: [Use new resource types in AWS Resource Groups to support day-to-day o
 
 ### Automation
 
-A Systems Manager Automation document defines the Automation workflow (the actions that Systems Manager performs on your managed instances and AWS resources). Automation includes several pre-defined Automation documents that you can use to perform common tasks like 
-- Restarting one or more EC2 instances or creating an Amazon Machine Image (AMI)
+A Systems Manager Automation document defines the Automation workflow (the actions that Systems Manager performs on your managed instances and AWS resources). Automation includes several pre-defined Automation documents that you can use to perform common tasks like: 
+- Restarting one or more EC2 instances or creating an **AMI**
 - Running the `AWSSupport-TroubleshootS3PublicRead` automation document on AWS Systems Manager to help you diagnose issues with accessing objects from a public S3 bucket.
 
 Automation workflows can be triggered manually or scheduled to run at specific times or events.

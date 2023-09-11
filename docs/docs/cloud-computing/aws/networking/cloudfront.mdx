@@ -6,6 +6,8 @@ keywords:
 sidebar_position: 2
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## Notes for exam
 
@@ -62,6 +64,31 @@ Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroo
 ![](/img/aws/networking/cloudfront/signed-cookies.png)
 
 Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
+
+### Origin Shield
+
+CloudFront Origin Shield provides a centralized caching layer that sits in front of your origin to help **increase CloudFront’s cache hit ratio and collapse simultaneous requests** for the same object coming across multiple regions. As a general best practice, you should always choose the Origin Shield Region that is closest to your origin. 
+
+![enable-origin-shield](/img/aws/networking/cloudfront/enable-origin-shield.png)
+
+When enabled, all origin fetches coming from any CloudFront Point of Presence or Regional Edge Cache will now be routed through the Origin Shield location for a final cache check. Any content not already held in the Origin Shield location will then benefit from central request consolidation so that as little as one request goes to the origin.
+
+<Tabs className="origin-shield">
+<TabItem value="before" label="Before implement origin shield">
+
+![origin-shield-before](/img/aws/networking/cloudfront/origin-shield-before.png)
+
+
+Source: [Using CloudFront Origin Shield to protect your origin in a multi-CDN deployment](https://aws.amazon.com/blogs/networking-and-content-delivery/using-cloudfront-origin-shield-to-protect-your-origin-in-a-multi-cdn-deployment/#:~:text=CloudFront%20Origin%20Shield%20provides%20a,object%20coming%20across%20multiple%20regions.)
+</TabItem>
+<TabItem value="after" label="After implement origin shield">
+
+![origin-shield-after](/img/aws/networking/cloudfront/origin-shield-after.png)
+
+
+Source: [Using CloudFront Origin Shield to protect your origin in a multi-CDN deployment](https://aws.amazon.com/blogs/networking-and-content-delivery/using-cloudfront-origin-shield-to-protect-your-origin-in-a-multi-cdn-deployment/#:~:text=CloudFront%20Origin%20Shield%20provides%20a,object%20coming%20across%20multiple%20regions.)
+</TabItem>
+</Tabs>
 
 ## Cloudfront signers
 

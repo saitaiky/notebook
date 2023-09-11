@@ -115,6 +115,18 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 
 ## Features
 
+### Object Lock
+
+You can use S3 Object Lock to store objects using a write-once-read-many (WORM) model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely. You can use S3 Object Lock to meet regulatory requirements that require WORM storage, or add an extra layer of protection against object changes and deletion.
+
+S3 Object Lock provides two retention modes:
+
+- Governance mode
+  - In governance mode, users can’t overwrite or delete an object version or alter its lock settings **unless they have special permission**s. With governance mode, you protect objects against being deleted by most users, but you can still grant some users permission to alter the retention settings or delete the object if necessary. You can also use governance mode to test retention-period settings before creating a compliance-mode retention period.
+  - To override or remove governance-mode retention settings, a user must have the `s3:BypassGovernanceRetention` permission and must explicitly include `x-amz-bypass-governance-retention:true` as a request header with any request that requires overriding governance mode.
+- Compliance mode
+  - In compliance mode, a protected object version **can’t be overwritten or deleted by any user**, including the root user in your AWS account. When an object is locked in compliance mode, its retention mode can’t be changed, and its retention period can’t be shortened. Compliance mode helps ensure that an object version can’t be overwritten or deleted for the duration of the retention period.
+
 ### CORS
 
 Cross-origin resource sharing (CORS) defines a way for client web applications that are loaded in one domain to interact with resources in a different domain. With CORS support, you can build rich client-side web applications with Amazon S3 and selectively allow cross-origin access to your Amazon S3 resources.
@@ -125,8 +137,7 @@ Cross-origin resource sharing (CORS) defines a way for client web applications t
   - define access controls and audit the customer-managed CMK
   - manage the lifecycle of the key material
   - create, rotate, and disable customer-managed CMK
-- SSE-S3, you can..
-  - Audit trail and lifecycle management is not possible
+- SSE-S3, you can't do audit trail and lifecycle management
 
 ### S3 Access Points
 
@@ -134,7 +145,7 @@ Cross-origin resource sharing (CORS) defines a way for client web applications t
 
 Amazon S3 Access Points simplify data access management for shared datasets on S3. They provide unique hostnames with distinct permissions and network controls for each application, allowing easy scaling for hundreds of applications.
 
-Access points can be restricted to VPCs to secure S3 data access within private networks. Each access point is associated with a single bucket and configured with specific access policies, providing granular control over data access. S3 Access Points are available in all regions at no extra cost and offer an auditable way to enforce VPC restrictions using AWS **Service Control Policies**.
+Access points can be restricted to VPCs to secure S3 data access within private networks. Each access point is associated with a single bucket and configured with specific access policies, providing granular control over data access. S3 Access Points are available in all regions at no extra cost and offer an auditable way to enforce VPC restrictions using AWS **[Service Control Policies(SCPs)](/cloud-computing/aws/management/organizations/#service-control-policies-scp)**.
 
 ### MFA-Delete
 

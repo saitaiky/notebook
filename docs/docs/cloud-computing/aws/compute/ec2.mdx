@@ -58,13 +58,13 @@ When launching instances, Spot Fleet uses the allocation strategy that you speci
     </div>
     <br/>
     <div>
-    To create an inexpensive and diversified fleet, use the lowestPrice strategy in combination with InstancePoolsToUseCount. For example, if your target capacity is 10 Spot Instances, and you specify 2 Spot capacity pools (for InstancePoolsToUseCount), Spot Fleet will draw on the two lowest-priced pools to fulfill your Spot capacity.
+    To create an inexpensive and diversified fleet, use the <em>lowestPrice</em> strategy in combination with <em>InstancePoolsToUseCount</em>. For example, if your target capacity is 10 Spot Instances, and you specify 2 Spot capacity pools (for <em>InstancePoolsToUseCount</em>), Spot Fleet will draw on the two lowest-priced pools to fulfill your Spot capacity.
     </div>
     <div>
-    You can use a low or high number of Spot capacity pools across which to allocate your Spot Instances. For example, if you run batch processing, it is recommended to specify a low number of Spot capacity pools (for example, InstancePoolsToUseCount=2) to ensure that your queue always has compute capacity while maximizing savings.
+    You can use a low or high number of Spot capacity pools across which to allocate your Spot Instances. For example, if you run batch processing, it is recommended to specify a low number of Spot capacity pools (for example, <em>InstancePoolsToUseCount</em>=2) to ensure that your queue always has compute capacity while maximizing savings.
     </div>
     <div>
-    If you run a web service, AWS recommends specifying a high number of Spot capacity pools (for example, InstancePoolsToUseCount=10) to minimize the impact if a Spot capacity pool becomes temporarily unavailable.
+    If you run a web service, AWS recommends specifying a high number of Spot capacity pools (for example, <em>InstancePoolsToUseCount</em>=10) to minimize the impact if a Spot capacity pool becomes temporarily unavailable.
     </div>
     <br/>
     <div>
@@ -432,13 +432,6 @@ Each Amazon EC2 instance contains metadata that the AWS CLI can directly query f
 
 Source: [Using an IAM role to grant permissions to applications running on Amazon EC2 instances](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
 
-### Change the EC2 instance type which is backed by EBS  
-
-In order to change the EC2 instance type, you must stop your Amazon EBS–backed instance before you can change its instance type. When you stop and start an instance, AWS moves the instance to new hardware; however, the instance ID does not change.
-
-:::infoChange EC2 instance type in an Auto Scaling group 
-If your instance is in an **Auto Scaling group**, the Amazon EC2 Auto Scaling service marks the stopped instance as unhealthy, and may terminate it and launch a replacement instance. To prevent this, you can suspend the scaling processes for the group while you're resizing your instance.
-:::
 
 ### Launch Issues
 
@@ -506,3 +499,21 @@ This can happen when...
   - The block device driver didn't release the device name: If a user has initiated a forced detach of an Amazon EBS volume, the block device driver of the Amazon EC2 instance might not immediately release the device name for reuse. Attempting to use that device name when attaching a volume causes the volume to be stuck in the attaching state. You must either choose a different device name or reboot the instance.
 
 To fix this, try detaching and **attaching with a new EBS name**, or reboot the instance. If the issue persists, consider rebooting or stopping and starting the instance to resolve the problem, but keep in mind that instance store data is lost during stop-start.
+
+
+### Change the EC2 instance type which is backed by EBS  
+
+In order to change the EC2 instance type, you must stop your Amazon EBS–backed instance before you can change its instance type. When you stop and start an instance, AWS moves the instance to new hardware; however, the instance ID does not change.
+
+:::infoChange EC2 instance type in an Auto Scaling group 
+If your instance is in an **Auto Scaling group**, the Amazon EC2 Auto Scaling service marks the stopped instance as unhealthy, and may terminate it and launch a replacement instance. To prevent this, you can suspend the scaling processes for the group while you're resizing your instance.
+:::
+
+### EBS backed EC2 goest from `pending` to `terminated` immediately
+
+EC2 instance goes from the `pending` state to the `terminated` state immediately after restarting it. Below are the reasons:
+
+- You’ve reached your EBS volume limit.
+- An EBS snapshot is corrupt.
+- The root EBS volume is encrypted and you do not have permission to access the KMS key for decryption.
+- The instance store-backed AMI that you used to launch the instance is missing a required part (an image.part.xx file).

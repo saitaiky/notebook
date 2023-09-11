@@ -14,9 +14,11 @@ sidebar_position: 2
 
 In AWS Key Management Service (KMS), CMK stands for Customer Master Key. It is a fundamental component of KMS and is used to encrypt and decrypt data in AWS services and applications securely. CMKs are created, owned, and managed by AWS customers, allowing them to have control over their encryption keys.
 
+:::infoSome points for exam
 - AWS KMS doesn't rotate the backing keys of CMKs that are **pending deletion**
 - A CMK that is pending deletion cannot be used in any cryptographic operation
 - You can schedule the CMK for deletion with a default waiting period of **30 days**
+:::
 
 ## Envelope Encryption
 

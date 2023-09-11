@@ -3,6 +3,7 @@ title: Storage Gateway
 description: Gateways
 ---
 
+![AWS-Storage-Gateway](/img/aws/storage/AWS-Storage-Gateway.png)
 
 ![volume-gateway-diagram](/img/aws/storage/volume-gateway-diagram.png)
 
@@ -12,11 +13,9 @@ Source: [AWS - Volume Gateway](https://aws.amazon.com/storagegateway/volume/)
 
 ## Volume gateway
 
-> TL;DR - cached mode optimizes local storage while providing quick access to frequently used data, while stored mode prioritizes cloud storage durability and availability by keeping a complete copy of all data in the cloud. The choice between the two modes depends on your specific storage requirements and performance needs.
-
 There are 2 modes in Storage Gateway: 
-- In the **Cached Volume Gateway mode**, your primary data is stored in Amazon S3, while retaining your frequently accessed data locally in the cache for low latency access.
-- In the **Stored Volume Gateway mode**, your primary data is stored locally and your entire dataset is available for low latency access on premises while also asynchronously getting backed up to Amazon S3. 
+- In the **Cached Volume Gateway mode**, your **primary data is stored in S3**, while retaining your frequently accessed data locally in the cache for low latency access.
+- In the **Stored Volume Gateway mode**, your **primary data is stored locally** and your entire dataset is available for low latency access on premises while also asynchronously getting backed up to Amazon S3. 
 ### Cached volumes architecture
 
 ![aws-storage-gateway-cached-diagram](/img/aws/storage/gateways/aws-storage-gateway-cached-diagram.png)

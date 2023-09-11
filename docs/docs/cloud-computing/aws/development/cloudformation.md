@@ -277,6 +277,17 @@ To copy all the objects from an existing S3 bucket to a new S3 bucket created by
 
 A stack set lets you create stacks in AWS accounts across regions by using a single AWS CloudFormation template. All the resources included in each stack are defined by the stack set’s AWS CloudFormation template. As you create the stack set, you specify the template to use, as well as any parameters and capabilities that the template requires.
 
+:::infoSstack instance status is `OUTDATED`
+In the event that the stack operation failed and the stack instance status is OUTDATED, the following are the possible culprits:
+
+- The AWS CloudFormation template might have errors. Validate the template in AWS CloudFormation and fix errors before trying to create your stack set.
+- The template could be trying to **create global resources that must be unique but aren’t**, such as S3 buckets.
+- A specified target account number doesn’t exist. Check the target account numbers that you specified on the Set Deployment Options page of the wizard.
+- Insufficient permissions in a target account for creating resources that are specified in your template.
+- The administrator account does not have a trust relationship with the target account.
+- The maximum number of a resource that is specified in your template already exists in your target account. For example, you might have reached the limit of allowed IAM roles in a target account, but the template creates more IAM roles.
+- You have reached the maximum number of stacks that are allowed in a stack set.
+:::
 ### StackSets with AWS Organizations
 
 AWS Accounts in multiple regions can now be managed effortlessly with StackSets. Previously, account grouping was mainly for billing, but with **AWS Organizations**, you gain centralized control over multiple accounts for various needs like billing, access control, compliance, security, and resource sharing. 

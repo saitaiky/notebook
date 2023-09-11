@@ -66,7 +66,9 @@ A VPC peering connection is a networking connection between two VPCs that enable
 
 ## Configuration 
 
-### 4 Configurations that are supported by the Amazon VPC console wizard 
+### Configs with VPC wizard 
+
+4 Configurations that are supported by the Amazon VPC console wizard:
 
 - **VPC with a single public subnet**
   - We recommend this configuration if you need to run a single-tier, public-facing web application, such as a blog or a simple website.
@@ -76,9 +78,8 @@ A VPC peering connection is a networking connection between two VPCs that enable
   - Plain english - can't access to the internet but allow access via Site-to-Site VPN access
   - We recommend this scenario if you want to extend your network into the cloud and also directly access the Internet from your VPC.
 - **VPC with a private subnet only and AWS Site-to-Site VPN access**
-  - The subnet is known as a VPN-only subnet
+  - The subnet is known as a **VPN-only subnet**
   - We recommend this scenario if you want to extend your network into the cloud using Amazon's infrastructure without exposing your network to the Internet.
-
 
 ### VPC Flow Logs
 
@@ -102,7 +103,9 @@ A route table contains a set of rules, called routes, that are used to determine
 
 Within a VPC, route tables are assigned to individual subnets. With only 1 route table created in a VPC, all of the subnets would be assigned to that route table. A subnet can only be associated with one route table at a time, but you can associate multiple subnets with the same subnet route table.
 
-#### Example 1
+<Tabs className="Routing table">
+<TabItem value="ex1" label="Example 1">
+
 
 The following is an example of the route table for the **public subnets**, with routes for both IPv4 and IPv6. If you create IPv4-only subnets instead of dual stack subnets, your route table includes only the IPv4 routes.
 
@@ -116,7 +119,8 @@ The following is an example of the route table for the **public subnets**, with 
 | 0.0.0.0/0 | `igw-id` |
 | ::/0 | `igw-id` |
 
-#### Example 2
+</TabItem>
+<TabItem value="ex2" label="Example 2">
 
 The following is an example of a route table for one of the **private subnets**, with routes for both IPv4 and IPv6. If you created IPv4-only subnets, the route table includes only the IPv4 routes. The last route sends traffic destined for Amazon S3 to the gateway VPC endpoint.
 
@@ -128,9 +132,24 @@ The following is an example of a route table for one of the **private subnets**,
 | ::/0 | `eigw-id` |
 | `s3-prefix-list-id` | `s3-gateway-id` |
 
-#### Example 3
+</TabItem>
+<TabItem value="ex3" label="Example 3">
 
 ![default-vpc-diagram](/img/aws/networking/vpc/default-vpc-diagram.png)
+
+</TabItem>
+</Tabs>
+
+### Split-tunnel
+
+> TL;DR - Split-tunnel allows only traffic destined to AWS is routed through the VPN tunnel, while other traffic goes directly to its destination, this it reduces the volume of outgoing traffic from AWS, therefore reducing the data transfer cost. [Offical](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html)
+
+By default, when you have a Client VPN endpoint, all traffic from clients is routed over the Client VPN tunnel. When you enable split-tunnel on the Client VPN endpoint, we push the routes on the Client VPN endpoint route table to the device that is connected to the Client VPN endpoint. This ensures that only traffic with a destination to the network matching a route from the Client VPN endpoint route table is routed over the Client VPN tunnel.
+
+You can use a split-tunnel Client VPN endpoint when you do not want all user traffic to route through the Client VPN endpoint.
+
+For example, split-tunnel is enabled on the Client VPN endpoint. Only traffic that's destined for the VPC (172.31.0.0/16) is routed over the Client VPN tunnel. Traffic that's destined for on-premises resources is not routed over the Client VPN tunnel.
+
 
 
 ## Endpoints
@@ -243,64 +262,12 @@ Reference: [Enable outbound IPv6 traffic using an egress-only internet gateway](
 
 A dedicated connection is made through a 1 Gbps, 10 Gbps, or 100 Gbps Ethernet port dedicated to a single customer. Hosted connections are sourced from a AWS Direct Connect Partner that has a network link between themselves and AWS. 
 
-## Direct Connect vs Site-to-Site VPN
 
-- **AWS Direct Connect**(拉線) is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS because it establishes a **dedicated network connection** from your premises to AWS. It links one end of the cable is connected to your router, and the other to an AWS Direct Connect router. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
-  - Connections go over **private network**
-- **AWS Site-to-Site VPN** is a great connection option for businesses that are just starting to use AWS. It is quick and easy to set up. But keep in mind that the VPN connection normally uses the public Internet, which may have **unpredictable performance**, and **although it is encrypted**, there may still be security concerns.
-  - Connections go over **public network**
-
-## Direct Connect + Site-to-Site VPN
-
-![direct-connect](/img/aws/networking/vpc/direct-connect.png)
-
-Source: [AWS Direct Connect + AWS Site-to-Site VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-site-to-site-vpn.html)
-
-This solution combines the benefits of the end-to-end secure IPsec connection with low latency and increased bandwidth of the AWS Direct Connect to provide a more consistent network experience than internet-based VPN connections. 
-
-A BGP connection session is established between AWS Direct Connect and your router on the public VIF. Another BGP session or a static route will be established between the virtual private gateway and your router on the IPsec VPN tunnels.
-
-## Direct Connect Resiliency
+## Direct Connect 
 
 AWS Direct Connect is a network service that provides an alternative to using the Internet to utilize AWS cloud services. AWS Direct Connect enables customers to have low latency and private connections to AWS for workloads that require higher speed or lower latency than the internet. Direct Connect is a paid service and is available only if the customer opts for it.
 
-### Maximum Resiliency for Critical Workloads
-
-Maximum resilience is achieved by separate connections terminating on **separate devices in more than one location**. This configuration offers customers maximum resilience to failure. As shown in the figure below, such a topology provides resilience to 
-- device failure
-- connectivity failure
-- complete location failure 
-
-You can use [AWS Direct Connect gateway](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html) to access any AWS Region (except AWS Regions in China) from any AWS Direct Connect locations.
-
-![Redundancy-Highest](/img/aws/networking/vpc/Redundancy-Highest.png)
-
-Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
-
-
-### High Resiliency for Critical Workloads
-
-For critical production workloads that require high resiliency, it is recommended to have **one connection at multiple locations**. As shown in the figure below, such a topology ensures resilience to 
-- connectivity failure due to a fiber cut or a device failure 
-- a complete location failure 
-
-You can use [AWS Direct Connect gateway](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html) to access any AWS Region (except AWS Regions in China) from any AWS Direct Connect location.
-
-![Redundancy-Higher](/img/aws/networking/vpc/Redundancy-Higher.png)
-
-Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
-
-
-### Non-Critical Production Workloads or Development Workloads
-
-As shown in the figure below, such a topology helps in the case of *the device failure at a location* but does not help in the event of *a total location failure*.
-
-![non-critical-direct-connect](/img/aws/networking/vpc/non-critical-direct-connect.png)
-
-Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
-
-
-### Virtual interfaces (VIF)
+:::infoVirtual interfaces (VIF)
 
 ![vif-propogation](/img/aws/networking/vpc/vif-propogation.png)
 
@@ -313,10 +280,68 @@ You must create one of the following virtual interfaces to begin using your **AW
 - A transit virtual interface (transit VIF) is used to access one or more Amazon Transit Gateways associated with Direct Connect gateways.
 
 For more information, see [AWS Direct Connect virtual interfaces](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html).
+:::
+
+### Direct Connect Resiliency
+
+<Tabs className="Transit Gateway">
+<TabItem value="max-resiliency" label="Maximum Resiliency">
+
+Maximum resilience is achieved by separate connections terminating on **separate devices in more than one location**. This configuration offers customers maximum resilience to failure. As shown in the figure below, such a topology provides resilience to 
+- device failure
+- connectivity failure
+- complete location failure 
+
+You can use [AWS Direct Connect gateway](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html) to access any AWS Region (except AWS Regions in China) from any AWS Direct Connect locations.
+
+![Redundancy-Highest](/img/aws/networking/vpc/Redundancy-Highest.png)
+
+Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
+
+</TabItem>
+<TabItem value="high-resiliency" label="High Resiliency">
+
+For critical production workloads that require high resiliency, it is recommended to have **one connection at multiple locations**. As shown in the figure below, such a topology ensures resilience to 
+- connectivity failure due to a fiber cut or a device failure 
+- a complete location failure 
+
+You can use [AWS Direct Connect gateway](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html) to access any AWS Region (except AWS Regions in China) from any AWS Direct Connect location.
+
+![Redundancy-Higher](/img/aws/networking/vpc/Redundancy-Higher.png)
+
+Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
+
+</TabItem>
+<TabItem value="non-critical" label="Non-Critical">
+
+As shown in the figure below, such a topology helps in the case of *the device failure at a location* but does not help in the event of *a total location failure*.
+
+![non-critical-direct-connect](/img/aws/networking/vpc/non-critical-direct-connect.png)
+
+Source: [AWS Direct Connect Resiliency Recommendations](https://aws.amazon.com/directconnect/resiliency-recommendation/)
+
+</TabItem>
+</Tabs>
+
+### Direct Connect vs Site-to-Site VPN
+
+- **AWS Direct Connect**(拉線) is an excellent choice for businesses seeking a secure, ultra-low latency, and high bandwidth connection to AWS because it establishes a **dedicated network connection** from your premises to AWS. It links one end of the cable is connected to your router, and the other to an AWS Direct Connect router. Although configuring AWS Direct Connect may sometimes take more time due to the physical Ethernet connection, once a connection is established, it is worth it because the network performance is easy to predict, and you can save on data transfer costs.
+  - Connections go over **private network**
+- **AWS Site-to-Site VPN** is a great connection option for businesses that are just starting to use AWS. It is quick and easy to set up. But keep in mind that the VPN connection normally uses the public Internet, which may have **unpredictable performance**, and **although it is encrypted**, there may still be security concerns.
+  - Connections go over **public network**
+
+### Direct Connect + Site-to-Site VPN
+
+![direct-connect](/img/aws/networking/vpc/direct-connect.png)
+
+Source: [AWS Direct Connect + AWS Site-to-Site VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-site-to-site-vpn.html)
+
+This solution combines the benefits of the end-to-end secure IPsec connection with low latency and increased bandwidth of the AWS Direct Connect to provide a more consistent network experience than internet-based VPN connections. 
+
+A BGP connection session is established between AWS Direct Connect and your router on the public VIF. Another BGP session or a static route will be established between the virtual private gateway and your router on the IPsec VPN tunnels.
+
 
 ## NAT 
-
-
 
 ### NAT Gateway
 
