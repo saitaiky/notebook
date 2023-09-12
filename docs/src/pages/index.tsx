@@ -38,7 +38,7 @@ function HomepageHeader() {
         <div className={styles.links}>
           <Link
             className="button button--secondary button--lg"
-            to="/aws/">
+            to="/cloud-computing/aws/">
             AWS
           </Link>
         </div>
