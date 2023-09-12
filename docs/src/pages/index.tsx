@@ -32,14 +32,14 @@ function HomepageHeader() {
           <Link
             className="button button--primary button--lg"
             to="/software-development/">
-            Web development
+            Software development
           </Link>
         </div>
         <div className={styles.links}>
           <Link
             className="button button--secondary button--lg"
-            to="/wiki/">
-            Docs Wiki
+            to="/aws/">
+            AWS
           </Link>
         </div>
         {/* <img src={hasuras} alt="Hasuras Image" /> */}
