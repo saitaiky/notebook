@@ -19,6 +19,8 @@ Here are the steps to follow:
 
 ## Service Control Policies (SCP) 
 
+> TL;DR - SCPs are used to set **a boundary of permissions** for AWS accounts.
+
 SCPs are similar to AWS Identity and Access Management (IAM) permission policies and use almost the same syntax. However, an SCP never grants permissions. Instead, SCPs are JSON policies that specify the maximum permissions for the affected accounts.
 
 ![hibernate](/img/aws/management/organizations/organizational-units-900x572.png)

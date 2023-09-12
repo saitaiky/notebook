@@ -1,10 +1,7 @@
 ---
 title: Home
+sidebar_position: 0
 ---
-
-
-![spectrum](/img/crypto/spectrum.png)
-Source: [The Rich DeFi Ecosystem on Moonbeam](https://moonbeam.network/networks/moonbeam/defi/)
 
 ## What is A DApp
 
@@ -62,3 +59,7 @@ These are the general beliefs of the blockchain communities. And although many D
 - The less user interaction
   The less user database information, the easier it may be computationally for bad actors to take advantage.
 
+## Eco system of Moonbeam
+
+![spectrum](/img/crypto/spectrum.png)
+Source: [The Rich DeFi Ecosystem on Moonbeam](https://moonbeam.network/networks/moonbeam/defi/)

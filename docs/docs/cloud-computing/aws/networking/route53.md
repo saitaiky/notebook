@@ -18,7 +18,7 @@ Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS
 
 4. **Failover Routing**: Routes traffic to a standby resource in case the primary resource becomes unhealthy.
 
-5. **Geolocation Routing**: Directs traffic based on the geographic location of the user, helping tailor content for different regions.
+5. **Geolocation Routing**: Directs traffic based on the geographic location of the user, helping **tailor content** for different regions.
 
 6. **Geoproximity Routing**: Routes traffic based on the geographic location of the user, with the ability to define bias towards specific resources.
 

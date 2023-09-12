@@ -1,6 +1,9 @@
 ---
-title: To be categorised 
+title: Home
+sidebar_position: 0
 ---
+
+Here are some topics I'd love to dive into when I get the chance.
 ## Career killers
 
 - If you get your money right, prefer impact over raw output

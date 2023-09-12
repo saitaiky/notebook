@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import hasuras from '@site/static/img/hasuras.png';
+// import hasuras from '@site/static/img/hasuras.png';
 import VersionedLink from '@site/src/components/VersionedLink';
 import styles from './index.module.scss';
 
@@ -42,7 +42,7 @@ function HomepageHeader() {
             Docs Wiki
           </Link>
         </div>
-        <img src={hasuras} alt="Hasuras Image" />
+        {/* <img src={hasuras} alt="Hasuras Image" /> */}
       </div>
     </header>
   );
