@@ -11,11 +11,11 @@ Amazon EventBridge is recommended when you want to build an application that rea
 
 You can select the following types of targets when using EventBridge as a part of your AWS Health workflow:
 
-– AWS Lambda functions
-– Kinesis streams
-– Amazon SQS queues
-– Amazon SNS topics
-– Templated targets (CloudWatch alarm actions)
+- AWS Lambda functions
+- Kinesis streams
+- Amazon SQS queues
+- Amazon SNS topics
+- Templated targets (CloudWatch alarm actions)
 
 ## Templated targets
 
