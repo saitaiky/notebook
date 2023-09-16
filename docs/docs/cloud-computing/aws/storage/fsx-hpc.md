@@ -32,18 +32,25 @@ SAN file systems are capable of very high performance, but are extremely expensi
 
 The main advantage of Lustre, a global parallel file system, over NFS and SAN file systems is that it provides; wide scalability, both in performance and storage capacity; a global name space, and the ability to distribute very large files across many nodes. Because large files are shared across many nodes in the typical cluster environment, a parallel file system, such as Lustre, is ideal for high end HPC cluster I/O systems. This is why it is in such widespread use today, and why at [Whamcloud](http://wiki.whamcloud.com/) we have an organization of Lustre engineers dedicated to its support, service, and continued feature enhancements.
 
-## Amazon FSx for Lustre(Linux)
+## Amazon FSx
+
+### Multi-AZ deployment
+
+![aws_amazon_fsx_for_windows_diagram](/img/aws/storage/aws_amazon_fsx_for_windows_diagram.png)
+
+In a Multi-AZ deployment, Amazon FSx automatically provisions and maintains a standby file server in a different Availability Zone. Any changes written to disk in your file system are synchronously replicated across Availability Zones to the standby. With Amazon FSx, Multi-AZ deployments can enhance availability during planned system maintenance, and help protect your data against instance failure and Availability Zone disruption. If there is planned file system maintenance or unplanned service disruption, Amazon FSx automatically fails over to the secondary file server, allowing you to continue accessing your data without manual intervention.
+### For Lustre(Linux)
 
 ![product-page-diagram_Amazon-FSx-for-Lustre](/img/aws/storage/product-page-diagram_Amazon-FSx-for-Lustre.png)
 Source: [AWS - Offical document](https://aws.amazon.com/fsx/lustre/)
 
-Amazon FSx for Lustre makes it easy and cost-effective to launch and run the world’s most popular high-performance file system. It is used for workloads such as machine learning, high-performance computing (HPC), video processing, and financial modeling. The open-source Lustre file system is designed for applications that require fast storage – where you want your storage to keep up with your compute. 
+Amazon FSx for Lustre makes it easy and cost-effective to launch and run the world’s most popular high-performance file system. It is used for workloads such as machine learning, **high-performance computing (HPC)**, video processing, and financial modeling. The open-source Lustre file system is designed for applications that require fast storage – where you want your storage to keep up with your compute. 
 
 **FSx for Lustre integrates with Amazon S3, making it easy to process data sets with the Lustre file system. When linked to an S3 bucket, an FSx for Lustre file system transparently presents S3 objects as files and allows you to write changed data back to S3.**
 
 FSx for Lustre provides the ability to both process the 'hot data' in a parallel and distributed fashion as well as easily store the 'cold data' on Amazon S3. Therefore this option is the BEST fit for the given problem statement.
 
-## Amazon FSx for Windows File Server
+### For Windows File Server
 
 ![Product-Page-Diagram_Managed-File-System-How-it-Works_Updated](/img/aws/storage/Product-Page-Diagram_Managed-File-System-How-it-Works_Updated.png)
 Source: [AWS - Offical document](https://aws.amazon.com/fsx/windows/)

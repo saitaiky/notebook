@@ -41,7 +41,7 @@ Let's dive into how you can control access to IAM roles by understanding the pol
 There are three circumstances where policies are used for an IAM role:
 
 - Trust policy
-  - The [trust policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#term_trust-policy) defines which principals can assume the role, and under which conditions. A trust policy is a specific type of [*resource-based policy*](https://docs.aws.amazon.com/codepipeline/latest/userguide/security_iam_resource-based-policy-examples.html) for IAM roles. The trust policy is the focus of the rest of this blog post. The IAM service supports **only one type of resource-based policy** called a **role trust policy**, which is attached to an IAM role.
+  - The [trust policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#term_trust-policy) defines which principals can assume the role, and under which conditions. A trust policy is a specific type of [*resource-based policy*](https://docs.aws.amazon.com/codepipeline/latest/userguide/security_iam_resource-based-policy-examples.html) for IAM roles. The IAM service supports **only one type of resource-based policy** called a **role trust policy**, which is attached to an IAM role.
 - Identity-based policies ([inline and managed](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html))
   - These policies define the permissions that the user of the role is able to perform (or is [denied from performing](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#AccessPolicyLanguage_Interplay)), and on which resources.
   - Inline policies are useful if you want to maintain a strict one-to-one relationship between a policy and the principal entity that it’s applied to. 
@@ -116,54 +116,9 @@ As of July 2023, SNS, SQS, Lambda utilize resource-based policies while Kinesis 
 
 A Trusted Entity is an object from outside of your AWS Account which is allowed to gain access to a resource within your account – in our case that resource will be an IAM role, which will in turn grant them permissions within the account.
 
-Depending on the duties of the user(s) you’ll be granting access to, you may want to have multiple IAM roles with specific and granular access configured for each. The first step in creating a new IAM Role is to select what type of trusted entity will be using the role – either an AWS Service, Another AWS Account, a Web Identity, or SAML federation.
+Depending on the duties of the user(s) you’ll be granting access to, you may want to have multiple IAM roles with specific and granular access configured for each. The first step in creating a new IAM Role is to select what type of trusted entity will be using the role – either an **AWS Service, another AWS Account, a web identity, or SAML federation**.
 
 ### Example 1
-
-I'm creating a role named `my-app-role` which contains several policies ,one of them is s3 policy that can access my s3 amazon resource "configuration-for-app" and has an explicit `GetObject` permission. Since the app runs on ec2 - the trusted relations in this requirements between these services would be..
-
-```mermaid
-flowchart LR
-    EC2 <--- S3
-```
-
-My application that runs on ec2 can assume that role (`my-app-role`) and accessing (with the correct policy in it) to s3 and get the configuration file.
-
-```
-// A policy from my-app-role
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::configuration-for-app/*"
-    }
-  ]
-}
-
-```
-
-```
-// trusted policy(resource-based policy) from S3 bucket
-    {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-```
-I grant permissions (assume-role of "my-app-role") `<x>` to service **principal** `<y>` (my ec2 principal ( `ec2.amazonaws.com` ) which runs applications) in order to accomplish operation`<z>` (get the s3 configuration file from bucket "configuration-for-app" the role contains this specific s3 policy).
-
-
-### Example 2
 
 Consider a scenario where a sizable team consists of developers and testers. In the Development account, there are two IAM groups: Developers and Testers. Both groups have the necessary permissions to operate within the development account and access its resources. Occasionally, a developer needs to make updates to the active S3 Bucket located in the production account. 
 
@@ -175,3 +130,28 @@ How will you configure the permissions for developers to access the production e
 2. Define a permissions policy for the Role that grants trusted users the necessary access to update the bucket.
 3. Modify the IAM group policy in the Development account to deny access to the newly created Role specifically for testers.
 4. Developers can utilize the newly created Role to access the live S3 buckets within the production environment, leveraging the defined permissions.
+
+### Assign IAM Roles to EC2 if they start with "RDS-"
+
+To configure many AWS services, you must pass an IAM role to the service. This allows the service to later assume the role and perform actions on your behalf. You only have to pass the role to the service once during set-up, and not every time that the service assumes the role.
+
+To pass a role (and its permissions) to an AWS service, a user must have permission to pass the role to the service. This helps administrators ensure that only approved users can configure a service with a role that grants permissions. To allow a user to pass a role to an AWS service, you must grant the `PassRole` permission to the user's IAM user, role, or group.
+
+The given policy applies to roles only starting with `RDS-`, so the overall policy allows you to assign IAM Roles to EC2 if they start with "RDS-".
+
+```json
+{
+    "Version": "2012-10-17",
+    "Id": "Secret Policy",
+    "Statement": [
+        {
+            "Sid": "Passrole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam:::role/RDS-*"
+        }
+    ]
+}
+```

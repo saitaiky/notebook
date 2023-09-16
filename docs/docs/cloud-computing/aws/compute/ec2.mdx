@@ -107,7 +107,7 @@ To enable unlimited mode for T2 instance, check [T2 Unlimited – Going Beyond t
 
 ## Placement Groups
 
-**A Spread placement group** is a group of instances that are each placed on distinct racks, with each rack having its own network and power source.
+**A Spread placement group** is a group of instances that are each placed on distinct racks, with each rack having **its own network and power source**.
 
 Spread placement groups are recommended for applications that have a small number of critical instances that should be kept separate from each other. Launching instances in a spread placement group reduces the risk of simultaneous failures that might occur when instances share the same racks.
 
@@ -154,6 +154,10 @@ When you start your instance:
 Overview of EC2 hibernation: 
 ![hibernate](/img/aws/compute/ec2/hibernate.png)
 Source: [Let’s talk about EC2 Placement Groups and Hibernate](https://enlear.academy/lets-talk-about-ec2-placement-groups-and-hibernate-a6e4bed854c?gi=90ed20ac88d9)
+
+### Recovered instance is identical
+
+A recovered instance is **identical to the original instance**, including the instance ID, private IP addresses, Elastic IP addresses, and all instance metadata. If the impaired instance has a public IPv4 address, the instance retains the public IPv4 address after recovery. If the impaired instance is in a placement group, the recovered instance runs in the placement group.
 
 ### Scheduled events
 
@@ -259,6 +263,16 @@ When you launch an instance in Amazon EC2, you have the option of passing user d
 
 ![ec2-bootstrap-script](/img/aws/compute/ec2/ec2-bootstrap-script.png)
 
+### Instance profile
+
+An instance profile is a container that holds an IAM role. When you launch an EC2 instance with an associated profile, the instance can then use the permissions granted by the IAM role *to access only those AWS services or resources the role permits — without having to manually manage credentials or access keys*. This helps improve security and simplifies AWS resource management.
+
+:::infoMake sure instance profile has enough permission to access other AWS services
+Imagine there is a case - a CloudWatch Logs Agent has been set up on the instance to publish application logs. Despite having full access to the AWS account, the administrator is still unable to view the logs in the CloudWatch Logs Console. What should I do?
+
+Attach an IAM role with sufficient CloudWatch Logs permission to the instance profile of the EC2 instance
+:::
+
 ### Tenancy
 
 Each EC2 instance that you launch into a VPC has a tenancy attribute. This attribute has the following values.
@@ -325,13 +339,17 @@ Your instance is enabled for basic monitoring **by default**. You can optionally
   - It is beneficial in situations where you want to create an AMI without disrupting the availability or continuity of your applications.
   -  The AMI will be **crash-consistent** (all the volumes are snapshotted at the same time), but not **application-consistent** (all the operating system buffers are not flushed to disk before the snapshots are created).
 
-You can use AWS Backup to create a backup plan by configuring backup policies and monitoring activity for your AWS resources in one place. Rembmer *a backup plan* doesn't reboot the instances while taking EBS snapshots with AMI `no-reboot` behavior
-- With this behavior, the AMI can't guarantee **file system integrity** since it doesn't reboot the EC2
-- To maintain **file system integrity** you need to provide the reboot parameter while taking images (EventBridge + Lambda + **CreateImage API with reboot paramenter**)
+:::cautionAWS Backup does not reboot EC2 instances at any time.
 
-![Product-Page-Diagram_AWS-Backup](/img/aws/compute/ec2/Product-Page-Diagram_AWS-Backup.png)
+AWS Backup follows the default mechanism of taking backups. In this case, the default mechanism for backing up EBS volumes is to backup with no-reboot behavior. This means that AWS Backup will **not be able to help you create an AMI that guarantees file system integrity** since you need to reboot the instance to do this.
 
-Source: [AWS backup](https://aws.amazon.com/backup/)
+To maintain **file system integrity** you need to provide the reboot parameter while taking images which is (EventBridge + Lambda + **CreateImage API with reboot paramenter**)
+
+The detailed steps are using the CreateImage API, build a Lambda function that will take an AMI of the EC2 instance and include a reboot parameter. Then, create a rule to invoke the Lambda function daily on Amazon EventBridge (Amazon CloudWatch Events).
+
+Screenshot to show you can't set the reboot parameter on AWS Backup:
+![amazon_aws_backup_ebs_noreboot_only](/img/aws/compute/ec2/amazon_aws_backup_ebs_noreboot_only.png)
+:::
 
 :::infoAWS Backup with tags
 1. Create a backup plan in AWS Backup. 
@@ -347,7 +365,7 @@ In addition, AWS Backup leverages AWS Organizations to implement and maintain a 
 
 As the AMI is tied to a specific AWS Region, you need to copy the AMI to other AWS Regions if required. 
 
-![copy-AMI](/img/aws/compute/copy-AMI.png)
+![copy-AMI](/img/aws/compute/ec2/copy-AMI.png)
 > Source: [AWS - Encryption and copying](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html)
 
 ### Copy encrypted snapshot

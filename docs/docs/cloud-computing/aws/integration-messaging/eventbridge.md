@@ -19,6 +19,7 @@ You can select the following types of targets when using EventBridge as a part o
 
 ## Templated targets
 
+Templated targets are a set of common API operations across a group of core AWS services, such as Amazon SQS, Lambda, and Step Functions. For example, you can target Lambda's Invoke operation by providing the function ARN, or Amazon SQS's SendMessage operation using the queue ARN.
 ### EBS
 
 ![target-ebs](/img/aws/integration-messaging/event-bridge/target-ebs.png)

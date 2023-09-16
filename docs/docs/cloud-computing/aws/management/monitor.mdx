@@ -137,7 +137,15 @@ The image above illustrate - if we trust the latest digest file that we have, we
 
 AWS Config is a service that tracks and evaluates the configuration and compliance of AWS resources. It uses configurable rules to assess resources against desired settings, such as logging for S3 buckets or MFA for IAM users. 
 
-AWS Lambda functions perform compliance evaluations, and **auto-remediation can automatically correct non-compliant resources**. 
+Another example is you can use AWS Config to view **the IAM policy that was assigned to an IAM user, group, or role at any time** in which AWS Config was recording. This information can help you determine the permissions that belonged to a user at a specific time: for example, you can view whether the user Sai Tai had permission to modify Amazon VPC settings on Jan 1, 2023.
+
+:::infoAmazon Inspector vs AWS Config
+Amazon Inspector is a security assessment service that helps improve the security and compliance of applications deployed on AWS. While it can be used to check the configuration of security groups, it may not be the most efficient way to **address the specific security concern**.
+
+For example, if you want to check a specific security concern whether a public SSH is always disabled for the private servers. It is more efficient to use AWS Config instead of Amazon Inspector
+
+![AWS-Config-EC2-Security-Group](/img/aws/management/monitor/AWS-Config-EC2-Security-Group.png)
+:::
 
 ### Notification
 
@@ -162,10 +170,24 @@ When you add a rule to your account, you can specify when you want AWS Config to
 If you choose **both configuration changes and periodic to the same rule**, AWS Config invokes your Lambda function when it detects a configuration change and also at the frequency that you specify. 
 :::
 
+### Remediation
+
+AWS Config uses 
+- **AWS Lambda** functions perform compliance evaluations, and 
+-  **System Manager automation documents** perform auto-remediation to automatically correct non-compliant resources.
+
+:::infoSome rules for S3
+AWS Config includes **auto-remediation** for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
+:::
+
+![remediation](/img/aws/management/monitor/remediation.png)
+
+Source: [Remediate noncompliant AWS Config rules with AWS Systems Manager Automation runbooks](https://aws.amazon.com/blogs/mt/remediate-noncompliant-aws-config-rules-with-aws-systems-manager-automation-runbooks/)
+
 ### Some practices
 
-- AWS Config includes **auto-remediation** for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
-- Use EventBridge to detect NON_COMPLIANT in AWS Config and send message via SNS
-    - You can use an EventBridge rule with a custom event pattern and an input transformer to match an AWS Config evaluation rule output as `NON_COMPLIANT`. Then, route the response to an Amazon Simple Notification Service (Amazon SNS) topic.
+- Use EventBridge to detect `NON_COMPLIANT` in AWS Config and send message via SNS
+    - You can use an EventBridge rule with a custom event pattern and an input transformer to match an AWS Config evaluation rule output as `NON_COMPLIANT`. Then, route the response to an Amazon SNS topic.
 - AWS Config sends notifications **only when the compliance status changes**.  If a resource was previously non-compliant and is still non-compliant, Config will not send a new notification.
-- AWS config rule, `require-tags` is for checking if a resource contains the tags that you specify.
+- You can leverage the `require-tags` managed rule in AWS Config to check if a resource contains the tags that you specify.
+![require-tags](/img/aws/management/monitor/require-tags.png)

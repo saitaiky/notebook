@@ -10,6 +10,10 @@ sidebar_position: 5
 
 ## Memcached
 
+:::cautionImportant points
+- Amazon ElastiCache for Memcached does not support Multi-AZ for high availability.
+:::
+
 > Reference: [Scaling ElastiCache for Memcached clusters](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Scaling.html#Scaling.Memcached.Vertically)
 
 ### Scaling Memcached Horizontally
@@ -112,6 +116,8 @@ As the Application Load Balancer itself is replaced on each new deployment, so m
 **Redis:**
 - **Use Cases:** Redis is versatile and suits a wide range of use cases, including caching, real-time analytics, session management, and more. Its advanced features, like data persistence, data structures, and publish/subscribe capabilities, make it suitable for more complex caching needs and scenarios requiring data manipulation.
 - **Reasons:** Redis provides richer data types, supports more advanced caching strategies, and can be used for both caching and as a data store. Its persistence options, including snapshots and AOF (Append-Only File), enable data durability and recovery, making it a choice for applications that need both caching and data persistence.
+- **Highlights**
+  - Multi-AZ failover
 
 In summary, choose **Memcached** for straightforward(simplest model), high-speed caching where data persistence is not a primary concern, and select **Redis** when you need a more versatile caching solution with advanced data structures, persistence options, and additional features beyond caching.
 

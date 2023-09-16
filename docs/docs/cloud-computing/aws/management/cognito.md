@@ -63,6 +63,24 @@ Reference: [Single Sign-On (SSO) using AWS Cognito and Azure AD](https://blog.ge
 
 **Summery**: CUP + CIP = manage user / password + access AWS services
 
+
+## Custom Login URL
+
+:::cautionOne account, one alias
+Your AWS account can have only one alias. If you create a new alias for your AWS account, the new alias overwrites the previous alias. The URL containing the previous alias stops working. 
+Also, the account alias must be unique across all AWS products and must contain only lowercase letters, digits, and hyphens.
+:::
+
+The AWS account root user and AWS IAM users in the account sign in using a web URL. If you want the URL for your IAM users to contain your company name (or another easy-to-remember identifier) instead of the AWS account ID, you can create an **account alias**.
+
+The sign-in page URL for your account's IAM users has the following format, by default:
+
+https://123456789123.signin.aws.amazon.com/console/
+
+If you create an AWS account alias for your AWS account ID, the IAM user sign-in page URL looks like the following example:
+
+https://tutorialsdojo.signin.aws.amazon.com/console/
+
 ## AWS SSO
 
 :::infoReplacement

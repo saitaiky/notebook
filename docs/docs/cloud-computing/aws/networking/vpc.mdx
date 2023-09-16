@@ -243,12 +243,10 @@ To enable access to or from the internet for instances in a subnet in a VPC, you
 
 An egress-only internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows outbound communication over IPv6 from instances in your VPC to the internet, and prevents the internet from initiating an IPv6 connection with your instances.
 
-:::caution
-Egress-only Internet gateway works as a NAT gateway, but for IPv6 traffic.
-
-- To enable outbound-only internet communication over IPv6, use a **egress-only internet gateway** instead.
+:::cautionEgress-only Internet gateway is for **IPv6 traffic**.
+- To enable outbound-only internet communication over **IPv6**, use a **egress-only internet gateway** instead.
   - Don't forget to assign an IPv6 address to the instance in private subnet otherwise the instance cannot access IPv6 websites.
-- To enable outbound-only internet communication over IPv4, use a **NAT gateway** instead.
+- To enable outbound-only internet communication over **IPv4**, use a **NAT gateway** instead.
   - A public IPv4 address is not needed for the instance in private subnet. We can access IPv4 websites without it.
 :::
 
@@ -405,6 +403,11 @@ To incrase the availability of the system, you need to create an Availability Zo
 
 ## VPN
 
+When you create a Site-to-Site VPN connection, you must do the following:
+
+- Specify the type of routing that you plan to use (static or dynamic)
+- Update the route table for your subnet
+
 ### Site-to-Site VPN Connection
 
 Amazon VPC provides the facility to create an **IPsec VPN** connection (also known as **site-to-site VPN**) between *remote customer networks and their Amazon VPC over the internet*. The following are the key concepts for a site-to-site VPN:
@@ -417,7 +420,19 @@ Amazon VPC provides the facility to create an **IPsec VPN** connection (also kno
 
 ![AWS-VPN-Connection](/img/aws/networking/vpc/AWS-VPN-Connection.png)
 
-The route table in the VPC and ensure that there is a route that sends traffic to the on-premises network via the virtual private gateway. This is achieved by adding a Virtual Private Gateway (VGW) route with the destination of your on-premises network in the route table.
+### How to setup route table
+
+When establishing a static VPN connection between an on-premises network and a VPC in AWS, the virtual private gateway must be configured to route traffic to the customer gateway on the on-premises side, and the customer gateway must be configured to route traffic to the virtual private gateway on the AWS side.
+
+From the AWS side, in order to enable instances in your VPC to reach your customer gateway, you must configure your route table to include the routes used by your VPN connection and point them to your virtual private gateway. You can enable route propagation for your route table to automatically propagate those routes to the table for you.
+
+:::infoStatic and dynamic routing
+> Reference: [Site-to-Site VPN routing options](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPNRoutingTypes.html)
+
+The type of routing that you select can depend on the make and model of your customer gateway device. If your customer gateway device supports Border Gateway Protocol (BGP), specify dynamic routing when you configure your Site-to-Site VPN connection. If your customer gateway device does not support BGP, specify static routing.
+
+For static routing, the static IP prefixes that you specify for your VPN configuration are propagated to the route table when the status of the VPN connection is UP. Similarly, for dynamic routing, the BGP-advertised routes from your customer gateway are propagated to the route table when the status of the VPN connection is UP.
+:::
 
 ### VPN CloudHub
 
@@ -516,7 +531,7 @@ Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www
 :::infoVPC flow log to show ACL is stateless
 This is a VPC flow log to demostrate what it looks like when Network ACL permits inbound ICMP traffic but does not permit outbound ICMP traffic. In this example, I usde the ping command from your home computer (IP address is 203.0.113.12) to an EC2 instance (the network interface’s private IP address is 172.31.16.139)
 
-Apparently, the first one is an ACCEPT record, and the second one is a REJECT record, which means that the incoming traffic was successfully accepted by your EC2 instance, but the response, or the outgoing traffic, was rejected by either your security group or network ACL.
+Apparently, the first one is an `ACCEPT` record, and the second one is a `REJECT` record, which means that the incoming traffic was successfully accepted by your EC2 instance, but the response, or the outgoing traffic, was rejected by either your security group or network ACL.
 
 ```
 2 123456789010 eni-1235b8ca 110.237.99.166 172.31.17.140 0 0 1 4 336 1432917027 1432917142 ACCEPT OK

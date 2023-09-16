@@ -47,11 +47,11 @@ This is handy, for example, if you want to update the packages you have installe
 ### cfn-signal
 
 - `cfn-signal` is a helper script to signal the status of an AWS CloudFormation stack resource.
-- It is commonly used in conjunction with `UpdatePolicy` in `WaitOnResourceSignals` and `CreationPolicy`
+- It is commonly used in conjunction with `WaitOnResourceSignals` property in `UpdatePolicy` attribute and  `Timeout` property in `CreationPolicy` attribute.
   - `CreationPolicy` - Associate the CreationPolicy attribute with a resource to prevent its status from reaching create complete until AWS CloudFormation receives a specified number of success signals or the timeout period is exceeded
   - You want to make sure the newly deployed instances are healthy first before the old instances are taken down for replacement. To solve this, you will need to use the `UpdatePolicy` attribute on CloudFormation and enable the `WaitOnResourceSignals` property.
 - When AWS CloudFormation creates or updates resources with those policies, it suspends work on the stack until the resource receives the requisite number of signals or until the timeout period is exceeded.
-- During the stack creation or update process, `cfn-signal` is typically called from within `user-data` scripts running on EC2 instances to notify AWS CloudFormation about the successful initialization of the instance.  Tt suspends work on the stack until.. 
+- During the stack creation or update process, `cfn-signal` is typically called from within `user-data` scripts running on EC2 instances to notify AWS CloudFormation about the successful initialization of the instance.  The works are suspended on the stack until.. 
   - the resource receives the requisite number of signals (This signals that the instance is ready and healthy to proceed with the stack creation or update process.) or 
   - the timeout period is exceeded
 
@@ -131,12 +131,16 @@ Answer:
 
 ### WaitCondition vs CreationPolicy
 
+:::infoWhat is CreationPolicy?
+You can associate the `CreationPolicy` attribute with a resource to prevent its status from reaching create complete until AWS CloudFormation receives** a specified number of success signals or the timeout period is exceeded**. 
+:::
+
 Currently, only AutoScalingGroup, EC2 Instance & WaitCondition resources support the CreationPolicy attribute. Both WaitCondition & CreationPolicy delay the creation of the stack until they receive a specified number of “success signals”.
 
-- While CreationPolicy causes the creation status of its parent resource to stay in `CREATE_IN_PROGRESS`, a WaitCondition on the other hand, **being a resource in itself**, waits in `CREATE_IN_PROGRESS` state, thus blocking the stack from reaching the CREATE_COMPLETE state.
+- While CreationPolicy causes the creation status of its parent resource to stay in `CREATE_IN_PROGRESS`, a `WaitCondition` on the other hand, **being a resource in itself**, waits in `CREATE_IN_PROGRESS` state, thus blocking the stack from reaching the CREATE_COMPLETE state.
 - Use cases
   - When you need to pause the creation of multiple instances in an auto-scaling group & make the stack wait for applications to be installed & started on the instances, think CreationPolicy.
-  - When you want to coordinate a resource creation with actions **external to the stack**, think WaitCondition with a DependsOn attribute on the resource.
+  - When you want to coordinate a resource creation with actions **external to the stack**, think `WaitCondition` with a `DependsOn` attribute on the resource.
 
 ## Configuration
 
@@ -312,6 +316,7 @@ This modular approach simplifies template management, promotes reusability, and 
 :::
 
 ![cfn-console-nested-stacks](https://docs.aws.amazon.com/images/AWSCloudFormation/latest/UserGuide/images/cfn-console-nested-stacks.png)
+
 Resource: [Working with nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
 
 ```ymal
@@ -326,6 +331,15 @@ Resources:
         KeyName: mykey
 ```
 
+:::infoIntegrating Cloudformation with parameter store
+You can then reference values by using the unique name that you specified when you created the parameter. You can integrate Parameter Store with CloudFormation to automate your operational process.
+
+Any time you use a template containing Systems Manager parameters to create/update your stacks, CloudFormation uses the values for these Systems Manager parameters at the time of the create/update operation. So, as parameters are updated in Systems Manager, you can have the new value of the parameter take effect by just **executing a stack update operation**(calling the update-stack API). 
+
+![ssm-integration](/img/aws/development/cf/ssm-integration.png)
+
+The Parameters section in above screenshot in the output for Describe API will show an additional ‘ResolvedValue’ field that contains the resolved value of the Systems Manager parameter that was used for the last stack operation.
+:::
 
 ## Behavoirs
 ### Roll back an update

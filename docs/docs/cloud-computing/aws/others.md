@@ -89,9 +89,6 @@ You can use TagOption library to enforce the tagging of all instances that will 
 
 - IAM access analyzer
 - EFS
-  - Elastic throughput
-  - MAX I/O
-  - MAX throughput
   - Bursting Throughput
 - VPC - Traffic mirroring
-- AWS Datasync
+- AWS Datasync automates and accelerates moving data between on premises and AWS Storage services.

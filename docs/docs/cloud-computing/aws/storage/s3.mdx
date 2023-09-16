@@ -50,11 +50,29 @@ You can add rules in an S3 Lifecycle configuration to tell Amazon S3 to transiti
 ![lifecycle-transitions](/img/aws/storage/s3/lifecycle-transitions.png)
 Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html)
 
-### Deleting a bucket is eventually consistent 
+![s3_lifecycle_policy_standard-ia](/img/aws/storage/s3/s3_lifecycle_policy_standard-ia.png)
 
-If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list - *Bucket configurations have an eventual **consistency model** *. If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list.
+:::cautionStandard IA vs One Zone IA
+While Standard Infrequent Access and Standard offer the same durability (99.999999999%), One Zone IA does not. As its name implies, data is stored in a single Availability Zone, which means there is **no cross-AZ data replication** in the event of failure. 
 
+It isn't resilient to the physical loss of an Availability Zone resulting from disasters, such as earthquakes and floods. **If the AZ is destroyed, so is your data**.
+:::
+
+### Delete Bucket
+
+#### Delete Bucket is Eventually consistent 
+
+If you delete a bucket and immediately list all buckets, the deleted bucket might still appear in the list - *Bucket configurations have an eventual **consistency model** *. 
 > Details: [Logging requests using server access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
+
+#### Condition of using CLI to delete bucket
+
+You can delete a bucket that contains objects using the AWS CLI only if:
+
+- The bucket **doesn't have versioning enabled**.
+- The bucket is completely **empty of objects and versioned objects**.
+
+If your bucket does not have versioning enabled, you can use the rb (remove bucket) AWS CLI command with the --force parameter to remove a non-empty bucket.
 
 ## Tools
 
@@ -623,7 +641,7 @@ AWS Snowball is a physical data transfer device offered by Amazon Web Services (
 
 :::infoWhat is Glacier?
 - Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
-- Glacier Vault provides [S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) for WORM compliance.
+- Glacier Vault provides **[S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) to prevent future changes for WORM compliance**.
 - You can retrieve 10 GB of your Amazon S3 Glacier data per month for free
 :::
 

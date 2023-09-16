@@ -5,13 +5,18 @@ description: Gateways
 
 ![AWS-Storage-Gateway](/img/aws/storage/AWS-Storage-Gateway.png)
 
-![volume-gateway-diagram](/img/aws/storage/volume-gateway-diagram.png)
+![different-gateways](/img/aws/storage/gateways/File-Gateway-vs-Volume-Gateway-vs-Tape-Gateway-1024x640.png)
 
-Source: [AWS - Volume Gateway](https://aws.amazon.com/storagegateway/volume/)
+Source: [](https://tutorialsdojo.com/aws-storage-gateway/)
+
 
 **AWS Storage Gateway** is **a hybrid cloud storage service** that gives you on-premises access to virtually unlimited cloud storage. The service provides three different types of gateways – Tape Gateway, File Gateway, and Volume Gateway – that seamlessly connect on-premises applications to cloud storage, caching data locally for low-latency access. With cached volumes, the AWS Volume Gateway stores the full volume in its Amazon S3 service bucket, and just the recently accessed data is retained in the gateway’s local cache for low-latency access.
 
 ## Volume gateway
+
+![volume-gateway-diagram](/img/aws/storage/gateways/volume-gateway-diagram.png)
+
+Source: [AWS - Volume Gateway](https://aws.amazon.com/storagegateway/volume/)
 
 There are 2 modes in Storage Gateway: 
 - In the **Cached Volume Gateway mode**, your **primary data is stored in S3**, while retaining your frequently accessed data locally in the cache for low latency access.

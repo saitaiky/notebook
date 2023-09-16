@@ -51,18 +51,21 @@ The recover alarm action, which is suited for **System Health Check failures** -
 
 ## CloudWatch integration
 
-### S3
+### S3 (log data)
 
 You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
 
-### Service limit from Trusted Advisor
+### Trusted Advisor(Service limit)
 
-> Service limit is a feature provided by Trusted Advisor a reference implementation that automatically provisions the services necessary to proactively track resource usage and send notifications as you approach limits. 
+:::infoWhat is Service limit from Trusted Advisor
+Service limit is a feature provided by Trusted Advisor a reference implementation that automatically provisions the services necessary to proactively **track resource usage** and send notifications as you approach limits. 
 
 ![ta-dashboard](/img/aws/management/cw/ta-dashboard.png)
 
 Source: [Monitoring Service Limits with Trusted Advisor and Amazon CloudWatch](https://aws.amazon.com/blogs/mt/monitoring-service-limits-with-trusted-advisor-and-amazon-cloudwatch/)
-You can use Amazon CloudWatch Events to detect and react to changes in the status of Trusted Advisor checks. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
+:::
+
+You can use Amazon CloudWatch Events to *detect and react to changes in the status of Trusted Advisor checks*. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
 
 ![monitor-trusted-advisor-service-check](/img/aws/management/cw/monitor-trusted-advisor-service-check.jpeg)
 
@@ -123,9 +126,12 @@ RAM is NOT included in the AWS EC2 metrics
 
 The CloudWatch Agent procstat plugin is a component of the CloudWatch Agent provided by AWS. The procstat plugin allows you to monitor and collect metrics from specific processes running on your Amazon EC2 instances.
 
-By configuring the procstat plugin, you can s**pecify the processes you want to monitor** and collect metrics for, such as CPU usage, memory usage, or custom metrics exposed by the process. The plugin uses the procfs file system on Linux-based systems to retrieve information about the specified processes.
+By configuring the procstat plugin, you can **specify the processes you want to monitor** and collect metrics for, such as CPU usage, memory usage, or custom metrics exposed by the process. The plugin uses the procfs file system on Linux-based systems to retrieve information about the specified processes.
 
-Some key features and use cases of the CloudWatch Agent procstat plugin include:
+
+![CWAgent-procstat](/img/aws/management/cw/CWAgent-procstat.png)
+
+There are three methods to specify the processes to monitor: pid_file, exe, and pattern. Take note that CloudWatch agent can only use one method. If you specify more than one section, the CloudWatch agent uses the pid_file section if it is present. If not, it uses the exe section.
 
 ## Metrics for SQS
 

@@ -20,7 +20,7 @@ Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS
 
 5. **Geolocation Routing**: Directs traffic based on the geographic location of the user, helping **tailor content** for different regions.
 
-6. **Geoproximity Routing**: Routes traffic based on the geographic location of the user, with the ability to define bias towards specific resources.
+6. **Geoproximity Routing**: Routes traffic based on the geographic location of the user, with the ability to define **bias**(optionally choose to route more traffic or less to a given resource by specifying a value) towards specific resources. It allows you to **shift traffic** from resources in one location to resources in another.
 
 7. **Multivalue Answer Routing**: Returns multiple healthy records in response to DNS queries, offering a simple form of load balancing.
 
@@ -105,7 +105,8 @@ If an alias record points to an AWS resource, you can't set the time to live (TT
 ![health-check](/img/aws/networking/route53/health-check.png)
 
 - **Health checks that monitor an endpoint** – You can configure a health check that monitors an endpoint that you specify either by IP address or by domain name. At regular intervals that you specify, Route 53 submits automated requests over the internet to your application, server, or other resources to verify that it’s reachable, available, and functional. Optionally, you can configure the health check to make requests similar to those that your users make, such as requesting a web page from a specific URL.
-- **Health checks that monitor other health checks (calculated health checks)** – You can create a health check that monitors whether Route 53 considers other health checks healthy or unhealthy. One situation where this might be useful is when you have multiple resources that perform the same function, such as multiple web servers, and your chief concern is whether some minimum number of your resources are healthy. You can *create a health check for each resource without configuring notifications for those health checks*. Then you can create a health check that monitors the status of the other health checks, and that notifies you only when the number of available web resources drops below a specified threshold.
+- **Health checks that monitor other health checks (calculated health checks)** – You can create a health check that monitors whether Route 53 considers other health checks healthy or unhealthy. 
+  - One situation where this might be useful is when you have multiple resources that perform the same function, such as multiple web servers, and your chief concern is **whether some minimum number of your resources are healthy**. You can *create a health check for each resource without configuring notifications for those health checks*. Then you can create a health check that monitors the status of the other health checks, and that notifies you only when the number of available web resources drops below a specified threshold.
 - **Health checks that monitor CloudWatch alarms** – You can create CloudWatch alarms that monitor the status of CloudWatch metrics, such as the number of throttled read events for an Amazon DynamoDB database or the number of Elastic Load Balancing hosts that are considered healthy. After you create an alarm, you can create a health check that monitors the same data stream that CloudWatch monitors for the alarm.
 
 ### Evaluate Target Health

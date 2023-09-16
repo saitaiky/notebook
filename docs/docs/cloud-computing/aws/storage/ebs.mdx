@@ -119,12 +119,6 @@ You must stop your Amazon EBS–backed instance before you can change its instan
 
 ## Behavior
 
-### EBS encryption is a region-specific setting
-
-Encryption by default *is a Region-specific setting*. If you enable it for a Region, you cannot disable it for individual volumes or snapshots in that Region
-
-You can configure your AWS account to enforce the encryption of *the **new** EBS volumes and snapshot copies that you create*. Encryption by default is a Region-specific setting. If you enable it for a Region, you cannot disable it for individual volumes or snapshots in that Region.
-
 ### EBS volumes are AZ locked
 When you create an EBS volume, it is automatically replicated within its Availability Zone to prevent data loss due to the failure of any single hardware component. *You can attach an EBS volume to an EC2 instance in the **same Availability Zone** *.
 
@@ -171,6 +165,7 @@ Unlike gp2, which uses a bucket and credit model to calculate performance, an io
 
 
 ## Configuration
+
 ### DeleteOnTermination
 
 By default, the root volume of an EC2 instance for an EBS-backed AMI is deleted when the instance terminates.
@@ -199,6 +194,8 @@ How to update 'DeleteOnTermination' attribute set to True for an EC2 instance’
 
 ### Raid 0 & Raid 1
 
+> TL;DR - For **greater I/O performance** than you can achieve with a single volume, RAID 0 can stripe multiple volumes together. For on-instance redundancy, RAID 1 can mirror two volumes together which can also offer **fault tolerance**.
+
 ![raid0_raid1](/img/aws/storage/ebs/raid0_raid1.png)
 
 Source: [EC2 Storage — EBS, EFS, and Instance Store fundamentals](https://medium.com/geekculture/ebs-efs-and-instance-store-aws-solutions-architect-associate-87dc0ac6d1ae)
@@ -216,6 +213,18 @@ There is a significant increase in latency when you first access each block of d
 
 - Access each block before putting the volume into production. This process is called initialization (formerly known as **pre-warming**).
 - **Enable fast snapshot** to restore on a snapshot to ensure that the EBS volumes created from it are fully-initialized at creation and instantly deliver all of their provisioned performance.
+
+### Encryption
+
+#### EBS encryption is a region-specific setting
+
+Encryption by default *is a Region-specific setting*. If you enable it for a Region, you cannot disable it for individual volumes or snapshots in that Region
+
+#### Automatically encrypting newly created EBS volumes
+
+![ebs-default-encryption](/img/aws/storage/ebs/default-encryption.jpeg)
+
+You can configure your AWS account to enforce Amazon EBS encrypts the EBS volumes created when you launch an instance and the snapshots that you copy from an unencrypted snapshot.
 
 ## Features
 

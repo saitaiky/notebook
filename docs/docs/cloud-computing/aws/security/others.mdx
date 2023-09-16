@@ -75,11 +75,34 @@ By having a single implementation of security group -> ENI, I would imagine it m
 
 
 ## Amazon Certificate Manager(ACM)
-AWS ACM (Amazon Certificate Manager) is a service that provides free, automated SSL/TLS certificates for secure encryption and authentication of data in transit for AWS resources and applications.
+
+:::infoValidating domain ownership
+When you buy a dowmain from other domain registry(e.g. GoDaddy) and you want to use a public certificate genereated by ACM. You need to do the following steps:
+
+1. Request or import a TLS/SSL certificate you would like to use into your AWS account.
+2. Validate domain ownership for your requested certificate using Domain Name System (DNS) or email validation to complete certificate issuance. Ref: [Validating domain ownership](https://docs.aws.amazon.com/acm/latest/userguide/domain-ownership-validation.html)
+3. Use your newly issued or imported certificates in various AWS services like Elastic Load Balancing (ELB), Amazon CloudFront etc.
+:::
 
 Exam notes: 
 - The ACM certificate must be requested or imported **in the same AWS Region as your load balancer or CloudFront distribution.**
 - ACM-issued certificates can’t be installed on an EC2 instance. These certificates are intended to be used with AWS services like **Elastic Load Balancing, CloudFront, and API Gateway**.To enable end-to-end encryption between load balancer and an EC2 instance, you must use a third-party SSL certificate
+
+### Certificate renewal
+
+:::infoRule of thumb of renewal
+AWS Certificate Manager manages the renewal process for the certificates managed in ACM. *You can import your own certificates into ACM, however you have to **manually renew these certificates** *.
+:::
+
+A certificate is eligible for automatic renewal subject to the following considerations:
+- ELIGIBLE if associated with another AWS service, such as Elastic Load Balancing or CloudFront.
+- ELIGIBLE if exported since being issued or last renewed.
+- ELIGIBLE if it is a private certificate issued by calling the ACM RequestCertificate API and then exported or associated with another AWS service.
+- ELIGIBLE if it is a private certificate issued through the management console and then exported or associated with another AWS service.
+- NOT ELIGIBLE if it is a private certificate issued by calling the ACM Private CA IssueCertificate API.
+- NOT ELIGIBLE if imported.
+- NOT ELIGIBLE if already expired.
+
 
 ## AWS Private CA
 AWS Private CA—This service is for enterprise customers building a public key infrastructure (PKI) inside the AWS cloud and intended for private use within an organization. With AWS Private CA, you can create your own CA hierarchy and issue certificates with it for authenticating internal users, computers, applications, services, servers, and other devices, and for signing computer code. Certificates issued by a private CA are trusted only within your organization, not on the internet.

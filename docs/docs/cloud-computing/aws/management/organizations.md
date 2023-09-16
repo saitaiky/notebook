@@ -57,30 +57,6 @@ You can define service control policies (SCPs) inside AWS Organizations to enfor
 ```
 
 
-### Assign IAM Roles to EC2 if they start with "RDS-"
-
-To configure many AWS services, you must pass an IAM role to the service. This allows the service to later assume the role and perform actions on your behalf. You only have to pass the role to the service once during set-up, and not every time that the service assumes the role.
-
-To pass a role (and its permissions) to an AWS service, a user must have permission to pass the role to the service. This helps administrators ensure that only approved users can configure a service with a role that grants permissions. To allow a user to pass a role to an AWS service, you must grant the PassRole permission to the user's IAM user, role, or group.
-
-The given policy applies to roles only starting with `RDS-`, so the overall policy allows you to assign IAM Roles to EC2 if they start with "RDS-".
-
-```json
-{
-    "Version": "2012-10-17",
-    "Id": "Secret Policy",
-    "Statement": [
-        {
-            "Sid": "Passrole",
-            "Effect": "Allow",
-            "Action": [
-                "iam:PassRole"
-            ],
-            "Resource": "arn:aws:iam:::role/RDS-*"
-        }
-    ]
-}
-```
 
 ### A policy to assign a specific role
 

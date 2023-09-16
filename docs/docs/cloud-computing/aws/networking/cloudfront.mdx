@@ -90,6 +90,63 @@ Source: [Using CloudFront Origin Shield to protect your origin in a multi-CDN de
 </TabItem>
 </Tabs>
 
+## Restricting access to files on custom origins
+
+Reference: [Restricting access to files on custom origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html#forward-custom-headers-restrict-access)
+
+If you use a custom origin, you can optionally set up custom headers to restrict access. For CloudFront to get your files from a custom origin, the files must be accessible by CloudFront using a standard HTTP (or HTTPS) request. But by using custom headers, you can further restrict access to your content so that users can access it only through CloudFront, not directly. This step isn't required to use signed URLs, but we recommend it.
+
+To require that users access content through CloudFront, change the following settings in your CloudFront distributions:
+
+- Origin Custom Headers
+- Viewer Protocol Policy
+- Origin Protocol Policy
+
+### Origin Custom Headers
+
+Configure CloudFront to forward custom headers to your origin. See [Configuring CloudFront to add custom headers to origin requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html#add-origin-custom-headers-configure).
+
+:::infoUser-Agent header
+- If you want CloudFront to cache different versions of your objects based on the device that a user is using to view your content, use `User-Agent` header. You can create values like CloudFront-Is-Desktop-Viewer, CloudFront-Is-Mobile-Viewer, etc
+  ![s3web-specific-cloudfront](/img/aws/networking/cloudfront/s3web-specific-cloudfront.jpg)
+  Based on the value of the `User-Agent` header, CloudFront sets the value of these headers to true or false before forwarding the request to your origin. If a device falls into more than one category, more than one value might be true. 
+- In S3 you can set an IAM policy like:
+  ```
+  {
+  "Version": "2008-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Principal": "*",
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::<S3バケット>/*",
+          "Condition": {
+              "StringEquals": {
+                  "aws:UserAgent": "Amazon CloudFront <任意文字列>"
+              }
+          }
+      }
+    ]
+  }
+  ```
+:::
+
+### Viewer Protocol Policy
+
+Configure your distribution to require viewers to use HTTPS to access CloudFront. See [Viewer protocol policy](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesViewerProtocolPolicy).
+
+### Origin Protocol Policy
+
+Configure your distribution to require CloudFront to use the same protocol as viewers to forward requests to the origin. See [Protocol (custom origins only)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginProtocolPolicy).
+
+After you've made these changes, update your application on your custom origin to only accept requests that include the custom headers that you've configured CloudFront to send.
+
+The combination of Viewer Protocol Policy and Origin Protocol Policy ensure that the custom headers are encrypted in transit. However, we recommend that you **periodically do the following to rotate the custom header**s that CloudFront forwards to your origin:
+
+1.  Update your CloudFront distribution to begin forwarding a new header to your custom origin.
+2.  Update your application to accept the new header as confirmation that the request is coming from CloudFront.
+3.  When requests no longer include the header that you're replacing, update your application to no longer accept the old header as confirmation that the request is coming from CloudFront.
+
 ## Cloudfront signers
 
 Each signer that you use to create *CloudFront signed URLs or signed cookies* must have a public-private key pair. The signer uses its * **private key** to sign the URL or cookies*, and CloudFront uses the * **public key** to verify the signature*.
@@ -105,32 +162,22 @@ When you use the root user to manage CloudFront key pairs, you can *only have up
 Whereas, with **CloudFront key groups**, you can associate a higher number of public keys with your CloudFront distribution, giving you more flexibility in how you use and manage the public keys. By default, you can associate up to four key groups with a single distribution, and you can have up to five public keys in a key group.
 
 
-Reference: <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-trusted-signers.html>
+Reference: [Specifying the signers that can create signed URLs and signed cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-trusted-signers.html)
 
 ## Settings
 
-### Restricting access to files on custom origins
+### Improve performance
 
-Reference: [Restricting access to files on custom origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html#forward-custom-headers-restrict-access)
+You can improve performance by increasing the proportion of your viewer requests that are served from CloudFront edge caches instead of going to your origin servers for content; that is, by improving the cache hit ratio for your distribution.
 
-If you use a custom origin, you can optionally set up custom headers to restrict access. For CloudFront to get your files from a custom origin, the files must be accessible by CloudFront using a standard HTTP (or HTTPS) request. But by using custom headers, you can further restrict access to your content so that users can access it only through CloudFront, not directly. This step isn't required to use signed URLs, but we recommend it.
+This can be done by doing any of the following:
 
-To require that users access content through CloudFront, change the following settings in your CloudFront distributions:
+- Increase the TTL of your objects
+- Configure the distribution to forward only the required query string parameters, cookies, or request headers for which your origin will return unique objects.
+- Remove Accept-Encoding header when compression is not needed
+- Serving Media Content by using HTTP
 
-1. Origin Custom Headers
-   - Configure CloudFront to forward custom headers to your origin. See [Configuring CloudFront to add custom headers to origin requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html#add-origin-custom-headers-configure).
-2. Viewer Protocol Policy
-    - Configure your distribution to require viewers to use HTTPS to access CloudFront. See [Viewer protocol policy](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesViewerProtocolPolicy).
-3. Origin Protocol Policy
-    - Configure your distribution to require CloudFront to use the same protocol as viewers to forward requests to the origin. See [Protocol (custom origins only)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginProtocolPolicy).
-
-After you've made these changes, update your application on your custom origin to only accept requests that include the custom headers that you've configured CloudFront to send.
-
-The combination of Viewer Protocol Policy and Origin Protocol Policy ensure that the custom headers are encrypted in transit. However, we recommend that you **periodically do the following to rotate the custom header**s that CloudFront forwards to your origin:
-
-1.  Update your CloudFront distribution to begin forwarding a new header to your custom origin.
-2.  Update your application to accept the new header as confirmation that the request is coming from CloudFront.
-3.  When requests no longer include the header that you're replacing, update your application to no longer accept the old header as confirmation that the request is coming from CloudFront.
+![cf_dist_edit_behavior](/img/aws/networking/cloudfront/cf_dist_edit_behavior.png)
 
 ### Serving Static and Dynamic content
 
@@ -138,7 +185,7 @@ Amazon CloudFront is commonly utilized for distributing static content stored in
 
 By doing so, you can take advantage of AWS's widespread network infrastructure, ensuring fast and reliable delivery of your dynamic content to users around the world.
 
-![](/img/aws/networking/cloudfront/static-dynamic-content.png)
+![static-dynamic-content](/img/aws/networking/cloudfront/static-dynamic-content.png)
 
 If you want to split between static and dynamic content you would *create an origin for each type of content (static & dynamic) within the same distribution*. The origins can be S3 or web servers (aws instances), etc. CloudFront can serve both static and dynamic content by following these steps:
 
