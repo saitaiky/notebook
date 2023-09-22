@@ -6,7 +6,19 @@ keywords:
 sidebar_position: 3
 ---
 
+## IAM Access Analyzer
 
+Access Analyzer identifies resources shared with external principals by using logic-based reasoning to analyze the resource-based policies in your AWS environment. For each instance of a resource shared outside of your account, Access Analyzer generates a finding.
+
+AWS IAM Access Analyzer provides the following capabilities:
+
+- Access Analyzer helps identify resources in your organization and accounts that are shared with an external entity.
+- Access Analyzer validates IAM policies against policy grammar and best practices.
+- Access Analyzer generates IAM policies based on access activity in your AWS CloudTrail logs.
+
+![2020-iam-2-List-of-findings-featured-1](/img/aws/management/iam/2020-iam-2-List-of-findings-featured-1.png)
+
+Source: [New – Use AWS IAM Access Analyzer in AWS Organizations](https://aws.amazon.com/blogs/aws/new-use-aws-iam-access-analyzer-in-aws-organizations/)
 ## Access control policy
 
 In AWS, an access control policy is a set of rules that define what actions are allowed or denied on AWS resources. These policies are primarily used with AWS Identity and Access Management (IAM) to manage permissions for users, groups, and roles. Access control policies help ensure security and compliance by governing who can access specific resources and what actions they can perform.
@@ -107,18 +119,19 @@ For resource-based policy targets, you should modify the target resource to allo
 
 As of July 2023, SNS, SQS, Lambda utilize resource-based policies while Kinesis data streams use IAM roles.
 
-
-
-
 ## Trusted Entity from Trust policy
 
-> TL;DR - Think of aws "trusted relations" / "trusted entities" as which aws service principal can implement (assume role) the permissions you giving.
+> TL;DR - Think of aws "trusted relations" or "trusted entities" as which aws service principal can implement (assume role) the permissions you giving.
+
+![AWS-IAMRole-Trust](/img/aws/management/iam/AWS-IAMRole-Trust.png)
+
+Source: [Tutorialsdojo](https://tutorialsdojo.com/)
 
 A Trusted Entity is an object from outside of your AWS Account which is allowed to gain access to a resource within your account – in our case that resource will be an IAM role, which will in turn grant them permissions within the account.
 
 Depending on the duties of the user(s) you’ll be granting access to, you may want to have multiple IAM roles with specific and granular access configured for each. The first step in creating a new IAM Role is to select what type of trusted entity will be using the role – either an **AWS Service, another AWS Account, a web identity, or SAML federation**.
 
-### Example 1
+### Same permission for both groups, modify one group to have specific permission
 
 Consider a scenario where a sizable team consists of developers and testers. In the Development account, there are two IAM groups: Developers and Testers. Both groups have the necessary permissions to operate within the development account and access its resources. Occasionally, a developer needs to make updates to the active S3 Bucket located in the production account. 
 

@@ -73,7 +73,9 @@ You can use TagOption library to enforce the tagging of all instances that will 
   - Aws neptune (Fully Managed Graph Database)
 - Security
   - Amazon **GuardDuty** is a continuous security monitoring service that analyzes and processes the following data sources: AWS CloudTrail management event logs, AWS CloudTrail data events for S3, DNS logs, EKS audit logs, and VPC flow logs. <br/><br/>
-  It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and machine learning to identify unexpected and potentially unauthorized and malicious activity within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or communication with malicious IP addresses, or domains.
+  It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and **machine learning** to identify unexpected and potentially unauthorized and malicious activity within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or communication with malicious IP addresses, or domains.
+  ![guardduty-malware-protection-finding-selected](/img/aws/other/guardduty-malware-protection-finding-selected.png)
+  Source: [New for Amazon GuardDuty](https://aws.amazon.com/blogs/aws/new-for-amazon-guardduty-malware-detection-for-amazon-ebs-volumes/)
   - **Amazon Macie** is a fully managed data security and data privacy service that uses machine learning and pattern matching to help you discover, monitor, and protect sensitive data in your AWS environment. Macie automates the discovery of sensitive data, such as personally identifiable information (PII) and financial data, to provide you with a better understanding of the data that your organization stores in Amazon S3(**Amazon Macie only supports S3 as a data source**).
   - **Amazon Inspector** enables you to analyze the behavior of your AWS resources and helps you to identify potential security issues. You can create an assessment template and launch a security assessment run of this target.[ref](https://aws.amazon.com/blogs/aws/amazon-inspector-now-scans-aws-lambda-functions-for-vulnerabilities/)
   ![inspector](/img/aws/other/inspector.png) 
@@ -87,7 +89,6 @@ You can use TagOption library to enforce the tagging of all instances that will 
 
 ## May need to jot after preparing exam
 
-- IAM access analyzer
 - EFS
   - Bursting Throughput
 - VPC - Traffic mirroring
