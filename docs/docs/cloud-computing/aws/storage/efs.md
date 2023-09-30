@@ -14,6 +14,11 @@ No, EFS (Elastic File System) in AWS is not an NTFS (New Technology File System)
 EFS provides its own file system that is accessible from multiple EC2 instances and on-premises servers, supporting various operating systems like Linux and Windows. The specific file system used by EFS is not publicly disclosed, but it is designed to be compatible with different operating systems and applications, making it suitable for a wide range of workloads.
 :::
 
+## Encryptions
+Amazon EFS supports two forms of encryption for file systems, encryption of data in transit and encryption at rest. 
+- You can enable encryption of data in transit when **you mount the file system**.
+- You can only enable encryption of data at rest when **creating an Amazon EFS file system**. 
+
 ## Performance
 
 ### Performance modes

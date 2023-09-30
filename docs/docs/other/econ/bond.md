@@ -32,3 +32,7 @@ As a result:
 - Conversely, if the yield of a bond decreases, it becomes less appealing in comparison to new bonds with higher yields. Investors may be willing to pay a premium for the existing bond to secure its higher yield, leading to an increase in the market price of the bond.
 
 In summary, the market price of a bond moves in the opposite direction to its yield due to the principle of opportunity cost: as bond yields rise, bond prices fall, and vice versa. This relationship is critical for investors to understand, as changes in interest rates and market conditions can significantly impact the value of their bond investments.
+
+> 
+- Further readying: [Inverse Relation Between Interest Rates and Bond Prices](https://www.investopedia.com/ask/answers/why-interest-rates-have-inverse-relationship-bond-prices/#:~:text=Key%20Takeaways,a%20decline%20in%20its%20price.)
+- [Bond Funds vs. Bond ETFs: What's the Difference?](https://www.investopedia.com/articles/investing/041615/pros-cons-bond-funds-vs-bond-etfs.asp)

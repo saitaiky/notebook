@@ -126,6 +126,15 @@ When you create an EBS volume, it is automatically replicated within its Availab
 
 You can't recover a volume in an `error` state, you can restore the lost data from your backup. It’s a best practice to keep backups of your EC2 resources, including EBS volumes. You can use **Amazon Data Lifecycle Manager, AWS Backup, or regular EBS snapshots** for maintaining regular backups of your critical volumes to avoid data loss.
 
+### From `pending` to `terminated` immediately
+
+The following are a few reasons why your EC2 instance goes from the `pending` state to the `terminated` state immediately after restarting it:
+
+- You've reached your EBS volume limit.
+- An EBS snapshot is corrupt
+- The root EBS volume is encrypted and you do not have permission to access the KMS key for decryption.
+- The instance store-backed AMI that you used to launch the instance is missing a required part (an image.part.xx file).
+
 ## IOPS
 
 IOPS SSD (io1 or io2) is the only EBS volume to support **Multi-Attach** functionality. Amazon EBS Multi-Attach enables you to attach a single Provisioned IOPS SSD volume to multiple EC2 instances that are in the same Availability Zone.

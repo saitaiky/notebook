@@ -48,7 +48,7 @@ Enabling Cluster Mode provides a number of additional benefits in scaling your c
   - All the nodes in a Redis cluster (cluster mode enabled or cluster mode disabled) must reside in the same region.
   - While using Redis with cluster mode enabled, you cannot manually promote any of the replica nodes to primary.
 - Cost
-  - When doing vertical scaling by changing the node type **via online resizing**, you won’t have to pay for backups and migration costs, all you have to pay for are the resources provisioned when a scale up or scale out is performed. 
+  - When doing **vertical scaling** by changing the node type **via online resizing**, you won’t have to pay for backups and migration costs, all you have to pay for are the resources provisioned when a scale up or scale out is performed. 
 :::
 ### Cluster Mode Disabled vs Enabled 
 

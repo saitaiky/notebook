@@ -22,9 +22,12 @@ There are two types of cost allocation tags: AWS-generated cost allocation tags 
 
 ### AWS-generated cost allocation tags
 
-AWS-generated cost allocation tags - Amazon Web Services or the AWS Marketplace ISV creates, defines, and applies these tags on your behalf. This means you have no control over these tags and can't customize them. They have an "*aws:createdBy*" format.
+![amazon_cost_allocation_tags](/img/aws/management/cost/amazon_cost_allocation_tags.png)
 
-You can apply and compute these tags when you create a new AWS resource that is supported.
+
+The AWS-generated tag `createdBy` defines and applies to supported AWS resources for cost allocation purposes. To use the AWS-generated tags, a management account owner must activate it in the Billing and Cost Management console. When a management account owner activates the tag, it is also activated for all member accounts.
+
+After the tag is activated, AWS starts applying the tag to resources that are created after the AWS-generated tag was activated. The AWS-generated tags are available only in the Billing and Cost Management console and reports, and doesn't appear anywhere else in the AWS console, including the AWS Tag Editor. The `createdBy` tag does not count towards your tags per resource limit.
 
 AWS-generated cost allocation tags do not apply to all AWS services. Specifically, they apply to:
 
@@ -109,3 +112,11 @@ Take note that in reserving your computing capacity, you'll gain **the most disc
 :::infoSavings Plans in EC2 vs Reserved Instances
 **Reserved Instances** are based on the commitment to use an instance at a particular price over a specific period, while **Savings Plans** are based on the commitment to spend a particular dollar amount per hour over a specific period.
 :::
+
+## AWS Cost Explorer
+
+![cost-explorer](/img/aws/management/cost/cost-explorer.png)
+
+Cost Explorer is a tool that enables you to view and analyze your costs and usage. You can explore your usage and costs using the main graph, the Cost Explorer cost and usage reports, or the Cost Explorer RI reports. You can view data for up to the last 13 months, **forecast how much you're likely to spend for the next three months**, and get recommendations for what Reserved Instances to purchase. 
+
+You can use Cost Explorer to identify areas that need further inquiry and see trends that you can use to understand your costs.

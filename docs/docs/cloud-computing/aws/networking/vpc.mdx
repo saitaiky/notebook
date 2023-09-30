@@ -42,6 +42,7 @@ Most of the AWS-managed services are regional-based services with few exceptions
 
 - Regardless of the type of subnet, the internal IPv4 address range of the subnet is always private. AWS never announces these address blocks to the internet.
 - By default, all subnets can route between each other without the need for any further configuration, whether they are private or public. The [main route table](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html) facilitates this communication. 
+  -  Every subnet that you create is automatically associated with the main route table for the VPC.  
 - If the public IP address of your instance in a VPC has been released, it will not receive a new one if there is more than one network interface attached to your instance. Reference: [Unable to access EC2 Instance over the Public IP Address](https://repost.aws/questions/QUnM1Vpq9cSS2PEhGXtlX9yA/unable-to-access-ec2-instance-over-the-public-ip-address)
 
 ### EC2 communication within AWS network
@@ -53,20 +54,13 @@ When two instances communicate using public IP addresses, the following three sc
   - [**Situation 1**]: Traffic **stays within** the AWS network if there is an **Inter-Region VPC Peering connection** between the VPCs where the two instances reside.
   - [**Situation 2**]: Traffic is **not guaranteed** to stay within the AWS network where there is **no Inter-Region VPC Peering connection** between the VPCs where these instances reside.
 
-:::infoWhat is VPC peering?
-
-![vpc-peering](/img/aws/networking/vpc/three-vpcs-peered-diagram.png)
-
-A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses. Instances in either VPC can communicate with each other as if they are within the same network. You can create a VPC peering connection between your own VPCs, or with a VPC in another AWS account. 
-
-- VPCs can be in different Regions. Those VPCs would not be able to communicate unless you establish **an inter-Region VPC peering connection**. Some other methods can be public IP addresses, NAT gateway, NAT instances, VPN Connections or Direct Connect connections. [reference](https://aws.amazon.com/vpc/faqs/#:~:text=public%20AWS%20network.-,Q.,Connections%20or%20Direct%20Connect%20connections.)
-- Both VPCs for peering need to update their route table for communication
-- You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks.
-:::
-
 ## Configuration 
 
 ### Configs with VPC wizard 
+
+:::infoWhat is piblic subnet and private subnet
+A public subnet basically means that it has a route to the Internet Gateway and a private subnet does not.
+:::
 
 4 Configurations that are supported by the Amazon VPC console wizard:
 
@@ -142,19 +136,79 @@ The following is an example of a route table for one of the **private subnets**,
 
 ### Split-tunnel
 
-> TL;DR - Split-tunnel allows only traffic destined to AWS is routed through the VPN tunnel, while other traffic goes directly to its destination, this it reduces the volume of outgoing traffic from AWS, therefore reducing the data transfer cost. [Offical](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html)
+> TL;DR - Split-tunnel allows **only traffic destined to AWS is routed through the VPN tunnel**, while other traffic goes directly to its destination, this it reduces the volume of outgoing traffic from AWS, therefore reducing the data transfer cost. [Offical](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html)
 
 By default, when you have a Client VPN endpoint, all traffic from clients is routed over the Client VPN tunnel. When you enable split-tunnel on the Client VPN endpoint, we push the routes on the Client VPN endpoint route table to the device that is connected to the Client VPN endpoint. This ensures that only traffic with a destination to the network matching a route from the Client VPN endpoint route table is routed over the Client VPN tunnel.
 
-You can use a split-tunnel Client VPN endpoint when you do not want all user traffic to route through the Client VPN endpoint.
+You can use a split-tunnel Client VPN endpoint when you do not want all user traffic to route through the Client VPN endpoint. 
 
 For example, split-tunnel is enabled on the Client VPN endpoint. Only traffic that's destined for the VPC (172.31.0.0/16) is routed over the Client VPN tunnel. Traffic that's destined for on-premises resources is not routed over the Client VPN tunnel.
 
+### Traffic Mirroring
 
+Traffic Mirroring is an Amazon VPC feature that can be used to **copy network traffic from an elastic network interface of type `interface`**. Users can send the traffic to out-of-band security and monitoring appliances for:
+
+- Content inspection
+- Threat monitoring
+- Troubleshooting
+
+The following diagram shows a traffic mirror session where the traffic mirror target is a network interface for an EC2 instance. Traffic Mirroring filters the traffic from the network interface of the mirror source and sends the accepted mirrored traffic to the mirror target.
+
+![soa-c02-traffic-mirror](/img/aws/networking/vpc/soa-c02-traffic-mirror.png)
+
+The following are the key concepts for Traffic Mirroring:
+
+- Source — The network interface to monitor.
+- Filter — A set of rules that defines the traffic that is mirrored.
+- Target — The destination for mirrored traffic.
+- Session — Establishes a relationship between a source, a filter, and a target.
+
+:::info2 reasons the Packet is truncated when sending to the mirror target
+Packet truncation to the MTU value occurs when the following two conditions are true:
+
+- The traffic mirror target is a standalone instance.
+- The traffic packet size from the mirror source is greater than the MTU size for the traffic mirror target.
+:::
+
+### VPC peering
+
+> The architecture that VPC peering uses, is called	**Full Mesh**
+
+![vpc-peering](/img/aws/networking/vpc/three-vpcs-peered-diagram.png)
+
+A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses. Instances in either VPC can communicate with each other as if they are within the same network. You can create a VPC peering connection between your own VPCs, or with a VPC in another AWS account. 
+
+- VPCs can be in different Regions. Those VPCs would not be able to communicate unless you establish **an inter-Region VPC peering connection**. Some other methods can be public IP addresses, NAT gateway, NAT instances, VPN Connections or Direct Connect connections. [reference](https://aws.amazon.com/vpc/faqs/#:~:text=public%20AWS%20network.-,Q.,Connections%20or%20Direct%20Connect%20connections.)
+- Both VPCs for peering need to update their route table for communication
+- You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks.
+
+:::cautionIt is so easy to get messy
+To mesh n VPCs together, you would need n*(n-1)/2 peering connections.
+
+This creates huge complexity maintaining and configuring so many VPC Peering Connections at scale. For example:
+
+- A full mesh of 10 VPC peers means 45 peering connections.
+- A full mesh of 30 VPC peers mean 435 peering connections.
+That’s pretty horrible.
+
+Not only that but VPC Peering only works between AWS VPCs. “VPC Peering” is not based on a standard protocol like BGP or IPSEC.
+
+It’s something an AWS networking wizard/witch came up with in his/her dungeon (no sane person could have come up with AWS networking – it breaks many of the networking rules I’ve learned throughout my career).
+
+You cannot use VPC peering to communicate with on-premises DCs or with other clouds
+
+All the above are reasons why AWS introduced the concept of “**Transit VPC**” and subsequently “**Transit Gateway**” to support communications between multiple VPCs.
+:::
+
+:::infoExample
+Imagine there are 2 VPCs, VPC-A (10.10.0.0/16) and VPC-B (192.168.0.0/16). To establish a VPC peering connection between the two VPCs which has an ID of `pcx-tutsd0j0`, you need to declare the remote VPC IP block as Destination and choose the VPC peering connection ID as the target. 
+
+![peering](/img/aws/networking/vpc/peering.png)
+:::
 
 ## Endpoints
 
-> TL;DR - Enables **private connectivity** to services hosted in AWS, from within your VPC withoutusing and Internet Gateway, VPN, NAT devices, or firewall proxies.
+> TL;DR - Enables **private connectivity** to services hosted in AWS, from within your VPC without using and Internet Gateway, VPN, NAT devices, or firewall proxies. Traffic between your VPC and the other service does not leave the Amazon network.
 
 ![vpc-endpoints-vs-interface-endpoint](/img/aws/networking/vpc/vpc-endpoints-vs-interface-endpoint.png)
 
@@ -201,6 +255,8 @@ PrivateLink ensures data privacy and reduces security risks by keeping traffic w
 AWS Transit Gateway is a service that enables customers to connect their **Amazon VPCs** and their **on-premises networks** to a single gateway. With AWS Transit Gateway, you only have to create and manage a single connection from the central gateway into each Amazon VPC, on-premises data center, or remote office across your network.
 
 It also supports **IP Multicast**. Multicast is a communication protocol used for delivering a single stream of data to multiple receiving computers simultaneously. Transit Gateway supports routing multicast traffic between subnets of attached VPCs, and it serves as a multicast router for instances sending traffic destined for multiple receiving instances.
+
+Further reading: [VPC peering vs. Transit VPC vs. Transit Gateway](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-vpc-solution.html#peering-vs)
 
 <Tabs className="Transit Gateway">
 <TabItem value="before" label="Without AWS Transit Gateway">
@@ -506,12 +562,14 @@ AWS RAM enables you to share specified AWS resources that you own with other AWS
 
 > In most cases, security groups can meet your needs; however, you can also use network ACLs if you want an additional layer of security for your VPC.
 
+AWS provides two features that you can use to increase security in your VPC: security groups and network ACLs. Security groups control inbound and outbound traffic for your instances, and network ACLs control inbound and outbound traffic for your subnets. 
+
 - Network Access Control List
     - You can control what goes in and out of your **VPC**
     - You can associate a network ACL with **multiple subnets**; howevery, a subnet can be associated with only one network ACL at a time.
     - It is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
     - Your VPC automatically comes with a modifiable default network ACL. By default, **it allows all inbound and outbound** IPv4 and IPv6 on **all ports**.
-    - Rules are evaluated starting with the **lowest numbered rule**. As soon as a rule matches traffic, it's applied regardless of any higher-numbered rule that might contradict it.Asterisk is for 包底
+    - Rules are evaluated starting with the **lowest numbered rule**. As soon as a rule matches traffic, it's applied regardless of any higher-numbered rule that might contradict it. The Asterisk in for list is for 包底
       ![nacl-rule-number](/img/aws/networking/vpc/nacl-rule-number.png)
 - Security groups 
     - You can control what goes in and out your **instances**

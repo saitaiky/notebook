@@ -85,6 +85,8 @@ Amazon S3 Inventory helps manage storage by providing reports on **object replic
 Reports are generated in CSV, ORC, or Parquet format on a daily or weekly basis, depending on your preference, for an S3 bucket or objects with shared prefixes. Weekly reports are generated every Sunday (UTC time zone) after the initial report.
 
 :::cautionWhat happen when a S3 object has more than 1 million version?
+If you notice a significant increase in the number of HTTP 503-slow down responses received for Amazon S3 `PUT` or `DELETE` object requests to a bucket that has versioning enabled, you might have one or more objects in the bucket for which there are millions of versions. 
+
 When you have objects with millions of versions, Amazon S3 automatically **throttles requests to the bucket to protect the customer** from an excessive amount of request traffic, which could potentially impede other requests made to the same bucket.
 
 To determine which S3 objects have millions of versions, use the Amazon S3 inventory tool. The **inventory tool** generates a report that provides a flat file list of the objects in a bucket.
@@ -151,11 +153,14 @@ Cross-origin resource sharing (CORS) defines a way for client web applications t
 
 ### S3 encryption
 
+You have three mutually exclusive options depending on how you choose to manage the encryption keys:
+
 - AWS KMS, you can..
   - define access controls and audit the customer-managed CMK
   - manage the lifecycle of the key material
   - create, rotate, and disable customer-managed CMK
 - SSE-S3, you can't do audit trail and lifecycle management
+- SSE-C, You manage the encryption keys, and Amazon S3 manages the encryption.
 
 ### S3 Access Points
 
@@ -502,6 +507,31 @@ The following example policy grants the `s3:PutObject` and `s3:PutObjectAcl`�
 </Tabs>
 
 
+### Sepcify the right resources to actions
+
+```json
+{
+"Id": "TutorialsDojo.com S3 Policy",
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "TutsDojo_S3_GetObject_and_ListBucket_Policy",
+    "Action": [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ],
+    "Effect": "Allow",
+    "Resource": [
+       "arn:aws:s3:::tutorialsdojo/*",
+       "arn:aws:s3:::tutorialsdojo",
+    ]
+    "Principal": "*"
+  }
+]
+}
+```
+
+If you don't have either `arn:aws:s3:::tutorialsdojo/*` for `s3:GetObject` or `arn:aws:s3:::tutorialsdojo` for `s3:ListBucket`, you will be prompted with an "Action does not apply to any resource(s) in statement" error if you tried to apply this bucket policy. 
 
 
 ### HTTPS for encryption
@@ -527,6 +557,14 @@ Amazon S3 now applies server-side encryption with Amazon S3 managed keys (SSE-S3
 All Amazon S3 buckets have encryption configured by default, and all new objects that are uploaded to an S3 bucket are automatically encrypted at rest. Server-side encryption with Amazon S3 managed keys (SSE-S3) is the default encryption configuration for every bucket in Amazon S3. To use a different type of encryption, you can either specify the type of server-side encryption to use in your S3 `PUT` requests, or you can set the default encryption configuration in the destination bucket.
 
 If you want to specify a different encryption type in your `PUT` requests, you can use server-side encryption with AWS Key Management Service (AWS KMS) keys (SSE-KMS), dual-layer server-side encryption with AWS KMS keys (DSSE-KMS), or server-side encryption with customer-provided keys (SSE-C). If you want to set a different default encryption configuration in the destination bucket, you can use SSE-KMS or DSSE-KMS.
+:::
+
+:::info
+When using server-side encryption with **customer-provided encryption keys (SSE-C)**, you must provide encryption key information using the following request headers:
+
+- `x-amz-server-side​-encryption​-customer-algorithm`: This header value must be "AES256".
+- `x-amz-server-side​-encryption​-customer-key` use this header to provide the 256-bit, base64-encoded encryption key for Amazon S3 to use to encrypt or decrypt your data.
+- `x-amz-server-side​-encryption​-customer-key-MD5` use this header to provide the base64-encoded 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure the encryption key was transmitted without error.
 :::
 
 In order to ensure that all objects uploaded to a S3 bucket are encrypted, you can configure the bucket policy to deny if the `PutObject` does not have an `x-amz-server-side-encryption` header set via HTTP.
@@ -569,6 +607,7 @@ If you need server-side encryption for all of the objects that are stored in a b
   ]
 }
 ```
+
 > AWS document: [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html)
 
 
@@ -641,8 +680,10 @@ AWS Snowball is a physical data transfer device offered by Amazon Web Services (
 :::
 
 :::infoWhat is Glacier?
+In Amazon S3 Glacier, an archive is any object, such as a photo, video, or document that you store in a vault. It is a base unit of storage in Glacier. Each archive has a unique ID and an optional description. When you upload an archive, Amazon S3 Glacier returns a response that includes **an archive ID**. This archive ID is unique in the region in which the archive is stored.
 - Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
 - Glacier Vault provides **[S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) to prevent future changes for WORM compliance**.
+- In Amazon S3 Glacier, you cannot assign a key name to the archives that you upload. The Lifecycle policies can then be used to transition the storage class of the object to Glacier, which will **preserve the filename of your uploaded archive**.
 - You can retrieve 10 GB of your Amazon S3 Glacier data per month for free
 :::
 

@@ -82,6 +82,12 @@ When you purchase a Reserved Instance, you determine the scope of the Reserved I
 - **Regional**: When you purchase a Reserved Instance for a Region, it's referred to as a regional Reserved Instance. **It does not reserve capacity.**
 - **Zonal**: When you purchase a Reserved Instance for a specific Availability Zone, it's referred to as a zonal Reserved Instance. **It reserves capacity.**
 
+:::infoUpgrade and downgrade instance type
+When you purchase a Reserved Instance, you can choose between a `Standard` or `Convertible` offering class. The Reserved Instance applies to a single instance family, platform, scope, and tenancy over a term. 
+
+You can upgrade or downgrade the **instance size** of both Standard and Convertible Reserved Instance. However, only the Convertible Reserved instance can change the **instance type**.
+:::
+
 ### On-demand Instance
 
 :::infoCapacity Reservations
@@ -111,7 +117,7 @@ To enable unlimited mode for T2 instance, check [T2 Unlimited – Going Beyond t
 
 Spread placement groups are recommended for applications that have a small number of critical instances that should be kept separate from each other. Launching instances in a spread placement group reduces the risk of simultaneous failures that might occur when instances share the same racks.
 
-A spread placement group can span multiple Availability Zones in the same Region. You can have **a maximum of 7 running instances per Availability Zone per group**. Therefore, to deploy 15 EC2 instances in a single Spread placement group, the company needs to use 3 AZs.
+A spread placement group can span multiple Availability Zones **in the same Region**. You can have **a maximum of 7 running instances per Availability Zone per group**. Therefore, to deploy 15 EC2 instances in a single Spread placement group, you will need to use 3 AZs.
 
 ![placementgroups](/img/aws/compute/ec2/placementgroups.jpeg)
 Source: [AWS - Placement Groups](https://tridentsys.net/aws-placement-groups/)

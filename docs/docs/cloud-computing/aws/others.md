@@ -60,9 +60,11 @@ This imported portfolio isn't an independent copy. The products and constraints 
 
 ### TagOption library
 
-To allow administrators to easily manage tags on provisioned products, Service Catalog provides a TagOption library. A TagOption is a key-value pair managed in Service Catalog. It is not an AWS tag, but serves as a template for creating an AWS tag based on the TagOption.
+To allow administrators to easily manage tags on provisioned products, Service Catalog provides a TagOption library. A TagOption is a key-value pair managed in Service Catalog. **It is not an AWS tag**, but serves as a template for creating an AWS tag based on the TagOption.
 
-You can use TagOption library to enforce the tagging of all instances that will be launched in the VPC.
+Administrators can associate TagOptions with portfolios and products. During **a product launch (provisioning)**, AWS Service Catalog aggregates the associated portfolio and product TagOptions, and applies them to the provisioned product, as shown in the following diagram.
+
+![TagOption-library](/img/aws/other/TagOption-library.png)
 
 ## Others
 

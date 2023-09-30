@@ -40,6 +40,8 @@ When you create an environment, AWS Elastic Beanstalk prompts you to provide the
 Q: While creating an Elastic bean stalk environment via CLI, you receive an error message - `The instance profile aws-elasticbeanstalk-ec2-role associated with the environment does not exist`. Why does this happen?
 
 A: AWS EB CLI cannot create the **instance profile** for your beanstalk environment if your IAM role has no permission to creating roles.
+
+Logging in to the CLI also assumes the Elastic Beanstalk role in your account which means it has already been associated a role already, just hasn't had enough permission.
 :::
 
 ## Workflow of Elastic Beanstalk.

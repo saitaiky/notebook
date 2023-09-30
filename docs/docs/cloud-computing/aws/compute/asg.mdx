@@ -29,16 +29,25 @@ In Amazon Web Services (AWS), there are two types of Auto Scaling that can be us
 ## Behaviour
 
 Some points to remember: 
+- ASG cannot scale out to other AWS regions.
 - ASG has two primary process types: `Launch` and `Terminate`. The Launch process adds new instances to the Auto Scaling group, increasing capacity, while the Terminate process removes instances from the group, decreasing capacity.
-- You have an ASG in which the `Terminate` process is suspended and it goes into a Availability Zone rebalancing process(`AZRebalance`). ASG'll start and the EC2 instances will launch, the ASG will grow up to 10% of its size. The instances will not get terminated because **this is allowed temporarily during rebalancing activities**.
+- Suspension
+  - You have an ASG in which the `Terminate` process is suspended and it goes into a Availability Zone rebalancing process(`AZRebalance`). ASG'll start and the EC2 instances will launch, the ASG will **grow up to 10% of its size**. The instances will not get terminated because **this is allowed temporarily during rebalancing activities**. If the scaling process cannot terminate instances, your Auto Scaling group could remain above its maximum size until you resume the Terminate process.
+  - If you suspend the `Launch` process, `AZRebalance` neither launches new instances nor terminates existing instances. This is because AZRebalance terminates instances only after launching the replacement instances.
 - Monitoring
   - By default, **basic monitoring** is enabled when you use the AWS management console to create a launch configuration. 
   - **Detailed monitoring** is enabled by default when you create a launch configuration using the AWS CLI
 
 ### ASG terminates unhealthy EC2 instance
 
-:::info Scaling Sequence
-After ternminate instances, it then addes new instances.
+:::infoScaling without ASG update the size of the group
+The default behaviour of after ternminating instances, ASG addes new instances. If you want to terminate an instance from the specified Auto Scaling group without updating the size of the group.
+
+You can use `terminate-instance-in-auto-scaling-group` CLI command terminates the specified instance and optionally adjusts the desired group size. This call simply makes a termination request so the instance is not terminated immediately.
+
+The example below terminates the specified instance from the specified Auto Scaling group without updating the size of the group:
+
+`aws autoscaling terminate-instance-in-auto-scaling-group --instance-id i-93633f9b --no-should-decrement-desired-capacity`
 :::
 
 ![healthchecktype](/img/aws/compute/asg/healthchecktype.jpg)
@@ -214,9 +223,9 @@ Therefore, in this scenario, the **ALB** will remove the instance from its inven
 If your application crashes, the load balancer removes the unhealthy instances from its target. However, your Auto Scaling group doesn't automatically replace the unhealthy instances marked by the load balancer.
 :::
 
-## Cost-efficient 
+## Examples
 
-### Don't use ALB for automatically recover
+### Automatically recover 
 
 Imagine you are deploying a critical monolith application that must be deployed on a single web server, as it hasn't been created to work in distributed mode. Still, you want to make sure your setup can automatically recover from the failure of an AZ.
 
@@ -229,3 +238,9 @@ Imagine you are deploying a critical monolith application that must be deployed 
 :::caution Don't use ALB and a target group with the instance(s) of the Auto Scaling Group
 If we use an ALB, things will still work, but we will have to **pay for the provisioned ALB** which sends traffic to only one EC2 instance. 
 :::
+
+### Usage of lifecycle hook
+
+As your Auto Scaling group scale-out or scale-in your EC2 instances, you may want to perform custom actions before they **start accepting traffic** or **before they get terminated**. Auto Scaling Lifecycle Hooks allow you to perform custom actions during these stages.
+
+For example, you can add a lifecycle policy to move instances in the `Terminating` state to `Terminating:Wait` state. In this state, you can access instances before they're terminated, and then troubleshoot why they were marked as unhealthy.

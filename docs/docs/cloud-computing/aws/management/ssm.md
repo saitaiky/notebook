@@ -128,4 +128,4 @@ OpsWorks lets you use Chef and Puppet to automate how servers are configured, de
 
 ## Manage on-premises servers
 
-With AWS Systems Manager, you can manage servers running on AWS, in your on-premises data center, and devices such as Raspberry Pi through a single interface. Systems Manager securely communicates with a lightweight agent installed on your servers and devices to execute management tasks. This helps you manage resources for Windows, Linux, and Raspbian operating systems.
+With AWS Systems Manager, you can manage servers running on AWS, in your on-premises data center, and devices such as **Raspberry Pi** through a single interface. Systems Manager securely communicates with a lightweight agent installed on your servers and devices to execute management tasks. This helps you manage resources for Windows, Linux, and Raspbian operating systems.

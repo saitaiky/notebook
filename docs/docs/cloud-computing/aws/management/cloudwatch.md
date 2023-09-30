@@ -9,9 +9,13 @@ sidebar_position: 1
 ## Behaviour
 
 - Alarms continue to evaluate metrics against the configured threshold, even after they have already triggered. You can adjust the alarm threshold if you do not want it to be in ALARM state
-
-
+- CloudWatch also offers a **cross-account, cross-Region** CloudWatch dashboard. This functionality provides you with cross-account visibility to your dashboards, alarms, metrics, and automatic dashboards. It does not provide cross-account visibility for logs or for traces. For more information, see [Cross-account cross-Region CloudWatch console](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html).
 ## Features
+
+### Metric Math 
+
+Metric math enables you to query multiple CloudWatch metrics and use math expressions to create new time series based on these metrics. You can visualize the resulting time series on the CloudWatch console and add them to dashboards. 
+
 ### CloudWatch Synthetics
 
 You can use Amazon CloudWatch Synthetics to create *canaries* which is a **configurable scripts** that run on a schedule, to **monitor your endpoints and APIs**. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications. By using canaries, you can discover issues before your customers do.
@@ -74,13 +78,7 @@ Depending on the type of status change, you might want to send notifications, ca
 [Monitor Trusted Advisor - Service limits](https://docs.aws.amazon.com/awssupport/latest/user/service-limits.html)
 [AWS trusted-advisor](https://aws.amazon.com/premiumsupport/technology/trusted-advisor/best-practice-checklist/)
 
-
-## Metrics for Aurora
-
-- `AuroraReplicaLagMaximum` - This metric captures the maximum amount of lag of **all types of Aurora Replicas**, regardless of the replication mechanism (e.g., standard Aurora replication or Aurora Binlog replication).
-- `AuroraBinlogReplicaLag` - This metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition **lags behind the source DB cluster**.  (replica 慢過Aurora source DB 幾多) This metric is useful for monitoring replica lag between Aurora DB clusters that are replicating across different AWS Regions.
-
-## Metrics for EC2
+## What is Metrics
 
 :::infoWhat is Metrics?
 Metrics, sometimes called time series, are concerned with events aggregated across time. They count how often each type of event happens, how long each type of event takes and how much data was processed by the event type.
@@ -96,6 +94,27 @@ A dimension is a name/value pair that is part of the identity of a metric. You c
 Every metric has specific characteristics that describe it, and you can think of dimensions as categories for those characteristics. Dimensions help you design a structure for your statistics plan. Because dimensions are part of the unique identifier for a metric, whenever you add a unique name/value pair to one of your metrics, you are creating a new variation of that metric.
 :::
 
+## Metrics for Aurora
+
+- `AuroraReplicaLagMaximum` - This metric captures the maximum amount of lag of **all types of Aurora Replicas**, regardless of the replication mechanism (e.g., standard Aurora replication or Aurora Binlog replication).
+- `AuroraBinlogReplicaLag` - This metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition **lags behind the source DB cluster**.  (replica 慢過Aurora source DB 幾多) This metric is useful for monitoring replica lag between Aurora DB clusters that are replicating across different AWS Regions.
+
+## Metrics for RDS
+
+:::dangerUse Enhanced Monitoring when you don't have access
+Because you don't have direct access to the instances/servers of your RDS database instance, unlike with your EC2 instances where you can install a CloudWatch agent or a custom script to get CPU and memory utilization of your instance.
+
+You can use **Enhanced Monitoring** feature in RDS to monitor the RDS. 
+:::
+
+Take note that there are certain differences between CloudWatch and Enhanced Monitoring Metrics. CloudWatch gathers metrics about CPU utilization from the hypervisor for a DB instance, and Enhanced Monitoring gathers its metrics from an agent on the instance. As a result, you might find differences between the measurements, because the hypervisor layer performs a small amount of work.
+
+The differences can be greater if your DB instances use smaller instance classes because then there are likely more virtual machines (VMs) that are managed by the hypervisor layer on a single physical instance. Enhanced Monitoring metrics are useful **when you want to see how different processes or threads on a DB instance use the CPU.**
+
+![metrics2](/img/aws/database/rds/metrics2.png)
+
+## Metrics for EC2 & ASG
+
 :::caution
 RAM is NOT included in the AWS EC2 metrics
 :::
@@ -103,13 +122,14 @@ RAM is NOT included in the AWS EC2 metrics
 - AWS Provided metrics (AWS pushes them):
     - Basic Monitoring (**default**): metrics are collected at a 5 minute internal
     - Detailed Monitoring (**paid**): metrics are collected at a 1 minute interval 
-    - Includes CPU, Network, Disk and Status Check Metrics
-        - CPU: CPU Utilization + Credit Usage / Balance
+    - For **EC2**, it includes CPU, Network, Disk and Status Check Metrics
+        - CPU: `CPU Utilization` + `Credit Usage / Balance`
         - Network: `NetworkIn` and `NetworkOut` 
         - Status Check:
             - Instance status = check the EC2 VM
             - System status = check the underlying hardware
         - Disk: Read / Write for Ops / Bytes (only for instance store)
+    - For **ASG**, it includes `GroupInServiceInstances`, `GroupPendingInstance`
 
 - Custom metric (yours to push):
     - Basic Resolution: 1 minute resolution
@@ -118,7 +138,7 @@ RAM is NOT included in the AWS EC2 metrics
     - Make sure the IAM permissions on the EC2 instance to push the logs and the metrics.
     - **[Exam]**: `put-metric-data` CLI/API
         - The following command publishes a metric called *Buffers* with two dimensions named InstanceId and InstanceType: `aws cloudwatch put-metric-data --metric-name Buffers --namespace MyNameSpace --unit Bytes --value 231434333 --dimensions InstanceId=1-23456789,InstanceType=m1.small`
-        - `aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 2 --timestamp 2018-10-10-14T08:00:00.000Z`
+        - Another example: `aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 2 --timestamp 2018-10-10-14T08:00:00.000Z`
 
 ### Procstat plugin
 

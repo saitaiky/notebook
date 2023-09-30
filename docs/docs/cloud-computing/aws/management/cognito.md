@@ -81,7 +81,15 @@ If you create an AWS account alias for your AWS account ID, the IAM user sign-in
 
 https://tutorialsdojo.signin.aws.amazon.com/console/
 
-## AWS SSO
+## IAM Identity center
+
+### Credential report
+
+![IAM-CredentialReport](/img/aws/management/cognito/IAM-CredentialReport.png)
+
+You can generate and download a credential report that lists all users in your account and the status of their various credentials, including passwords, access keys, and MFA devices. You can get this credential report from the AWS Management Console, the AWS SDKs and Command Line Tools, or the IAM API.
+
+### AWS SSO
 
 :::infoReplacement
 Please check [AWS IAM Identity Center](https://aws.amazon.com/iam/identity-center/) as the successor to AWS SSO

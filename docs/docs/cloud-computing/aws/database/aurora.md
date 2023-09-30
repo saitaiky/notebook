@@ -13,7 +13,7 @@ Amazon Aurora is a fully managed relational database engine developed by AWS. It
 To connect to an Amazon Aurora DB cluster **directly from outside the VPC**, the instances in the cluster must meet the following requirements:
 - The Aurora DB instance must have a public IP address
 - Configure a public subnets for the Aurora DB subnet group
-  - For Amazon Aurora DB instances, you can't choose a specific subnet. Instead, choose a DB subnet group when you create the instance. A DB subnet group is a collection of subnets that belong to a VPC. 
+  - For Amazon Aurora DB instances, you can't choose a specific subnet. Instead, choose **a DB subnet group** when you create the instance. A DB subnet group is a collection of subnets that belong to a VPC. 
 - Enable the VPC attributes `DNS hostnames` and `DNS resolution`
 
 ![ip&public-access.png](/img/aws/database/aurora/ip&public-access.png)
@@ -65,3 +65,18 @@ Source: [AWS Aurora — Why is it better?](https://crishantha.medium.com/aws-aur
 The reader endpoint in Aurora DB clusters enables load-balancing for read-only connections, distributing read operations among Aurora Replicas. This reduces the primary instance's workload and allows the cluster to handle simultaneous SELECT queries, scaling capacity based on the number of Aurora Replicas. 
 
 Each Aurora DB cluster **has one reader endpoint**, which load-balances connections among the Aurora Replicas for read-only statements like SELECT queries.
+
+### Backtrack
+
+![amazon_rds_aurora_backtracking](/img/aws/database/aurora/amazon_rds_aurora_backtracking.png)
+
+:::infoMaximum backtrack window 
+Aurora Backtrack has a maximum backtrack window of 72 hours, which means you can only roll back your database to any point in time within the last 72 hours. This is because Aurora Backtrack uses the transaction log to roll back changes, and transaction logs are only kept for 72 hours.
+:::
+
+Aurora Backtrack allows you to easily undo unintended or incorrect changes to your database by rolling back the database to a specific point in time without needing to restore from a backup. This allows fast rollbacks without the need to create a new database instance. 
+
+Backtracking is not a replacement for backing up your DB cluster so that you can restore it to a point in time. However, backtracking provides the following advantages over traditional backup and restore:
+
+- You can easily undo mistakes. If you mistakenly perform a destructive action, such as a DELETE without a WHERE clause, you can backtrack the DB cluster to a time before the destructive action with minimal interruption of service.
+- You can backtrack a DB cluster quickly. Restoring a DB cluster to a point in time launches a new DB cluster and restores it from backup data or a DB cluster snapshot, which can take hours. Backtracking a DB cluster doesn't require a new DB cluster and rewinds the DB cluster in minutes.

@@ -36,14 +36,18 @@ Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS
 
 A private hosted zone is a container for records for a domain that you host in one or more VPCs. You create a hosted zone for a domain (such as internaldomainexample.com), and then you create records to tell Amazon Route 53 how you want traffic *to be routed for that domain within and among your VPCs*.
 
-:::cautionA record or CName for creating a custom domain to connect to a database in a private hosted zone?
-Question: Should I use A/CName record to route traffic to a custom domain db.yourMainDomain.com for your database in a private subnet?
+:::cautionA record or CName for creating a custom domain to connect to a database with a custom domain in a Route53 private hosted zone?
 
-Answer: You should use A record directly to point the traffic to db.yourMainDomain.com instead of using CNAME, because it will cost an extra DNS lookup instead of routing to the DB IP address directly. 
+You should use **A record** directly to point the traffic to db.yourMainDomain.com instead of using **CNAME**, because it will cost an extra DNS lookup instead of routing to the DB IP address directly. 
 
 ![private-hosted-zone](/img/aws/networking/route53/private-hosted-zone.jpg)
-
 Credit: tutorialsdojo.com
+
+The full steps of how private hosted zones work:
+1. You create a private hosted zone, such as example.com, and specify the VPCs that you want to associate with the hosted zone.
+2. You create records in the hosted zone that determine how Route 53 responds to DNS queries for your domain and subdomains within and among your VPCs. For example, suppose you have a database server that runs on an EC2 instance in one of the VPCs that you associated with your private hosted zone. You create an A or AAAA record, such as db.example.com, and you specify the IP address of the database server.
+3. When an application submits a DNS query for db.example.com, Route 53 returns the corresponding IP address. The application must also be running on an EC2 instance in one of the VPCs that you associated with the example.com private hosted zone.
+4. The application uses the IP address that it got from Route 53 to establish a connection with the database server.
 :::
 
 ### enableDnsHostnames and enableDnsSupport

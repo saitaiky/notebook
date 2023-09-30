@@ -29,7 +29,10 @@ Source: [Working with read replicas](https://aws.amazon.com/rds/features/read-re
 
 ### Backup without outages
 
-Amazon RDS creates a storage volume snapshot of your DB instance, backing up the entire DB instance and not just individual databases. Creating this DB snapshot on a Single-AZ DB instance results in a brief I/O suspension that can last from a few seconds to a few minutes, depending on the size and class of your DB instance. **Multi-AZ DB instances are not affected by this I/O suspension(outages)** since the backup is taken on standby.
+Amazon RDS creates a storage volume snapshot of your DB instance, backing up the entire DB instance and not just individual databases. 
+
+- **Single-AZ DB**: Creating this DB snapshot on a Single-AZ DB instance results in a brief I/O suspension that can last from a few seconds to a few minutes, depending on the size and class of your DB instance. 
+- **Multi-AZ DB**: **Multi-AZ DB instances are not affected by this I/O suspension(outages)** since the backup is taken on standby.
 ## Feature
 
 ### Encryption in flight

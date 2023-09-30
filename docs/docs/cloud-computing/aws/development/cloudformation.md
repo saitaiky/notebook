@@ -211,7 +211,7 @@ After you execute a change, AWS CloudFormation removes all change sets that are 
 
 Stack policies help protect critical stack resources from unintentional updates that could cause resources to be interrupted or even replaced. A stack policy is a JSON document that describes what update actions can be performed on designated resources. Specify a stack policy whenever you create a stack that has critical resources.
 
-- When you create a stack, all update actions are allowed on all resources. By default, anyone with stack update permissions can update all of the resources in the stack. You can prevent stack resources from being unintentionally updated or deleted during a stack update by using a stack policy. 
+- When you create a stack, **all update actions are allowed on all resources**. By default, anyone with stack update permissions can update all of the resources in the stack. You can **prevent stack resources from being unintentionally updated or deleted during a stack update** by using a stack policy. 
 - After you set a stack policy, all of the resources in the stack are protected by default. To allow updates on specific resources, you specify an explicit `Allow` statement for those resources in your stack policy; otherwise, no changes are made to protected resources.
 
 
@@ -263,11 +263,16 @@ You cannot delete stacks that have termination protection enabled. If you attemp
 This includes nested stacks whose root stacks have termination protection enabled. 
   - Solution:  Disable termination protection on the root stack, then perform the delete operation again. It is strongly recommended that you do not delete nested stacks directly, but only delete them as part of deleting the root stack and all its resources.
 
-### Custom resource
+### Lambda target of a custom resource
 
 Custom resources allow you to programmatically provision AWS resources anytime a cloudformation stack has been created, updated(if you changed the custom resource) or deleted.
 
-When specifying a Lambda function as the target of a custom resource, the function is invoked whenever *the custom resource is created, updated, or deleted*. AWS CloudFormation calls a Lambda API to invoke the function and to pass all the request data (such as the request type and resource properties) to the function. The power and customizability of Lambda functions in combination with AWS CloudFormation enable a wide range of scenarios, such as dynamically looking up AMI IDs during stack creation, or implementing and using utility functions, such as string reversal functions.
+When specifying a **Lambda** function as the target of a custom resource, the function is invoked whenever *the custom resource is created, updated, or deleted*. AWS CloudFormation calls a Lambda API to invoke the function and to pass all the request data (such as the request type and resource properties) to the function. 
+
+The power and customizability of Lambda functions in combination with AWS CloudFormation enable a wide range of scenarios, such as..
+- dynamically looking up AMI IDs during stack creation
+- automatically copy objects from an existing S3 bucket into the new one
+- implementing and using utility functions, such as string reversal functions
 
 :::infoUse Case: S3 bucket copying
 To copy all the objects from an existing S3 bucket to a new S3 bucket created by the CloudFormation template, you need to create a custom Lambda function that can copy the objects from the source bucket to the new S3 bucket. You can also define the options you want Amazon S3 to apply during replication, such as server-side encryption, replica ownership, and transitioning replicas to another storage class.
