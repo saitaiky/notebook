@@ -126,14 +126,23 @@ When you create an EBS volume, it is automatically replicated within its Availab
 
 You can't recover a volume in an `error` state, you can restore the lost data from your backup. It’s a best practice to keep backups of your EC2 resources, including EBS volumes. You can use **Amazon Data Lifecycle Manager, AWS Backup, or regular EBS snapshots** for maintaining regular backups of your critical volumes to avoid data loss.
 
-### From `pending` to `terminated` immediately
+### EBS keeps showing `attaching`
 
-The following are a few reasons why your EC2 instance goes from the `pending` state to the `terminated` state immediately after restarting it:
+![ebs-attaching](/img/aws/storage/ebs/ebs-attaching.png)
 
-- You've reached your EBS volume limit.
-- An EBS snapshot is corrupt
-- The root EBS volume is encrypted and you do not have permission to access the KMS key for decryption.
-- The instance store-backed AMI that you used to launch the instance is missing a required part (an image.part.xx file).
+> TL;DR - Check that the device name you specified when you attempted to attach the EBS volume isn't already in use. Attempt to attach the volume to the instance, again, but **use a different device name**
+
+When attaching an EBS volume to an EC2 instance, make sure the device name you choose isn't already in use by the instance's block device driver. If the name is used internally, the attachment will fail. The block device driver might assign a different name to the volume than what you specified. If you pick a name already used by the driver, the volume gets stuck `attaching`. 
+
+This can happen when...  
+- The name is remapped
+  - The block device driver is remapping the specified device name: On an HVM EC2 instance, /dev/sda1 remaps to /dev/xvda. If you attempt to attach a secondary Amazon EBS volume to /dev/xvda, the secondary EBS volume can't successfully attach to the instance. This can cause the EBS volume to be stuck in the attaching state.
+- the name is not released after a forced detach
+  - The block device driver didn't release the device name: If a user has initiated a forced detach of an Amazon EBS volume, the block device driver of the Amazon EC2 instance might not immediately release the device name for reuse. Attempting to use that device name when attaching a volume causes the volume to be stuck in the attaching state. You must either choose a different device name or reboot the instance.
+
+To fix this, try detaching and **attaching with a new EBS name**, or reboot the instance. If the issue persists, consider rebooting or stopping and starting the instance to resolve the problem, but keep in mind that instance store data is lost during stop-start.
+
+
 
 ## IOPS
 

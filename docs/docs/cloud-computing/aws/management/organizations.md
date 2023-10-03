@@ -6,6 +6,16 @@ keywords:
 sidebar_position: 3
 ---
 
+AWS Organizations offers policy-based management for multiple AWS accounts. With Organizations, you can create groups of accounts, automate account creation, apply and manage policies for those groups. Organizations enables you to centrally manage policies across multiple accounts, without requiring custom scripts and manual processes.
+
+![organization_console](/img/aws/management/organizations/organization_console.png)
+
+Using AWS Organizations, you can..
+- create **SCPs** that centrally control AWS service use across multiple 
+- AWS accounts. You can also use Organizations to help automate the creation of new accounts through APIs. 
+- Organizations helps simplify the **billing for multiple accounts** by enabling you to set up a single payment method for all the accounts in your organization through consolidated billing. 
+- AWS Organizations is available to all AWS customers at no additional charge.
+
 ## Account migration
 
 To migrate accounts from one organization to another, you must have root or IAM access to both the member and master accounts. 

@@ -32,7 +32,7 @@ Resource: [Use AWS Systems Manager Automation runbooks to resolve operational ta
 
 ### Documents (runbooks)
 
-> If you see custom workflows or use pre-defined workflows to manage EC2 instance, think runbooks
+> If you see **custom workflows** or use **pre-defined workflows** to manage EC2 instance in the exam, think runbooks
 
 A Systems Manager Automation document, part of AWS Systems Manager, is a JSON or YAML script that defines the actions to be performed on instances. It can be used to automate operational tasks, such as **software installation, configuration management, and security patching, across a fleet of instances** in a consistent and scalable manner.
 

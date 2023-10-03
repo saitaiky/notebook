@@ -5,14 +5,14 @@ keywords:
   - Cost
 ---
 
-## What are the types of AWS cost allocation tags?
+## 2 AWS cost allocation tags
 
 :::infoOnly a Master account can activate this AWS generated tags feature
 If you have a Master account for AWS, you can activate AWS generated tags from the Billing and Cost Management console. You must know that if you activate the tags from your master account, it will activate tags for all the member accounts as well.
 :::
 
 :::infoUse Tag Editor to attach tag to resources
-AWS Resource Groups Tag Editor to identify resources lacking tags in each account. Tag Editor shows you any tags that are attached to resources. It also shows you whether those tags were added in Tag Editor, by the resource's service console, or by using the API.
+**AWS Resource Groups Tag Editor** to identify resources lacking tags in each account. Tag Editor shows you any tags that are attached to resources. It also shows you whether those tags were added in Tag Editor, by the resource's service console, or by using the API.
 ![te_manage_tags_selected](/img/aws/management/cost/te_manage_tags_selected.png)
 :::
 
@@ -51,11 +51,13 @@ Here is an example of how the tags might appear in two Amazon EC2 instances (for
 
 Source: [Using AWS cost allocation tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
 
-### Automation tags
+## Automation tags
+
+Resource or service-specific tags are often used to filter resources during infrastructure automation activities. Automation tags are used to opt in or opt-out of automated tasks or to identify specific versions of resources to archive, update, or delete. 
+
+For example, many customers run automated start/stop scripts that turn off development environments during non-business hours to reduce costs.
 
 ![SOAF36-Automation-Tag](/img/aws/management/cost/SOAF36-Automation-Tags.png)
-
-
 
 
 ## Billing Alerts & AWS Budgets

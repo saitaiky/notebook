@@ -96,6 +96,12 @@ By creating Capacity Reservations, you ensure that you always have access to EC2
 [AWS official link: On-Demand Capacity Reservations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
 :::
 
+### EBS–optimized instances
+
+> To optimize EBS performance for handling a high volume of transactions from your EC2 instance, you can change your instance type to those EBS–optimized instances. [Supported instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html#ebs-optimization-support)
+
+An Amazon EBS–optimized instance uses an optimized configuration stack and provides additional, dedicated capacity for Amazon EBS I/O. This optimization provides the best performance for your EBS volumes by minimizing contention between Amazon EBS I/O and other traffic from your instance.
+
 ### T2 Unlimited Mode
 
 When you use t2.unlimited, it doesn’t actually mean that you have unlimited resources. Instead, it changes what happens when you exhaust your burst credits. Instead of being throttled, unlimited mode creates extra charges to your AWS account. From the AWS doc page on [Unlimited Mode](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode.html):
@@ -465,7 +471,7 @@ Source: [Using an IAM role to grant permissions to applications running on Amazo
 vCPU-based limits only apply to running **On-Demand instances** and **Spot instances**
 :::
 
-The InstanceLimitExceeded error in AWS occurs when you attempt to launch or create new EC2 instances but reach your account's limit for the maximum number of **vCPUs** per region. Each AWS account has certain service limits in place, including EC2 instance limits, to prevent abuse or overutilization of resources.
+The `InstanceLimitExceeded` error in AWS occurs when you attempt to launch or create new EC2 instances but reach your account's limit for the maximum number of **vCPUs** per region. Each AWS account has certain service limits in place, including EC2 instance limits, to prevent abuse or overutilization of resources.
 
 For t2 micros, we can see we have one vCPU, but if we choose an instance such as the C59 xlarge, we have 36 vCPU, so using this instance type, it would quickly reach the limit.
 
@@ -473,18 +479,8 @@ For t2 micros, we can see we have one vCPU, but if we choose an instance such as
 
 #### InsufficientInstanceCapacity
 
-You get the InsufficientInstanceCapacity error when AWS does not have enough on-demand capacity regarding the particular AZ
+You get the `InsufficientInstanceCapacity` error when AWS does not have enough on-demand capacity regarding the particular AZ
 
-#### Instance Terminates Immediately
-
-Instance Terminates Immediately means that the EC2 goes from pending to terminated
-
-- You've reached your EBS volume limit.
-- An EBS snapshot is corrupt.
-- The root EBS volume is encrypted and you do not have permissions to access
-the KMS key for decryption.
-- The instance store-backed AMI that you used to launch the instance is missing a
-required part (an image.part.xx file).
 
 ### SSH Issues
 
@@ -506,23 +502,6 @@ permissions, else you will get “Unprotected private key file” error
 3. Import the public SSH key into the new Region.
 
 [https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-ssh-key-pair-regions/)
-
-
-### EBS keeps showing `attaching`
-
-![ec2-role-instance](/img/aws/compute/ec2/ebs-attaching.png)
-
-> TL;DR - Check that the device name you specified when you attempted to attach the EBS volume isn't already in use. Attempt to attach the volume to the instance, again, but **use a different device name**
-
-When attaching an EBS volume to an EC2 instance, make sure the device name you choose isn't already in use by the instance's block device driver. If the name is used internally, the attachment will fail. The block device driver might assign a different name to the volume than what you specified. If you pick a name already used by the driver, the volume gets stuck `attaching`. 
-
-This can happen when...  
-- The name is remapped
-  - The block device driver is remapping the specified device name: On an HVM EC2 instance, /dev/sda1 remaps to /dev/xvda. If you attempt to attach a secondary Amazon EBS volume to /dev/xvda, the secondary EBS volume can't successfully attach to the instance. This can cause the EBS volume to be stuck in the attaching state.
-- the name is not released after a forced detach
-  - The block device driver didn't release the device name: If a user has initiated a forced detach of an Amazon EBS volume, the block device driver of the Amazon EC2 instance might not immediately release the device name for reuse. Attempting to use that device name when attaching a volume causes the volume to be stuck in the attaching state. You must either choose a different device name or reboot the instance.
-
-To fix this, try detaching and **attaching with a new EBS name**, or reboot the instance. If the issue persists, consider rebooting or stopping and starting the instance to resolve the problem, but keep in mind that instance store data is lost during stop-start.
 
 
 ### Change the EC2 instance type which is backed by EBS  

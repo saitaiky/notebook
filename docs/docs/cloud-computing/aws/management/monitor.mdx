@@ -131,13 +131,19 @@ The image above illustrate - if we trust the latest digest file that we have, we
 
 ## AWS Config
 
+Aggregated view logic:
 ![AWS-Config](/img/aws/management/monitor/AWS-Config.png)
-![config1](/img/aws/management/monitor/config1.png)
 ![config2](/img/aws/management/monitor/config2.png)
 
-AWS Config is a service that tracks and evaluates the configuration and compliance of AWS resources. It uses configurable rules to assess resources against desired settings, such as logging for S3 buckets or MFA for IAM users. 
+AWS config sequential flow:
+![config1](/img/aws/management/monitor/config1.png)
 
-Another example is you can use AWS Config to view **the IAM policy that was assigned to an IAM user, group, or role at any time** in which AWS Config was recording. This information can help you determine the permissions that belonged to a user at a specific time: for example, you can view whether the user Sai Tai had permission to modify Amazon VPC settings on Jan 1, 2023.
+AWS Config does this through the use of rules that define the desired configuration state of your AWS resources. AWS Config provides a number of AWS managed rules that address a wide range of security concerns such as..
+- checking if you encrypted your Amazon EBS volumes
+- tagged your resources appropriately
+- enabled multi-factor authentication (MFA) for root accounts
+
+Another example is you can view **the IAM policy that was assigned to an IAM user, group, or role at any time** in which AWS Config was recording. This information can help you determine the permissions that belonged to a user at a specific time: for example, you can view whether the user Sai Tai had permission to modify Amazon VPC settings on Jan 1, 2023.
 
 :::infoAmazon Inspector vs AWS Config
 Amazon Inspector is a security assessment service that helps improve the security and compliance of applications deployed on AWS. While it can be used to check the configuration of security groups, it may not be the most efficient way to **address the specific security concern**.
