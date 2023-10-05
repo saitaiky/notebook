@@ -121,7 +121,8 @@ RAM is NOT included in the AWS EC2 metrics
 
 - AWS Provided metrics (AWS pushes them):
     - Basic Monitoring (**default**): metrics are collected at a 5 minute internal
-    - Detailed Monitoring (**paid**): metrics are collected at a 1 minute interval 
+    - Detailed Monitoring (**paid**): metrics are collected at a 1 minute interval
+        - You can aggregate the metrics for AWS resources across multiple accounts and Regions *only if the EC intances have **enabled Detailed Monitoring** *
     - For **EC2**, it includes CPU, Network, Disk and Status Check Metrics
         - CPU: `CPU Utilization` + `Credit Usage / Balance`
         - Network: `NetworkIn` and `NetworkOut` 

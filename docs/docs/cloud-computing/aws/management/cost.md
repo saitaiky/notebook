@@ -60,15 +60,13 @@ For example, many customers run automated start/stop scripts that turn off devel
 ![SOAF36-Automation-Tag](/img/aws/management/cost/SOAF36-Automation-Tags.png)
 
 
-## Billing Alerts & AWS Budgets
-
-### Billing Alerts
+## Billing Alerts
 
 You can turn on billing alert in your Preferences page
 
 ![billing-alerts](/img/aws/management/cost/billing-alerts.png)
 
-### AWS Budget
+## AWS Budget
 
 ![aws-budgets-dashboard](/img/aws/management/cost/aws-budgets-dashboard.png)
 
@@ -76,7 +74,7 @@ AWS Budgets give you the ability to set custom budgets that alert you when your 
 
 You can also use AWS Budgets to set reservation utilization or coverage targets and receive alerts when your utilization drops below the threshold you define. **Reservation alerts** are supported for Amazon EC2, Amazon RDS, Amazon Redshift, Amazon ElastiCache, and Amazon Elasticsearch reservations.
 
-### Billing Alerts vs AWS Budgets
+## Billing Alerts vs AWS Budgets
 
 ![aws-budget](/img/aws/management/cost/aws-budget.png)
 
@@ -115,7 +113,22 @@ Take note that in reserving your computing capacity, you'll gain **the most disc
 **Reserved Instances** are based on the commitment to use an instance at a particular price over a specific period, while **Savings Plans** are based on the commitment to spend a particular dollar amount per hour over a specific period.
 :::
 
-## AWS Cost Explorer
+
+## Billing
+
+### Cost and Usage Reports
+
+In AWS Cost and Usage reports, you can choose to have AWS publish billing reports to a S3 bucket that you own. You can receive reports that break down your costs by the hour or month, by product or product resource, or by tags that you define yourself. AWS updates the report in your bucket once a day in a comma-separated value (CSV) format. 
+
+:::infoConsolidated billing
+- If you use the consolidated billing feature in AWS Organizations, the Amazon S3 bucket that you designate to receive the billing reports **must be owned by the master account** in your organization. 
+- You can't receive billing reports in a bucket that is owned by a member account. 
+- If you use consolidated billing, you can also have your costs broken down by member account.
+:::
+
+## Cost Management
+
+### AWS Cost Explorer
 
 ![cost-explorer](/img/aws/management/cost/cost-explorer.png)
 

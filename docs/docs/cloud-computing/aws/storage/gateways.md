@@ -27,7 +27,7 @@ There are 2 modes in Storage Gateway:
 
 Source: [How Volume Gateway works (architecture)](https://docs.aws.amazon.com/storagegateway/latest/vgw/StorageGatewayConcepts.html)
 
-In cached mode, the majority of data is stored in the on-premises cache, which acts as a buffer between the local applications and the cloud storage. Only frequently accessed data is cached locally, while less frequently accessed data resides in the cloud. This configuration allows for low-latency access to frequently used data while reducing the on-premises storage requirements. Cached mode is best suited for scenarios where you need to optimize storage space locally and still have quick access to frequently accessed data.
+In cached mode, **the majority of data is stored in the on-premises cache**, which acts as a buffer between the local applications and the cloud storage. Only frequently accessed data is cached locally, while less frequently accessed data resides in the cloud. This configuration allows for low-latency access to frequently used data while reducing the on-premises storage requirements. Cached mode is best suited for scenarios where you need to optimize storage space locally and still have quick access to frequently accessed data.
 
 :::infoChange the disk size (exam)
 
@@ -46,7 +46,7 @@ In cached mode, the majority of data is stored in the on-premises cache, which a
 
 Source: [How Volume Gateway works (architecture)](https://docs.aws.amazon.com/storagegateway/latest/vgw/StorageGatewayConcepts.html)
 
-In stored mode, all data is stored in the cloud, and only a minimal cache is maintained on-premises. This means that all data is available in the cloud, making it more durable and reducing the need for on-premises storage. Stored mode is ideal for scenarios where you need to keep a complete copy of your data in the cloud and prioritize durability and availability over local access performance.
+In stored mode, **all data is stored in the cloud**, and only a minimal cache is maintained on-premises. This means that all data is available in the cloud, making it more durable and reducing the need for on-premises storage. Stored mode is ideal for scenarios where you need to keep a complete copy of your data in the cloud and prioritize durability and availability over local access performance.
 
 
 ## Recover

@@ -25,6 +25,8 @@ In AWS, an access control policy is a set of rules that define what actions are 
 
 AWS access control policies are written in JSON (JavaScript Object Notation) format and consist of statements. Each statement defines a specific permission effect (allow or deny) for certain actions on particular AWS resources.
 
+### Example 1
+
 In this example policy, when attached to the IAM group "Developers," will grant read-only access to the S3 bucket "example-bucket" for all members of that group.:
 
 ```json
@@ -45,6 +47,32 @@ In this example policy, when attached to the IAM group "Developers," will grant 
 }
 ```
 
+
+### Example 2
+
+In this example, the following Amazon S3 bucket policy allows members of any account in the `o-xxxxxxxxxxx` organization to add an object into the `policy-ninja-dev` bucket by using **`aws:PrincipalOrgID`**. Reference: [AWS global condition context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html)
+
+Also, to grant permission to everyone(referred as anonymous access), you set the wildcard ("*") as the Principal value. For example, if you configure your bucket as a website, you want all the objects in the bucket to be publicly accessible. The following are equivalent.
+
+- `"Principal":"*"`
+- `"Principal":{"AWS":"*"}`
+
+
+```json
+ {
+  "Version": "2012-10-17",
+  "Statement": {
+    "Sid": "AllowPutObject",
+    "Effect": "Allow",
+    "Principal": "*",
+    "Action": "s3:PutObject",
+    "Resource": "arn:aws:s3:::policy-ninja-dev/*",
+    "Condition": {"StringEquals":
+      {"aws:PrincipalOrgID":"o-xxxxxxxxxxx"}
+    }
+  }
+}
+```
 
 ## Managing access to IAM roles
 

@@ -46,7 +46,9 @@ Reference: [What is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsman
 
 ![aws_lambda_rds_secrets](/img/aws/security/aws_lambda_rds_secrets.png)
 
-To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up. You can set a schedule to rotate after a period of time, for example every 30 days, or you can create a cron expression. See [Schedule expressions](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html). If you also manually update your secret value while automatic rotation is set up, then Secrets Manager considers that a valid rotation when it calculates the next rotation date.
+To increase database security, it's recommended using AWS Secrets Manager instead of environment variables to store database credentials.
+
+To rotate a secret, Secrets Manager calls a **Lambda function** according to the schedule you set up. You can set a schedule to rotate after a period of time, for example every 30 days by using [Schedule expressions](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_schedule.html). If you also manually update your secret value while automatic rotation is set up, then Secrets Manager considers that a valid rotation when it calculates the next rotation date.
 
 For security, Secrets Manager only permits a Lambda rotation function to rotate the secret directly. The rotation function can't call a second Lambda function to rotate the secret.
 

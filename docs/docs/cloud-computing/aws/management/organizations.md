@@ -16,6 +16,9 @@ Using AWS Organizations, you can..
 - Organizations helps simplify the **billing for multiple accounts** by enabling you to set up a single payment method for all the accounts in your organization through consolidated billing. 
 - AWS Organizations is available to all AWS customers at no additional charge.
 
+## Invite existing account
+
+You can use AWS Organizations to invite individual AWS accounts to join the company's organization. Remember that the account must accept the invitation first before it is added to the organization.
 ## Account migration
 
 To migrate accounts from one organization to another, you must have root or IAM access to both the member and master accounts. 

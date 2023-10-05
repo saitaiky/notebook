@@ -79,8 +79,6 @@ Administrators can associate TagOptions with portfolios and products. During **a
   ![guardduty-malware-protection-finding-selected](/img/aws/other/guardduty-malware-protection-finding-selected.png)
   Source: [New for Amazon GuardDuty](https://aws.amazon.com/blogs/aws/new-for-amazon-guardduty-malware-detection-for-amazon-ebs-volumes/)
   - **Amazon Macie** is a fully managed data security and data privacy service that uses machine learning and pattern matching to help you discover, monitor, and protect sensitive data in your AWS environment. Macie automates the discovery of sensitive data, such as personally identifiable information (PII) and financial data, to provide you with a better understanding of the data that your organization stores in Amazon S3(**Amazon Macie only supports S3 as a data source**).
-  - **Amazon Inspector** enables you to analyze the behavior of your AWS resources and helps you to identify potential security issues. You can create an assessment template and launch a security assessment run of this target.[ref](https://aws.amazon.com/blogs/aws/amazon-inspector-now-scans-aws-lambda-functions-for-vulnerabilities/)
-  ![inspector](/img/aws/other/inspector.png) 
   - **AWS Security Hub** supports automated security checks aligned to the Center for Internet Security’s (CIS) AWS Foundations Benchmark version 1.4.0 requirements for Level 1 and 2 (CIS v1.4.0). These automated checks encompass 39 rules that continuously assess 38 CIS v1.4.0 requirements across 8 AWS services. 
   ![security-hub-cis](/img/aws/other/security-hub-cis.png) 
   :::infoCIS Benchmarks

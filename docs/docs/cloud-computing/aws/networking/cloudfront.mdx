@@ -32,17 +32,21 @@ via - [Link](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/
 
 ### 404 is always from origin
 
-CloudFront always caches a few of the HTTP 4xx and 5xx status codes returned by your origin. CloudFront doesn't generate 404 responses. If a requested object isn't found in a CloudFront cache, the request is sent to the origin and the origin generates the 404 response if the object is not found on the origin server as well.
+CloudFront always caches a few of the HTTP 4xx and 5xx status codes returned by your origin. CloudFront doesn't generate 404 responses. If a requested object isn't found in a CloudFront cache, the request is sent to the origin and **the origin generates the 404 response** if the object is not found on the origin server as well.
 
 ## Features
 
-### Report
+### Reports
 
 Amazon CloudFront includes a variety of reports that the Administrator can use to see usage and activity that is occurring in the CloudFront distributions.
 
-- Popular Objects Report can determine what objects are frequently being accessed and get statistics on those objects. 
-- Usage Reports tells you the number of HTTP and HTTPS requests that CloudFront responds to from edge locations in selected regions. 
-- Viewers Reports can determine the locations of the viewers that access your content most frequently.
+- **Popular Objects Report** can determine what objects are frequently being accessed and get statistics on those objects. 
+- **Usage Reports** tells you the number of HTTP and HTTPS requests that CloudFront responds to from edge locations in selected regions. 
+- **Viewers Reports** can determine the locations of the viewers that access your content most frequently.
+
+Reference:
+- [CloudFront reports in the console](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/reports.html)
+- [New Amazon CloudFront Reporting – Learn More About Your Viewers](https://aws.amazon.com/blogs/aws/cloudfront-viewer-reports/)
 
 ### Signed URLs 
 

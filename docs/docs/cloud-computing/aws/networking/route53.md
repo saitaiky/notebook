@@ -45,7 +45,7 @@ Credit: tutorialsdojo.com
 
 The full steps of how private hosted zones work:
 1. You create a private hosted zone, such as example.com, and specify the VPCs that you want to associate with the hosted zone.
-2. You create records in the hosted zone that determine how Route 53 responds to DNS queries for your domain and subdomains within and among your VPCs. For example, suppose you have a database server that runs on an EC2 instance in one of the VPCs that you associated with your private hosted zone. You create an A or AAAA record, such as db.example.com, and you specify the IP address of the database server.
+2. You create records in the hosted zone that determine how Route 53 responds to DNS queries for your domain and subdomains within and among your VPCs. <br/>For example, suppose you have a database server that runs on an EC2 instance in one of the VPCs that you associated with your private hosted zone. You create an A or AAAA record, such as db.example.com, and you specify the IP address of the database server.
 3. When an application submits a DNS query for db.example.com, Route 53 returns the corresponding IP address. The application must also be running on an EC2 instance in one of the VPCs that you associated with the example.com private hosted zone.
 4. The application uses the IP address that it got from Route 53 to establish a connection with the database server.
 :::
@@ -117,7 +117,7 @@ If an alias record points to an AWS resource, you can't set the time to live (TT
 
 > Note: This option is only available when you create **an alias record** to route traffic to other AWS services.
 
-If you set the target of a record as ALB with a true “Evaluate Target Health” flag on Route 53. Route 53 will check both ALB entry to ensure that your ALBs are responding. Route 53 will then decide to which ALB it will direct the user. If one region goes down, Route 53 will know it via the “Evaluate Target Health” setting and will not redirect users to that region’s ALB.
+If you set the target of a record as ALB with a true “Evaluate Target Health” flag on Route 53. Route 53 will check the ALB entry to ensure that your ALBs are responding. Route 53 will then decide to which ALB it will direct the user. If one region goes down, Route 53 will know it via the “Evaluate Target Health” setting and will not redirect users to that region’s ALB.
 
 ### Same name, type, routing policy
 

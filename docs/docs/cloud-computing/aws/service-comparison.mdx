@@ -215,17 +215,23 @@ If you need to serve a lot of files and want to take advantage of the request 
 
 ## Web Application Firewall (WAF) VS AWS Shield Advanced 
 
+> TL;DR - The difference between them is that AWS WAF provides protection on the **application layer (layer 7)** and AWS Shield protects the **infrastructure layers (layer 3/4)** of the OSI model.
+
 ### AWS Shield
 
-**AWS Shield** is a managed Distributed Denial of Service (DDoS) protection service that safeguards web applications running on AWS. It provides always-on detection and automatic inline mitigations that minimize application downtime and latency.
+**AWS Shield** is a managed Distributed Denial of Service (DDoS) protection service that safeguards web applications running on AWS. It also provides protection against common and most frequently occurring infrastructure (**layer 3 and 4**) attacks like SYN/UDP floods, reflection attacks, and others to support high availability of your applications on AWS.
 
 :::cautionAWS Shield Advance for DDoS cost protection
-AWS Shield Standard cannot protect your AWS bill from usage spikes due to DDoS attacks. Only with **AWS Shield Advance**, you get **DDoS cost protection for scaling**, a feature that protects your AWS bill from usage spikes on your AWS Shield
+AWS Shield Standard **cannot protect your AWS bill** from usage spikes due to DDoS attacks. Only with **AWS Shield Advance**, you get **DDoS cost protection for scaling**, a feature that protects your AWS bill from usage spikes on your AWS Shield
+:::
+
+:::dangerAWS WAF is included in AWS Shield Advanced subscription
+**AWS WAF is included in AWS Shield Advanced subscription**, so basically, AWS Shield is not a WAF, but if you use the Advanced subscription, you will get a WAF for free.
 :::
 
 ### AWS WAF
 
-Whereas **AWS WAF** is a web application firewall that helps protect your web applications from common web exploits that could affect application availability, compromise security, or consume excessive resources. It gives you control how CloudFront or an ALP responds to traffic(allow or block). 
+AWS WAF is a **web application firewall** that helps protect web applications from attacks by allowing you to configure rules that **allow, block, or monitor (count)** web requests based on conditions that you define. These conditions include IP addresses, HTTP headers, HTTP body, URI strings, SQL injection and cross-site scripting.
 
 You can use **AWS WAF** to create custom rules that block common attack patterns, such *as SQL injection or cross-site scripting, and rules that are designed for your specific application.*
 
@@ -242,13 +248,23 @@ An EC2 Security Group, on the other hand, is associated with an EC2 instance and
 
 In summary, a VPC Security Group controls the traffic to resources within a VPC, while an EC2 Security Group controls the traffic to a specific EC2 instance.
 
-## Personal Health Dashboard(AWS Health) vs AWS Service Health Dashboard
+## AWS Health Dashboard
 
-![phd_open_issues_2](/img/aws/other/phd_open_issues_2.png)
+> At of Feb 28,2022, AWS combine both AWS Service Health Dashboard and Personal Health Dashboard into AWS Health Dashboard. [Ref](https://aws.amazon.com/about-aws/whats-new/2022/02/aws-health-dashboard-first-iteration/)
+
+![AWS-Health-Dashboard](/img/aws/other/AWS-Health-Dashboard.jpeg)
 
 Source: [New – AWS Personal Health Dashboard – Status You Can Relate To](https://aws.amazon.com/blogs/aws/new-aws-personal-health-dashboard-status-you-can-relate-to/)
 
-While these two services may sound similar, the Service Health Dashboard provides the status of AWS services in general, whereas the Personal Health Dashboard gives you a personalized look into the availability and performance of the AWS services that you’re actually using.
+AWS Health notifies you about service events, planned changes, and account notifications to help you manage and take actions. Sign into your AWS Health Dashboard to view account-specific Health information or receive Health event updates using **Amazon EventBridge**. You can also access AWS Health programmatically using AWS Health API, available with AWS Premium Support.
+
+You can select the following types of targets when using **Amazon EventBridge** (Amazon CloudWatch Events) as a part of your AWS Health workflow:
+
+- AWS Lambda functions
+- Kinesis streams
+- Amazon SQS queues
+- Built-in targets (CloudWatch alarm actions)
+- Amazon SNS topics
 
 :::infoAWS Health API to access info from Personal Health Dashboard 
 The AWS Health API provides programmatic access to the AWS Health information that appears in the AWS Personal Health Dashboard. You can use the API operations to get information about events that might affect your AWS services and resources.

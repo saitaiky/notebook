@@ -120,6 +120,14 @@ Source: [CloudTrail log file Integrity Validation](https://www.youtube.com/watch
 
 The image above illustrate - if we trust the latest digest file that we have, we can identify if any of the digests are missing or invalid, and this gives us a chain of digest file trust. If we trust the latest, then we trust them all.
 
+### IAM & STS integration
+
+CloudTrail logs all authenticated API requests (made with credentials) to IAM and AWS STS API operations. CloudTrail also logs unauthenticated requests to the AWS STS actions, `AssumeRoleWithSAML` and `AssumeRoleWithWebIdentity`, and logs information provided by the identity provider. 
+
+- To track the original federated user who made the API call
+    - You can use this information to map calls made by a federated user with an assumed role back to the originating external federated caller. 
+- To track the original user who used `AssumeRole` to made the API call
+    - You can map calls back to the originating AWS service or to the account of the originating user. The `userIdentity` section of the JSON data in the CloudTrail log entry contains the information that you need to map the AssumeRole* request with a specific federated user.
 
 ### Notes
 
@@ -128,11 +136,27 @@ The image above illustrate - if we trust the latest digest file that we have, we
 - **Digest files** can only be encrypted with Amazon S3-managed encryption keys (SSE-S3).
 - **Log files** is encrypted by **SSE-S3** by default but you can change it to use **SSE-KMS**.
 
+## Amazon Inspector
+
+**Amazon Inspector** detects software vulnerabilities and unintended network exposure in near real time in AWS workloads such as **Amazon EC2, AWS Lambda functions, and Amazon ECR**. You can create an assessment template and launch a security assessment run of this target. [ref](https://aws.amazon.com/blogs/aws/amazon-inspector-now-scans-aws-lambda-functions-for-vulnerabilities/)
+
+Summery dashboard:
+![inspector](/img/aws/management/monitor/inspector.png) 
+
+Assessment: 
+![assesment](/img/aws/management/monitor/assesment.png) 
+
+During the assessment run, the network, file system, and process activity within the specified target are monitored, and a wide set of activity and configuration data is collected. The collected data is correlated, analyzed, and compared to a set of security rules specified in the assessment template. A completed assessment run produces a list of findings - potential security problems of various severity.
+
+:::infoAmazon Inspector vs AWS Trusted Advisor
+**Trusted Advisor** provides advice about your AWS Account in the areas of Cost Optimization, Fault Tolerance, Performance, Service Limits, Security.
+
+**Amazon Inspector** checks the configuration of EC2 instances. An agent runs on EC2 instances and checks operating system patches, known vulnerabilities, and common issues.
+:::
+
 
 ## AWS Config
 
-Aggregated view logic:
-![AWS-Config](/img/aws/management/monitor/AWS-Config.png)
 ![config2](/img/aws/management/monitor/config2.png)
 
 AWS config sequential flow:
@@ -146,7 +170,7 @@ AWS Config does this through the use of rules that define the desired configurat
 Another example is you can view **the IAM policy that was assigned to an IAM user, group, or role at any time** in which AWS Config was recording. This information can help you determine the permissions that belonged to a user at a specific time: for example, you can view whether the user Sai Tai had permission to modify Amazon VPC settings on Jan 1, 2023.
 
 :::infoAmazon Inspector vs AWS Config
-Amazon Inspector is a security assessment service that helps improve the security and compliance of applications deployed on AWS. While it can be used to check the configuration of security groups, it may not be the most efficient way to **address the specific security concern**.
+Amazon Inspector is a **security assessment service** that helps you to identify potential security issues and compliance of applications deployed on AWS but it may not be the most efficient way to **address the specific security concern**.
 
 For example, if you want to check a specific security concern whether a public SSH is always disabled for the private servers. It is more efficient to use AWS Config instead of Amazon Inspector
 
@@ -175,6 +199,27 @@ When you add a rule to your account, you can specify when you want AWS Config to
 :::infoYou can use both types in one rule
 If you choose **both configuration changes and periodic to the same rule**, AWS Config invokes your Lambda function when it detects a configuration change and also at the frequency that you specify. 
 :::
+
+### Config Aggregator
+
+> TL;DR - It aggregates the config data from **different AWS accounts in multiple AWS regions**.
+
+![AWS-Config](/img/aws/management/monitor/AWS-Config.png)
+
+An aggregator is an AWS Config resource type that collects AWS Config configuration and compliance data from the following:
+
+- Multiple accounts and multiple regions.
+- Single account and multiple regions.
+- An organization in AWS Organizations and all the accounts in that organization which have AWS Config enabled.
+
+Use an aggregator to view the resource configuration and compliance data recorded in AWS Config.
+
+![aggregator-console](/img/aws/management/monitor/aggregator-console.png)
+
+In the navigation pane, choose Aggregators, and then review the configuration data of your AWS resources and compliance state of your rules.
+![rules-page.png](/img/aws/management/monitor/rules-page.png)
+
+Source: [Set up an organization-wide aggregator in AWS Config using a delegated administrator account](https://aws.amazon.com/blogs/mt/org-aggregator-delegated-admin/)
 
 ### Remediation
 

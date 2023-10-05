@@ -347,15 +347,26 @@ The Parameters section in above screenshot in the output for Describe API will s
 :::
 
 ## Behavoirs
-### Roll back an update
+
+### Next action when it failures
+
+The `create-stack` CloudFormation CLI command creates a stack as specified in the template. It has an `--on-failure` optional parameter which determines what action will be taken if stack creation fails. 
+
+Its **default value** is `ROLLBACK` which means that the CloudFormation service will automatically rollback the stack in the event of failures. The value must be one of the following: `DO_NOTHING`, `ROLLBACK`, or `DELETE`.
+### Rollback an update
 
 - Behavoir:
-  - A stack goes into the UPDATE_ROLLBACK_FAILED state when CloudFormation can't roll back all changes during an update
+  - A stack goes into the `UPDATE_ROLLBACK_FAILED` state when CloudFormation **can't roll back all changes during an update**
   - A resource can't return to its original state, causing the rollback to fail
   - Example: roll back to an old database instance that was deleted outside CloudFormation
-- Solutions
-  - Fix the errors manually outside of CloudFormation and then
-  - Skip the resources that can't rollback successfully (CloudFormation will mark the failed resources as UPDATE_COMPLETE)
+- 2 Solutions
+  - Continue the rollback
+    1. Fix the errors **manually** outside of CloudFormation
+    2. Open the AWS CloudFormation console. Select the stack that you want to update, choose Stack action
+    4. Choose **Continue update rollback**.
+  - Skip the resources that can't rollback successfully (CloudFormation will mark the failed resources as `UPDATE_COMPLETE`)
+    1.  You must look up and type the logical IDs of the resources that you want to skip. 
+    2. Specify only resources that went into the `UPDATE_FAILED` state during the `UpdateRollback` and not during the forward update.
 
 :::infoNotes
 - You can't update a stack in this state

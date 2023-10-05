@@ -69,7 +69,7 @@ Some DB engines offer additional features that make it easier to manage data and
 
 ### RDS Proxy
 
-> TL;DR - RDS Proxy as a connection pool for overwhelmed connections
+> TL;DR - RDS Proxy as a connection pool for handling overwhelmed connections / unpredictable surges in database traffic.
  
 Amazon RDS Proxy enhances database efficiency and scalability for applications, including modern serverless ones, **by pooling and sharing connections to the database**. This helps prevent memory and compute exhaustion caused by **frequent opening and closing of connections**. 
 
