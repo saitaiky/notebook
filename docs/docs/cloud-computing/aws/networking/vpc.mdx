@@ -54,6 +54,16 @@ When two instances communicate using public IP addresses, the following three sc
   - [**Situation 1**]: Traffic **stays within** the AWS network if there is an **Inter-Region VPC Peering connection** between the VPCs where the two instances reside.
   - [**Situation 2**]: Traffic is **not guaranteed** to stay within the AWS network where there is **no Inter-Region VPC Peering connection** between the VPCs where these instances reside.
 
+### 5 reserved IPs in each CIDR
+
+In a VPC, the first four IP addresses and the last IP address in each subnet CIDR block are not available for you to use, and cannot be assigned to an instance. For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addresses are reserved:
+
+- 10.0.0.0: Network address.
+- 10.0.0.1: Reserved by AWS for the VPC router.
+- 10.0.0.2: Reserved by AWS. The IP address of the DNS server is the base of the VPC network range plus two. For VPCs with multiple CIDR blocks, the IP address of the DNS server is located in the primary CIDR. We also reserve the base of each subnet range plus two for all CIDR blocks in the VPC.
+- 10.0.0.3: Reserved by AWS for future use.
+- 10.0.0.255: Network broadcast address. We do not support broadcast in a VPC, therefore we reserve this address.
+
 ## Configuration 
 
 ### Configs with VPC wizard 
@@ -281,12 +291,10 @@ Your network is streamlined and scalable. AWS Transit Gateway routes all traffic
 An Internet Gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
 
 An Internet Gateway serves **two purposes**: 
-
--   to provide a target in your VPC route tables for internet-routable traffic 
--   to perform network address translation (NAT) for instances that have been assigned public IPv4 addresses.
+- to provide a target in your **VPC route tables** for internet-routable traffic 
+- to perform **network address translation(NAT)** for instances that have been assigned public IPv4 addresses.
 
 To enable access to or from the internet for instances in a subnet in a VPC, you must do the following:
-
 1.  Attach an Internet gateway to your VPC.
 2.  Add a route to your subnet's route table that directs internet-bound traffic to the internet gateway. 
     - If a subnet is associated with a route table that has a route to an internet gateway, it's known as **a public subnet**. 
@@ -578,7 +586,7 @@ AWS provides two features that you can use to increase security in your VPC: sec
 - Security groups 
     - You can control what goes in and out your **instances**
     - Security groups are associated with **network interfaces**
-    - Security groups only support **allow rules** 
+    - Security groups **only support allow rules** to pass through
     - A security group acts as a virtual firewall for your instance to control inbound and outbound traffic. Security groups act at the instance level, not the subnet level. Therefore, each instance in a subnet in your VPC can be assigned to a different set of security groups.
 
 ![acl-vs-security-group](/img/aws/networking/vpc/acl-vs-security-group.png)

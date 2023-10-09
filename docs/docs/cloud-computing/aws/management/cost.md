@@ -89,7 +89,7 @@ Finally, budgets are far **easier** to use, set up and manage, than billing al
 
 ## AWS Compute Optimizer
 
-**AWS Compute Optimizer** generates **performance and cost recommendations** to these four  types of AWS resources: EC2 instance types, EBS volumes, ECS services on AWS Fargate, and AWS Lambda functions—based which helps avoid overprovisioning and underprovisioning.
+**AWS Compute Optimizer** generates **performance and cost recommendations** to these four  types of AWS resources: EC2 instance types, EBS volumes, ECS services on AWS Fargate, and AWS Lambda functions—based which helps avoid **overprovisioning and underprovisioning**.
 
 ![AWS-Compute-Optimizer-Recommendations](/img/aws/management/cost/AWS-Compute-Optimizer-Recommendations.png)
 

@@ -51,6 +51,19 @@ sidebar_position: 1
 </tbody>
 </table>
 
+:::infoIOPS vs Throughput
+> 
+  - IOPS – Count of read/write operations per second
+  - Throughput – Count of read/write bits per second (bps)
+
+
+IOPS: This metric quantifies the number of individual read and write operations a storage system can perform in one second. It focuses on the speed of individual data requests, making it crucial for applications with small, random data access patterns, like databases. Higher IOPS indicate faster data access.
+
+Throughput: Throughput measures the amount of data that can be transferred in a second, usually expressed in megabytes per second (MBps) or gigabytes per second (GBps). It's about the sustained data transfer rate over time and is vital for applications that require large data streaming, such as video streaming or backup processes. Higher throughput means faster data transfer.
+
+In summary, IOPS focuses on the speed of individual data requests, while throughput measures the rate of data transfer.
+:::
+
 ### Diffrent EBS volumne
 
 Amazon Elastic Block Store (EBS) provides different types of block storage volumes optimized for various performance and cost requirements. Here are the use cases and reasons for each EBS volume type:
@@ -250,7 +263,7 @@ You can configure your AWS account to enforce Amazon EBS encrypts the EBS volume
 
 ![DLM](/img/aws/storage/ebs/DLM.png)
 
-DLM for EBS Snapshots provides a simple, automated way to back up data stored on Amazon EBS volumes, thus you no longer have to rely on custom scripts to create and manage your backups. You can define backup and retention schedules for EBS snapshots by creating lifecycle policies based on tags.
+DLM for EBS Snapshots provides a simple, automated way to **back up data stored on Amazon EBS volumes**, thus you no longer have to rely on custom scripts to create and manage your backups. You can define backup and retention schedules for EBS snapshots by creating lifecycle policies based on tags.
 
 Automating snapshot management helps you to:
 

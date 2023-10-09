@@ -60,7 +60,7 @@ Amazon EC2 Auto Scaling creates a new scaling activity for terminating the unhea
 
 ### Instance warm-up
 
-For step scaling, you can optionally specify the number of seconds that it takes for a newly launched instance to warm up. Until its specified warm-up time has expired, an instance is not counted toward the aggregated EC2 instance metrics of the Auto Scaling group.
+With step scaling policy, you can optionally specify the number of seconds that it takes for a newly launched instance to warm up. Before its specified warm-up time expires, *an instance isn't counted toward the aggregated EC2 instance metrics of the Auto Scaling group*.
 
 If the group scales out again, the instances that are still warming up are** counted as part of the desired capacity for the next scale-out activity**. Therefore, multiple alarm breaches that fall in the range of the same step adjustment result in a single scaling activity. The intention is to continuously (but not excessively) scale out.
 
@@ -130,7 +130,18 @@ Source: [How to Create AWS VPC in 10 steps, less than 10 min](https://varunmanik
 
 > Full document: [Scale the size of your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/scale-your-group.html)
 
-### Target Tracking Scaling Policy
+EC2 Auto Scaling Policies provide several ways for scaling the Auto Scaling group.
+- Manual Scaling
+- Scheduled Scaling
+- Dynamic Scaling Policy Types
+  - Target tracking scaling
+  - Step scaling: Increase or decrease the current capacity of the group based on a set of scaling adjustments based on the size of the alarm breach.
+  - Simple scaling: Increase or decrease the current capacity of the group based on a single scaling adjustment.
+- Predictive Scaling
+
+### Target Tracking Scaling
+
+> TL;DR - You should only use target tracking policy if you want to maintain a specific load. Auto-scaling will spawn and remove instances based on the load you specify, regardless of what your application demands.
 
 To create a target tracking scaling policy, you specify **an Amazon CloudWatch metric** and a target value that represents the ideal average utilization or throughput level for your application. 
 
@@ -142,7 +153,7 @@ To create a target tracking scaling policy, you specify **an Amazon CloudWatch m
 Besides target tracking scaling policy, You can also scalling based on the number of messages in a SQS queue - [document](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-using-sqs-queue.html)
 :::
 
-### Scheduled scaling policy
+### Scheduled scaling
 
 ![schedule-action](/img/aws/compute/asg/schedule-action.png)
 
@@ -191,7 +202,7 @@ There are two scenarios possible:
 
 To check the detailed actions, check [Troubleshoot Amazon EC2 Auto Scaling: EC2 instance launch failure](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html#ts-as-instancelaunchfailure-12)
 
-### 2 policy being trickered at the same time
+### 2 policies being trickered at the same time
 
 Imagine there is a scenario which - A retail company has a fleet of EC2 instances running behind an Auto Scaling group (ASG). The development team has configured two metrics that control the *scale-in and scale-out policies* of ASG. 
 

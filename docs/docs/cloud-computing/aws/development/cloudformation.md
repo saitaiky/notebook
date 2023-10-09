@@ -142,7 +142,71 @@ Currently, only AutoScalingGroup, EC2 Instance & WaitCondition resources support
   - When you need to pause the creation of multiple instances in an auto-scaling group & make the stack wait for applications to be installed & started on the instances, think CreationPolicy.
   - When you want to coordinate a resource creation with actions **external to the stack**, think `WaitCondition` with a `DependsOn` attribute on the resource.
 
-## Configuration
+
+## Sections
+
+### Mappings
+
+The optional Mappings section matches a key to a corresponding set of named values. For example, if you want to set values based on a region, you can create a mapping that uses the region name as a key and contains the values you want to specify for each specific region. You use the `Fn::FindInMap` intrinsic function to retrieve values in a map.
+
+```yaml
+AWSTemplateFormatVersion: "2010-09-09"
+Mappings: 
+  RegionMap: 
+    us-east-1:
+      HVM64: ami-0ff8a91507f77f867
+      HVMG2: ami-0a584ac55a7631c0c
+    us-west-1:
+      HVM64: ami-0bdb828fd58c52235
+      HVMG2: ami-066ee5fd4a9ef77f1
+    eu-west-1:
+      HVM64: ami-047bb4163c506cd98
+      HVMG2: ami-0a7c483d527806435
+    ap-northeast-1:
+      HVM64: ami-06cd52961ce9f0d85
+      HVMG2: ami-053cdd503598e4a9d
+    ap-southeast-1:
+      HVM64: ami-08569b978cc4dfa10
+      HVMG2: ami-0be9df32ae9f92309
+Resources: 
+  myEC2Instance: 
+    Type: "AWS::EC2::Instance"
+    Properties: 
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
+      InstanceType: m1.small
+```
+## Configurations
+
+### DependsOn
+
+With the `DependsOn` attribute you can specify that the creation of a specific resource follows another. When you add a DependsOn attribute to a resource, that resource is created only after the creation of the resource specified in the DependsOn attribute.
+
+You can use the `DependsOn` attribute with any resource. Here are some typical uses:
+- Determine when a wait condition goes into effect.
+- Declare dependencies for resources that must be created or deleted in a specific order. For example, you must explicitly declare dependencies on gateway attachments for some resources in a VPC.
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Fn::FindInMap:
+        - RegionMap
+        - Ref: AWS::Region
+        - AMI
+    DependsOn: myDB
+  myDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: '5'
+      DBInstanceClass: db.t2.small
+      Engine: MySQL
+      EngineVersion: '5.5'
+      MasterUsername: MyName
+      MasterUserPassword: MyPassword
+```
 
 ### DeletionPolicy
 
@@ -199,12 +263,19 @@ https://cloudformation.us-east-1.amazonaws.com/
 ![update-stack-changesets-diagram](https://docs.aws.amazon.com/images/AWSCloudFormation/latest/UserGuide/images/update-stack-changesets-diagram.png)
 Reference: [Updating stacks using change sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
 
-Change sets allow you to preview how proposed changes to a stack might impact your existing resources, for example, whether your changes will delete or replace any critical resources, AWS CloudFormation makes the changes to your stack only when you decide to execute the change set, allowing you to decide whether to proceed with your proposed changes or explore other changes by creating another change set. You can create and manage change sets using the AWS CloudFormation console, AWS CLI, or AWS CloudFormation API.
+Change sets allow you to **preview how proposed changes to a stack might impact your existing resources**, for example, whether your changes will delete or replace any critical resources, AWS CloudFormation makes the changes to your stack only when you decide to execute the change set, allowing you to decide whether to proceed with your proposed changes or explore other changes by creating another change set. You can create and manage change sets using the AWS CloudFormation console, AWS CLI, or AWS CloudFormation API.
 
 :::caution
 After you execute a change, AWS CloudFormation removes all change sets that are associated with the stack because they aren't applicable to the updated stack.
 :::
 
+:::info2 ways to update stacks
+AWS CloudFormation provides two methods for updating stacks:
+- Direct update
+- Creating and executing change sets.
+
+When you directly update a stack, you submit changes and AWS CloudFormation immediately deploys them. Use direct updates when you want to quickly deploy your updates.
+:::
 ### Stack Policy
 
 > TL;DR - Think Stack Policy as a temperate protection to the resources that going to be affected by a stack update.

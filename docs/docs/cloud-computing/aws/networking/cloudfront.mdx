@@ -15,7 +15,11 @@ import TabItem from '@theme/TabItem';
   - Between clients and CloudFront as well as between CloudFront and origin
     via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html), [Cloudfront to Origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html)
 - IAM users can't create CloudFront key pairs. You must log in using **root credentials to create key pairs**.
-- You can configure CloudFront to forward to your origin some or all of the cookies in viewer requests, and to cache separate versions of your objects based on the cookie values that it forwards. 
+- **Cookie forwarding**: By default, CloudFront doesn't include cookies when processing requests and responses. You can configure CloudFront to **forward to your origin some or all of the cookies** in viewer requests, and to cache separate versions of your objects based on the cookie values that it forwards. 
+- **Header forwarding**: It helps to forward the request headers to the origin server. Because some headers may contain critical information that your server needs to generate a response. 
+  - For example, suppose you’re using CloudFront to serve a web application that requires user authentication. In that case, you’ll need to forward the `Authorization` header to your server to verify the user’s identity. Similarly, if you’re serving content in different languages, you’ll need to forward the `Accept-Language` header to your server to determine the appropriate language for the response.
+
+
 - When CloudFront returns 404 response for an object - which means the object(s) requested were not found on the origin server and the origin server generated the 404 error, which is returned by CloudFront 
 
 ## Behaviours

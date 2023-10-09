@@ -85,6 +85,11 @@ Administrators can associate TagOptions with portfolios and products. During **a
   [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/) from the Center for Internet Security (CIS) are a set of globally recognized and consensus-driven best practices to help security practitioners implement and manage their cybersecurity defenses. Developed with a global community of security experts, the guidelines help organizations proactively safeguard against emerging risks. Companies implement the CIS Benchmark guidelines to limit configuration-based security vulnerabilities in their digital assets.
   :::
   - **AWS Artifact** is a central resource for **compliance-related information** that matters to your organization. For example, the Business Associate Addendum (BAA) is available for customers that need to comply with the Health Insurance Portability and Accountability Act (HIPAA). It is not a service, it's a no-cost, self-service portal for on-demand access to AWS’ compliance reports. (AWS Artifact可以檢閱和下載2,600 多個安全控管的報告和詳細資訊。AWS Artifact 入口網站可隨選存取 AWS 的資安及合規文件，包括 SOC 報告、PCI 報告，以及各地區、各種合規鍊下認證機構的認證。)
+- Management
+  - **AWS Control Tower**  simplifies the setup and management of a multi-account AWS environment with governance "**guardrails**" and defined baseline. If you want to *create or manage your multi-account AWS environment with best practices*, use AWS Control Tower. AWS Control Tower orchestrates multiple AWS services on your behalf while maintaining the security and compliance needs of your organization, such as 
+    - AWS CloudFormation to establish a baseline
+    - AWS Organizations service control policies (SCPs) to prevent configuration changes
+    - AWS Config rules to continuously detect non-conformance
 
 
 ## May need to jot after preparing exam

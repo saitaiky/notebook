@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ### Metric Math 
 
-Metric math enables you to query multiple CloudWatch metrics and use math expressions to create new time series based on these metrics. You can visualize the resulting time series on the CloudWatch console and add them to dashboards. 
+Metric math enables you to **query multiple CloudWatch metrics** and use math expressions to create new time series based on these metrics. You can visualize the resulting time series on the CloudWatch console and add them to dashboards. 
 
 ### CloudWatch Synthetics
 
@@ -24,22 +24,17 @@ You can use Amazon CloudWatch Synthetics to create *canaries* which is a **confi
 - UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see Puppeteer.
 - Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI. They monitor your REST APIs, URLs, and website content, and they can check for unauthorized changes from phishing, code injection and cross-site scripting.
 
-### CloudWatch action
+### CloudWatch alarm & action
 
-A valid CloudWatch action can be sending a notification to an Amazon SNS topic, performing an Amazon EC2 action or an Auto Scaling action, or creating a Systems Manager OpsItem.
+You can create a CloudWatch alarm that watches a single metric. The alarm performs one or more actions based on the value of the metric relative to a threshold over a number of time periods. The action can be..
+- an Amazon EC2 action
+- an Amazon EC2 Auto Scaling action 
+- a notification sent to an **Amazon SNS topic **
+- creating a Systems Manager OpsItem
 
 ![AWS-CW-Alarm](/img/aws/management/cw/AWS-CW-Alarm.png)
 
-### CloudWatch Event Rules
-
-You can use Amazon CloudWatch Events to detect and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, CloudWatch Events invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
-
-Examples of Amazon CloudWatch Events rules and targets:
-
-- A rule that sends a notification when the **instance state changes**, where an EC2 instance is the event source, and Amazon SNS is the event target.
-- A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
-- A rule that detects **pipeline changes** and invokes an AWS Lambda function.
-
+### Example Alarm & Action for EC2
 
 Setup a CloudWatch alarm to monitor the health status of the instance. In case of an Instance Health Check failure, an EC2 Reboot CloudWatch Alarm Action can be used to reboot the instance
 
@@ -52,6 +47,17 @@ The recover alarm action, which is suited for **System Health Check failures** -
 -   File system issuesSystem
 -   Incompatible driversSystem
 -   Kernel panic
+### EventBridge Rules
+
+> EventBridge was formerly called Amazon CloudWatch Events. 
+
+EventBridge detects and react to changes in the state of a pipeline, stage, or action. Then, based on rules you create, it invokes one or more target actions when a pipeline, stage, or action enters the state you specify in a rule. 
+
+Examples of EventBridge rules and targets:
+
+- A rule that sends a notification when the **instance state changes**, where an EC2 instance is the event source, and Amazon SNS is the event target.
+- A rule that sends a notification when the **build phase changes**, where a CodeBuild configuration is the event source, and Amazon SNS is the event target.
+- A rule that detects **pipeline changes** and invokes an AWS Lambda function.
 
 ## CloudWatch integration
 
@@ -96,8 +102,9 @@ Every metric has specific characteristics that describe it, and you can think of
 
 ## Metrics for Aurora
 
-- `AuroraReplicaLagMaximum` - This metric captures the maximum amount of lag of **all types of Aurora Replicas**, regardless of the replication mechanism (e.g., standard Aurora replication or Aurora Binlog replication).
-- `AuroraBinlogReplicaLag` - This metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition **lags behind the source DB cluster**.  (replica 慢過Aurora source DB 幾多) This metric is useful for monitoring replica lag between Aurora DB clusters that are replicating across different AWS Regions.
+- `AuroraReplicaLag` metric to measure the lag in milliseconds between primary and reader instances. If the number of `AuroraReplicaLag` increases, the data stored in the reader instance will intermittently fall behind the data that's being written in the primary instance
+- `AuroraReplicaLagMaximum` metric captures the maximum amount of lag of **all types of Aurora Replicas**, regardless of the replication mechanism (e.g., standard Aurora replication or Aurora Binlog replication).
+- `AuroraBinlogReplicaLag` metric captures the amount of time a replica DB cluster running on Aurora MySQL-Compatible Edition **lags behind the source DB cluster**.  (replica 慢過Aurora source DB 幾多) This metric is useful for monitoring replica lag between Aurora DB clusters that are replicating across different AWS Regions.
 
 ## Metrics for RDS
 
@@ -123,7 +130,7 @@ RAM is NOT included in the AWS EC2 metrics
     - Basic Monitoring (**default**): metrics are collected at a 5 minute internal
     - Detailed Monitoring (**paid**): metrics are collected at a 1 minute interval
         - You can aggregate the metrics for AWS resources across multiple accounts and Regions *only if the EC intances have **enabled Detailed Monitoring** *
-    - For **EC2**, it includes CPU, Network, Disk and Status Check Metrics
+    - For **EC2**, below are the metrics that provided **by default**
         - CPU: `CPU Utilization` + `Credit Usage / Balance`
         - Network: `NetworkIn` and `NetworkOut` 
         - Status Check:
@@ -186,6 +193,7 @@ aws sqs get-queue-attributes --queue-url https://sqs.<region>.amazonaws.com/<acc
 
 - If your AMI contains a CloudWatch agent, it’s **automatically installed on EC2 instances** when you create an EC2 Auto Scaling group. 
 - With the stock Amazon Linux AMI, you need to install it (AWS recommends to install via yum).
+    - Ensure that an IAM Role with permissions to access CloudWatch is attached to the EC2 instances.
 
 ### Permission
 

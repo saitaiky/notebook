@@ -161,7 +161,8 @@ Source: [What is Lambda Throttling? (and how to fix it!) ](https://www.youtube.
 
 1.  Request unreserved concurrency limit increase: The first and probably the easiest thing that you can do is that you can request an unreserved concurrency limit increase, and this is at no cost to you. So the default limit per account per region is 1000 concurrent invocations
 
-2.  Specify reserve concurrency per function: The second mitigation technique is to specify a reserved concurrency per function, and the way you do this is by going to your Lambda function in the configuration section, and there's a concurrency section where you can see some details about the provision concurrency limits. So what reserved concurrency does? It reserves several concurrent execution requests for a particular Lambda function. So in the example that we were discussing before, we had three Lambda functions and they were all kind of competing for that 1000 concurrency limit. Now, using this approach, you can slot a 200 concurrent limit for a particular function. So at any point in time, regardless of what your other functions are doing, this function will always be able to handle 200 concurrent requests, and the other two functions going back to the previous example will have to compete for this pool. So, in this case, it is 800. This is a mitigation technique.
+2.  Specify reserve concurrency per function: The second mitigation technique is to specify a reserved concurrency per function and you can set this in the configuration section of your Lambda function. (Reserved concurrency is the maximum number of concurrent instances for the function. When a function has reserved concurrency, no other function can use that concurrency.)
+    - So what reserved concurrency does? It reserves several concurrent execution requests for a particular Lambda function. So in the example that we were discussing before, we had three Lambda functions and they were all kind of competing for that 1000 concurrency limit. Now, using this approach, you can slot a 200 concurrent limit for a particular function. So at any point in time, regardless of what your other functions are doing, this function will always be able to handle 200 concurrent requests, and the other two functions going back to the previous example will have to compete for this pool. So, in this case, it is 800. This is a mitigation technique.
 
 3.  Configure a DLQ to capture failure: The most important is to configure a dead letter Q to capture failure as I've kind of described before. This is very important if you are receiving Throttling and you need to redirect those messages at a later point in time.
 
@@ -187,3 +188,7 @@ The belows are the workaround to overcome the limit.
 1.  [Using S3 to store certain files/data](https://medium.com/geekculture/3-ways-to-overcome-aws-lambda-deployment-size-limit-part-1-f2eb2170b75b#8a5c)
 2.  [Using Amazon Elastic File System --- EFS](https://medium.com/geekculture/3-ways-to-overcome-aws-lambda-deployment-size-limit-part-1-f2eb2170b75b#42f4)
 3.  (This is pretty new!) Using Container Image, covered in [Part 2](https://medium.com/geekculture/3-ways-to-overcome-aws-lambda-deployment-size-limit-part-2-8d0e8d0264b0)
+
+### How long can an AWS Lambda function execute?
+
+AWS Lambda functions can be configured to run up to **15 minutes per execution**. You can set the timeout to any value between 1 second and 15 minutes.
