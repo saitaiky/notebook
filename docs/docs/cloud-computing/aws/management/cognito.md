@@ -32,22 +32,33 @@ Source: [Get started with Amazon Elasticsearch Service: Use Amazon Cognito for K
 
 ### Integrate with Azure AD
 
-> Azure AD will act as an identity provider (IdP), and AWS Cognito will act as a service provider (SP).
+> 
+  - Azure AD will act as an identity provider (IdP), and AWS Cognito will act as a service provider (SP).
+  - This is for authentication to use credentails from idP to login
+
+:::infoAlternatively you can create a self-hosted ADFS as an IDP
+An example of SAML identity provider (IDP) is a self-hosted** Active Directory Federation Services (ADFS)** server. ADFS is a service provided by Microsoft to provide login using existing Active Directory credentials.
+:::
 
 ![sso-ad](/img/aws/management/cognito/sso-ad.png)
 Image credit: Double Octopus
 
-Azure Active Directory (Azure AD) is a cloud-based identity and access management (IAM) solution for enterprises. You can think of it as the backbone of the Office 365 system, which syncs with on-premise Active Directory and provides OAuth authentication to other cloud-based applications.
+Azure AD is a cloud-based identity and access management (IAM) solution for enterprises. You can think of it as the backbone of the Office 365 system, which syncs with on-premise Active Directory and provides OAuth authentication to other cloud-based applications.
 
-Before granting the user access to AWS services, AWS Cognito verifies the user's rights with the identity provider while Azure AD checks user identification (e.g., emails, passwords) and asserts to AWS Cognito that the user should have access and that the user's identity if it is legitimate. Check the offical document for the [full authentication flow](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-saml-idp-authentication.html)
+Before granting the user access to AWS services, AWS Cognito verifies the user's rights with the identity provider while Azure AD checks user identification (e.g., emails, passwords) and asserts to AWS Cognito that the user should have access and that the user's identity if it is legitimate. Check the [offical idP authentication flow document](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-saml-idp-authentication.html) to understand how to integrate SAML-based IdPs directly from your user pool.
 
 Reference: [Single Sign-On (SSO) using AWS Cognito and Azure AD](https://blog.getambassador.io/single-sign-on-sso-using-aws-cognito-and-azure-ad-356951536218)
 
+:::infoAnother example
+![saml-based-federation](/img/aws/management/cognito/saml-based-federation.png)
+Example: A solution that incorporates an IAM Identity Center single sign-on access from your corporate AD or LDAP directory and also restricts access of each individual user to a designated user folder in an S3 bucket.
+
+:::
 
 ### Cognito User Pools vs Identity Pools
 - Cognito User Pools (**for authentication = identity verification**):
   - Database of users for your web and mobile application
-  - Allows to federate logins through Public Social, OIDC, SAML...
+  - Allows to federate logins through Public Social, OIDC, **SAML**...
   - Can customize the hosted UI for authentication (including the logo)
   - Has triggers with AWS Lambda during the authentication flow
 
@@ -55,7 +66,7 @@ Reference: [Single Sign-On (SSO) using AWS Cognito and Azure AD](https://blog.ge
 
 - Cognito Identity Pools (**for authorization = access control**):
   - Obtain AWS credentials for your users
-  - Users can login through Public Social, OIDC, SAML & Cognito User Pools 
+  - Users can login through Public Social, OIDC, **SAML** & Cognito User Pools 
   - Users can be unauthenticated (guests)
   - Users are mapped to IAM roles & policies, can leverage policy variables
 
@@ -101,8 +112,14 @@ A permission set is a collection of administrator-defined policies that AWS SSO 
 ![sso](/img/aws/management/cognito/sso.png)
 :::
 
-AWS SSO manages access to all your AWS Organizations accounts, AWS SSO-integrated applications, and other business applications that support the Security Assertion Markup Language (SAML) 2.0 standard. This allows you to assign and manage your employees’ access to multiple AWS accounts, SAML-enabled cloud applications (such as **Salesforce, Microsoft 365, and Box**), and custom-built in-house applications, all from a central place.
+AWS SSO manages access to all your AWS Organizations accounts, AWS SSO-integrated applications, and other business applications that support the **Security Assertion Markup Language (SAML)** 2.0 standard. This allows you to assign and manage your employees’ access to multiple AWS accounts, SAML-enabled cloud applications (such as **Salesforce, Microsoft 365, and Box**), and custom-built in-house applications, all from a central place.
 
 AWS SSO automatically provides you with **a store** by default, which you can use to manage your users and groups within AWS SSO. 
 - If you choose to **store them in AWS SSO,** create your users and groups and assign their level of access to your AWS accounts and applications. 
 - Alternatively, you can choose to connect to Your **External Identity Provider** using Azure Active Directory or connect to your Microsoft AD Directory using AWS Directory Service.
+
+### IAM Identity Center configurable AD sync
+
+> This is for provisioning users and groups from Active Directory
+
+IAM Identity Center configurable **AD sync** enables you to explicitly configure the identities in Microsoft Active Directory that are automatically synchronized into IAM Identity Center and control the synchronization process. Document: [IAM Identity Center configurable AD sync](https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-users-from-ad-configurable-ADsync.html)

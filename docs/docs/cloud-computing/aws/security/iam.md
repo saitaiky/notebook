@@ -74,6 +74,32 @@ Also, to grant permission to everyone(referred as anonymous access), you set the
 }
 ```
 
+### Multiple conditions Logical `AND`
+
+Access is allowed for Amazon DynamoDB `GetItem` operation during the period starting from April 1 to December 31, 2023 (UTC) and provided that the request originates from the `vpc-111aaa22` Amazon VPC.
+
+```json
+{
+"Version": "2012-10-17",
+"Statement": {
+    "Effect": "Allow",
+    "Action": "dynamodb:GetItem",
+    "Resource": "*",
+    "Condition": {
+    "DateGreaterThan": {
+     "aws:CurrentTime": "2023-04-01T00:00:00Z"
+    },
+    "DateLessThan": {
+      "aws:CurrentTime": "2023-12-31T23:59:59Z"
+    }
+    },
+    "StringEquals": {
+      "aws:SourceVpc": "vpc-111aaa22"
+    }
+  }
+}
+```
+
 ## Managing access to IAM roles
 
 Let's dive into how you can control access to IAM roles by understanding the policy types that you can apply to an IAM role.
