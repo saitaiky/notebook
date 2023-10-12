@@ -347,6 +347,7 @@ Source: [Full comparsion table](https://docs.aws.amazon.com/AWSEC2/latest/UserGu
   - **Image Builder** uses the AWS **Task Orchestrator and Executor** (AWSTOE) component management application to orchestrate complex workflows. Build and test components that work with the AWSTOE application are based on YAML documents that define the scripts to customize or test your image. 
     - For AMI images, Image Builder installs components and the AWSTOE component management application on *its Amazon EC2 build and test instances*. 
     - For container images, the components and AWSTOE component management application are installed *inside of the running container*.
+    - An AWS document (<https://docs.aws.amazon.com/pdfs/imagebuilder/latest/userguide/imagebuilder-ug.pdf>) defines AWSTOE as a "*standalone application that creates, validates, and runs commands within a component definition framework*." With AWSTOE, you can modify system configuration and orchestrate complex workflows without writing code. That means you can have a series of components written in YAML, which are instructions that you want to be executed on your operating system, and AWSTOE can simply run and validate against your operational system.
 - **A Golden AMI** is an AMI that you standardize through configuration, consistent security patching, and hardening. It also contains agents you approve for logging, security, performance monitoring, etc. Reference: [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
 - **ASG** need to have permission to access the customer-managed customer master keys (CMKs) when an IAM is encrypted.
 
@@ -472,6 +473,9 @@ Each Amazon EC2 instance contains metadata that the AWS CLI can directly query f
 
 Source: [Using an IAM role to grant permissions to applications running on Amazon EC2 instances](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html)
 
+### Network issues
+ 
+Adding an ENI doesn't not increase the networking performance.  Upgrading the EC2 instance to a larger instance type does
 
 ### Launch Issues
 

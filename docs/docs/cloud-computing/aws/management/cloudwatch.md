@@ -75,7 +75,7 @@ Service limit is a feature provided by Trusted Advisor a reference implementatio
 Source: [Monitoring Service Limits with Trusted Advisor and Amazon CloudWatch](https://aws.amazon.com/blogs/mt/monitoring-service-limits-with-trusted-advisor-and-amazon-cloudwatch/)
 :::
 
-You can use Amazon CloudWatch Events to *detect and react to changes in the status of Trusted Advisor checks*. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
+You can use  **Amazon EventBridge** (Amazon CloudWatch Events) to *detect and react to changes in the status of Trusted Advisor checks*. Then, based on the rules that you create, CloudWatch Events invokes one or more target actions when a status check changes to the value you specify in a rule. Some example service check:
 
 ![monitor-trusted-advisor-service-check](/img/aws/management/cw/monitor-trusted-advisor-service-check.jpeg)
 
@@ -140,7 +140,7 @@ RAM is NOT included in the AWS EC2 metrics
     - For **ASG**, it includes `GroupInServiceInstances`, `GroupPendingInstance`
 
 - Custom metric (yours to push):
-    - Basic Resolution: 1 minute resolution
+    - Basic Resolution (default): 1 minute resolution
     - High Resolution: all the way to 1 second resolution
     - Include RAM, application level metrics
     - Make sure the IAM permissions on the EC2 instance to push the logs and the metrics.

@@ -8,8 +8,10 @@ sidebar_position: 4
 
 AWS WAF is a web application firewall that lets you configure rules that allow, block, or monitor (count) web requests to below 4 services based on conditions that you define. 
 - **an Amazon CloudFront distribution**
+  - Your rules run in all AWS Edge Locations located around the world close to your end-users. This means security doesn’t come at the expense of performance. Blocked requests are stopped before they reach your web servers. 
 - **an Amazon API Gateway REST API**
 - **an Application Load Balancer**
+  - When you use AWS WAF on Application Load Balancer, your rules run in the region and can be used to protect internet-facing as well as internal load balancers.
 - **an AWS AppSync GraphQL API**
 
 As new applications are developed, Firewall Manager makes it simple to bring them into compliance by imposing a common set of security rules. You can use AWS WAF to create custom rules that block common attack patterns, such as SQL injection or cross-site scripting, and rules that are designed for your specific application.

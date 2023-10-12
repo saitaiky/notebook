@@ -183,7 +183,7 @@ With the `DependsOn` attribute you can specify that the creation of a specific r
 
 You can use the `DependsOn` attribute with any resource. Here are some typical uses:
 - Determine when a wait condition goes into effect.
-- Declare dependencies for resources that must be created or deleted in a specific order. For example, you must explicitly declare dependencies on gateway attachments for some resources in a VPC.
+- Declare dependencies for resources that must be created or deleted in a specific order. For example, you must explicitly declare dependencies on gateway attachments for some resources in a VPC. For example, an Amazon EC2 instance with a public IP address is dependent on the VPC-gateway attachment if the VPC and Internet Gateway resources are also declared in the same template.
 
 ```yaml
 AWSTemplateFormatVersion: '2010-09-09'
@@ -211,13 +211,13 @@ Resources:
 ### DeletionPolicy
 
 You can put a DeletionPolicy on any resource to control what happens when the CloudFormation template is deleted
-- DeletionPolicy=Retain:
+- `DeletionPolicy: Retain`
   - Specify on resources to preserve / backup in case of CloudFormation deletes 
   - To keep a resource, specify Retain (works for any resource / nested stack)
-- DeletionPolicy=Snapshot:
+- `DeletionPolicy: Snapshot`
   - EBS Volume, ElastiCache Cluster, ElastiCache ReplicationGroup 
   - RDS DBInstance, RDS DBCluster, Redshift Cluster
-- DeletePolicy=Delete (default behavior):
+- `DeletePolicy: Delete` (default behavior)
   - Note: for AWS::RDS::DBCluster resources, the default policy is Snapshot
   - Note: to delete an S3 bucket, you need to first empty the bucket of its content
 

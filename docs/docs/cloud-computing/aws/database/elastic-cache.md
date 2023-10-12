@@ -12,6 +12,8 @@ sidebar_position: 5
 
 :::cautionImportant points
 - Amazon ElastiCache for Memcached does not support Multi-AZ for high availability.
+- You can use `CreateCacheCluster` API action to create a new ElastiCache cluster.
+- Each node is an EC2 instance, thus you can set its `CacheNodeType` parameter to choose the underlying EC2 instance type of the cluster.
 :::
 
 > Reference: [Scaling ElastiCache for Memcached clusters](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Scaling.html#Scaling.Memcached.Vertically)
@@ -23,8 +25,8 @@ The Memcached engine supports partitioning your data across multiple nodes. Beca
 
 ![memcache](/img/aws/database/elastic-cache/memcache.png)
 
-When you scale your Memcached cluster up or down, you must create a new cluster. Memcached clusters always start out empty unless your application populates it.
-
+- When you scale your Memcached cluster up or down, you must create a new cluster. Memcached clusters always start out empty unless your application populates it.
+- You can downgrade the node type by creating a new cluster and using a lower EC2 type
 
 ## Redis
 
@@ -32,6 +34,7 @@ When you scale your Memcached cluster up or down, you must create a new cluster.
 - When choosing the replica to promote to primary, ElastiCache for Redis chooses the replica with **the least replication lag**
 - You can manually promote read replicas to primary on Redis (cluster mode disabled), only **when Multi-AZ** and **automatic failover are disabled**.
 - To maintain high availability, you have to make sure that there are **at least two nodes in the cluster**. 
+- You can directly change the instance type of your cluster without creating a new one unlike Memcached
 :::
 
 ### Cluster Mode

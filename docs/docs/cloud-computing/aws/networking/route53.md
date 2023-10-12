@@ -53,7 +53,7 @@ The full steps of how private hosted zones work:
 ### enableDnsHostnames and enableDnsSupport
 
 For each VPC that you want to associate with the Route 53 hosted zone, change the following VPC settings to true:
-- `enableDnsHostnames` - Indicates whether instances launched in the VPC receive public DNS hostnames that correspond to their public IP addresses.
+- `enableDnsHostnames` - Indicates whether EC2 instances launched in the VPC receive public DNS hostnames that correspond to their public IP addresses.
   - For non-default VPCs that aren't created using the Amazon VPC wizard, this option is turned off by default.
   - To use a private hosted zone, this option must be turned on. If you create a private hosted zone for a domain and create records without turning on DNS hostnames, private hosted zones aren't turned on.
 - `enableDnsSupport` - Indicates whether the DNS resolution is supported for the VPC. 

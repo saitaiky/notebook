@@ -4,7 +4,7 @@ description: Firewall manager
 sidebar_position: 5
 ---
 
-> TL;DR - AWS Firewall Manager is mainly used to simplify your AWS WAF administration and maintenance tasks across multiple accounts and resources
+> TL;DR - AWS Firewall Manager is mainly used to simplify your **AWS WAF administration and maintenance tasks** across multiple accounts and resources
 
 ![firewall-manager](/img/aws/security/firewall-manager.png)
 

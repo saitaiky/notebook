@@ -186,6 +186,9 @@ Before jump to the answer, you should know:
 
 To simplify the deletion of both objects and versioned objects, you can set **a lifecycle rule** to remove all objects in a bucket one day after creation. If your bucket has versioning enabled, you can configure the rule to expire non-current objects.
 :::
+
+> Reference: [Configuring MFA delete](https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html)
+
 ### Pre-signed URL max validation time
 
 You create a pre-signed URL for your object, you must provide your security credentials, specify a bucket name, an object key, specify the HTTP method (GET to download the object) and expiration date and time. The pre-signed URLs are valid only for the specified duration. 

@@ -86,7 +86,7 @@ acceleration / multi-part for big files
 AWS Database Migration Service (AWS DMS) is a cloud service that makes it possible to migrate relational databases, data warehouses, NoSQL databases, and other types of data stores. You can use AWS DMS to migrate your data into the AWS Cloud or between combinations of cloud and on-premises setups.
 
 :::infoDMS + AWS Macie
-One combination that you could use is to set S3 as a Target of AWS DMS, then once the data is fully copied to S3, create a Macie classification job to analyze the S3 objects. Reference: [Using Amazon S3 as a source for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.S3.html)
+One combination that you could use is to set S3 as a Target of AWS DMS, then once the data is fully copied to S3, create **a Macie** classification job to analyze the S3 objects. Reference: [Using Amazon S3 as a source for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.S3.html)
 
 ![amazon-macie-s3-dms](/img/aws/database/amazon-macie-s3-dms.png)
 :::

@@ -15,6 +15,13 @@ Important points to remember:
 - You *can’t restore an unencrypted backup or snapshot to an encrypted DB instance*.
 - To copy an encrypted snapshot from one region to another, you must specify the KMS key identifier of the destination region.
 
+## Underlying instance type
+
+- There are currently over 18 instance sizes that you can choose from when resizing your RDS MySQL, PostgreSQL, MariaDB, Oracle, or Microsoft SQL Server instance. 
+- For Amazon Aurora, you have 5 memory-optimized instance sizes to choose from.
+
+![amazon_rds_increase_instance_size](/img/aws/database/rds/amazon_rds_increase_instance_size.png)
+
 ## Behaviour
 
 ### Replication
@@ -88,6 +95,15 @@ Reference:
 - [Overview of Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.overview.html)
 - [Hypervisor](/tech-concepts/glossary/others/#hypervisor)
 :::
+
+### PITR
+
+![rds-article](/img/aws/database/rds/rds-article.webp)
+
+The automated backup feature of Amazon RDS enables **point-in-time recovery (PITR)** of your DB instance. When automated backups are turned on for your DB Instance, Amazon RDS automatically performs a full daily snapshot of your data (during your preferred backup window) and captures transaction logs (as updates to your DB Instance are made). 
+
+When you initiate a point-in-time recovery, transaction logs are applied to the most appropriate daily backup in order to restore your DB instance to the specific time you requested.
+
 ## Scalability
 
 ### Read scalability
@@ -123,6 +139,15 @@ When you provision an RDS Multi-AZ DB Instance, Amazon RDS automatically creates
 ## Security
 
 Amazon RDS Read Replicas - If the master database is encrypted, the read replicas are encrypted.
+
+## OS patch upgrade
+
+On the Amazon RDS console to view if your RDS instance needs OS patching. Periodically, Amazon RDS performs maintenance on Amazon RDS resources. Maintenance most often involves updates to the DB instance's underlying operating system (OS) or database engine version. Updates to the operating system most often occur for security issues and should be done as soon as possible.
+
+Maintenance items require that Amazon RDS take your DB instance offline for a short time. Maintenance that require a resource to be offline include scale compute operations, which generally take only a few minutes from start to finish, and required operating system or database patching. Required patching is automatically scheduled only for patches that are related to security and instance reliability. Such patching occurs infrequently (typically once every few months) and seldom requires more than a fraction of your maintenance window.
+
+DB instances are not automatically backed up when an OS update is applied, so you should back up your DB instances before you apply an update. You can view whether a maintenance update is available for your DB instance by using the RDS console, the AWS CLI, or the Amazon RDS API. If an update is available, it is indicated by the word Available or Required in the Maintenance column for the DB instance on the Amazon RDS console.
+
 
 ## Troubleshooting
 

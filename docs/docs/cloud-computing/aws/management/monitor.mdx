@@ -138,7 +138,9 @@ CloudTrail logs all authenticated API requests (made with credentials) to IAM an
 
 ## Amazon Inspector
 
-Amazon Inspector is an automated **security assessment service** that helps improve the security and compliance of applications deployed on AWS. It detects software vulnerabilities and unintended network exposure in near real time in AWS workloads such as **Amazon EC2, AWS Lambda functions, and Amazon ECR**. You can create an assessment template and launch a security assessment run of this target. [ref](https://aws.amazon.com/blogs/aws/amazon-inspector-now-scans-aws-lambda-functions-for-vulnerabilities/)
+> TL;DR- It uses security assessments to identify security issues in the application layer, rather than the operating system or infrastructure layer.
+
+Amazon Inspector is an automated **security assessment service** that helps improve the security and compliance of applications deployed on AWS.  It detects software vulnerabilities and unintended network exposure in near real time in AWS workloads such as **Amazon EC2, AWS Lambda functions, and Amazon ECR**. You can create an assessment template and launch a security assessment run of this target. [ref](https://aws.amazon.com/blogs/aws/amazon-inspector-now-scans-aws-lambda-functions-for-vulnerabilities/)
 
 Summery dashboard:
 ![inspector](/img/aws/management/monitor/inspector.png) 
@@ -167,7 +169,11 @@ AWS Config does this through the use of rules that define the desired configurat
 - tagged your resources appropriately
 - enabled multi-factor authentication (MFA) for root accounts
 
+**IAM monitoring Example**
 Another example is you can view **the IAM policy that was assigned to an IAM user, group, or role at any time** in which AWS Config was recording. This information can help you determine the permissions that belonged to a user at a specific time: for example, you can view whether the user Sai Tai had permission to modify Amazon VPC settings on Jan 1, 2023.
+
+**Config rule with SSM Automation document**
+In order to detect any activity that exposes the application externally and restricts the action right away. You can create a custom **AWS Config rule** that continuously evaluates whether a security group allows inbound requests outside of the corporate CIDR range. Then, configure an **AWS Systems Manager Automation document** to automatically remove any noncorporate CIDR range from the security groups of the application.
 
 :::infoAmazon Inspector vs AWS Config
 Amazon Inspector is a **security assessment service** that helps you to identify potential security issues and compliance of applications deployed on AWS but it may not be the most efficient way to **address the specific security concern**.

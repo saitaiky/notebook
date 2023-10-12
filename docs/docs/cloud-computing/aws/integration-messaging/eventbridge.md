@@ -35,3 +35,13 @@ Snapshots are incremental backups, which means that only the blocks on the devic
 - IAM roles for rules are only used for events related to Kinesis Streams. 
 - For Lambda functions and Amazon SNS topics, you need to provide resource-based permissions.
 :::
+
+## Examples
+
+### Monitor API call from CloudTrail then use SNS for notification
+
+To get notified via email when there are API calls like the `CreateUser` API, you need to work with three services, namely AmazonEvent Bridge (Amazon CloudWatch Events), CloudTrail, and Amazon Simple Notification Service.
+
+You have to create an Amazon SNS topic with email subscriptions. This will allow email subscribers to get notified when a message is published on the topic.
+
+AWS CloudTrail publishes events that you can use as an event source when setting up an Amazon EventBridge rule. With this, you can then set up an Amazon EventBridge rule with CloudTrail as the event source, set `CreateUser` as the event pattern, and set the SNS topic you just created as the target.

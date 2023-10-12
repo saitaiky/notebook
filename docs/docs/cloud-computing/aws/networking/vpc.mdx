@@ -38,6 +38,11 @@ Most of the AWS-managed services are regional-based services with few exceptions
 
 > Future reading: [AWS Global vs Regional vs AZ resources](https://jayendrapatil.com/aws-global-vs-regional-vs-az-resources/#Global_vs_Regional_vs_AZ_Resource_locations)
 
+### Delete a VPC
+
+- When you delete a VPC using the VPC console, AWS deletes all its components, such as subnets, security groups, network ACLs, route tables, Internet gateways, VPC peering connections, and DHCP options. 
+- When you delete a VPC using the command line, you must first terminate all instances, delete all subnets, custom security groups, and custom route tables, and detach any Internet gateway in the VPC.
+
 ### Some points to remember
 
 - Regardless of the type of subnet, the internal IPv4 address range of the subnet is always private. AWS never announces these address blocks to the internet.

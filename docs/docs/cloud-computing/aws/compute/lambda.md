@@ -26,6 +26,12 @@ This table compares the characteristics of these four different data storage opt
 
 ## Working in VPC
 
+### Behaviour
+
+By default, when your Lambda function **is not configured to connect to your own VPCs**, the function can access anything available on the public internet such as other AWS services, HTTPS endpoints for APIs, or services and endpoints outside AWS. The function then has no way to connect to your private resources inside of your VPC.
+
+When you configure your Lambda function to connect to your own VPC, it creates an elastic network interface in your VPC and then does a cross-account attachment. These network interfaces **allow network access from your Lambda functions to your private resources**. These Lambda functions continue to run inside of the Lambda service’s VPC and can now only access resources over the network through your VPC.
+
 **Why can't an AWS lambda function inside a public subnet in a VPC connect to the internet?**
 
 Lambda functions connected to a VPC public subnet cannot typically access the internet.
