@@ -118,10 +118,6 @@ To prevent unintentional changes or data loss, it's a best practice to [frequen
 
 ### Resizing (Change instance type)
 
-:::cautionStop your Amazon EBS–backed EC2 instance before resizing
-You must stop your Amazon EBS–backed instance before you can change its instance type. AWS moves the instance to new hardware; however, the instance ID does not change
-:::
-
 - EBS volume vs Instance store volume
   - If the root device for your instance is **an EBS volume**, you can change the size of the instance simply by changing its instance type, which is known as resizing it. 
   - If the root device for your instance is **an instance store volume**, you must migrate your application to a new instance with the instance type that you need.

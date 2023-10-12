@@ -22,8 +22,8 @@ When deploying an app on Elastic Beanstalk, the service creates the following:
 
 ### 2 default alarms in ASG
 
-The Auto Scaling group in your Elastic Beanstalk environment uses **two Amazon CloudWatch alarms** to trigger scaling operations. The default triggers scale when..
-- the average outbound network traffic from each instance is higher than 6 MB
+The Auto Scaling group in your Elastic Beanstalk environment uses **two Amazon CloudWatch alarms** to trigger scaling operations. The default triggers scale when the average **outbound network traffic** from each instance
+- is higher than 6 MB
 - or lower than 2 MB over a period of five minutes.
 
 ## Permission

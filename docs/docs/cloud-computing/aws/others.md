@@ -23,10 +23,10 @@ Source: [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-r
 
 ## AWS Directory Service
 
-:::cautionExam alert
+:::cautionImportant Points
 The default inbound rules **allow traffic from any source (0.0.0.0/0)** to ports required by Active Directory. These rules do not introduce security vulnerabilities, **as traffic to the domain controllers is limited** to traffic from your VPC, other peered VPCs, or networks connected using AWS Direct Connect, AWS Transit Gateway or Virtual Private Network. 
 
-If you see "Security Groups - Unrestricted Access." in a security check, you can ignore or suppress the red flag, in this scenario.
+If you see "**Security Groups - Unrestricted Access**" in a security check, you can ignore or suppress the red flag, in this scenario.
 :::
 
 AWS Directory Service for Microsoft Active Directory (Standard Edition or Enterprise Edition) is an actual Microsoft Active Directory in the AWS Cloud. It automatically creates an AWS security group in your VPC with network rules for traffic in and out of AWS managed domain controllers. 

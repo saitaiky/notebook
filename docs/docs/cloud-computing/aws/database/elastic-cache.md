@@ -30,7 +30,7 @@ The Memcached engine supports partitioning your data across multiple nodes. Beca
 
 ## Redis
 
-:::cautionExam alert
+:::cautionImportant Points
 - When choosing the replica to promote to primary, ElastiCache for Redis chooses the replica with **the least replication lag**
 - You can manually promote read replicas to primary on Redis (cluster mode disabled), only **when Multi-AZ** and **automatic failover are disabled**.
 - To maintain high availability, you have to make sure that there are **at least two nodes in the cluster**. 

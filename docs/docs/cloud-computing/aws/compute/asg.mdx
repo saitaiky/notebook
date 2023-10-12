@@ -198,7 +198,10 @@ There are two scenarios possible:
 - CMK and Auto Scaling group are in the same AWS account
   - Copy and re-encrypt the snapshot with another CMK that belongs to the same account as the Auto Scaling group. Allow the service-linked role to use the new CMK.
 - CMK and Auto Scaling group are in different AWS accounts.
-  - Determine which service-linked role to use for this Auto Scaling group. Allow the Auto Scaling group account access to the CMK. Define an IAM user or role in the Auto Scaling group account that can create a grant. Create a grant to the CMK with the service-linked role as the grantee principal. Update the Auto Scaling group to use the service-linked role.
+  1. Determine which service-linked role to use for this Auto Scaling group. 
+  2. Allow the Auto Scaling group account access to the CMK. Define an IAM user or role in the Auto Scaling group account that can create a grant.
+  3. Create a grant to the CMK with the service-linked role as the grantee principal. 
+  4. Update the Auto Scaling group to use the service-linked role.
 
 To check the detailed actions, check [Troubleshoot Amazon EC2 Auto Scaling: EC2 instance launch failure](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html#ts-as-instancelaunchfailure-12)
 

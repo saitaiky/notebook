@@ -31,7 +31,7 @@ Source: [Choosing the Right DynamoDB Partition Key](https://aws.amazon.com/blogs
 
 ### DynamoDB Stream for a hybrid solution
 
-DynamoDB can take advantage of DynamoDB Streams and AWS Lambda to integrate seamlessly with one or more existing relational database systems. To check what 3 steps to be implemented, check this blog [Best practices for implementing a hybrid database system](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-hybrid.html#bp-hybrid-problems)
+DynamoDB can take advantage of DynamoDB Streams and AWS Lambda to integrate seamlessly with one or more **existing relational database systems**. To check what 3 steps to be implemented, check this blog [Best practices for implementing a hybrid database system](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-hybrid.html#bp-hybrid-problems)
 
 ### Conditional writes
 

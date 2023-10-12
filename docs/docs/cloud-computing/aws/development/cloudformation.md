@@ -328,7 +328,7 @@ This policy allows updates to all resources except for the MyDatabase, which is 
 
 ![termination-protection](/img/aws/development/cf/termination-protection.png)
 
-You cannot delete stacks that have termination protection enabled. If you attempt to delete a stack with termination protection enabled, the deletion fails and the stack(including its status) remains unchanged. 
+You **cannot delete stacks that have termination protection enabled**. If you attempt to delete a stack with termination protection enabled, the deletion fails and the stack(including its status) remains unchanged. 
   - Solution: Disable termination protection on the stack, then perform the delete operation again.
 
 This includes nested stacks whose root stacks have termination protection enabled. 
@@ -446,14 +446,17 @@ Its **default value** is `ROLLBACK` which means that the CloudFormation service 
 
 ### Self-managed permissions or Service-managed permissions to create Stack sets  
 
-> TL:DR - If you require custom access controls or want to align permissions with your existing IAM setup, self-managed permissions provide more flexibility. On the other hand, if you prefer a simpler setup and want AWS to handle the IAM roles for you, service-managed permissions offer convenience and consistency.
+> TL:DR - If you require custom access controls or want to align permissions with your existing IAM setup, **self-managed permissions** provide more flexibility. On the other hand, if you prefer a simpler setup and want AWS to handle the IAM roles for you, **service-managed permissions** offer convenience and consistency.
 
-Stack sets can be created using either **self-managed permissions** or **service-managed permissions**. 
+Stack sets can be created using either self-managed permissions or service-managed permissions. 
 
-With service-managed permissions, you can deploy stack instances to accounts managed by AWS Organizations. Using this permissions model, you don't have to create the necessary IAM roles; StackSets creates the IAM roles on your behalf. 
-- **An administrator account** is the AWS account in which you create stack sets. The administrator account is either the organization's management account or a delegated administrator account. **A target account** is an account into which you create, update, or delete one or more stacks in your stack set. 
+With service-managed permissions model, you can deploy stack instances to accounts managed by AWS Organizations **without creating the necessary IAM roles; StackSets creates the IAM roles on your behalf**. 
+
+:::infoPrerequisite
 - Before you can use a stack set to create stacks in a target account, you must set up **a trust relationship** between the administrator and target accounts.
-
+- **An administrator account** is the AWS account in which you create stack sets. The administrator account is either the organization's management account or a delegated administrator account. 
+- **A target account** is an account into which you create, update, or delete one or more stacks in your stack set. 
+:::
 
 ## Trouble shooting
 

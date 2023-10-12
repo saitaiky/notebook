@@ -175,7 +175,7 @@ You have three mutually exclusive options depending on how you choose to manage 
 
 ### S3 Access Points
 
-> TL;DR - A indepentent DNS access folder which you can use access poing policy to control permission, so that you don't need to create a complicated S3 bucket policy for multiple group of users.
+> TL;DR - **An indepentent DNS access folder** which you can use access poing policy to control permission, so that you don't need to create a complicated S3 bucket policy for multiple group of users.
 
 Amazon S3 Access Points simplify data access management for shared datasets on S3. They provide unique hostnames with distinct permissions and network controls for each application, allowing easy scaling for hundreds of applications.
 
@@ -485,6 +485,12 @@ objects</td>
 </TabItem>
 <TabItem value="bucketpolicies" label="BucketPolicies">
 
+When creating an IAM policy for S3 uploads, you need to include specific permissions. Here are the essential ones:
+
+- `s3:PutObject`: This permission allows an IAM user to upload objects to a specified S3 bucket.
+- `s3:PutObjectAcl`: This permission allows the user to modify the Access Control List (ACL) of an object. It’s necessary if you want to control who can access the uploaded objects.
+- `s3:ListBucket`: This permission is required to list the objects in a bucket. It’s necessary for users to see what’s already in the bucket before uploading new objects.
+
 The following example policy grants the `s3:PutObject` and `s3:PutObjectAcl` permissions to multiple AWS accounts and requires that any request for these operations include the `public-read` canned access control list (ACL). For more information, see [Amazon S3 actions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html) and [Amazon S3 condition key examples](https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazon-s3-policy-keys.html).
 [Example Bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html)
 ```json
@@ -521,7 +527,9 @@ The following example policy grants the `s3:PutObject` and `s3:PutObjectAcl`�
 </Tabs>
 
 
-### Sepcify the right resources to actions
+### Resources for corresponding actions
+
+In this bucket policy, if you don't have either `arn:aws:s3:::tutorialsdojo/*` for `s3:GetObject` or `arn:aws:s3:::tutorialsdojo` for `s3:ListBucket`, you will be prompted with an "Action does not apply to any resource(s) in statement" error if you tried to apply this bucket policy. 
 
 ```json
 {
@@ -544,8 +552,6 @@ The following example policy grants the `s3:PutObject` and `s3:PutObjectAcl`�
 ]
 }
 ```
-
-If you don't have either `arn:aws:s3:::tutorialsdojo/*` for `s3:GetObject` or `arn:aws:s3:::tutorialsdojo` for `s3:ListBucket`, you will be prompted with an "Action does not apply to any resource(s) in statement" error if you tried to apply this bucket policy. 
 
 
 ### HTTPS for encryption
@@ -642,7 +648,7 @@ If you restrict access by using, for example, CloudFront signed URLs or signed c
 ### Restricting only CloudFront access
 
 :::infoWhen to use OAI/OAC?
-Use an Origin Access Identity (OAI) in AWS S3 when you want to securely deliver private content stored in an S3 bucket through a CloudFront distribution. OAI restricts direct access to S3 objects while allowing controlled distribution via CloudFront edge locations, enhancing performance and security for delivering sensitive or restricted content to users.
+Use an Origin Access Identity (OAI) in AWS S3 when you want to securely deliver **private content stored in an S3 bucket** through a CloudFront distribution. OAI restricts direct access to S3 objects while allowing controlled distribution via CloudFront edge locations, enhancing performance and security for delivering sensitive or restricted content to users.
 :::
 
 :::cautionNo OAI for S3 static website

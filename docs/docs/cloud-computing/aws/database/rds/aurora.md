@@ -52,14 +52,14 @@ By design, Aurora Serverless connects to a proxy fleet of DB instances that scal
 
 Further reading: [How can I enable logs on an Aurora Serverless cluster so I can view and download the logs?](https://aws.amazon.com/premiumsupport/knowledge-center/aurora-serverless-logs-enable-view/)
 
-### Failover in region
+### Failover in multiple AZs
 
-In the event of an outage that impacts an entire Availability Zone (AZ) and renders the primary instance of an Amazon Aurora cluster unavailable, the appropriate action to bring the database online depends on the cluster's configuration.
+In the event of an outage that affects an entire AZ where the primary instance of an Aurora cluster, the way to bring a new primary instance online depends on whether your cluster uses a multi-AZ configuration..
 
-- Automatic
-  - If the cluster includes reader instances in other AZs, Aurora's failover mechanism is utilized, promoting one of the reader instances to become the new primary instance. 
-- Manual
-  - However, if the cluster only contains **a single DB instance** or **all reader instances are in the affected AZ**, manual creation of new DB instances in another AZ is necessary to restore the database's availability.
+- Automatic failover
+  - If the cluster includes **reader instances in other AZs**, Aurora's failover mechanism is utilized, promoting one of the reader instances to become the new primary instance. 
+- Manual failover
+  - However, if the cluster only contains **a single DB instance** or **all reader instances are in the outage affecting AZ**, manual creation of new DB instances in another AZ is necessary to restore the database's availability.
 
 ## Features
 

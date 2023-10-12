@@ -341,7 +341,7 @@ Source: [Full comparsion table](https://docs.aws.amazon.com/AWSEC2/latest/UserGu
     - You can copy both Amazon EBS-backed AMIs and instance-store-backed AMIs. 
     - Copying a source AMI results in an identical but distinct target AMI with its own **unique identifier(AMI ID)**. 
     - You can change or deregister the source AMI with no effect on the target AMI.
-    - You can't restore or recover a deleted or deregistered AMI. The only option is to create a new, identical AMI
+    - You can't restore or recover** a deleted or deregistered AMI**. The only option is to create a new, identical AMI
 - Automation
   - **EC2 Image Builder** is a service AWS offer that allows you to automate the process of *building custom AMIs*. It also handles the full pipeline for creating, testing and even distributing the machine images.
   - **Image Builder** uses the AWS **Task Orchestrator and Executor** (AWSTOE) component management application to orchestrate complex workflows. Build and test components that work with the AWSTOE application are based on YAML documents that define the scripts to customize or test your image. 
@@ -426,8 +426,10 @@ The following table shows encryption support for various AMI-copying scenarios. 
 
 Once an AMI is deleted or deregistered, it cannot be restored or recovered. However, you have two options to create an identical AMI:
 
-- Use Amazon EBS snapshots created during the AMI creation process: If you accidentally delete the AMI, you can launch an identical AMI using one of the retained EBS snapshots.
-- Recover from existing EC2 instances: If the AMI and snapshots are deleted, you can still recover the AMI from existing EC2 instances launched using the deleted AMI. Note that this process may require rebooting the instance unless the "No reboot" option was selected during instance launch.
+- Use Amazon EBS snapshots created during the AMI creation process
+  - If you accidentally delete the AMI, you can launch an identical AMI using one of the retained EBS snapshots.
+- Recover from existing EC2 instances
+  - If the AMI and snapshots are deleted, you can still recover the AMI from existing EC2 instances launched using the deleted AMI. Note that this process may require rebooting the instance unless the "`No reboot`" option was selected during instance launch.
 
 ## Troubleshooting
 
@@ -523,7 +525,7 @@ permissions, else you will get “Unprotected private key file” error
 In order to change the EC2 instance type, you must stop your Amazon EBS–backed instance before you can change its instance type. When you stop and start an instance, AWS moves the instance to new hardware; however, the instance ID does not change.
 
 :::infoChange EC2 instance type in an Auto Scaling group 
-If your instance is in an **Auto Scaling group**, the Amazon EC2 Auto Scaling service marks the stopped instance as unhealthy, and may terminate it and launch a replacement instance. To prevent this, you can suspend the scaling processes for the group while you're resizing your instance.
+If your instance is in an **Auto Scaling group**, the Amazon EC2 Auto Scaling service marks the stopped instance as unhealthy, and may terminate it and launch a replacement instance. To prevent this, you can **suspend the scaling processes for the group** while you're resizing your instance.
 :::
 
 ### EBS backed EC2 goest from `pending` to `terminated` immediately
