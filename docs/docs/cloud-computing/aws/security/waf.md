@@ -6,7 +6,7 @@ keywords:
 sidebar_position: 4
 ---
 
-AWS WAF is a web application firewall that lets you configure rules that allow, block, or monitor (count) web requests to below 4 services based on conditions that you define. 
+AWS WAF is a web application firewall (**layer 7**) that lets you configure rules that allow, block, or monitor (count) web requests to below 4 services based on conditions that you define. 
 - **an Amazon CloudFront distribution**
   - Your rules run in all AWS Edge Locations located around the world close to your end-users. This means security doesn’t come at the expense of performance. Blocked requests are stopped before they reach your web servers. 
 - **an Amazon API Gateway REST API**

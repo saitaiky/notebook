@@ -136,13 +136,19 @@ When you provision an RDS Multi-AZ DB Instance, Amazon RDS automatically creates
 - Amazon RDS *automatically initiates a failover* to the standby, in case the primary database fails for any reason  
 - RDS applies OS updates by performing maintenance on the standby, then promoting the standby to primary, and finally performing maintenance on the old primary, whic
 
-## Security
+## Limitations for encrypted DB instance
 
-Amazon RDS Read Replicas - If the master database is encrypted, the read replicas are encrypted.
+The following limitations exist for Amazon RDS encrypted DB instance:
+
+- **You can only enable encryption for an Amazon RDS DB instance when you create it**, not after the DB instance is created. However, because you can encrypt a copy of an unencrypted DB snapshot, you can effectively add encryption to an unencrypted DB instance. That is, you can create a snapshot of your DB instance and then create an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot, and thus you have an encrypted copy of your original DB instance.
+- **[important] You can't disable encryption on an encrypted DB instance.**
+- **[important] You can't have an encrypted Read Replica of an unencrypted DB instance or an unencrypted Read Replica of an encrypted DB instance.**
+- **[important] You can't restore an unencrypted backup or snapshot to an encrypted DB instance.**
+- **To copy an encrypted snapshot from one region to another, you must specify the KMS key identifier of the destination region.** This is because KMS encryption keys are specific to the region in which they are created in. - The source snapshot remains encrypted throughout the copy process. AWS Key Management Service uses envelope encryption to protect data during the copy process.
 
 ## OS patch upgrade
 
-On the Amazon RDS console to view if your RDS instance needs OS patching. Periodically, Amazon RDS performs maintenance on Amazon RDS resources. Maintenance most often involves updates to the DB instance's underlying operating system (OS) or database engine version. Updates to the operating system most often occur for security issues and should be done as soon as possible.
+**On the Amazon RDS console** to view if your RDS instance needs OS patching. Periodically, Amazon RDS performs maintenance on Amazon RDS resources. Maintenance most often involves updates to the DB instance's underlying operating system (OS) or database engine version. Updates to the operating system most often occur for security issues and should be done as soon as possible.
 
 Maintenance items require that Amazon RDS take your DB instance offline for a short time. Maintenance that require a resource to be offline include scale compute operations, which generally take only a few minutes from start to finish, and required operating system or database patching. Required patching is automatically scheduled only for patches that are related to security and instance reliability. Such patching occurs infrequently (typically once every few months) and seldom requires more than a fraction of your maintenance window.
 

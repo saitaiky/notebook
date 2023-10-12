@@ -405,7 +405,7 @@ Source: [AWS Direct Connect + AWS Site-to-Site VPN](https://docs.aws.amazon.com/
 
 This solution combines the benefits of the end-to-end secure IPsec connection with low latency and increased bandwidth of the AWS Direct Connect to provide a more consistent network experience than internet-based VPN connections. 
 
-A BGP connection session is established between AWS Direct Connect and your router on the public VIF. Another BGP session or a static route will be established between the virtual private gateway and your router on the IPsec VPN tunnels.
+A BGP connection session is established between AWS Direct Connect and your router on the public VIF. Another BGP session or a static route will be established between the virtual private gateway (also known as a **VPN Gateway**)  and your router on the IPsec VPN tunnels.
 
 
 ## NAT 
@@ -495,7 +495,7 @@ Amazon VPC provides the facility to create an **IPsec VPN** connection (also kno
 
 ### How to setup route table
 
-When establishing a static VPN connection between an on-premises network and a VPC in AWS, the virtual private gateway must be configured to route traffic to the customer gateway on the on-premises side, and the customer gateway must be configured to route traffic to the virtual private gateway on the AWS side.
+When establishing a static VPN connection between an on-premises network and a VPC in AWS, the virtual private gatewa (also known as a **VPN Gateway**)  must be configured to route traffic to the customer gateway on the on-premises side, and the customer gateway must be configured to route traffic to the virtual private gateway on the AWS side.
 
 From the AWS side, in order to enable instances in your VPC to reach your customer gateway, you must configure your route table to include the routes used by your VPN connection and point them to your virtual private gateway. You can enable route propagation for your route table to automatically propagate those routes to the table for you.
 

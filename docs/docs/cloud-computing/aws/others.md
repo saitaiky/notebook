@@ -74,7 +74,7 @@ Administrators can associate TagOptions with portfolios and products. During **a
   - **Amazon EMR** (previously called Amazon Elastic MapReduce) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. Using these frameworks and related open-source projects, you can process data for analytics purposes and business intelligence workloads. 
   - Aws neptune (Fully Managed Graph Database)
 - Security
-  - Amazon **GuardDuty** is a **continuous security monitoring service** that analyzes and processes the following data sources: AWS CloudTrail management event logs, AWS CloudTrail data events for S3, DNS logs, EKS audit logs, and VPC flow logs. <br/><br/>
+  - Amazon **GuardDuty** is a **continuous threat detection service** that analyzes and processes the following data sources: AWS CloudTrail management event logs, AWS CloudTrail data events for S3, DNS logs, EKS audit logs, and VPC flow logs. <br/><br/>
   It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and **machine learning** to identify unexpected and potentially unauthorized and malicious activity within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or communication with malicious IP addresses, or domains.
   ![guardduty-malware-protection-finding-selected](/img/aws/other/guardduty-malware-protection-finding-selected.png)
   Source: [New for Amazon GuardDuty](https://aws.amazon.com/blogs/aws/new-for-amazon-guardduty-malware-detection-for-amazon-ebs-volumes/)

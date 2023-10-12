@@ -73,9 +73,10 @@ If you encrypt first with KMS then store in SSM Parameter store,  it requires **
 
 To permit the usage of a CMK to users and roles in another account, you must use **two different types of policies**:
 
-- The key policy for the CMK must give the external account (or users and roles in the external account) permission to use the CMK. The key policy is in the account that owns the CMK.
-- IAM policies in the external account must delegate the key policy permissions to its users and roles. These policies are set in the external account and give permissions to users and roles in that account.
+- Since **Key policies** are the **primary way** to control access to CMKs in AWS KMS, the **key policy** for the CMK must give the external account (or users and roles in the external account) permission to use the CMK. 
+- **IAM policies** in the external account must delegate the key policy permissions to its users and roles. These policies are set in the external account and give permissions to users and roles in that account.
 
+![kms-key-policy-sample](/img/aws/security/kms-key-policy-sample.jpg)
 
 ## KMS with CodeBuild
 - Q: How to make the build artifacts to be automatically encrypted at the end?
@@ -102,6 +103,16 @@ You can use the *create-log-group* command to associate the CMK with a log group
 Some other notes
 After you associate a CMK with a log group, all newly ingested data for the log group is encrypted using the CMK. This data is stored in an encrypted format throughout its retention period. 
 CloudWatch Logs decrypts this data whenever it is requested. CloudWatch Logs must have permissions for the CMK whenever encrypted data is requested.
+
+### SSL
+
+Based on its respective DB engine, configure the database to use SSL and use the root certificates which are readily available from AWS.
+
+:::infoRoot certificate
+A **root certificate** that works for all regions can be downloaded from the AWS website. It is the trusted root entity and should work in most cases but might fail if your application doesn't accept certificate chains. 
+
+If your application doesn't accept certificate chains, download the **AWS Region–specific certificate** from AWS.
+:::
 
 ### SSE-KMS vs SSE-S3
 

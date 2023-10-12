@@ -58,6 +58,17 @@ While Standard Infrequent Access and Standard offer the same durability (99.9999
 It isn't resilient to the physical loss of an Availability Zone resulting from disasters, such as earthquakes and floods. **If the AZ is destroyed, so is your data**.
 :::
 
+### Glacier
+
+In Amazon S3 Glacier, an archive is any object, such as a photo, video, or document that you store in a vault. It is a base unit of storage in Glacier. Each archive has a unique ID and an optional description. When you upload an archive, Amazon S3 Glacier returns a response that includes **an archive ID**. This archive ID is unique in the region in which the archive is stored.
+- Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
+- Glacier Vault provides **[S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) to prevent future changes for WORM compliance**. (The setting format is like IAM policy)
+  - A **vault lock policy** is different than a vault access policy. Both policies govern access controls to your vault. However, a vault lock policy can be locked to prevent future changes, providing strong enforcement for your compliance controls. You can use the vault lock policy to deploy regulatory and compliance controls, which typically require tight controls on data access. 
+  - In contrast, you use a **vault access policy** to implement access controls that are not compliance related, temporary, and subject to frequent modification. Vault lock and vault access policies can be used together.
+- In Amazon S3 Glacier, you cannot assign a key name to the archives that you upload. The Lifecycle policies can then be used to transition the storage class of the object to Glacier, which will **preserve the filename of your uploaded archive**.
+- You can retrieve 10 GB of your Amazon S3 Glacier data per month for free
+:::
+
 ### Delete Bucket
 
 #### Delete Bucket is Eventually consistent 
@@ -137,7 +148,7 @@ We expect customers to use S3 Select to accelerate all sorts of applications. Fo
 
 ### Object Lock
 
-You can use S3 Object Lock to store objects using a write-once-read-many (WORM) model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely. You can use S3 Object Lock to meet regulatory requirements that require WORM storage, or add an extra layer of protection against object changes and deletion.
+You can use S3 Object Lock to store objects using a **write-once-read-many (WORM)** model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely. You can use S3 Object Lock to meet regulatory requirements that require WORM storage, or add an extra layer of protection against object changes and deletion.
 
 S3 Object Lock provides two retention modes:
 
@@ -566,7 +577,7 @@ If you want to specify a different encryption type in your `PUT` requests, you
 When using server-side encryption with **customer-provided encryption keys (SSE-C)**, you must provide encryption key information using the following request headers:
 
 - `x-amz-server-side​-encryption​-customer-algorithm`: This header value must be "AES256".
-- `x-amz-server-side​-encryption​-customer-key` use this header to provide the 256-bit, base64-encoded encryption key for Amazon S3 to use to encrypt or decrypt your data.
+- `x-amz-server-side​-encryption​-customer-key` use this header to provide the 256-bit, **base64-encoded encryption key** for Amazon S3 to use to encrypt or decrypt your data.
 - `x-amz-server-side​-encryption​-customer-key-MD5` use this header to provide the base64-encoded 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure the encryption key was transmitted without error.
 :::
 
@@ -680,14 +691,6 @@ AWS Snowball is a physical data transfer device offered by Amazon Web Services (
 
 :::danger
 *You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault** *. You need to go through S3 first and then use a lifecycle policy.
-:::
-
-:::infoWhat is Glacier?
-In Amazon S3 Glacier, an archive is any object, such as a photo, video, or document that you store in a vault. It is a base unit of storage in Glacier. Each archive has a unique ID and an optional description. When you upload an archive, Amazon S3 Glacier returns a response that includes **an archive ID**. This archive ID is unique in the region in which the archive is stored.
-- Glacier Vault and Glacier Deep Archive Vault are one of the S3 storage classes.
-- Glacier Vault provides **[S3 Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html) to prevent future changes for WORM compliance**.
-- In Amazon S3 Glacier, you cannot assign a key name to the archives that you upload. The Lifecycle policies can then be used to transition the storage class of the object to Glacier, which will **preserve the filename of your uploaded archive**.
-- You can retrieve 10 GB of your Amazon S3 Glacier data per month for free
 :::
 
 :::infoAWS OpsHub - an UI replacement of CLI to manage of Snow Family Devices
