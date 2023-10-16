@@ -6,6 +6,7 @@ keywords:
 sidebar_position: 2
 ---
 
+SQS is a fully managed message queuing service which enables decoupling of the components in a cloud application, allowing distributed, loosely-coupled systems to communicate efficiently. With SQS, you can send, store, and receive messages between software components at any volume without the need to manage infrastructure. It offers high availability, durability, and supports various messaging patterns, making it an essential service for building scalable and resilient cloud applications.
 
 ## SQS temporary queues 
 

@@ -3,8 +3,10 @@ title: CloudWatch
 description: CloudWatch
 keywords:
 - CloudWatch
-sidebar_position: 1
+sidebar_position: 2
 ---
+
+AWS CloudWatch is a comprehensive monitoring and observability service provided by Amazon Web Services. It allows users to collect, monitor, and store various operational data, such as logs and metrics, from AWS resources and applications in one central location. CloudWatch provides insights into system performance, resource utilization, and application behavior, enabling users to troubleshoot issues, set alarms, and automate responses to maintain the reliability and availability of their applications. It's a valuable tool for optimizing resource usage and ensuring the overall health of AWS environments.
 
 ## Behaviour
 
@@ -21,7 +23,7 @@ Metric math enables you to **query multiple CloudWatch metrics** and use math ex
 You can use Amazon CloudWatch Synthetics to create *canaries* which is a **configurable scripts** that run on a schedule, to **monitor your endpoints and APIs**. Canaries follow the same routes and perform the same actions as a customer, which makes it possible for you to continually verify your customer experience even when you don't have any customer traffic on your applications.
 
 - Canaries are Node.js scripts. They create Lambda functions in your account that use Node.js as a framework. Canaries work over both HTTP and HTTPS protocols.
-- UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see Puppeteer.
+- UI canaries offer programmatic access to a headless Google Chrome Browser via Puppeteer. For more information about Puppeteer, see [Puppeteer](https://developers.google.com/web/tools/puppeteer).
 - Canaries check the availability and latency of your endpoints and can store load time data and screenshots of the UI. They monitor your REST APIs, URLs, and website content, and they can check for unauthorized changes from phishing, code injection and cross-site scripting.
 
 ### CloudWatch alarm & action
@@ -91,7 +93,7 @@ Metrics, sometimes called time series, are concerned with events aggregated acro
 :::
 
 :::infoWhat is Dimensions?
-> TL;DR - Thank Dimension as a label 
+> TL;DR - Think Dimension as a label 
 
 The key to distinguishing between Metrics with the same Name are Dimensions:
 
@@ -114,7 +116,7 @@ Because you don't have direct access to the instances/servers of your RDS databa
 You can use **Enhanced Monitoring** feature in RDS to monitor the RDS. 
 :::
 
-Take note that there are certain differences between CloudWatch and Enhanced Monitoring Metrics. CloudWatch gathers metrics about CPU utilization from the hypervisor for a DB instance, and Enhanced Monitoring gathers its metrics from an agent on the instance. As a result, you might find differences between the measurements, because the hypervisor layer performs a small amount of work.
+Take note that there are certain differences between CloudWatch and Enhanced Monitoring Metrics when gathering data for RDS. CloudWatch gathers metrics about CPU utilization from the hypervisor for a DB instance, and Enhanced Monitoring gathers its metrics from an agent on the instance. As a result, you might find differences between the measurements, because the hypervisor layer performs a small amount of work.
 
 The differences can be greater if your DB instances use smaller instance classes because then there are likely more virtual machines (VMs) that are managed by the hypervisor layer on a single physical instance. Enhanced Monitoring metrics are useful **when you want to see how different processes or threads on a DB instance use the CPU.**
 

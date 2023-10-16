@@ -233,10 +233,6 @@ If the **ASG** is using **EC2** as the health check type and the **ALB** is usin
 
 Therefore, in this scenario, the **ALB** will remove the instance from its inventory, however, the **ASG** will fail to provide the replacement instance. This can lead to the scaling issues mentioned in the problem statement.
 
-:::infoAnother point
-If your application crashes, the load balancer removes the unhealthy instances from its target. However, your Auto Scaling group doesn't automatically replace the unhealthy instances marked by the load balancer.
-:::
-
 ## Examples
 
 ### Automatically recover 

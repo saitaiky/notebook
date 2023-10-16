@@ -3,12 +3,13 @@ title: S3
 description: S3
 keywords:
   - S3
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+Amazon S3 (Simple Storage Service) is a scalable and highly durable object storage service which allows users to store and retrieve data, such as files, documents, images, and more, through a web interface. S3 is known for its reliability, low-latency access, and data protection features. It's widely used for data backup, website hosting, data archiving, and as a foundation for various cloud-based applications.
 
 ## Basic
 
@@ -113,7 +114,7 @@ As an example, let's imagine you're a developer at a large retailer and you need
 
 Let's look at a quick Python example, which shows how to retrieve the first column from an object containing data in CSV format.
 
-```
+```python
 import boto3
 s3 = boto3.client('s3')
 
@@ -166,7 +167,7 @@ Cross-origin resource sharing (CORS) defines a way for client web applications t
 
 You have three mutually exclusive options depending on how you choose to manage the encryption keys:
 
-- AWS KMS, you can..
+- SSE-KMS, you can..
   - define access controls and audit the customer-managed CMK
   - manage the lifecycle of the key material
   - create, rotate, and disable customer-managed CMK

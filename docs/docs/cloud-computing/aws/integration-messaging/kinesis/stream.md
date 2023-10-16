@@ -6,14 +6,20 @@ keywords:
 sidebar_position: 1
 ---
 
+## Features
+### Integrated with KMS 
 
-## Can you write data to Kinesis data stream?
+**Server-side encryption** is a feature in Amazon Kinesis Data Streams that automatically encrypts data before it's at rest by using an AWS KMS customer master key (CMK) you specify. 
+
+Data is encrypted before it's written to the Kinesis stream storage layer and decrypted after it's retrieved from storage. As a result, your data is encrypted at rest within the Kinesis Data Streams service.
+
+### Can you write data to Kinesis data stream?
 
 When a Kinesis data stream is configured as the source of a Firehose delivery stream, Firehose’s PutRecord and PutRecordBatch operations are disabled and Kinesis Agent cannot write to Firehose delivery stream directly. 
 
 Data needs to be added to the Kinesis data stream through the Kinesis Data Streams PutRecord and PutRecords operations instead. 
 
-## What happens if the capacity limits of a Kinesis data stream are exceeded while the data producer adds data to the data stream?
+### What happens if the capacity limits of a Kinesis data stream are exceeded while the data producer adds data to the data stream?
 
 The put data calls will be rejected with a `ProvisionedThroughputExceededException`
 

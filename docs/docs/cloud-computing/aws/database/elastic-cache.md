@@ -6,8 +6,8 @@ keywords:
 sidebar_position: 5
 ---
 
-> A really good reference from AWS: [Caching Overview](https://aws.amazon.com/caching/)
 
+For the high level overview of what is caching, please refer to my another post: [What is Caching](/tech-concepts/cach/)
 ## Memcached
 
 :::cautionImportant points

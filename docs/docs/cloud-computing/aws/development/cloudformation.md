@@ -6,6 +6,9 @@ keywords:
 sidebar_position: 2
 ---
 
+
+AWS CloudFormation is an AWS service that allows you to define and provision infrastructure as code, making it easier to create and manage AWS resources. It enables users to describe and set up all the resources needed for their applications, ensuring consistency and ease of replication. CloudFormation templates define the resources, their configurations, and the relationships between them in a JSON or YAML file.
+
 ## EC2 interaction
 ### User Data in EC2
 

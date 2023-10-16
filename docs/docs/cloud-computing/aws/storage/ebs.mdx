@@ -5,8 +5,10 @@ keywords:
   - EBS
   - Elastic Block Store
 sidebar_label: EBS
-sidebar_position: 1
+sidebar_position: 3
 ---
+
+Amazon EBS is a high-performance block storage service which is designed for use with EC2 instances and offers durable, low-latency storage volumes. EBS enables you to create, attach, and configure storage volumes for your EC2 instances. You can choose from various EBS volume types optimized for different use cases, such as General Purpose (SSD), Provisioned IOPS (SSD), and Cold HDD. EBS volumes can be easily backed up, resized, and snapshots can be taken to protect your data. It's a fundamental component for scalable and reliable AWS workloads.
 
 ## Comparsion
 
@@ -137,9 +139,9 @@ You can't recover a volume in an `error` state, you can restore the lost data fr
 
 ### EBS keeps showing `attaching`
 
-![ebs-attaching](/img/aws/storage/ebs/ebs-attaching.png)
-
 > TL;DR - Check that the device name you specified when you attempted to attach the EBS volume isn't already in use. Attempt to attach the volume to the instance, again, but **use a different device name**
+
+![ebs-attaching](/img/aws/storage/ebs/ebs-attaching.png)
 
 When attaching an EBS volume to an EC2 instance, make sure the device name you choose isn't already in use by the instance's block device driver. If the name is used internally, the attachment will fail. The block device driver might assign a different name to the volume than what you specified. If you pick a name already used by the driver, the volume gets stuck `attaching`. 
 

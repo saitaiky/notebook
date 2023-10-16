@@ -12,6 +12,8 @@ import TabItem from '@theme/TabItem';
 
 ## CodePipeline
 
+AWS CodePipeline is a fully managed continuous integration and continuous delivery (CI/CD) service by Amazon Web Services. It automates the build, test, and deployment phases of your release process, allowing you to quickly and reliably deliver applications and updates, thus enhancing software delivery pipelines.
+
 ### [Input and output artifacts](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome-introducing-artifacts.html)
 
 CodePipeline integrates with development tools to check for code changes and then build and deploy through all of the stages of the continuous delivery process.
@@ -43,6 +45,8 @@ Whereas CodeDeploy is a **deployment service**, CodePipeline is a **continuous d
 
 
 ## CodeCommit
+
+AWS CodeCommit is a fully managed source control service by Amazon Web Services. It provides secure and scalable Git repositories for hosting source code, artifacts, and other development assets. CodeCommit simplifies collaborative software development and integrates seamlessly with other AWS services and popular development tools.
 
 ### Repositories are automatically encrypted in transit and at rest
 
@@ -84,14 +88,18 @@ AWS CodeBuild monitors functions on your behalf and reports metrics through Amaz
 
 You can monitor your builds at two levels: Project level, AWS account level. You can export log data from your log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
 
+### Integrated with KMS
+
+In order to let AWS CodeBuild to encrypt its build output artifacts, it needs access to an AWS KMS customer master key (CMK). 
+
+By default, AWS CodeBuild uses the AWS-managed CMK for Amazon S3 in your AWS account.  The following environment variable provides these details:
+`CODEBUILD_KMS_KEY_ID`: The identifier of the AWS KMS key that CodeBuild is using to encrypt the build output artifact (for example, `arn:aws:kms:region-ID:account-ID:key/key-ID` or `alias/key-alias`).
 
 ## CodeDeploy
 
 ### Lifecycle
 
-You can specify one or more scripts to run in a hook. Each hook for a lifecycle event is specified with a string on a separate line.
-
-Please review the correct order of lifecycle events:
+You can specify one or more scripts to run in a hook. Each hook for a lifecycle event is specified with a string on a separate line. Please review the correct order of lifecycle events:
 
 ![lifecycle-event-hook](/img/aws/development/lifecycle-event-hook.png)
 

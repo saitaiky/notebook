@@ -3,7 +3,7 @@ title: Cognito, IAM Identity Center
 description: Cognito
 keywords:
   - Cognito
-sidebar_position: 1
+sidebar_position: 3
 ---
  
 ## Cognito

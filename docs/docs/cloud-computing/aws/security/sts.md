@@ -3,10 +3,8 @@ title: STS
 description: STS
 keywords:
   - STS
-sidebar_position: 1
+sidebar_position: 6
 ---
-
-
 ## How to use STS to decode authorization failure message when making AWS CLI commands?
 
 Use STS `decode-authorization-message`

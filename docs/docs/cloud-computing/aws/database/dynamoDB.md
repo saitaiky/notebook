@@ -6,6 +6,8 @@ keywords:
 sidebar_position: 3
 ---
 
+Amazon DynamoDB is a fully managed NoSQL database service which is designed for high-performance, low-latency, and scalable applications. DynamoDB can handle massive amounts of data and traffic, making it ideal for web, gaming, IoT, and mobile applications. It offers seamless scalability, automatic data replication, and built-in security. Users can choose on-demand or provisioned capacity modes. With its flexible data model, consistent performance, and ease of use, DynamoDB is a popular choice for applications requiring fast and reliable database services in the cloud.
+
 ## Behaviour
 
 ### [Partitions and data distribution](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.Partitions.html)
@@ -47,13 +49,12 @@ Atomic Counters is a numeric attribute that is incremented, unconditionally, wit
 
 There are 4 different way to backup DynamoDB.
 
-- DynamoDB has two built-in backup methods (On-demand, Point-in-time recovery) that write to Amazon S3, but *you will not have access to the S3 buckets that are used for these backups*.
-
-- Use AWS Data Pipeline to export your table to an S3 bucket in the account of your choice and *download locally*
+- DynamoDB has **two built-in backup methods** (On-demand, Point-in-time recovery) that write to Amazon S3, but *you will not have access to the S3 buckets that are used for these backups*.
+- Use **AWS Data Pipeline** to export your table to an S3 bucket in the account of your choice and *download locally*
   - This is the easiest method. This method is used when you want to make a one-time backup using the lowest amount of AWS resources possible. Data Pipeline uses Amazon EMR to create the backup, and the scripting is done for you. You don't have to learn Apache Hive or Apache Spark to accomplish this task.
-- Use Hive with Amazon EMR to export your data to an S3 bucket and *download locally*
+- Use **Hive with Amazon EMR** to export your data to an S3 bucket and *download locally*
   - Use Hive to export data to an S3 bucket. Or, use the open-source emr-dynamodb-connector to manage your own custom backup method in Spark or Hive. These methods are the best practice to use if you're an active Amazon EMR user and are comfortable with Hive or Spark. These methods offer more control than the Data Pipeline method.
-- Use AWS Glue to copy your table to Amazon S3 and *download locally*
+- Use **AWS Glue** to copy your table to Amazon S3 and *download locally*
   - Use AWS Glue to copy your table to Amazon S3. This is the best practice to use if you want automated, continuous backups that you can also use in another service, such as Amazon Athena.
 
 

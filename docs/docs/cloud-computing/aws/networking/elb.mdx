@@ -4,8 +4,10 @@ description: Elastic Load Balancing
 keywords:
   - ELB
   - Elastic Load Balancing
-sidebar_position: 1
+sidebar_position: 2
 ---
+
+Amazon Elastic Load Balancing (ELB) is an AWS service that automatically distributes incoming application traffic across multiple EC2 instances or IP addresses. It helps ensure high availability, fault tolerance, and scalability of your applications by efficiently managing traffic and automatically routing it to healthy instances. ELB offers three types: Application Load Balancer (ALB), Network Load Balancer (NLB), and Classic Load Balancer, each tailored to specific use cases, from routing HTTP/HTTPS traffic to handling TCP/UDP connections. ELB monitors the health of instances and adjusts traffic distribution, enhancing the performance and reliability of your applications.
 
 ## ALB
 
@@ -54,7 +56,7 @@ A private IPv4 address, regardless of whether it is a primary or secondary addre
 
 :::
 
-### TLS Termination (Offload TSL)
+### TLS Termination (Offload TLS)
 
 TLS Termination is an approach that we use to offload the **decryption/encryption** of TLS traffic
 
@@ -185,7 +187,7 @@ ELB access logs is an optional feature of Elastic Load Balancing that is disable
 
 You can use these access logs to analyze traffic patterns and troubleshoot issues. Each access log file is automatically encrypted using SSE-S3 before it is stored in your **S3 bucket** and decrypted when you access it. You do not need to take any action; the encryption and decryption is performed transparently.
 
-:::cautionExam
+:::caution
 You cannot use CloudTrail Logs to analyze the network traffic passing through the ELB.
 :::
 
@@ -319,7 +321,7 @@ When your load balancer is created, it receives a public DNS name that clients c
 
 ### How to handle expected flash traffic 
 
-ELB can handle the vast majority of use cases for the customers without requiring "pre-warming" (configuring the load balancer to have the appropriate level of capacity based on expected traffic). 
+ELB can handle the vast majority of use cases for the customers without requiring "**pre-warming**" (configuring the load balancer to have the appropriate level of capacity based on expected traffic). 
 
 In certain scenarios, such as when flash traffic is expected, or in the case where a load test cannot be configured to gradually increase traffic, AWS recommends that you contact AWS to have your load balancer "pre-warmed". AWS will then configure the load balancer to have the appropriate level of capacity based on the traffic that you expect.
 

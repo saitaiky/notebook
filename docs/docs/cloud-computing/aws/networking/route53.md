@@ -3,7 +3,7 @@ title: Route 53
 description: Route 53
 keywords:
   - Route 53
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS – such as Amazon EC2 instances – and can also be used to route users to infrastructure outside of AWS. 
@@ -63,8 +63,8 @@ For each VPC that you want to associate with the Route 53 hosted zone, change th
 
 ![AWS-VPC-Settings-DNS](/img/aws/networking/route53/AWS-VPC-Settings-DNS.png)
 
-- By default, both attributes are set to `true` in a default VPC or a VPC created by the VPC wizard. 
-- By default, only the `enableDnsSupport` attribute is set to `true` in a VPC created on the Your VPCs page of the VPC console or using the AWS CLI, API, or an AWS SDK.
+- By default, both attributes are set to `true` in a default VPC or a VPC created by **the VPC wizard**. 
+- By default, only the `enableDnsSupport` attribute is set to `true` in a VPC created on the Your VPCs page of the VPC console or using the **AWS CLI, API, or an AWS SDK**.
 
 If both attributes are set to `true`, the following occurs:
 - Your instance receives a public DNS hostname.

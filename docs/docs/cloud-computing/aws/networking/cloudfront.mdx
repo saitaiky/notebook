@@ -3,14 +3,16 @@ title: CloudFront
 description: CloudFront
 keywords:
   - CloudFront
-sidebar_position: 2
+sidebar_position: 4
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Notes for exam
 
+AWS CloudFront is a content delivery network (CDN) service which accelerates the delivery of web content, including images, videos, and dynamic assets, to users worldwide. By distributing content across a global network of edge locations, it reduces latency, improves load times, and enhances the user experience. CloudFront also offers security features, such as DDoS protection and access control, making it a versatile solution for both static and dynamic web applications. It integrates seamlessly with other AWS services and provides detailed analytics for monitoring content delivery performance.
+
+:::cautionImportant Points
 - What options of HTTPS are available in AWS CloudFront? 
   - Between clients and CloudFront as well as between CloudFront and origin
     via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html), [Cloudfront to Origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html)
@@ -18,9 +20,8 @@ import TabItem from '@theme/TabItem';
 - **Cookie forwarding**: By default, CloudFront doesn't include cookies when processing requests and responses. You can configure CloudFront to **forward to your origin some or all of the cookies** in viewer requests, and to cache separate versions of your objects based on the cookie values that it forwards. 
 - **Header forwarding**: It helps to forward the request headers to the origin server. Because some headers may contain critical information that your server needs to generate a response. 
   - For example, suppose you’re using CloudFront to serve a web application that requires user authentication. In that case, you’ll need to forward the `Authorization` header to your server to verify the user’s identity. Similarly, if you’re serving content in different languages, you’ll need to forward the `Accept-Language` header to your server to determine the appropriate language for the response.
-
-
-- When CloudFront returns 404 response for an object - which means the object(s) requested were not found on the origin server and the origin server generated the 404 error, which is returned by CloudFront 
+- When CloudFront returns HTTP 4xx and 5xx status codes response for an object - which means the object(s) requested were not found on the **origin server and the origin server generated the 404 error**, which is returned by CloudFront
+:::
 
 ## Behaviours
 
@@ -34,9 +35,6 @@ via - [Link](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/
 - CloudFront fails over to the secondary origin only when the HTTP method of the viewer request is `GET`, `HEAD` or `OPTIONS`. CloudFront does not failover when the viewer sends a different HTTP method (for example POST, PUT, and so on).
 - CloudFront routes all incoming requests to the primary origin, even when a previous request failed over to the secondary origin. CloudFront only sends requests to the secondary origin after a request to the primary origin fails.
 
-### 404 is always from origin
-
-CloudFront always caches a few of the HTTP 4xx and 5xx status codes returned by your origin. CloudFront doesn't generate 404 responses. If a requested object isn't found in a CloudFront cache, the request is sent to the origin and **the origin generates the 404 response** if the object is not found on the origin server as well.
 
 ## Features
 

@@ -6,6 +6,8 @@ keywords:
 sidebar_position: 5
 ---
 
+AWS Lambda is a serverless compute service offered by AWS. It allows you to run code in response to various events without the need to provision or manage servers. You can upload your code, define event triggers, and Lambda automatically scales and manages the infrastructure. It supports a variety of programming languages and is ideal for building microservices, data processing tasks, and automation. With Lambda, you only pay for the compute time consumed during code execution, making it cost-effective and scalable for a wide range of applications.
+
 ## Features
 
 ### Deploy Lambda functions as container images
@@ -20,9 +22,76 @@ Comparing the different data storage options
 
 This table compares the characteristics of these four different data storage options for Lambda:
 
-![](/img/aws/compute/lambda/data-storage-table.png)
+![data-storage-table](/img/aws/compute/lambda/data-storage-table.png)
 
+### Cross account sharing
 
+To have your Lambda function assume an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in another AWS account, do the following:
+
+1.  Configure your Lambda function's [execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) to allow the function to assume an IAM role in another AWS account.
+  ```json
+  {
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "sts:AssumeRole",
+        "Resource": "arn:aws:iam::222222222222:role/role-on-source-account"
+    }
+  }
+  ```
+2.  [Modify your cross-account IAM role's trust policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy) to allow your Lambda function to assume the role.
+  ```json
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111111111111:role/my-lambda-execution-role"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+  }
+  ```
+3.  Add the [AWS Security Token Service (AWS STS) AssumeRole API call](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) to your Lambda function's code.
+  ```python
+  import boto3
+
+  def lambda_handler(event, context):
+
+    sts_connection = boto3.client('sts')
+    acct_b = sts_connection.assume_role(
+        RoleArn="arn:aws:iam::222222222222:role/role-on-source-account",
+        RoleSessionName="cross_acct_lambda"
+    )
+    
+    ACCESS_KEY = acct_b['Credentials']['AccessKeyId']
+    SECRET_KEY = acct_b['Credentials']['SecretAccessKey']
+    SESSION_TOKEN = acct_b['Credentials']['SessionToken']
+
+    # create service client using the assumed role credentials, e.g. S3
+    client = boto3.client(
+        's3',
+        aws_access_key_id=ACCESS_KEY,
+        aws_secret_access_key=SECRET_KEY,
+        aws_session_token=SESSION_TOKEN,
+    )
+
+    return "Hello from Lambda"
+  ```
+
+Note: A Lambda function can assume an IAM role in another AWS account to do either of the following:
+
+- **Access resources**: For example, [accessing an Amazon Simple Storage Service (Amazon S3) bucket](https://repost.aws/knowledge-center/lambda-execution-role-s3-bucket).
+- **Do tasks**: For example, [starting and stopping instances](https://repost.aws/knowledge-center/start-stop-lambda-eventbridge).
+
+:::info 
+- **Execution role**—The primary role in account A that gives the Lambda function permission to do its work.
+- **Assumed role**—A role in account B that the Lambda function in account A assumes to gain access to cross-account resources.
+:::
+
+> Reference: [How do I configure a Lambda function to assume an IAM role in another AWS account?](https://repost.aws/knowledge-center/lambda-function-assume-iam-role)
 
 ## Working in VPC
 
@@ -198,3 +267,11 @@ The belows are the workaround to overcome the limit.
 ### How long can an AWS Lambda function execute?
 
 AWS Lambda functions can be configured to run up to **15 minutes per execution**. You can set the timeout to any value between 1 second and 15 minutes.
+
+## Troubleshooting
+
+### Decode Authorization Message CLI
+
+If a user is not authorized to perform an action that was requested, the request returns a `Client.UnauthorizedOperation` response (an HTTP 403 response). The message is encoded because the details of the authorization status can constitute privileged information that the user who requested the operation should not see. 
+
+To decode an authorization status message, a user must be granted permissions via an IAM policy to request the DecodeAuthorizationMessage (`sts:DecodeAuthorizationMessage`) action.

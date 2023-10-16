@@ -3,6 +3,24 @@ title: Storage
 description: Storage
 ---
 
+Data storage is the retention of information using technology specifically developed to keep that data and have it as accessible as necessary. Data storage refers to the use of recording media to retain data using computers or other devices. The most prevalent forms of data storage are file storage, block storage, and object storage, with each being ideal for different purposes.
+
+1. File Storage:
+    - Data Structure: File storage organizes data into a hierarchical structure of files and directories.
+    - Access Method: It provides access at the file level, making it suitable for shared file access.
+    - Protocols: Common file storage protocols include NFS, SMB/CIFS, and AFP.
+    - Use Cases: File storage is ideal for scenarios where multiple users or applications need shared access to files. It's commonly used in network-attached storage (NAS) systems for document sharing, multimedia content, and collaborative work.
+2. Block Storage:
+    - Data Structure: Block storage breaks data into fixed-sized blocks, typically without any inherent hierarchy.
+    - Access Method: It offers low-level access to storage blocks, making it similar to using a raw disk. Block storage devices are commonly used as storage volumes that can be mounted by an operating system.
+    - Protocols: Common block storage protocols include iSCSI and Fibre Channel.
+    - Use Cases: Block storage is ideal for applications that require high-performance, low-latency access to data. It's commonly used in storage area networks (SANs) for databases, virtualization, and data-intensive workloads.
+3. Object Storage:
+    - Data Structure: Object storage stores data as discrete objects, each containing the data, metadata, and a unique identifier.
+    - Access Method: It provides access at the object level and doesn't impose a hierarchical structure on data. Objects are typically accessed via HTTP/HTTPS and RESTful APIs.
+    - Protocols: Object storage protocols include S3 (Simple Storage Service), Swift, and Azure Blob Storage.
+    - Use Cases: Object storage is well-suited for storing vast amounts of unstructured data, such as media files, backups, and archival data. It's commonly used in cloud storage environments for its scalability and cost-effectiveness.
+
 ## iSCSI
 
 Internet Small Computer Systems Interface or iSCSI is a storage area networking (SAN) protocol. It is an Internet Protocol-based networking standard for transferring data carrying SCSI commands over a TCP/IP network. iSCSI links data storage facilities and provides block-level access to storage devices.
