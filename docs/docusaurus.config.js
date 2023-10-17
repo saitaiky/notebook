@@ -169,7 +169,7 @@ const config = {
       },
       announcementBar: {
         id: 'announcementBar-2', // Increment on change
-        content: `⭐️ If you think this blog is handy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitaiky/docusaurus-doc-theme">GitHub</a>`,
+        content: `⭐️ If you think this blog is handy, please follow my <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitaiky">GitHub</a>`,
       },
       // For header
       navbar: {
@@ -191,27 +191,27 @@ const config = {
             items: [
               {
                 type: 'doc',
-                docId: 'container-orchestration/overview',
+                docId: 'container-orchestration/index',
                 label: 'Container Orchestration',
               },
               {
                 type: 'doc',
-                docId: 'software-development/overview',
+                docId: 'software-development/index',
                 label: 'Software Development',
               },
               {
                 type: 'doc',
-                docId: 'tech-concepts/overview',
+                docId: 'tech-concepts/index',
                 label: 'Tech Concepts',
               },
               {
                 type: 'doc',
-                docId: 'aws/overview',
+                docId: 'aws/index',
                 label: 'AWS',
               },
               {
                 type: 'doc',
-                docId: 'linux/overview',
+                docId: 'linux/index',
                 label: 'Linux',
               },
             ],
