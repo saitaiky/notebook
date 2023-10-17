@@ -31,14 +31,14 @@ function HomepageHeader() {
         <div className={styles.links}>
           <Link
             className="button button--primary button--lg"
-            to="/software-development/">
+            to="/software-development/overview">
             Software development
           </Link>
         </div>
         <div className={styles.links}>
           <Link
             className="button button--secondary button--lg"
-            to="/aws/">
+            to="/aws/overview">
             AWS
           </Link>
         </div>
@@ -53,7 +53,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={siteConfig.title}
-      description="Hasura gives you instant GraphQL APIs on your data sources. Point Hasura to your preferred internal and external data sources, setup relationships and security rules on your data models across sources and get a managed unified GraphQL API to build modern applications, instantly."
+      description="A notebook for study"
     >
       <HomepageHeader />
       <main></main>

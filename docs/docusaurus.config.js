@@ -191,27 +191,27 @@ const config = {
             items: [
               {
                 type: 'doc',
-                docId: 'container-orchestration/index',
+                docId: 'container-orchestration/overview',
                 label: 'Container Orchestration',
               },
               {
                 type: 'doc',
-                docId: 'software-development/index',
+                docId: 'software-development/overview',
                 label: 'Software Development',
               },
               {
                 type: 'doc',
-                docId: 'tech-concepts/index',
+                docId: 'tech-concepts/overview',
                 label: 'Tech Concepts',
               },
               {
                 type: 'doc',
-                docId: 'aws/index',
+                docId: 'aws/overview',
                 label: 'AWS',
               },
               {
                 type: 'doc',
-                docId: 'linux/index',
+                docId: 'linux/overview',
                 label: 'Linux',
               },
             ],
@@ -219,19 +219,19 @@ const config = {
           {
             label: 'AI',
             type: 'doc',
-            docId: 'ai/index',
+            docId: 'ai/overview',
             position: 'left',
           },
           {
             label: 'Crypto',
             type: 'doc',
-            docId: 'crypto/index',
+            docId: 'crypto/overview',
             position: 'left',
           },
           {
             label: 'Other',
             type: 'doc',
-            docId: 'other/index',
+            docId: 'other/overview',
             position: 'left',
           },
           {

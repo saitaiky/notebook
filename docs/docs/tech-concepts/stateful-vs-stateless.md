@@ -2,7 +2,7 @@
 title: Stateful vs Stateless
 ---
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/UQ2cfQV5nJ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UQ2cfQV5nJ4" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
 **Stateless and stateful architecture defines the user experience in specific ways. See why stateless is the choice for cloud architects.**
 

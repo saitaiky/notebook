@@ -4,7 +4,7 @@ title: Static and Dynamic routing
 
 I Found the below video is so handy to understand the concept of Static and Dynamic routing and how they work with Cloud Computing. (I wish AWS can have similar videos like this )
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/K_xb_j46YOk?si=CHUZWC_XwuDcvBKu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/K_xb_j46YOk?si=CHUZWC_XwuDcvBKu" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 ## Static routing
 

@@ -1,7 +1,6 @@
 ---
-title: Kubernetes
+title: Overview
 --- 
-## Overview
 
 > TL;DR - Kubernetes is a tool to deploy application in the form of containers on a set of machines that are configured as worker nodes in a cluster.
 

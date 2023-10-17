@@ -11,7 +11,7 @@ Say you buy some Apple stock. This gives you shares that are traded in New York 
 Generally, you want to keep your currency exposure to roughly the same as your currency expenditure, so if you vacation in the US a lot, having USD exposure is good. If you never go near the place, hedging might make sense. It does cost you money on the MER, though, and it means you're giving up all potential gains from the USD going up(which have been substantial in the last few years).
 :::
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FHrOiWzu7G8?si=bARPll0nXD4ai-cY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FHrOiWzu7G8?si=bARPll0nXD4ai-cY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 The choice between hedged and unhedged ETFs, particularly in the context of currency exposure. Hedging eliminates currency risk but may limit diversification, whereas unhedged ETFs offer diversification but expose investors to currency fluctuations. 
 

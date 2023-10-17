@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Overview
 ---
 
 Here is a collection of project showcases I completed from 2017 to 2019 while studying AI through Udacity. Looking ahead, my goal is to consistently share key insights and updates from the industry through regular blog posts.

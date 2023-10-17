@@ -1,5 +1,5 @@
 ---
-title: Core concepts
+title: Overview
 sidebar_position: 1
 ---
 
