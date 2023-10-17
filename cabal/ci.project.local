@@ -4,24 +4,20 @@ reject-unconstrained-dependencies: all
 
 package *
   ghc-options:
-    -- We compile with package-level parallelism, so just use a small amount 
+    -- We compile with package-level parallelism, so just use a small amount
     -- of module-level parallelism for dependencies:
-    -- TODO: tune me
     -j2
-    -- Limit heap size to 15G, to maintain some breathing room given
-    -- the 16G of available memory on the current "XXLarge" instance
-    +RTS -M15000m -RTS
     -- For performance, with `-j`:
     +RTS -A64m -n2m -RTS
 
 -- Enable optimizations in all local (hasura) packages:
 flags: +optimize-hasura
 
+-- Set common options
+program-options
+  ghc-options: -j -Werror
+
 package graphql-engine
-  ghc-options:
-    -- At this point though we definitely want full module-level parallelism:
-    -j
-    -Werror
   tests: true
   benchmarks: true
 
@@ -35,8 +31,4 @@ package graphql-engine
 -- `copy.bara.sky`), so please take care when manipulating this label!
 
 package graphql-engine-pro
-  ghc-options:
-    -- At this point though we definitely want full module-level parallelism:
-    -j
-    -Werror
   tests: true

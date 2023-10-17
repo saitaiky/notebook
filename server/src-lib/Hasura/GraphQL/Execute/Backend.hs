@@ -1,10 +1,12 @@
 module Hasura.GraphQL.Execute.Backend
   ( BackendExecute (..),
     DBStepInfo (..),
+    ActionResult (..),
+    withNoStatistics,
     ExecutionPlan,
     ExecutionStep (..),
     ExplainPlan (..),
-    MonadQueryTags (..),
+    OnBaseMonad (..),
     convertRemoteSourceRelationship,
   )
 where
@@ -13,38 +15,39 @@ import Control.Monad.Trans.Control (MonadBaseControl)
 import Data.Aeson qualified as J
 import Data.Aeson.Casing qualified as J
 import Data.Aeson.Ordered qualified as JO
+import Data.Environment qualified as Env
 import Data.Kind (Type)
-import Data.Tagged
 import Data.Text.Extended
 import Data.Text.NonEmpty (mkNonEmptyTextUnsafe)
-import Database.PG.Query qualified as Q
 import Hasura.Base.Error
 import Hasura.EncJSON
 import Hasura.GraphQL.Execute.Action.Types (ActionExecutionPlan)
 import Hasura.GraphQL.Execute.RemoteJoin.Types
 import Hasura.GraphQL.Execute.Subscription.Plan
 import Hasura.GraphQL.Namespace (RootFieldAlias, RootFieldMap)
-import Hasura.GraphQL.Parser hiding (Type)
+import Hasura.GraphQL.Parser.Variable qualified as G
 import Hasura.GraphQL.Transport.HTTP.Protocol qualified as GH
-import Hasura.Metadata.Class
+import Hasura.Logging qualified as L
 import Hasura.Prelude
 import Hasura.QueryTags
-import Hasura.RQL.DDL.Schema.Cache (CacheRWT)
 import Hasura.RQL.IR
+import Hasura.RQL.IR.ModelInformation
 import Hasura.RQL.Types.Action
 import Hasura.RQL.Types.Backend
+import Hasura.RQL.Types.BackendType
 import Hasura.RQL.Types.Column (ColumnType, fromCol)
 import Hasura.RQL.Types.Common
-import Hasura.RQL.Types.QueryTags (QueryTagsConfig)
-import Hasura.RQL.Types.RemoteSchema
+import Hasura.RQL.Types.Relationships.Local (Nullable (..))
 import Hasura.RQL.Types.ResultCustomization
-import Hasura.RQL.Types.Run (RunT (..))
-import Hasura.RQL.Types.SchemaCache.Build (MetadataT (..))
+import Hasura.RQL.Types.Schema.Options qualified as Options
+import Hasura.RemoteSchema.SchemaCache
 import Hasura.SQL.AnyBackend qualified as AB
-import Hasura.SQL.Backend
+import Hasura.Server.Types
 import Hasura.Session
-import Hasura.Tracing (TraceT)
+import Hasura.Tracing (MonadTrace)
+import Hasura.Tracing qualified as Tracing
 import Language.GraphQL.Draft.Syntax qualified as G
+import Network.HTTP.Client qualified as HTTP
 import Network.HTTP.Types qualified as HTTP
 
 -- | This typeclass enacapsulates how a given backend translates a root field into an execution
@@ -53,39 +56,53 @@ import Network.HTTP.Types qualified as HTTP
 class
   ( Backend b,
     ToTxt (MultiplexedQuery b),
-    Monad (ExecutionMonad b)
+    Show (ResolvedConnectionTemplate b),
+    Eq (ResolvedConnectionTemplate b),
+    Hashable (ResolvedConnectionTemplate b)
   ) =>
   BackendExecute (b :: BackendType)
   where
   -- generated query information
   type PreparedQuery b :: Type
   type MultiplexedQuery b :: Type
-  type ExecutionMonad b :: Type -> Type
+  type ExecutionMonad b :: (Type -> Type) -> (Type -> Type)
 
   -- execution plan generation
   mkDBQueryPlan ::
     forall m.
     ( MonadError QErr m,
       MonadQueryTags m,
-      MonadReader QueryTagsComment m
+      MonadReader QueryTagsComment m,
+      MonadIO m,
+      MonadGetPolicies m
     ) =>
     UserInfo ->
     SourceName ->
     SourceConfig b ->
     QueryDB b Void (UnpreparedValue b) ->
-    m (DBStepInfo b)
+    [HTTP.Header] ->
+    Maybe G.Name ->
+    m ((DBStepInfo b), [ModelInfoPart])
   mkDBMutationPlan ::
     forall m.
     ( MonadError QErr m,
+      MonadIO m,
       MonadQueryTags m,
-      MonadReader QueryTagsComment m
+      MonadReader QueryTagsComment m,
+      Tracing.MonadTrace m
     ) =>
+    Env.Environment ->
+    HTTP.Manager ->
+    L.Logger L.Hasura ->
     UserInfo ->
-    StringifyNumbers ->
+    Options.StringifyNumbers ->
     SourceName ->
     SourceConfig b ->
     MutationDB b Void (UnpreparedValue b) ->
-    m (DBStepInfo b)
+    [HTTP.Header] ->
+    Maybe G.Name ->
+    Maybe (HashMap G.Name (G.Value G.Variable)) ->
+    m (DBStepInfo b, [ModelInfoPart])
   mkLiveQuerySubscriptionPlan ::
     forall m.
     ( MonadError QErr m,
@@ -98,7 +115,9 @@ class
     SourceConfig b ->
     Maybe G.Name ->
     RootFieldMap (QueryDB b Void (UnpreparedValue b)) ->
-    m (SubscriptionQueryPlan b (MultiplexedQuery b))
+    [HTTP.Header] ->
+    Maybe G.Name ->
+    m (SubscriptionQueryPlan b (MultiplexedQuery b), [ModelInfoPart])
   mkDBStreamingSubscriptionPlan ::
     forall m.
     ( MonadError QErr m,
@@ -110,17 +129,22 @@ class
     SourceName ->
     SourceConfig b ->
     (RootFieldAlias, (QueryDB b Void (UnpreparedValue b))) ->
-    m (SubscriptionQueryPlan b (MultiplexedQuery b))
+    [HTTP.Header] ->
+    Maybe G.Name ->
+    m (SubscriptionQueryPlan b (MultiplexedQuery b), [ModelInfoPart])
   mkDBQueryExplain ::
     forall m.
-    ( MonadError QErr m
+    ( MonadError QErr m,
+      MonadIO m
     ) =>
     RootFieldAlias ->
     UserInfo ->
     SourceName ->
     SourceConfig b ->
     QueryDB b Void (UnpreparedValue b) ->
-    m (AB.AnyBackend DBStepInfo)
+    [HTTP.Header] ->
+    Maybe G.Name ->
+    m (AB.AnyBackend (DBStepInfo))
   mkSubscriptionExplain ::
     ( MonadError QErr m,
       MonadIO m,
@@ -132,7 +156,9 @@ class
   mkDBRemoteRelationshipPlan ::
     forall m.
     ( MonadError QErr m,
-      MonadQueryTags m
+      MonadQueryTags m,
+      MonadIO m,
+      MonadGetPolicies m
     ) =>
     UserInfo ->
     SourceName ->
@@ -148,7 +174,10 @@ class
     -- to be returned as either a number or a string with a number in it
     FieldName ->
     (FieldName, SourceRelationshipSelection b Void UnpreparedValue) ->
-    m (DBStepInfo b)
+    [HTTP.Header] ->
+    Maybe G.Name ->
+    Options.StringifyNumbers ->
+    m (DBStepInfo b, [ModelInfoPart])
 
 -- | This is a helper function to convert a remote source's relationship to a
 -- normal relationship to a temporary table. This function can be used to
@@ -171,13 +200,15 @@ convertRemoteSourceRelationship ::
   -- | The relationship column and its name (how it should be selected in the
   -- response)
   (FieldName, SourceRelationshipSelection b Void UnpreparedValue) ->
+  Options.StringifyNumbers ->
   QueryDB b Void (UnpreparedValue b)
 convertRemoteSourceRelationship
   columnMapping
   selectFrom
   argumentIdColumn
   argumentIdColumnType
-  (relationshipName, relationship) =
+  (relationshipName, relationship)
+  stringifyNumbers =
     QDBMultipleRows simpleSelect
     where
       -- TODO: FieldName should have also been a wrapper around NonEmptyText
@@ -185,21 +216,21 @@ convertRemoteSourceRelationship
 
       relationshipField = case relationship of
         SourceRelationshipObject s ->
-          AFObjectRelation $ AnnRelationSelectG relName columnMapping s
+          AFObjectRelation $ AnnRelationSelectG relName columnMapping Nullable s
         SourceRelationshipArray s ->
-          AFArrayRelation $ ASSimple $ AnnRelationSelectG relName columnMapping s
+          AFArrayRelation $ ASSimple $ AnnRelationSelectG relName columnMapping Nullable s
         SourceRelationshipArrayAggregate s ->
-          AFArrayRelation $ ASAggregate $ AnnRelationSelectG relName columnMapping s
+          AFArrayRelation $ ASAggregate $ AnnRelationSelectG relName columnMapping Nullable s
 
       argumentIdField =
         ( fromCol @b argumentIdColumn,
-          AFColumn $
-            AnnColumnField
+          AFColumn
+            $ AnnColumnField
               { _acfColumn = argumentIdColumn,
                 _acfType = argumentIdColumnType,
                 _acfAsText = False,
                 _acfArguments = Nothing,
-                _acfCaseBoolExpression = Nothing
+                _acfRedactionExpression = NoRedaction
               }
         )
 
@@ -209,15 +240,55 @@ convertRemoteSourceRelationship
             _asnFrom = selectFrom,
             _asnPerm = TablePerm annBoolExpTrue Nothing,
             _asnArgs = noSelectArgs,
-            _asnStrfyNum = LeaveNumbersAlone
+            _asnStrfyNum = stringifyNumbers,
+            _asnNamingConvention = Nothing
           }
 
 data DBStepInfo b = DBStepInfo
   { dbsiSourceName :: SourceName,
     dbsiSourceConfig :: SourceConfig b,
     dbsiPreparedQuery :: Maybe (PreparedQuery b),
-    dbsiAction :: ExecutionMonad b EncJSON
+    dbsiAction :: OnBaseMonad (ExecutionMonad b) (ActionResult b),
+    dbsiResolvedConnectionTemplate :: ResolvedConnectionTemplate b
   }
+
+data ActionResult b = ActionResult
+  { arStatistics :: Maybe (ExecutionStatistics b),
+    arResult :: EncJSON
+  }
+
+-- | Lift a result from the database into an 'ActionResult'.
+withNoStatistics :: EncJSON -> ActionResult b
+withNoStatistics arResult = ActionResult {arStatistics = Nothing, arResult}
+
+-- | Provides an abstraction over the base monad in which a computation runs.
+--
+-- Given a transformer @t@ and a type @a@, @OnBaseMonad t a@ represents a
+-- computation of type @t m a@, for any base monad @m@. This allows 'DBStepInfo'
+-- to store a backend-specific computation, using a backend-specific monad
+-- transformer, on top of the base app monad, without 'DBStepInfo' needing to
+-- know about the base monad @m@.
+--
+-- However, this kind of type erasure forces us to bundle all of the constraints
+-- on the base monad @m@ here. The constraints here are the union of the
+-- constraints required across all backends. If it were possible to express
+-- constraint functions of the form @(Type -> Type) -> Constraint@ at the type
+-- level, we could make the list of constraints a type family in
+-- 'BackendExecute', allowing each backend to specify its own specific
+-- constraints; and we could then provide the list of constraints as an
+-- additional argument to @OnBaseMonad@, pushing the requirement to implement
+-- the union of all constraints to the base execution functions.
+--
+-- All backends require @MonadError QErr@ to report errors, and 'MonadIO' to be
+-- able to communicate over the network. Most of them require 'MonadTrace' to
+-- be able to create new spans as part of the execution, and several use
+-- @MonadBaseControl IO@ to use 'try' in their error handling.
+newtype OnBaseMonad t a = OnBaseMonad
+  { runOnBaseMonad :: forall m. (Functor (t m), MonadIO m, MonadBaseControl IO m, MonadTrace m, MonadError QErr m) => t m a
+  }
+
+instance Functor (OnBaseMonad t) where
+  fmap f (OnBaseMonad xs) = OnBaseMonad (fmap f xs)
 
 -- | The result of an explain query: for a given root field (denoted by its name): the generated SQL
 -- query, and the detailed explanation obtained from the database (if any). We mostly use this type
@@ -258,38 +329,11 @@ data ExecutionStep where
   ExecStepRaw ::
     JO.Value ->
     ExecutionStep
+  ExecStepMulti ::
+    [ExecutionStep] ->
+    ExecutionStep
 
 -- | The series of steps that need to be executed for a given query. For now, those steps are all
 -- independent. In the future, when we implement a client-side dataloader and generalized joins,
 -- this will need to be changed into an annotated tree.
 type ExecutionPlan = RootFieldMap ExecutionStep
-
-class (Monad m) => MonadQueryTags m where
-  -- | Creates Query Tags. These are appended to the Generated SQL.
-  -- Helps users to use native database monitoring tools to get some 'application-context'.
-  createQueryTags ::
-    QueryTagsAttributes -> Maybe QueryTagsConfig -> Tagged m QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (ReaderT r m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (ReaderT r m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (ExceptT e m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (ExceptT e m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (TraceT m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (TraceT m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (MetadataStorageT m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (MetadataStorageT m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (Q.TxET QErr m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (Q.TxET QErr m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (MetadataT m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (MetadataT m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (CacheRWT m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (CacheRWT m) QueryTagsComment
-
-instance (MonadQueryTags m) => MonadQueryTags (RunT m) where
-  createQueryTags qtSourceConfig attr = retag (createQueryTags @m qtSourceConfig attr) :: Tagged (RunT m) QueryTagsComment

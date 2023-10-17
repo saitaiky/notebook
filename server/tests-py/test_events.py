@@ -1,19 +1,16 @@
-#!/usr/bin/env python3
-
 import pytest
 import queue
 import time
-import json
-import utils
+
+import fixtures.postgres
+from context import EvtsWebhookServer, HGECtx
 from utils import *
-from validate import check_query, check_query_f, check_event, check_event_transformed, check_events
+from validate import check_query_f, check_event, check_event_transformed, check_events
 
 usefixtures = pytest.mark.usefixtures
 
 # Every test in this class requires the events webhook to be running first
-# We are also going to mark as server upgrade tests are allowed
-# A few tests are going to be excluded with skip_server_upgrade_test mark
-pytestmark = [usefixtures('evts_webhook'), pytest.mark.allow_server_upgrade_test]
+pytestmark = usefixtures('evts_webhook')
 
 def select_last_event_fromdb(hge_ctx):
     q = {
@@ -25,15 +22,13 @@ def select_last_event_fromdb(hge_ctx):
             "limit": 1
         }
     }
-    st_code, resp = hge_ctx.v1q(q)
-    return st_code, resp
+    return hge_ctx.v1q(q)
 
 def insert_mutation(hge_ctx, table, row, headers = {}):
     return insert_many_mutation(hge_ctx, table, [row], headers)
 
 def insert_many_mutation(hge_ctx, table, rows, headers = {}):
     insert_mutation_field = ""
-    insert_values_type = ""
     mutation_name = "insert" + "_" + table["name"]
     if (table["schema"]):
         insert_value_type = table["schema"] +"_" + table["name"] + "_" + "insert" + "_" + "input"
@@ -53,8 +48,7 @@ def insert_many_mutation(hge_ctx, table, rows, headers = {}):
     variables = {'values': rows}
     graphql_query = {'query': insert_mutation_query, 'variables': variables}
 
-    st_code, resp = hge_ctx.v1graphqlq(graphql_query, headers = headers)
-    return st_code, resp
+    hge_ctx.v1graphqlq(graphql_query, headers = headers)
 
 def update_mutation(hge_ctx, table, where_exp, set_exp, headers = {}):
     update_mutation_field = ""
@@ -79,10 +73,10 @@ def update_mutation(hge_ctx, table, where_exp, set_exp, headers = {}):
     print("--- UPDATE MUTATION QUERY ---- \n", update_mutation_query)
 
     graphql_query = {'query': update_mutation_query}
-    st_code, resp = hge_ctx.v1graphqlq(graphql_query, headers = headers)
+    resp = hge_ctx.v1graphqlq(graphql_query, headers = headers)
 
     #print(" ---- UPDATE MUTATION RESP ----", resp)
-    return st_code, resp
+    return resp
 
 def delete_mutation(hge_ctx, table, where_exp, headers = {}):
     delete_mutation_field = ""
@@ -106,10 +100,10 @@ def delete_mutation(hge_ctx, table, where_exp, headers = {}):
     print("--- DELETE MUTATION QUERY ---- \n", delete_mutation_query)
 
     graphql_query = {'query': delete_mutation_query}
-    st_code, resp = hge_ctx.v1graphqlq(graphql_query, headers = headers)
+    resp = hge_ctx.v1graphqlq(graphql_query, headers = headers)
 
     print(" ---- DELETE MUTATION RESP ----", resp)
-    return st_code, resp
+    return resp
 
 @usefixtures("per_method_tests_db_state")
 class TestEventCreateAndDelete:
@@ -120,8 +114,6 @@ class TestEventCreateAndDelete:
     def test_create_reset(self, hge_ctx):
         check_query_f(hge_ctx, self.dir() + "/create_and_reset.yaml")
 
-    # Can't run server upgrade tests, as this test has a schema change
-    @pytest.mark.skip_server_upgrade_test
     def test_create_operation_spec_not_provider_err(self, hge_ctx):
         check_query_f(hge_ctx, self.dir() + "/create_trigger_operation_specs_not_provided_err.yaml")
 
@@ -132,13 +124,51 @@ class TestEventCreateAndDelete:
 @usefixtures("per_method_tests_db_state")
 class TestEventCreateAndResetNonDefaultSource:
 
-    def test_create_reset_non_default_source(self, hge_ctx):
+    @pytest.fixture(scope='class', autouse=True)
+    def another_source(self, owner_engine, add_source):
+        backend: fixtures.postgres.Backend = add_source('postgres')
+        backend_database = backend.engine.url.database
+        assert backend_database is not None
+
+        with fixtures.postgres.switch_schema(owner_engine, backend_database).connect() as connection:
+            connection.execute('DROP SCHEMA IF EXISTS hge_tests CASCADE')
+        with backend.engine.connect() as connection:
+            connection.execute('CREATE SCHEMA hge_tests')
+
+        yield backend
+
+        # TODO: remove once parallelization work is completed
+        #       cleanup will no longer be required
+        with backend.engine.connect() as connection:
+            connection.execute('DROP SCHEMA IF EXISTS hge_tests CASCADE')
+
+    def test_create_reset_non_default_source(self, hge_ctx, another_source):
         check_query_f(hge_ctx, self.dir() + "/create_and_reset_non_default_source.yaml")
+
+        with another_source.engine.connect() as connection:
+            # Check that the event log table exists.
+            # This must be run against the source database.
+            result = connection.execute("SELECT EXISTS (SELECT * FROM information_schema.tables WHERE table_schema = 'hdb_catalog' and table_name = 'event_log')")
+            row = result.first()
+            assert row == (True,), f'Result: {row!r}'
+
+            # We plan on clearing the metadata in code in the future, so this is not run as YAML input.
+            hge_ctx.v1metadataq({
+                "type": "clear_metadata",
+                "args": {}
+            })
+
+            # Check that the event log table has been dropped.
+            # This must be run against the source database.
+            result = connection.execute("SELECT EXISTS (SELECT * FROM information_schema.tables WHERE table_schema = 'hdb_catalog' and table_name = 'event_log')")
+            row = result.first()
+            assert row == (False,), f'Result: {row!r}'
 
     @classmethod
     def dir(cls):
         return 'queries/event_triggers/create_and_reset_non_default'
-@pytest.mark.parametrize("backend", ['mssql'])
+
+@pytest.mark.backend('mssql')
 @usefixtures("per_method_tests_db_state")
 class TestEventCreateAndDeleteMSSQL:
 
@@ -150,13 +180,10 @@ class TestEventCreateAndDeleteMSSQL:
 
         table = {"schema": "hge_tests", "name": "test_t1"}
         init_row = {"c1": 1, "c2": "world"}
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert_mutation(hge_ctx, table, init_row)
 
         check_query_f(hge_ctx, self.dir() + "/create_and_reset_mssql_2.yaml")
 
-    # Can't run server upgrade tests, as this test has a schema change
-    @pytest.mark.skip_server_upgrade_test
     def test_create_operation_spec_not_provider_err(self, hge_ctx):
         check_query_f(hge_ctx, self.dir() + "/create_trigger_operation_specs_not_provided_err_mssql.yaml")
 
@@ -169,11 +196,11 @@ class TestEventCreateAndDeleteMSSQL:
 # - checks that we're processing with the concurrency and backpressure
 #   characteristics we expect
 # - ensures all events are successfully processed
-#
-# NOTE: this expects:
-#   HASURA_GRAPHQL_EVENTS_HTTP_POOL_SIZE=8
-#   HASURA_GRAPHQL_EVENTS_FETCH_BATCH_SIZE=100  (the default)
-@pytest.mark.parametrize("backend", ['mssql','postgres'])
+@pytest.mark.backend('mssql', 'postgres')
+# Set a known batch size for assertions.
+@pytest.mark.hge_env('HASURA_GRAPHQL_EVENTS_FETCH_BATCH_SIZE', str(100))
+# Set the HTTP pool size to trigger backpressure upon flooding.
+@pytest.mark.hge_env('HASURA_GRAPHQL_EVENTS_HTTP_POOL_SIZE', str(8))
 @usefixtures("per_method_tests_db_state")
 class TestEventFloodPostgresMSSQL(object):
 
@@ -181,7 +208,7 @@ class TestEventFloodPostgresMSSQL(object):
     def dir(cls):
         return 'queries/event_triggers/flood'
 
-    def test_flood(self, hge_ctx, evts_webhook):
+    def test_flood(self, hge_ctx: HGECtx, evts_webhook: EvtsWebhookServer):
         table = {"schema": "hge_tests", "name": "test_flood"}
 
         # Trigger a bunch of events; hasura will begin processing but block on /block
@@ -189,11 +216,9 @@ class TestEventFloodPostgresMSSQL(object):
         rows = list(map(lambda x: {"c1": x, "c2": "hello"}, payload))
 
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert_many(hge_ctx, table, rows)
+            insert_many(hge_ctx, table, rows)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_many_mutation(hge_ctx, table, rows)
-
-        assert st_code == 200, resp
+            insert_many_mutation(hge_ctx, table, rows)
 
         def check_backpressure():
             # Expect that HASURA_GRAPHQL_EVENTS_HTTP_POOL_SIZE webhooks are pending:
@@ -215,7 +240,7 @@ class TestEventFloodPostgresMSSQL(object):
                         '''
                     }
                 }
-                st, resp = hge_ctx.v1q(locked_counts)
+                resp = hge_ctx.v1q(locked_counts)
 
             elif (hge_ctx.backend == "mssql"):
                 locked_counts = {
@@ -231,9 +256,10 @@ class TestEventFloodPostgresMSSQL(object):
                         '''
                     }
                 }
-                st, resp = hge_ctx.v2q(locked_counts)
+                resp = hge_ctx.v2q(locked_counts)
+            else:
+                raise NotImplementedError('Unknown backend.')
 
-            assert st == 200, resp
             # Make sure we have 2*HASURA_GRAPHQL_EVENTS_FETCH_BATCH_SIZE events checked out:
             #  - 100 prefetched
             #  - 100 being processed right now (but blocked on HTTP_POOL capacity)
@@ -245,7 +271,7 @@ class TestEventFloodPostgresMSSQL(object):
                 assert resp['result'][1][0] == 200
 
         # Rather than sleep arbitrarily, loop until assertions pass:
-        utils.until_asserts_pass(30, check_backpressure)
+        until_asserts_pass(30, check_backpressure)
         # ...then make sure we're truly stable:
         time.sleep(3)
         check_backpressure()
@@ -264,7 +290,7 @@ class TestEventFloodPostgresMSSQL(object):
         ns.sort()
         assert ns == list(payload)
 
-@usefixtures("per_class_tests_db_state")
+@usefixtures('postgis', 'per_class_tests_db_state')
 class TestEventDataFormat(object):
 
     @classmethod
@@ -280,8 +306,7 @@ class TestEventDataFormat(object):
           "new": {"id": "50755254975729665", "name": "hello"}
       }
 
-      st_code, resp = insert(hge_ctx, table, init_row)
-      assert st_code == 200, resp
+      insert(hge_ctx, table, init_row)
       check_event(hge_ctx, evts_webhook, "bigint_all", table, "INSERT", exp_ev_data)
 
     def test_geojson(self, hge_ctx, evts_webhook):
@@ -323,11 +348,10 @@ class TestEventDataFormat(object):
 
       where_exp = {"id" : 1}
       set_exp = {"id": 2}
-      st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-      assert st_code == 200, resp
+      update(hge_ctx, table, where_exp, set_exp)
       check_event(hge_ctx, evts_webhook, "geojson_all", table, "UPDATE", exp_ev_data)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures("per_class_tests_db_state")
 class TestEventDataFormatBigIntMSSQL(object):
 
@@ -348,7 +372,8 @@ class TestEventDataFormatBigIntMSSQL(object):
       # does not work as of now, hence using 'run_sql' to directly insert rows
       # and trigger the event trigger. When they are supported in future, we
       # might wanna use the insert_mutation here for consistency.
-      #st_code, resp = insert_mutation(hge_ctx, table, init_row)
+      #
+      # resp = insert_mutation(hge_ctx, table, init_row)
       insert_bigint_sql = {
        "type":"mssql_run_sql",
         "args":{
@@ -358,12 +383,11 @@ class TestEventDataFormatBigIntMSSQL(object):
             '''
         }
       }
-      st_code, resp = hge_ctx.v2q(insert_bigint_sql)
+      resp = hge_ctx.v2q(insert_bigint_sql)
       print("----------- resp ----------\n", resp)
-      assert st_code == 200, resp
       check_event(hge_ctx, evts_webhook, "bigint_all", table, "INSERT", exp_ev_data)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures("per_class_tests_db_state")
 class TestEventDataFormatGeoJSONMSSQL(object):
 
@@ -374,7 +398,7 @@ class TestEventDataFormatGeoJSONMSSQL(object):
     def test_geojson(self, hge_ctx, evts_webhook):
       check_query_f(hge_ctx, self.dir() + '/create_geojson_event_trigger.yaml')
 
-@pytest.mark.parametrize("backend", ['mssql','postgres'])
+@pytest.mark.backend('mssql','postgres')
 @usefixtures("per_class_tests_db_state")
 class TestCreateEventQueryPostgresMSSQL(object):
 
@@ -393,70 +417,66 @@ class TestCreateEventQueryPostgresMSSQL(object):
         }
 
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert(hge_ctx, table, init_row)
+            insert(hge_ctx, table, init_row)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_mutation(hge_ctx, table, init_row)
+            insert_mutation(hge_ctx, table, init_row)
 
-        #assert st_code == 400, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data)
-        assert st_code == 200, resp
 
         # Check Update Event Trigger Payload
         if (hge_ctx.backend == "postgres"):
             where_exp = {"c1": 1}
             set_exp = {"c2": "world"}
-            st_code, resp = update(hge_ctx, table, where_exp, set_exp)
+            update(hge_ctx, table, where_exp, set_exp)
         elif (hge_ctx.backend == "mssql"):
             where_exp = '{c1: {_eq: 1}}'
             set_exp = '{c2: "world"}'
-            st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+            update_mutation(hge_ctx, table, where_exp, set_exp)
 
         exp_ev_data = {
                 "old": init_row,
                 "new": {"c1": 1, "c2": "world"}
             }
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data)
 
         # Check Delete Event Trigger Payload
         if (hge_ctx.backend == "postgres"):
             where_exp = {"c1": 1}
-            st_code, resp = delete(hge_ctx, table, where_exp)
+            delete(hge_ctx, table, where_exp)
         elif (hge_ctx.backend == "mssql"):
             where_exp = '{c1: {_eq: 1}}'
-            st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+            delete_mutation(hge_ctx, table, where_exp)
 
         exp_ev_data = {
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
 
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data)
 
+@pytest.mark.backend('postgres')
+@usefixtures("per_class_tests_db_state")
+class TestCreateEventQueryPostgres(object):
+
+    @classmethod
+    def dir(cls):
+        return 'queries/event_triggers/basic'
 
     def test_partitioned_table_basic_insert(self, hge_ctx, evts_webhook):
-        if (hge_ctx.backend == "postgres"):
-            if hge_ctx.pg_version < 110000:
-                pytest.skip('Event triggers on partioned tables are not supported in Postgres versions < 11')
-                return
-            st_code, resp = hge_ctx.v1q_f(self.dir() + '/partition_table_setup.yaml')
-            assert st_code == 200, resp
-            table = { "schema":"hge_tests", "name": "measurement"}
+        hge_ctx.v1q_f(self.dir() + '/partition_table_setup.yaml')
+        table = { "schema":"hge_tests", "name": "measurement"}
 
-            init_row = { "city_id": 1, "logdate": "2006-02-02", "peaktemp": 1, "unitsales": 1}
+        init_row = { "city_id": 1, "logdate": "2006-02-02", "peaktemp": 1, "unitsales": 1}
 
-            exp_ev_data = {
-                "old": None,
-                "new": init_row
-            }
-            st_code, resp = insert(hge_ctx, table, init_row)
-            assert st_code == 200, resp
-            check_event(hge_ctx, evts_webhook, "measurement_all", table, "INSERT", exp_ev_data)
-            st_code, resp = hge_ctx.v1q_f(self.dir() + '/partition_table_teardown.yaml')
-            assert st_code == 200, resp
+        exp_ev_data = {
+            "old": None,
+            "new": init_row
+        }
+        insert(hge_ctx, table, init_row)
+        check_event(hge_ctx, evts_webhook, "measurement_all", table, "INSERT", exp_ev_data)
+        hge_ctx.v1q_f(self.dir() + '/partition_table_teardown.yaml')
 
-@pytest.mark.parametrize("backend", ['mssql','postgres'])
+@pytest.mark.backend('mssql','postgres')
 @usefixtures('per_method_tests_db_state')
 class TestEventRetryConfPostgresMSSQL(object):
 
@@ -477,11 +497,10 @@ class TestEventRetryConfPostgresMSSQL(object):
             "new": init_row
         }
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert(hge_ctx, table, init_row)
+            insert(hge_ctx, table, init_row)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_mutation(hge_ctx, table, init_row)
+            insert_mutation(hge_ctx, table, init_row)
 
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_retry", table, "INSERT", exp_ev_data, webhook_path = "/fail", retry = 0)
         check_event(hge_ctx, evts_webhook, "t1_retry", table, "INSERT", exp_ev_data, webhook_path = "/fail", retry = 1)
         check_event(hge_ctx, evts_webhook, "t1_retry", table, "INSERT", exp_ev_data, webhook_path = "/fail", retry = 2)
@@ -502,10 +521,9 @@ class TestEventRetryConfPostgresMSSQL(object):
             "new": init_row
         }
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert(hge_ctx, table, init_row)
+            insert(hge_ctx, table, init_row)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_mutation(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+            insert_mutation(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t2_timeout_short", table, "INSERT", exp_ev_data, webhook_path = "/sleep_2s", retry = 0, get_timeout = 5)
         check_event(hge_ctx, evts_webhook, "t2_timeout_short", table, "INSERT", exp_ev_data, webhook_path = "/sleep_2s", retry = 1, get_timeout = 5)
         check_event(hge_ctx, evts_webhook, "t2_timeout_short", table, "INSERT", exp_ev_data, webhook_path = "/sleep_2s", retry = 2, get_timeout = 5)
@@ -524,10 +542,9 @@ class TestEventRetryConfPostgresMSSQL(object):
             "new": init_row
         }
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert(hge_ctx, table, init_row)
+            insert(hge_ctx, table, init_row)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_mutation(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+            insert_mutation(hge_ctx, table, init_row)
         time.sleep(2)
         check_event(hge_ctx, evts_webhook, "t3_timeout_long", table, "INSERT", exp_ev_data, webhook_path = "/sleep_2s")
 
@@ -539,7 +556,8 @@ class TestEventRetryConfPostgresMSSQL(object):
         except queue.Empty:
             pass
 
-@pytest.mark.parametrize("backend", ['mssql','postgres'])
+@pytest.mark.backend('mssql', 'postgres')
+@pytest.mark.hge_env('EVENT_WEBHOOK_HEADER', 'MyEnvValue')
 @usefixtures('per_method_tests_db_state')
 class TestEventHeadersPostgresMSSQL(object):
 
@@ -557,10 +575,9 @@ class TestEventHeadersPostgresMSSQL(object):
         }
         headers = {"X-Header-From-Value": "MyValue", "X-Header-From-Env": "MyEnvValue"}
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert(hge_ctx, table, init_row)
+            insert(hge_ctx, table, init_row)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_mutation(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+            insert_mutation(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, headers = headers)
 
 class TestUpdateEventQuery(object):
@@ -577,20 +594,17 @@ class TestUpdateEventQuery(object):
         #     columns: '*'
         #   update:
         #     columns: [c2, c3]
-        st_code, resp = hge_ctx.v1q_f(self.dir() + '/create-setup.yaml')
-        assert st_code == 200, resp
+        resp = hge_ctx.v1q_f(self.dir() + '/create-setup.yaml')
 
         # overwrites trigger added above, with...
         #   delete:
         #     columns: "*"
         #   update:
         #     columns: ["c1", "c3"]
-        st_code, resp = hge_ctx.v1q_f(self.dir() + '/update-setup.yaml')
-        assert st_code == 200, '{}'.format(resp)
-        assert resp[1]["sources"][0]["tables"][0]["event_triggers"][0]["webhook"] == 'http://127.0.0.1:5592/new'
+        resp = hge_ctx.v1q_f(self.dir() + '/update-setup.yaml')
+        assert resp[1]["sources"][0]["tables"][0]["event_triggers"][0]["webhook"] == '{{EVENT_WEBHOOK_HANDLER}}/new'
         yield
-        st_code, resp = hge_ctx.v1q_f(self.dir() + '/teardown.yaml')
-        assert st_code == 200, resp
+        resp = hge_ctx.v1q_f(self.dir() + '/teardown.yaml')
 
     def test_update_basic(self, hge_ctx, evts_webhook):
         table = {"schema": "hge_tests", "name": "test_t1"}
@@ -598,16 +612,14 @@ class TestUpdateEventQuery(object):
         # Expect that inserting a row (which would have triggered in original
         # create_event_trigger) does not trigger
         init_row = {"c1": 1, "c2": "hello", "c3": {"name": "clarke"}}
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_cols", table, "INSERT", {}, webhook_path = "/new", get_timeout = 0)
 
         # Likewise for an update on c2:
         where_exp = {"c1": 1}
         set_exp = {"c2": "world"}
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", {}, webhook_path = "/new", get_timeout = 0)
 
@@ -617,8 +629,7 @@ class TestUpdateEventQuery(object):
             "old": {"c1": 1, "c2": "world", "c3": {"name": "clarke"}},
             "new": {"c1": 1, "c2": "world", "c3": {"name": "bellamy"}}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data, webhook_path ="/new")
 
         where_exp = {"c1": 1}
@@ -627,9 +638,8 @@ class TestUpdateEventQuery(object):
             "old": {"c1": 1, "c2": "world", "c3": {"name": "bellamy"}},
             "new": {"c1": 2, "c2": "world", "c3": {"name": "bellamy"}}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
+        update(hge_ctx, table, where_exp, set_exp)
 
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data, webhook_path ="/new")
 
         where_exp = {"c1": 2}
@@ -637,12 +647,11 @@ class TestUpdateEventQuery(object):
             "old": {"c1": 2, "c2": "world", "c3": {"name": "bellamy"}},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
+        delete(hge_ctx, table, where_exp)
 
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "DELETE", exp_ev_data, webhook_path = "/new")
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 class TestUpdateEventQueryMSSQL(object):
 
     @classmethod
@@ -657,9 +666,8 @@ class TestUpdateEventQueryMSSQL(object):
         #     columns: '*'
         #   update:
         #     columns: ["c3", "c4"]
-        st_code, resp = hge_ctx.v2q_f(self.dir() + '/schema-setup-mssql.yaml')
-        st_code, resp = hge_ctx.v1metadataq_f(self.dir() + '/create-setup-mssql.yaml')
-        assert st_code == 200, resp
+        hge_ctx.v2q_f(self.dir() + '/schema-setup-mssql.yaml')
+        hge_ctx.v1metadataq_f(self.dir() + '/create-setup-mssql.yaml')
 
         # overwrites trigger added above, with...
         #   delete:
@@ -667,17 +675,15 @@ class TestUpdateEventQueryMSSQL(object):
         #   update:
         #     columns: ["c1", "c2", "c4"]
 
-        st_code, resp = hge_ctx.v1metadataq_f(self.dir() + '/update-setup-mssql.yaml')
-        assert st_code == 200, '{}'.format(resp)
+        resp = hge_ctx.v1metadataq_f(self.dir() + '/update-setup-mssql.yaml')
         sources = resp[1]["sources"]
         for source in sources:
             if source["name"] == "mssql":
-                assert source["tables"][0]["event_triggers"][0]["webhook"] == 'http://127.0.0.1:5592/new'
+                assert source["tables"][0]["event_triggers"][0]["webhook"] == '{{EVENT_WEBHOOK_HANDLER}}/new'
 
         yield
         print("--- TEARDOWN STARTED -----")
-        st_code, resp = hge_ctx.v2q_f(self.dir() + '/teardown-mssql.yaml')
-        assert st_code == 200, resp
+        resp = hge_ctx.v2q_f(self.dir() + '/teardown-mssql.yaml')
 
     def test_update_basic(self, hge_ctx, evts_webhook):
         table = {"schema": "hge_tests", "name": "test_t1"}
@@ -685,17 +691,15 @@ class TestUpdateEventQueryMSSQL(object):
         # Expect that inserting a row (which would have triggered in original
         # create_event_trigger) does not trigger
         init_row = {"c1": 1, "c2": 100, "c3": "hello", "c4": "{'name': 'clarke'}"}
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        resp = insert_mutation(hge_ctx, table, init_row)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_cols", table, "INSERT", {}, webhook_path = "/new", get_timeout = 0)
 
         # Likewise for an update on c3:
         where_exp = '{c1: {_eq: 1}}'
         set_exp = '{c3: "world"}'
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("--- RESP 1 ---", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", {}, webhook_path = "/new", get_timeout = 0)
 
@@ -706,10 +710,9 @@ class TestUpdateEventQueryMSSQL(object):
             "old": {"c1": 1, "c2":100, "c3": "world", "c4": "{'name': 'clarke'}"},
             "new": {"c1": 1, "c2":100, "c3": "world", "c4": "{'name': 'bellamy'}"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 ----", resp)
 
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data, webhook_path ="/new")
 
         # Update on row c2 should initiate the event trigger
@@ -719,9 +722,8 @@ class TestUpdateEventQueryMSSQL(object):
             "old": {"c1": 1, "c2":100, "c3": "world", "c4": "{'name': 'bellamy'}"},
             "new": {"c1": 1, "c2":101, "c3": "world", "c4": "{'name': 'bellamy'}"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 3 ----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data, webhook_path ="/new")
 
         # Test Delete Event Trigger
@@ -730,9 +732,8 @@ class TestUpdateEventQueryMSSQL(object):
             "old": {"c1": 1, "c2":101, "c3": "world", "c4": "{'name': 'bellamy'}"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 4 ----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "DELETE", exp_ev_data, webhook_path = "/new")
 
 @usefixtures('per_method_tests_db_state')
@@ -756,8 +757,7 @@ class TestDeleteEventQuery(object):
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, get_timeout=0)
 
@@ -767,8 +767,7 @@ class TestDeleteEventQuery(object):
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data, get_timeout=0)
 
@@ -776,13 +775,12 @@ class TestDeleteEventQuery(object):
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         with pytest.raises(queue.Empty):
             # NOTE: use a bit of a delay here, to catch any stray events generated above
             check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data, get_timeout=2)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestDeleteEventQueryMSSQL(object):
 
@@ -799,9 +797,8 @@ class TestDeleteEventQueryMSSQL(object):
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, get_timeout=0)
 
@@ -811,9 +808,8 @@ class TestDeleteEventQueryMSSQL(object):
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data, get_timeout=0)
 
@@ -821,9 +817,8 @@ class TestDeleteEventQueryMSSQL(object):
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             # NOTE: use a bit of a delay here, to catch any stray events generated above
             check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data, get_timeout=2)
@@ -844,15 +839,13 @@ class TestEventSelCols:
             "old": None,
             "new": {"c1": 1, "c2": "hello"}
         }
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "INSERT", exp_ev_data)
 
         where_exp = {"c1": 1}
         set_exp = {"c2": "world"}
         # expected no event hence previous expected data
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data, get_timeout=0)
 
@@ -862,8 +855,7 @@ class TestEventSelCols:
             "old": {"c1": 1, "c2": "world"},
             "new": {"c1": 2, "c2": "world"}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data)
 
         where_exp = {"c1": 2}
@@ -871,30 +863,26 @@ class TestEventSelCols:
             "old": {"c1": 2, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "DELETE", exp_ev_data)
 
-    @pytest.mark.skip_server_upgrade_test
     def test_selected_cols_dep(self, hge_ctx, evts_webhook):
-        st_code, resp = hge_ctx.v1q({
+        resp = hge_ctx.v1q({
             "type": "run_sql",
             "args": {
                 "sql": "alter table hge_tests.test_t1 drop column c1"
             }
-        })
-        assert st_code == 400, resp
+        }, expected_status_code = 400)
         assert resp['code'] == "dependency-error", resp
 
-        st_code, resp = hge_ctx.v1q({
+        resp = hge_ctx.v1q({
             "type": "run_sql",
             "args": {
                 "sql": "alter table hge_tests.test_t1 drop column c2"
             }
         })
-        assert st_code == 200, resp
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_class_tests_db_state')
 class TestEventSelColsMSSQL:
 
@@ -910,18 +898,16 @@ class TestEventSelColsMSSQL:
             "old": None,
             "new": {"c1": 1, "c2": "hello", "c3": "bellamy"}
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "INSERT", exp_ev_data)
 
         where_exp = '{c1: {_eq: 1}}'
         set_exp = '{c1: 2}'
 
         # expected no event hence previous expected data
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data, get_timeout=0)
 
@@ -932,9 +918,8 @@ class TestEventSelColsMSSQL:
             "new": {"c1": 2, "c2": "world", "c3": "bellamy"}
         }
 
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "UPDATE", exp_ev_data)
 
         where_exp = '{c1: {_eq: 2}}'
@@ -942,37 +927,33 @@ class TestEventSelColsMSSQL:
             "old": {"c1": 2, "c2": "world", "c3": "bellamy"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 4 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_cols", table, "DELETE", exp_ev_data)
 
-    @pytest.mark.skip_server_upgrade_test
     def test_selected_cols_dep(self, hge_ctx, evts_webhook):
         # Dropping Primary Key is not allowed
-        st_code, resp = hge_ctx.v2q({
+        resp = hge_ctx.v2q({
             "type": "mssql_run_sql",
             "args": {
                 "source": "mssql",
                 "sql": "alter table hge_tests.test_t1 drop column c1"
             }
-        })
-        assert st_code == 400, resp
+        }, expected_status_code = 400)
         assert resp['code'] == "bad-request", resp
 
         # 'C2' cannot be dropped because event trigger is created on that column
-        st_code, resp = hge_ctx.v2q({
+        resp = hge_ctx.v2q({
             "type": "mssql_run_sql",
             "args": {
                 "source": "mssql",
                 "sql": "alter table hge_tests.test_t1 drop column c2"
             }
-        })
+        }, expected_status_code = 400)
         print("----- RESP 5 -----", resp)
-        assert st_code == 400, resp
         assert resp['code'] == "dependency-error", resp
 
-        st_code, resp = hge_ctx.v2q({
+        resp = hge_ctx.v2q({
             "type": "mssql_run_sql",
             "args": {
                 "source": "mssql",
@@ -980,7 +961,6 @@ class TestEventSelColsMSSQL:
             }
         })
         print("----- RESP 6 -----", resp)
-        assert st_code == 200, resp
 
 @usefixtures('per_method_tests_db_state')
 class TestEventInsertOnly:
@@ -997,8 +977,7 @@ class TestEventInsertOnly:
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t1_insert", table, "INSERT", exp_ev_data)
 
         where_exp = {"c1": 1}
@@ -1007,8 +986,7 @@ class TestEventInsertOnly:
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_insert", table, "UPDATE", exp_ev_data, get_timeout=0)
 
@@ -1016,13 +994,12 @@ class TestEventInsertOnly:
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         with pytest.raises(queue.Empty):
             # NOTE: use a bit of a delay here, to catch any stray events generated above
             check_event(hge_ctx, evts_webhook, "t1_insert", table, "DELETE", exp_ev_data, get_timeout=2)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestEventInsertOnlyMSSQL:
 
@@ -1038,9 +1015,8 @@ class TestEventInsertOnlyMSSQL:
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_insert", table, "INSERT", exp_ev_data)
 
         where_exp = '{c1: {_eq: 1}}'
@@ -1049,8 +1025,7 @@ class TestEventInsertOnlyMSSQL:
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_insert", table, "UPDATE", exp_ev_data, get_timeout=0)
@@ -1059,14 +1034,13 @@ class TestEventInsertOnlyMSSQL:
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             # NOTE: use a bit of a delay here, to catch any stray events generated above
             check_event(hge_ctx, evts_webhook, "t1_insert", table, "DELETE", exp_ev_data, get_timeout=2)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestEventUpdateOnlyMSSQL:
 
@@ -1082,9 +1056,8 @@ class TestEventUpdateOnlyMSSQL:
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         # INSERT operations will not fire event triggers
         with pytest.raises(queue.Empty):
             check_event(hge_ctx, evts_webhook, "t1_update", table, "INSERT", exp_ev_data, get_timeout=0)
@@ -1096,8 +1069,7 @@ class TestEventUpdateOnlyMSSQL:
             "old": {"c1": 1, "c2": "hello"},
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
         check_event(hge_ctx, evts_webhook, "t1_update", table, "UPDATE", exp_ev_data)
 
@@ -1109,9 +1081,8 @@ class TestEventUpdateOnlyMSSQL:
             "old": None,
             "new": {"c1": 2, "c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_update", table, "UPDATE", exp_ev_data)
 
         # DELETE operations will not fire event triggers
@@ -1120,9 +1091,8 @@ class TestEventUpdateOnlyMSSQL:
             "old": {"c1": 2, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 4 -----", resp)
-        assert st_code == 200, resp
         with pytest.raises(queue.Empty):
             # NOTE: use a bit of a delay here, to catch any stray events generated above
             check_event(hge_ctx, evts_webhook, "t1_update", table, "DELETE", exp_ev_data, get_timeout=2)
@@ -1145,9 +1115,8 @@ class TestEventUpdateOnlyMSSQL:
             '''
         }
       }
-      st_code, resp = hge_ctx.v2q(insert_values_sql)
+      resp = hge_ctx.v2q(insert_values_sql)
       print("----------- resp ----------\n", resp)
-      assert st_code == 200, resp
 
       # INSERT operations will not fire event triggers
       with pytest.raises(queue.Empty):
@@ -1186,9 +1155,8 @@ class TestEventUpdateOnlyMSSQL:
         "new": {"c1": 3, "c2": "clarke"}
       }
 
-      st_code, resp = hge_ctx.v2q(update_values_sql)
+      resp = hge_ctx.v2q(update_values_sql)
       print("----------- resp ----------\n", resp)
-      assert st_code == 200, resp
 
       exp_ev_datas = [exp_ev_data_case_1, exp_ev_data_case_2]
 
@@ -1210,8 +1178,7 @@ class TestEventSelPayload:
             "old": None,
             "new": {"c1": 1, "c2": "hello"}
         }
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "INSERT", exp_ev_data)
 
         where_exp = {"c1": 1}
@@ -1220,8 +1187,7 @@ class TestEventSelPayload:
             "old": {"c1": 1},
             "new": {"c1": 1}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "UPDATE", exp_ev_data)
 
         where_exp = {"c1": 1}
@@ -1230,8 +1196,7 @@ class TestEventSelPayload:
             "old": {"c1": 1},
             "new": {"c1": 2}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "UPDATE", exp_ev_data)
 
         where_exp = {"c1": 2}
@@ -1239,30 +1204,27 @@ class TestEventSelPayload:
             "old": {"c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "DELETE", exp_ev_data)
 
     def test_selected_payload_dep(self, hge_ctx):
-        st_code, resp = hge_ctx.v1q({
+        resp = hge_ctx.v1q({
             "type": "run_sql",
             "args": {
                 "sql": "alter table hge_tests.test_t1 drop column c1"
             }
-        })
-        assert st_code == 400, resp
+        }, expected_status_code = 400)
         assert resp['code'] == "dependency-error", resp
 
-        st_code, resp = hge_ctx.v1q({
+        resp = hge_ctx.v1q({
             "type": "run_sql",
             "args": {
                 "sql": "alter table hge_tests.test_t1 drop column c2"
             }
-        })
-        assert st_code == 400, resp
+        }, expected_status_code = 400)
         assert resp['code'] == "dependency-error", resp
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_class_tests_db_state')
 class TestEventSelPayloadMSSQL:
 
@@ -1278,9 +1240,8 @@ class TestEventSelPayloadMSSQL:
             "old": None,
             "new": {"c1": 1, "c2": "hello", "c3": "bellamy"}
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "INSERT", exp_ev_data)
 
         where_exp = '{c1: {_eq: 1}}'
@@ -1289,9 +1250,8 @@ class TestEventSelPayloadMSSQL:
             "old": {"c2": "hello"},
             "new": {"c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "UPDATE", exp_ev_data)
 
         where_exp = '{c1: {_eq: 1}}'
@@ -1300,9 +1260,8 @@ class TestEventSelPayloadMSSQL:
             "old": {"c2": "world"},
             "new": {"c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "UPDATE", exp_ev_data)
 
         where_exp = '{c1: {_eq: 1}}'
@@ -1310,46 +1269,42 @@ class TestEventSelPayloadMSSQL:
             "old": {"c3": "harry"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 4 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_payload", table, "DELETE", exp_ev_data)
 
     def test_selected_payload_dep(self, hge_ctx):
         # Dropping Primary Key is not allowed
-        st_code, resp = hge_ctx.v2q({
+        resp = hge_ctx.v2q({
             "type": "mssql_run_sql",
             "args": {
                 "source": "mssql",
                 "sql": "alter table hge_tests.test_t1 drop column c1"
             }
-        })
+        }, expected_status_code = 400)
         print("----- RESP 5 -----", resp)
-        assert st_code == 400, resp
         assert resp['code'] == "bad-request", resp
 
         # 'C2' cannot be dropped because event trigger is created on that column
-        st_code, resp = hge_ctx.v2q({
+        resp = hge_ctx.v2q({
             "type": "mssql_run_sql",
             "args": {
                 "source": "mssql",
                 "sql": "alter table hge_tests.test_t1 drop column c2"
             }
-        })
+        }, expected_status_code = 400)
         print("----- RESP 6 -----", resp)
-        assert st_code == 400, resp
         assert resp['code'] == "dependency-error", resp
 
         # 'C3' cannot be dropped because event trigger is created on that column
-        st_code, resp = hge_ctx.v2q({
+        resp = hge_ctx.v2q({
             "type": "mssql_run_sql",
             "args": {
                 "source": "mssql",
                 "sql": "alter table hge_tests.test_t1 drop column c3"
             }
-        })
+        }, expected_status_code = 400)
         print("----- RESP 7 -----", resp)
-        assert st_code == 400, resp
         assert resp['code'] == "dependency-error", resp
 
 @usefixtures('per_method_tests_db_state')
@@ -1367,8 +1322,7 @@ class TestWebhookEvent(object):
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data)
 
         where_exp = {"c1": 1}
@@ -1377,19 +1331,17 @@ class TestWebhookEvent(object):
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data)
 
         exp_ev_data = {
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestWebhookEventMSSQL(object):
 
@@ -1405,9 +1357,8 @@ class TestWebhookEventMSSQL(object):
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data)
 
         where_exp = '{c1: {_eq: 1}}'
@@ -1416,18 +1367,16 @@ class TestWebhookEventMSSQL(object):
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data)
 
         exp_ev_data = {
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data)
 
 @usefixtures('per_method_tests_db_state')
@@ -1445,8 +1394,7 @@ class TestEventWebhookTemplateURL(object):
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert(hge_ctx, table, init_row)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, webhook_path = '/trigger')
 
         where_exp = {"c1": 1}
@@ -1455,19 +1403,17 @@ class TestEventWebhookTemplateURL(object):
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data, webhook_path = '/trigger')
 
         exp_ev_data = {
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data, webhook_path = '/trigger')
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestEventWebhookTemplateURLMSSQL(object):
 
@@ -1483,9 +1429,8 @@ class TestEventWebhookTemplateURLMSSQL(object):
             "old": None,
             "new": init_row
         }
-        st_code, resp = insert_mutation(hge_ctx, table, init_row)
+        resp = insert_mutation(hge_ctx, table, init_row)
         print("----- RESP 1 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, webhook_path = '/trigger')
 
         where_exp = '{c1: {_eq: 1}}'
@@ -1494,18 +1439,16 @@ class TestEventWebhookTemplateURLMSSQL(object):
             "old": init_row,
             "new": {"c1": 1, "c2": "world"}
         }
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp)
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp)
         print("----- RESP 2 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data, webhook_path = '/trigger')
 
         exp_ev_data = {
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data, webhook_path = '/trigger')
 
 @usefixtures('per_method_tests_db_state')
@@ -1524,8 +1467,7 @@ class TestEventSessionVariables(object):
             "new": init_row
         }
         session_variables = { 'x-hasura-role': 'admin', 'x-hasura-allowed-roles': "['admin','user']", 'x-hasura-user-id': '1'}
-        st_code, resp = insert(hge_ctx, table, init_row, headers = session_variables)
-        assert st_code == 200, resp
+        insert(hge_ctx, table, init_row, headers = session_variables)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, session_variables = session_variables)
 
         where_exp = {"c1": 1}
@@ -1535,8 +1477,7 @@ class TestEventSessionVariables(object):
             "new": {"c1": 1, "c2": "world"}
         }
         session_variables = { 'x-hasura-role': 'admin', 'x-hasura-random': 'some_random_info', 'X-Random-Header': 'not_session_variable'}
-        st_code, resp = update(hge_ctx, table, where_exp, set_exp, headers = session_variables)
-        assert st_code == 200, resp
+        update(hge_ctx, table, where_exp, set_exp, headers = session_variables)
         session_variables.pop('X-Random-Header')
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data, session_variables = session_variables)
 
@@ -1544,11 +1485,10 @@ class TestEventSessionVariables(object):
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete(hge_ctx, table, where_exp)
-        assert st_code == 200, resp
+        delete(hge_ctx, table, where_exp)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestEventSessionVariablesMSSQL(object):
 
@@ -1565,8 +1505,7 @@ class TestEventSessionVariablesMSSQL(object):
             "new": init_row
         }
         session_variables = { 'x-hasura-role': 'admin', 'x-hasura-allowed-roles': "['admin','user']", 'x-hasura-user-id': '1'}
-        st_code, resp = insert_mutation(hge_ctx, table, init_row, headers = session_variables)
-        assert st_code == 200, resp
+        resp = insert_mutation(hge_ctx, table, init_row, headers = session_variables)
         print("----- RESP 1 -----", resp)
         check_event(hge_ctx, evts_webhook, "t1_all", table, "INSERT", exp_ev_data, session_variables = session_variables)
 
@@ -1577,8 +1516,7 @@ class TestEventSessionVariablesMSSQL(object):
             "new": {"c1": 1, "c2": "world"}
         }
         session_variables = { 'x-hasura-role': 'admin', 'x-hasura-random': 'some_random_info', 'X-Random-Header': 'not_session_variable'}
-        st_code, resp = update_mutation(hge_ctx, table, where_exp, set_exp, headers = session_variables)
-        assert st_code == 200, resp
+        resp = update_mutation(hge_ctx, table, where_exp, set_exp, headers = session_variables)
         print("----- RESP 2 -----", resp)
         session_variables.pop('X-Random-Header')
         check_event(hge_ctx, evts_webhook, "t1_all", table, "UPDATE", exp_ev_data, session_variables = session_variables)
@@ -1587,9 +1525,8 @@ class TestEventSessionVariablesMSSQL(object):
             "old": {"c1": 1, "c2": "world"},
             "new": None
         }
-        st_code, resp = delete_mutation(hge_ctx, table, where_exp)
+        resp = delete_mutation(hge_ctx, table, where_exp)
         print("----- RESP 3 -----", resp)
-        assert st_code == 200, resp
         check_event(hge_ctx, evts_webhook, "t1_all", table, "DELETE", exp_ev_data)
 
 @usefixtures('per_method_tests_db_state')
@@ -1600,11 +1537,12 @@ class TestManualEvents(object):
         return 'queries/event_triggers/manual_events'
 
     def test_basic(self, hge_ctx, evts_webhook):
-        st_code, resp = hge_ctx.v1metadataq_f('queries/event_triggers/manual_events/enabled.yaml')
-        assert st_code == 200, resp
+        resp = hge_ctx.v1metadataq_f(
+            'queries/event_triggers/manual_events/enabled.yaml')
         print("----- RESP 1 -----", resp)
-        st_code, resp = hge_ctx.v1metadataq_f('queries/event_triggers/manual_events/disabled.yaml')
-        assert st_code == 400, resp
+        resp = hge_ctx.v1metadataq_f(
+            'queries/event_triggers/manual_events/disabled.yaml',
+            expected_status_code = 400)
         print("----- RESP 2 -----", resp)
 
     # This test is being added to ensure that the manual events
@@ -1622,13 +1560,12 @@ class TestManualEvents(object):
         for _ in range(5):
             self.test_basic(hge_ctx, evts_webhook)
 
-            st_code, resp = hge_ctx.v1metadataq(reload_metadata_q)
-            assert st_code == 200, resp
+            resp = hge_ctx.v1metadataq(reload_metadata_q)
             print("----- RESP 3 -----", resp)
 
             self.test_basic(hge_ctx, evts_webhook)
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures('per_method_tests_db_state')
 class TestManualEventsMSSQL(object):
 
@@ -1637,10 +1574,11 @@ class TestManualEventsMSSQL(object):
         return 'queries/event_triggers/manual_events'
 
     def test_basic(self, hge_ctx, evts_webhook):
-        st_code, resp = hge_ctx.v1metadataq_f('queries/event_triggers/manual_events/enabled-mssql.yaml')
-        assert st_code == 200, resp
-        st_code, resp = hge_ctx.v1metadataq_f('queries/event_triggers/manual_events/disabled-mssql.yaml')
-        assert st_code == 400, resp
+        hge_ctx.v1metadataq_f(
+            'queries/event_triggers/manual_events/enabled-mssql.yaml')
+        hge_ctx.v1metadataq_f(
+            'queries/event_triggers/manual_events/disabled-mssql.yaml',
+            expected_status_code = 400)
 
     # This test is being added to ensure that the manual events
     # are not failing after any reload_metadata operation, this
@@ -1656,12 +1594,11 @@ class TestManualEventsMSSQL(object):
         for _ in range(5):
             self.test_basic(hge_ctx, evts_webhook)
 
-            st_code, resp = hge_ctx.v1metadataq(reload_metadata_q)
-            assert st_code == 200, resp
+            hge_ctx.v1metadataq(reload_metadata_q)
 
             self.test_basic(hge_ctx, evts_webhook)
 
-@pytest.mark.parametrize("backend", ['mssql','postgres'])
+@pytest.mark.backend('mssql','postgres')
 @usefixtures('per_method_tests_db_state')
 class TestEventsAsynchronousExecutionPostgresMSSQL(object):
 
@@ -1688,14 +1625,15 @@ class TestEventsAsynchronousExecutionPostgresMSSQL(object):
         payload = range(1,6)
         rows = list(map(lambda x: {"c1": x, "c2": "hello"}, payload))
         if (hge_ctx.backend == "postgres"):
-            st_code, resp = insert_many(hge_ctx, table, rows)
+            resp = insert_many(hge_ctx, table, rows)
         elif (hge_ctx.backend == "mssql"):
-            st_code, resp = insert_many_mutation(hge_ctx, table, rows)
-            print("----- RESP 1 -----", resp)
+            resp = insert_many_mutation(hge_ctx, table, rows)
+        else:
+            raise NotImplementedError("Unknown backend.")
+        print("----- RESP 1 -----", resp)
         start_time = time.perf_counter()
-        assert st_code == 200, resp
-        for i in range(1,6):
-            _ = evts_webhook.get_event(5) # webhook takes 2 seconds to process a request (+ buffer)
+        for _ in range(1,6):
+            evts_webhook.get_event(5) # webhook takes 2 seconds to process a request (+ buffer)
         end_time = time.perf_counter()
         time_elapsed = end_time - start_time
         assert time_elapsed < 10
@@ -1714,7 +1652,7 @@ class TestEventTransform(object):
         # WHEN
         table = {"schema": "hge_tests", "name": "test_t1"}
         insert_row = {"id": 0, "first_name": "Simon", "last_name": "Marlow"}
-        st_code, resp = insert(hge_ctx, table, insert_row)
+        insert(hge_ctx, table, insert_row)
 
         # THEN
         expectedPath = "/?foo=bar"
@@ -1726,9 +1664,8 @@ class TestEventTransform(object):
                                 headers={"foo": "bar"},
                                 removedHeaders=["user-agent"],
                                 webhook_path=expectedPath)
-        assert st_code == 200, resp
 
-@pytest.mark.parametrize("backend", ['mssql'])
+@pytest.mark.backend('mssql')
 @usefixtures("per_method_tests_db_state")
 class TestEventTransformMSSQL(object):
 
@@ -1743,7 +1680,7 @@ class TestEventTransformMSSQL(object):
         # WHEN
         table = {"schema": "hge_tests", "name": "test_t1"}
         insert_row = {"id": 0, "first_name": "Simon", "last_name": "Marlow"}
-        st_code, resp = insert_mutation(hge_ctx, table, insert_row)
+        resp = insert_mutation(hge_ctx, table, insert_row)
         print("----- RESP 1 -----", resp)
 
         # THEN
@@ -1756,4 +1693,3 @@ class TestEventTransformMSSQL(object):
                                 headers={"foo": "bar"},
                                 removedHeaders=["user-agent"],
                                 webhook_path=expectedPath)
-        assert st_code == 200, resp

@@ -12,10 +12,11 @@ module Hasura.Backends.MSSQL.Meta
   )
 where
 
-import Data.Aeson as Aeson
+import Data.Aeson as J
 import Data.ByteString.UTF8 qualified as BSUTF8
 import Data.FileEmbed (embedFile, makeRelativeToProject)
-import Data.HashMap.Strict qualified as HM
+import Data.HashMap.Strict qualified as HashMap
+import Data.HashMap.Strict.NonEmpty qualified as NEHashMap
 import Data.HashSet qualified as HS
 import Data.String
 import Data.Text qualified as T
@@ -27,10 +28,10 @@ import Hasura.Backends.MSSQL.SQL.Error
 import Hasura.Backends.MSSQL.Types.Internal
 import Hasura.Base.Error
 import Hasura.Prelude
+import Hasura.RQL.Types.BackendType
 import Hasura.RQL.Types.Column
 import Hasura.RQL.Types.Common (OID (..))
-import Hasura.RQL.Types.Table
-import Hasura.SQL.Backend
+import Hasura.Table.Cache
 
 --------------------------------------------------------------------------------
 
@@ -41,9 +42,9 @@ loadDBMetadata = do
   let queryBytes = $(makeRelativeToProject "src-rsr/mssql/mssql_table_metadata.sql" >>= embedFile)
       odbcQuery :: ODBC.Query = fromString . BSUTF8.toString $ queryBytes
   sysTablesText <- runIdentity <$> Tx.singleRowQueryE defaultMSSQLTxErrorHandler odbcQuery
-  case Aeson.eitherDecodeStrict (T.encodeUtf8 sysTablesText) of
+  case J.eitherDecodeStrict (T.encodeUtf8 sysTablesText) of
     Left e -> throw500 $ T.pack $ "error loading sql server database schema: " <> e
-    Right sysTables -> pure $ HM.fromList $ map transformTable sysTables
+    Right sysTables -> pure $ HashMap.fromList $ map transformTable sysTables
 
 --------------------------------------------------------------------------------
 
@@ -141,8 +142,9 @@ transformTable tableInfo =
       foreignKeysMetadata = HS.fromList $ map ForeignKeyMetadata $ coalesceKeys $ concat foreignKeys
       primaryKey = transformPrimaryKey <$> staJoinedSysPrimaryKey tableInfo
       identityColumns =
-        map (ColumnName . scName) $
-          filter scIsIdentity $ staJoinedSysColumn tableInfo
+        map (ColumnName . scName)
+          $ filter scIsIdentity
+          $ staJoinedSysColumn tableInfo
    in ( tableName,
         DBTableMetadata
           tableOID
@@ -158,29 +160,29 @@ transformTable tableInfo =
 transformColumn ::
   SysColumn ->
   (RawColumnInfo 'MSSQL, [ForeignKey 'MSSQL])
-transformColumn columnInfo =
-  let rciName = ColumnName $ scName columnInfo
-      rciPosition = scColumnId columnInfo
+transformColumn sysCol =
+  let rciName = ColumnName $ scName sysCol
+      rciPosition = scColumnId sysCol
 
-      rciIsNullable = scIsNullable columnInfo
+      rciIsNullable = scIsNullable sysCol
       rciDescription = Nothing
-      rciType = parseScalarType $ styName $ scJoinedSysType columnInfo
+      rciType = RawColumnTypeScalar $ parseScalarType $ styName $ scJoinedSysType sysCol
       foreignKeys =
-        scJoinedForeignKeyColumns columnInfo <&> \foreignKeyColumn ->
-          let _fkConstraint = Constraint "fk_mssql" $ OID $ sfkcConstraintObjectId foreignKeyColumn
+        scJoinedForeignKeyColumns sysCol <&> \foreignKeyColumn ->
+          let _fkConstraint = Constraint (ConstraintName "fk_mssql") $ OID $ sfkcConstraintObjectId foreignKeyColumn
 
               schemaName = SchemaName $ ssName $ sfkcJoinedReferencedSysSchema foreignKeyColumn
               _fkForeignTable = TableName (sfkcJoinedReferencedTableName foreignKeyColumn) schemaName
-              _fkColumnMapping = HM.singleton rciName $ ColumnName $ sfkcJoinedReferencedColumnName foreignKeyColumn
+              _fkColumnMapping = NEHashMap.singleton rciName $ ColumnName $ sfkcJoinedReferencedColumnName foreignKeyColumn
            in ForeignKey {..}
 
-      colIsImmutable = scIsComputed columnInfo || scIsIdentity columnInfo
+      colIsImmutable = scIsComputed sysCol || scIsIdentity sysCol
       rciMutability = ColumnMutability {_cmIsInsertable = not colIsImmutable, _cmIsUpdatable = not colIsImmutable}
    in (RawColumnInfo {..}, foreignKeys)
 
 transformPrimaryKey :: SysPrimaryKey -> PrimaryKey 'MSSQL (Column 'MSSQL)
 transformPrimaryKey (SysPrimaryKey {..}) =
-  let constraint = Constraint spkName $ OID spkIndexId
+  let constraint = Constraint (ConstraintName spkName) $ OID spkIndexId
       columns = (ColumnName . spkcName) <$> spkColumns
    in PrimaryKey constraint columns
 
@@ -189,36 +191,7 @@ transformPrimaryKey (SysPrimaryKey {..}) =
 -- * Helpers
 
 coalesceKeys :: [ForeignKey 'MSSQL] -> [ForeignKey 'MSSQL]
-coalesceKeys = HM.elems . foldl' coalesce HM.empty
+coalesceKeys = HashMap.elems . foldl' coalesce HashMap.empty
   where
-    coalesce mapping fk@(ForeignKey constraint tableName _) = HM.insertWith combine (constraint, tableName) fk mapping
-    combine oldFK newFK = oldFK {_fkColumnMapping = (HM.union `on` _fkColumnMapping) oldFK newFK}
-
-parseScalarType :: Text -> ScalarType
-parseScalarType = \case
-  "char" -> CharType
-  "numeric" -> NumericType
-  "decimal" -> DecimalType
-  "money" -> DecimalType
-  "smallmoney" -> DecimalType
-  "int" -> IntegerType
-  "smallint" -> SmallintType
-  "float" -> FloatType
-  "real" -> RealType
-  "date" -> DateType
-  "time" -> Ss_time2Type
-  "varchar" -> VarcharType
-  "nchar" -> WcharType
-  "nvarchar" -> WvarcharType
-  "ntext" -> WtextType
-  "timestamp" -> TimestampType
-  "text" -> TextType
-  "binary" -> BinaryType
-  "bigint" -> BigintType
-  "tinyint" -> TinyintType
-  "varbinary" -> VarbinaryType
-  "bit" -> BitType
-  "uniqueidentifier" -> GuidType
-  "geography" -> GeographyType
-  "geometry" -> GeometryType
-  t -> UnknownType t
+    coalesce mapping fk@(ForeignKey constraint tableName _) = HashMap.insertWith combine (constraint, tableName) fk mapping
+    combine oldFK newFK = oldFK {_fkColumnMapping = (NEHashMap.union `on` _fkColumnMapping) oldFK newFK}

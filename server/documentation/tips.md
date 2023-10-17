@@ -1,3 +1,9 @@
+# Tips and tricks
+
+This document contains various tips and tricks to make development easier.
+
+### Table of contents
+
 <!--
 Please make sure you update the table of contents when modifying this file. If
 you're using emacs, you can generate a default version of it with `M-x
@@ -5,20 +11,17 @@ markdown-toc-refresh-toc` (provided by the package markdown-toc), and then edit
 it for readability.
 -->
 
-<!-- markdown-toc start -->
-**Table of Contents**
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 
 - [Use curl and yaml2json to test the graphql-engine API directly](#use-curl-and-yaml2json-to-test-the-graphql-engine-api-directly)
 - [Convert a test case to a live example](#convert-a-test-case-to-a-live-example)
 - [Run a remote MSSQL instance with dev.sh](#run-a-remote-mssql-instance-with-devsh)
 - [Add a unit test for SQL generation](#add-a-unit-test-for-sql-generation)
 - [Benchmark a query on postgres](#benchmark-a-query-on-postgres)
+- [Automatically run unit tests on change](#automatically-run-unit-tests-on-change)
 
 <!-- markdown-toc end -->
 
-# Tips and tricks
-
-This document contains various tips and tricks to make development easier.
 
 ## Use curl and yaml2json to test the graphql-engine API directly
 
@@ -363,3 +366,13 @@ tps = 291.082637 (without initial connection time)
 
 From looking at the transactions rate, we can see that `6624` manage to complete for the first query, but only `5822` transactions coleted for the second query.
 This makes the first query faster by `6624 / 5822 * 100 - 100 = roughly 13%`. For the usecase and data we measured.
+
+# Automatically run unit tests on change
+
+Use [ghcid](https://hackage.haskell.org/package/ghcid)
+
+And run this:
+
+```sh
+ghcid -a -c "cabal repl graphql-engine:graphql-engine-tests -f -O0" --test Main.main --setup ":set args --match TheNameOfTestsIWantToRun" --width 100 --height 30
+```

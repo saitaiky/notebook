@@ -3,17 +3,17 @@
 module Data.Parser.RemoteRelationshipSpec (spec) where
 
 import Data.Aeson
-import Data.HashMap.Strict qualified as Map
+import Data.HashMap.Strict qualified as HashMap
 import Data.HashSet qualified as Set
 import Data.List.NonEmpty qualified as NE
 import Data.Text.NonEmpty (nonEmptyText)
 import Hasura.Base.Error
+import Hasura.Base.Error.TestInstances ()
 import Hasura.Prelude
 import Hasura.RQL.DDL.Schema.LegacyCatalog (parseLegacyRemoteRelationshipDefinition)
 import Hasura.RQL.Types.Common
 import Hasura.RQL.Types.Relationships.Remote
-import Hasura.RQL.Types.Relationships.ToSchema
-import Hasura.RQL.Types.RemoteSchema
+import Hasura.RemoteSchema.Metadata
 import Language.GraphQL.Draft.Syntax qualified as G
 import Test.Hspec
 
@@ -88,7 +88,7 @@ toSchemaRelationshipDef =
           fieldCall =
             FieldCall
               { fcName = $$(G.litName "top_level_field"),
-                fcArguments = RemoteArguments $ Map.singleton idName (G.VVariable idName)
+                fcArguments = RemoteArguments $ HashMap.singleton idName (G.VVariable idName)
               }
        in RemoteFields $ fieldCall NE.:| []
 

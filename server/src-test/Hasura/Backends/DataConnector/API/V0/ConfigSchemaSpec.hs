@@ -7,7 +7,7 @@ import Data.Aeson (toJSON)
 import Data.Aeson.QQ.Simple (aesonQQ)
 import Data.Data (Proxy (..))
 import Data.OpenApi (OpenApiItems (..), OpenApiType (..), Reference (..), Referenced (..), Schema (..), toSchema)
-import Hasura.Backends.DataConnector.API.V0.API
+import Hasura.Backends.DataConnector.API.V0
 import Hasura.Prelude
 import Test.Aeson.Utils (testToFromJSON)
 import Test.Hspec
@@ -42,18 +42,18 @@ spec = do
         jsonVal =
           [aesonQQ|
           {
-            "configSchema": {
+            "config_schema": {
               "type": "object",
               "nullable": false,
               "properties": {
-                "tables": { "$ref": "#/otherSchemas/Tables" }
+                "tables": { "$ref": "#/other_schemas/Tables" }
               }
             },
-            "otherSchemas": {
+            "other_schemas": {
               "Tables": {
                 "description": "List of tables to make available in the schema and for querying",
                 "type": "array",
-                "items": { "$ref": "#/otherSchemas/TableName" },
+                "items": { "$ref": "#/other_schemas/TableName" },
                 "nullable": true
               },
               "TableName": {
@@ -65,23 +65,23 @@ spec = do
         |]
     testToFromJSON val jsonVal
 
-    it "produces the correct OpenAPI Spec once external schema refs are fixed up" $
-      fixExternalSchemaRefsInSchema (toJSON $ toSchema (Proxy @ConfigSchemaResponse))
-        `shouldBe` [aesonQQ|
+    it "OpenAPI spec is as expected"
+      $ toJSON (toSchema (Proxy @ConfigSchemaResponse))
+      `shouldBe` [aesonQQ|
         {
           "required": [
-            "configSchema",
-            "otherSchemas"
+            "config_schema",
+            "other_schemas"
           ],
           "type": "object",
           "nullable": false,
           "properties": {
-            "configSchema": {
-              "$ref": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/80c781e479f85ac67001ceb3e7e410e25d2a561b/schemas/v3.0/schema.json#/definitions/Schema"
+            "config_schema": {
+              "$ref": "#/components/schemas/OpenApiSchema"
             },
-            "otherSchemas": {
+            "other_schemas": {
               "additionalProperties": {
-                "$ref": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/80c781e479f85ac67001ceb3e7e410e25d2a561b/schemas/v3.0/schema.json#/definitions/Schema"
+                "$ref": "#/components/schemas/OpenApiSchema"
               },
               "type": "object",
               "nullable": false

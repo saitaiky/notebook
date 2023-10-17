@@ -1,13 +1,14 @@
 # Hasura GraphQL Engine
 
 [![Latest release](https://img.shields.io/github/v/release/hasura/graphql-engine)](https://github.com/hasura/graphql-engine/releases/latest)
+<a href="https://hasura.io/"><img src="assets/brand/hasura_logo_primary_lightbg.svg" align="right" width="200" ></a>
 [![Docs](https://img.shields.io/badge/docs-v2.x-brightgreen.svg?style=flat)](https://hasura.io/docs)
 
 <a href="https://discord.gg/vBPpJkS"><img src="https://img.shields.io/badge/chat-discord-brightgreen.svg?logo=discord&style=flat"></a>
 <a href="https://twitter.com/intent/follow?screen_name=HasuraHQ"><img src="https://img.shields.io/badge/Follow-HasuraHQ-blue.svg?style=flat&logo=twitter"></a>
 <a href="https://hasura.io/newsletter/"><img src="https://img.shields.io/badge/newsletter-subscribe-yellow.svg?style=flat"></a>
 
-Hasura is an open source product that accelerates API development by 10x by giving you [GraphQL](https://hasura.io/graphql/) or REST APIs with built in authorization on your data, instantly.
+Hasura is an open-source product that accelerates API development by 10x by giving you [GraphQL](https://hasura.io/graphql/) or REST APIs with built-in authorization on your data, instantly.
 
 Read more at [hasura.io](https://hasura.io) and the [docs](https://hasura.io/docs/).
 
@@ -32,7 +33,7 @@ Read more at [hasura.io](https://hasura.io) and the [docs](https://hasura.io/doc
 * **Scheduled Triggers**: Execute custom business logic at specific points in time using a cron config or a one-off event.
 * **Fine-grained access control**: Dynamic access control that integrates with your auth system (eg: auth0, firebase-auth)
 * **Admin UI & Migrations**: Admin UI & Rails-inspired schema migrations
-* **Supported Databases**: Supports PostgreSQL (and its flavours), MS SQL Server and Big Query. Support for more [databases](https://hasura.io/graphql/database/) coming soon.
+* **Supported Databases**: Supports PostgreSQL (and its flavors), MS SQL Server and Big Query. Support for more [databases](https://hasura.io/graphql/database/) coming soon.
 
 Read more at [hasura.io](https://hasura.io) and the [docs](https://hasura.io/docs/).
 
@@ -90,6 +91,8 @@ Check out the instructions for the following one-click deployment options:
 | Azure | [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3a%2f%2fraw.githubusercontent.com%2fhasura%2fgraphql-engine%2fmaster%2finstall-manifests%2fazure-container-with-pg%2fazuredeploy.json) | [docs](https://hasura.io/docs/latest/graphql/core/guides/deployment/azure-container-instances-postgres.html) |
 | Render | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/render-examples/hasura-graphql) | [docs](https://hasura.io/docs/latest/graphql/core/guides/deployment/render-one-click.html) |
 
+> Note: The Hasura GraphQL Engine collects anonymous telemetry to understand usage and provide the best experience. Read more [here](https://hasura.io/docs/latest/policies/telemetry/) on what data is collected and the procedure to opt out.
+
 ### Other deployment methods
 
 For Docker-based deployment and advanced configuration options, see [deployment
@@ -132,23 +135,23 @@ Transform data in Postgres or run business logic on it to derive another dataset
 
 ## Demos
 
-Check out all the example applications in the [community/sample-apps](community/sample-apps) directory.
+Check out all the example applications in the [hasura/sample-apps](https://github.com/hasura/sample-apps/tree/main) repository.
 
 ### Realtime applications
 
 - Group Chat application built with React, includes a typing indicator, online users & new
   message notifications.
   - [Try it out](https://realtime-chat.demo.hasura.io/)
-  - [Tutorial](community/sample-apps/realtime-chat)
+  - [Tutorial](https://github.com/hasura/sample-apps/tree/main/realtime-chat)
 
-- Live location tracking app that shows a running vehicle changing current GPS
+- Live location tracking app that shows a running vehicle changing the current GPS
   coordinates moving on a map.
   - [Try it out](https://realtime-location-tracking.demo.hasura.io/)
-  - [Tutorial](community/sample-apps/realtime-location-tracking)
+  - [Tutorial](https://github.com/hasura/sample-apps/tree/main/realtime-location-tracking)
 
-- A realtime dashboard for data aggregations on continuously changing data.
+- A real-time dashboard for data aggregations on continuously changing data.
   - [Try it out](https://realtime-poll.demo.hasura.io/)
-  - [Tutorial](community/sample-apps/realtime-poll)
+  - [Tutorial](https://github.com/hasura/sample-apps/tree/main/realtime-poll)
 
 ### Videos
 
@@ -228,5 +231,6 @@ This readme is available in the following translations:
 - [Chinese :cn:](translations/README.chinese.md) (:pray: [@jagreetdg](https://github.com/jagreetdg) & [@johnbanq](https://github.com/johnbanq))
 - [Turkish :tr:](translations/README.turkish.md) (:pray: [@berat](https://github.com/berat))
 - [Korean :kr:](translations/README.korean.md) (:pray: [@라스크](https://github.com/laskdjlaskdj12))
+- [Italian :it:](translations/README.italian.md) (:pray: [@befire](https://github.com/francesca-belfiore))
 
 Translations for other files can be found [here](translations).

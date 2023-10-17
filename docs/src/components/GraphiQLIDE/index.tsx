@@ -1,29 +1,36 @@
 import React from 'react';
 import GraphiQL from 'graphiql';
-import useIsBrowser from '@docusaurus/useIsBrowser';
 import cslx from 'clsx';
-import { createGraphiQLFetcher } from '@graphiql/toolkit';
-import "graphiql/graphiql.min.css";
-import "./styles.scss";
+import 'graphiql/graphiql.min.css';
+import './styles.scss';
 
+const GraphiQLIDE = ({ query, variables, response, viewOnly = true }) => {
+  const notReal = async ({ query }) => {
+    return {
+      data: {
+        easterEgg: `This query and response is for demo purposes only. Running it doesn't actually hit an API. Refresh the page to see the original response.`,
+      },
+    };
+  };
 
-const GraphiQLIDE = ({ query, variables, response, viewOnly=true }) => {
-  const isBrowser = useIsBrowser();
   return (
-    <div className={`graphiql ${cslx({'with-vars': !!variables, 'view-only': viewOnly})}`}>
+    <div
+      className={`graphiql ${cslx({
+        'with-vars': !!variables,
+        'view-only': viewOnly,
+      })}`}
+    >
       <GraphiQL
-        readOnly={viewOnly}
+        readOnly={false}
         editorTheme={'dracula'}
         schema={null}
-        fetcher={isBrowser ? createGraphiQLFetcher({
-          url: 'https://hasura.io/graphql', // TODO: update later
-        }) : () => null}
+        fetcher={notReal}
         query={query}
         variables={variables}
         response={response}
       />
     </div>
   );
-}
+};
 
 export default GraphiQLIDE;

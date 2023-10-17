@@ -3,10 +3,9 @@ module github.com/hasura/graphql-engine/cli/v2
 go 1.16
 
 require (
-	cuelang.org/go v0.4.2
+	cuelang.org/go v0.4.3
 	github.com/AlecAivazis/survey/v2 v2.3.1
 	github.com/Masterminds/semver v1.5.0
-	github.com/Microsoft/go-winio v0.4.17-0.20210211115548-6eac466e5fa3 // indirect
 	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/aryann/difflib v0.0.0-20170710044230-e206f873d14a
@@ -15,7 +14,6 @@ require (
 	github.com/buger/jsonparser v1.1.1
 	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/cockroachdb/redact v1.1.3
-	github.com/containerd/continuity v0.0.0-20201208142359-180525291bb7 // indirect
 	github.com/denisenkom/go-mssqldb v0.0.0-20190515213511-eb9f6a1743f3
 	github.com/elazarl/goproxy v0.0.0-20191011121108-aa519ddbe484 // indirect
 	github.com/fatih/color v1.13.0
@@ -39,19 +37,18 @@ require (
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/onsi/ginkgo v1.16.4
 	github.com/onsi/gomega v1.16.0
-	github.com/opencontainers/runc v1.0.0-rc93 // indirect
-	github.com/ory/dockertest/v3 v3.6.3
+	github.com/ory/dockertest/v3 v3.9.1
 	github.com/parnurzeal/gorequest v0.2.16
 	github.com/pkg/errors v0.9.1
-	github.com/sirupsen/logrus v1.7.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/skratchdot/open-golang v0.0.0-20190402232053-79abb63cd66e
 	github.com/spf13/afero v1.6.0
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.10.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	github.com/subosito/gotenv v1.2.0
-	github.com/vektah/gqlparser v1.3.1
+	github.com/vektah/gqlparser/v2 v2.4.3
 	golang.org/x/term v0.0.0-20210916214954-140adaaadfaf
 	gopkg.in/src-d/go-git.v4 v4.13.1
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b

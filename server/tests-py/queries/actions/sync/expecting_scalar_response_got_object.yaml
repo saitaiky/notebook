@@ -16,7 +16,7 @@
         - name: name
           type: String!
         output_type: String!
-        handler: http://127.0.0.1:5593/create-user
+        handler: "{{ACTION_WEBHOOK_HANDLER}}/create-user"
 
 - description: Run scalar-response sync action
   url: /v1/graphql
@@ -52,12 +52,12 @@
                 name: scalar_response
               request_query: "mutation {\n  scalar_response(email: \"clarke@gmail.com\", name: \"\
                 Clarke\")\n}\n"
-            url: http://127.0.0.1:5593/create-user
+            url: "{{ACTION_WEBHOOK_HANDLER}}/create-user"
             headers: []
             transformed_request:
         path: $
         code: unexpected
-      message: got object for the action webhook response, might want to check the action return type defined!
+      message: got object for the action webhook response, expecting String
 - description: Revert action wehbook
   url: /v1/query
   status: 200
@@ -71,4 +71,4 @@
         kind: synchronous
         arguments:
         output_type: String!
-        handler: http://127.0.0.1:5593/scalar-response
+        handler: "{{ACTION_WEBHOOK_HANDLER}}/scalar-response"

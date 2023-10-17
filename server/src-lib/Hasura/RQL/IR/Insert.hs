@@ -18,6 +18,7 @@ module Hasura.RQL.IR.Insert
     aiIsSingle,
     aiData,
     aiOutput,
+    aiNamingConvention,
     AnnotatedInsertField (..),
     AnnotatedInsertRow,
     ArrayRelationInsert,
@@ -47,9 +48,12 @@ import Hasura.RQL.IR.BoolExp
 import Hasura.RQL.IR.Conflict
 import Hasura.RQL.IR.Returning
 import Hasura.RQL.Types.Backend
+import Hasura.RQL.Types.BackendType
 import Hasura.RQL.Types.Column
+import Hasura.RQL.Types.Common
+import Hasura.RQL.Types.NamingCase (NamingCase)
+import Hasura.RQL.Types.Permission
 import Hasura.RQL.Types.Relationships.Local
-import Hasura.SQL.Backend
 
 -- | Overall representation of an insert mutation, corresponding to one root
 -- field in our mutation, including the parsed selection set of the mutation's
@@ -60,7 +64,8 @@ data AnnotatedInsert (b :: BackendType) (r :: Type) v = AnnotatedInsert
   { _aiFieldName :: Text,
     _aiIsSingle :: Bool,
     _aiData :: MultiObjectInsert b v,
-    _aiOutput :: MutationOutputG b r v
+    _aiOutput :: MutationOutputG b r v,
+    _aiNamingConvention :: Maybe NamingCase
   }
   deriving (Functor, Foldable, Traversable)
 
@@ -72,8 +77,11 @@ data AnnotatedInsertData (b :: BackendType) (f :: Type -> Type) (v :: Type) = An
     _aiTableName :: TableName b,
     _aiCheckCondition :: (AnnBoolExp b v, Maybe (AnnBoolExp b v)),
     _aiTableColumns :: [ColumnInfo b],
+    _aiPrimaryKey :: Maybe (NESeq (Column b)),
+    _aiExtraTableMetadata :: ExtraTableMetadata b,
     _aiPresetValues :: PreSetColsG b v,
-    _aiBackendInsert :: BackendInsert b v
+    _aiBackendInsert :: BackendInsert b v,
+    _aiValidateInput :: Maybe (ValidateInput ResolvedWebhook)
   }
   deriving (Functor, Foldable, Traversable)
 

@@ -4,13 +4,14 @@ module Hasura.Backends.BigQuery.DDL.Source
   ( resolveSource,
     postDropSourceHook,
     resolveSourceConfig,
+    restTypeToScalarType,
   )
 where
 
 import Data.Aeson qualified as J
 import Data.ByteString.Lazy qualified as L
 import Data.Environment qualified as Env
-import Data.HashMap.Strict.Extended qualified as HM
+import Data.HashMap.Strict.Extended qualified as HashMap
 import Data.Int qualified as Int
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
@@ -20,14 +21,14 @@ import Hasura.Backends.BigQuery.Meta
 import Hasura.Backends.BigQuery.Source
 import Hasura.Backends.BigQuery.Types
 import Hasura.Base.Error
+import Hasura.Function.Cache (FunctionOverloads (..))
 import Hasura.Prelude
 import Hasura.RQL.Types.Backend (BackendConfig)
+import Hasura.RQL.Types.BackendType
 import Hasura.RQL.Types.Column
 import Hasura.RQL.Types.Common
 import Hasura.RQL.Types.Source
-import Hasura.RQL.Types.SourceCustomization
-import Hasura.RQL.Types.Table
-import Hasura.SQL.Backend
+import Hasura.Table.Cache
 
 defaultGlobalSelectLimit :: Int.Int64
 defaultGlobalSelectLimit = 1000
@@ -39,19 +40,20 @@ defaultRetryBaseDelay :: Microseconds
 defaultRetryBaseDelay = 500000
 
 resolveSourceConfig ::
-  MonadIO m =>
+  (MonadIO m) =>
   SourceName ->
   BigQueryConnSourceConfig ->
   BackendSourceKind 'BigQuery ->
   BackendConfig 'BigQuery ->
   Env.Environment ->
+  manager ->
   m (Either QErr BigQuerySourceConfig)
-resolveSourceConfig _name BigQueryConnSourceConfig {..} _backendKind _backendConfig env = runExceptT $ do
+resolveSourceConfig _name BigQueryConnSourceConfig {..} _backendKind _backendConfig env _manager = runExceptT $ do
   eSA <- resolveConfigurationJson env _cscServiceAccount
   case eSA of
     Left e -> throw400 Unexpected $ T.pack e
     Right serviceAccount -> do
-      projectId <- resolveConfigurationInput env _cscProjectId
+      projectId <- BigQueryProjectId <$> resolveConfigurationInput env _cscProjectId
       retryOptions <- do
         numRetries <-
           resolveConfigurationInput env `mapM` _cscRetryLimit >>= \case
@@ -67,7 +69,7 @@ resolveSourceConfig _name BigQueryConnSourceConfig {..} _backendKind _backendCon
                 Just v -> fromInteger <$> readNonNegative v "retry base delay"
             pure $ Just RetryOptions {..}
       _scConnection <- initConnection serviceAccount projectId retryOptions
-      _scDatasets <- resolveConfigurationInputs env _cscDatasets
+      _scDatasets <- fmap BigQueryDataset <$> resolveConfigurationInputs env _cscDatasets
       _scGlobalSelectLimit <-
         resolveConfigurationInput env `mapM` _cscGlobalSelectLimit >>= \case
           Nothing -> pure defaultGlobalSelectLimit
@@ -88,26 +90,24 @@ readNonNegative i paramName =
 resolveSource ::
   (MonadIO m) =>
   BigQuerySourceConfig ->
-  SourceTypeCustomization ->
-  m (Either QErr (ResolvedSource 'BigQuery))
-resolveSource sourceConfig customization =
+  m (Either QErr (DBObjectsIntrospection 'BigQuery))
+resolveSource sourceConfig =
   runExceptT $ do
     tables <- getTables sourceConfig
     routines <- getRoutines sourceConfig
     let result = (,) <$> tables <*> routines
     case result of
       Left err ->
-        throw400 Unexpected $
-          "unexpected exception while connecting to database: " <> tshow err
+        throw400 Unexpected
+          $ "unexpected exception while connecting to database: "
+          <> tshow err
       Right (restTables, restRoutines) -> do
         seconds <- liftIO $ fmap systemSeconds getSystemTime
-        let functions = HM.groupOn (routineReferenceToFunctionName . routineReference) restRoutines
+        let functions = FunctionOverloads <$> HashMap.groupOnNE (routineReferenceToFunctionName . routineReference) restRoutines
         pure
-          ( ResolvedSource
-              { _rsConfig = sourceConfig,
-                _rsCustomization = customization,
-                _rsTables =
-                  HM.fromList
+          ( DBObjectsIntrospection
+              { _rsTables =
+                  HashMap.fromList
                     [ ( restTableReferenceToTableName tableReference,
                         DBTableMetadata
                           { _ptmiOid = OID (fromIntegral seconds + index :: Int), -- TODO: The seconds are used for uniqueness. BigQuery doesn't support a "stable" ID for a table.
@@ -115,7 +115,7 @@ resolveSource sourceConfig customization =
                               [ RawColumnInfo
                                   { rciName = ColumnName name,
                                     rciPosition = position,
-                                    rciType = restTypeToScalarType type',
+                                    rciType = RawColumnTypeScalar $ restTypeToScalarType type',
                                     rciIsNullable =
                                       case mode of
                                         Nullable -> True
@@ -139,7 +139,8 @@ resolveSource sourceConfig customization =
                         let RestTableSchema fields = schema
                     ],
                 _rsFunctions = functions,
-                _rsPgScalars = mempty
+                _rsScalars = mempty,
+                _rsLogicalModels = mempty
               }
           )
 
@@ -159,6 +160,7 @@ restTypeToScalarType =
     STRUCT -> StructScalarType
     BIGDECIMAL -> BigDecimalScalarType
     DECIMAL -> DecimalScalarType
+    JSON -> JsonScalarType
 
 -- Hierarchy: Project / Dataset / Table
 -- see <https://cloud.google.com/bigquery/docs/datasets-intro>
@@ -172,7 +174,8 @@ restTableReferenceToTableName RestTableReference {..} =
 postDropSourceHook ::
   (MonadIO m) =>
   BigQuerySourceConfig ->
+  TableEventTriggers 'BigQuery ->
   m ()
-postDropSourceHook _ =
+postDropSourceHook _ _ =
   -- On BigQuery we don't keep connections open.
   pure ()

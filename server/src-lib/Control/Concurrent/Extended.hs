@@ -1,3 +1,7 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
+{-# HLINT ignore "Use withAsync" #-}
+
 module Control.Concurrent.Extended
   ( module Control.Concurrent,
     sleep,
@@ -10,10 +14,9 @@ module Control.Concurrent.Extended
 
     -- * Concurrency in MonadError
     forConcurrentlyEIO,
+    concurrentlyEIO,
 
     -- * Deprecated
-    threadDelay,
-    forkIO,
     ImmortalThreadLog (..),
     ThreadState (..),
     ThreadShutdown (..),
@@ -21,7 +24,7 @@ module Control.Concurrent.Extended
   )
 where
 
-import Control.Concurrent hiding (forkIO, threadDelay)
+import Control.Concurrent hiding (threadDelay)
 import Control.Concurrent qualified as Base
 import Control.Concurrent.Async as A
 import Control.Concurrent.Async.Lifted.Safe qualified as LA
@@ -34,14 +37,15 @@ import Control.Monad.Trans.Control qualified as MC
 import Control.Monad.Trans.Managed (ManagedT (..), allocate)
 import Data.Aeson
 import Data.List.Split
-import Data.Time.Clock.Units (DiffTime, Microseconds (..), seconds)
 import Data.Traversable
 import Data.Void
 -- For forkImmortal. We could also have it take a cumbersome continuation if we
 -- want to break this dependency. Probably best to move Hasura.Logging into a
 -- separate lib with this if we do the override thing.
 import Hasura.Logging
-import Prelude
+import Hasura.Prelude
+
+{-# HLINT ignore sleep #-}
 
 -- | Like 'Base.threadDelay', but takes a 'DiffTime' instead of an 'Int' microseconds.
 --
@@ -50,22 +54,10 @@ import Prelude
 sleep :: DiffTime -> IO ()
 sleep = Base.threadDelay . round . Microseconds
 
-{-# DEPRECATED threadDelay "Please use `sleep` instead (and read the docs!)" #-}
-threadDelay :: Int -> IO ()
-threadDelay = Base.threadDelay
-
-{-# DEPRECATED
-  forkIO
-  "Please use 'Control.Control.Concurrent.Async.Lifted.Safe.withAsync'\
-  \ or our 'forkImmortal' instead formore robust threading."
-  #-}
-forkIO :: IO () -> IO ThreadId
-forkIO = Base.forkIO
-
 -- | Note: Please consider using 'forkManagedT' instead to ensure reliable
 -- resource cleanup.
 forkImmortal ::
-  ForkableMonadIO m =>
+  (ForkableMonadIO m) =>
   -- | A label describing this thread's function (see 'labelThread').
   String ->
   Logger Hasura ->
@@ -104,7 +96,7 @@ newtype ThreadShutdown m = ThreadShutdown {tsThreadShutdown :: m ()}
 -- used. Generally, the result should only be used later in the same ManagedT
 -- scope.
 forkManagedT ::
-  ForkableMonadIO m =>
+  (ForkableMonadIO m) =>
   String ->
   Logger Hasura ->
   m Void ->
@@ -132,7 +124,7 @@ data Forever m = forall a. Forever a (a -> m a)
 --   For reference, this function is used to run the async actions processor. Check
 --   `asyncActionsProcessor`
 forkManagedTWithGracefulShutdown ::
-  ForkableMonadIO m =>
+  (ForkableMonadIO m) =>
   String ->
   Logger Hasura ->
   ThreadShutdown m ->
@@ -146,30 +138,31 @@ forkManagedTWithGracefulShutdown label logger (ThreadShutdown threadShutdownHand
         liftIO $ unLogger logger (ImmortalThreadRestarted label)
         -- In this case, we are handling unexpected exceptions.
         -- i.e This does not catch the asynchronous exception which stops the thread.
-        Immortal.onUnexpectedFinish this logAndPause $
-          ( do
-              let mLoop (Forever loopFunctionInitArg loopFunction) =
-                    flip iterateM_ loopFunctionInitArg $ \args -> do
-                      liftIO $
-                        STM.atomically $ do
-                          STM.readTVar threadStateTVar >>= \case
-                            ThreadShutdownInitiated -> do
-                              -- signal to the finalizer that we are now blocking
-                              -- and blocking forever since this
-                              -- var moves monotonically from forked -> shutdown -> blocking
-                              STM.writeTVar threadStateTVar ThreadBlocking
-                            ThreadBlocking -> STM.retry
-                            ThreadForked -> pure ()
-                      loopFunction args
-              t <- LA.async $ mLoop =<< loopIteration
-              LA.link t
-              void $ LA.wait t
-          )
+        Immortal.onUnexpectedFinish this logAndPause
+          $ ( do
+                let mLoop (Forever loopFunctionInitArg loopFunction) =
+                      flip iterateM_ loopFunctionInitArg $ \args -> do
+                        liftIO
+                          $ STM.atomically
+                          $ do
+                            STM.readTVar threadStateTVar >>= \case
+                              ThreadShutdownInitiated -> do
+                                -- signal to the finalizer that we are now blocking
+                                -- and blocking forever since this
+                                -- var moves monotonically from forked -> shutdown -> blocking
+                                STM.writeTVar threadStateTVar ThreadBlocking
+                              ThreadBlocking -> STM.retry
+                              ThreadForked -> pure ()
+                        loopFunction args
+                t <- LA.async $ mLoop =<< loopIteration
+                LA.link t
+                void $ LA.wait t
+            )
     )
     ( \thread -> do
-        liftIO $
-          STM.atomically $
-            STM.modifyTVar' threadStateTVar (const ThreadShutdownInitiated)
+        liftIO
+          $ STM.atomically
+          $ STM.modifyTVar' threadStateTVar (const ThreadShutdownInitiated)
         -- the threadShutdownHandler here will wait for any in-flight events
         -- to finish processing
         {-
@@ -209,8 +202,9 @@ forkManagedTWithGracefulShutdown label logger (ThreadShutdown threadShutdownHand
             processing events without the graceful shutdown timeout.
         -}
         threadShutdownHandler
-        liftIO $
-          STM.atomically $ do
+        liftIO
+          $ STM.atomically
+          $ do
             STM.readTVar threadStateTVar >>= STM.check . (== ThreadBlocking)
         unLogger logger (ImmortalThreadStopping label)
         liftIO $ Immortal.stop thread
@@ -240,7 +234,9 @@ instance ToEngineLog ImmortalThreadLog Hasura where
     (LevelError, ELTInternal ILTUnstructured, toJSON msg)
     where
       msg =
-        "Unexpected exception in immortal thread " <> label <> " (it will be restarted):\n"
+        "Unexpected exception in immortal thread "
+          <> label
+          <> " (it will be restarted):\n"
           <> show e
   toEngineLog (ImmortalThreadRestarted label) =
     (LevelInfo, ELTInternal ILTUnstructured, toJSON msg)
@@ -276,3 +272,10 @@ forConcurrentlyEIO chunkSize xs f = do
   let fIO a = runExceptT (f a) >>= evaluate
   xs' <- liftIO $ fmap concat $ A.forConcurrently (chunksOf chunkSize xs) $ traverse fIO
   for xs' (either throwError pure)
+
+concurrentlyEIO :: (MonadIO m, MonadError e m) => ExceptT e IO a -> ExceptT e IO b -> m (a, b)
+concurrentlyEIO left right = do
+  (leftE, rightE) <- liftIO $ A.concurrently (runExceptT left >>= evaluate) (runExceptT right >>= evaluate)
+  x <- leftE `onLeft` throwError
+  y <- rightE `onLeft` throwError
+  pure (x, y)

@@ -14,8 +14,9 @@ import Hasura.Backends.MSSQL.Types.Internal as TSQL
 import Hasura.Prelude
 import Hasura.RQL.IR qualified as IR
 import Hasura.RQL.IR.Returning (MutationOutputG)
+import Hasura.RQL.Types.BackendType
 import Hasura.RQL.Types.Common qualified as IR
-import Hasura.SQL.Backend
+import Hasura.RQL.Types.Schema.Options qualified as Options
 
 -- | Generate a SQL SELECT statement which outputs the mutation response
 --
@@ -28,7 +29,7 @@ import Hasura.SQL.Backend
 --
 -- For single row insert: the selection set is translated to SQL query using @'fromSelect'
 mkMutationOutputSelect ::
-  IR.StringifyNumbers ->
+  Options.StringifyNumbers ->
   Text ->
   MutationOutputG 'MSSQL Void Expression ->
   FromIr Select
@@ -49,7 +50,7 @@ mkMutationOutputSelect stringifyNum withAlias = \case
       IR.Fields (IR.AnnFieldG 'MSSQL Void Expression) ->
       FromIr Select
     mkSelect jsonAggSelect annFields = do
-      let annSelect = IR.AnnSelectG annFields (IR.FromIdentifier $ IR.FIIdentifier withAlias) IR.noTablePermissions IR.noSelectArgs stringifyNum
+      let annSelect = IR.AnnSelectG annFields (IR.FromIdentifier $ IR.FIIdentifier withAlias) IR.noTablePermissions IR.noSelectArgs stringifyNum Nothing
       fromSelect jsonAggSelect annSelect
 
     -- SELECT COUNT(*) AS "count" FROM [with_alias]
@@ -105,8 +106,8 @@ selectMutationOutputAndCheckCondition alias mutationOutputSelect checkBoolExp =
         ExpressionProjection $ Aliased (SelectExpression mutationOutputSelect) "mutation_response"
       checkConstraintProjection =
         -- apply ISNULL() to avoid check constraint select statement yielding empty rows
-        ExpressionProjection $
-          Aliased (FunctionApplicationExpression $ FunExpISNULL (SelectExpression checkConstraintSelect) (ValueExpression (ODBC.IntValue 0))) "check_constraint_select"
+        ExpressionProjection
+          $ Aliased (FunctionApplicationExpression $ FunExpISNULL (SelectExpression checkConstraintSelect) (ValueExpression (ODBC.IntValue 0))) "check_constraint_select"
    in emptySelect {selectProjections = [mutationOutputProjection, checkConstraintProjection]}
   where
     checkConstraintSelect =
@@ -115,8 +116,8 @@ selectMutationOutputAndCheckCondition alias mutationOutputSelect checkBoolExp =
           sumAggregate =
             OpAggregate
               "SUM"
-              [ ColumnExpression $
-                  FieldName
+              [ ColumnExpression
+                  $ FieldName
                     { fieldNameEntity = subQueryAlias,
                       fieldName = checkEvaluationFieldName
                     }
