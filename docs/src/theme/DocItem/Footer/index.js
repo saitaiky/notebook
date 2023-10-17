@@ -62,7 +62,7 @@ export default function DocItemFooter() {
   return (
     <>
       <Feedback metadata={metadata} />
-      <HasuraReleaseNotification />
+      {/* <HasuraReleaseNotification /> */}
       <footer
         className={clsx(ThemeClassNames.docs.docFooter, 'docusaurus-mt-lg')}
       >
