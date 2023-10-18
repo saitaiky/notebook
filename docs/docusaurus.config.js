@@ -50,11 +50,13 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: ({ docPath }) =>
-            `https://github.com/hasura/graphql-engine/edit/master/docs/docs/${docPath}`,
-          docItemComponent: require.resolve(
-            './src/components/CustomDocItem/index.tsx'
-          ),
+
+          // Sai: Don't need public contribution
+          // editUrl: ({ docPath }) =>
+          //   `https://github.com/hasura/graphql-engine/edit/master/docs/docs/${docPath}`,
+          // docItemComponent: require.resolve(
+          //   './src/components/CustomDocItem/index.tsx'
+          // ),
           exclude: ['**/*.wip'],
           breadcrumbs: true,
           // showLastUpdateAuthor: true,
@@ -270,7 +272,7 @@ const config = {
             ],
           },
           {
-            to: 'https://hasura.io/changelog',
+            to: '/timeline',
             label: "What's New",
             id: 'whats-new-link',
             position: 'left',

@@ -60,12 +60,6 @@ For example, many customers run automated start/stop scripts that turn off devel
 ![SOAF36-Automation-Tag](/img/aws/management/cost/SOAF36-Automation-Tags.png)
 
 
-## Billing Alerts
-
-You can turn on billing alert in your Preferences page
-
-![billing-alerts](/img/aws/management/cost/billing-alerts.png)
-
 ## AWS Budget
 
 ![aws-budgets-dashboard](/img/aws/management/cost/aws-budgets-dashboard.png)
@@ -73,19 +67,6 @@ You can turn on billing alert in your Preferences page
 AWS Budgets give you the ability to set custom budgets that alert you when your costs or usage exceed (or are forecasted to exceed) your budgeted amount.
 
 You can also use AWS Budgets to set reservation utilization or coverage targets and receive alerts when your utilization drops below the threshold you define. **Reservation alerts** are supported for Amazon EC2, Amazon RDS, Amazon Redshift, Amazon ElastiCache, and Amazon Elasticsearch reservations.
-
-## Billing Alerts vs AWS Budgets
-
-![aws-budget](/img/aws/management/cost/aws-budget.png)
-
-Source: [Control Your AWS Costs](https://aws.amazon.com/getting-started/hands-on/control-your-costs-free-tier-budgets/)
-
-[Billing Alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#creating_billing_alarm_with_wizard) are very limited as compared to [Budgets](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-managing-costs.html). Most notably, the billing alarm represents only the amount you have been already charged. In contrast, a budget can alarm you based on **forecasted charges**, which can give you a bit of head up to figure out what's happening before you get hit with excess bill usage.
-
-The other key difference is that Budgets allow you to create **filtered alarms**, only for some regions and services of interest. Filtering by region is not possible with billing alerts. Another thing is that budget support **linked accounts**, which again is not possible with the billing alerts.
-
-Finally, budgets are far **easier** to use, set up and manage, than billing alerts.
-
 
 ## AWS Compute Optimizer
 
@@ -115,6 +96,12 @@ Take note that in reserving your computing capacity, you'll gain **the most disc
 
 
 ## Billing
+
+### Billing Alerts
+
+You can turn on billing alert in your Billing preferences page
+
+![billing-alerts](/img/aws/management/cost/billing-alerts.png)
 
 ### Cost and Usage Reports
 

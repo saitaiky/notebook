@@ -1,6 +1,6 @@
 ---
-title: Others
-description: Others
+title: Other Concepts
+description: Other Concepts of AWS
 keywords:
   - Others
 ---
@@ -10,16 +10,6 @@ keywords:
 ![shared-responsibility-model](/img/aws/other/shared-responsibility-model.jpg)
 
 Source: [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
-
-## AWS Managed Microsoft AD vs AD Connector vs Simple AD
-
-- You should use AD Connector if you only need to **the on-premises users to log in to AWS applications** with their Active Directory credentials.
-- Simple AD is the least expensive option and your best choice 
-  - if you have >= 5,000 users
-  - don't need the advanced Microsoft Active Directory features such as **trust relationships** with other domains.
-- AWS Managed Microsoft AD would also allow you to run directory-aware workloads in the AWS Cloud. 
-  - if you have > 5,000 users 
-  - need a **trust relationship** set up between an AWS hosted directory and your on-premises directories.
 
 ## AWS Directory Service
 
@@ -92,11 +82,8 @@ Administrators can associate TagOptions with portfolios and products. During **a
     - AWS Config rules to continuously detect non-conformance
 
 
-## May need to jot after preparing exam
+## May need to jot in the future 
 
-- EFS
-  - Bursting Throughput
-- VPC - Traffic mirroring
 - AWS Datasync automates and accelerates moving data between on premises and AWS Storage services.
 - **OpenSearch** Dashboards is a community-driven project forked from Kibana and is distributed under the Apache License 2.0, which is an open-source license.
   - Kibana is developed by Elastic and is distributed under the Elastic License, which is not an open-source license. In contrast, OpenSearch Dashboards is a community-driven project forked from Kibana and is distributed under the Apache License 2.0, which is an open-source license. 

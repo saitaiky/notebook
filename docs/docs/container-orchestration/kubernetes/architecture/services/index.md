@@ -131,8 +131,6 @@ It's usually for when the name remotely might change outside of your cluster, bu
 
 ### Ingress
 
-Kubernetes Ingress (Final way to that traffic can get inside your cluster. Sai: take later)
-
 You can also use Ingress to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules into a single resource as it can expose multiple services under the same IP address.
 
 ## Create a NodePort

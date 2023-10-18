@@ -92,7 +92,9 @@ If you create an AWS account alias for your AWS account ID, the IAM user sign-in
 
 https://tutorialsdojo.signin.aws.amazon.com/console/
 
-## IAM Identity center
+## IAM Identity Center (successor to AWS Single Sign-On)
+
+AWS IAM Identity Center helps you securely create or connect your workforce identities and manage their access centrally across AWS accounts and applications. IAM Identity Center is the recommended approach for workforce authentication and authorization on AWS for organizations of any size and type. Using IAM Identity Center, you can create and manage user identities in AWS, or connect your existing identity source, including Microsoft Active Directory, Okta, Ping Identity, JumpCloud, Google Workspace, and Azure Active Directory (Azure AD).
 
 ### Credential report
 

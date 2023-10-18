@@ -1,7 +1,7 @@
 ---
 title: Security Manager
 description: Security Manager
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 - Newer service compared to SSM, meant for storing secrets

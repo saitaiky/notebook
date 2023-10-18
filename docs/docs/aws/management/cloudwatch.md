@@ -88,9 +88,7 @@ Depending on the type of status change, you might want to send notifications, ca
 
 ## What is Metrics
 
-:::infoWhat is Metrics?
 Metrics, sometimes called time series, are concerned with events aggregated across time. They count how often each type of event happens, how long each type of event takes and how much data was processed by the event type.
-:::
 
 :::infoWhat is Dimensions?
 > TL;DR - Think Dimension as a label 

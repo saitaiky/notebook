@@ -29,7 +29,7 @@ export default function DocSidebarItem({ item, ...props }) {
           //   .replace(/\s/g, '-')}/overview/`;
           // item.href = `/${item.items[0].herf}/overview/`;
           // item.href = `/${props.activePath.split("/")[1]}/overview/`;
-          item.href = `#`;
+          // item.href = `#`;
         }
       } else {
         // if it already has a href (such as any category that has an index within the dir), use it

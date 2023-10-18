@@ -32,6 +32,18 @@ You *can’t use* Cognito Authentication with CloudFront distribution
 
 > A security group acts as **a virtual firewall** that controls the traffic for one or more instances. 
 
+### Integrated services
+
+Security Groups are not just bound to EC2 instances, in fact any resource with an ENI can have a security group attached with examples such as:
+
+- AWS Lambda
+- AWS Elastic load balancing
+- Databases (Amazon RDS, Amazon Redshift)
+- Other (ElastiCache, CloudSearch, Elastic Beanstalk, Elastic MapReduce)
+- Container and Kubernetes services (ECS and EKS)
+
+### Behaviour
+
 The following are the default rules for **a default security group**: 
 - Allow **inbound traffic** from network interfaces (and their associated instances) that are assigned to the same security group. 
 - **Allows all outbound traffic**
@@ -61,19 +73,6 @@ Don't get fooled, every time you specify a security group for an AWS service, be
 Let's take for example AWS Elastic File System. When you create a File System, you are going to specify security groups. Does that mean that the security group control the access to the File System? Well, in some sense yes. But technically the security group are going to be attached to a Elastic Network Interface (ENI) that EFS creates on your behalf.
 
 Further reading: [AWS Networking cheat-sheet - EIP, ENI, VPC, etc](https://dev.to/napicella/aws-networking-cheat-sheet-eip-eni-vpc-etc-139m)
-
-### Security Group is not only for EC2 but also other services
-
-Security Groups are not just bound to EC2 instances, in fact any resource with an ENI can have a security group attached with examples such as:
-
--   VPC Interface endpoints
--   RDS
--   ElastiCache
--   ElasticSearch Service
--   And many more
-
-By having a single implementation of security group -> ENI, I would imagine it makes it easier for AWS to implement networking security for new VPC based resources over time.
-
 
 ## Amazon Certificate Manager(ACM)
 
@@ -107,22 +106,3 @@ A certificate is eligible for automatic renewal subject to the following conside
 
 ## AWS Private CA
 AWS Private CA—This service is for enterprise customers building a public key infrastructure (PKI) inside the AWS cloud and intended for private use within an organization. With AWS Private CA, you can create your own CA hierarchy and issue certificates with it for authenticating internal users, computers, applications, services, servers, and other devices, and for signing computer code. Certificates issued by a private CA are trusted only within your organization, not on the internet.
-
-## AWS Network Firewall
-
-AWS Network Firewall is a stateful, managed, network firewall, and intrusion detection and prevention service for your virtual private cloud (VPC). With Network Firewall, you can filter traffic at the perimeter of your VPC. This includes traffic going to and coming from an internet gateway, NAT gateway, or over VPN or AWS Direct Connect. Network Firewall uses Suricata — an open-source intrusion prevention system (IPS) for stateful inspection.
-
-![Product-Page-Diagram_AWS-Network-Firewall](/img/aws/security/Product-Page-Diagram_AWS-Network-Firewall.png)
-
-Source: [AWS Network Firewall](https://aws.amazon.com/network-firewall/)
-
-## Security group
-
-All the following AWS services rely on Security Groups in some way:
-
-- Amazon EC2 instances
-- AWS Lambda
-- AWS Elastic load balancing
-- Databases (Amazon RDS, Amazon Redshift)
-- Other (ElastiCache, CloudSearch, Elastic Beanstalk, Elastic MapReduce)
-- Container and Kubernetes services (ECS and EKS)

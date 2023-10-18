@@ -1,14 +1,26 @@
 ---
-title: AssumeRole
-description: AssumeRole
+title: AssumeRole, STS
+description: AssumeRole, STS
 keywords:
   - cross account sharing
   - host account
   - cross account
-sidebar_position: 7
+sidebar_position: 3
 ---
 
-## Cross account sharing (to an AWS account)
+## STS
+
+### How to use STS to decode authorization failure message when making AWS CLI commands?
+
+Use STS `decode-authorization-message`
+
+If a user is not authorized to perform an action that was requested, the request returns a Client.UnauthorizedOperation response (an HTTP 403 response). The message is encoded because the details of the authorization status can constitute privileged information that the user who requested the operation should not see. 
+
+To decode an authorization status message, a user must be granted permissions via an IAM policy to request the `DecodeAuthorizationMessage` (`sts:DecodeAuthorizationMessage`) action.
+
+## AssumeRole
+
+### Cross account sharing (to an AWS account)
 
 To grant cross-account permissions, you need to attach an identity-based permissions policy to an IAM role. For example, the AWS account A administrator can create a role to grant cross-account permissions to AWS account B as follows:
 
@@ -21,7 +33,7 @@ Remember it isn't a service principal, but IAM user principals. For more [detail
 :::
 
 
-## EC2 assume a role
+### EC2 assume a role
 
 I'm creating a role named `my-app-role` which contains several policies ,one of them is s3 policy that can access my s3 amazon resource "configuration-for-app" and has an explicit `GetObject` permission. Since the app runs on ec2 - the trusted relations in this requirements between these services would be..
 

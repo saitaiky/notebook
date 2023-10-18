@@ -4522,6 +4522,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2.2.6":
+  version: 2.3.2
+  resolution: "classnames@npm:2.3.2"
+  checksum: 2c62199789618d95545c872787137262e741f9db13328e216b093eea91c85ef2bfb152c1f9e63027204e2559a006a92eb74147d46c800a9f96297ae1d9f96f4e
+  languageName: node
+  linkType: hard
+
 "clean-css@npm:^5.2.2, clean-css@npm:^5.3.0":
   version: 5.3.1
   resolution: "clean-css@npm:5.3.1"
@@ -5922,6 +5929,7 @@ __metadata:
     react: ^17.0.2
     react-dom: ^17.0.2
     react-transition-group: ^4.4.2
+    react-vertical-timeline-component: ^3.6.0
     sass: ^1.49.8
     swc-loader: ^0.2.3
     typescript: ^4.8.4
@@ -10129,6 +10137,15 @@ plugin-image-zoom@flexanalytics/plugin-image-zoom:
   languageName: node
   linkType: hard
 
+"react-intersection-observer@npm:^8.26.2":
+  version: 8.34.0
+  resolution: "react-intersection-observer@npm:8.34.0"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+  checksum: 7713fecfd1512c7f5a60f9f0bf15403b8f8bbd4110bcafaeaea6de36a0e0eb60368c3638f99e9c97b75ad8fc787ea48c241dcb5c694f821d7f2976f709082cc5
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1, react-is@npm:^16.6.0, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -10243,6 +10260,17 @@ plugin-image-zoom@flexanalytics/plugin-image-zoom:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
+  languageName: node
+  linkType: hard
+
+"react-vertical-timeline-component@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "react-vertical-timeline-component@npm:3.6.0"
+  dependencies:
+    classnames: ^2.2.6
+    prop-types: ^15.7.2
+    react-intersection-observer: ^8.26.2
+  checksum: eb1d922826404fa0f41546977537510dd3b1b2036c2a42fbe58e7f5fd610053ac6fb34317516315d67a8392511839e990e59ad2433ff63fbe5c5b975b9edfbfc
   languageName: node
   linkType: hard
 

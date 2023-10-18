@@ -4,7 +4,9 @@ description: Services comparsion
 sidebar_position: 10
 ---
 
-## CDK vs Cloudformation 
+## Development
+
+### CDK vs Cloudformation 
 
 ![cdk-vs-cloudformation](/img/aws/cdk-vs-cloudformation.jpg "cdk and cloudformation")
 source: [Rapid and flexible Infrastructure as Code using the AWS CDK with AWS Solutions Constructs](https://aws.amazon.com/blogs/devops/rapid-flexible-infrastructure-with-solutions-constructs-cdk/)
@@ -12,7 +14,7 @@ source: [Rapid and flexible Infrastructure as Code using the AWS CDK with AWS So
 CloudFormation template is YAML, is not type-safe, you can make errors and you only know at the very end if it worked or not. But with the CDK, you can define those using constructs and a programming language.
 
 
-## CDK VS SAM 
+### CDK VS SAM 
 * SAM:
   * Serverless focused
   * Write your template delcaratively in JSON or YAML
@@ -23,85 +25,34 @@ CloudFormation template is YAML, is not type-safe, you can make errors and you o
   * Leverages CloudGormation
 
 
-## [Can API Gateway act as Load Balancer](https://dashbird.io/blog/can-api-gateway-act-load-balancer/)
+## Network
 
-More advanced: [https://dashbird.io/blog/aws-api-gateway-vs-application-load-balancer/](https://dashbird.io/blog/aws-api-gateway-vs-application-load-balancer/)
+### A VPC SG and an EC2 security
 
-:::info TL;DR
+> TL;DR - Your ec2 instance is assigned to a vpc, so the VPC-SG security group becomes the outer most security layer and EC2-SG security group comes next.
+
+A Virtual Private Cloud (VPC) Security Group (SG) and an Elastic Compute Cloud (EC2) Security Group are both types of security groups that are used to control inbound and outbound traffic to resources in the AWS environment.
+
+A VPC Security Group is associated with a VPC and is used to control the traffic to resources such as instances, subnets, and network interfaces within that VPC. It acts as a virtual firewall for the VPC and can be used to control traffic to and from the Internet, as well as traffic between different resources within the VPC.
+
+An EC2 Security Group, on the other hand, is associated with an EC2 instance and is used to control the traffic to that specific instance. It acts as a virtual firewall for the instance and can be used to control traffic to and from the Internet, as well as traffic between different instances within the VPC.
+
+In summary, a VPC Security Group controls the traffic to resources within a VPC, while an EC2 Security Group controls the traffic to a specific EC2 instance.
+
+### ALB vs API Gateway
+
+:::infoCan API Gateway act as Load Balancer?
 Yes, API Gateway can replace what a Load Balancer would usually provide, with a simpler interface and many more features on top of it. The downside is that it doesn’t come cheap.
 :::
 
-Load balancers have been one of the most common ways to expose a backend API to the public or even to an internal/private audience. API Gateways seem to provide the same functionality: map and connect HTTP requests to a backend service. In this post, we will discuss.
-- Are they the same or are there any differences? 
-- Can API Gateway actually provide the balancing of load? 
-- Which one is the best for [Serverless architectures](https://dashbird.io/knowledge-base/basic-concepts/what-is-serverless/?utm_source=dashbird-blog&utm_medium=article&utm_campaign=well-architected&utm_content=api-gateway-vs-alb)?
-
-### What are Load Balancers used for?
-
-As the name suggests, one of the main purposes of using an ALB is to smooth out and balance demand across a set of resources.
-
-Traditionally, load balancers have been used to distribute requests in a horizontally scaled infrastructure cluster, with systems replicated in multiple servers, where a single server can’t have sufficient power to handle all the demand.
-
-Load Balancers also serve the purpose of decoupling clients and services, which is a good practice from a cloud architecture perspective.
-
-### How does API Gateway compare with a Load Balancer?
-
-API Gateway can manage and balance out network traffic just as a Load Balancer, just in a different way. Instead of distributing requests evenly to a set of backend resources (e.g. a cluster of servers), **an API Gateway can be configured to **direct requests to specific resources based on the endpoints being requested.**
-
-It plays an important role in [microservices architectures](https://dashbird.io/knowledge-base/well-architected/monolith-vs-microservices/?utm_source=dashbird-blog&utm_medium=article&utm_campaign=well-architected&utm_content=api-gateway-vs-alb), for example. Multiple services can be connected to the Gateway and mapped to particular HTTP endpoint representations. The Gateway is responsible for routing each request, on-demand, to the appropriate backend service.
-
-### How does API Gateway scale according to load?
-
-When integrated with AWS Lambda, the API Gateway handles the network scaling in a seamless way. By default, API Gateway can handle up to [10,000 requests per second](https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html#apigateway-account-level-limits-table). Lambda will scale to match the demand of invocations coming from the API clients.
-
-In fact, developers should not worry about **configuring scalability parameters**, since there are *none for both API Gateway and Lambda*. They both [scale according to their own internal rules](https://dashbird.io/knowledge-base/aws-lambda/scalability-and-concurrency/?utm_source=dashbird-blog&utm_medium=article&utm_campaign=well-architected&utm_content=api-gateway-vs-alb). Depending on the use case, when large spikes in demand are expected, it may be necessary to request an increase in the service quotas to make sure AWS will not throttle client requests.
-
-### Additional features provided by API Gateway
-
-*The request routing based on endpoint rules* can also be supported by ALB, especially when paired with Lambda functions.
-
-Nevertheless, API Gateway offers many additional features missing in ALB. For example, it handles **authentication and authorization, API token issuance and management, and can even generate SDKs based on the API structure**. API Gateway integrates with the **IAM (Identity Access Management) service**, for example, simplifying access control of the underlying resources.
-
-Although we usually want to avoid throttling of client requests, in many cases it is important to have throttling rules in place. This can help in preventing abuse, or restricting access depending on billing plans, for example. API Gateway supports **throttling implementation** out-of-the-box, which can save time and ensure compliance with business requirements.
-
-### API Gateway vs Application Load Balancer: Which one to choose?
-
-If you don’t need the features provided by API Gateway, you may consider using an ALB instead, since it can be a lot cheaper in many cases – although it is difficult to compare because the [API Gateway pricing](https://aws.amazon.com/api-gateway/pricing/) depends on the number of requests, while ALB costs depend on several factors to determine its [pricing](https://aws.amazon.com/elasticloadbalancing/pricing/), such as hours, new and live connections. *Usually, APIs with light traffic are more cost-effective on API Gateway, while the high-traffic ones can find cost savings by adopting an ALB instead*.
-
-Technically speaking, the main limitation of API Gateway is the [timeout of 29 seconds](https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html). If a request takes more time to be processed by the backend resource (e.g. a Lambda function), the API will respond early to the client with an error. Although there is a limit in the number of requests per second, as mentioned above, it can be increased according to the demand. 
-
-A load balancer, though, can scale to hundreds of thousands, or even millions of requests per second, without any issues.
-
-For that reason, 
-
-* an ALB is more suitable for low-cost/undifferentiated applications, long-running processes, and/or ultra-high-throughput applications. 
-* API Gateway is suitable for small teams that want to reduce time-to-market, as well as sophisticated use cases that require complex security measures and access control logic.
-
-### Conclusion
-
-Both API Gateway and Application Load Balancer can be very useful. The latter is simpler and cheaper, which makes a good option for internal APIs to connect microservices architectures based on AWS Lambda, for example. API Gateway is more suitable especially for APIs that require fine-grained access control and other features not available in ALB.
-
-
-## [Battle of the Serverless API Routers: ALB vs. API Gateway - Feature Comparison](https://blog.tinystacks.com/battle-of-the-serverless-api-routers-alb-vs-api-gateway-feature-comparison)
-
-### Differences Between ALB and API Gateway
-
 Despite the similarities, there are some key differences between ALB and API Gateway that could influence your decision over which one to adopt.
 
-The major advantage of ALBs is their ability to distribute load intelligently across resources. This makes them ideal when using services such as Amazon EC2 or Amazon ECS, where a single instance or task could become non-operational if flooded with requests.
-
-Also, as we discussed previously, ALBs rule when it comes to cost at scale. API Gateway is more affordable than ALB for up to around 500,000 monthly transactions. But at larger scales, API Gateway’s costs quickly accumulate, and ALB becomes the much more affordable solution.
-
-But that doesn’t mean that API Gateway lacks advantages. The service’s direct mapping to the REST API framework and its multitude of REST-oriented features make it ideal for implementing and maintaining REST APIs at scale. While some features, like throttling, can be implemented (via AWS WAF) easily in ALB, others, such as stages, require more heavy lifting to emulate.
-
-API Gateway has additional ease of use advantages, such as its integration with services like AWS Lambda. The service also supports integrations for major AWS features such as Amazon S3 and Amazon Kinesis, simplifying the task of exposing a portion of your AWS services to your user or developer base.
-
-API Gateway also has a slight advantage with security configuration, as it supports HTTPS out of the box. ALB also supports HTTPS but requires configuring and deploying an SSL certificate to your load balancer.
-
-Finally, we’d be remiss if we didn’t point out that, sometimes, the answer to the question of ALB versus API Gateway is “both”! An HTTP API in API Gateway can itself redirect to an ALB, which then load-balances requests across back-end resources such as EC2 instances or Docker containers. Such an architecture is ideal if you want to add load balancing capabilities to the powerful REST API management capabilities of API Gateway.
+- **Load Balancers (ALB)**: Traditionally used for load distribution in horizontally scaled infrastructure clusters to handle high demand. They also decouple clients and services, following good cloud architecture practices.
+- **API Gateway**: Manages and balances network traffic in a distinct way, directing requests to specific resources based on the requested endpoints. It plays a crucial role in microservices architectures and is capable of routing requests to the appropriate backend services.
+  - **Scaling**: API Gateway, when integrated with AWS Lambda, seamlessly handles network scaling and request spikes, automatically adjusting to match demand without manual configuration. This can be crucial for avoiding throttling of client requests and maintaining performance.
+  - **Additional Features**: API Gateway offers features such as authentication, authorization, API token issuance, SDK generation, and IAM integration, simplifying access control and ensuring compliance with business requirements.
 
 The following table summarizes some of the key differences between ALB and API Gateway:
-
 
 <table>
   <tr>
@@ -170,13 +121,16 @@ The following table summarizes some of the key differences between ALB and API G
   </tr>
 </table>
 
+> References: 
+  - [Can API Gateway act as Load Balancer](https://dashbird.io/blog/can-api-gateway-act-load-balancer/)
+  - [API Gateway vs ALB](https://dashbird.io/blog/aws-api-gateway-vs-application-load-balancer/)
+  - [Battle of the Serverless API Routers: ALB vs. API Gateway - Feature Comparison](https://blog.tinystacks.com/battle-of-the-serverless-api-routers-alb-vs-api-gateway-feature-comparison)
 
+#### Which to Use?
 
-### Which to Use?
+The choice between API Gateway and ALB depends on factors like traffic levels, features required, and cost considerations. ALB is cost-effective for low-traffic or undifferentiated applications, while API Gateway is suitable for complex security measures and fine-grained access control that could save development teams hours of maintenance in the long run. The limitations include a 29-second timeout for API Gateway, while ALB can scale to handle very high request volumes.
 
-While ALB is the clear cost-leader at a massive scale, API Gateway provides numerous features that could save development teams hours of maintenance in the long run. 
-
-Which one you choose will come down to your specific application scenario, and the role that cost plays versus other factors such as speed of development and ease of maintenance.
+That said, we’d be remiss if we didn’t point out that, sometimes, the answer to the question of ALB versus API Gateway is **“both”**! An HTTP API in API Gateway can itself redirect to an ALB, which then load-balances requests across back-end resources such as EC2 instances or Docker containers. Such an architecture is ideal if you want to add load balancing capabilities to the powerful REST API management capabilities of API Gateway.
 
 ## Kinesis
 
@@ -210,7 +164,9 @@ As a rule of thumb, if the content is stored in S3 then opt for S3 signed URLs
 
 If you need to serve a lot of files and want to take advantage of the request multiplexing of HTTP/2, [tunnel S3 signed URLs through CloudFront](https://advancedweb.hu/how-to-use-s3-signed-urls-with-cloudfront/).
 
-## Web Application Firewall (WAF) VS AWS Shield Advanced 
+## Security
+
+### WAF VS AWS Shield Advanced 
 
 > TL;DR
    - AWS WAF 
@@ -218,7 +174,7 @@ If you need to serve a lot of files and want to take advantage of the request 
       - It is for common web exploits such as cross-site scripting, SQL injection, and brute-force HTTP flood attacks.
    - AWS Shield Advanced is for DDoS attacks.
 
-### AWS Shield
+#### AWS Shield
 
 **AWS Shield** is a managed Distributed Denial of Service (DDoS) protection service that safeguards web applications running on AWS. It also provides protection against common and most frequently occurring infrastructure (**layer 3 and 4**) attacks like SYN/UDP floods, reflection attacks, and others to support high availability of your applications on AWS.
 
@@ -230,26 +186,15 @@ AWS Shield Standard **cannot protect your AWS bill** from usage spikes due to DD
 **AWS WAF is included in AWS Shield Advanced subscription**, so basically, AWS Shield is not a WAF, but if you use the Advanced subscription, you will get a WAF for free.
 :::
 
-### AWS WAF
+#### AWS WAF
 
 AWS WAF is a **web application firewall** that helps protect web applications from attacks by allowing you to configure rules that **allow, block, or monitor (count)** web requests based on conditions that you define. These conditions include IP addresses, HTTP headers, HTTP body, URI strings, SQL injection and cross-site scripting.
 
 You can use **AWS WAF** to create custom rules that block common attack patterns, such *as SQL injection or cross-site scripting, and rules that are designed for your specific application.*
 
+## Monitor
 
-## A VPC SG and an EC2 security
-
-> TL;DR - Your ec2 instance is assigned to a vpc, so the VPC-SG security group becomes the outer most security layer and EC2-SG security group comes next.
-
-A Virtual Private Cloud (VPC) Security Group (SG) and an Elastic Compute Cloud (EC2) Security Group are both types of security groups that are used to control inbound and outbound traffic to resources in the AWS environment.
-
-A VPC Security Group is associated with a VPC and is used to control the traffic to resources such as instances, subnets, and network interfaces within that VPC. It acts as a virtual firewall for the VPC and can be used to control traffic to and from the Internet, as well as traffic between different resources within the VPC.
-
-An EC2 Security Group, on the other hand, is associated with an EC2 instance and is used to control the traffic to that specific instance. It acts as a virtual firewall for the instance and can be used to control traffic to and from the Internet, as well as traffic between different instances within the VPC.
-
-In summary, a VPC Security Group controls the traffic to resources within a VPC, while an EC2 Security Group controls the traffic to a specific EC2 instance.
-
-## AWS Health Dashboard
+### AWS Health Dashboard
 
 > At of Feb 28,2022, AWS combine both AWS Service Health Dashboard and Personal Health Dashboard into AWS Health Dashboard. [Ref](https://aws.amazon.com/about-aws/whats-new/2022/02/aws-health-dashboard-first-iteration/)
 
@@ -273,7 +218,9 @@ The AWS Health API provides programmatic access to the AWS Health information th
 You must have **a Business or Enterprise Support plan** from AWS Support to use the AWS Health API. If you call the AWS Health API from an AWS account that doesn't have a Business or Enterprise Support plan, you receive a `SubscriptionRequiredException` error.
 :::
 
-## AWS SSO VS AWS Cognito
+## Management & Governance
+
+### AWS SSO VS AWS Cognito
 
 - **Amazon Cognito** is an identity management solution for developers building B2C or B2B apps for their customers, which makes it a **customer-targeted IAM and user directory solution**.
   - It also provide access to certain security feature such as Advance security feature, integration with WAF, customizing the login page, which would provide you an edge with your web application. 
@@ -282,3 +229,17 @@ You must have **a Business or Enterprise Support plan** from AWS Support to use 
 Reference: 
 - [Cognito vs Identity Center (SSO)](https://repost.aws/questions/QUwlJN_Id4Sy2YWWRUasEo8Q/cognito-vs-identity-center-sso)
 - [What's the difference between AWS SSO and AWS Cognito?](https://stackoverflow.com/questions/48767172/whats-the-difference-between-aws-sso-and-aws-cognito)
+
+
+### Billing Alerts vs AWS Budgets
+
+![aws-budget](/img/aws/comparison/aws-budget.png)
+
+Source: [Control Your AWS Costs](https://aws.amazon.com/getting-started/hands-on/control-your-costs-free-tier-budgets/)
+
+[Billing Alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#creating_billing_alarm_with_wizard) are very limited as compared to [Budgets](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-managing-costs.html). Most notably, the billing alarm represents only the amount you have been already charged. In contrast, a budget can alarm you based on **forecasted charges**, which can give you a bit of head up to figure out what's happening before you get hit with excess bill usage.
+
+The other key difference is that Budgets allow you to create **filtered alarms**, only for some regions and services of interest. Filtering by region is not possible with billing alerts. Another thing is that budget support **linked accounts**, which again is not possible with the billing alerts.
+
+Finally, budgets are far **easier** to use, set up and manage, than billing alerts.
+

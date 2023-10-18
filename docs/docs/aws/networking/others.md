@@ -1,8 +1,9 @@
 ---
-title: Others
+title: Other services
 description: AWS Networking & Content Delivery
 keywords:
   - AWS Global Accelerator
+sidebar_label: Other services
 ---
 
 ## AWS Global Accelerator
@@ -13,6 +14,7 @@ There are few use cases that can leverage the features provided by AWS Global Ac
 - Dial traffic up or down for a specific AWS Region by configuring a traffic dial percentage for your endpoint groups. This is especially useful for testing performance and releasing updates.
 - Control the proportion of traffic directed to each endpoint within an endpoint group by assigning weights across the endpoints.
 - For other use cases, check [AWS Global Accelerator](https://aws.amazon.com/global-accelerator/?blogs-global-accelerator.sort-by=item.additionalFields.createdDate&blogs-global-accelerator.sort-order=desc&aws-global-accelerator-wn.sort-by=item.additionalFields.postDateTime&aws-global-accelerator-wn.sort-order=desc)
+
 ### Multi-Region applications
 
 **You can use AWS Global Accelerator** *to bring down the number of IP addresses allowed by the firewall and easily manage the entire network infrastructure with a situation that it is too many ALBs in multiple AWS Regions*.
