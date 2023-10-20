@@ -1,7 +1,8 @@
 
 
+## Stacking
 
-## Custodial vs. Non-Custodial Staking Services
+### Custodial vs. Non-Custodial Staking Services
 
 A major differentiator between staking services is level of custodianship; meaning, how a service stores user private keys. Most staking services are custodial or 'centralized.' Custodial staking services manage the entire ETH staking process on behalf of the user and have 'custody' over user private keys. Some centralized services only retain access to user validator keys (semi-custodial).
 

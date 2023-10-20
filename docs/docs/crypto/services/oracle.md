@@ -21,7 +21,7 @@ However, there needs to be a way for blockchains and on-chain smart contracts to
 Oracles present a way for a blockchain or smart contract to interact with external data. They act like an application programming interface (API) to the world outside of blockchain. There are many cases where outside data needs to be communicated to the closed blockchain system — particularly when smart contracts are connected to real-world events. Crypto oracles **query, verify, and authenticate** external data and then relay it to the closed system. That authenticated data would then be used to validate a smart contract.
 
 
-## Inbound Versus Outbound Oracles
+## Inbound vs Outbound Oracles
 Oracles establish a two-way line of communication with blockchains: data can be sent in, or transferred out. While outbound oracles can bring blockchain data to the outside world, it’s more common for inbound oracles to bring off-chain — or real-world data —  to the blockchain. The imported information can represent almost anything — from asset price fluctuations, to weather conditions, to proof of successful payments.
 
 ### Example of inbound oracle
@@ -30,11 +30,11 @@ A frequent programmable scenario for inbound oracles could be: “If an asset hi
 ### Example of outbound oracle
 In contrast, outbound oracles inform the outside world of an event that took place on-chain. For example, a smart contract might be programmed to unlock an internet-enabled smart lock on a rental unit in the real world if a cryptocurrency payment is received at a specific crypto wallet address.
 
-## Software Versus Hardware Oracles
+## Software vs Hardware Oracles
 Most crypto oracles process digital information, though this isn’t always the case. Software oracles deliver data from digital sources such as websites, servers, or databases, while hardware oracles deliver data from the real world. Software oracles can deliver real-time information such as exchange rates, price fluctuations, or flight information. Hardware oracles can deliver and relay information from camera motion sensors, radio frequency identification (RFID) sensors, thermometers, or barcode scanners.
 
 
-## Centralized Versus Decentralized Oracles: Which is Better?
+## Centralized vs Decentralized Oracles: Which is Better?
 
 ### Centralized Oracles
 Centralized oracles act as a single entity that provides data from an external source to a smart contract operating with a set of security features. Such oracles are controlled by a single entity and the only provider of information for smart contracts. Since it works similarly to the traditional financial system where a single entity is responsible for everything, it suffers from a bottleneck problem, or we can say a single point of failure. 

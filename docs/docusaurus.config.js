@@ -193,8 +193,8 @@ const config = {
             items: [
               {
                 type: 'doc',
-                docId: 'container-orchestration/index',
-                label: 'Container Orchestration',
+                docId: 'aws/index',
+                label: 'AWS',
               },
               {
                 type: 'doc',
@@ -208,8 +208,8 @@ const config = {
               },
               {
                 type: 'doc',
-                docId: 'aws/index',
-                label: 'AWS',
+                docId: 'container-orchestration/index',
+                label: 'Container Orchestration',
               },
               {
                 type: 'doc',
