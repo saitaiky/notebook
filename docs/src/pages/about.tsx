@@ -5,7 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.scss';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import logo from '@site/static/img/favicon.JPEG'
+import logo from '@site/static/img/about-me/favicon.JPEG'
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -25,7 +25,12 @@ function HomepageHeader() {
         <h1 className="hero__title">Sai Tai</h1>
         <br/>
         <p>Hi, I'm a software architect who focus on web-based and AI-driven applications for 12+ years.</p>
-        <p>During the free time, I like to play fingerstyle and jazz guitar. Baking, drawing and doing yoga are my recent interest after the pandemic.</p>
+        <p>During the free time, I like to play guitar and drawing. Doing yoga are my recent interest after the pandemic.</p>
+        <div>
+          <img src="/img/about-me/sa.png" width="200px"></img>
+          <img src="/img/about-me/developer.png" width="200px"></img>
+          <img src="/img/about-me/sysops.png" width="200px"></img>
+        </div>
       </div>
     </header>
   );
