@@ -221,7 +221,7 @@ const config = {
           {
             label: 'AI',
             type: 'doc',
-            docId: 'ai/overview',
+            docId: 'ai/index',
             position: 'left',
           },
           {
@@ -258,8 +258,8 @@ const config = {
                 label: 'Clipboard2MD',
               },
               {
-                to: 'https://products.aspose.app/words/conversion/image-to-html/',
-                label: 'Image to HTML',
+                to: 'https://htmlpreview.github.io/',
+                label: 'GitHub HTML preview',
               },
               {
                 to: 'https://tabletomarkdown.com/convert-website-table-to-markdown/',
