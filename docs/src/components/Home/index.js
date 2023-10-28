@@ -56,9 +56,6 @@ function RecentBlogPostCard({ recentPost }) {
     title,
   } = Preview.frontMatter;
 
-  console.log(Preview)
-  console.log(metadata)
-
   const isBlogPostPage = false;
 
   const dateObj = new Date(Preview.metadata.date);
@@ -204,8 +201,6 @@ function RecentBlogPostCard({ recentPost }) {
 export default function Home({ homePageBlogMetadata, recentPosts }) {
     
   const { siteConfig } = useDocusaurusContext();
-  console.log(homePageBlogMetadata)
-  console.log(recentPosts)
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
