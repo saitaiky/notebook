@@ -24,3 +24,14 @@
     float: right;
 }
 
+@media (max-width: 996px) {
+    
+    .intro{
+        padding-top: 4rem;
+    }
+    .img{
+        width: 100%;
+        background-position: center;
+    }
+  }
+

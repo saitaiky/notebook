@@ -22,9 +22,6 @@ border-radius: 7px;
 } */
 
  
-.blog_list__page .blog__section_title{
-    margin: 0px;
-}
 
 
 .blog-list__page{
@@ -183,23 +180,30 @@ border-radius: 7px;
       
 }
 
-
+@media (max-width: 996px) {
+    .blog-list__page{
+        .heroBanner {
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+            // justify-content: space-between;
+            grid-gap: 4rem;
+            padding: 0rem;
+        }
+    }
+  }
 
 html[data-theme='dark'] {
-
 
     .blog-list__page{
         background-color: var(--ifm-navbar-background-color);
         /* color: var(--ifm-color-gray-900); */
     }
-
     .heroBanner{
         background-color: var(--ifm-background-color);
     }
-
     .blog-list--item{
         background: var(--ifm-navbar-background-color);
         box-shadow: var(--blog-item-shadow);
     }
 }
-

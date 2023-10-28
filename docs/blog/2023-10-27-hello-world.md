@@ -8,7 +8,7 @@ Hi, welcome to my blog. This page is intended to explain the intension and infor
 
 ## Intention
 
-I've been writing notes and blogs for different topics that I am interested into like software development, AI, traveling and music in various places. I do want to have a place to organise these knownledge and thoughts; especially, in the year of 2022 since I have been working as an web engineer and architect for 10 year.  The second goal I want to achieve is having a platform that I can use MarkDown to run and deploy without any hosting cost and I found [docusaurus](https://docusaurus.io/) - an amazing product created by Facebook team.
+I've been writing notes and blogs for different topics that I am interested into like software development, AI, traveling and music in various platforms. I do want to have a place to organise these knownledge and thoughts; especially, I have been working as an web engineer and architect for 10 years in 2022.  The second goal I want to achieve is having a platform that I can use MarkDown to run and deploy without any hosting cost and data schema blinded to a platform. Luckily, I found [docusaurus](https://docusaurus.io/) - an amazing product created by Facebook team.
 
 <!-- truncate -->
 
