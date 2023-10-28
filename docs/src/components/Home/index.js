@@ -8,8 +8,8 @@ import MDXComponents from "@theme/MDXComponents";
 
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
-import styles from './styles.module.css';
-import './styles.css';
+import styles from './styles.module.scss';
+import './styles.scss';
 // import { StyledBlogItem } from "./style";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
