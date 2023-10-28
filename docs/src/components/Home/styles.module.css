@@ -1,0 +1,26 @@
+.intro{
+    /* background-color: inherit; */
+}
+
+.img{
+    /* background-color: inherit; */
+    background-color: white;
+    background-image: url("./imgs/homepage-banner.jpg");
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: var(--banner-shadow);
+    min-height: 400px;
+    width: 585px;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.links{
+    margin-bottom: 10px;
+}
+
+.readmore_link{
+    float: right;
+}
+

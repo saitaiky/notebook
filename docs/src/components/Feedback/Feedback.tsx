@@ -55,7 +55,7 @@ export const Feedback = ({ metadata }: { metadata: any }) => {
 
     if (!window.location.hostname.includes('hasura.io')) {
       alert(
-        'Hey! We like that you like our docs and chose to use them 🎉\n\nHowever, you might want to remove the feedback component or modify the route you hit, lest you want us reading what people think of your site ✌️'
+        'Hey! Thank you for letting me know your feedback🎉\n\n Appreciate that.✌️'
       );
       setRating(null);
       setNotes(null);
@@ -94,7 +94,7 @@ export const Feedback = ({ metadata }: { metadata: any }) => {
       setTextAreaLabel(
         <>
           <p>What can we do to improve it? Please be as detailed as you like.</p>
-          <p>Real human beings read every single review.</p>
+          <p>I'll read every single review.</p>
         </>
       );
       setTextAreaPlaceholder('This section is required... how can we do better? ✍️');
@@ -103,8 +103,8 @@ export const Feedback = ({ metadata }: { metadata: any }) => {
       setTextAreaLabel(
         <>
           <p>Any general feedback you'd like to add?</p>
-          <p>We'll take it all... tell us how well we're doing or where we can improve.</p>
-          <p>Real human beings read every single review.</p>
+          <p>I'll take it all... tell me where this website can be improved.</p>
+          <p>I'll read every single review.</p>
         </>
       );
       setTextAreaPlaceholder('This section is optional ✌️');

@@ -1,5 +1,5 @@
 ---
-title: Capstone Project
+title: SMD Defect Detection
 hide_table_of_contents: true
 sidebar_position: 6
 ---

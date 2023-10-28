@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sai\'s Note Book',
-  tagline: 'Learn, update and iterate',
+  tagline: 'Adapt and adjust',
   url: 'https://sai-tai.netlify.app',
   baseUrl: '/',
   trailingSlash: true,
@@ -46,6 +46,8 @@ const config = {
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
+      // For docs: https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs
+      // For blog: https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog
       ({
         docs: {
           routeBasePath: '/',
@@ -73,6 +75,7 @@ const config = {
           */
           remarkPlugins: [[require('mdx-mermaid'), { mermaid: { theme: 'dark' } }]],
         },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
         },
@@ -123,6 +126,17 @@ const config = {
       path.resolve(__dirname, './src/plugins/docusaurus-plugin-google-gtm'),
       {
         trackingID: 'GTM-PF5MQ2Z',
+      },
+    ],
+    [
+      // https://kgajera.com/blog/display-recent-blog-posts-on-home-page-with-docusaurus/
+      path.resolve(__dirname, './src/plugins/custom-blog-plugin'),
+      {
+        id: 'blog',
+        routeBasePath: 'blog',
+        path: './blog',
+        blogTitle: 'Latest blog posts',
+        blogDescription: '',
       },
     ],
   ],

@@ -7,7 +7,7 @@ sidebar_label: Intro
 sidebar_position: 0
 ---
 
-Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS SysOps, Developer, and Solutions Architect exams. If you find any inaccuracies, kindly notify me through GitHub.
+Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS SysOps, Developer, and Solutions Architect associate certifications. If you find any inaccuracies of the content, kindly notify me through GitHub/Feedback section.
 
 While obtaining certifications is an achievement, the journey itself offers valuable insights. Preparation involves not just testing existing knowledge but also gaining hands-on experience with various AWS services. For example, you'll explore security-related services like AWS Inspector, AWS Config, and AWS Trusted Advisor, understanding when to use each. You'll tackle practical questions, such as setting up a VPC for internet-connected instances while keeping others isolated, ensuring file system integrity when creating AMIs, and achieving "Write Once, Read Many" (WORM) compliance for sensitive data storage. This preparation equips you to grasp these concepts and implement them effectively with AWS.
 

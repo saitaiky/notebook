@@ -1,0 +1,207 @@
+.blogPostTitle {
+    font-size: 3rem;
+  }
+  
+.blogPostDate {
+font-size: 0.9rem;
+}
+
+.heroBanner{
+    padding: 4rem 6rem;
+}
+
+/* .readMore {
+margin-top: 1.4em;
+border-radius: 8px;
+color: white;
+padding: 0.75em 2em;
+background: linear-gradient(
+    90deg,
+    var(--ifm-color-primary) 11.3%,
+    var(--ifm-color-primary-light) 161.54%
+);
+box-shadow: 0px 0px 32px rgba(0, 105, 165, 0.35);
+border-radius: 7px;
+} */
+
+ 
+.blog_list__page .blog__section_title{
+    margin: 0px;
+}
+
+
+.blog-list__page{
+
+    /**
+    * Any CSS included here will be global. The classic template
+    * bundles Infima by default. Infima is a CSS framework designed to
+    * work well for content-centric websites.
+    */
+    /* You can override the default Infima variables here. */
+    --ifm-font-family-base: "Raleway", "PingFang SC", "Microsoft Yahei",
+    sans-serif;
+    --ifm-heading-font-family: "Raleway", "PingFang SC", "Microsoft Yahei",
+      sans-serif;
+    --blog-item-background-color: linear-gradient(
+        50deg,
+        #ffffff,
+        hsl(0deg 0% 95%)
+    );
+    --blog-item-dark-shadow: 5px 5px 40px #ddd, -5px -5px 40px #ddd;
+    --blog-item-shadow: 20px 20px 60px #324357, -20px -20px 60px #324357;
+
+    --banner-shadow: 0px 0px 20px 20px white;
+    background-color: #fbfbfb;
+
+    .heroBanner{
+        background-color: white;
+    }
+
+    .blog-list--item{
+        border-radius: 12px;
+        background: var(--blog-item-background-color);
+        box-shadow: var(--blog-item-dark-shadow);
+        padding: 2em 1em;
+        position: relative;
+    }
+
+    >.container-wrapper{
+        margin-bottom: 3em;
+    }
+    /* 博客列表 */
+    /* .bloghome__posts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    } */
+    
+    /* 发布日期 */
+    .post__date-container {
+        display: grid;
+        justify-items: center;
+    }
+        
+    .post__date {
+    background: url("./icons/circle.svg") no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 10.5em;
+    height: 10.5em;
+    margin-top: 1em;
+    font-family: "Raleway";
+    }
+    
+    .post__day {
+    font-size: 4.75em;
+    line-height: 1em;
+    font-weight: 900;
+    }
+    
+    .post__year_month {
+    align-self: start;
+    color: var(--post-pub-date-color);
+    }
+    
+    .post__tags-container {
+    white-space: nowrap;
+    overflow: auto;
+    padding-bottom: 12px;
+    }
+    
+    .post__tags {
+    background: var(--ifm-color-primary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: #ffffff;
+        &:hover {
+            color: #ffffff;
+            text-decoration: none;
+            }
+    }
+    
+    html[data-theme="dark"] .post__tags {
+    color: #d4e8fa;
+    background: #0179fa77;
+    }
+    
+    
+    .article__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    
+    .footer__read_count {
+    opacity: 0.8;
+    color: var(--ifm-color-primary);
+    font-size: 1.8em;
+    }
+    
+    .pagination-nav__link {
+    /* border: none; */
+    margin: 2em 0;
+    background: linear-gradient(
+        90deg,
+        var(--ifm-color-primary-light) 11.3%,
+        var(--ifm-color-primary) 161.54%
+    );
+    box-shadow: 0px 0px 32px rgb(0 105 165 / 35%);
+    color: white;
+    border: none;
+    }
+    
+    .pagination-nav__link:hover {
+    color: white;
+    }
+    
+    pagination-nav__item:hover .pagination-nav__link {
+    border: none;
+    }
+    
+    .pagination-nav__item--next > .pagination-nav__link {
+    background: linear-gradient(
+        90deg,
+        var(--ifm-color-primary) 11.3%,
+        var(--ifm-color-primary-light) 161.54%
+    );
+    }
+    
+    .pagination-nav__sublabel {
+    color: white;
+    }
+    
+    .blog__section_title {
+        margin: 2em 0 0 0;
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
+        text-align: center;
+        font-size: calc(1.375rem + 1.5vw);
+        position: relative;
+      }
+    
+      
+}
+
+
+
+html[data-theme='dark'] {
+
+
+    .blog-list__page{
+        background-color: var(--ifm-navbar-background-color);
+        /* color: var(--ifm-color-gray-900); */
+    }
+
+    .heroBanner{
+        background-color: var(--ifm-background-color);
+    }
+
+    .blog-list--item{
+        background: var(--ifm-navbar-background-color);
+        box-shadow: var(--blog-item-shadow);
+    }
+}
+

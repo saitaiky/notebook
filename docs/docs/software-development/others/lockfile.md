@@ -1,5 +1,5 @@
 
-> TL;DR - **Always commit the lock file to your source repository!** Why should your source repository always contain a lock file? Package managers would miss important imformation about installed packages without a lock file. It may result in installing two different modules from the same dependency definition.
+> TL;DR - Always commit the lock file to your source repository **if your project is an application!** If you don't, package managers would miss important imformation about installed packages without a lock file. It may result in installing two different modules from the same dependency definition.
 
 ### What is a Lock file?
 
