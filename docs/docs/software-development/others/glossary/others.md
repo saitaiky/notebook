@@ -18,7 +18,7 @@ Reference: [What is an Ubuntu LTS release?](https://ubuntu.com/blog/what-is-an-u
 
 The terms ’emulators’ and ‘simulators’ are often used interchangeably, but they have very different sets of capabilities. Let’s look at each to make the difference clearer.
 
-![emulator-vs-simulator](/img/tech-concepts/emulator-vs-simulator.png)
+![emulator-vs-simulator](/img/software-development/others/emulator-vs-simulator.png)
 
 Source: [What is the Difference Between Emulators and Simulators?](https://www.racksolutions.com/news/blog/what-is-the-difference-between-emulator-and-simulator/#:~:text=Emulators%20enable%20a%20computer%20system,configuration%20of%20another%20target%20device.)
 
@@ -78,7 +78,7 @@ Statement of Work (SOW) is a project management document that regulates the coop
 
 As a matter of fact, a high-quality SOW should cover every critical point of the work. 
 
-![sow](/img/tech-concepts/sow.webp)
+![sow](/img/software-development/others/sow.webp)
 Reference: [Statement of Work (SOW) Document in Software Development: Everything You Need To Know](https://relevant.software/blog/statement-of-work-sow-in-software-development-everything-to-know/#Purpose_of_Statement_of_Work_SOW_Document)
 
 ### WIP
@@ -96,7 +96,7 @@ Software as a service (SaaS) is a software distribution model in which a cloud p
 
 SaaS is one of three main categories of cloud computing, alongside infrastructure as a service (IaaS) and platform as a service (PaaS). A range of IT professionals, business users and personal users use SaaS applications.
 
-![what-is-sass](/img/tech-concepts/glossary/what-is-saas.png)
+![what-is-sass](/img/software-development/others/glossary/what-is-saas.png)
 Reference: [What is SaaS?](https://azure.microsoft.com/en-gb/resources/cloud-computing-dictionary/what-is-saas/)
 
 #### Examples
@@ -126,7 +126,7 @@ AWS provides [AWS Database Migration Service](https://aws.amazon.com/dms/) for H
 
 A hypervisor, also known as a virtual machine monitor (VMM), is a software or hardware component that creates and manages multiple virtual environments, known as virtual machines (VMs), on a single physical computer. It allows these VMs to run independently, each with its own operating system and applications, while sharing the underlying hardware resources such as CPU, memory, storage, and networking. The hypervisor ensures isolation, security, and efficient resource allocation among the virtual machines, enabling better utilization of the physical hardware and facilitating server consolidation and cloud computing.
 
-![how-does-a-hypervisor-work-1500x732](/img/tech-concepts/how-does-a-hypervisor-work-1500x732.png)
+![how-does-a-hypervisor-work-1500x732](/img/software-development/others/how-does-a-hypervisor-work-1500x732.png)
 
 Source: [What Is a Hypervisor? – Types, Benefits & How Does It Work?](https://www.parkplacetechnologies.com/blog/what-is-hypervisor-types-benefits/)
 

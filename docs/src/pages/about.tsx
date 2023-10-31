@@ -11,7 +11,7 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx(styles.heroBanner)}>
-      <div className="container">
+      <div className="container" style={{textAlign: 'center', paddingTop: '3rem'}}>
         <img src={logo} style={{width: 280, borderRadius: '50%'}} /> 
         {/* <h1 className="hero__title">{siteConfig.title}</h1> */}
         {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}

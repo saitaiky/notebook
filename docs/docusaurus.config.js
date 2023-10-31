@@ -47,7 +47,7 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       // For docs: https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs
-      // For blog: https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog
+      // For blog: https://github.com/facebook/docusaurus/issues/4138
       ({
         docs: {
           routeBasePath: '/',
@@ -202,41 +202,51 @@ const config = {
         items: [
           {
             type: 'dropdown',
-            label: 'Software',
+            label: 'Tech',
             position: 'left',
             items: [
               {
-                type: 'doc',
-                docId: 'aws/index',
+                to: 'aws',
                 label: 'AWS',
               },
               {
-                type: 'doc',
-                docId: 'software-development/index',
+                to: 'software-development',
                 label: 'Software Development',
               },
               {
-                type: 'doc',
-                docId: 'tech-concepts/index',
-                label: 'Tech Concepts',
-              },
-              {
-                type: 'doc',
-                docId: 'container-orchestration/index',
+                to: 'container-orchestration',
                 label: 'Container Orchestration',
               },
               {
-                type: 'doc',
-                docId: 'linux/index',
+                to: 'linux',
                 label: 'Linux',
               },
             ],
           },
           {
-            label: 'AI',
-            type: 'doc',
-            docId: 'ai/index',
+            to: 'ai',
+            label: 'Artificial Intelligence',
             position: 'left',
+            // type: 'doc',
+            // docId: 'ai/index',
+            items: [
+              {
+                to: 'ai/search-plan/',
+                label: 'Search, Plan, Reasoning',
+              },
+              {
+                to: 'ai/ml',
+                label: 'Machine Learning',
+              },
+              {
+                to: 'ai/dl',
+                label: 'Deep Learning',
+              },
+              {
+                to: 'ai/showcase',
+                label: 'Showcase',
+              },
+            ],
           },
           {
             label: 'Crypto',
@@ -247,7 +257,7 @@ const config = {
           {
             label: 'Other',
             type: 'doc',
-            docId: 'other/overview',
+            docId: 'other/index',
             position: 'left',
           },
           {

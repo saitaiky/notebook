@@ -1,9 +1,11 @@
 ---
-title: Home
-sidebar_position: 0
+title: Career killers
 ---
 
-Here are some topics I'd love to dive into when I get the chance.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uX719LQBLXw?si=iOSZBN1UY0KPa6FW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+This blog post provides a summary of the video above. Additional content will be added to further enhance the comprehensiveness of this topic in the future.
+
 ## Career killers
 
 - If you get your money right, prefer impact over raw output

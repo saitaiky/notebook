@@ -66,7 +66,7 @@ REST (REpresentational State Transfer) is a design pattern rather than a protoco
 
 GraphQL is the new kid on the block, starting to eat REST's lunch. Like RESTful services, GraphQL-based services are entirely stateless, and give clients even more control over what data is fetched from servers.
 
-![Chart comparing SOAP REST and GRAPHQL](/img/tech-concepts/soap-rest-graphql.png)
+![Chart comparing SOAP REST and GRAPHQL](/img/software-development/others/soap-rest-graphql.png)
 
 Source: [Stateful vs Stateless Architecture: Why Stateless Won](https://www.virtasant.com/blog/stateful-vs-stateless-architecture-why-stateless-won)
 

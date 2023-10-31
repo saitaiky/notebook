@@ -14,7 +14,7 @@ Let’s take the example that you have a very busy site sending data every time 
 
 ### Architecture
 
-![statsd_arch](/img/tech-concepts/statsd_arch.png)
+![statsd_arch](/img/software-development/others/statsd_arch.png)
 
 Source: [Monitoring StatsD: metric types, format + code examples](https://sysdig.com/blog/monitoring-statsd-metrics/)
 
@@ -40,7 +40,7 @@ It is commonly used for monitoring and performance analysis, and it can work in 
 
 Many common monitoring stacks combine several components together. A [collectd](https://collectd.org/), [Graphite](https://graphiteapp.org/) and [Grafana](http://grafana.org/) combination is an example of such. collectd is the collector, pulling data from the kernel and third-party applications such as MySQL. To collect custom metrics from your own applications, you'd use the StatsD protocol, which sends user data protocol (UDP) packets to collectd for individual events. collectd sends metrics to [Carbon](https://github.com/graphite-project/carbon), which uses a [Whisper](https://github.com/graphite-project/whisper) database for storage. Finally, both Graphite and Grafana themselves can be used for visualization.
 
-![collectd_arch](/img/tech-concepts/collectd_arch.png)
+![collectd_arch](/img/software-development/others/collectd_arch.png)
 
 Source: [The Classes of Container Monitoring](https://thenewstack.io/classes-container-monitoring/)
 
@@ -54,7 +54,7 @@ Prometheus takes a different approach than our previous examples. Collection hap
 
 The Prometheus server handles ingestion, processing, alerting and storage. However, to avoid tying a distributed system into critical monitoring, the local Prometheus storage is more like a cache. A separate, non-critical distributed storage system handles longer term storage. This approach offers both monitoring reliability and durability for long-term data.
 
-![collectd_arch](/img/tech-concepts/prometheus_arch.png)
+![collectd_arch](/img/software-development/others/prometheus_arch.png)
 
 Source: [The Classes of Container Monitoring](https://thenewstack.io/classes-container-monitoring/)
 
@@ -63,7 +63,7 @@ While Prometheus decides what alerts to fire, it does not send emails or pages t
 
 ### Prometheus Architecture
 
-![Prometheus-Server_Chart](/img/tech-concepts/Prometheus-Server_Chart.png)
+![Prometheus-Server_Chart](/img/software-development/others/Prometheus-Server_Chart.png)
 
 Source: [Kubernetes Monitoring: Install Prometheus and Grafana using Helm](https://k21academy.com/docker-kubernetes/prometheus-grafana-monitoring/)
 

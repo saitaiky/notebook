@@ -15,7 +15,7 @@ A lock file contains important information about installed packages and it shoul
 -   Allows your Package Manager to skip repeated metadata resolutions for previously-installed packages and, therefore, makes the installation much faster
 
 
-### Why You Might Want the Lock File
+### Lock File in repo?
 
 The package managers need more than just the configuration information - they need the exact version of each dependency installed. Remember to always commit your lock files to your source repositories!
 

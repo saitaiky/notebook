@@ -77,6 +77,14 @@
 }
 
 
+/* ==================== By Sai ========================== */
+.navbar__link{
+  font-size: 14px;
+  &.active{
+    color: var(--ifm-navbar-link-hover-color);
+  }
+}
+
 #about-me{
   h1{
     display: block;
@@ -92,7 +100,7 @@
   }
 }
 
-/* ============================================== */
+/* ------------------------------------ */
 /* Dark Mode Styles */
 
 html[data-theme='dark'] {

@@ -53,6 +53,7 @@ export const Feedback = ({ metadata }: { metadata: any }) => {
         .catch(error => console.error('error', error));
     };
 
+    // Sai: This part prevent any other website send the data to the backend.
     if (!window.location.hostname.includes('hasura.io')) {
       alert(
         'Hey! Thank you for letting me know your feedback🎉\n\n Appreciate that.✌️'
@@ -128,19 +129,7 @@ export const Feedback = ({ metadata }: { metadata: any }) => {
                 <p>Feel free to review as many docs pages as you like!</p>
               ) : (
                 <p>
-                  If you need help with the issue that led to this low score, you can create a{' '}
-                  <a
-                    href="https://github.com/hasura/graphql-engine/issues/new/choose"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    GitHub issue
-                  </a>{' '}
-                  if you think this is a bug, or check out our{' '}
-                  <a href="https://hasura.io/discord" target="_blank" rel="noopener noreferrer">
-                    Discord server
-                  </a>
-                  , where Hasurians and community users are ready to engage.
+                  I'll continue to review and update the content to make sure the content is high quality.
                 </p>
               )}
             </div>

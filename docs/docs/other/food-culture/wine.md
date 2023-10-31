@@ -16,6 +16,29 @@ title: Wine
 - Zinfandel
 - Lambrusco
 
+
+## Four essential white grape varieties
+
+> Reference: [Youtube video](https://www.youtube.com/watch?v=5A1t5Yeh9nQ)
+
+- **Sauvignon Blanc**: Sauvignon Blanc is related to Cabernet Sauvignon as Cabernet Sauvignon comes from a cross of Cabernet Franc and Sauvignon Blanc. It has a grassy and sometimes strange scent, like pomegranate or cat urine, which might deter some initially. However, it can be refreshing in the summertime. It pairs well with seafood and is great for beach outings. Regions to explore include New Zealand's Marlborough, France's Loire Valley (notably Sancerre and Pouilly Fume), and the United States (Fume Blanc).
+- **Muscat (Moscato/麝香葡萄/香印葡萄)**: Muscat, also known as Moscato, is a fragrant and versatile grape, often used for dessert wines or enjoyed fresh. It features intense floral and fruity aromas like orange blossoms, peaches, lychees, and honey. Notable varieties include Italy's `Moscato D'Asti` and South Africa's Vin de Constance, a dessert wine with a complex profile.
+- **Chardonnay**: Chardonnay is one of the most popular white grape varieties worldwide. It thrives in various climates, soil types, and winemaking styles, making it highly adaptable. Its flavor profile ranges from crisp, fruit-forward wines to rich, buttery expressions. It's produced in regions like France's Chablis, Napa Valley, and Burgundy.
+- **Riesling**: Riesling is often considered the most noble of white grapes. It has a distinct high acidity, which allows it to age gracefully. A well-made Riesling balances acidity with flavors of peaches, citrus, honey, and subtle minerality. Rieslings can vary from dry to sweet and can even be sparkling. They pair exceptionally well with spicy cuisines. These grape varieties each offer unique characteristics, making them fascinating choices for wine enthusiasts. Be sure to explore different regions and styles to find your favorites.
+
+## Four essential red grape varieties
+
+> Reference: [Youtube video](https://www.youtube.com/watch?v=MVppatoOMPc)
+
+"Of the thousands of grape varieties in the world, trying to get to know them all is quite a tall order. In reality, amidst the vast world of wines, many are made from just a handful of grape varieties. In this episode, I want to introduce you to a few international grape varieties:
+
+- **Cabernet Sauvignon**: You're probably already familiar with this grape, especially if you watch my channel, as it's frequently featured in Bordeaux wines. It's known for producing deeply colored wines with a purple rim when tilted in the glass. Cabernet Sauvignon wines often carry aromas of blackcurrant and cherry, and in cooler climates, they might even have hints of green pepper.
+- **Merlot**: Often known as Cabernet Sauvignon's best companion, it can be found in Bordeaux's right bank, particularly in areas like Pomerol and Saint-Émilion. Merlot has more restrained aromas compared to Cabernet Sauvignon, but it offers a rich fruity flavor, with hints of plums and fruitcake. Its round and smooth character makes it an excellent choice for introducing newcomers to red wine.
+- **Shiraz/Syrah**: This grape variety is the perfect match for steak, especially when seasoned with salt and pepper. Shiraz wines are rich in both red and black fruit aromas, along with violet notes and the distinctive black pepper flavor. They vary in style, from light and elegant to bold and robust. Pair them with the right dish, and you'll have a delightful experience.
+- **Pinot Noir**: Often referred to as the most noble but challenging grape, Pinot Noir demands the right soil, climate, and meticulous care. It has thin-skinned grapes that are susceptible to disease, and manual harvesting is often necessary. However, the rewards are worth it. Pinot Noir wines offer red fruit aromas like strawberries and raspberries, alongside floral notes of roses and sometimes truffle-like earthiness. They are elegant and age beautifully.
+
+Each of these grape varieties has its own unique characteristics and thrives in specific regions worldwide. So, if you're interested in exploring the world of wine, these grapes are an excellent place to start."
+
 ## French wine
 
 ![](/img/other/franch-wine-map.jpeg)

@@ -1,0 +1,36 @@
+---
+title: Home
+---
+
+- Predicting Boston Housing Prices (Basic Knowledge)
+    - Training and testing models
+    - Evaluation metrics
+    - Valuation and validation
+- Find Donors for CharityML (Supervised Learning)
+    - Linear regression
+    - Perceptron Algorithm
+    - Logistic Regression
+    - Neural Networks
+    - Decision Tree
+    - Naive Bayes
+    - Support Vector Machines(SVM)
+    - Ensemble of learners
+- Create Customer Segments (Unsupervised Learning)
+    - Clustering
+    - Hierarchical & Density-based clustering
+    - Gaussian mixture models
+    - Feature scaling
+    - Dimensionality reduction
+- Dog Breed Classifier (Deep learning)
+    - Deep Neural Network (DNN)
+    - Convolutional Neural Networks (CNN)
+- Train a Quadcopter to fly (Reinforcement Learning)
+    - `Problem` - RL framework: Markov Decision Processes
+    - `Solution` - RL framework: Policies, value function and Bellman Equations
+    - Dynamic progremming
+    - Monte Carlo Methods
+    - Temporal - Sarsa, Q-Learning, Expected Sarsa algorithms
+    - Work with Continuous spaces
+    - Deep Q-learning
+    - Policy gradients
+    - Actor-critic methods

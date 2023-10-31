@@ -1,17 +1,12 @@
+---
+title: Constraint propagation
+---
 
+## Constraint propagation
 
-## TO-DO
+A technique called constraint propagation together with backtracking search to make an agent that only considers reasonable solution candidates and efficiently solves problem like Sudoku puzzle. This approach appears in many classical AI problems, and the solution techniques have been extended and applied to diverse problems in bioinformatics, logistics, and operations research.
 
-➔ Consider the meaning of “artificial intelligence”
-➔ Be able to define core concepts from AI including “agents”,“environments”, and “states”
-➔ Learn the concept of “rational” behavior for AI agents
-
-
-
-
-## Todo
-
-Constraint Propagation and Search are fundamental techniques used in the field of Artificial Intelligence, especially in solving constraint satisfaction problems (CSPs). Here's a brief explanation of each:
+Constraint Propagation and Search are fundamental techniques used in the field of Artificial Intelligence, especially in solving constraint satisfaction problems (**CSPs**). Here's a brief explanation of each:
 
 1. Constraint Propagation:
 Constraint propagation is a process used to simplify and narrow down the possible solutions in a constraint satisfaction problem. In a CSP, you have variables, domains, and constraints. Constraints define the relationships between variables and restrict the possible values they can take. Constraint propagation involves using these constraints to make logical inferences and reduce the domains of variables.

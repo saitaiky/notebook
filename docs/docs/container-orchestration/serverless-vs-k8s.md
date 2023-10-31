@@ -44,7 +44,7 @@ With near infinite elastic scaling and close to 0 overhead cost, you can sleep e
 
 If your system is made up of stateful components, for instance in-memory caches and other type of services that rely on some internal state, they are unsuitable to be built as Serverless functions. FaaS requires a heavy emphasis on stateless services/functions.
 
-> Future reading: [Stateful vs Stateless](/tech-concepts/stateful-vs-stateless)
+> Future reading: [Stateful vs Stateless](/software-development/others/stateful-vs-stateless)
 
 ### You have long running tasks
 

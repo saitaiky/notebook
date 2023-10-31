@@ -35,5 +35,5 @@ In essence, Darwin's wisdom teaches us that, those who embrace change, learn fro
 
 ## Future
 
-After a year of effort (as of October 2023), most of the articles that I posted here answer the question of How and what. In 2024, I want to focus more on thoughts and ideas and creating some side projects to showcase in AI and Crypto.
+As of October 2023, after a year of effort, the majority of my articles here provide answers to "how" and "what." In 2024, my focus will shift towards exploring thoughts, ideas, and developing side projects in the AI and Crypto domains.
 

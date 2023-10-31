@@ -7,7 +7,7 @@ sidebar_position: 5
 ---
 
 
-For the high level overview of what is caching, please refer to my another post: [What is Caching](/tech-concepts/cach/)
+For the high level overview of what is caching, please refer to my another post: [What is Caching](/software-development/others/cache/)
 ## Memcached
 
 :::cautionImportant points

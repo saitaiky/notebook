@@ -1,5 +1,5 @@
 ---
-title: What are the different port numbers?
+title: Common ports
 ---
 
 There are 65,535 possible port numbers, although not all are in common use. Some of the most commonly used ports, along with their associated networking protocol, are:

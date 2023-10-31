@@ -93,7 +93,7 @@ You might find differences between the CloudWatch and Enhanced Monitoring measur
 
 Reference: 
 - [Overview of Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.overview.html)
-- [Hypervisor](/tech-concepts/glossary/others/#hypervisor)
+- [Hypervisor](/software-development/others/glossary/others/#hypervisor)
 :::
 
 ### PITR

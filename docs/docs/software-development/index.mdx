@@ -21,43 +21,43 @@ import {
 } from "@site/src/components/CustomTOCList";
 
 
-## Software design
-- Non-opinionated vs. Opinionated Design
-- K8s is non-opinionated https://www.baeldung.com/cs/opinionated-software-design#:~:text=In%20summary%2C%20the%20main%20difference,way%E2%80%9D%20to%20accomplish%20a%20task.
+## Intro
 
-## Crypto
+My gaol in this section is to provide concepts that I think a solution architect should know. To be a successful solution architect requires a broad understanding of various technical concepts and practices to design effective and efficient software solutions. Here are some key concepts that I want to further discuss in this website later:
 
-- [6 Ways You Can Get Involved in the Polkadot and Kusama Community](https://polkadot.network/blog/6-ways-you-can-get-involved-in-the-polkadot-community/)
-- [https://substrate.io/](https://substrate.io/)
+- System Architecture: Understand different architectural patterns, such as microservices, monolithic, serverless, and event-driven architectures. Select the appropriate architecture based on project requirements.
+    - Scalability: Know how to design systems that can scale horizontally and vertically to handle increased loads. Consider load balancing, distributed databases, and caching mechanisms.
+    - Performance Optimization: Implement techniques to optimize system performance, including database indexing, code optimization, and query optimization.
+        - Caching: Implement caching strategies to improve system performance. Know when to use in-memory caches, content delivery networks (CDNs), or distributed caches like Redis.
+    - Security: Be well-versed in security best practices, including data encryption, authentication, authorization, and protection against common vulnerabilities like SQL injection and cross-site scripting (XSS).
+    - API Design: Develop RESTful or GraphQL APIs and understand API security, versioning, and documentation best practices.
+    - Integration and Middleware: Design systems that integrate with other applications and services using messaging queues, APIs, and middleware.
+    - Cost Optimization: Make cost-effective decisions, considering cloud resource usage and managing expenses efficiently.
+    - Architectural Patterns: Know various architectural patterns, like the Layered Architecture, MVC, and SOA, and apply them as appropriate.
+- Data 
+    - Data Storage: Understand various data storage options, such as relational databases, NoSQL databases, data warehousing, and distributed file systems. Choose the right storage solution for specific use cases.
+    - Database Design: Design efficient database schemas and understand data modeling concepts.
+- Operational
+    - DevOps Practices: Understand DevOps principles, including infrastructure as code (IaC), automation, and collaboration between development and operations teams.
+        - Continuous Integration and Continuous Deployment (CI/CD): Implement CI/CD pipelines to automate code testing, build processes, and deployments.
+    - Agile Methodologies: Work within agile development frameworks like Scrum or Kanban to facilitate iterative development and collaboration.
+    - Disaster Recovery: Design disaster recovery plans to ensure business continuity in the event of data loss, system failures, or natural disasters. Utilize backup and recovery solutions.
+    - Monitoring and Logging: Set up monitoring and logging systems to track system performance, detect issues, and troubleshoot problems. Tools like Prometheus, Grafana, and ELK (Elasticsearch, Logstash, Kibana) can be valuable.
+    - Version Control: Use version control systems like Git to manage source code and collaborate with development teams effectively.
+- Containerization and Orchestration: Understand containerization technologies like Docker and container orchestration platforms like Kubernetes to manage and deploy applications efficiently.
+- Cloud Services: Familiarize yourself with major cloud platforms (e.g., AWS, Azure, Google Cloud) and know how to leverage their services, such as serverless computing, databases, and storage solutions.
+- Compliance and Regulations: Be aware of industry-specific regulations (e.g., GDPR, HIPAA) and ensure that your solutions comply with relevant data protection and privacy requirements.
 
+To me, a solution architect is basically a problem solver. It is all about how we solve a problem by using tools that exists in the market. One should continuously update their knowledge as technology evolves and adapt their skills to meet specific project requirements. Staying informed about emerging technologies and best practices is essential for effective architectural decision-making.
 
-## DATABASE
-- [RDF](https://www.ontotext.com/knowledgehub/fundamentals/what-is-rdf/)
+## Learn from genesis
 
-## Javascript 
-https://github.com/mbeaudru/modern-js-cheatsheet
-Template literals
-Tagged template literals
-Imports / Exports
+Learning from the approaches of successful people can offer valuable insights and inspiration, thus I like to follow the social media accounts of these industrial leaders. That said, it's also worth mentioning to consider the context and whether their methods align with your goals and circumstances.
 
-JavaScript this
-Class
-Extends and super keywords
+Below are some approaches that how the great technical people to learn new thing in tech. 
 
-
-Promise API - https://javascript.info/promise-api
-Promisification
-Microtasks
-
-
-## Others
-
-- [Browser: Document, Events, Interfaces](https://javascript.info/ui)
-- [pulumi - Universal Infrastructure as Code](https://www.pulumi.com/)
-- [webGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL)
-- Preflight logic in web
-- Video packaging settings, as used in HTTP Live Streaming (HLS) and Dynamic Adaptive Streaming over HTTP (DASH), involve the process of preparing video content for delivery over the internet in a format that can adapt to the viewer's network conditions and device capabilities. 
-
-
-
-
+- Learning K8s with only command lines and API docs with out Googling. This approach is inspired by [Kelsey hightower
+/Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+- How [Bret Fisher](https://www.bretfisher.com/) study K8s
+    - I'm going to be starting with the documentation with the samples. Also, using the generated YAML from the command line using the `kubectl create`. 
+    - Then, I'm going to start using these other scratch commands to fill in my gaps and to understand new fields that I should put into my resource and to make it do what I need it to do.
