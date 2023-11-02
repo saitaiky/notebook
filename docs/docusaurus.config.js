@@ -122,10 +122,17 @@ const config = {
         // trackPageDelay: 50,
       },
     ],
+    // [
+    //   path.resolve(__dirname, './src/plugins/docusaurus-plugin-google-gtm'),
+    //   {
+    //     trackingID: 'GTM-PF5MQ2Z',
+    //   },
+    // ],
     [
-      path.resolve(__dirname, './src/plugins/docusaurus-plugin-google-gtm'),
+      '@docusaurus/plugin-google-gtag',
       {
-        trackingID: 'GTM-PF5MQ2Z',
+        trackingID: 'G-B35TPRVQ3Q',
+        anonymizeIP: true,
       },
     ],
     [
