@@ -26,19 +26,3 @@ We can hold at least two primary reasons for performing data modeling:
 - Strategic data modeling facilitates the overall information systems development strategy
 - Data modeling can help in the development of new databases
 
-
-
-
-
-
-
-
-
----
-
-# see which part to add
-
-A high-level data model utilizes simplistic graphical images to illustrate the core concepts and principles of an organization and what they mean. A database model shows the logical structure of a database, including the relationships and constraints that determine how data can be stored and accessed.
-
-
-## Do chapter 2 later

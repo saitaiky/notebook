@@ -3,7 +3,7 @@ title: Home
 sidebar_position: 1
 ---
 
-Here is a compilation of project showcases I completed between 2017 and 2019 during my studies in AI through Udacity. During my learning journey, I discovered that it's more efficient to have a clear understanding of your goals before delving into research papers or online materials. This approach allows you to grasp the end product's concept before immersing yourself in unfamiliar subjects.
+Here is a compilation of project showcases I completed between 2017 and 2019 during my studies in [Artificial Intelligence](https://www.udacity.com/course/ai-artificial-intelligence-nanodegree--nd898), [Machine learning](https://www.udacity.com/course/aws-machine-learning-engineer-nanodegree--nd189) and [Deep Learning](https://www.udacity.com/course/deep-learning-nanodegree--nd101) Nanodegree through Udacity. During my learning journey, I discovered that it's more efficient to have a clear understanding of your goals before delving into research papers or online materials. This approach allows you to grasp the end product's concept before immersing yourself in unfamiliar subjects.
 
 I trust that this showcase of my completed projects will provide you with a quick overview, helping you identify areas of knowledge that may be of interest to you.
 
