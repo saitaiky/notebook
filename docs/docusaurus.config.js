@@ -231,6 +231,10 @@ const config = {
             // docId: 'ai/index',
             items: [
               {
+                to: 'ai/showcase',
+                label: 'Showcase',
+              },
+              {
                 to: 'ai/search-plan/',
                 label: 'Search, Plan, Reasoning',
               },
@@ -242,16 +246,11 @@ const config = {
                 to: 'ai/dl',
                 label: 'Deep Learning',
               },
-              {
-                to: 'ai/showcase',
-                label: 'Showcase',
-              },
             ],
           },
           {
             label: 'Crypto',
-            type: 'doc',
-            docId: 'crypto/overview',
+            to: 'crypto',
             position: 'left',
           },
           {

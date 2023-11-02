@@ -8,7 +8,7 @@ In this section I will provide notes about search, optimization, planning, and p
 
 ## Table of content
 
-- Sudoku
+- Build an AI agent to solve Sudoku
     - Define core concepts from AI including “agents”,“environments”, and “states”
     - Learn the concept of “rational” behavior for AI agents
     - learn
