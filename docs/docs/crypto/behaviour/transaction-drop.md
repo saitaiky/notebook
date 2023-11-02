@@ -1,8 +1,6 @@
 ---
-title: transaction drop
+title: Dropped Transaction
 ---
-
-## Dropped Transaction
 
 A transaction that is previously broadcasted on the network (but yet to be included in a block) can get dropped from the connected nodes. Dropped transaction happens more frequently during times when the network is busy.
 

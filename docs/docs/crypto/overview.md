@@ -3,63 +3,32 @@ title: Overview
 sidebar_position: 0
 ---
 
-## What is A DApp
+The primary objective of this crypto section is to furnish concise knowledge about cryptocurrencies, offering valuable insights that can be of assistance in your journey into the crypto world. Rather than a conventional linear approach, we aim to provide bite-sized, practical information.
 
-> Disruptive shift in application technology
+My personal preference within the crypto ecosystem leans towards `Ethereum` and `Polkadot`, owing to their resilient architecture and flourishing ecosystems. Consequently, this section will place greater emphasis on these two cryptocurrencies.
 
-![apps-vs-dapps](/img/crypto/apps-vs-dapps.png)
+## Disclaimer
 
-Source: [What is a DAPP?](https://towardsdatascience.com/what-is-a-dapp-a455ac5f7def)
+The articles posted on this blog are written for my personal interest and educational purposes. I am not a financial advisor, and the content provided here does not constitute financial advice or recommendations. All financial decisions should be made based on your individual financial situation, goals, and risk tolerance. I encourage you to conduct your research and consult with a qualified financial professional before making any investment decisions. Please be aware that all investments carry inherent risks, and past performance is not indicative of future results. By using the information on this blog, you acknowledge and accept that you are responsible for your investment choices.
 
-Well, when we look at the overview formation of a DApp, we see that the singular data center is removed. Instead, a DAPP (Decentralized Application) consists of back-end code that runs on a decentralized peer-to-peer network.
+## 2023 Market status
 
-## DApp Problem solving statement  
+In September 2023, the crypto market experienced a cooling-off period, marked by a historical trend of underperformance for Bitcoin. Major cryptocurrencies faced downward pressure due to hints of another interest rate hike by the Federal Reserve and continued uncertainty surrounding Bitcoin spot exchange-traded funds (ETFs).
 
-> Cut out the middleman
+Bitcoin and Ethereum traded sideways but closed the month with modest gains, up 5.1% and 3.0%, respectively. Solana (SOL) was the best-performing cryptocurrency in the top 10 by market capitalization, gaining 18.9%, while Dogecoin (DOGE) had a 1.5% loss. Despite September's performance, Bitcoin and Ethereum maintained positive year-to-date returns, with gains of 63.3% and 40.2%, respectively.
 
-So Uber is an application, but essentially it acts as a middleman. You have a delivery person and these drivers are doing the actual service. Uber essentially acts as a middleman, which connects the drivers to the customers.
+### Bright future in 2024?
 
-Imagine that when you pay for something such as a food delivery service like Uber, you no longer have to pay the company and all those extra fees, and instead you can pay the delivery person directly.
+Bitcoin ETF developments remained a focus, with the SEC delaying decisions on Bitcoin spot ETFs until January 2024. This comes after repeated delays and previous approvals of cryptocurrency futures ETFs.
 
-DEXs are an excellent example of that. Like trading on Uniswap versus trading on Coinbase.
+Binance, the largest crypto exchange, faced uncertainty due to regulatory scrutiny and rising interest rates. The SEC charged Binance with illegal operations in the U.S., leading to a significant drop in Binance.US's revenue.
 
-##  How does A DApp fundamentally work
+Other notable events include the SEC's attempts to appeal a court ruling on the classification of Ripple's XRP, House Republicans introducing a bill against a central bank digital currency (CBDC), and JPMorgan's UK digital bank banning crypto transactions.
 
-> No one single authority can control the network
+In October, crypto investors are monitoring Bitcoin ETF updates, regulatory developments, and the situation surrounding Binance. The trial of FTX founder Sam Bankman-Fried, Fed Chair Jerome Powell's comments, and the U.S. Labor Department's September jobs report will also influence the crypto market.
 
-Block chain digital ledger of transactions that get duplicated across an entire network.
+### My thoughts in 2023
 
-This provides a secure way for individuals to directly deal with each other, right directly deal with each other without a central point of authority, be it a bank, government or application or executive
+Investors currently have access to more secure investment alternatives, such as the 10-year U.S. government bond, which has recently crossed the 5% threshold. Additionally, the stock market appears enticing as it has experienced overselling in the past 30 days. It is my belief that the cryptocurrency market will maintain its decoupled status from traditional stock, bond, and commodity markets in the coming months. This will likely continue until the broader stock market completes its downward trend or until positive developments from the SEC regarding Bitcoin ETFs are announced.
 
-- Data and records must be public
-- Secure network with cryptographic tokens
-- Must have open source fundamental 
-
-These are the general beliefs of the blockchain communities. And although many DApps may have some form of combination, if not all of these features.
-
-
-## What is A Dpp
-
-- Protective against Censorship
-  Decentralization enables a shield aginst any single point of failure. No one authority can manipulate or gain control of data and information and censor information.
-- Downtime resistance
-- DeFI Intergratable 
-  DeFi is an integratable solution much easier when it comes to DApp than it would with APP.
-- Open source
-  Developers can build better systems and make sidespread improvement through open source visbility. 
-
-
-
-## DApp Vulnerablitlities 
-
-- Open Source Hacks
-  Public visibility provides bad actors more leverage, therefore, to look for and exploit weaknesses.
-- Web2 & The network effect
-  The current users compared to Web two, are low, rendering them less interactive and lower network effect often can be tied as well to the DApps overall security
-- The less user interaction
-  The less user database information, the easier it may be computationally for bad actors to take advantage.
-
-## Eco system of Moonbeam
-
-![spectrum](/img/crypto/spectrum.png)
-Source: [The Rich DeFi Ecosystem on Moonbeam](https://moonbeam.network/networks/moonbeam/defi/)
+If you’re reading this and still around you probably believe that the future is peer to peer and relies a lot less on banks and traditional governments when it comes to systems that facilitate exchange of value. It’s the ticking clock that that’s your enemy now. Your ability to finish the race without bleeding out. The marathon. 🤞

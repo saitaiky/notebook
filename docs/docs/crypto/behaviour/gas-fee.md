@@ -1,33 +1,27 @@
-### Gas Limit & Gas Price
+---
+title: Gas Price
+---
 
-Gas Limit 是你在這筆交易中所願意支付 Gas 單位的最大數量。完成一筆交易所需的 Gas 單位數量，取決於交易的複雜程度。當一筆交易越複雜，就必須要耗費較多的運算資源，因此需要花費較多 Gas。
+## Gas Limit
 
-要特別注意的是，當設定的 Gas 單位不夠多時，將會導致交易失敗。21,000 是一般轉帳交易的 Gas Limit 預設值，如果是要參與代幣銷售或是使用 DApp，因為過程會涉及較為複雜的智能合約，因此就要設置更高的 Gas Limit。
+Gas Limit represents the maximum number of Gas units you're willing to pay for in a given transaction. The amount of Gas units needed to complete a transaction depends on its complexity. More complex transactions require more computational resources, hence more Gas.
 
-Gas Price 是每個單位 Gas 的價格，以 GWEI 表示。它會影響到你的交易被礦工打包放上區塊鏈的速度。Gwei=0.000000001Eth，所以 Gas Price 設定為 20 Gwei，等於 Gas Price=0.00000002Eth。
+It's crucial to note that setting insufficient Gas units will result in a failed transaction. The default Gas Limit for a typical transfer transaction is 21,000, but for activities like participating in token sales or using DApps that involve intricate smart contracts, a higher Gas Limit is necessary.
 
-如果 Gas Price 設的越高，就給礦工更大的誘因將你的交易打包；相反的，如果 Gas Price 設的低就要等待比較長的時間。要是不急著完成一筆交易，你就可以選擇較低的 Gas Price 來省錢
+## Gas Price
 
-交易手續費(Tx Fee) = Gas Limit * Gas Price
+Gas Price is the cost per unit of Gas, measured in GWEI. This value influences the speed at which miners prioritize and include your transaction on the blockchain. GWEI represents 0.000000001 ETH. For example, setting the Gas Price at 20 Gwei means Gas Price = 0.00000002 ETH.
 
-用汽車加油作簡單的譬喻，Gas Limit，視為汽車的需要多少公升的油。Gas Price，視為每公升油的價錢。如果需要開車從台北開到高雄需 21,000 公升，每公升為 20 元所以花費的油錢為 21,000 公升*20 元=420,000 元
+A higher Gas Price offers miners a greater incentive to process your transaction more promptly, whereas a lower Gas Price may result in longer waiting times. If time isn't a concern, opting for a lower Gas Price can save you money.
 
-1.注意參加代幣銷售時設定的 Gas Limit
+Transaction Fee (Tx Fee) is calculated as Gas Limit multiplied by Gas Price.
 
-參與代幣銷售時，你應該要把 Gas Limit 設成銷售方所建議的數值。因為代幣銷售的智能合約比一般轉帳交易更為複雜，所以 Gas Limit 也要設得更高。我就曾經在參加 ICO 時，因為不知道要把 Gas Limit 從 21,000 改為 100,000，而碰到 "out of gas" 錯誤。
+To simplify, consider this metaphor: Gas Limit is akin to how many liters of fuel your car requires, and Gas Price is the price per liter of fuel. If driving from Taipei to Kaohsiung requires 21,000 liters at a rate of 20 NT per liter, the total fuel cost would be 21,000 liters * 20 NT = 420,000 NT.
 
-2.**想節省礦工費，你應該調低 Gas Price 而不是 Gas Limit**
+## Executional notes
 
-如先前所提到的，如果你調低 Gas Limit 可能會無法滿足完成交易所需的 Gas，導致交易失敗。因此要節省礦工費，請將 Gas Price 調低，並耐心等候交易完成。
-
-3.你可以拿回沒用完的 Gas
-
-不需要擔心把 Gas Limit 設定得太高，如果有 Gas 沒被用完，會在交易完成之後退還到你的帳戶中，你可以到 Etherscan 上查詢交易的細節。在下面的截圖中，我們可以看到 Gas Limit 的設定是 100,000，但是實際上只用到 35,826，所以剩餘沒用完的 Gas 就會退還。
-
-4.如果交易失敗，依然要付礦工費
-
-萬一不小心把 Gas Limit 設得太低，導致交易失敗，礦工費也不會退還給你，因為你還是必須為區塊鏈已進行的運算支付手續費。
-
-5.確保有足夠的 ETH 支付礦工費
-
-記得不論是要傳送 ETH 或是 ERC20 代幣，你都必須要用 ETH 支付礦工費。有時候大家會忘記錢包中也要有 ETH 才能夠發送代幣。
+- **Pay attention to the Gas Limit when participating in token sales**: Follow the recommended Gas Limit set by the token sale provider. Smart contracts for token sales are more complex than standard transfers, requiring a higher Gas Limit. Setting it too low might lead to an "out of gas" error, as I encountered during an ICO when I forgot to adjust the Gas Limit from 21,000 to 100,000.
+- **To save on miner fees, adjust Gas Price, not Gas Limit**: Lowering Gas Limit may render your transaction incapable of completing, resulting in failure. To economize on miner fees, reduce Gas Price and patiently await transaction completion.
+- **You can reclaim unused Gas**: Setting a high Gas Limit doesn't risk your funds, as any unused Gas is refunded to your account upon transaction completion. You can verify these details on Etherscan. In the screenshot below, you can see the Gas Limit was set to 100,000, but only 35,826 were utilized, with the remainder refunded.
+- **You still pay miner fees if a transaction fails**: If you inadvertently set the Gas Limit too low, leading to transaction failure, miner fees are not refunded. You are still required to pay fees for the computational work performed on the blockchain.
+- **Ensure you have sufficient ETH for miner fees**: Regardless of whether you're sending ETH or ERC20 tokens, you must have ETH in your wallet to cover miner fees. Sometimes, people forget that ETH is necessary to send tokens.

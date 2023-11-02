@@ -24,7 +24,7 @@ function HomepageHeader() {
         </div> */}
         <h1 className="hero__title">Sai Tai</h1>
         <br/>
-        <p>Hi, I'm a software architect who focus on web-based and AI-driven applications for 12+ years.</p>
+        <p>Hi, I'm a software architect who lives in London and focus on AI-driven web applications for 12+ years.</p>
         <p>During the free time, I like to play guitar and drawing. Doing yoga are my recent interest after the pandemic.</p>
         <div>
           <img src="/img/about-me/sa.png" width="200px"></img>

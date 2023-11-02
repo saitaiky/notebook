@@ -266,10 +266,6 @@ const config = {
             position: 'left',
             items: [
               {
-                to: 'wiki',
-                label: 'Theme Wiki',
-              },
-              {
                 to: 'https://docusaurus.io/docs',
                 label: 'Docusaurus',
               },
@@ -284,6 +280,10 @@ const config = {
               {
                 to: 'https://htmlpreview.github.io/',
                 label: 'GitHub HTML preview',
+              },
+              {
+                to: 'wiki',
+                label: 'Theme Style',
               },
               {
                 to: 'https://tabletomarkdown.com/convert-website-table-to-markdown/',
