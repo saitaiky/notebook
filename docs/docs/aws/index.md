@@ -7,7 +7,7 @@ sidebar_label: Intro
 sidebar_position: 0
 ---
 
-Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS SysOps, Developer, and Solutions Architect associate certifications. If you find any inaccuracies of the content, kindly notify me through GitHub/Feedback section.
+Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS [SysOps](https://aws.amazon.com/certification/certified-sysops-admin-associate/), [Developer](https://aws.amazon.com/certification/certified-developer-associate/), and [Solutions Architect](https://aws.amazon.com/certification/certified-solutions-architect-associate/) associate certifications. If you find any inaccuracies of the content, kindly notify me through GitHub/Feedback section.
 
 While obtaining certifications is an achievement, the journey itself offers valuable insights. Preparation involves not just testing existing knowledge but also gaining hands-on experience with various AWS services. For example, you'll explore security-related services like AWS Inspector, AWS Config, and AWS Trusted Advisor, understanding when to use each. You'll tackle practical questions, such as setting up a VPC for internet-connected instances while keeping others isolated, ensuring file system integrity when creating AMIs, and achieving "Write Once, Read Many" (WORM) compliance for sensitive data storage. This preparation equips you to grasp these concepts and implement them effectively with AWS.
 
@@ -29,7 +29,15 @@ To me, because these certifications significantly complemented my work and deepe
 
 Certifications don't guarantee expertise. Expertise means effectively solving domain-specific issues. Certifications offer a basic understanding and system control. Real expertise combines these with practical experience and problem-solving abilities. Graduates should gain comprehensive knowledge, basic proficiency in a field, and work on capstone projects for professional readiness. Despite people's proficiency in certifications, the expertise gap remains. True expertise lies in the ability to tackle core challenges.
 
-## Resources
+## How to prepare
+
+First, select the specific certification that aligns with your career goals and expertise. Next, study AWS documentation, whitepapers, and official study materials provided by AWS. Hands-on experience with AWS services is essential, so practice building solutions on the platform.
+
+Consider enrolling in AWS training courses or using online learning platforms, which offer comprehensive study materials and practice exams. Join AWS forums and participate in discussion boards to exchange insights with other candidates.
+
+Frequent practice exams help assess your progress and identify areas needing improvement. (Below are the materials I used when preparing the exams.) Time management during the exam is crucial, so practice solving questions within the allocated time. Lastly, stay updated with AWS services and features through blogs, webinars, and re-certification to maintain your credential.
+
+### Resources
 
 Here are the resources I used for certification preparation. Your ideal choice may depend on your preferred learning style:
 

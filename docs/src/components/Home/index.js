@@ -26,15 +26,15 @@ function HomepageHeader() {
         <div className={styles.links}>
           <Link
             className="button button--primary button--lg"
-            to="/software-development">
-            Software development
+            to="/aws">
+            AWS
           </Link>
         </div>
         <div className={styles.links}>
           <Link
-            className="button button--secondary button--lg"
-            to="/aws/">
-            AWS
+            className="button button--success button--lg"
+            to="/software-development">
+            Software development
           </Link>
         </div>
       </div>

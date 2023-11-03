@@ -14,7 +14,8 @@ title: Home
     - Transfer learning
 - Generate TV scripts
     - Recurrent Neural Network (RNN)
-    - Long Short-Term memory network (LSTM)
+    - Long Short-Term memory network (LSTM): A special type of RNNs with more complex cell blocks that allow
+it to retain more past inputs
     - RNN VS LSTM
     - Hyper-parameters tuning
     - Embedding (Word2Vec model)

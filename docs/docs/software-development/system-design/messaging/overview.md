@@ -6,10 +6,7 @@ sidebar_position: 1
 
 > Disclaimer: This note is mostly inspired by the [Lightbend: How Akka Works](https://www.lightbend.com/blog/how-akka-works-at-most-once-message-delivery) series
 
-During the time when I was preparing for the AWS certification exam, I was curious about the term **At-least-once delivery** in SQS. The more that I study about this topic, the more I wan to figure out why we have different type of messaging patterns in distributed systems. 
-
-Moreover, in modern architecture, systems are broken up into small and independent building blocks with well-defined interfaces between them. Message queues provide communication and coordination for those building blocks. The concepts covered here also apply to messaging within other distributed systems, such as messaging within microservice systems. 
-
+While studying for my AWS certification, I explored the concept of "**At-least-once delivery**" in SQS. Delving deeper into this topic, I sought to understand the significance of various messaging patterns in distributed systems. In contemporary architecture, systems consist of discrete, well-defined components with message queues facilitating communication and coordination. These principles extend to messaging in other distributed systems, including microservices.
 
 ## Object and Actor Messaging Basics
 
