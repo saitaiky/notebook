@@ -7,7 +7,9 @@ import EditThisPage from '@theme/EditThisPage';
 import TagsListInline from '@theme/TagsListInline';
 import styles from './styles.module.css';
 import { Feedback } from '@site/src/components/Feedback/Feedback';
+import { GiscusComponent } from '@site/src/components/GiscusComponent/GiscusComponent';
 import { HasuraReleaseNotification } from '@site/src/components/HasuraReleaseNotification/HasuraReleaseNotification';
+
 function TagsRow(props) {
   return (
     <div
@@ -52,7 +54,10 @@ export default function DocItemFooter() {
     formattedLastUpdatedAt,
     lastUpdatedBy,
     tags,
+    frontMatter,
   } = metadata;
+  const { disableComments } = frontMatter;
+
   const canDisplayTagsRow = tags.length > 0;
   const canDisplayEditMetaRow = !!(editUrl || lastUpdatedAt || lastUpdatedBy);
   const canDisplayFooter = canDisplayTagsRow || canDisplayEditMetaRow;
@@ -61,7 +66,12 @@ export default function DocItemFooter() {
   }
   return (
     <>
-      <Feedback metadata={metadata} />
+      {!disableComments && (
+        <div className='margin-top--xl'>
+          <GiscusComponent />
+        </div>
+      )}
+      {/* <Feedback metadata={metadata} /> */}
       {/* <HasuraReleaseNotification /> */}
       <footer
         className={clsx(ThemeClassNames.docs.docFooter, 'docusaurus-mt-lg')}

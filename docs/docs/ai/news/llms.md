@@ -100,6 +100,10 @@ Yet, transformers face a challenge due to non-sequential data processing. Change
 
 ## Transformer Language models
 
+![transformer-architecture](/img/ai/news/transformer-architecture.png)
+
+Source: [attention is all you need](https://arxiv.org/abs/1706.03762)
+
 ### BERT
 
 Google's BERT (Bidirectional Encoder Representations from Transformers) is a pioneering transformer-based language model. It's bidirectional and more accurate than unidirectional models, as it considers both sides of masked tokens.
@@ -134,6 +138,7 @@ These large language models have played a significant role in advancing natural 
 Unsupervised and self-supervised learning have been pivotal in the development of advanced natural language models like BERT. *BERT's significance lies not only in its bidirectional nature but also in its unsupervised learning approach*, which involves pattern recognition from unlabeled data, making it a pure form of AI. Both unsupervised and self-supervised learning models benefit from feedback loops, although self-supervised learning relies on supervisory signals generated automatically from data, eliminating the need for human annotation. This minimizes data labeling and human feedback, making model training more efficient.
 
 **Benefits of GPT Vs Bert**
+
 - How the model works
     - GPT, a generative model, excels at generating coherent sentences from scratch, making it suitable for language generation tasks such as text completion, summarization, and question answering. 
     - On the other hand, BERT is a discriminative model that classifies sentences or tokens into categories like sentiment analysis, named entity recognition, and text classification. It considers both left and right contexts for word meaning, making it effective for tasks like sentiment analysis and question answering.
@@ -186,4 +191,6 @@ It’s worth noting that large language models can be applied to other content c
 They’re currently widely used for speech-, image-, and video-related tasks, such as image generation
 or video classification. 
 
-> Future reading: [How LLMs are Unlocking New Opportunities for Enterprises](https://resources.nvidia.com/en-us-large-language-model-ebooks/llm-ebook-part2)
+> Future reading: 
+    - [How LLMs are Unlocking New Opportunities for Enterprises](https://resources.nvidia.com/en-us-large-language-model-ebooks/llm-ebook-part2)
+    - [An Overview of Attention Is All You Need](https://dantegates.github.io/2018/07/06/an-overview-of-attention-is-all-you-need.html)

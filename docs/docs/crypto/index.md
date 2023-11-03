@@ -3,7 +3,7 @@ title: Overview
 sidebar_position: 0
 ---
 
-The primary objective of this crypto section is to furnish concise knowledge about cryptocurrencies, offering valuable insights that can be of assistance in your journey into the crypto world. Rather than a conventional linear approach, we aim to provide bite-sized, practical information.
+The primary objective of this crypto section is to provide concise knowledge about cryptocurrencies, offering valuable insights that can be of assistance in your journey into the crypto world. Rather than a conventional linear approach, we aim to provide bite-sized, practical information.
 
 My personal preference within the crypto ecosystem leans towards `Ethereum` and `Polkadot`, owing to their resilient architecture and flourishing ecosystems. Consequently, this section will place greater emphasis on these two cryptocurrencies.
 
@@ -31,4 +31,4 @@ In October, crypto investors are monitoring Bitcoin ETF updates, regulatory deve
 
 Investors currently have access to more secure investment alternatives, such as the 10-year U.S. government bond, which has recently crossed the 5% threshold. Additionally, the stock market appears enticing as it has experienced overselling in the past 30 days. It is my belief that the cryptocurrency market will maintain its decoupled status from traditional stock, bond, and commodity markets in the coming months. This will likely continue until the broader stock market completes its downward trend or until positive developments from the SEC regarding Bitcoin ETFs are announced.
 
-If you’re reading this and still around you probably believe that the future is peer to peer and relies a lot less on banks and traditional governments when it comes to systems that facilitate exchange of value. It’s the ticking clock that that’s your enemy now. Your ability to finish the race without bleeding out. The marathon. 🤞
+If you’re reading this and still around you probably believe that the future is peer to peer and will rely a lot less on banks and traditional governments when it comes to systems that facilitate exchange of value. It’s the ticking clock that’s your enemy now, your ability to finish the race without bleeding out. The marathon. 🤞

@@ -15,7 +15,7 @@ In this section I will provide notes about search, optimization, planning, and p
         - represent problems in terms of logical constraints
         - constraint propagation to limit the potential solution space
         - Incorporate backtracking search to find a solution when the set of constraints is incomplete
-- Forward Planning Agent
+- Forward Planning Agent (AI Chess player)
     - Classical search
         - Uninformed Search
         - Informed Search

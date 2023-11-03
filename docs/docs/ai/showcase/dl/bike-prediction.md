@@ -1,5 +1,5 @@
 ---
-title: Bike Prediction
+title: Bikeshare users Prediction
 hide_table_of_contents: true
 sidebar_position: 1
 ---

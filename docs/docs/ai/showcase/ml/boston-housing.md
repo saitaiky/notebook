@@ -1,5 +1,5 @@
 ---
-title: Boston Housing
+title: House Price Prediction
 hide_table_of_contents: true
 sidebar_position: 1
 ---
