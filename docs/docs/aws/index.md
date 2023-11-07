@@ -7,7 +7,7 @@ sidebar_label: Intro
 sidebar_position: 0
 ---
 
-Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS [SysOps](https://aws.amazon.com/certification/certified-sysops-admin-associate/), [Developer](https://aws.amazon.com/certification/certified-developer-associate/), and [Solutions Architect](https://aws.amazon.com/certification/certified-solutions-architect-associate/) associate certifications. If you find any inaccuracy, kindly notify me through GitHub/the Feedback section.
+Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS [SysOps](https://aws.amazon.com/certification/certified-sysops-admin-associate/), [Developer](https://aws.amazon.com/certification/certified-developer-associate/), and [Solutions Architect](https://aws.amazon.com/certification/certified-solutions-architect-associate/) associate certifications. If you find any inaccuracy, kindly notify me through GitHub/the comment section.
 
 While obtaining certifications is an achievement, the journey itself offers valuable insights. Preparation involves not just testing existing knowledge but also gaining hands-on experience with various AWS services. For example, you'll explore security-related services like AWS Inspector, AWS Config, and AWS Trusted Advisor, understanding when to use each. You'll tackle practical questions, such as setting up a VPC for internet-connected instances while keeping others isolated, ensuring file system integrity when creating AMIs, and achieving "Write Once, Read Many" (WORM) compliance for sensitive data storage. This preparation equips you to grasp these concepts and implement them effectively with AWS.
 

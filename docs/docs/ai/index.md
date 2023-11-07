@@ -3,14 +3,18 @@ title: Overview
 sidebar_position: 1
 ---
 
+![Deep_Learning_Icons_R5_PNG](/img/ai/Deep_Learning_Icons_R5_PNG.webp)
+
+Source: [What’s the Difference Between Artificial Intelligence, Machine Learning and Deep Learning?](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
+
 AI can be categorized into different approaches, with one common classification being the trio of Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning. 
 - AI serves as the overarching concept, encompassing various activities aimed at replicating human intelligence. 
 - Machine Learning, a subset of AI, involves applying complex algorithms and statistics to existing data for decision-making and predictions. 
 - Deep Learning, a critical subfield of ML, uses large datasets and Neural Networks to simulate human-like behavior, including reinforcement learning.
 
-## Artificial Intelligence (AI)
+## AI (Search, Plan, Reasoning)
 
-> General speaking, it focuses on topics like CSP and searching to mimick of human intelligence by computers
+> General speaking, if you exclude machine learning and deep learning, AI itself mainly focuses on topics like CSP and searching to mimick of human intelligence by computers
 
 Artificial Intelligence (AI) plays a crucial role in automation, logistics, and operations research by leveraging various techniques to optimize and streamline complex processes. Here's a brief overview of how AI employs search, optimization, planning, and probabilistic graphical models in these domains:
 

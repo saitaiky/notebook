@@ -4,17 +4,19 @@ slug: hello-world
 tags: [dairy]
 ---
 
-Hi, welcome to my blog. This page is intended to explain the intension and information of this blog.
+Hi, welcome to my blog. Here's a brief intro.
 
-## Intention
+## The intention
 
-I've been writing notes and blogs for different topics that I am interested into like software development, AI, traveling and music in various platforms. I do want to have a place to organise these knownledge and thoughts; especially, I have been working as an web engineer and architect for 10 years in 2022.  The second goal I want to achieve is having a platform that I can use MarkDown to run and deploy without any hosting cost and data schema blinded to a platform. Luckily, I found [docusaurus](https://docusaurus.io/) - an amazing product created by Facebook team.
+I've been writing notes and blogs on different topics that I am interested in, for example software development, AI, traveling and music, however they've been scattered across various platforms. My goal is to have a centralised places to organise all my knowledge and thoughts, especially since I have been working as a web engineer and architect for 10 years and counting and I struggle to remember everything I come across.  
+
+Coincidentally, I stumbled upon [docusaurus](https://docusaurus.io/) - an amazing product created by Facebook team that allows me to use MarkDown to build and deploy without any hosting cost and data schema binded to a platform. This is what the blog is built on.
 
 <!-- truncate -->
 
-## Reader 
+## The audience 
 
-In this blog, the primary audience is for myself. It serves as a repository for my study notes, reflections, and ideas. Our minds are a treasure trove of thoughts and experiences, but human memory is famously fallible. To ensure the preservation of knowledge and insights, I've chosen the written word. Plus, writing provides the opportunity to revisit and validate what I've learned, and it's a powerful tool for organizing and expressing thoughts coherently. 
+In this blog, the primary audience is myself mainly. It serves as a repository for my study notes, reflections, and ideas. Our minds are a treasure trove of thoughts and experiences, but human memory is famously fallible. To ensure the preservation of knowledge and insights, I've chosen the written word. Plus, writing provides the opportunity to revisit and validate what I've learned, and it's a powerful tool for organising and expressing thoughts coherently. 
 
 I firmly believe in the idea of taking from society and giving back. If the ideas and notes I share here prove valuable to you, please don't hesitate to use and share them.  I encourage you to retain the authorship information when you do. After all, sharing knowledge is one of the most impactful ways to contribute to our collective wisdom.
 
@@ -33,7 +35,7 @@ The subtitle of this notebook is "Adapt and Adjust." In today's fast-paced world
 
 With this in mind, I intend for this blog to document my ongoing learning journey in this ever-evolving world. Your feedback is greatly appreciated should you come across any inaccuracies, as it will enable me to make necessary adjustments.
 
-## Future
+## The future
 
-As of October 2023, after a year of effort, the majority of my articles here provide answers to "how" and "what." In 2024, my focus will shift towards exploring thoughts, ideas, and developing side projects in the AI and Crypto domains.
+As of October 2023, the majority of my articles here provide answers to "how" and "what." In 2024, my focus will shift towards exploring thoughts, ideas, and developing side projects in the AI and Crypto domains.
 
