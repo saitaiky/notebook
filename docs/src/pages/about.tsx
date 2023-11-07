@@ -24,9 +24,9 @@ function HomepageHeader() {
         </div> */}
         <h1 className="hero__title">Sai Tai</h1>
         <br/>
-        <p>👋 Hi, this is Sai. I’m documenting my learning notes in this notebook.</p>
-        <p>I'm a software architect who lives in London and focus on AI-driven web applications for 12+ years.</p>
-        <p>During the free time, I like to play guitar and drawing. Doing yoga are my recent interest after the pandemic.</p>
+        <p>👋 Hi, this is Sai. I’m documenting my learning progress in this notebook.</p>
+        <p>I'm a software architect with 12+ years of experience living in London, currently focusing in AI-driven web applications.</p>
+        <p>Outside of work, I like to play guitar and draw; yoga has become my favourite sport since the pandemic.</p>
         <div>
           <img src="/img/about-me/sa.png" width="200px"></img>
           <img src="/img/about-me/developer.png" width="200px"></img>
