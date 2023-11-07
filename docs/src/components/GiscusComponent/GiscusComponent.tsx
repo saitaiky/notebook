@@ -3,6 +3,7 @@ import Giscus from "@giscus/react";
 import { useColorMode } from '@docusaurus/theme-common';
 
 export const GiscusComponent = () => {
+  
   const { colorMode } = useColorMode();
 
   return (

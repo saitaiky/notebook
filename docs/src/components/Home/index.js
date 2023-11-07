@@ -4,7 +4,6 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 import Layout from '@theme/Layout';
-import MDXComponents from "@theme/MDXComponents";
 
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
@@ -185,9 +184,6 @@ function RecentBlogPostCard({ recentPost }) {
                         Read full text
                     </Link>
                 </div>
-                )}
-                {isBlogPostPage && (
-                <Comments activityId={activityId} oid={oid} bvid={bvid} />
                 )}
             </footer>
         </div>

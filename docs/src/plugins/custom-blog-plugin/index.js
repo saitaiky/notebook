@@ -8,7 +8,7 @@ async function blogPluginExtended(...pluginArgs) {
 
   const blogPluginInstance = await defaultBlogPlugin(...pluginArgs);
   const pluginOptions = pluginArgs[1];
-    
+  
   return {
     // Add all properties of the default blog plugin so existing functionality is preserved
     ...blogPluginInstance,
