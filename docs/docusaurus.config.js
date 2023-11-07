@@ -9,7 +9,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Sai\'s Notebook',
   tagline: 'Adapt and adjust',
-  url: 'https://saitai.netlify.app',
+  url: 'https://sai-tai.netlify.app',
   baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
@@ -302,12 +302,12 @@ const config = {
               },
             ],
           },
-          {
-            to: '/timeline',
-            label: "What's New",
-            id: 'whats-new-link',
-            position: 'left',
-          },
+          // {
+          //   to: '/timeline',
+          //   label: "What's New",
+          //   id: 'whats-new-link',
+          //   position: 'left',
+          // },
           /* Version control
           {
             type: 'docsVersionDropdown',
