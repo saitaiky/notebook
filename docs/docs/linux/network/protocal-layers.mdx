@@ -4,7 +4,7 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
-# What is the difference between HTTP protocol and TCP protocol?
+## HTTP VS TCP
 
 
 The short answer: TCP is a transport-layer protocol, and HTTP is an application-layer protocol that runs over TCP. Keep reading for the long answer.
@@ -29,36 +29,36 @@ These are the five layers of the **TCP/IP** networking model, but they are reall
 source: [What is the difference between HTTP protocol and TCP protocol?](https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol#:~:text=The%20short%20answer%3A%20TCP%20is,protocol%20that%20runs%20over%20TCP.&text=The%20physical%20la-,The%20short%20answer%3A%20TCP%20is%20a%20transport%2Dlayer%20protocol%2C,reading%20for%20the%20long%20answer.)
 
 
-# UDP and TCP/IP
+## UDP and TCP/IP
 
-## TCP/IP VS UDP: WHAT’S THE DIFFERENCE?
+### Differences
 
 ![udp-tcp](/img/linux/network/udp-tcp.jpg)
-- TCP Protocols are used by other protocols FTP, SMTP, HTTP, HTTPs, Telnet. 
-- UDP protocols are used by TFTP, SNMP, DNS, DHCP, RIP, VOIP.
+- Transmission Control Protocol (TCP) is a communications standard that enables application programs and computing devices to exchange messages over a network. It is designed to send packets across the internet and ensure the successful delivery of data and messages over networks. It's used by other protocols FTP, SMTP, HTTP, HTTPs, Telnet. 
+- User Datagram Protocol (UDP) refers to a protocol used for communication throughout the internet. It is specifically chosen for time-sensitive applications like gaming, playing videos, or Domain Name System (DNS) lookups. It's used by TFTP, SNMP, DNS, DHCP, RIP, VOIP.
 
-### UDP advantages:
+#### UDP advantages
 - small packet sizes than TCP by about 60%
 - UDP header 20 bytes
 - TCP header 80 bytes
 - Connectionless: No connection to create and maintain
 - You dont have to create connection first before sending out data
 - You have more control of when data is being sent out
-### UDP disadvantages:
+#### UDP disadvantages
 - Data corruption is a common occurance on the Internet, UDP has a primitive form of error detection.
 - No compensation for lost packets
 - Packets can arrive out of order
 - No congestion control
 Conclusion: UDP may be light weight, but not that reliable.
 
-### TCP advantages:
+#### TCP advantages
 1. Retransmission - When a sender doesnt get an acknowlegement after a certain period of time, it will assume that the packet got lost on its way. So, it will send it again-.
 2. In-order delivery - Because segments are ordered in TCP, it implements in-order delivery.
 Although packets may come out of order, TCP rearranges them before sending them to application.
 3. Congestion Control - Delays transmission when the network is congested
 4. Error Detection
 
-### TCP disadvantages:
+#### TCP disadvantages
 - Bigger header and overhead
 - Data doesnt always sent out immeditaley
 - side effect of congestion control
@@ -67,10 +67,10 @@ Although packets may come out of order, TCP rearranges them before sending them 
 - Retransmission of packets, acknowledgement of packets
 - For example, to send HD video, you need lots of bandwidth. But if you are using TCP, you need more becaue of retransmission and acknowledgement. Hence, in this case it makes sense to use UDP than TCP.
 
-### Opportunities for TCP
+### When to use which?
+
 As the TCP internet protocol suite is non-proprietary and offers reliable full-duplex connections with TCP Streams, 3-way handshake, credit flow control, fast retransmission and recovery, Selective-ACK, and scaling it is compatible with all operating systems available in the global market, as well as it is also compatible with all types of computer hardware and networks. This, in turn, generates huge opportunities for various players in the global market to adopt TCP internet protocol suite.
 
-### Opportunities for UDP
 The UDP reduces the requirement of computer resources, thus, lowering the overhead, which results in high usage over small networks for multicast or broadcast of real-time packets transmissions. This is expected to create demand for small-scale networks over high transmission speed thereby generating opportunities in the global market.
 
 source: [TCP/IP VS UDP: WHAT’S THE DIFFERENCE?](https://www.colocationamerica.com/blog/tcp-ip-vs-udp)

@@ -2,8 +2,6 @@
 title: Email
 ---
 
-https://salesblink.io/blog/difference-between-smtp-imap-pop3
-
 ## Workflow
 
 ![Email-workflow](/img/linux/network/Difference-Between-SMTP-IMAP-And-POP3-Comparisons.jpeg)
@@ -18,6 +16,7 @@ Source: [Email-workflow](https://salesblink.io/blog/difference-between-smtp-imap
 ## Definition
 
 ### What is SMTP?
+
 > TL;DR - SMTP stands for Simple Mail Transfer Protocol. It is the standard protocol for sending email messages. Your email client and internet servers use SMTP after you finish typing your email, upon hitting send.
 
 SMTP stands for Simple Mail Transfer Protocol. It is the standard protocol for sending email messages using SMTP. 

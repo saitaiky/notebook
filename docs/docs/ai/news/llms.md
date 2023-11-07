@@ -9,6 +9,7 @@ Large Language Models (LLMs) are deep learning algorithms capable of processing 
 However, the quality of data used for training LLMs is crucial. Models trained on peer-reviewed content, such as research papers and novels, typically outperform those trained on unreviewed data like social media posts. LLMs require diverse data to perform various natural language processing (NLP) tasks. Fine-tuning allows a foundation language model to specialize in specific domains.
 
 ### Foundation Language Models vs. Fine-Tuned Language Models
+
 Foundation language models, like MT-NLG and GPT-3, are versatile and perform a wide range of NLP tasks. They excel in general performance but may not be ideal for specific tasks. Fine-tuned language models, derived from foundation LLMs, are customized for specialized purposes and offer improved task-specific performance. Fine-tuning is commonly achieved through parameter-efficient techniques like p-tuning and adapters, making it a cost-effective and practical approach.
 
 ## Evolution of Large Language Models
@@ -22,6 +23,10 @@ The evolution of large language models (LLMs) has brought about a paradigm shift
 The transition was driven by technological advancements like neural networks, **attention mechanisms**, and transformers, along with unsupervised and self-supervised learning. These concepts are fundamental in comprehending the workings of LLMs and building new ones.
 
 ### Neural Networks
+
+![simple_neural_network_vs_deep_learning](/img/ai/news/simple_neural_network_vs_deep_learning.webp)
+
+Source: [What Deep Learning Is And Isn’t](https://thedatascientist.com/what-deep-learning-is-and-isnt/)
 
 Large language models (LLMs) initially used simpler neural network (NN) architectures, particularly recurrent neural networks (RNNs) and long short-term memory networks (LSTMs). RNNs and LSTMs excelled at considering context, position, and word relationships in data, making them effective for sentiment analysis and text classification. These neural networks possessed the remarkable ability to learn autonomously, generating their rules from data rather than relying on predefined rules, a concept known as representation learning.
 
