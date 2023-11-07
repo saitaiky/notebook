@@ -24,14 +24,14 @@ I firmly believe in the idea of taking from society and giving back. If the idea
 Charles Darwin's quote, "It is not the strongest of the species that survives; nor the most intelligent; it is the one most responsive to change," emphasizes the importance of adaptability and flexibility in the process of evolution. This idea, often paraphrased as "survival of the fittest," doesn't imply that physical strength or intellectual prowess alone guarantee survival. Instead, it underscores that the species most capable of adapting to changing environmental conditions and challenges has a better chance of survival.
 :::
 
-This website's core message is encapsulated in "Adapt and Adjust." In today's fast-paced world and evolving society, Darwin's principle of adaptability continues to be profoundly relevant.
+The subtitle of this notebook is "Adapt and Adjust." In today's fast-paced world and evolving society, I think this principle of adaptability continues to be profoundly relevant
 
 - In a rapidly changing job market, individuals who continuously update their skills and adapt to new technologies and trends are more likely to thrive. Lifelong learning is essential.
 - Successful businesses must adapt to changing consumer preferences, market dynamics, and emerging technologies. Companies that embrace change and innovation are more likely to succeed.
 - As humans, our belief systems are in a constant state of evolution. Concepts like human rights, gender equality, freedom of religion, and media portrayals of social classes are continually reshaped by societal progress. To approach these changes with a philosophical mindset, allowing room for critique and reflection, is essential for maintaining rationality.
     - In today's world, media often simplifies complex issues into binary oppositions. However, true adaptation doesn't solely involve passively accepting incoming information. It also entails the ability to critically analyze and evolve one's beliefs based on personal insights and reflections.
 
-In essence, Darwin's wisdom teaches us that, those who embrace change, learn from it, and adjust accordingly are more likely to thrive and succeed in an ever-evolving world.
+With this in mind, I intend for this blog to document my ongoing learning journey in this ever-evolving world. Your feedback is greatly appreciated should you come across any inaccuracies, as it will enable me to make necessary adjustments.
 
 ## Future
 
