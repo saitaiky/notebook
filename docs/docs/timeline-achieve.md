@@ -3,10 +3,10 @@ title: What's new
 disableComments: true
 ---
 
-import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
+<!-- import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faTools  } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faTools  } from "@fortawesome/free-solid-svg-icons"; -->
 
 <VerticalTimeline lineColor="#999">
   <VerticalTimelineElement
