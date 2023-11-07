@@ -7,9 +7,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Sai\'s Note Book',
+  title: 'Sai\'s Notebook',
   tagline: 'Adapt and adjust',
-  url: 'https://sai-tai.netlify.app',
+  url: 'https://saitai.netlify.app',
   baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
@@ -190,14 +190,15 @@ const config = {
         // Optional: Algolia search parameters
         // searchParameters: {},
       },
-      announcementBar: {
-        id: 'announcementBar-2', // Increment on change
-        content: `⭐️ If you think this blog is handy, please follow my <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitaiky">GitHub</a>`,
-      },
+      // Sai: don't need this function as of now
+      // announcementBar: {
+      //   id: 'announcementBar-2', // Increment on change
+      //   content: `⭐️ If you think this blog is handy, follow my <a target="_blank" rel="noopener noreferrer" href="https://github.com/saitaiky">GitHub</a>`,
+      // },
       // For header
       navbar: {
         hideOnScroll: true,
-        title: 'Sai\'s notebook',
+        title: 'Sai\'s Notebook',
         /*
         logo: {
           alt: 'Hasura Logo',

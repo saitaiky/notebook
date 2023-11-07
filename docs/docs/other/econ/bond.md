@@ -41,6 +41,8 @@ In summary, the market price of a bond moves in the opposite direction to its yi
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/f5qjhz6Tjrk?si=DhNTrFTPQl4HRx7H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0__C9k6DkBE?si=8uW1nVvPc3d1-pzj&amp;start=70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 Coupon rate is the interest rate paid by the bond issuer, expressed as a percentage of the bond's face value. Yield, on the other hand, is the return you can get when buying the bond at its current market price. If the market price equals the par value, coupon rate and yield are the same. 
 
 **The coupon rate remains fixed**, but yield changes with the bond's price. When the market price is below par value, yield is higher than the coupon rate, and when it's above par value, yield is lower. Yield to maturity (YTM) is distinct from current yield, but further details on YTM are for another discussion.

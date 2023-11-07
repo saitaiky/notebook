@@ -6,9 +6,9 @@ import LastUpdated from '@theme/LastUpdated';
 import EditThisPage from '@theme/EditThisPage';
 import TagsListInline from '@theme/TagsListInline';
 import styles from './styles.module.css';
-import { Feedback } from '@site/src/components/Feedback/Feedback';
+// import { Feedback } from '@site/src/components/Feedback/Feedback';
+// import { HasuraReleaseNotification } from '@site/src/components/HasuraReleaseNotification/HasuraReleaseNotification';
 import { GiscusComponent } from '@site/src/components/GiscusComponent/GiscusComponent';
-import { HasuraReleaseNotification } from '@site/src/components/HasuraReleaseNotification/HasuraReleaseNotification';
 
 function TagsRow(props) {
   return (
