@@ -14,7 +14,7 @@ AI can be categorized into different approaches, with one common classification 
 
 ## AI (Search, Plan, Reasoning)
 
-> General speaking, if you exclude machine learning and deep learning, AI itself mainly focuses on topics like CSP and searching to mimick of human intelligence by computers
+> Generally speaking, if you exclude machine learning and deep learning, AI itself mainly focuses on topics like CSP and searching to mimick of human intelligence by computers
 
 Artificial Intelligence (AI) plays a crucial role in automation, logistics, and operations research by leveraging various techniques to optimize and streamline complex processes. Here's a brief overview of how AI employs search, optimization, planning, and probabilistic graphical models in these domains:
 

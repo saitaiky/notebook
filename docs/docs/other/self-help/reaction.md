@@ -2,7 +2,7 @@
 title: Reaction
 ---
 
-> TL; DR -  To be able to react immediately, it doesn't need communication skill. It's all about the ability to handle and solve a problem. Preparation is yor good friend to answer challenging questions and good for relaxing yourself. 
+> TL; DR -  To be able to react immediately, it doesn't need communication skill. It's all about the ability to handle and solve a problem. Preparation is your good friend to answer challenging questions and good for relaxing yourself. 
 
 ## Why do people question your thought?
 
