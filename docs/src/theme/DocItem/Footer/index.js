@@ -66,11 +66,6 @@ export default function DocItemFooter() {
   }
   return (
     <>
-      {!disableComments && (
-        <div className='margin-top--xl'>
-          <GiscusComponent />
-        </div>
-      )}
       {/* <Feedback metadata={metadata} /> */}
       {/* <HasuraReleaseNotification /> */}
       <footer
@@ -86,6 +81,11 @@ export default function DocItemFooter() {
           />
         )}
       </footer>
+      {!disableComments && (
+        <div className='margin-top--xl'>
+          <GiscusComponent />
+        </div>
+      )}
     </>
   );
 }

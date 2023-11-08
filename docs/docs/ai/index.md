@@ -5,7 +5,7 @@ sidebar_position: 1
 
 ![Deep_Learning_Icons_R5_PNG](/img/ai/Deep_Learning_Icons_R5_PNG.webp)
 
-Source: [What’s the Difference Between Artificial Intelligence, Machine Learning and Deep Learning?](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
+Source: [Nvidia: What’s the Difference Between Artificial Intelligence, Machine Learning and Deep Learning?](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
 
 AI can be categorized into different approaches, with one common classification being the trio of Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning. 
 - AI serves as the overarching concept, encompassing various activities aimed at replicating human intelligence. 
