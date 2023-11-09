@@ -2,25 +2,34 @@
 title: Ethereum 
 ---
 
+The following sections outline essential concepts for constructing smart contracts to develop decentralized applications (DApps) on the Ethereum platform. The intention is to *provide key insights* rather than a comprehensive guide to building a fully decentralized app.
+
 ## Solidity
 
-From `solidity ^0.6.8` SPDX license is introduced. So you need to use SPDX-License-Identifier in the code. Have a look at this: <https://forum.openzeppelin.com/t/solidity-0-6-8-introduces-spdx-license-identifiers/2859>
+Solidity is a high-level programming language specifically designed for writing smart contracts on the Ethereum blockchain. Smart contracts are self-executing contracts with the terms of the agreement directly written into code. Solidity allows developers to create these smart contracts, defining the rules, logic, and functionality of decentralized applications (DApps) on the Ethereum network. It is a fundamental tool for Ethereum developers to build and deploy blockchain-based applications with programmable features.
 
-To use SPDX LIDs in your project’s source code,  just add a single line in the following format, tailored to your license(s) and the comment style for that file’s language.  For example in Solidity:
-```
+### SPDX-License-Identifier
+
+`SPDX-License-Identifier` in Solidity is a comment pragma that specifies the license under which the Solidity source code is distributed. SPDX stands for Software Package Data Exchange, and it provides a standard format for communicating the components, licenses, and copyrights associated with a software package.
+
+By including `SPDX-License-Identifier` in the Solidity source code as a comment, developers can explicitly state the license under which their smart contracts are released. This helps in promoting transparency, ensuring compliance with licensing terms, and making it clear for other developers or users how they can use, modify, and distribute the code.
+
+For example:
+```solidity
 // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-pragma solidity ^0.7.5;
-contract TestContract {
-    // Some logic
+contract MyContract {
+    // Contract code goes here
 }
 ```
+
+In this example, the `MIT` license is specified, indicating that the code is released under the terms of the MIT License. Developers can replace `MIT` with the appropriate SPDX license identifier that corresponds to the chosen license for their Solidity code.
 
 You need to use license according to your project. Some other licenses are:
 ```
 // SPDX-License-Identifier: GPL-3.0-or-later
 ```
-
 You can find list of licenses here: <https://spdx.org/licenses/>
 
 :::info What is Software Package Data Exchange(SPDX)?
@@ -29,7 +38,7 @@ The right which granted by an application owner depends on which license the dev
 SPDX is intended to solve the confusion of above questions. Futher reading: [SPDX clears confusion around software licenses](https://opensource.com/article/18/1/spdx-and-licensing)
 :::
 
-## Libraries
+### Libraries
 
 - `Ethers` is a very it's a great library for interacting with the Ethereum blockchain.
 - `Hardhat` is going to be our development environment. It's what's going to allow our project to compile contracts and to deploy contracts.
@@ -38,12 +47,13 @@ hardhat can also initialize our solidity contracts for us and get the project ro
 - `OpenZeppelin` is a library which actually contains the ERC-721 contracts already built to standard. So in this project, we're not going to be building out all of our NFT tokens from scratch. We're going to be leveraging this library, which is an excellent library and resource to use when building a Marketplace. [link](https://docs.openzeppelin.com/contracts/2.x/)
 - `ipfs-http-client` - IPFS is a decentralized way of hosting our NFT images and our files, the actual files we're going to be storing with IPFS. With IPFS client, we can actually run promises and use JavaScript to hook up to our IPFS so that when our users are actually tokenizing these NFT is they're going to be hosting it with IPFS
 
-## Services
+## Ethereum Services
 
-- [infura.io](https://infura.io/dashboard)
-
+- [infura.io](https://infura.io/dashboard) 
+    - Infura's API solutions offer reliable access to **IPFS** and Ethereum, eliminating the need for lengthy synchronization and complex setups. This platform streamlines every stage of blockchain application development, from testing to scaled deployment, reducing costs and enhancing accessibility for developers.
 
 ## ERC 721
+
 ERC 721 is standard protocol of what we need in order to be compliant at an industry level of our NFT.
 
 For the full explaination of why they have this compliant contract and why every contract must be compliant. Every compliant contract must implement the following functionality. You may check 
@@ -52,7 +62,13 @@ For the full explaination of why they have this compliant contract and why every
 
 ## Polygon
 
+Polygon is a framework for constructing Ethereum-compatible blockchain networks. It aims to address some of the scalability and usability issues of the Ethereum blockchain by providing a multi-chain scaling solution. Polygon was formerly known as Matic Network.
+
 ### Testnet
+
+:::infoWhat is a testnet?
+A testnet is a separate blockchain network designed for testing and experimentation purposes. It mimics the functionalities of the main Ethereum network but operates with fake or test Ether (ETH) and has its own tokens, which hold *no real-world value*. Testnets are crucial for developers and users to test smart contracts, decentralized applications (DApps), and other blockchain-related features in a risk-free environment
+:::
 
 The Polygon testnet is called Mumbai, which is a layer-two (L2) scaling platform for Ethereum. Like other testnets, Mumbai allows developers to deploy and test their applications on the Polygon network without having to spend real money. 
 
@@ -63,7 +79,7 @@ The Mumbai testnet is the testnet of the Polygon network, which replicates the P
 
 ### How to get started using the Mumbai testnet?
 
-To use Mumbai to test your dApps, you will first need to set up a node in the network. A popular method is to connect your wallet to the virtual crypto wallet Metamask, which connects to a node by using a node provider like **Alchemy**.
+To use Mumbai to test your dApps, you will first need to set up a node in the network. A popular method is to connect your wallet to the virtual crypto wallet Metamask, which connects to a node by using a node provider like **Alchemy**. Go visit [Alchemy Quickstart Guide](https://docs.alchemy.com/docs/alchemy-quickstart-guide) for the full setup tutorial.
 
 After you have created a new app with the Mumbai testnet in **Alchemy**, there is some information you may need to fill out in the Metamask settings to connect to the network:
 
