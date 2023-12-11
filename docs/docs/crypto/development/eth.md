@@ -40,6 +40,8 @@ SPDX is intended to solve the confusion of above questions. Futher reading: [SPD
 
 ### Libraries
 
+Here are some Javascript libraries that I found it handy when developing smart contracts.
+
 - `Ethers` is a very it's a great library for interacting with the Ethereum blockchain.
 - `Hardhat` is going to be our development environment. It's what's going to allow our project to compile contracts and to deploy contracts.
 hardhat can also initialize our solidity contracts for us and get the project rolling so it can do a little bit of that boilerplate, 
@@ -54,9 +56,7 @@ hardhat can also initialize our solidity contracts for us and get the project ro
 
 ## ERC 721
 
-ERC 721 is standard protocol of what we need in order to be compliant at an industry level of our NFT.
-
-For the full explaination of why they have this compliant contract and why every contract must be compliant. Every compliant contract must implement the following functionality. You may check 
+ERC 721 is standard protocol of what we need in order to be compliant at an industry level of our NFT. For the full explaination of why they have this compliant contract and why every contract must be compliant. Every compliant contract must implement the following functionality. You may check 
 [openzeppelin-contracts ERC721](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol)
 
 

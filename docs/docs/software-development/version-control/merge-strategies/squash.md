@@ -21,7 +21,8 @@ There are 2 ways to use `rebase` to squash commits, which are
 git rebase -i HEAD~3 
 ```
 
-### rebase interface
+### Rebase interface
+
 After running the `git rebase -i` command, an interface with options to perform the various actions for each commits in a rebase action.
 
 ![rebase-animation](/img/software-development/version-control/rebase-animation.gif)

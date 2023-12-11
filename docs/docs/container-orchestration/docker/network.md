@@ -1,5 +1,6 @@
 ---
 title: Network
+sidebar_position: 2
 ---
 
 ## 3 different networks
