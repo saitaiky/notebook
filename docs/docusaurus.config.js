@@ -326,6 +326,12 @@ const config = {
             position: 'right',
           },
           {
+            href: 'https://www.buymeacoffee.com/saitai',
+            position: 'right',
+            html: '<img src="/img/about-me/bmc-button.png" width="125" />',
+            'aria-label': 'Buy me a coffee',
+          },
+          {
             href: 'https://github.com/saitaiky/',
             position: 'right',
             className: 'header-github-link',
@@ -336,12 +342,6 @@ const config = {
             label: 'About me',
             position: 'right',
             activeBaseRegex: `/about/`,
-          },
-          {
-            href: 'https://www.buymeacoffee.com/saitai',
-            position: 'right',
-            html: '<img src="/img/about-me/bmc-button.png" width="125" />',
-            'aria-label': 'Buy me a coffee',
           },
         ],
       },

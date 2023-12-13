@@ -11,7 +11,7 @@ Every single one of us arrives in this world with a unique mission tucked under 
 
 Now, let's get personal for a moment. The reason I dove headfirst into this topic is that I've recently lost someone very dear to me. It's sent me spiraling into thought, seriously weighing what I'm doing with my life and how I can infuse it with meaning – so that when the sun sets on my days, I'll have no regrets, just a heart full of cherished memories and a life well-lived. If you've got a minute, take a detour through my earlier piece on [stage theory](/other/psychology/life/stage-theory/). It'll give you a solid ground to stand on, an understanding of how psychologists zoom out to view the whole human journey, setting the stage for this deep dive into what life is all about from a psychological standpoint.
 
-## Who we are?
+## Who we are
 
 When we were adolescents, we might feel a sense of confusion while searching for their identity, uncertain about their roles in their families, schools, and society. This uncertainty can lead to self-doubt and anxiety. If teens struggle to determine their identity, they might experience an identity crisis, manifested through worries about the future, feelings of inferiority, and depressive moods. 
 
@@ -154,7 +154,7 @@ A Happy Life—referred to as **subjective well-being** (SWB) in psychology—in
 
 A Meaningful Life aligns closer to **psychological well-being** (PWB) in psychology. Carol Ryff proposed the Psychological Well-being Model in 1989, measuring PWB across six dimensions. These dimensions not only reveal the diversity of well-being but also emphasize individual development and psychological maturity.
 
-- **Self-acceptance** involves positively evaluating oneself, including accepting past experiences and present traits. 
+- **Self-acceptance** involves positively evaluating oneself, including accepting past experiences and present traits. Face the weakness, accept it then change it.(面對自己的黑暗面)
 - **Positive relations with others** entail nurturing meaningful connections and displaying care, compassion, and love. 
 - **Autonomy** signifies independence in thoughts and actions, even under societal pressure. 
 - **Environmental mastery** refers to effectively coping with environmental changes and deriving satisfaction from them. 
