@@ -1,12 +1,12 @@
 ---
-title: Self-fulling prophecy
+title: Self-fulfilling prophecy
 ---
 
 To do something well, to achieve a goal, perhaps your beliefs play a more crucial role than the abilities you possess. I believe that each of you reading this article holds a goal, a dream. Ask yourself: Do you truly believe you can achieve it? Belief in oneself is often the first step toward success.
 
 Many of us have experienced instances in our daily lives where we slowly begin to believe in what we excel at or what we lack. For instance, during primary school, if a math teacher constantly belittled your abilities, labeling you as poor in math or lacking talent, gradually you might genuinely believe you have no aptitude for numbers, deeming yourself a "math dummy." Conversely, if a high school teacher praised your Chinese essay, suddenly your confidence in Chinese writing soared. You perceived it as your forte, fostering unwavering confidence in this realm throughout high school and perhaps even beyond.
 
-## Self-fulling prophecy
+## Self-fulfilling prophecy
 
 The above tendency in human thought is termed by psychologists as the "self-fulfilling prophecy." Human beliefs influence their behavior, and the actions taken reinforce these beliefs. Let's further explain this phenomenon using the below examples.
 

@@ -2,8 +2,13 @@
 title: Extrinsic and Intrinsic Motivation
 ---
 
+![HerzbergsTwoFactor](/img/other/psychology/cognitive/HerzbergsTwoFactor.jpg)
+
+Source: [Herzberg’s Two-Factor Theory](https://courses.lumenlearning.com/wm-organizationalbehavior/chapter/herzbergs-two-factor-theory/)
 
 ## What Is Extrinsic Motivation?
+
+> Hygiene factors aka extrinsic motivators
 
 Extrinsic motivation is when we are motivated to perform a behavior or engage in an activity because we want to [earn a reward](https://www.verywellmind.com/the-incentive-theory-of-motivation-2795382) or avoid punishment.1﻿ You will engage in behavior not because you enjoy it or because you find it satisfying, but because you expect to get something in return or avoid something unpleasant.
 
@@ -17,6 +22,8 @@ Future reading: [Understanding Extrinsic Motivation](https://www.verywellmind.co
 :::
 
 ## What Is Intrinsic Motivation?
+
+> Motivation factors aka intrinsic motivators
 
 Intrinsic motivation is when you engage in a behavior because you find it rewarding. You are performing an activity for its own sake rather than from the desire for some external reward. The behavior itself is its own reward.2﻿
 

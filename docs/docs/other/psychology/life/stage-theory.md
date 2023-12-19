@@ -1,5 +1,5 @@
 ---
-title: Stage theory
+title: Developmental stage theory
 sidebar_position: 1
 ---
 

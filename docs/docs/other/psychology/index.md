@@ -28,3 +28,6 @@ Here are the psychologists I've mentioned in this website
     - Self-Determination Theory (SDT) - [Life goal](/other/psychology/life/meaning-in-life/#life-goal)
     - Goal Setting Theory - [Goal Planning](/other/psychology/life/meaning-in-life/#goal-planning)
 - Jean Piaget's cognitive development stage theory  
+- Atkinson and Shiffrin's [Three-Stage Memory Model](/other/psychology/cognitive-psychology/memory/)
+- Maslow’s [Hierarchy Of Needs](/other/psychology/life/money-work/#the-indispensable-role-of-money)
+- Frederick Herzberg’s [Two-Factor Theory](/other/psychology/cognitive-psychology/extrinsic-intrinsic-motiviation/)
