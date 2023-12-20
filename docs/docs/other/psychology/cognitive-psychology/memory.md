@@ -94,6 +94,6 @@ Atkinson and Shiffrin's model laid the groundwork for further research into cogn
 
 Despite its influence, the model is not without its critics. Some argue that the model is too simplistic and linear, failing to account for the complexities of memory. It also does not adequately address the impact of emotion and motivation on memory. Subsequent models, such as Baddeley and Hitch's working memory model, have addressed some of these criticisms by proposing a more dynamic system of short-term memory processing.
 
-## Conclusion
+### Conclusion
 
 While further research has expanded our understanding of memory beyond Atkinson and Shiffrin's model, the Three-Stage Memory Model serves as an important reminder of the essential processes that underlie our ability to store and recall the vast array of information and experiences that make up our lives. Whether considering sensory inputs, short-term tasks, or the rich tapestry of long-term memories, we can appreciate the elegant complexity of the human memory system.

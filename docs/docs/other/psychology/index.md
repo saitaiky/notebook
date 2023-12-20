@@ -31,3 +31,4 @@ Here are the psychologists I've mentioned in this website
 - Atkinson and Shiffrin's [Three-Stage Memory Model](/other/psychology/cognitive-psychology/memory/)
 - Maslow’s [Hierarchy Of Needs](/other/psychology/life/money-work/#the-indispensable-role-of-money)
 - Frederick Herzberg’s [Two-Factor Theory](/other/psychology/cognitive-psychology/extrinsic-intrinsic-motiviation/)
+- John Bowlby's [Attachment theory](/other/psychology/life/love/)
