@@ -53,15 +53,33 @@ Before the Strange Situation itself, the researchers establish a baseline of the
 7. **Stranger's Return:** The stranger enters again to offer comfort and assess how the child responds to a non-caregiver in times of stress.
 8. **Second Reunion:** The caregiver comes back into the room and greets the child. The interaction is observed to further assess reunion behavior and attachment.
 
+The primary purpose of Ainsworth's Strange Situation experiment was to observe and assess the attachment styles between infants and their caregivers. It aimed to understand how infants react when they are briefly separated from and then reunited with their primary caregiver within an unfamiliar environment. Through this observation, Ainsworth aimed to classify different attachment patterns. This experiment helps psychologists comprehend the nature of the bond between infants and caregivers and how this early relationship influences the child's emotional and social development.
+
 ### 4 Attachment Styles
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WjOowWxOXCg?si=fta1JexAgUKN4OR6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 - **Secure Attachment:** Securely attached children are upset when the caregiver leaves but are happy to see the caregiver return, quickly comforted, and return to playing. They use the caregiver as a secure base from which to explore their environment.
+    - Trust: Believing that caregivers can meet their needs.
+    - Self-confidence: Showing confidence when exploring the environment and interacting with others.
+    - Emotional regulation: Coping better with stress and recovering emotions with the support of caregivers.
+    - Social skills: Demonstrating better adaptability in interpersonal interactions, making it easier to build friendships.
 - **Insecure attachments**
     - **Anxious-Ambivalent Attachment(抗拒型):** Anxious-ambivalent children are extremely distressed when the caregiver leaves. Upon the caregiver's return, they seek comfort but also resist it, displaying mixed emotions and behaviors, such as clinging and pushing away.
+        - Insecurity: Doubting the reliability of caregivers, often fearing abandonment.
+        - Overdependence: Possibly relying excessively on caregivers, having a strong need for their attention and support.
+        - Emotional fluctuations: Being highly influenced by external factors, prone to becoming anxious, tense, or excited.
+        - Social difficulties: Exhibiting either excessive reliance or resistance in social interactions, facing challenges in forming relationships.
     - **Avoidant Attachment(迴避型):** Avoidant children do not appear too distressed by the caregiver's departure and often avoid the caregiver upon their return, showing little emotional response and instead focusing on play or interacting with the stranger.
+        - Detachment: Behaving distantly and independently in front of caregivers, avoiding expressing needs to them.
+        - Over-independence: Emphasizing one's independence excessively, refusing help and support from others.
+        - Emotional suppression: Suppressing emotional needs, struggling to express genuine feelings.
+        - Social barriers: Displaying aloofness and distance in interpersonal relationships, finding it difficult to establish intimacy.
     - **Disorganized Attachment:** This later added category describes children who exhibit confused or contradictory behaviors upon the caregiver’s return, such as approaching the caregiver while avoiding eye contact, or freezing in place. Disorganized attachment is often associated with the most adverse developmental outcomes.
+        - Chaotic behavior: Displaying unpredictable and incomprehensible behavior in front of caregivers, seeking attention while resisting intimacy.
+        - Failure to establish trust: Inability to trust caregivers, possibly both relying on and fearing them.
+        - Emotional imbalance: Difficulty regulating emotions, showing extreme emotional reactions.
+        - Social issues: Exhibiting unstable and chaotic behavior in social interactions, facing considerable difficulty in forming relationships.
 
 The Strange Situation has been influential in understanding child development, and the attachment styles identified have been linked to later emotional and social behaviors. However, it's important to remember that the procedure reflects a snapshot of the attachment relationship in a specific context and may not capture the full complexity of child-caregiver bonds.
 
@@ -93,3 +111,26 @@ So, how should we praise our children, students, or juniors then? Recognize the 
 So, don't say: "You were just born a success."
 
 Instead, say: "I'm proud of the effort you've put into the process of achieving success."
+
+### Zone of Proximal Development
+
+Teaching children using scaffolding within Lev Vygotsky's theory of the Zone of Proximal Development (ZPD) involves a series of instructional strategies intended to move students progressively toward stronger understanding and, ultimately, greater independence in the learning process. Here's a step-by-step guide to using scaffolding with the ZPD:
+
+- **Initial Preparation and Understanding**
+    - **Assess the Child's Current Level**: Before scaffolding can be provided, you need to understand what the child already knows (their actual development level) and what they're capable of learning with assistance (their potential development level within the ZPD).
+    - **Identify the ZPD**: The ZPD is the difference between what a child can do without help and what they can do with help. For scaffolding to be effective, the learning task should be within the child’s ZPD.
+    - **Set Learning Goals**: Clearly define the new skill or concept you want the child to learn, ensuring that the goals are challenging yet attainable with help.
+- **Task Breakdown and Engagement**
+    - **Break Down the Task**: Split the task into smaller, more manageable parts. This could mean segmenting a complex task into sequential steps that the child can follow easily.
+    - **Engage in Joint Activities**: Initially engage in the task with the child. This might involve working together on a math problem, reading a text aloud, or constructing something physically. Your active participation provides a model for the child to imitate.
+- **Providing Support and Progression** `[Important]`
+    - **Use Scaffolds**: Provide assistance through various scaffolds. This could be in the form of hints, questions, modeling the task, providing cues, or using prompts. For instance, if the child is learning to add numbers, you might first demonstrate how to add using physical objects like blocks, then guide the child to try with your help.
+    - **Encourage Independence**: As the child starts to grasp the concept or skill, gradually reduce the level of support. This could involve asking the child to attempt the next step on their own or to explain back to you what they're doing and why.
+- **Monitoring and Application**
+    - **Monitor and Adjust**: Keep a close eye on the child’s progress. If they struggle, increase the support again to avoid frustration. If they excel, offer new challenges to continue their development.
+    - **Practice and Apply**: Allow the child multiple opportunities to practice and apply the new skill or knowledge in different contexts to ensure a deeper understanding and the ability to generalize the skill.
+- **Reflection and Transition to Independence**
+    - **Reflect and Review**: Encourage the child to reflect on what they have learned and how they have achieved it. This process cements the learning and enables the child to become more conscious of their own learning strategies.
+    - **Fade the Support**: Continue to reduce assistance over time until the child is able to complete the task independently. This is the ultimate goal of using scaffolding within the ZPD - to bring the child from dependence to independence.
+
+Throughout this process, the role of the adult or more knowledgeable other is crucial. They provide the necessary support at each stage and are responsive to the child's needs, adjusting their level of assistance based on the child's performance. By doing so, they truly operationalize the principle of scaffolding within Vygotsky’s zone of proximal development.
