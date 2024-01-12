@@ -2,20 +2,28 @@
 title: "DNS"
 ---
 
-
-## What is a Domain Name System (DNS)?
-
 > A very good resource to understand DNS in comic: [A fun and colorful explanation of how DNS works.](https://howdns.works/)
 
-The initial activity of the web page loading process is centered around DNS lookup and translation.
+The Domain Name System (DNS) is like the internet's phonebook; it translates human-friendly domain names like www.example.com into IP addresses like 192.0.2.1 that computers use to identify each other on the network. Whenever you enter a website address in your browser, DNS servers take that domain name and look up the corresponding IP address so the browser can load the correct webpage. Think of it as asking for directions to a friend's house; you get their street name, which you understand, and DNS gives you the precise map coordinates for your GPS to navigate to their location.
 
-To understand how DNS works, it's important to first learn several definitions:
-
-### Recursive Nameserver / DNS resolver
+## What is a Domain Name System (DNS)?
 
 ![Recursive-DNS-server](/img/linux/network/Recursive-DNS-server.png)
 
 Source: [What is a Recursive DNS server?](https://www.cloudns.net/blog/recursive-dns-server/)
+
+The initial activity of the web page loading process is centered around DNS lookup and translation.Let’s take a step-by-step look at what DNS does behind the scenes:
+
+- When you launch a web browser and type https://www.sai-tai.com into the address bar, the request for https://www.sai-tai.com is routed to a DNS resolver.
+- The DNS resolver for the ISP forwards the request for https://www.sai-tai.com to a DNS root name server, and the root name server redirects to TLD server.
+- The DNS resolver for the ISP forwards the request this time to one of the TLD name servers for .com domains (.com domains redirects to the authoritative name server.)
+- The DNS resolver makes a request to the authoritative name server for the relevant IP address, and the authoritative name server sends the IP address to the DNS resolver.
+- Once the browser receives the IP address, the browser makes an HTTP request.
+- The server at that IP address (sai-tai in this example) will return the webpage to be rendered in the browser.
+
+To understand how DNS works, it's important to take understand below components.
+
+### Recursive Nameserver / DNS resolver
 
 The term "nameserver" generally refers to a server on the Internet that is responsible for translating domain names into IP addresses. Each domain has at least one nameserver that is responsible for maintaining that domain's DNS records. Nameservers play a crucial role in the Domain Name System (DNS), which is the system used to resolve human-friendly domain names into machine-readable IP addresses.
 
@@ -23,7 +31,7 @@ A recursive DNS resolver is the DNS server that processes the initial request an
 
 The browser and the OS both searched their cache first to see if they knew the IP for dnsimple.com. But since they didn't, the OS is calling the resolver.
 
-The resolver server is usually your **ISP (Internet Service Provider)**. All resolvers must know one thing: where to locate the root server. The root server knows where to locate the .COM Top-Level Domain(TLD) servers. 
+*The resolver server is usually your **ISP (Internet Service Provider)***. The resolvers knows where to locate the root server. The root server knows where to locate the .COM Top-Level Domain(TLD) servers. 
 
 
 ### Root server
