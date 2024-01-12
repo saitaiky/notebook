@@ -58,6 +58,10 @@ As all of these have changed, there has been a move from stateful to stateless a
 | Horizontal scaling    | Complex, server needs to send a cookie to retain the connection from a client to the same server  | Easy, no matter which server handle the call, it treats the request as the first time |
 | Server crash handling | Bad, when a server down, users probably need to logout and start from the beginning               | Good, we can fail over to a new server                                                |
 
+:::infoCaching
+In a stateless environment, caching enhances performance by reducing redundant computations or database queries, as each request contains self-contained details, making it conducive to storing and retrieving cached results without relying on server-side state.
+:::
+
 ### SOAP-, REST-, and GraphQL-based Web Services
 
 The paradigm shift from stateful to stateless architectures is closely linked to the popularity of different ways to build application programming interfaces (APIs) and web applications. In the early 2000s, SOAP (Simple Object Access Protocol) was the dominant methodology. While it's possible to create stateless SOAP-based architectures, the protocol also allowed for creating stateful services, maintaining state server-side. Many applications ultimately did this.

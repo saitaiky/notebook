@@ -11,24 +11,26 @@ The initial activity of the web page loading process is centered around DNS look
 
 To understand how DNS works, it's important to first learn several definitions:
 
-### Recursive DNS resolver
+### Recursive Nameserver / DNS resolver
+
+![Recursive-DNS-server](/img/linux/network/Recursive-DNS-server.png)
+
+Source: [What is a Recursive DNS server?](https://www.cloudns.net/blog/recursive-dns-server/)
+
+The term "nameserver" generally refers to a server on the Internet that is responsible for translating domain names into IP addresses. Each domain has at least one nameserver that is responsible for maintaining that domain's DNS records. Nameservers play a crucial role in the Domain Name System (DNS), which is the system used to resolve human-friendly domain names into machine-readable IP addresses.
 
 A recursive DNS resolver is the DNS server that processes the initial request and connects with the higher-level authority for established domain details.
 
-:::info  DNS resolver
 The browser and the OS both searched their cache first to see if they knew the IP for dnsimple.com. But since they didn't, the OS is calling the resolver.
 
-The resolver server is usually your **ISP (Internet Service Provider)**. All resolvers must know one thing: where to locate the root server. The root server knows where to locate the .COM TLD server. 
-:::
+The resolver server is usually your **ISP (Internet Service Provider)**. All resolvers must know one thing: where to locate the root server. The root server knows where to locate the .COM Top-Level Domain(TLD) servers. 
 
-### Authoritative nameserver
 
-> TL;DR - The root told **DNS resolver** where to find the TLD(e.g. .COM) server.
+### Root server
 
-Also known as a **root server**, these are a set of established servers that provide an authoritative list of domains.
+> TL;DR - The root server told DNS resolver where to find the Top level domain server(e.g. .COM, .ORG, .NET).
 
-:::info Root server
-There are 13 root name servers that exist today. Root servers sit at the top of the DNS hierarchy. 
+Root servers are the top-level of the DNS hierarchy. They are a network of hundreds of servers distributed worldwide, which are responsible for directing queries to the right TLD servers, such as those for .com, .org, .net, and country-specific domains like .uk or .jp. There are 13 logical root servers, labeled A through M, but each operates from multiple locations using anycast addressing to provide a robust, distributed service.
 
 They are scattered around the globe and operated by 12 independent organisations. They are named `letter`.root-servers.net where `letter` ranges from A to M. [Root Servers](https://www.iana.org/domains/root/servers)
 - a.root-servers.net
@@ -37,11 +39,48 @@ They are scattered around the globe and operated by 12 independent organisations
 - etc...
 
 This doesn't mean that we have only 13 physical servers to support the whole internet! Each organisation provides multiple physical servers distributed around the globe.
+
+When your browser needs to find the IP address of a domain like www.example.com, it might start by asking a root server, "Where do I find information on .com domains?" The root server won't know the actual IP address for 'www.example.com', but it can direct the querying server to the authoritative servers for the .com TLD.
+
+### Authoritative Nameserver
+
+An "Authoritative nameserver," is a specific type of nameserver that holds the definitive records for a domain. When a nameserver is authoritative, it means that it has the power to answer queries for records in its own domain based on its dataset, without having to refer to another source for the information. 
+For "www.example.com," the process would eventually lead to the authoritative nameserver for "example.com" after the .com TLD server. This nameserver will have the final answer, providing the actual IP address associated with 'www.example.com' so the browser can connect to the appropriate server hosting the website.
+
+:::infoAuthoritative Nameserver vs. Recursive Nameserver
+Here are the key differences:
+
+**Authoritative Nameserver**:
+  - Holds data that is definitive or "authoritative" for a particular domain or suite of domains.
+  - Responds to DNS lookups with answers that have been configured by the domain owner.
+  - Does not need to query other nameservers to provide the DNS information; it has the data stored locally.
+  - Can provide authoritative answers for specific record types, such as A records (addresses), MX records (mail exchange), etc.
+  - Is often updated directly by the domain owner through a registrar or DNS hosting service.
+
+**Recursive Nameserver** aka. **DNS resolver**:
+  - Could be any server that participates in the DNS system.
+  - Might not have definitive information about a domain and may need to refer to other nameservers or caches to respond to queries.
+  - Includes caching nameservers, which store DNS query results for a certain period to improve lookup efficiency and reduce the load on authoritative nameservers.
+  - DNS resolver are responsible for fetching the response to a DNS query on behalf of a client, possibly by querying multiple nameservers in the process.
+:::
+
+
+:::info How could a Nameserver make the connection?
+When you register a domain, you typically specify the authoritative nameservers that hold the DNS records for your domain, which may then be queried by DNS resolver as part of the process of resolving your domain to its corresponding IP address.
+
+With the help of the **Domain Registrar**, a Nameserver can linkup the domain names to its respective IP addresses.
+
+1. When a domain is purchased, the domain registrar reserves the name..
+2. The domain registrar communicates to the TLD registry the authoritative name servers.
+
+If you want to know who are the authoritative name servers for your domain, run a WHOIS query. 
+- [ICANN Lookup](https://lookup.icann.org/en/lookup)
+- [Who.is](https://who.is/whois/google.com)
 :::
 
 ### Top level domain
 
-> TL;DR - The TLD server gave **DNS resolver** the Authoritative name servers addresses.
+> TL;DR - The top-level domain server give **DNS resolver** the Authoritative name servers addresses.
 
 The top level domain contains the suffix of a domain name, such as .com, .org, and .net. The coordination of most top-level domains (TLDs) belong to the Internet Corporation for Assigned Names and Numbers (ICANN). The .COM TLD was one of the first created in 1985. Other type of TLDs include:
 1. Country code TLDs. Usually, their 2 letter ISO code: .JP, .FR
@@ -75,29 +114,6 @@ flowchart LR
 :::
 
 
-### Nameserver
-
->  TL;DR - ns1.dnsimple.com gave **DNS resolver** the IP for dnsimple.com.
-
-The part of a server that contains the records of domain names and their respective IP addresses, similar to an address book.
-
-Usually there is more than one name server attached to any domain. All the name servers know how to resolve any domain managed by dnsimple.com. No cached values. Not asking someone else.
-
-- When a resolver are given the Nameserver list, it comes in an unknow order.
-- Because there is more of us, the work load is better distributed.
-- The DNS zone availability is increased for handling failure of any name server.
-
-:::info How could a Nameserver make the connection?
-With the help of the **Domain Registrar**, a Nameserver can linkup the domain names to its respective IP addresses.
-
-1. When a domain is purchased, the domain registrar reserves the name..
-2. The domain registrar communicates to the TLD registry the authoritative name servers.
-:::
-
-:::info If you want to know who are the authoritative name servers for your domain, run a WHOIS query. 
-- [ICANN Lookup](https://lookup.icann.org/en/lookup)
-- [Who.is](https://who.is/whois/google.com)
-:::
 
 ## Steps to resolve a domain
 

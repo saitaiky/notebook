@@ -112,7 +112,7 @@ So, don't say: "You were just born a success."
 
 Instead, say: "I'm proud of the effort you've put into the process of achieving success."
 
-### Zone of Proximal Development
+### Zone of Proximal Development (不要揠苗助長)
 
 Teaching children using scaffolding within Lev Vygotsky's theory of the Zone of Proximal Development (ZPD) involves a series of instructional strategies intended to move students progressively toward stronger understanding and, ultimately, greater independence in the learning process. Here's a step-by-step guide to using scaffolding with the ZPD:
 
