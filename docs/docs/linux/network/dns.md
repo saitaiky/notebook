@@ -44,8 +44,25 @@ When your browser needs to find the IP address of a domain like www.example.com,
 
 ### Authoritative Nameserver
 
-An "Authoritative nameserver," is a specific type of nameserver that holds the definitive records for a domain. When a nameserver is authoritative, it means that it has the power to answer queries for records in its own domain based on its dataset, without having to refer to another source for the information. 
+An "Authoritative nameserver," is a specific type of nameserver that holds the definitive records for a domain. When a nameserver is authoritative, it means that it has the power to answer queries for records in its own domain based on its dataset(no cached values), without having to refer to another source for the information . 
+
+When a nameserver return the list of name servers, it is usually more than one name server attached to any domain for distributing workload and failover.
+
 For "www.example.com," the process would eventually lead to the authoritative nameserver for "example.com" after the .com TLD server. This nameserver will have the final answer, providing the actual IP address associated with 'www.example.com' so the browser can connect to the appropriate server hosting the website.
+
+
+:::info How could a Nameserver make the connection?
+When you register a domain, you typically specify the authoritative nameservers that hold the DNS records for your domain, which may then be queried by DNS resolver as part of the process of resolving your domain to its corresponding IP address.
+
+With the help of the **Domain Registrar**, a Nameserver can linkup the domain names to its respective IP addresses.
+
+1. When a domain is purchased, the domain registrar reserves the name..
+2. The domain registrar communicates to the TLD registry the authoritative name servers.
+
+If you want to know who are the authoritative name servers for your domain, run a WHOIS query. 
+- [ICANN Lookup](https://lookup.icann.org/en/lookup)
+- [Who.is](https://who.is/whois/google.com)
+:::
 
 :::infoAuthoritative Nameserver vs. Recursive Nameserver
 Here are the key differences:
@@ -62,20 +79,6 @@ Here are the key differences:
   - Might not have definitive information about a domain and may need to refer to other nameservers or caches to respond to queries.
   - Includes caching nameservers, which store DNS query results for a certain period to improve lookup efficiency and reduce the load on authoritative nameservers.
   - DNS resolver are responsible for fetching the response to a DNS query on behalf of a client, possibly by querying multiple nameservers in the process.
-:::
-
-
-:::info How could a Nameserver make the connection?
-When you register a domain, you typically specify the authoritative nameservers that hold the DNS records for your domain, which may then be queried by DNS resolver as part of the process of resolving your domain to its corresponding IP address.
-
-With the help of the **Domain Registrar**, a Nameserver can linkup the domain names to its respective IP addresses.
-
-1. When a domain is purchased, the domain registrar reserves the name..
-2. The domain registrar communicates to the TLD registry the authoritative name servers.
-
-If you want to know who are the authoritative name servers for your domain, run a WHOIS query. 
-- [ICANN Lookup](https://lookup.icann.org/en/lookup)
-- [Who.is](https://who.is/whois/google.com)
 :::
 
 ### Top level domain
@@ -178,7 +181,7 @@ It's important to note that while load balancers provide advanced traffic distri
 
 ## DNS record types
 
-Certainly! There are several types of DNS (Domain Name System) records that serve different purposes and provide specific information about domain names and network resources. Here are some of the commonly used DNS record types:
+There are several types of DNS records that serve different purposes and provide specific information about domain names and network resources. Here are some of the commonly used DNS record types:
 
 1. A/AAAA Record
     - A (Address) Record maps **a domain or subdomain to an IPv4 address**. It translates a domain name to the corresponding IP address to facilitate the routing of network traffic.
