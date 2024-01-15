@@ -7,7 +7,7 @@ Stage theory in psychology refers to the idea that **human development** unfolds
 
 Famous Stage Theories in Psychology:
 - Jean Piaget's cognitive development stage theory  
-- Lawrence Kohlberg'smorality development theory  
+- Lawrence Kohlberg's morality development theory  
 - Erik Erikson's psychosocial development stage theory  
 
 ## The Theories

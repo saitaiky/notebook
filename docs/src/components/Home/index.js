@@ -44,6 +44,7 @@ function HomepageHeader() {
 
 function RecentBlogPostCard({ recentPost }) {
 
+  console.log(recentPost)
   const { Preview, metadata } = recentPost;
 
   const { permalink, tags, readingTime, hasTruncateMarker } = Preview.metadata;

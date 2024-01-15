@@ -116,3 +116,5 @@ Mid-tone fall into the light and is the range of tones that fall between the hig
 - one surface, one colour value
 - different angles, look upward nose level becomes the same as eyes
 - Look downward nose level becomes the same as month 
+
+
