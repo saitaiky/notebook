@@ -64,7 +64,7 @@ function RecentBlogPostCard({ recentPost }) {
 
   const renderTags = () => {
     return (
-      (tags.length > 0 || truncated) && (
+      (tags.length > 0 || hasTruncateMarker) && (
         <div className="post__tags-container margin-top--none margin-bottom--md">
           {tags.length > 0 && (
             <>

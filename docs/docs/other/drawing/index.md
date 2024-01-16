@@ -77,10 +77,11 @@ title: Drawing
 
 ### Form shadow and Cast shadow 
 
-> 
-    - Shadow shape = form shadow + cast shadow 
-    - Form shadow is softer and Cast shadow is shaper 
-    - Terminator = the edge of light 
+:::infoImportant point
+- Shadow shape = form shadow + cast shadow 
+- Form shadow is softer and Cast shadow is shaper 
+- Terminator = the edge of light 
+:::
 
 Form shadow is the area of an object that is turned away from the light source and appears darker. To create form shadows, you need to first determine the direction of the light source and where the light hits the object. Then, shade the areas that are turned away from the light using a darker value of the base color or by crosshatching or stippling.
 

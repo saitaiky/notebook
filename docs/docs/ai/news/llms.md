@@ -196,6 +196,7 @@ It’s worth noting that large language models can be applied to other content c
 They’re currently widely used for speech-, image-, and video-related tasks, such as image generation
 or video classification. 
 
-> Future reading: 
-    - [How LLMs are Unlocking New Opportunities for Enterprises](https://resources.nvidia.com/en-us-large-language-model-ebooks/llm-ebook-part2)
-    - [An Overview of Attention Is All You Need](https://dantegates.github.io/2018/07/06/an-overview-of-attention-is-all-you-need.html)
+### Future reading
+
+- [How LLMs are Unlocking New Opportunities for Enterprises](https://resources.nvidia.com/en-us-large-language-model-ebooks/llm-ebook-part2)
+- [An Overview of Attention Is All You Need](https://dantegates.github.io/2018/07/06/an-overview-of-attention-is-all-you-need.html)

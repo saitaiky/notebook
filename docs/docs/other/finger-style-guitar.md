@@ -1,3 +1,0 @@
----
-title: Finger Style Guitar
----
