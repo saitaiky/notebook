@@ -10,7 +10,7 @@ Recovery point objective (RPO) – The amount of data that can be lost (measured
 
 ## High availability & Fault Tolerance
 
-The both want to have the ability of a system to remain in operation even if some of the its components fail. The difference between them is...
+Both high availability and fault tolerance want to have the ability of a system to remain in operation even if some of components in the system fail. The difference between them is...
 
 - **High availability**: There should be **at least one** running instances/servers in the event of component failures
 - **Fault Tolerance**: The number of running instances/servers should not fail below a **specific minimum number** of instances
