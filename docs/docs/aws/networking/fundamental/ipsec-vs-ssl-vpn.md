@@ -2,7 +2,7 @@
 title: IPsec VPNs vs. SSL VPNs
 ---
 
-![networking-sitetosite_vpn_02](/img/linux/network/networking-sitetosite_vpn_02.png)
+![networking-sitetosite_vpn_02](/img/aws/networking/fundamental/networking-sitetosite_vpn_02.png)
 
 Source: [Choosing between an SSL/TLS VPN vs. IPsec VPN](https://www.techtarget.com/searchsecurity/feature/Tunnel-vision-Choosing-a-VPN-SSL-VPN-vs-IPSec-VPN)
 

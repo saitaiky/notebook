@@ -1,13 +1,29 @@
 ---
-title: HTTPS
+title: HTTP and HTTPS
 ---
 
 ## Why we need Https?
 
 > This is a very good comic to read to understand [HOW HTTPS WORKS](https://howhttps.works/)
+
+HTTP (Hypertext Transport Protocol) is the original request-response application layer protocol designed to connect web traffic through hyperlinks. It's the main protocol used by everything connected to the Internet. HTTP defines:
+
+- A set of **request methods** (GET, POST, PUT, etc. - the same methods RESTful APIs use)
+- Addresses (known *as URLs*)
+- Default TCP/*IP ports *(port 80 for HTTP, port 443 for HTTPS).
+
+Every time you visit a site with a http:// link, your browser makes a HTTP GET request for that URL.
+
+HTTP is still in use, but it's been largely replaced by HTTPS (Hypertext Transport Protocol Secure), which serves the same purpose but with much better security features. In 2014, Google announced that it would give HTTPS sites a bump in rankings. That, combined with the increasing need for encrypted data transmission, resulted in much of the web over migrating to HTTPS. Below sections list out 3 benefits of using HTTPs instead of HTTP.
+
+:::infoSome other differences
+- HTTP operates at Application Layer. HTTPS operates at Transport Layer.
+- HTTP by default operates on port 80, while HTTPS operates on port 443.
+- HTTP transfers data in plain text. HTTPS transfers data in cipher text (encrypted text).
+:::
 ### Privacy
 
-> Privacy means that no one can eavesdrop on your messages. HTTPS uses an [encryption](https://www.cloudflare.com/learning/ssl/what-is-encryption/) protocol to encrypt communications. The protocol is called [Transport Layer Security (TLS)](https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/), although formerly it was known as [Secure Sockets Layer (SSL)](https://www.cloudflare.com/learning/ssl/what-is-ssl/). This protocol secures communications by using what's known as an [asymmetric public key infrastructure](https://www.cloudflare.com/learning/ssl/how-does-public-key-encryption-work/).
+Privacy means that **no one can eavesdrop on your messages**. HTTPS uses an [encryption](https://www.cloudflare.com/learning/ssl/what-is-encryption/) protocol to encrypt communications. The protocol is called [Transport Layer Security (TLS)](https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/), although formerly it was known as [Secure Sockets Layer (SSL)](https://www.cloudflare.com/learning/ssl/what-is-ssl/). This protocol secures communications by using what's known as an [asymmetric public key infrastructure](https://www.cloudflare.com/learning/ssl/how-does-public-key-encryption-work/).
 
 Before encryption: `This is a string of text that is completely readable`
 
@@ -15,9 +31,7 @@ After encryption: `ITM0IRyiEhVpa6VnKyExMiEgNveroyWBPlgGyfkflYjDaaFf/Kn3bo3OfghBP
 
 ### Integrity
 
-> Integrity means that the message is not manipulated on the way to its destination.
-
-In websites without HTTPS, it is possible for Internet service providers (ISPs) or other intermediaries to inject content into webpages without the approval of the website owner. This commonly takes the form of advertising, where an ISP looking to increase revenue injects paid advertising into the webpages of their customers. 
+Integrity means that the message **is not manipulated on the way to its destination**. In websites without HTTPS, it is possible for Internet service providers (ISPs) or other intermediaries to inject content into webpages without the approval of the website owner. This commonly takes the form of advertising, where an ISP looking to increase revenue injects paid advertising into the webpages of their customers. 
 
 Unsurprisingly, when this occurs, the profits for the advertisements and the quality control of those advertisements are in no way shared with the website owner. HTTPS eliminates the ability of unmoderated third parties to inject advertising into web content.
 
@@ -25,22 +39,62 @@ WHat even worst is hacker can do a man-in-the-middle attack
 
 ### Identification
 
-> Identification means that I can check that this message is coming from whom.
-
-And when you are browsing the web, identification means that the site that you are visiting is indeed the one you think it is. This SSL certificate is valid and has been issued by a legitimate Certificate Authority. 
+Identification means that I can **check that this message is coming from whom**. When you are browsing the web, identification means that the site that you are visiting is indeed the one you think it is. This SSL certificate is valid and has been issued by a legitimate Certificate Authority. 
 
 
-## Handshake
+## TLS Handshake Procedure
 
 When your brower needs to communicate with a server, they both establish a secure connection to transmit messages, but first, they needed to agree on how to communicate securely.
 - If the negotiation is not successful, your browser lets you know by showing an error or warning.
 - If an agreement is reached, your browser is happy to display a green padlock on the address bar.
 
-This process, the negotiation between a browser and a server, is called 'the handshake'.
+This process, the negotiation between a browser and a server, is called 'the handshake'. HTTPS works on top of TLS (Transport Layer Security) by default. TLS is a protocol used to encrypt communications in the transport layer, preventing unauthorized parties from listening in on communications. The process for initiating a secure session through TLS is called a TLS handshake.
 
-The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the **cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3. It goes roughly as follows:
+### Overview steps
 
-![ssl-handshake](/img/linux/network/tls-ssl-handshake.webp)
+Here's what happens.
+
+- The client requests to establish a secure connection with a server, usually by using port 443 which is reserved for TLS connections.
+- The client and server agree to use a particular cipher suite (ciphers and hash functions.)
+- The server submits a digital certificate which serves as proof of identity. Digital certificates are issued by 3rd party Certificate Authorities (CAs) and effectively vouch for the server.
+- If the certificate is accepted by the client, the client will generate a session key which is used to encrypt any information transmitted during the session.
+
+Once the session key is created, the handshake is finished and the session begins. All data transmitted will now be encrypted.
+
+### Detailed steps
+
+The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3. 
+
+:::infoKey Exchange Algorithms
+Key exchange algorithms are methods used to securely establish a shared secret key between the client and the server. There are various key exchange mechanisms, and they can provide different features such as Forward Secrecy (FS). Examples of key exchange algorithms include:
+
+- RSA (Rivest–Shamir–Adleman)
+- DH (Diffie-Hellman)
+- ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)
+
+Each key exchange algorithm works differently and offers varying levels of security and efficiency. For instance, ECDHE allows for forward secrecy, which means that even if the server's key is compromised in the future, past communication remains secure.
+:::
+
+:::infoCipher Suites
+A cipher suite is a combination of encryption algorithms that define how the data will be encrypted during the TLS session. It includes algorithms for:
+
+- Key exchange
+- Bulk data encryption
+- Message authentication
+- Optionally, it can specify the pseudorandom function for generating keying material.
+
+Examples of cipher suites are:
+
+- TLS_AES_128_GCM_SHA256
+- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+- TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+
+The client and server support multiple cipher suites, and they agree on one to use during the handshake. This agreement is based on the order of preference of the client and the availability on the server.f
+:::
+
+The handshake goes roughly as follows:
+
+![ssl-handshake](/img/aws/networking/fundamental/tls-ssl-handshake.webp)
 Source: [Cloudflare - What is a TLS handshake?](https://www.cloudflare.com/en-gb/learning/ssl/what-happens-in-a-tls-handshake/)
 
 1.  **The 'client hello' message**: The client initiates the handshake by sending a "hello" message to the server. The message will include which TLS version the client supports, the cipher suites supported, and a string of random bytes known as the "client random."
@@ -71,7 +125,7 @@ Further reading: [Cloudflare - What is a TLS handshake?](https://www.cloudflare.
 
 > A very good comic to teach how [Certificate Authorities](https://howhttps.works/certificate-authorities/) works
 
-A certificate authority (CA) is a third-party organization with 3 main objectives:
+Certificate Authorities (CAs) in the TLS (Transport Layer Security) procedure act as trusted  third-parties that issue digital certificates for verifying the identities of parties engaged in secure communication over the internet. It has 3 main objectives:
 
 - Issuing certificates
 - Confirming the identity of the certificate owner
@@ -108,7 +162,7 @@ There are basically 3 flavors.
 
 When a CA issues a certificate, they sign the certificate with their root certificate pre-installed in the root store. Most of the time it's an intermediate certificate signed with a root certificate. 
 
-![root-intermediates-enduser](/img/linux/network/root-intermediates-enduser.png)
+![root-intermediates-enduser](/img/aws/networking/fundamental/root-intermediates-enduser.png)
 
 Source: [What is a chain of SSL certificates?](https://www.nexcess.net/help/what-is-a-chain-of-ssl-certificates/)
 

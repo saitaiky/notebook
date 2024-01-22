@@ -2,7 +2,7 @@
 title: Reverse Proxy
 ---
 
-![reverse-proxy-flow](/img/linux/network/reverse-proxy-flow.svg)
+![reverse-proxy-flow](/img/aws/networking/fundamental/reverse-proxy-flow.svg)
 
 Source: [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/)
 
@@ -17,7 +17,7 @@ Common uses for a reverse proxy server include:
 
 ## What’s a proxy and the difference between the forward & reverse proxy?
 
-![reverse-proxy-flow](/img/linux/network/forward-proxy-flow.svg)
+![reverse-proxy-flow](/img/aws/networking/fundamental/forward-proxy-flow.svg)
 
 Source: [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/)
 
@@ -38,7 +38,7 @@ What these scenarios have in common is that they consist of loosely coupled comp
 
 If we forward the path to the webserver without the path prefix, the component would not know what prefix it is run under and the prefix could be changed any time without impacting the component, thus making the component context-unaware.
 
-![Architecture, AWS Amplify Console](/img/linux/network/Figure-1-Architecture-AWS-Amplify-Console-1024x533.png)
+![Architecture, AWS Amplify Console](/img/aws/networking/fundamental/Figure-1-Architecture-AWS-Amplify-Console-1024x533.png)
 Source: [Architecture, AWS Amplify Console](https://aws.amazon.com/blogs/architecture/serving-content-using-fully-managed-reverse-proxy-architecture/#:~:text=Note%3A%20AWS%20Application%20Load%20Balancer,dynamic%20targets%20(domain%20name).)
 
 Some common requirements to these approaches are:

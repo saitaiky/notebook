@@ -4,7 +4,7 @@ title: Email
 
 ## Workflow
 
-![Email-workflow](/img/linux/network/Difference-Between-SMTP-IMAP-And-POP3-Comparisons.jpeg)
+![Email-workflow](/img/aws/networking/fundamental/Difference-Between-SMTP-IMAP-And-POP3-Comparisons.jpeg)
 Source: [Email-workflow](https://salesblink.io/blog/difference-between-smtp-imap-pop3)
 
 1. The email client of the sender connects to that of the SMTP server (for example, smtp.gmail.com)

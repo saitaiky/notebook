@@ -25,7 +25,7 @@ There is the ability to have a public IP address or a private IP address. A priv
 An Elastic IP has the public IP address component, as you need to advertise your AWS instances to the public internet. As the AWS Elastic IP will advertise a public, static IP address that can compensate for fluctuations in your AWS infrastructure, they are necessary in dynamic cloud computing.
 
 ## The Two Parts of An IP Address
-![two-part-of-network](/img/linux/network/two-part-of-network.png)
+![two-part-of-network](/img/aws/networking/fundamental/two-part-of-network.png)
 A device’s IP address actually consists of two separate parts:
 
 - Network ID: The network ID is a part of the IP address starting from the left that identifies the specific network on which the device is located. On a typical home network, where a device has the IP address 192.168.1.34, the 192.168.1 part of the address will be the network ID. It’s custom to fill in the missing final part with a zero, so we might say that the network ID of the device is 192.168.1.0.
@@ -36,7 +36,7 @@ So, how does your device determine which part of the IP address is the network I
 
 On most simple networks (like the ones in homes or small businesses), you’ll see subnet masks like 255.255.255.0, where all four numbers are either 255 or 0. The position of the changes from 255 to 0 indicate the division between the network and host ID. The 255s “mask out” the network ID from the equation.
 
-![two-part-of-network](/img/linux/network/subnet-mask.png)
+![two-part-of-network](/img/aws/networking/fundamental/subnet-mask.png)
 
 Note: The basic subnet masks we’re describing here are known as default subnet masks. Things get more complicated than this on bigger networks. People often use custom subnet masks (where the position of the break between zeros and ones shifts within an octet) to create multiple subnets on the same network.
 
@@ -83,7 +83,7 @@ Here are a few key points about ephemeral ports:
 Ephemeral ports play a vital role in facilitating communication between client applications and servers in a scalable and efficient manner. **By assigning temporary port numbers from a dynamic range, multiple client applications can establish simultaneous connections to servers without conflicts, enabling concurrent network communication.**
 
 ### Example
-![Linux hardware-kernal-shell](/img/linux/network/why-add-ephemeral-ports-on-nacl.png)
+![Linux hardware-kernal-shell](/img/aws/networking/fundamental/why-add-ephemeral-ports-on-nacl.png)
 
 Let us try to understand that with a simple scenario. When you want to visit a webpage you use a browser type in the url, in the background, Your browser(client) sends a request to the website(web-server).
 

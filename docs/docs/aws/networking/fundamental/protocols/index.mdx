@@ -1,0 +1,78 @@
+---
+title: "Protocol and layers"
+metaTitle: "Syntax Highlighting is the meta title tag for this page"
+metaDescription: "This is the meta description for this page"
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+How do networked computers actually talk to each other? Distributed systems would be completely impossible without the networks' **physical infrastructure** including client machines and servers, and **rules and standards for sending and receiving data** over that infrastructure. Those rules and standards are called **network protocols**.
+
+It's easy to imagine the chaos that would ensue if communication between networked machines wasn't standardized. Network protocols have been around since the beginning, but the modern internet has converged on two models to describe how systems interact.
+
+## Two models for networked computer systems
+The easiest way to think of the following networking models is as a stack of layers (hence the term "tech stack."). Generally, lower layers package data according to certain protocols which transmit upward where it is received as input by the next layer. This happens again and again until the data reaches its intended destination.
+
+Data is transferred first through physical means like ethernet, then between computers through IP networks, and finally from user to user via the internet over the top, or "application" layer. There are two models to be aware of
+- The TCP/IP model which maps more directly to protocols
+- The more conceptual 7-layer OSI model
+
+## OSI model
+
+The OSI Model or Open Systems Interface model is useful at a conceptual level. It's protocol-agnostic and more detailed. Instead of 4 layers, it breaks the Link Layer and Application Layer of the TCP/IP model into a few more pieces.
+
+![osi-model-7-layers](/img/aws/networking/fundamental/osi-model-7-layers.svg)
+source: [What is layer 7 of the Internet?](https://www.cloudflare.com/learning/ddos/what-is-layer-7/)
+
+## TCP/IP model
+
+![TCP/IP model vs OSI model](/img/aws/networking/fundamental/TCP-IP-model-vs-OSI-model.png)
+source: [TCP/IP model vs OSI model](https://fiberbit.com.tw/tcpip-model-vs-osi-model/)
+
+The TCP/IP model, named after its two main protocols which we will describe in more detail below, has four layers, starting with the base:
+
+1. The application layer (for protocols such as HTTP and SMTP)
+2. The transport layer (for transport protocols such as TCP and UDP)
+3. The Internet layer (the Internet protocol)
+4. The network access layer
+
+:::infoTCP/IP is the most commonly used protocol suite used today
+TCP/IP includes both the IP (via the internet layer) and TCP (via the transport layer) protocols. How does it work? Data packets are transmitted across network nodes. The Internet Layer connects these nodes through **IP addresses** and TCP protocol operating the transport Layer provides flow-control, establishes connections, and reliable transmission. TCP is a necessary "intermediary" because data packets sent over IP are often lost, dropped, or arrive out-of-order. TCP protocol was built with an emphasis on accuracy, so it's best used in applications where accuracy is more important than speed of delivery.
+:::
+
+### Network Access Layer or Link Layer
+
+At the very bottom of the network stack is the **physical layer**. This is where electrical signals or light pulses or radio waves actually transmit information from place to place. The physical layer doesn't really have protocols, but instead has standards for voltages, frequencies, and other physical properties. You can transmit information directly this way, but you need a lot of power or a dedicated line, and without higher layers you won't be able to share bandwidth.
+
+### Network
+
+The next layer up is the link layer. This layer covers communication with devices that share a physical communications medium. Here, protocols like Ethernet, 802.11a/b/g/n, and Token Ring specify how to handle multiple concurrent accesses to the physical medium and how to direct traffic to one device instead of another. In a typical home network, this is how your computer talks to your home "router."
+
+### Network layer
+
+The third layer is the **network layer**. In the majority of cases, this is dominated by Internet Protocol (IP). This is where the magic of the Internet happens, and you get to talk to a computer halfway around the world, without needing to know where it is. Routers handle directing your traffic from your local network to the network where the other computer lives, where its own link layer handles getting the packets to the right computer.
+
+### Transport
+
+Now we are getting somewhere. We can talk to a computer somewhere around the world, but that computer is running lots of different programs. How should it know which one to deliver your message to? The transport layer takes care of this, usually with port numbers. The two most popular transport layer protocols are **TCP and UDP**. TCP does a lot of interesting things to smooth over the rough spots of network-layer packet-switched communication like reordering packets, retransmitting lost packets, etc. UDP is more unreliable, but has less overhead.
+
+### Application
+
+So we've connected your browser to the web server software on the other end, but how does the server know what page you want? How can you post a question or an answer? These are things that application-layer protocols handle. For web traffic, this is the HyperText Transfer Protocol (HTTP). There are thousands of application-layer protocols: 
+- SMTP, IMAP, and POP3 for email; 
+- XMPP, IRC, ICQ for chat; 
+- Telnet, SSH, RDP for remote administration; etc.
+
+These are the five layers of the **TCP/IP** networking model, but they are really only conceptual. The OSI model has 7 layers. In reality, some protocols shim between various layers, or can work at multiple layers at once. **TLS/SSL** for instance provides encryption and session information between the network and transport layers. Above the application layer, Application Programming Interfaces (APIs) govern communication with web applications like Quora, Twitter, and Facebook.
+
+source: [What is the difference between HTTP protocol and TCP protocol?](https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol#:~:text=The%20short%20answer%3A%20TCP%20is,protocol%20that%20runs%20over%20TCP.&text=The%20physical%20la-,The%20short%20answer%3A%20TCP%20is%20a%20transport%2Dlayer%20protocol%2C,reading%20for%20the%20long%20answer.)
+
+
+## Why Two Models (TCP/IP vs OSI)?
+
+The two models were developed independently to address different problems. The OSI model was developed first as a comprehensive approach to standardizing network protocols to allow interoperability between different systems. It is often considered more theoretical and is used as a teaching tool to understand the concept of a networking stack.
+
+The TCP/IP model, on the other hand, was developed in the process of creating and implementing the internet. **It is more practical and reflects a more consolidated and streamlined approach to protocol stacks that is aligned with the realities of the internet's architecture**.
+
+In practice, the TCP/IP model is more widely used because the internet is the most pervasive network in existence. The layered approach of both models aids in the design, development, and troubleshooting of network protocols, as it makes the process more manageable by dividing it into more comprehensible segments. Each model has contributed to the conceptual understanding of network architectures and continues to be valuable in terms of education and practical implementation.

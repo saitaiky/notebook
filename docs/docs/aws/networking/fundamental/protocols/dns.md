@@ -8,7 +8,7 @@ The Domain Name System (DNS) is like the internet's phonebook; it translates hum
 
 ## What is a Domain Name System (DNS)?
 
-![Recursive-DNS-server](/img/linux/network/Recursive-DNS-server.png)
+![Recursive-DNS-server](/img/aws/networking/fundamental/Recursive-DNS-server.png)
 
 Source: [What is a Recursive DNS server?](https://www.cloudns.net/blog/recursive-dns-server/)
 
@@ -140,7 +140,7 @@ Specifically, the uses the following steps, though a local cache on a browser or
 
 5. **Data transfer**: With the IP address identified, the browser can request data to be transferred for the target page and/or assets using hypertext transfer protocol (HTTP).
 
-![How does DNS works](/img/linux/network/how-dns-works.webp)
+![How does DNS works](/img/aws/networking/fundamental/how-dns-works.webp)
 
 Source: [What is a Domain Name System (DNS)?](https://www.oracle.com/cloud/networking/dns/what-is-dns/#how)
 
