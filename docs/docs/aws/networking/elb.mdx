@@ -105,7 +105,7 @@ If you enable multiple Availability Zones for your load balancer, this increases
 
 The client that initiates the request chooses the ephemeral port range. The range varies depending on the client's operating system. Requests originating from Elastic Load Balancing use ports 1024-65535. So remember to add a rule to the Network ACLs to allow outbound traffic on ports 1024 - 65535 to send the result back to a client.
 
-For a detailed explaination, visit [Ephemeral port : What is it and what does it do?](/linux/network/ip-dns/#ephemeraldynamictemporary-port)
+For a detailed explaination, visit [Ephemeral port : What is it and what does it do?](/aws/networking/fundamental/protocols/ip-dns/#ephemeraldynamictemporary-port)
 
 ### Target group contains only unhealthy targets?
 
@@ -202,12 +202,13 @@ This helps to prevent overwhelming the newly added or recovered targets with a s
 ### Request Routing Algorithms
 
 There are 2 algorithms which only work for **ALB/CLB**.
-- Least Oustanding requests: The next instance to receive the request is the instance that has the lowest number of pending/unfinished requests.
-- Round Robin: Equally choose the targets from the target group.
+- **Least Oustanding requests**: The next instance to receive the request is the instance that has the lowest number of pending/unfinished requests.
+- **Round Robin**: Equally choose the targets from the target group.
+  - Servers are assigned in a repeating sequence, so that the next server assigned is guaranteed to be the least recently used.
 
-There is only one algorithm which only work for **NLB**, which is Flow Hash
-- Selects a target based on the protocol, source/destination IP address, source/destination por t, and TCP sequence number
-- Each TCP/UDP connection is routed to a single target for the life of the connection
+There is only one algorithm which only work for **NLB**
+- **Flow Hash**(Consistent hashing). The algorithm selects a target based on the protocol, source/destination IP address, source/destination port, and TCP sequence number. Each TCP/UDP connection is routed to a single target for the life of the connection.
+  - Similar to database sharding, the server can be assigned consistently based on IP address or URL.
 
 ## Troubleshooting
 

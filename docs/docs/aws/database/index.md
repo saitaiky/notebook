@@ -2,8 +2,7 @@
 title: Database
 ---
 
-## DB
-### Database lypes
+## Database types
 
 - **RDBMS (= SQL/ OLTP)**: RDS.Aurora - great for joins
 - **NoSQL database**: 
@@ -15,6 +14,7 @@ title: Database
 - **Search**: ElasticSearch (SON) - free text, unstructured searches
 - **Graphs**: Neptune - displays relationships between data
 
+## DBs
 ### RDS
 - **Operations**: small downtime when failover happens, when maintenance
 happens, scaling in read replicas / ec2 instance / restore EBS implies
@@ -79,7 +79,7 @@ acceleration / multi-part for big files
 - **Cost**: pay per node provisioned (similar to RDS)
 - **Remember**: ElasticSearch = Search / Indexing
 
-## Tool
+## Tools
 
 ### AWS DMS
 
@@ -91,7 +91,7 @@ One combination that you could use is to set S3 as a Target of AWS DMS, then onc
 ![amazon-macie-s3-dms](/img/aws/database/amazon-macie-s3-dms.png)
 :::
 
-### AWS Schema Conversion Tool(SCT)
+## AWS Schema Conversion Tool(SCT)
 
 AWS offers two schema conversion solutions to make heterogeneous database migrations predictable, fast, secure, and simple. Customers have the choice to: 
 

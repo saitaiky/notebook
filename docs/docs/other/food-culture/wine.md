@@ -2,9 +2,9 @@
 title: Wine
 ---
 
-> 
-    - [11 Best Wines for Beginners Plus Tips on How to Start Drinking Wine](https://www.lexiswinelist.com/blog/best-wines-for-beginners#:~:text=This%20is%20the%20simplest%20expression,the%20perfect%20wine%20for%20beginners.)
-    - [The 12 Best Wines At Costco](https://www.delish.com/entertaining/wine/g42156394/best-wines-at-costco/)
+2 very high quality posts
+- [11 Best Wines for Beginners Plus Tips on How to Start Drinking Wine](https://www.lexiswinelist.com/blog/best-wines-for-beginners#:~:text=This%20is%20the%20simplest%20expression,the%20perfect%20wine%20for%20beginners.)
+- [The 12 Best Wines At Costco](https://www.delish.com/entertaining/wine/g42156394/best-wines-at-costco/)
 
 ## Wine that I want to try
 

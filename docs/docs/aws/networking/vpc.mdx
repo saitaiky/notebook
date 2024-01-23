@@ -12,9 +12,9 @@ import TabItem from '@theme/TabItem';
 
 Amazon Virtual Private Cloud (VPC) is a web service that allows you to create a private network within the AWS cloud environment. With AWS VPC, you can define your own virtual network, including IP address ranges, subnets, and routing tables. This enables you to launch AWS resources, like Amazon EC2 instances, into a logically isolated section of the cloud. VPC provides control over your network's security, connectivity, and scalability, making it a fundamental building block for designing and deploying AWS applications.
 
-**Some good posts**
+![vpc-note](/img/aws/networking/vpc/vpc-note.jpg)
 
-- [Getting started with IPv6 on AWS](https://cloudonaut.io/getting-started-with-ipv6-on-aws/)
+Above image is a diagram that I used to testify my knowledge of VPC for preparing those AWS certifications.
 
 ## Behaviour
 
@@ -527,7 +527,7 @@ AWS releases your instance's public IP address when you associate an Elastic IP 
 :::
 
 > EIPs are used when
-- You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/linux/network/ip-dns/)
+- You need a static + public IP. More infor about static and public ip, please check [Static & Public IP Address](/aws/networking/fundamental/protocols/ip-dns/)
 - You want to mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
 
 ![elastic-ip](/img/aws/networking/vpc/elastic-ip.png)
@@ -620,7 +620,7 @@ Apparently, the first one is an `ACCEPT` record, and the second one is a `REJECT
 
 ### Compare IPv4 and IPv6
 
-The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support).
+The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support) / [Getting started with IPv6 on AWS](https://cloudonaut.io/getting-started-with-ipv6-on-aws/) for more details.
 
 :::caution
 You can create a custom VPC with both IPV4 and IPV6 support (Dual Support).
