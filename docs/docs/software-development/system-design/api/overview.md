@@ -1,8 +1,6 @@
 ---
-title: SOAP, REST, GraphQL, and gRPC
+title: API(SOAP, REST, GraphQL, and gRPC)
 ---
-
-# Understanding API Formats: SOAP, REST, GraphQL, and gRPC
 
 ## Introduction
 An architecture becomes practical when we comprehend how information moves across systems. Whether you are an application or enterprise architect, understanding tradeoffs is crucial when selecting a method for information exchange. Data exchange, a core aspect of enterprise architecture, has evolved from physical to digital methods. This article explores the history of data exchange and compares SOAP, REST, GraphQL, and gRPC APIs.
@@ -15,10 +13,14 @@ Standardized data formats prompted APIs to become pivotal in application archite
 
 ## API Formats Overview
 
-### SOAP
-- **Definition:** Simple Object Access Protocol (SOAP) exchanges XML-encoded information between clients and services.
-- **Usage:** Supports various transport protocols (e.g., HTTP, FTP, SMTP) and uses WSDL for discovery.
+### Simple Object Access Protocol (SOAP) 
+- **Definition:** A precursor to REST. SOAP works like an envelope that contains a bulky, XML-encoded message. It is much slower than binary messaging protocols, such as RPC. However, the standardized text format and security features make enforcing legal contracts and authentication easy throughout the API's processing.
+- **Usage:** 
+  - **Enterprise Financial Services**: In banking or stock trading applications, where transactions require guaranteed delivery and security.
+  - **Telecommunications**: When managing transactions across multiple services and maintaining a high level of reliability.
+  - **Healthcare Systems**: For secure exchange of sensitive patient data where standards-compliant communication is essential.
 - **Structure:** Hierarchical SOAP message with elements like `<soap:Envelope>`, `<soap:Header>`, `<soap:Body>`, and `<soap:Fault>`.
+
 ```xml
  POST /BobsTickers HTTP/1.1
  Host: www.example.org
@@ -39,9 +41,19 @@ Standardized data formats prompted APIs to become pivotal in application archite
 ```
 
 ### REST
+
+> [REST API Response code](https://www.ibm.com/docs/en/odm/8.8.1?topic=api-rest-response-codes-error-messages)
+
 - **Definition:** Representational State Transfer (REST) employs standard HTTP methods (GET, POST, PUT, DELETE) for resource interactions.
 - **Usage:** Well-known and widely used for simplicity and immediate productivity.
 - **Structure:** Stateless request-response with JSON or XML response formats.
+
+:::cautionDownside
+Although REST APIs are among the most popular choices, a downside is that a client might have to deal with redundant data when making REST API calls.
+
+For example, to fetch the name and members of a musical band, requesting the dedicated resources for that band would retrieve the name and its members (possibly from multiple endpoints) and also other information (such as its albums, founding year, and so on), depending on how the resources are organized by the server.
+:::
+
 ```json
 {
   "car": {
@@ -56,14 +68,18 @@ Standardized data formats prompted APIs to become pivotal in application archite
     }
   }
 }
-
 ```
 
-
 ### GraphQL
-- **Definition:** GraphQL is a language-neutral, open-source specification for flexible data representation.
+- **Definition:** GraphQL was developed to allow clients to execute precise queries and retrieve only the data they are interested in, typically from a graph database. To achieve this process, servers need to predefine a schema that describes all possible queries and their return types. This reduces the server payload and offers the client a great amount of flexibility during query time.
 - **Usage:** Enables explicit definition of returned data structure in queries. Supports asynchronous messaging via Subscriptions.
 - **Structure:** Defined by a schema language, allowing clients to specify the structure of returned data.
+
+:::cautionDownside
+Performance can suffer when the client has too many nested fields in one request. Additionally, there is a steep learning curve that requires extensive knowledge.
+
+Therefore, GraphQL users need to find a balance between its benefits and implementation costs.
+:::
 
 ```json
 // Query

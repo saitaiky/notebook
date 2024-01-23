@@ -94,7 +94,29 @@ Despite these downsides, Pull CDNs are widely favored for their simpler maintena
 
 There are some situations where you do not want to use CDNs. If your service’s target users are in a specific region, then there won’t be any benefit of using a CDN, as you can just host your origin servers there instead. CDNs are also not a good idea if the assets being served are dynamic and sensitive. You don’t want to serve stale data for sensitive situations, such as when working with financial/government services.
 
+
+
+
+
+
+
+
 ---
 
 
+
+API developers must consider carefully what public API they offer before releasing it:
+
+-   APIs for third-party developers - APIs allow third-party developers to build applications that can securely interact with your application with your permission. Without APIs, developers would have to deal with the entire infrastructure of a service every time they wanted to access it.
+-   APIs for users - As a user, APIs save you from dealing with all of that infrastructure.
+
+This simplification creates business opportunities and innovative ideas; for example, a third-party tool that uses public APIs to access Google Maps data for advertising, recommendations, and more.
+
+In summary, APIs provide access to a server's resources while maintaining security and permission control. They simplify software development by providing a layer of abstraction between the server and the client.
+
+API design is essential to any system architecture and is a common topic in system design interviews.
+
+
+
+----
 
