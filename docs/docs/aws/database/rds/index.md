@@ -106,17 +106,32 @@ When you initiate a point-in-time recovery, transaction logs are applied to the 
 
 ## Scalability
 
-### Read scalability
+### Read scalability (Horizontal scaling)
 
 ![read replica](/img/aws/database/rds/read-replica.png)
 
 Source: [Working with read replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
 
+Horizontal scaling means adding more instances. Instead of having one database instance, you would have two or three for example. Adding read replicas is one of the most straightforward ways of horizontal scaling. If your application only needs to scale for reading reasons, which is often the case, add a read replica and point all read applications to this database.
+
+Another way to increase the performance by scaling horizontally is by adding an RDS proxy. This allows much more connections to the database.
+
 Important points:
 
-- Any updates made to the primary DB instance are **asynchronously** copied to the read replica. So both these options are incorrect.
+- Any updates made to the primary DB instance are **asynchronously** copied to the read replica.
 - Writing to tables on a read replica can break the replication
 - If the value for the `max_allowed_packet` parameter for a read replica is less than the `max_allowed_packet` parameter for the source DB instance, replica errors occur. 
+
+### Write scalability
+
+Vertical scaling enhances the current database instance(the actual hardware). For example more memory, more CPU, or more storage. Auto Scaling allows you to scale up and down automatically, based on a policy. A policy can be based on a metric like free storage. `A common example is: if there is only 10% free storage → Scale up`
+
+:::infoWhy scaling write operations is more challenging
+For write operations, horizontal scaling can be more challenging due to the need to maintain data consistency and handle conflicts across the distributed environment. In some cases, certain types of databases, such as those that support multi-master replication, can horizontally scale write operations as well, but this often comes with increased complexity.
+
+In general, horizontal scaling is preferred for handling larger scale-out scenarios, especially when **read operations dominate**, while vertical scaling can be a quicker and sometimes simpler solution **for improving both read and write performance up to a point**. However, vertical scaling has its limits due to the physical constraints of a single machine, and it often comes with downtime during scaling operations.
+:::
+
 
 ## Availability 
 
