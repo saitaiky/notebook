@@ -8,7 +8,7 @@ sidebar_position: 2
 
 There are 2 comamands that you can use to produce a "squashed" commit. But they serve different purposes. They are 
 - `git merge --squash` for Squash commits
-- `git rebase --interactive` for Squash and Merge
+- `git rebase --interactive` / `git rebase --i`for Squash and Merge
 
 ## Squash commits
 

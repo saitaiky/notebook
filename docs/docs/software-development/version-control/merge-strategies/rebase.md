@@ -6,7 +6,7 @@ metaDescription: "We will discuss topics related to git revert, reset, rebase, s
 sidebar_position: 1
 ---
 
-> TL;DR - `rebase` moves the entire feature branch to begin on the tip of the master branch, effectively incorporating all of the new commits in master.
+> TL;DR - `rebase` moves the entire feature branch to begin on the tip of the master branch which means that you try to use another branch as the new **base** for your work.
 
 ## Overview
 
@@ -31,28 +31,21 @@ git rebase --abort
 
 :::caution Tips
 - If at some point during the `git rebase` you got panic (due to the CONFLICT error), just do `git rebase --abort` and you’re back to normal. You can then calm down and gather your breath to see what you want to do next.
-- When resolving a conflict, the conflicted files may seem to miss some of your latest changes. This is normal because the files is at a specific commit where the conflict first occured. You may need to resolve different conflicts in the same file multiple times.
+    - When resolving a conflict, the conflicted files may seem to miss some of your latest changes. This is normal because the files is at a specific commit where the conflict first occured. You may need to resolve different conflicts in the same file multiple times.
+- If you’re not entirely comfortable with `git rebase`, you can always perform the rebase in a temporary branch. That way, if you accidentally mess up your feature’s history, you can check out the original branch and try again. For example:
+    ```
+    git checkout feature
+    git checkout -b temporary-branch
+    git rebase -i main
+    # [Clean up the history]
+    git checkout main
+    git merge temporary-branch
+    ```
 :::
-
-:::danger
-Use `merge` but not `rebase` **whenever you've already pushed**.
-:::
-
-### Example
-
-```bash
-git checkout tmp
-git rebase -i stable
-
-   stable
-      X----------------G tmp
-     /
-a---b
-```
 
 ### Differences between rebase and merge?
 
-- `merge --squash`
+- `merge`
     - It **preserves** history! becuase it does not touch your source branch (`tmp` here)
     - It produces a new generated commit (the so called merge-commit). 
     This new commit will have two parents - the latest commit from your string of commits and the latest commit of the other branch you're merging.
@@ -60,49 +53,57 @@ a---b
     - It **rewrites** history!
     - It only moves existing commits, which is a **bad Thing** after you've pushed it.
     - You can choose to squash all commits or contrary to merge --squash, you can choose **to replay some, and squashing others**.
-    - It allows you to go on on the same source branch (still `tmp`) with:
+    - It allows you to go on the same source branch (still `tmp`) with:
         - a new base
         - a cleaner history
+        
 ## Use case
 
-:::info TL;DR - 
+> TL;DR - `merge` is best used when the target branch is supposed to be shared whereas `rebase` is best used when the target branch is private
+
+:::danger
+Use `merge` but not `rebase` **whenever you've already pushed**, because the remote is presumed to be shared with active collaborators. If they pull what you pushed, then you rebase, it can be difficult to reconcile what they do (on the non-rebased commit) with what you're doing (on the rebased commit).
+
+If you're the only one pushing and pulling to the remote, you can do whatever.
+:::
+
 To choose which one to use, it depends on what is most important - a tidy history or a true representation of the sequence of development
 
 If a tidy history is the most important, then you would rebase first and then merge your changes, so it is clear exactly what the new code is. **If you have already pushed your branch, don't rebase unless you can deal with the consequences.**
 
 Check this [blog post - Git team workflows: merge or rebase?](https://www.atlassian.com/git/articles/git-team-workflows-merge-or-rebase) for more comparsion.
-:::
 
-
-### In which situations should we use a `merge`?
+### When to use `merge`?
 Let's say you have created a branch for the purpose of developing a single feature. When you want to bring those changes back to master, you probably want merge (you don't care about maintaining all of the interim commits).
 
 Typically, you do this by clicking the "Merge" button on Pull/Merge Requests, e.g. on GitHub.
 
-### In which situations should we use a `rebase`?
+### When to use `rebase`?
 A second scenario would be if you started doing some development and then another developer made an unrelated change. You probably want to pull and then rebase to base your changes from the current version from the repository.
 
 Typically, you do this in feature branches whenever there's a change in the main branch.
 
-## Rebase Pro & Con
+## [Pros](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge#:~:text=Use%20rebase%20whenever%20you%20want,change%20in%20the%20main%20branch.)
 
-### [Pros](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge#:~:text=Use%20rebase%20whenever%20you%20want,change%20in%20the%20main%20branch.)
+- **Linear History**: Rebasing avoids creating merge commits if the changes are rebased onto the main branch, resulting in a cleaner history.
+    - If you use merge, the git history will include many **unnecessary merge commits**. If multiple merges were needed in a feature branch, then the feature branch might even hold more merge commits than actual commits!
+- **Simplified Upstream Integration**: Rebasing can be used to update a feature branch with the latest changes from the main branch, which can sometimes help resolve conflicts that might have arisen over time.
 
-1. The git history will include many **unnecessary merge commits**. If multiple merges were needed in a feature branch, then the feature branch might even hold more merge commits than actual commits!
+:::infoThe Paradox of Merging in Git: When Rivers of Code Defy Logic
+Merging creates a loop which **destroys the mental model that Git was designed** by which causes troubles in any visualization of the Git history.
 
-2. This creates a loop which **destroys the mental model that Git was designed** by which causes troubles in any visualization of the Git history.
+Imagine there's a river (e.g. the "Nile"). Water is flowing in one direction (direction of time in Git history). Now and then, imagine there's a branch to that river and suppose most of those branches `merge` back into the river. That's what the flow of a river might look like naturally. It makes sense.
 
-    Imagine there's a river (e.g. the "Nile"). Water is flowing in one direction (direction of time in Git history). Now and then, imagine there's a branch to that river and suppose most of those branches `merge` back into the river. That's what the flow of a river might look like naturally. It makes sense.
+But then imagine there's a small branch of that river. Then, for some reason, the river merges into the branch and the branch continues from there. The river has now technically disappeared, it's now in the branch. But then, somehow magically, that branch is merged back into the river. Which river you ask? I don't know. The river should actually be in the branch now, but somehow it still continues to exist and I can merge the branch back into the river. So, the river is in the river. Kind of doesn't make sense.
 
-    But then imagine there's a small branch of that river. Then, for some reason, the river merges into the branch and the branch continues from there. The river has now technically disappeared, it's now in the branch. But then, somehow magically, that branch is merged back into the river. Which river you ask? I don't know. The river should actually be in the branch now, but somehow it still continues to exist and I can merge the branch back into the river. So, the river is in the river. Kind of doesn't make sense.
+This is exactly what happens when you merge the base branch into a `feature` branch and then when the `feature` branch is done, you merge that back into the base branch again. The mental model is broken. And because of that, you end up with a branch visualization that's not very helpful.
+:::
 
-    This is exactly what happens when you merge the base branch into a `feature` branch and then when the `feature` branch is done, you merge that back into the base branch again. The mental model is broken. And because of that, you end up with a branch visualization that's not very helpful.
 
-### Cons
+## Cons
 
 > TL;DR - One can indeed apply some commits to master without creating a merge commit. This procedure completely loses the context of where those commits come from, unfortunately.
 
-- Squashing the feature down to a handful of commits can hide context, unless you keep around the historical branch with the entire development history.
-- Rebasing doesn't play well with pull requests, because you can't see what minor changes someone made if they rebased (incidentally, the consensus inside the Bitbucket development team is to never rebase during a pull request).
-- Rebasing can be dangerous! Rewriting history of shared branches is prone to team work breakage. This can be mitigated by doing the rebase/squash on a copy of the feature branch, but rebase carries the implication that competence and carefulness must be employed.
-- It's more work: Using rebase to keep your feature branch updated requires that you resolve similar conflicts again and again. Yes, you can reuse recorded resolutions (rerere) sometimes, but merges win here: Just solve the conflicts one time, and you're set.
+- **Rewrites History**: Rebase changes the commit hashes, effectively rewriting history. This can be problematic for shared branches where others may base their work on the existing commits.
+- **Potential for Complications and Data Loss**: If not done carefully, rebasing can lead to complications and possible data loss, especially for users who are not familiar with the process.
+- **Poor Traceability**: If a feature branch has been rebased, it's sometimes hard to trace back to the original changes and discussions attached to the previous commits.
