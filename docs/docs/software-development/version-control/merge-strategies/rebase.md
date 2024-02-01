@@ -45,6 +45,8 @@ git rebase --abort
 
 ### Differences between rebase and merge?
 
+> TL;DR - `merge` preserves history whereas `rebase` rewrites it.
+
 - `merge`
     - It **preserves** history! becuase it does not touch your source branch (`tmp` here)
     - It produces a new generated commit (the so called merge-commit). 

@@ -15,18 +15,12 @@ Below are 3 points to keep in mind when implement load balancing to your applica
 - User sessions. The same user's requests can be served from different backends unless the load balancer is configured otherwise. This could be problematic for applications that rely on session data that isn't shared across servers.
 - Longer deploys. Deploying new server versions can take longer and require more machines since the load balancer needs to roll over traffic to the new servers and drain requests from the old machines.
 
-
-## Cache
+## CDN
 
 A CDN can be thought of as a globally distributed group of servers that cache static assets for your origin server. Every CDN server has its own local cache and they should all be in sync. There are two primary ways for a CDN cache to be populated, which creates the distinction between Push and Pull CDNs. 
 
 - In a Push CDN, it’s the responsibility of the engineers to push new/updated files to the CDN, which would then propagate them to all of the CDN server caches. 
 - In a Pull CDN, the server cache is lazily updated: when a user sends a static asset request to the CDN server and it doesn’t have it, it’ll fetch the asset from the origin server, populate its cache with the asset, and then send the asset to the user.
-
-
-## CDN
-
-Every CDN server has its own local cache and they should all be in sync. There are two primary ways for a CDN cache to be populated, which creates the distinction between Push and Pull CDNs. 
 
 ### Push CDN 
 
@@ -94,27 +88,6 @@ Despite these downsides, Pull CDNs are widely favored for their simpler maintena
 
 There are some situations where you do not want to use CDNs. If your service’s target users are in a specific region, then there won’t be any benefit of using a CDN, as you can just host your origin servers there instead. CDNs are also not a good idea if the assets being served are dynamic and sensitive. You don’t want to serve stale data for sensitive situations, such as when working with financial/government services.
 
-
-
-
-
-
-
-
----
-
-
-
-API developers must consider carefully what public API they offer before releasing it:
-
--   APIs for third-party developers - APIs allow third-party developers to build applications that can securely interact with your application with your permission. Without APIs, developers would have to deal with the entire infrastructure of a service every time they wanted to access it.
--   APIs for users - As a user, APIs save you from dealing with all of that infrastructure.
-
-This simplification creates business opportunities and innovative ideas; for example, a third-party tool that uses public APIs to access Google Maps data for advertising, recommendations, and more.
-
-In summary, APIs provide access to a server's resources while maintaining security and permission control. They simplify software development by providing a layer of abstraction between the server and the client.
-
-API design is essential to any system architecture and is a common topic in system design interviews.
 
 
 

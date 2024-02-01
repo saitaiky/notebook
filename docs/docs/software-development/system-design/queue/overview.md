@@ -40,7 +40,7 @@ Exactly-once is most expensive and has consequently worst performance because in
 
 
 ### Explain In Jargon
-![streaming-semantics](/img/software-development/system-design/messaging/streaming-semantics.jpeg)
+![streaming-semantics](/img/software-development/system-design/queue/streaming-semantics.jpeg)
 Source: [singlestore - Getting to Exactly-Once Semantics with Apache Kafka
 and SingleStore Pipelines (Webcast On-Demand)](https://www.singlestore.com/blog/exactly-once-semantics-with-apache-kafka/)
 

@@ -23,7 +23,7 @@ Conceptually an exactly-once message approach is much more desirable. But, as th
 
 For now, consider that implementing an exactly-once messaging solution is on the same level as *creating a vehicle that can travel faster than the speed of light*. There are ways to get close, that is to deliver messages essentially-once but it is impossible to implement an exactly-once process that works. 
 
-In the [exactly-once](/software-development/system-design/messaging/exact-once) page, we will look at this in more detail.
+In the [exactly-once](/software-development/system-design/queue/exact-once) page, we will look at this in more detail.
 :::
 
 ## Scenario
@@ -41,7 +41,7 @@ The fundamental challenge here is that when I do not receive an acknowledgment f
 
 ## Workflow
 
-![event-driven-architecture-example](/img/software-development/system-design/messaging/at-least-once.png)
+![event-driven-architecture-example](/img/software-development/system-design/queue/at-least-once.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 
@@ -75,7 +75,7 @@ With the push approach, the burden of responsibility for at-least-once message d
 
 Consider the case where you are trying to send a message that must be delivered to me, and there is a problem that is preventing the successful delivery of that message. Ok, one of the first things that you can do is implement a retry loop, where you retry the delivery of unacknowledged messages until you have confirmation that they have been delivered to the receiver.
 
-![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-06.png)
+![at-least-once](/img/software-development/system-design/queue/atotm-at-least-once-06.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 That should work, right? Well, you need to **ask yourself what can go wrong**?  When you are designing for reliability you must face facts; things will break. Software, servers, and networks will fail. And some of these failures will happen at the worst possible time. Like when one or more undelivered messages are currently stuck in a retry loop.
@@ -95,7 +95,7 @@ Say you are keeping a journal that records all of the people that you are tasked
 
 In a software implementation of this process, this would be implemented as two distinct database transactions, one transaction that adds a task to a journal and second transaction that adds the message to a persistent list or queue.
 
-![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-07.png)
+![at-least-once](/img/software-development/system-design/queue/atotm-at-least-once-07.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 Now you have this two-step process that records tasks in a journal and adds the corresponding message to a to be delivered list. Are there any vulnerabilities here? What will go wrong? For the vulnerablilities of this push approah, visit [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
@@ -108,7 +108,7 @@ With the pull approach, we still have a message sender or producer, and we also 
 
 For implementations of the pull approach, the message producer’s primary responsibility is to place all messages in a list or log. The consumer’s responsibility is to maintain a pointer or offset into the producer’s log that identifies the next message to be transmitted and processed. As the producer is consuming messages, in below image, the offset is incremented to the next message.
 
-![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-10.png)
+![at-least-once](/img/software-development/system-design/queue/atotm-at-least-once-10.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 ### Adding state(offset) to overcome vulnerability
@@ -119,14 +119,14 @@ In the case where the message consumer is performing persistent state changes wh
 
 When it is not possible to combine these two steps into a single atomic operation, then one possible solution is that the persistence of the offset follows the state change persistence step. This two-step process, as shown in below image, requires that the first step is **idempotent**. **That is when the same message is processed more than once the outcome of the first step is the same**.
 
-![at-least-once](/img/software-development/system-design/messaging/atotm-at-least-once-11.png)
+![at-least-once](/img/software-development/system-design/queue/atotm-at-least-once-11.png)
 Source: [How Akka Works: 'At Least Once' Message Delivery](https://www.lightbend.com/blog/how-akka-works-at-least-once-message-delivery)
 
 Here is an example of a process that must be **idempotent** but is challenging to implement. Consider that the messages sent to the consumer are bank account deposits or withdrawals. The state of the bank account is altered and persisted when these deposit and withdrawal messages are processed. Obviously, it is essential that each bank account cannot be corrupted with duplicate deposits or withdrawals.
 
 ### How to be idempotent to eliminate duplicate messages
 
-So how do we eliminate duplicate messages that cause cumulative state changes? The answer is that some evidence that a given message has been processed must be recorded as part of the cumulative state change’s transaction. This evidence could be persisting the current message offset in the same transaction. Another approach is to store all or part of the message itself so that incoming duplicate messages may be eliminated. One more strategy is first to log each incoming message, which then triggers the cumulative state change operations as a follow-on step. This final approach is known as event logging. We will look at this in detail in the [exactly-once](/software-development/system-design/messaging/exact-once) page.
+So how do we eliminate duplicate messages that cause cumulative state changes? The answer is that some evidence that a given message has been processed must be recorded as part of the cumulative state change’s transaction. This evidence could be persisting the current message offset in the same transaction. Another approach is to store all or part of the message itself so that incoming duplicate messages may be eliminated. One more strategy is first to log each incoming message, which then triggers the cumulative state change operations as a follow-on step. This final approach is known as event logging. We will look at this in detail in the [exactly-once](/software-development/system-design/queue/exact-once) page.
 
 
 ## Push versus Pull at-least-once Message Delivery
@@ -138,4 +138,4 @@ There are some common features and considerations for both message delivery appr
 - For both push and pull implementations the message producer is **responsible for maintaining a list or queue or log of messages**. When pushing messages, this list is used to retransmit messages that have so far failed to be delivered. When pulling messages, this list is used by the message consumer to retrieve and process pending messages.
 - Another common feature for both the push and pull approach is that *the consumer may have to implement some form of idempotency*. **Idempotency** is essential when the same message is delivered more than once to a message handler that performs state changes, such as a bank account message example previously discussed.
 
-You can now go to the [exactly-once](/software-development/system-design/messaging/exact-once) page. While theoretically, an exactly-once approach for message delivery is appealing once we look into the challenges and limitations I think you will see that the at-least-once approach is a more practical way to go.
+You can now go to the [exactly-once](/software-development/system-design/queue/exact-once) page. While theoretically, an exactly-once approach for message delivery is appealing once we look into the challenges and limitations I think you will see that the at-least-once approach is a more practical way to go.
