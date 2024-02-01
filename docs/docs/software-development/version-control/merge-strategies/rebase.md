@@ -85,9 +85,9 @@ Typically, you do this in feature branches whenever there's a change in the main
 
 ## [Pros](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge#:~:text=Use%20rebase%20whenever%20you%20want,change%20in%20the%20main%20branch.)
 
-- **Linear History**: Rebasing avoids creating merge commits if the changes are rebased onto the main branch, resulting in a cleaner history.
-    - If you use merge, the git history will include many **unnecessary merge commits**. If multiple merges were needed in a feature branch, then the feature branch might even hold more merge commits than actual commits!
-- **Simplified Upstream Integration**: Rebasing can be used to update a feature branch with the latest changes from the main branch, which can sometimes help resolve conflicts that might have arisen over time.
+- **Cleaner Project History:** By reapplying changes on top of the main branch, rebase creates a linear and more readable history.
+- **Simplifies Potential Merge Conflicts:** Rebasing allows you to resolve conflicts from a series of commits incrementally which can simplify the conflict resolution process.
+- **Up-to-Date History:** Running rebase frequently keeps your feature branch up-to-date with the main branch, facilitating a smoother final merge.
 
 :::infoThe Paradox of Merging in Git: When Rivers of Code Defy Logic
 Merging creates a loop which **destroys the mental model that Git was designed** by which causes troubles in any visualization of the Git history.
