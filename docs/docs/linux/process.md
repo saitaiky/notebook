@@ -12,7 +12,9 @@ Also sometimes referred to as a process in a ‘terminated state,’ a Zombie pr
 
 ### fork(), wait() & SIGCHILD
 
-A process created in Unix system must use the kernel function `fork()` , and the address space is cloned from parent process. In Unix system, the parent process is responsible for reap the child process status and memory stack. Then, the parent process calls `wait()` waiting the child process to terminate and reply a `SIGCHLD` signal, once parent process receive this signal it starts to reap the child process. So, there is a problem that if the parent process decide not to wait the termination of the child, no one is responsible for the reap and there is one zombie process in system.
+A process created in Unix system must use the kernel function `fork()` , and the address space is cloned from parent process. In Unix system, the parent process is responsible for reap the child process status and memory stack. Then, the parent process calls `wait()` waiting the child process to terminate and reply a `SIGCHLD` signal, once parent process receive this signal it starts to reap the child process. 
+
+So, there is a problem that if the parent process decide not to wait the termination of the child, no one is responsible for the reap and there is one zombie process in system.
 
 ### Normal scenario
 

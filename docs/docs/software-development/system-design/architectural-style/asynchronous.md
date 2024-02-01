@@ -47,7 +47,18 @@ With stream processing, data flows into your system as **events** occur. Events 
 
 ### Lambda Architecture
 
-Combines the robustness of batch processing with the immediacy of stream processing, but at the cost of operational complexity.
+Lambda architecture can bridge the gap between durable-yet-delayed **batch processing** and fresh-yet-brittle **stream processing** by creating a "fast lane" for processing priority events, but this introduces operational complexity.
+
+![Lambda-Architecture-with-Unified-Serving-Layer](/img/software-development/system-design/architectural-style/Lambda-Architecture-with-Unified-Serving-Layer.png)
+
+Another alternative is **two separate serving layers**. One layer is for real-time consumption, the other one for batch consumption:
+
+![Lambda-Architecture-with-Two-Separate-Serving-Layers](/img/software-development/system-design/architectural-style/Lambda-Architecture-with-Two-Separate-Serving-Layers.png)
+
+According to this [Blog post](https://www.kai-waehner.de/blog/2021/09/23/real-time-kappa-architecture-mainstream-replacing-batch-lambda/)
+, the second option much more in the field. In the end, both have the same concept of building two separate layers for data ingestion and processing.
+
+Source: [Kappa Architecture is Mainstream Replacing Lambda](https://www.kai-waehner.de/blog/2021/09/23/real-time-kappa-architecture-mainstream-replacing-batch-lambda/)
 
 ### Asynchronous Queues
 
