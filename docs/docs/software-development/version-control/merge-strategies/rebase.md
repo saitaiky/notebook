@@ -6,7 +6,13 @@ metaDescription: "We will discuss topics related to git revert, reset, rebase, s
 sidebar_position: 1
 ---
 
-> TL;DR - `rebase` moves the entire feature branch to begin on the tip of the master branch which means that you try to use another branch as the new **base** for your work.
+:::infoTL;DR
+Rebasing is a common way to integrate upstream changes into your local repository. Pulling in upstream changes with Git `merge` results in a superfluous merge commit every time you want to see how the project has progressed whereas `rebase` moves the your changes to begin on the tip of the other branch(say master branch).
+
+If the above description still doesn't make sense to use, just remember rebasing is like saying, 
+- “I want to base my changes on what everybody has already done.” or
+- ”I want to use another branch as the new **base** for your work.”
+:::
 
 ## Overview
 

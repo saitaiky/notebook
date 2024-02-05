@@ -85,7 +85,7 @@ SQL databases like MySQL, PostgreSQL, Microsoft SQL Server, Oracle, etc, usually
 In conclusion, the CAP theorem states that a distributed system can have at most two of the following three properties: Consistency, Availability, and Partition Tolerance. During network partitions, a choice must be made between consistency and availability.
 
 
-## Popular databases
+## Databases
 
 Here's a table listing some of the most common databases along with their cloud platforms, categorized by whether they prioritize consistency or availability:
 
