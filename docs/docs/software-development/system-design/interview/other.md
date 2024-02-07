@@ -88,8 +88,3 @@ Despite these downsides, Pull CDNs are widely favored for their simpler maintena
 
 There are some situations where you do not want to use CDNs. If your service’s target users are in a specific region, then there won’t be any benefit of using a CDN, as you can just host your origin servers there instead. CDNs are also not a good idea if the assets being served are dynamic and sensitive. You don’t want to serve stale data for sensitive situations, such as when working with financial/government services.
 
-
-
-
-----
-
