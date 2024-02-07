@@ -257,9 +257,7 @@ Pipe is used to pass output to another **program or utility**.
 Redirect is used to pass output to either **a file or stream**.
 
 - `ls > log.txt` sends the output to the log.txt file.
-
 - `ls | grep file.txt` sends the output of the ls to grep command through the use of pipe (|), and the grep command searches for file.txt in the in the input provided to it by the previous command.
-
 :::
 
 **Piping** redirects the output of one program to the input of another program.

@@ -6,6 +6,24 @@ title: "DNS"
 
 The Domain Name System (DNS) is like the internet's phonebook; it translates human-friendly domain names like www.example.com into IP addresses like 192.0.2.1 that computers use to identify each other on the network. Whenever you enter a website address in your browser, DNS servers take that domain name and look up the corresponding IP address so the browser can load the correct webpage. Think of it as asking for directions to a friend's house; you get their street name, which you understand, and DNS gives you the precise map coordinates for your GPS to navigate to their location.
 
+Below is a flow diagram to give you a high level overview of all the component discussed in the following sections.
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant DR as DNS Resolver (ISP)
+    participant TLD as Top-Level Domain Server
+    participant ANS as Authoritative Nameserver
+    B->>+DR: Requests IP for URL
+    DR->>+TLD: Queries for domain's nameserver
+    TLD->>-DR: Responds with ANS details
+    DR->>+ANS: Requests IP for URL
+    ANS->>-DR: Responds with IP address
+    DR->>-B: Returns IP address to browser
+    B->>+B: Browser connects to IP and retrieves website
+```
+
+
 ## What is a Domain Name System (DNS)?
 
 ![Recursive-DNS-server](/img/aws/networking/fundamental/Recursive-DNS-server.png)
@@ -31,7 +49,7 @@ A recursive DNS resolver is the DNS server that processes the initial request an
 
 The browser and the OS both searched their cache first to see if they knew the IP for dnsimple.com. But since they didn't, the OS is calling the resolver.
 
-*The resolver server is usually your **ISP (Internet Service Provider)***. The resolvers knows where to locate the root server. The root server knows where to locate the .COM Top-Level Domain(TLD) servers. 
+*The resolver server is usually your **ISP (Internet Service Provider)** *. The resolvers knows where to locate the root server. The root server knows where to locate the .COM Top-Level Domain(TLD) servers. 
 
 
 ### Root server

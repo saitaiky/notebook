@@ -4,14 +4,59 @@ metaTitle: "!!!Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
-![types-of-encryption](/img/linux/security/types-of-encryption.jpg)
+SSH (Secure Shell) agent is a program that assists with SSH key management. In the context of SSH authentication, an SSH agent saves your private keys and communicates with SSH clients to perform authentication without requiring you to manually enter your passphrase each time.
 
-## What is Hash?
-- Hashing is used only to verify data
-- The same input will always produce the same output
-- It’s impossible to reverse it back to the original data
+Here's a more detailed explanation:
 
-## Generate key for gitHub
+## What is SSH?
+
+SSH is a protocol used to securely log into remote systems across insecure networks. It encrypts the connection between the SSH client (the user's machine) and the SSH server (the remote host). SSH uses public-key cryptography for both authentication and establishing a secure connection.
+
+### SSH Authentication Process
+
+1. **Key Generation**: You generate a pair of cryptographic keys, a public key and a private key.
+2. **Key Deployment**: You copy your public key to the remote host's authorized keys list while keeping the private key secure on your local machine.
+3. **Authentication**: When logging in, the SSH server verifies that you possess the corresponding private key by offering a challenge that can only be correctly responded to by someone with the private key.
+
+### SSH Agent
+
+The problem with the above process is that if your private key is encrypted with a passphrase (which it should be for security), you must enter this passphrase every time you use the key. This can become tedious if you frequently SSH into servers. Enter SSH agent, a key manager that:
+
+- **Holds private keys** in memory, decrypted, for the duration of an active user session.
+- **Handles authentication requests** from SSH clients using the loaded keys.
+- **Eliminates the need** to repeatedly enter passphrases during a session.
+
+:::infoUsage
+
+When you start a session, you can add your private keys to the agent by executing `ssh-add`. If your keys are passphrase-protected, you will need to enter the passphrase once.
+
+```shell
+$ ssh-add ~/.ssh/id_rsa
+```
+
+SSH clients are configured to communicate with the agent and use it for authentication when connecting to a remote server.
+:::
+
+### SSH Agent Forwarding
+
+SSH agent can also handle SSH agent forwarding, which allows you to connect from the server you're logged into to another server, without having your keys on the intermediate server. This is useful but also poses a security risk if not used carefully.
+
+:::cautionConsiderations
+
+- **Security Implication**: You should be cautious with agent forwarding because if a server you're using is compromised, an attacker might use your ssh-agent to authenticate to other servers.
+- **Life Span**: By default, the ssh-agent doesn't persist across system reboots. Keys need to be re-added after a reboot.
+
+SSH agent is often started automatically by the system or during the login session for the desktop environment, but it can be manually started as well with the `ssh-agent` command.
+
+```shell
+$ eval $(ssh-agent -s)
+```
+:::
+
+## Examples
+
+### Generate key for gitHub
+
 [Generating a new SSH key pair](https://gitlab.com/help/ssh/README#generating-a-new-ssh-key-pair)
 Following best practices, you should always favor **ED25519** SSH keys, since they are more secure and have better performance over the other types.
 
@@ -30,7 +75,8 @@ ssh-keygen -t ed25519 -C "email@example.com"
 #Enter same passphrase again: (直接return)
 ```
 
-## Adding ssh keys for single sign-on 
+### Adding ssh keys for single sign-on 
+
 ``` shell
 # Copy your public SSH key to the clipboard
 xclip -sel clip < ~/.ssh/id_ed25519.pub
