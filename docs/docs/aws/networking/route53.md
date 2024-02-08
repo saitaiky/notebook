@@ -10,25 +10,16 @@ Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS
 
 ## Routing policies
 
-1. **Simple Routing**: Distributes traffic across multiple resources, such as EC2 instances, in a round-robin manner.
-
-2. **Weighted Routing**: Allows you to assign different weights to resources, directing a proportion of traffic based on those weights.
-
-3. **Latency-Based Routing**: Routes traffic to the resource with the lowest latency for a user's geographic location. (If your application is hosted in multiple AWS Regions, you can **improve performance** for your users by serving their requests from the AWS Region that provides the lowest latency.)
-
-4. **Failover Routing**: Routes traffic to a **secondary resource** in case the first resource becomes unhealthy.
-
-5. **Geolocation Routing**: Directs traffic based on the geographic location of the user, helping **tailor content** for different regions.
-
-6. **Geoproximity Routing**: Routes traffic based on the geographic location of the user, with the ability to define **bias**(optionally choose to route more traffic or less to a given resource by specifying a value) towards specific resources. It allows you to **shift traffic** from resources in one location to resources in another.
-
-7. **Multivalue Answer Routing**: Returns multiple healthy records in response to DNS queries, offering a simple form of load balancing.
-
-8. **Traffic Flow**: Allows you to create advanced routing policies using a visual editor to define complex routing logic.
-
-9. **Private DNS for Amazon VPC**: Routes traffic between resources within a Virtual Private Cloud (VPC) using custom DNS names.
-
-10. **Hybrid Routing**: Combines the use of on-premises DNS servers with Route 53 for a hybrid architecture.
+- **Simple Routing**: Distributes traffic across multiple resources, such as EC2 instances, in a round-robin manner.
+- **Weighted Routing**: Allows you to assign different weights to resources, directing a proportion of traffic based on those weights.
+- **Latency-Based Routing**: Routes traffic to the resource with the lowest latency for a user's geographic location. (If your application is hosted in multiple AWS Regions, you can **improve performance** for your users by serving their requests from the AWS Region that provides the lowest latency.)
+- **Failover Routing**: Routes traffic to a **secondary resource** in case the first resource becomes unhealthy.
+- **Geolocation Routing**: Directs traffic based on the geographic location of the user, helping **tailor content** for different regions.
+- **Geoproximity Routing**: Routes traffic based on the geographic location of the user, with the ability to define **bias**(optionally choose to route more traffic or less to a given resource by specifying a value) towards specific resources. It allows you to **shift traffic** from resources in one location to resources in another.
+- **Multivalue Answer Routing**: Returns multiple healthy records in response to DNS queries, offering a simple form of load balancing.
+- **Traffic Flow**: Allows you to create advanced routing policies using a visual editor to define complex routing logic.
+- **Private DNS for Amazon VPC**: Routes traffic between resources within a Virtual Private Cloud (VPC) using custom DNS names.
+- **Hybrid Routing**: Combines the use of on-premises DNS servers with Route 53 for a hybrid architecture.
 
 ## Private hosted zones
 
@@ -38,7 +29,7 @@ A private hosted zone is a container for records for a domain that you host in o
 
 :::cautionA record or CName for creating a custom domain to connect to a database with a custom domain in a Route53 private hosted zone?
 
-You should use **A record** directly to point the traffic to db.yourMainDomain.com instead of using **CNAME**, because it will cost an extra DNS lookup instead of routing to the DB IP address directly. 
+You need use **A record** directly to point the traffic to db.yourMainDomain.com instead of using **CNAME**, because it will cost an extra DNS lookup instead of routing to the DB IP address directly. 
 
 ![private-hosted-zone](/img/aws/networking/route53/private-hosted-zone.jpg)
 Credit: tutorialsdojo.com
@@ -134,7 +125,7 @@ For example, suppose you create three weighted A records, and you assign health 
 By default, Route 53 Resolver automatically answers DNS queries for local VPC domain names for EC2 instances. You can integrate DNS resolution between Resolver and DNS resolvers on your on-premises network by configuring forwarding rules.
 
 :::info 
-DNS resolution between AWS VPC and on-premises network can be configured over a **Direct Connect** or ****VPN connection**
+DNS resolution between AWS VPC and on-premises network can be configured over a **Direct Connect** or **VPN connection**
 :::
 
 :::caution
@@ -175,3 +166,21 @@ Source: [Set up integrated DNS resolution for hybrid networks in Amazon Route 53
 ![dns-resolvers](/img/aws/networking/route53/dns-resolvers-0.svg)
 
 Source: [DNS Resolvers](https://support.stax.io/hc/en-us/articles/4452175759119-DNS-Resolvers)
+
+## Integrate the 3rd party DNS provider
+
+Even if your domain was initially registered with a third-party registrar such as GoDaddy or Google Domains, you can integrate its management with Route 53. Let's consider a hypothetical scenario where you've registered "mycompany.com" via a third-party service and wish to manage it through Route 53 within your AWS environment.
+
+The transition involves two fundamental actions:
+
+1. **Initiate a Hosted Zone in Route 53:** 
+   Begin by establishing a hosted zone for your domain in Route 53, ensuring it is designated as 'public'. Upon the creation of this zone, you'll receive a set of name servers specific to it, which play a crucial role in the subsequent step.
+
+![Hosted Zone creation in Route 53](/img/aws/networking/route53/hosted-zone.png)
+
+2. **Replace Name Server Records at Your Original Registrar:**
+   Next, navigate to the domain settings on your original registrar's website and update the name server (NS) records with the ones provided by Route 53's hosted zone.
+
+![Updating NS records with Route 53 name servers](/img/aws/networking/route53/4ns.png)
+
+By accomplishing these two steps, your domain will actively leverage the hosted zone configured in Route 53. This allows you to apply various policies and utilize the full suite of features offered by Route 53 for your domain's DNS management.
