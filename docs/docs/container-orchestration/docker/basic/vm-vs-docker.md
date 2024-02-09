@@ -1,5 +1,5 @@
 ---
-title: VM VS Docker
+title: VM vs Docker
 sidebar_position: 3
 ---
 
@@ -26,7 +26,7 @@ The key is that the underlying architecture is fundamentally different between t
 - **Houses (the VMs)** are fully self-contained and offer protection from unwanted guests. They also each possess their own infrastructure – plumbing, heating, electrical, etc. Furthermore, in the vast majority of cases houses are all going to have at a minimum a bedroom,
 living area, bathroom, and kitchen. It’s incredibly difficult to ever find a “studio house” – even if one buys the smallest house they can find, they may end up buying more than they need because that’s just how houses are built. 
 
-- **Apartments (Docker containers)** also offer protection from unwanted guests, but they are built around shared infrastructure. The apartment building (the server running the Docker daemon, otherwise known as a Docker host) offers shared plumbing, heating, electrical, etc. to each apartment. Additionally apartments are offered in several different sizes – from studio to multi-bedroom penthouse. You’re only renting exactly what you need. 
+- **Apartments (Docker containers)** also offer protection from unwanted guests, but they are built around shared infrastructure. The apartment building (the server running the **Docker daemon**, otherwise known as a Docker host) offers shared plumbing, heating, electrical, etc. to each apartment. Additionally apartments are offered in several different sizes – from studio to multi-bedroom penthouse. You’re only renting exactly what you need. 
 
 ## Underlying resources
 Docker containers share the underlying resources of the Docker host. Furthermore, developers build a Docker image that includes exactly what they need to run their application: starting with the basics and adding in only what is needed by the application.

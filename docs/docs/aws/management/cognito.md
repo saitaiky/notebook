@@ -41,7 +41,8 @@ An example of SAML identity provider (IDP) is a self-hosted** Active Directory F
 :::
 
 ![sso-ad](/img/aws/management/cognito/sso-ad.png)
-Image credit: Double Octopus
+
+Source: Double Octopus
 
 Azure AD is a cloud-based identity and access management (IAM) solution for enterprises. You can think of it as the backbone of the Office 365 system, which syncs with on-premise Active Directory and provides OAuth authentication to other cloud-based applications.
 

@@ -2,6 +2,8 @@
 title: Sharding
 ---
 
+> TL;DR - Database sharding can significantly improve both read and write performance under the right circumstances unlike replication which only improve the read performance.
+
 In traditional database systems, Relational Database Management Systems(RDBMS) can hit performance limits due to CPU, memory, or disk bottlenecks, requiring premium hardware for maintaining performance. Yet, even the best hardware may not meet the data demands of successful modern applications. 
 
 To manage large data sets, tables can be split into horizontal segments, known as *shards*, and distributed across different database servers. Each server is only responsible for a subset of the data (**data shard**) it stores. Any data request will first need to go through a hashing process, so that it can be redirected to the server which contains the corresponding data shard. This technique, termed **database sharding**, strategically partitions tables.

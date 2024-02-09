@@ -10,7 +10,7 @@ Finally, modern messaging apps like iMessage, Whatsapp, and Signal often use **
 
 ## Type of encryption
 
-![types-of-encryption](/img/software-development/system-design/encryption/types-of-encryption.jpg)
+![types-of-encryption](/img/software-development/system-design/security/types-of-encryption.jpg)
 
 Source: [Encryption](https://computer-trickster.blogspot.com/2015/11/encryption.html)
 

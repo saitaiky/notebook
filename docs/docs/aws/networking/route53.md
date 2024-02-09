@@ -8,6 +8,10 @@ sidebar_position: 3
 
 Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS – such as Amazon EC2 instances – and can also be used to route users to infrastructure outside of AWS. 
 
+Route 53 can make use of:
+- Public domain name. E.g myapp.publicdomainname.com
+- Private domain names that can be resolved in your VPC(Virtual Private Cloud — another resource in AWS). E.g app.company.internal
+
 ## Routing policies
 
 - **Simple Routing**: Distributes traffic across multiple resources, such as EC2 instances, in a round-robin manner.
@@ -171,6 +175,16 @@ Source: [DNS Resolvers](https://support.stax.io/hc/en-us/articles/4452175759119-
 
 Even if your domain was initially registered with a third-party registrar such as GoDaddy or Google Domains, you can integrate its management with Route 53. Let's consider a hypothetical scenario where you've registered "mycompany.com" via a third-party service and wish to manage it through Route 53 within your AWS environment.
 
+:::infoWhy Route 53?
+Below are the benefits if you use Route 53 to manage your domain name which your domain provider may not has:
+
+- Can perform load balancing
+- Availability Monitoring: Can perform health checks on your instances
+- Can route users to different services based on location
+- Has different routing policies like Simple, failover, latency, geolocation and weighted.
+- Domain Registration
+:::
+
 The transition involves two fundamental actions:
 
 1. **Initiate a Hosted Zone in Route 53:** 
@@ -178,8 +192,8 @@ The transition involves two fundamental actions:
 
 ![Hosted Zone creation in Route 53](/img/aws/networking/route53/hosted-zone.png)
 
-2. **Replace Name Server Records at Your Original Registrar:**
-   Next, navigate to the domain settings on your original registrar's website and update the name server (NS) records with the ones provided by Route 53's hosted zone.
+2. **Replace Name Server Records at Your domain Registrar:**
+   Next, navigate to the domain settings on your domain registrar's website and update the name server (NS) records with the ones provided by Route 53's hosted zone.
 
 ![Updating NS records with Route 53 name servers](/img/aws/networking/route53/4ns.png)
 
