@@ -78,7 +78,7 @@ Given its primary features, Instagram's functional requirements include:
 
 Once you've aligned with your interviewer on the functional requirements, think about the non-functional requirements of the system design. These might be linked to business objectives or the user experience.
 
-Common non-functional requirements include: scalability, latency, security, consistency, reliability, availability, and maintainability. Check [System design principle](/software-development/system-design/system-design-principle/) for the detail
+Common non-functional requirements include: scalability, latency, security, consistency, reliability, availability, and maintainability. Check [System design principle](/software-development/system-design/design-framework/system-design-principle/) for the detail
 
 Some questions you might ask your interviewer are:
 -   What scale is this system?
