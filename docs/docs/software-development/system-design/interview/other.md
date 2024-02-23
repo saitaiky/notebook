@@ -7,14 +7,6 @@ Web protocols might not be an area you're likely to deep-dive or discuss explici
 - At the application layer, you have some choices to make as well. You'll probably choose HTTPS over HTTP for security reasons. If you need to maintain open client-server communications (for example, if you're building a fast-paced two-player game and you need to maintain up-to-date scores) you may choose WebSocket over HTTP.
 - If you're designing a service with an API, consider HTTP (HTTPS) over WebSocket as you'll be able to make use of HTTPs standardized request methods and status codes; important if you're designing a RESTful API.
 
-
-## Load Balancing
-
-Below are 3 points to keep in mind when implement load balancing to your application
-- Bottlenecks. As scale increases, load balancers can themselves become a bottleneck or single point of failure, so multiple load balancers must be used to guarantee availability. [DNS round robin](https://en.wikipedia.org/wiki/Round-robin_DNS) can be used to balance traffic across different load balancers.
-- User sessions. The same user's requests can be served from different backends unless the load balancer is configured otherwise. This could be problematic for applications that rely on session data that isn't shared across servers.
-- Longer deploys. Deploying new server versions can take longer and require more machines since the load balancer needs to roll over traffic to the new servers and drain requests from the old machines.
-
 ## CDN
 
 A CDN can be thought of as a globally distributed group of servers that cache static assets for your origin server. Every CDN server has its own local cache and they should all be in sync. There are two primary ways for a CDN cache to be populated, which creates the distinction between Push and Pull CDNs. 
