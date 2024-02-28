@@ -71,7 +71,7 @@ Some databases automatically manage sharding, dynamically adjusting partitions f
 
 ## Should I Shard?
 
-> This part is copy from the original article from [Understanding Database Sharding]((https://www.digitalocean.com/community/tutorials/understanding-database-sharding#should-i-shard)[](https://www.digitalocean.com/community/tutorials/understanding-database-sharding#should-i-shard))
+> This part is copy from the original article from [Understanding Database Sharding](https://www.digitalocean.com/community/tutorials/understanding-database-sharding#should-i-shard)
 
 Whether or not one should implement a sharded database architecture is almost always a matter of debate. Some see sharding as an inevitable outcome for databases that reach a certain size, while others see it as a headache that should be avoided unless it's absolutely necessary, due to the operational complexity that sharding adds.
 
