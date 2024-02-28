@@ -193,7 +193,7 @@ The transition involves two fundamental actions:
 ![Hosted Zone creation in Route 53](/img/aws/networking/route53/hosted-zone.png)
 
 2. **Replace Name Server Records at Your domain Registrar:**
-   Next, navigate to the domain settings on your domain registrar's website and update the name server (NS) records with the ones provided by Route 53's hosted zone.
+   Once this is created, you will be presented with up to 4 nameservers(NS) records. Navigate to the domain settings on your domain registrar's website and update the name server (NS) records with the ones provided by Route 53's hosted zone.
 
 ![Updating NS records with Route 53 name servers](/img/aws/networking/route53/4ns.png)
 

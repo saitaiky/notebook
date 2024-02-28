@@ -27,7 +27,7 @@ In this article, we'll take a look at different types of microservices data mana
 - **CQRS** - implement queries by maintaining one or more materialized views that can be efficiently queried
 - **Event sourcing** - persist aggregates as a sequence of events
 
-## Database per service
+## XXX per service
 
 The service’s database is effectively part of the implementation of that service. It cannot be accessed directly by other services.
 
@@ -35,6 +35,48 @@ There are a few different ways to keep a service’s persistent data private. Yo
 - **Private-tables-per-service** – each service owns a set of tables that must only be accessed by that service
 - **Schema-per-service** – each service has a database schema that’s private to that service
 - **Database-server-per-service** – each service has it’s own database server.
+
+### Database per service
+
+Here's a simple diagram that illustrates the Database per Service pattern:
+
+```mermaid
+flowchart TB
+
+subgraph Service_A["Service A"]
+  A_API[("API A")]
+  A_DB[(Database A)]
+  A_API --- A_DB
+end
+
+subgraph Service_B["Service B"]
+  B_API[("API B")]
+  B_DB[(Database B)]
+  B_API --- B_DB
+end
+
+subgraph Service_C["Service C"]
+  C_API[("API C")]
+  C_DB[(Database C)]
+  C_API --- C_DB
+end
+
+Client --> A_API
+Client --> B_API
+Client --> C_API
+
+style Service_A fill:#f9f,stroke:#333,stroke-width:2px
+style Service_B fill:#f9f,stroke:#333,stroke-width:2px
+style Service_C fill:#f9f,stroke:#333,stroke-width:2px
+```
+
+In the diagram above:
+
+- Each "Service" (A, B, C) is represented as a microservice in the system.
+- Each service has its own API endpoint (API A, API B, API C).
+- Each service manages its own database (Database A, Database B, Database C).
+- A client interacts with each microservice only through its API endpoints.
+
 
 ### Benefits
 - Helps ensure that the services are loosely coupled. Changes to one service’s database does not impact any other services.
@@ -145,6 +187,10 @@ The CQRS pattern typically results in **eventual consistency** between the data 
 
 The saga pattern is **a failure management pattern** that helps establish consistency in distributed applications, and coordinates transactions between multiple microservices to maintain data consistency. A microservice publishes an event for every transaction, and the next transaction is initiated based on the event's outcome. It can take two different paths, depending on the success or failure of the transactions.
 
+:::cautionTechniques & considerations
+Sagas can introduce quite a lot of complexity into your system. You'll have to build the set(s) of compensating transactions that are triggered by different failures. Depending on your application, this might require substantial work upfront to understand user behavior and potential failure modes.
+:::
+
 ### Why is this a failure management pattern?
 In a distributed transaction, multiple services can be called before a transaction is completed. When the services store data in different data stores, it can be challenging to maintain data consistency across these data stores.
 
@@ -154,8 +200,15 @@ To maintain consistency in a transaction, relational databases provide **two-pha
 
 In distributed systems architected with microservices, **two-phase commit** is not an option as the transaction is distributed across various databases. In this case, one solution is to use **the saga pattern**.
 
-:::info Example
+:::infoExample
 For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit. Since Orders and Customers are in different databases owned by different services the application cannot simply use a local ACID transaction.
+:::
+
+:::infoUse cases
+- Maintains data consistency across multiple services.
+- Well-suited to any microservice application where **idempotency** (the ability to apply the same operation multiple times without changing the result beyond the first try) is important, like when charging credit cards.
+- **Choreographed saga**: For microservices in which there aren't many participants or the set of counter transactions required is discrete and small consider choreographed saga as there's no single point of failure.
+- **Orchestrated saga**: For more complex microservices, consider orchestrated saga.
 :::
 
 ### How to implement it?
@@ -168,7 +221,7 @@ There are two ways of coordination sagas:
 - **Choreography** - each local transaction publishes domain events that trigger local transactions in other services
 - **Orchestration** - an orchestrator (object) tells the participants what local transactions to execute 
 
-### Choreography strategy
+#### Choreography strategy
 
 Choreography is the simplest way to implement SAGA pattern. Each local transaction in chain is independent as they don’t have direct knowledge of each other. **If your distributed transaction only includes from 2 to 4 local transactions then Choreography is very fit option.** But having too many local transactions will make tracking which services listen to which events becomes very complex.
 
@@ -180,7 +233,7 @@ Source: [AWS-Building a serverless distributed application using a saga orchestr
 ![event-bridge](/img/software-development/system-design/data/event-bridge.png)
 Source: [Choreography vs Orchestration in the land of serverless](https://theburningmonk.com/2020/08/choreography-vs-orchestration-in-the-land-of-serverless/)
 
-### Orchestration strategy
+#### Orchestration strategy
 
 - Easy to maintain the whole workflow in one place — Orchestrator.
 - Avoid cyclic dependencies between services. All services only communicate with Orchestrator.

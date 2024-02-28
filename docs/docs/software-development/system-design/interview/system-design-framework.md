@@ -78,14 +78,26 @@ Given its primary features, Instagram's functional requirements include:
 
 Once you've aligned with your interviewer on the functional requirements, think about the non-functional requirements of the system design. These might be linked to business objectives or the user experience.
 
-Common non-functional requirements include: scalability, latency, security, consistency, reliability, availability, and maintainability. Check [System design principle](/software-development/system-design/design-framework/system-design-principle/) for the detail
+Below is the table of some of the non-functional requirements. Check [System design principle](/software-development/system-design/models-patterns-strategy/system-design-principle/) for what AWS define their Well-Architected 6 piallars are.
 
-Some questions you might ask your interviewer are:
--   What scale is this system?
--   How many users should our app support?
--   How many requests should our system handle?
--   Are most use cases read-only?
--   How important is it that users see accurate, up-to-date data? How important is it that services are available? How important is it for us to horizontally scale?
+| Requirement | Question |
+| --- | --- |
+| Performance | How fast is the system? |
+| Scalability | How will the system respond to increased demand? |
+| Reliability | What is the system's uptime? |
+| Resilience | How will the system recover if it fails? |
+| Security | How are the system and data protected? |
+| Usability | How do users interact with the system? |
+| Maintainability | How will you troubleshoot the system? |
+| Modifiability | Can users customize features? Can developers change the code? |
+| Localization | Will the system handle currencies, timezone, languages? |
+
+Based on the non-functional requirement, here are the some questions you might ask your interviewer:
+- What scale is this system?
+- How many users should our app support?
+- How many requests should our system handle?
+- Are most use cases read-only?
+- How important is it that users see accurate, up-to-date data? How important is it that services are available? How important is it for us to horizontally scale?
 
 Depending on the design constraints that your interviewer responds with, focus on the most critical aspects. Make sure to explain your reasoning to your interviewer and check in with them. They may be interested in a particular aspect of your system, so listen to **their hints** if they nudge you in one direction.
 

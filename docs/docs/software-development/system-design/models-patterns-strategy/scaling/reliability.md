@@ -23,14 +23,15 @@ When implementing reliability techniques in an interview scenario, it's helpful 
 - Include testing strategies and monitoring techniques to help you benchmark your system in terms of requirements, monitor its health, and make changes as needed. 
 :::
 
-## Retries - transient errors
+## Retries
 
-> TL;DR - To handle transient failures by attempting the same operation more than once.
+> TL;DR - To handle **transient failures** by attempting the same operation more than once.
 
-- Under a **simple retry** strategy, an application detecting a failure will immediately retry. This might work well if the failure detected is unusual and unlikely to repeat, but for common transient failures (e.g. network failures) repeat retries may overload the downstream system once the network issue is resolved. People who use **simple retry** usually implement some type of request limit to prevent overload.
-- **Delayed retry** holds the retry back for a set amount of time allowing the system to recover. 
-- Many engineers implement an **exponential backoff** strategy that systematically decreases the rate of re-transmission in search of an acceptable retry rate.
-rce unavailability.
+- Under a **simple retry** strategy is for **unusual transient errors**
+    - An application detecting a failure will immediately retry. This might work well if the failure detected is unusual and unlikely to repeat, but for common transient failures (e.g. network failures) repeat retries may overload the downstream system once the network issue is resolved. People who use **simple retry** usually implement some type of request limit to prevent overload.
+- **Delayed retry** strategy is for **common transient errors**
+    - It holds the retry back for a set amount of time allowing the system to recover. 
+    - Many engineers implement an **exponential backoff** strategy that systematically decreases the rate of re-transmission in search of an acceptable retry rate.
 
 :::cautionTechniques & considerations
 Retry buildup in high-traffic systems can lead to extremely high system load once the error is resolved. This is called the **thundering herd** problem, and it can cause even more problems than the transient error as your resource(s) struggle to cope with the request volume. A simple solution is to introduce **jitter**, or "randomness" to the delay intervals so that client requests don't synchronize.
@@ -39,28 +40,51 @@ From a UX perspective, keep in mind that in some cases it's better to fail fast 
 :::
 
 
-## Circuit Breakers - non-transient errors
-
-> TL;DR - To prevent a flood of requests when a service is struggling and to allow it time to recover.
-
-A circuit breaker is a pattern that detects failures and encloses the failure operation in a circuit. If the errors continue to occur and go beyond a threshold, the circuit breaker 'trips', and further calls to the operation are inhibited. After a predefined period, it allows a limited number of test requests to pass through to check if the underlying problem has been fixed.
-
-**Use Cases:**
-- Protecting a system from overload and giving downed services time to recover.
-- Preventing a client from trying to perform an operation that is likely to fail.
-
-
 ## Circuit Breakers
 
-- **Use Cases**: Avoiding overloading a failing service, managing repeated service outages, and protecting user experience from repeated failures.
+> TL;DR - To handle **non-transient failures** or **transient errors with uncertain recovery times** by preventing a flood of requests when a service is struggling and to allow it time to recover to protect user experience from repeated failures.
 
-## Saga
+A circuit breaker is a pattern that detects failures and encloses the failure operation in a circuit. If the errors continue to occur and go beyond a threshold, the circuit breaker 'trips', and further calls to the operation are inhibited. Importantly, after a predefined period, it allows a limited number of test requests to pass through to check if the underlying problem has been fixed.
 
-> TL;DR - To manage transactions across multiple microservices by ensuring that all associated steps either complete successfully or any partial changes are compensated for.
+While a retry pattern assumes that the operation will ultimately succeed, a **circuit breaker** accepts failure and stops the application from repeatedly trying to execute. This saves computing power and helps prevent the cascading failures we discussed above. 
 
-**Strategy Explanation:**
-Saga is a sequence of local transactions, where each transaction updates data within a single service. If a transaction in a saga fails, compensating transactions are triggered to undo the changes made by the preceding transactions in the saga.
+:::cautionTechniques & considerations
+There are a few main points to remember when implementing circuit breakers.
 
-- **Use Cases**: Handling sequence of related operations across distributed systems that need to maintain consistent state.
+- When configuring circuit breakers in system design, it's important to consider factors such as the failure threshold, timeout duration, recovery timeout(depends on the recovery patterns you anticipate), and expected traffic patterns to ensure resilience while avoiding unnecessary interruptions to service.
+- You'll need to address exceptions raised when a resource protected with a circuit breaker is unavailable. Common solutions are to temporarily switch to more basic functionality, try a different data source, or to alert the user.
+:::
 
 
+### Use Cases
+
+- Prevents cascading failures when a shared resource goes down.
+- Allows for a fast response in cases where performance and response time are critical (by immediately rejecting operations that are likely to timeout or fail).
+- Circuit breakers' failure counters combined with event logs contain valuable data that can be used to identify failure-prone resources.
+
+
+### Diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> Closed: Start
+    Closed --> Open: Failure threshold reached
+    Open --> HalfOpen: Reset timeout expired
+    HalfOpen --> Closed: Success threshold reached
+    HalfOpen --> Open: Any failure
+    Closed --> Closed: Call success
+    Open --> Open: Reset timeout not expired
+```
+
+In the Circuit Breaker pattern applied to system design, the states represent the following:
+
+- **Closed**: The request from the application is allowed through to the underlying system. The circuit breaker is in normal operation, monitoring the number of recent failures. If everything is working fine and the failures are below a threshold, it remains in the Closed state.
+- **Open**: The failure threshold has been reached, so the circuit breaker "opens" to prevent any further requests to the underlying system, thus giving it time to recover.
+- **Half-Open**: After a predefined timeout when the circuit breaker is in an Open state, it enters a Half-Open state. In this state, a limited number of test requests are allowed through. If these requests succeed without failure, the circuit breaker transitions back to Closed. If any of these requests fail, it goes back to the Open state.
+
+
+
+
+## Reliability in micro-services
+
+[Sega pattern](/software-development/system-design/data/data-management/#sega-pattern) is a pattern that establish consistency in distributed applications.

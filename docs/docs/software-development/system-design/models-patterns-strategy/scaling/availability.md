@@ -58,7 +58,7 @@ Gateway aggregation is a pattern where a gateway is used to combine multiple req
 Gateways are simple, but if yours isn't designed well you'll have built a potential point of failure. Make sure your gateway can handle the anticipated load and scale as you grow. Implement reliable design techniques like circuit breakers or retries and be sure to load test the gateway. If it performs multiple functions, you might want to add an aggregation service in front of the gateway, freeing it up to perform its other functions and route requests correctly and quickly.
 :::
 
-**Diagram**
+### Diagram
 
 This diagram shows the client making a request to the gateway, which then routes the requests to the appropriate microservice. Each microservice has its own dedicated database. This separation allows for better scalability, maintainability, and resilience of the system.
 
