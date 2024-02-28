@@ -65,9 +65,7 @@ The best time value to set for the visibility timeout will be at least the timeo
 ### At-least-once delivery
 
 :::info Deep dive disucssion
-I have made a note about different type of messaging system before. If you would like to learn more about his topic, visit the [Messaging within distributed system](/software-development/system-design/queue/overview) page.
-
-If you want to check the official document, visit [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
+To check different type of messaging systems, visit the [Messaging within distributed system](/software-development/system-design/queue/overview) page. If you want to check the official document, visit [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
 :::
 
 Amazon SQS stores copies of your messages on multiple servers for redundancy and high availability. On rare occasions, one of the servers that stores a copy of a message might be unavailable when you receive or delete a message.
@@ -82,7 +80,13 @@ When duplicates can't be tolerated, [FIFO (first-in-first-out) message queues](
 
 ### Push and Pull Delivery
 
-Most [message queues](https://aws.amazon.com/sqs/) provide both push and pull options for retrieving messages. Pull means continuously querying the queue for new messages. Push means that a consumer is notified when a message is available (this is also called [Pub/Sub messaging](https://aws.amazon.com/pub-sub-messaging/) - SQS+SNS). You can also use long-polling to allow pulls to wait a specified amount of time for new messages to arrive before completing.
+Most [message queues](https://aws.amazon.com/sqs/) provide both push and pull options for retrieving messages. 
+- Pull means continuously querying the queue for new messages. You can also use long-polling to allow pulls to wait a specified amount of time for new messages to arrive before completing.
+- Push means that a consumer is notified when a message is available (this is also called [Pub/Sub messaging](https://aws.amazon.com/pub-sub-messaging/) - SQS+SNS). Some of the supported [Pub/Sub publish subscribe patterns](https://cloud.google.com/pubsub/docs/pubsub-basics#choose_a_publish_and_subscribe_pattern) include the following: Fan in (many-to-one)
+  - Fan in (many-to-one)
+  - Load balanced (many-to-many)
+  - Fan out (one-to-many): In this example, a single or multiple publisher applications publish messages to a single topic. This single topic is attached to multiple subscriptions. Each subscription is connected to a single subscriber application. Each of the subscriber applications gets the same set of published messages from the topic. When a topic has multiple subscriptions, then every message has to be sent to a subscriber receiving messages on behalf of each subscription. If you need to *perform different data operations on the same set of messages*, fan out is a good option. You can also attach multiple subscribers to each subscription and get a load-balanced subset of messages for each subscriber.
+
 
 
 ## Trouble shooting
@@ -96,5 +100,3 @@ Most [message queues](https://aws.amazon.com/sqs/) provide both push and pull 
 :::info
 By default, FIFO queues support up to 3,000 messages per second with batching, or up to 300 messages per second (300 send, receive, or delete operations per second) without batching. 
 :::
-
-
