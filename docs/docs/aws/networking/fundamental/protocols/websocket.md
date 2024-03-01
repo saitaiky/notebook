@@ -58,6 +58,22 @@ Always consider the specific needs of your application, such as support for lega
 
 > WebSocket open a connection within a session, but unlike long pulling which provides one way communication, it's bi-directional communication. Rather than the usual request/response lifecycle, with a client asking a server for resources, WebSockets allow for messages to be sent in either direction. 
 
+:::infoBusting a myth - 64K Port limitation
+Because Websocket builds on top of TCP, it'll have the same port limitation inherited from TCP. A TCP Port field is 2x bytes and holds a quantity of 65536. This number limits the amount of addresses a server can have. **But this doesn't limit the number of clients to ~64k. **
+
+A given TCP connection is a tuple of the source and destination, each with IP address and Port number. The destination (the server side) remains fixed, but the source address (the client side) can vary over both Port AND IP Address.
+
+Consider:
+- Server IP - 100.0.0.1 (Fixed)
+- Server Port - 80 (Fixed)
+- Client IP - 0.0.0.0 - 255.255.255.255 (32-bit Range)
+- Client Port - 0 - 65535 (16-bit Range)
+
+Yes, a client (or office) with a single IP address, can only connect to your server 65535 times concurrently, but if that client (or office) had multiple IPv4 addresses, they could connect many multiples of that more.
+[Is a TCP server limited to 65535 clients?](https://networkengineering.stackexchange.com/questions/48283/is-a-tcp-server-limited-to-65535-clients/48284)
+[In a tcp connection, how possibly can a server handle more than 65535 client at an instant?](https://stackoverflow.com/questions/44605797/in-a-tcp-connection-how-possibly-can-a-server-handle-more-than-65535-client-at)
+:::
+
 WebSocket is a newer communications protocol designed as an alternative which helps solve some key issues. HTTP was designed to be strictly unidirectional; the client must always request data from the server, and only one HTTP request can be sent per session. Lots of modern applications require longer session times and/or continuous updates from the server. Long-polling, a technique that keeps client-server connections open longer, helps, but it doesn't solve the problem --- and it's very resource-intensive. 
 
 By default, a single server can handle 65,536 socket connections just because it’s the max number of TCP ports available. So as WS connections have a TCP nature and each WS client takes one port we can definitely say that number of websocket connections is also limited.

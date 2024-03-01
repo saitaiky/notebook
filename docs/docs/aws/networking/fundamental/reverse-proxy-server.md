@@ -2,17 +2,16 @@
 title: Reverse Proxy
 ---
 
+> TL;DR - Load balancers are most commonly deployed when a site needs multiple servers because the volume of requests is too much for a single server to handle efficiently. Whereas deploying a load balancer makes sense only when you have multiple servers, it often makes sense to deploy a reverse proxy even with just one web server or application server. 
+
 ![reverse-proxy-flow](/img/aws/networking/fundamental/reverse-proxy-flow.svg)
 
 Source: [What is a reverse proxy?](https://www.cloudflare.com/en-gb/learning/cdn/glossary/reverse-proxy/)
 
-A proxy server is a go‑between or intermediary server that forwards requests for content from multiple clients to different servers across the Internet. **A reverse proxy server** is a type of proxy server that typically sits behind the firewall in a private network and directs client requests to the appropriate backend server. A reverse proxy provides an additional level of abstraction and control to ensure the smooth flow of network traffic between clients and servers
+A proxy server is a go‑between or intermediary server that forwards requests for content from multiple clients to different servers across the Internet. **A reverse proxy server** is a type of proxy server that typically sits behind the firewall in a private network and directs client requests to the appropriate backend server. A reverse proxy provides an additional level of abstraction and control to ensure the smooth flow of network traffic between clients and servers. The benefits are two-fold:
 
-Common uses for a reverse proxy server include:
-
-- **Load balancing** – A reverse proxy server can act as a “traffic cop,” sitting in front of your backend servers and distributing client requests across a group of servers in a manner that maximizes speed and capacity utilization while ensuring no one server is overloaded, which can degrade performance. If a server goes down, the load balancer redirects traffic to the remaining online servers.
 - **Web acceleration** – Reverse proxies can **compress** inbound and outbound data, as well as **cache** commonly requested content, both of which speed up the flow of traffic between clients and servers. They can also perform additional tasks such as SSL encryption to take load off of your web servers, thereby [boosting their performance](https://www.nginx.com/resources/glossary/web-acceleration/).
-- **Security and anonymity** – By intercepting requests headed for your backend servers, a reverse proxy server protects their identities and acts as an additional defense against security attacks. It also ensures that multiple servers can be accessed from a single record locator or URL regardless of the structure of your local area network.
+- **Security and anonymity** – Because clients see only the reverse proxy’s IP address, you are free to change the configuration of your backend infrastructure. It also ensures that multiple servers can be accessed from a single record locator or URL regardless of the structure of your local area network.
 
 
 ## What’s a proxy and the difference between the forward & reverse proxy?
