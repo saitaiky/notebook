@@ -281,16 +281,20 @@ const config = {
                 label: 'Mermaid',
               },
               {
+                to: 'wiki',
+                label: 'Theme Style',
+              },
+              {
                 to: 'https://euangoddard.github.io/clipboard2markdown/',
                 label: 'Clipboard2MD',
               },
               {
-                to: 'https://htmlpreview.github.io/',
-                label: 'GitHub HTML preview',
+                to: 'https://www.freeformatter.com/json-escape.html#before-output',
+                label: 'JSON Escape/Unescape',
               },
               {
-                to: 'wiki',
-                label: 'Theme Style',
+                to: 'https://htmlpreview.github.io/',
+                label: 'GitHub HTML preview',
               },
               {
                 to: 'https://tabletomarkdown.com/convert-website-table-to-markdown/',
