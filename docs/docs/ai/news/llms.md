@@ -235,6 +235,7 @@ BERT was the first model to show how bidirectionality can model performance NLP 
 
 ### Other LLMs
 
+- **LLaMA** Announced February 2023 by Meta AI, the LLaMA model is available in multiple parameter sizes from 7 billion to 65 billion parameters. Meta claims LLaMA could help democratize access to the field, which has been hampered by the computing power required to train large models. Try it [here](https://www.llama2.space/)
 - **RoBERTa** (A Robustly Optimized BERT Pretraining Approach): RoBERTa is a variant of BERT developed by Facebook AI. It optimizes pretraining tasks and data to improve performance on a wide range of NLP benchmarks.
 - **ALBERT** (A Lite BERT): ALBERT, by Google Research and Toyota Technological Institute at Chicago, focuses on model efficiency and reducing the number of parameters while maintaining performance.
 
@@ -264,7 +265,7 @@ both models to achieve optimal results.
 Enterprises venturing into the use of large language models (LLMs) should be cautious of several common pitfalls, which apply irrespective of whether they customize, fine-tune, or build LLMs from the ground up. These include:
 
 - **Vulnerability to Adversarial Examples**: LLMs can be tricked by specially crafted inputs, posing security concerns, especially in sensitive industries like healthcare or finance.
-- Lack of Interpretability: Some LLMs may lack interpretability, making it challenging to understand their decision-making processes. This can be problematic in high-stakes scenarios and industries requiring transparency.
+- **Lack of Interpretabilit**y: Some LLMs may lack interpretability, making it challenging to understand their decision-making processes. This can be problematic in high-stakes scenarios and industries requiring transparency.
 - **Generic Responses**: LLMs may provide generic, uncustomized answers, sometimes reproducing trained text data. This raises ethical and legal issues, necessitating techniques like Reinforcement Learning from Human Feedback for improvement.
 - **Ethical Considerations**: The ethical use of LLMs in decision-making tasks, like candidate selection, without human supervision, should be questioned. Furthermore, their use for tasks typically performed by human white-collar workers requires assessment.
 - **Generation of Inappropriate Content**: LLMs, often trained on extensive Internet texts, may produce toxic, biased, and inappropriate content. Enterprises should be cautious of this potential issue.
