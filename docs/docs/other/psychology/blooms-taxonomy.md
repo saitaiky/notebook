@@ -1,5 +1,6 @@
 ---
 title: Blooms taxonomy
+sidebar_position: 6
 ---
 
 Bloom's Taxonomy is a widely-used framework in education which categorizes educational objectives into different levels of complexity and specificity. It was first presented by Benjamin Bloom in 1956, in his work "Taxonomy of Educational Objectives: The Classification of Educational Goals." The framework is designed to promote higher forms of thinking in education, such as analyzing and evaluating concepts, as opposed to just remembering facts (rote learning).

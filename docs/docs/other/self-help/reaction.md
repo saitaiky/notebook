@@ -6,9 +6,7 @@ title: Reaction
 
 ## Why do people question your thought?
 
-People question others when  
-- your thinking is not deep enough
-- you lack confidence
+People question others when your thinking is not deep enough or lack of confidence
 
 ### Shallow thinking
 

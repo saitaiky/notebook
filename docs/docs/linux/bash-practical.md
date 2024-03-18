@@ -148,12 +148,13 @@ ls -al 1 > list.txt 2 > /dev/null
 不能寫成其他格式！
 ```
 
-### Why do we need command redirect?
-- 當螢幕輸出的資訊很重要，而且我們需要將他存下來的時候；
-- 背景執行中的程式，不希望他干擾螢幕正常的輸出結果時；
-- 一些系統的例行命令（例如寫在 /etc/crontab 中的檔案）的執行結果，希望他可以存下來時；
-- 一些執行命令，我們已經知道他可能的錯誤訊息，所以想以『 2> /dev/null 』將他丟掉時；
-錯誤訊息與正確訊息需要分別輸出時。
+### Redirect is important when...
+
+- The information output on the screen is important, and we need to save it
+- A program is running in the background and we don't want it to interfere with the normal output on the screen
+- The execution results of some system's routine commands (for example, files written in /etc/crontab) need to be saved
+- Executing some commands, we already know their possible error messages, so we want to discard them with '2> /dev/null';
+- Error messages and correct messages need to be output separately.
 
 ### Summary
 - Each file in Linux has a corresponding File Descriptor associated with it
