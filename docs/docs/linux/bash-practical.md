@@ -4,9 +4,6 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
-http://linux.vbird.org/linux_basic/0320bash.php#returnvar
-http://linux.vbird.org/linux_basic/0340bashshell-scripts.php
-
 
 ## Wildcards and symbols
 
@@ -246,6 +243,10 @@ $ echo "$s"
 
 ## xargs
 
+:::infoxargs vs exec
+Using xargs is far more efficient. In fact [several benchmarks](https://www.everythingcli.org/find-exec-vs-find-xargs/) suggest using xargs over exec {} is six times more efficient.
+:::
+
 The `xargs` command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like [`grep`](https://shapeshed.com/unix-grep/) can accept standard input as a parameter, many other tools cannot. Using `xargs` allows tools like `echo` and [`rm`](https://shapeshed.com/unix-rm/) and [`mkdir`](https://shapeshed.com/unix-mkdir/) to accept standard input as arguments.
 
 ### How to use xargs
@@ -323,6 +324,7 @@ I hope that makes it more clear now.
 ## References
 
 - [Input Output Redirection in Linux/Unix Examples](https://www.guru99.com/linux-redirection.html)
-- [第十章、認識與學習BASH](http://linux.vbird.org/linux_basic/0320bash.php#bash_why)
+- [第十章、認識與學習BASH](https://linux.vbird.org/linux_basic/centos7/0320bash.php#bash_why)
+- [$：(關於本 shell 的 PID)](https://linux.vbird.org/linux_basic/centos7/0320bash.php#returnvar)
 - [I/O Redirection](http://linuxcommand.org/lc3_lts0070.php)
 - [Piping vs. command substitution--what's the difference?](https://www.reddit.com/r/linux4noobs/comments/9hz1pz/piping_vs_command_substitutionwhats_the_difference/)
