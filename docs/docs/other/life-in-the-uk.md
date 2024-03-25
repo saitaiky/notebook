@@ -15,7 +15,7 @@ The fundamental principles of British life include:
 - Tolerance of those with different faiths and beliefs
 - Participation in community life
 
-Following the fundamental principles are **responsibilites and freedoms** which are shared by all those living in the UK and wich we expet all residents to respect.
+Following the fundamental principles are **responsibilites and freedoms** which are shared by all those living in the UK and which we expect all residents to respect.
 
 ## What is the UK
 
@@ -39,7 +39,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 - Bronze Age(2000 BC): Celebrate in [stonehenge](https://www.google.com/maps/place/Stonehenge/@51.178882,-1.826215,15z/data=!4m6!3m5!1s0x4873e63b850af611:0x979170e2bcd3d2dd!8m2!3d51.178882!4d-1.826215!16zL20vMDZ3Zmc?entry=ttu), lives in roundhouses and buried in tombs called [round barrows](round barrow).
 - Iron Age (700 BC - 1 BC): Defended sites called [hill forts](https://www.google.com/search?q=hill+forts+maiden+castle&tbm=isch&ved=2ahUKEwi9w5mbsfyEAxXIuCcCHYl_DlkQ2-cCegQIABAA&oq=hill+forts+maiden+castle&gs_lp=EgNpbWciGGhpbGwgZm9ydHMgbWFpZGVuIGNhc3RsZTIHEAAYgAQYGEjGQFCrBFjkPnAEeACQAQCYAUSgAc8IqgECMTm4AQPIAQD4AQGKAgtnd3Mtd2l6LWltZ8ICBBAjGCfCAgoQABiABBiKBRhDwgIFEAAYgATCAgYQABgIGB6IBgE&sclient=img&ei=2HP3Zb33DsjxnsEPif-5yAU&bih=1277&biw=1309).
-- The Romans(55 BC): Julius Caesar tried to invade Britain, suceeed in AD43 and remain until AD 410 because a retreat for protecting the other part of Roman Empire. 
+- The Romans(55 BC): Julius Caesar tried to invade Britain, succeed in AD43 and remain until AD 410 because a retreat for protecting the other part of Roman Empire. 
 - [Anglo-Saxons Kingdom](https://www.youtube.com/watch?v=y4CwNClzegk)
   - Anglo-Saxons from northen Europe becomes the king of England after Roman
   - St Patrick from Ireland preached about Christaianity
@@ -56,14 +56,14 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - 1314 the Scottish defeated the invaded of English Kings at Bannockburn.
   - 1337-1441 Hundred years war between Englishs kings and France. The most famous battle was [Battle of Agincourt](https://www.youtube.com/watch?v=WBAGWgu4ceA) in 1415, King Henry V's vastly outnumbered Englished army defeated the French.
 - The Black Death(1348): 
-  - 1/3 of the popuation of England, Scotland and Wales died
+  - 1/3 of the population of England, Scotland and Wales died
   - Lots of people died in the Pale in Ireland => The area controlled by the English became smaller
   - Less need to grow cereal => Labour demanded higher wages =>  People left from country side => New social classes appeared (Landowner and the middle class)
 - The Wars of the [Roses](https://qph.cf2.quoracdn.net/main-qimg-c89d702c89d25cbdb023dae2c6947264-pjlq)(1455): A civil war was begun to decide who should be the king of England between House of York and House of Lancaster. Henry Tudor won the war and became **King Henry VII** and united two families.
 - Language, Legal and political changes
-  - After Norman Conquest, the king and his noblemn had spoken Norman French and the peasants had continued to speak Anglo-Saxon. 2 languages combined into one English language.
+  - After Norman Conquest, the king and his noblemen had spoken Norman French and the peasants had continued to speak Anglo-Saxon. 2 languages combined into one English language.
   - Common laws were developed in England. [Codified laws](https://www.google.com/search?q=common+law+vs+codified+law&sca_esv=5d2091cbd4f7042a&sxsrf=ACQVn0_GrS1ncXquu0i_0_EfbgU6xA1zwA%3A1710854269126&ei=fZD5ZfenB-OxhbIPpNGecA&oq=common+law+vs+codified&gs_lp=Egxnd3Mtd2l6LXNlcnAiFmNvbW1vbiBsYXcgdnMgY29kaWZpZWQqAggAMgsQABiABBiKBRiRAjILEAAYgAQYigUYhgMyCxAAGIAEGIoFGIYDMgsQABiABBiKBRiGAzILEAAYgAQYigUYhgMyCxAAGIAEGIoFGIYDSIYhUABYyBhwAHgBkAEAmAFboAGcA6oBATa4AQPIAQD4AQGYAgWgAuwCwgIGEAAYBxgewgIGEAAYCBgewgIGEAAYHhgPwgIFEAAYgATCAgYQABgFGB7CAgcQABiABBgNmAMAkgcBNaAHwh8&sclient=gws-wiz-serp) were developed in Scotland.
-  - 1215 King John was forced by his noblemen to aggree [the Magna Carta/大憲章](https://www.google.com/search?q=the+Magna+Carta&oq=the+Magna+Carta&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQLhhA0gEHNjczajBqMagCALACAA&sourceid=chrome&ie=UTF-8) to protect the rights of the nobility and restrict the king's power(tax and laws)
+  - 1215 King John was forced by his noblemen to agree [the Magna Carta/大憲章](https://www.google.com/search?q=the+Magna+Carta&oq=the+Magna+Carta&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQLhhA0gEHNjczajBqMagCALACAA&sourceid=chrome&ie=UTF-8) to protect the rights of the nobility and restrict the king's power(tax and laws)
 
 ### The Tudors and Stuarts
 
@@ -73,7 +73,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
    -  He continued his father's approaches which strengthening the central the administration of England and reduce the power of the nobles .
    - He established the Church of England to separate from the Roman Catholic Church for divorce his first wife. (He married 6 times)
    - His son, **Edward VI** was a strongly Protestant. He died at age of 15
-   - Edward's half-sister **Mary**(aka. [bloody mary](https://www.google.com/search?sca_esv=07ac767684f655b4&sxsrf=ACQVn0-ENGgjeJXzaZKIxe-B3F983FyWAQ:1710858787545&q=bloody+mary+queen&tbm=isch&source=lnms&sa=X&ved=2ahUKEwj5hKvSxYCFAxUWWUEAHeDSB10Q0pQJegQIDBAB&biw=1309&bih=1277&dpr=1#imgrc=LEonq5ynziBYZM)) became queen. Mary was a devout Catholic and persecuted Protestants. She died after a short reign.
+   - Edward's half-sister **Mary**(aka. [bloody Mary](https://www.google.com/search?sca_esv=07ac767684f655b4&sxsrf=ACQVn0-ENGgjeJXzaZKIxe-B3F983FyWAQ:1710858787545&q=bloody+mary+queen&tbm=isch&source=lnms&sa=X&ved=2ahUKEwj5hKvSxYCFAxUWWUEAHeDSB10Q0pQJegQIDBAB&biw=1309&bih=1277&dpr=1#imgrc=LEonq5ynziBYZM)) became queen. Mary was a devout Catholic and persecuted Protestants. She died after a short reign.
 - **Elizabeth I**(1533-1603)
   - Mary's half-sister, **Elizabeth I** who was a Protestant became the queen. She tried to avoid serious religious conflict within England. In July 1588, the [Spanish Armada](https://www.google.com/search?sca_esv=58652087346d5a22&sxsrf=ACQVn09wAuYHVeu3gvuYnCrZ5gIRGDwn1w:1710937509008&q=Spanish+Armada&tbm=isch&source=lnms&prmd=ivnmbtz&sa=X&ved=2ahUKEwj169Pz6oKFAxVLV0EAHWN-BOsQ0pQJegQIDhAB&biw=1406&bih=1277&dpr=1#imgrc=XLrMl-5XNq5J1M) set sail from Spain, with the mission of overthrowing the Queen Elizabeth I and restoring Catholic rule over England. The English won the invasion
   - Her cousin (Mary Stuart, Queen of Scotland) fled to England to find her help because Mary's husband was murdered, but Elizabeth suspected Mary of wanting to take over the English Throne even Mary gave her throne to her Protestant son. Mary was sent to jail for 20 yrs and was eventually executed
@@ -86,7 +86,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - Civil War (1642-1651) and the rise of Parliament
   - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
   - The country split into those who supported the king (the Cavaliers) and those who supported Parliament (the Roundheads)
-  - The army of Parliament won the war and **Clarles I** was executed in 1649. The Scots had not agreed to the execution of **Charles I** and declared his son **Charles II** to be King. 
+  - The army of Parliament won the war and **Charles I** was executed in 1649. The Scots had not agreed to the execution of **Charles I** and declared his son **Charles II** to be King. 
   - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** exiled to Europe.
 - The Restoration of the monarchy (1660)
   - After the execution of **Charles I**, England became a republic known as the **Commonwealth of England**, and **Oliver Cromwell** became its Lord Protector which was effectively a monarchical position, albeit with a less hereditary and more constitutionally limited framework. Cromwell ruled until his death in 1658.
@@ -103,7 +103,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
     - Parliaments must be elected every three years, later changed to seven and now every five years.
     - The monarch requires annual parliamentary approval for military funding.
   - Increased press freedom after 1695, ending the need for government licenses for newspapers.
-  - Williamn and Mary's successor, Queen Anna.
+  - William and Mary's successor, Queen Anna.
     - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707. The Act of Union unites England, Wales, Scotland, and Ireland into the Kingdom of Great Britain, with Scotland retaining its systems.
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
     - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
@@ -118,16 +118,16 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### The industrial Revolution (1760-1840) 
 
-- Before the 18th century, agriculture was the biggest source of employment in Britain. There were many cottage industies, where people worked from home to produce goods such as cloth and lace.
-- The development of the [Bessemer process](https://www.google.com/search?q=Bessemer+process+gif&tbm=isch&ved=2ahUKEwjNiuOk942FAxWVU6QEHa18A5wQ2-cCegQIABAA&oq=Bessemer+process+gif&gs_lp=EgNpbWciFEJlc3NlbWVyIHByb2Nlc3MgZ2lmMgUQABiABEjACVCBBFjDCHAAeACQAQCYAT6gAYICqgEBNbgBA8gBAPgBAYoCC2d3cy13aXotaW1nwgIEECMYJ8ICChAAGIAEGIoFGEPCAgcQABiABBgYiAYB&sclient=img&ei=BqcAZs3vFZWnkdUPrfmN4Ak&bih=942&biw=1284&prmd=ivnbmtz#imgrc=HleDiUWf_50m3M) for the mass production of steel => shupbuilding industry and the railways.
+- Before the 18th century, agriculture was the biggest source of employment in Britain. There were many cottage industries, where people worked from home to produce goods such as cloth and lace.
+- The development of the [Bessemer process](https://www.google.com/search?q=Bessemer+process+gif&tbm=isch&ved=2ahUKEwjNiuOk942FAxWVU6QEHa18A5wQ2-cCegQIABAA&oq=Bessemer+process+gif&gs_lp=EgNpbWciFEJlc3NlbWVyIHByb2Nlc3MgZ2lmMgUQABiABEjACVCBBFjDCHAAeACQAQCYAT6gAYICqgEBNbgBA8gBAPgBAYoCC2d3cy13aXotaW1nwgIEECMYJ8ICChAAGIAEGIoFGEPCAgcQABiABBgYiAYB&sclient=img&ei=BqcAZs3vFZWnkdUPrfmN4Ak&bih=942&biw=1284&prmd=ivnbmtz#imgrc=HleDiUWf_50m3M) for the mass production of steel => shipbuilding industry and the railways.
 - Due to the development of machinery and the use of steam power, agriculture and goods could be mechanised.
-- More Colonisation happened overseas due to trades includind India, Canada, Australia and southern Africa.
+- More Colonisation happened overseas due to trades including India, Canada, Australia and southern Africa.
 - Had conflict with France due to the expanding and trading in a similar way.
 
 ### The slave trade
 
-- in 1807, it became illegal to trade slaves in British ship or British port and in 1833 the Emancipation Act abolished the slavery throughour the British Empire.
-- After 1833, 2m Indian and Chinese workers were emplouyed to replace the freed slaves. They worked ..
+- in 1807, it became illegal to trade slaves in British ship or British port and in 1833 the Emancipation Act abolished the slavery throughout the British Empire.
+- After 1833, 2m Indian and Chinese workers were employed to replace the freed slaves. They worked ..
   - on sugar plantations in the Caribbean
   - in mines in South Africa
   - on railways in East Africa
@@ -138,7 +138,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - By the 1760s, there were substantial wealthy British colonies in North America who wants to have religious freedom. They were well educated and interested in ideas of liberty.
 - The British government wanted to tax the colonies.
 - In 1766, there were [13 colonist](https://en.wikipedia.org/wiki/Thirteen_Colonies) declared their independence, stating that people had a right to establish their own governments.
-- The colonists eventually defeated the British army and Britain regognised the colonies' independence in 1783.
+- The colonists eventually defeated the British army and Britain recognised the colonies' independence in 1783.
 
 ### War with France
 
