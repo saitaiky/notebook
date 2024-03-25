@@ -3,6 +3,9 @@ title: life in the UK
 draft: true
 ---
 
+- [life-in-the-uk-test](https://github.com/giuli007/life-in-the-uk-test)
+- [Cheat Sheet](https://lituktest.com/cheat-sheet)
+
 ## Value and principles
 
 The fundamental principles of British life include:
@@ -17,7 +20,6 @@ Following the fundamental principles are **responsibilites and freedoms** which 
 ## What is the UK
 
 The UK is made up of England, Scotland, Wales and Northern Ireland
-
 
 ## History
 
@@ -84,7 +86,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - Civil War (1642-1651) and the rise of Parliament
   - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
   - The country split into those who supported the king (the Cavaliers) and those who supported Parliament (the Roundheads)
-  - The army of Parliament won the war and **Clarles I** was executed in 1649. The Scots had not agreed to the execution of Charles I and declared his son **Charles II** to be King. 
+  - The army of Parliament won the war and **Clarles I** was executed in 1649. The Scots had not agreed to the execution of **Charles I** and declared his son **Charles II** to be King. 
   - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** exiled to Europe.
 - The Restoration of the monarchy (1660)
   - After the execution of **Charles I**, England became a republic known as the **Commonwealth of England**, and **Oliver Cromwell** became its Lord Protector which was effectively a monarchical position, albeit with a less hereditary and more constitutionally limited framework. Cromwell ruled until his death in 1658.
@@ -93,7 +95,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - The Glorious Restoration (1688)
   - The Glorious Revolution was a pivotal event in British history where **James II**, a Catholic king, was overthrown by a group of Parliamentarians and replaced by his daughter **Mary** and her husband, **William** of Orange, who were Protestants. Discontent with **James II**'s perceived favoritism towards Catholicism and his attempts to create a more centralized, absolutist monarchy led to fears of a Catholic autocracy. 
   - **William** was invited by a coalition of influential Protestants and parliamentary leaders to invade England and assert the throne. The revolution was relatively peaceful, as James's army defected or failed to put up resistance, leading to his exile in France. **William** became **William III**
-  - This peaceful transfer of power established **a constitutional monarchy(君主立憲制)** and the principle of parliamentary sovereignty, shaping the future of democratic governance."
+  - This peaceful transfer of power established **a constitutional monarchy(君主立憲制)** and the principle of parliamentary sovereignty, shaping the future of democratic governance.
   
 ### A Constitutional monarchy - The Bill of Rights
   - Constitutional monarchy begins, reducing unilateral monarch power; ministers gain influence.
@@ -101,7 +103,42 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
     - Parliaments must be elected every three years, later changed to seven and now every five years.
     - The monarch requires annual parliamentary approval for military funding.
   - Increased press freedom after 1695, ending the need for government licenses for newspapers.
-  - The 1707 Act of Union unites England, Wales, Scotland, and Ireland into the Kingdom of Great Britain, with Scotland retaining its systems.
   - Williamn and Mary's successor, Queen Anna.
+    - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707. The Act of Union unites England, Wales, Scotland, and Ireland into the Kingdom of Great Britain, with Scotland retaining its systems.
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
-    - Sir **Robert Walpole** becomes the first Prime Minister under George I.
+    - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
+    - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the clansmen wanted to kick back on the throne in place of **George I**.
+
+### The Enlightenment(啟蒙時代) 1685-1815
+
+- The Enlightenment fueled intellectual progress and innovation. 
+  - **Adam Smith** laid the foundations for modern economics with his work on free markets in "The Wealth of Nations." 
+  - **David Hume** made significant contributions to philosophy, especially empiricism and skepticism. 
+  - **James Watt** improved the steam engine, powering the Industrial Revolution and fundamentally changing British society and economy.
+
+### The industrial Revolution (1760-1840) 
+
+- Before the 18th century, agriculture was the biggest source of employment in Britain. There were many cottage industies, where people worked from home to produce goods such as cloth and lace.
+- The development of the [Bessemer process](https://www.google.com/search?q=Bessemer+process+gif&tbm=isch&ved=2ahUKEwjNiuOk942FAxWVU6QEHa18A5wQ2-cCegQIABAA&oq=Bessemer+process+gif&gs_lp=EgNpbWciFEJlc3NlbWVyIHByb2Nlc3MgZ2lmMgUQABiABEjACVCBBFjDCHAAeACQAQCYAT6gAYICqgEBNbgBA8gBAPgBAYoCC2d3cy13aXotaW1nwgIEECMYJ8ICChAAGIAEGIoFGEPCAgcQABiABBgYiAYB&sclient=img&ei=BqcAZs3vFZWnkdUPrfmN4Ak&bih=942&biw=1284&prmd=ivnbmtz#imgrc=HleDiUWf_50m3M) for the mass production of steel => shupbuilding industry and the railways.
+- Due to the development of machinery and the use of steam power, agriculture and goods could be mechanised.
+- More Colonisation happened overseas due to trades includind India, Canada, Australia and southern Africa.
+- Had conflict with France due to the expanding and trading in a similar way.
+
+### The slave trade
+
+- in 1807, it became illegal to trade slaves in British ship or British port and in 1833 the Emancipation Act abolished the slavery throughour the British Empire.
+- After 1833, 2m Indian and Chinese workers were emplouyed to replace the freed slaves. They worked ..
+  - on sugar plantations in the Caribbean
+  - in mines in South Africa
+  - on railways in East Africa
+  - in the army in Kenya
+
+### The American War of Independence
+
+- By the 1760s, there were substantial wealthy British colonies in North America who wants to have religious freedom. They were well educated and interested in ideas of liberty.
+- The British government wanted to tax the colonies.
+- In 1766, there were [13 colonist](https://en.wikipedia.org/wiki/Thirteen_Colonies) declared their independence, stating that people had a right to establish their own governments.
+- The colonists eventually defeated the British army and Britain regognised the colonies' independence in 1783.
+
+### War with France
+

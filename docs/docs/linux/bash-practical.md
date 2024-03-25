@@ -55,39 +55,6 @@ $ ll -d /etc/[^a-z]*  <==注意中括號左邊沒有 *
 $ mkdir /tmp/upper; cp -a /etc/[^a-z]* /tmp/upper
 ```
 
-## 環境變數的功能
-
-env & set
-用 env 觀察環境變數與常見環境變數說明
-用 set 觀察所有變數 (含環境變數與自訂變數)
-
-```bash
-
-$ echo $SHELL
-/bin/bash              <==可順利顯示！沒有錯誤！
-
-$ echo $?
-0                      <==因為沒問題，所以回傳值為 0
-
-$ 12name=VBird
-bash: 12name=VBird: command not found...   <==發生錯誤了！bash回報有問題
-
-$ echo $?
-127                    <==因為有問題，回傳錯誤代碼(非為0)
-# 錯誤代碼回傳值依據軟體而有不同，我們可以利用這個代碼來搜尋錯誤的原因喔！
-
-$ echo $?
-0
-# 咦！怎麼又變成正確了？這是因為 "?" 只與『上一個執行指令』有關，
-# 所以，我們上一個指令是執行『 echo $? 』，當然沒有錯誤，所以是 0 沒錯！
-```
-$? expands to the exit status of the most recently executed foreground pipeline.
-
-[Special Parameters section of the Bash manual] (http://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html#Special-Parameters)
-
-
-
-
 ## Command Redirect
 
 In Linux/Unix, everything is a file. Regular file, Directories, and even Devices are files. Every File has an associated number called **File Descriptor (FD)**.
@@ -218,6 +185,32 @@ $ ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
 
 上面這張圖顯示的兩股資料中，上方的線段為不存在 /tmp/abc 時所進行的指令行為，下方的線段則是存在 /tmp/abc 所在的指令行為。如上所述，下方線段由於存在 /tmp/abc 所以導致 $?=0 ，讓中間的 mkdir 就不執行了！ 並將 $?=0 繼續往後傳給後續的 touch 去利用啦！
 
+
+```bash
+
+$ echo $SHELL
+/bin/bash              <==可順利顯示！沒有錯誤！
+
+$ echo $?
+0                      <==因為沒問題，所以回傳值為 0
+
+$ 12name=VBird
+bash: 12name=VBird: command not found...   <==發生錯誤了！bash回報有問題
+
+$ echo $?
+127                    <==因為有問題，回傳錯誤代碼(非為0)
+# 錯誤代碼回傳值依據軟體而有不同，我們可以利用這個代碼來搜尋錯誤的原因喔！
+
+$ echo $?
+0
+# 咦！怎麼又變成正確了？這是因為 "?" 只與『上一個執行指令』有關，
+# 所以，我們上一個指令是執行『 echo $? 』，當然沒有錯誤，所以是 0 沒錯！
+```
+$? expands to the exit status of the most recently executed foreground pipeline.
+
+> Reference: [Special Parameters section of the Bash manual](http://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html#Special-Parameters)
+
+
 ## Pipe & Command substitution
 
 ### Pipe
@@ -249,6 +242,38 @@ $ echo "hello $( s=world; echo "$s" )"
 hello world
 $ echo "$s"
 123
+```
+
+## xargs
+
+The `xargs` command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like [`grep`](https://shapeshed.com/unix-grep/) can accept standard input as a parameter, many other tools cannot. Using `xargs` allows tools like `echo` and [`rm`](https://shapeshed.com/unix-rm/) and [`mkdir`](https://shapeshed.com/unix-mkdir/) to accept standard input as arguments.
+
+### How to use xargs
+
+By default `xargs` reads items from standard input as separated by blanks and executes a command once for each argument. In the following example standard input is piped to xargs and the `mkdir` command is run for each argument, creating three folders.
+
+```bash
+echo 'one two three' | xargs mkdir
+ls
+one two three
+```
+
+When filenames contains spaces you need to use -d option to change delimiter
+
+```bash
+ls
+'one two three.txt' 'four.txt'
+find . -name '*.txt' | xargs -d '\n' rm
+```
+
+### How to use xargs with find
+
+The most common usage of `xargs` is to use it with the [`find`](https://shapeshed.com/unix-find/) command. This uses `find` to search for files or directories and then uses `xargs` to operate on the results. Typical examples of this are changing the ownership of files or moving files.
+
+`find` and `xargs` can be used together to operate on files that match certain attributes. In the following example files older than two weeks in the temp folder are found and then piped to the xargs command which runs the `rm` command on each file and removes them.
+
+```bash
+find /tmp -mtime +14 | xargs rm
 ```
 
 ## Command redirection vs. Piping
