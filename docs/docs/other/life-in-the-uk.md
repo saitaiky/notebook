@@ -1,5 +1,5 @@
 ---
-title: life in the UK
+title: Life in the UK
 draft: true
 ---
 
@@ -8,14 +8,13 @@ draft: true
 
 ## Value and principles
 
-The fundamental principles of British life include:
+Following the fundamental principles are **responsibilities and freedoms** which are shared by all those living in the UK and which we expect all residents to respect. The fundamental principles of British life include:
 - Democracy
 - The rule of law
 - Individual liberty
 - Tolerance of those with different faiths and beliefs
 - Participation in community life
 
-Following the fundamental principles are **responsibilites and freedoms** which are shared by all those living in the UK and which we expect all residents to respect.
 
 ## What is the UK
 
@@ -229,7 +228,9 @@ In May 1940 he became Prime Minister. He refused to surrender to the Nazis and w
 - 1960s
   - 2 well-known pop music groups were The Beatles and The Rolling Stones.
   - In the late 1960s, the government passed new laws to restrict immigration to Britain.
-- 1970s
+- In the late 1970s, the post-war economic boom came to an end. Imports of goods were valued at more than the price paid for exports.
+- The UK was a full member of the EU but left the EU on 2020.
+- Conservative government from 1979 to 1997
 
 
 ## The Union Flag
