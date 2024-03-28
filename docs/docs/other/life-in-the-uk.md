@@ -228,10 +228,19 @@ In May 1940 he became Prime Minister. He refused to surrender to the Nazis and w
 - 1960s
   - 2 well-known pop music groups were The Beatles and The Rolling Stones.
   - In the late 1960s, the government passed new laws to restrict immigration to Britain.
-- In the late 1970s, the post-war economic boom came to an end. Imports of goods were valued at more than the price paid for exports.
-- The UK was a full member of the EU but left the EU on 2020.
-- Conservative government from 1979 to 1997
+- 1970s
+  - In the late 1970s, the post-war economic boom came to an end. Imports of goods were valued at more than the price paid for exports.  Conflict between the trade unions and the government led to lots of strikes.
+  - The UK was a full member of the EU since 1973 but left the EU on 2020.
+- 1979 to 1997
+  - Margaret Thatcher became the first Prime Minister, led the Conservative government from 1979 to 1990.
+  - She did the privatisation of nationalised industries and imposed legal controls on trade union powers. 
+- 1997 to 2010
 
+:::infoMargaret Thatcher (1925-2013)
+In 1975 she was elected as Leader of the Conservative Party and so became Leader of the Opposition. Following the Conservative victory in the General Election in 1979, Margaret Thatcher became the first woman Prime Minister of the UK.
+
+She led the Conservative government from 1979 to 1990 and was the longest-serving Prime Minister of the 20th century
+:::
 
 ## The Union Flag
 
