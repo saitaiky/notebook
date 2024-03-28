@@ -92,22 +92,27 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - After the execution of **Charles I**, England became a republic known as the **Commonwealth of England**, and **Oliver Cromwell** became its Lord Protector which was effectively a monarchical position, albeit with a less hereditary and more constitutionally limited framework. Cromwell ruled until his death in 1658.
   - People wanted stability and parliament invited **Charles II** to come back in May 1660.
   - **Charles II** had no legitimate children and died in 1685. His brother James became **James II**.
-- The Glorious Restoration (1688)
+- [The Glorious Restoration](https://www.youtube.com/watch?v=n6dm2-DphhI) (1688)
   - The Glorious Revolution was a pivotal event in British history where **James II**, a Catholic king, was overthrown by a group of Parliamentarians and replaced by his daughter **Mary** and her husband, **William** of Orange, who were Protestants. Discontent with **James II**'s perceived favoritism towards Catholicism and his attempts to create a more centralized, absolutist monarchy led to fears of a Catholic autocracy. 
-  - **William** was invited by a coalition of influential Protestants and parliamentary leaders to invade England and assert the throne. The revolution was relatively peaceful, as James's army defected or failed to put up resistance, leading to his exile in France. **William** became **William III**
+  - **William** was invited by a coalition of influential Protestants and parliamentary leaders to invade England and assert the throne. The revolution was relatively peaceful and bloodless, as James's army defected or failed to put up resistance, leading to his exile in France. **William** became **William III**
   - This peaceful transfer of power established **a constitutional monarchy(君主立憲制)** and the principle of parliamentary sovereignty, shaping the future of democratic governance.
   
-### A Constitutional monarchy - The Bill of Rights
+### A Constitutional monarchy - The Bill of Rights (1689)
   - Constitutional monarchy begins, reducing unilateral monarch power; ministers gain influence.
     - Parliament controls taxation, justice, and royal succession; monarchs must be Protestant.
     - Parliaments must be elected every three years, later changed to seven and now every five years.
     - The monarch requires annual parliamentary approval for military funding.
   - Increased press freedom after 1695, ending the need for government licenses for newspapers.
-  - William and Mary's successor, Queen Anna.
-    - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707. The Act of Union unites England, Wales, Scotland, and Ireland into the Kingdom of Great Britain, with Scotland retaining its systems.
+  - Still not quite equal right system based on today's modern standard
+    - Only men who owned property of a certain value could vote. 
+    - *Pocket boroughs*: some constituencies were controlled by a single wealthy family. 
+    - *Rotten boroughs*: constituencies without any voters.
+  - **Queen Anna**, William and Mary's successor
+    - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707, creating the **Kingdom of Great Britain**. 
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
     - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
     - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the clansmen wanted to kick back on the throne in place of **George I**.
+  - The Act of Union in 1801 unites England, Wales, Scotland, and Ireland and created the United Kingdom of Great Britain and Ireland.
 
 ### The Enlightenment(啟蒙時代) 1685-1815
 
@@ -142,3 +147,101 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### War with France
 
+- The Battle of Trafalgar, fought on October 21, 1805, was a naval engagement between the British Royal Navy and the combined fleets of France and Spain during the Napoleonic Wars. Led by **Admiral Nelson**, the British fleet employed a bold tactic, breaking the enemy line and securing a decisive victory despite Nelson's death in the battle. 
+- The battle effectively ended Napoleon's ambitions of invading Britain, establishing British naval supremacy for over a century and shaping the course of European history.
+- [Nelson's Column](https://www.google.com/search?sca_esv=afc91ab2542ac84a&sxsrf=ACQVn0-B8GjgsoK818_2OGZ6rM725XoMXA:1711492149357&q=Nelson%27s+column+in+trafalgar&tbm=isch&source=lnms&prmd=ivnmbtz&sa=X&ved=2ahUKEwj9n-SM_ZKFAxUpREEAHbqzB1UQ0pQJegQIDRAB&biw=1284&bih=1277&dpr=1#imgrc=YWToaUIfEszY3M) in Trafallgar Square, London is a monument to him.
+
+### Vicotrian Age
+
+- In 1837, Queen Victoria became queen of the UK at the age of 18 and reigned until 1901.
+- The British Empire grew to cover all of India, Australia and large parts of Africa.
+- The first modern technological conflict **[The crimean war](https://www.youtube.com/watch?v=VkZCAesyDZc)**  (1853-1856) was a conflict primarily involving Russia on one side, and an alliance of the Britain, Turkey and France. It originated from a dispute over religious rights in the Holy Land and Russia's desire to expand its influence in the Black Sea region. 
+- The right to vote 
+  - In 1832, the Reform Act had greatly increased the number of people with the right of vote, but the voting was based on ownership of property. This Act also abolished the *old pocket* and *rotten boroughs*.
+  - In 1867, there was another Reform Act to create more urban seats in Parliament and reduced the amount of property that people needed to vote.
+- Acts of Parliament in 1870 and 1882 gave wives the right to keep their own earning and property, before that, those belonged to her husband automatically.
+- In 19th, the UK produced more than half of the world's iron, coal and cotton cloth.
+
+:::infoIsambard Kingdom Brunel (1806-59) 布魯內爾
+Isambard Kingdom Brunel was originally from Portsmouth. He built tunnels, bridges, railway lines and ships. 2 of his famous works
+- Great Western Railway
+- ![Clifton Suspension Bridge](https://images.squarespace-cdn.com/content/v1/5ee52f7d9edc8a7ee635591a/1627147415019-XN7REHKNRSGOTEDV9WD6/A+photo+of+Clifton+Suspension+Bridge+in+Bristol+taken+at+sunset+by+Trevor+Sherwin?format=1500w)
+:::
+
+:::infoFlorence Nightingale (1821-1910) 南丁格爾
+Florence Nightingale was born in Florence in Italy. In 1854, she went to Turkey and worked in military hospitals, treating soldiers who were fighting in the Crimean War. She and her fellow improved the conditions in the hospital and reduced the mortality rate.
+:::
+
+:::infoEmmeline Pankhurst (1858-1928)
+Emmeline was a prominent British suffragette(婦女參政論者) and political activist who played a leading role in the women's suffrage movement in the United Kingdom. She founded the Women's Social and Political Union (WSPU) in 1903, advocating for women's right to vote through direct action and civil disobedience. Pankhurst and the WSPU led numerous campaigns, protests, and hunger strikes, contributing significantly to the eventual granting of voting rights to British women with the Representation of the People Act in 1918.
+:::
+
+## The 20th Century
+
+- Salary for members of Parliament (MPs) was introduced for the first time, making it easier for more people to take part in public life.
+- In 1913, the British government promised '*Home Rule*' for Ireland to let Ireland have its own parliament but still part of the UK.
+
+### World War I (1914-1918)
+
+![](/img/other//europe-before-after-ww1.webp)
+
+Source: [mapsontheweb](https://mapsontheweb.zoom-maps.com/post/178341603579/europe-before-and-after-world-war-1)
+
+- **World War I** erupted primarily due to a complex web of factors including militarism, nationalism, imperialism, and alliances. Tensions escalated after the assassination of Archduke Franz Ferdinand of Austria-Hungary Empire (Composed by Austrian Empire and the Kingdom of Hungary) in 1914. The British Empire played a significant role in the war, being one of the major Allied powers. Britain's involvement stemmed from its alliances and obligations to Belgium and France, as well as its desire to maintain its imperial dominance and protect its overseas territories. British forces fought on multiple fronts, including the Western Front, the Middle East, and Africa, contributing to the eventual Allied victory at 11 am on 11th in November 1918.
+- The inter-war period
+  - In 1916, an uprising (the Easter Rising) against the British in Dublin.  
+  - In 1921 a peace treaty was signed and in 1922 Ireland became two countries.
+- In 1929, the world entered the 'Great Depression'
+- The BBC started radio broadcasts in 1922 and began the world's first regular television service in 1936.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YqNYrYUiMfg?si=6Gjt73doyOnbqfsh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### World War II (1939-1945)
+
+- The British government tried to avoid another war. However, when Hitler invaded Poland in 1939, Britain and France declared war in order to stop his aggression.
+- Initially fought between the Axis powers (fascist German, Italy and the Empire of Japan) and the Allies (the UK, France, Poland, Australia, New Zealand, Canada and the Union of South Africa)
+- From the end of June 1940 until the German invasion of the Soviet Union in June 1941, Britain and the Empire stood almost alone against Nazi Germany.
+- The United States entered the war when the Japanese bombed its naval base at Pearl Harbour in December 1941.
+- D-Day, which occurred on June 6, 1944, was the Allied invasion of Normandy, France, during World War II. It marked the beginning of the liberation of Western Europe from Nazi occupation and was a turning point in the war, allowing the Allies to gain a foothold on the continent and ultimately leading to the defeat of Nazi Germany in May 1945.
+- The war against Japan ended in August 1945 when the US dropped its newly developed atom bombs on the Japanese cities of Hiroshima and Nagasaki.
+
+:::infoWinston Churchill 1874-1965
+In May 1940 he became Prime Minister. He refused to surrender to the Nazis and was an inspirational leader to the British people in a time of great hardship. He lost the General Election in 1945 but returned as Prime Minister in 1951. Some of his famous speeches:
+- I have nothing to offer but blood, toil, tears and sweat.
+- We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets, we shall fight in the hills; we shall never surrender.
+- Never in the field of human conflict was so much owed by so many to so few.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/skrdyoabmgA?si=SYMIC7iZlzHNZTBG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+:::
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xBWmkwaTQ0k?si=58AvDTRJyFvLz7-N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F-eMt3SrfFU?si=INPNdh03ScCvTt8T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### After 1945
+
+- **The welfare state**: The country was exhausted economically and people elected a Labour government due to the welfare state promised by **[Clement Attlee](https://www.google.com/search?sca_esv=5d7305874509b4d4&sxsrf=ACQVn0_Y8U2ul9uK3kAFdmFI3wnCM3WDqw:1711630371400&q=clement+attlee&tbm=isch&source=lnms&prmd=invmtz&sa=X&ved=2ahUKEwiJjZiCgJeFAxVgYEEAHf1OBQ0Q0pQJegQIDRAB&biw=1669&bih=1278&dpr=1)** who was the leader of Labour party. He was the Churchill's Deputy Prime Minister in the wartime. He was PM from 1945 to 1951 and led the Labour Party for 20 years.
+  - In 1947, independence was granted to 9 countries, including India, Pakistan and Ceylon (now Sri Lanka). Other colonies in Africa, the Caribbean and the Pacific achieved independence over the next 20 years.
+  - In 1948 NHS has be established which guaranteed a minimum standard of health care for all. 
+  - Provide a bunch of benefits to provide social security to protect from the cradle to the grave.
+  - The UK joined the new NATO.
+  - During the 1950s, there was still a shortage of labour in the UK. There were lots of immigrant from West Indies, India and Pakistan to work and settle in Britain. 
+- 1960s
+  - 2 well-known pop music groups were The Beatles and The Rolling Stones.
+  - In the late 1960s, the government passed new laws to restrict immigration to Britain.
+- 1970s
+
+
+## The Union Flag
+
+![unionflagflags](http://aupairfect.hu/assets/images/tinymce/old_images/unionflagflags.jpg)
+
+Resource: [aupairfect Blog](https://aupairfect.com/blog/entry/33-history-of-the-union-jack)
+
+- St. George is the patron saint of England, traditionally celebrated on April 23rd. He is most famously known for the legend of St. George and the Dragon, symbolizing courage and faith.
+  - 諷刺的是，聖佐治生於現土耳其，從來沒到過英格蘭，即使有到過也大概會被「愛國分子」視為的「骯髒的」移民也。他之所以成為英格蘭的守護聖者，是十四世紀的事：時任國王喜歡聖佐治屠龍的故事所章顯的騎士精神而將他大加宣傳，所以英格蘭才有聖佐治日。 
+    屠龍故事。聖佐治明明是個羅馬帝國時期的殉道者，不過他最為之稱道的「事跡」卻是一中世紀間，西方社會最著名的歷奇傳說。既是口傳的故事，版本甚多而且各有出入，但基本是：話說在北非利比亞某城附近，有條散發毒氣的惡龍，他住在城水源的湖裡，除了捕食居民外還在水裡下毒。為了安撫這條惡龍，當地居民每天都要向它放上兩隻肥羊作換取安寧。後來肥羊沒有了，居民只好用人以及小孩代替。直至某日抽籤，剛好抽中國王唯一的女兒。國王用千金買回女兒不果，只好送她入虎口。
+
+    此時聖佐治恰好路過，聽聞此事憤怒異常，他身披代表正義的紅十字，騎士式的向惡龍突擊，手上的長槍一下直刺，把惡龍俘虜了。聖佐治把惡龍拉回城中，跟居民說，若果大家歸信基督，他便會把惡龍消滅。 惡龍之血留在地上形成了一個紅色的十字架。
+- St. Andrew is the patron saint of Scotland, celebrated on November 30th. He was one of the 12 apostles of Jesus and is associated with the Saltire, the Scottish flag, which features a white saltire on a blue background.
+- St. Patrick is the patron saint of Ireland, celebrated on March 17th. He is credited with bringing Christianity to Ireland and is often associated with the use of the shamrock to explain the concept of the Holy Trinity.
