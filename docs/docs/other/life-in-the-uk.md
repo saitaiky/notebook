@@ -39,11 +39,12 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - Bronze Age(2000 BC): Celebrate in [stonehenge](https://www.google.com/maps/place/Stonehenge/@51.178882,-1.826215,15z/data=!4m6!3m5!1s0x4873e63b850af611:0x979170e2bcd3d2dd!8m2!3d51.178882!4d-1.826215!16zL20vMDZ3Zmc?entry=ttu), lives in roundhouses and buried in tombs called [round barrows](round barrow).
 - Iron Age (700 BC - 1 BC): Defended sites called [hill forts](https://www.google.com/search?q=hill+forts+maiden+castle&tbm=isch&ved=2ahUKEwi9w5mbsfyEAxXIuCcCHYl_DlkQ2-cCegQIABAA&oq=hill+forts+maiden+castle&gs_lp=EgNpbWciGGhpbGwgZm9ydHMgbWFpZGVuIGNhc3RsZTIHEAAYgAQYGEjGQFCrBFjkPnAEeACQAQCYAUSgAc8IqgECMTm4AQPIAQD4AQGKAgtnd3Mtd2l6LWltZ8ICBBAjGCfCAgoQABiABBiKBRhDwgIFEAAYgATCAgYQABgIGB6IBgE&sclient=img&ei=2HP3Zb33DsjxnsEPif-5yAU&bih=1277&biw=1309).
 - The Romans(55 BC): Julius Caesar tried to invade Britain, succeed in AD43 and remain until AD 410 because a retreat for protecting the other part of Roman Empire. 
+  - One of the tribal leaders who fought against the Romans was **Boudicca**, the queen of the Iceni in what is now eastern England.
 - [Anglo-Saxons Kingdom](https://www.youtube.com/watch?v=y4CwNClzegk)
-  - Anglo-Saxons from northen Europe becomes the king of England after Roman
+  - Anglo-Saxons under **King Alfred the Great** from northen Europe becomes the king of England after Roman
   - St Patrick from Ireland preached about Christaianity
   - The Viking(AD 789) started staying in east England and Scotland
-- The Norman Conquest(1066) - William invaded England and killed Harold(the saxon king of England). The battle is commemorated on this art [The Bayeux Tapestry ](https://www.youtube.com/watch?v=F8OPQ_28mdo) in France today. This invasion led to many changes in government, language and social structures in England
+- The Norman Conquest(1066) - William invaded England and killed Harold(the saxon king of England). **The Battle of Hastings** is commemorated on this art [The Bayeux Tapestry ](https://www.youtube.com/watch?v=F8OPQ_28mdo) in France today. This invasion led to many changes in government, language and social structures in England
 
 ### Middle stage (AD 476-1485)
 
@@ -84,12 +85,13 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 - Civil War (1642-1651) and the rise of Parliament
   - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
-  - The country split into those who supported the king (the Cavaliers) and those who supported Parliament (the Roundheads)
+  - The country split into those who supported the king (the **Cavaliers**) and those who supported Parliament (the **Roundheads**)
   - The army of Parliament won the war and **Charles I** was executed in 1649. The Scots had not agreed to the execution of **Charles I** and declared his son **Charles II** to be King. 
   - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** exiled to Europe.
 - The Restoration of the monarchy (1660)
   - After the execution of **Charles I**, England became a republic known as the **Commonwealth of England**, and **Oliver Cromwell** became its Lord Protector which was effectively a monarchical position, albeit with a less hereditary and more constitutionally limited framework. Cromwell ruled until his death in 1658.
   - People wanted stability and parliament invited **Charles II** to come back in May 1660.
+  - During Charles II’s reign, **a great fire** destroyed much of the city, including many churches and St Paul’s Cathedral.
   - **Charles II** had no legitimate children and died in 1685. His brother James became **James II**.
 - [The Glorious Restoration](https://www.youtube.com/watch?v=n6dm2-DphhI) (1688)
   - The Glorious Revolution was a pivotal event in British history where **James II**, a Catholic king, was overthrown by a group of Parliamentarians and replaced by his daughter **Mary** and her husband, **William** of Orange, who were Protestants. Discontent with **James II**'s perceived favoritism towards Catholicism and his attempts to create a more centralized, absolutist monarchy led to fears of a Catholic autocracy. 
@@ -110,7 +112,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
     - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707, creating the **Kingdom of Great Britain**. 
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
     - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
-    - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the clansmen wanted to kick back on the throne in place of **George I**.
+    - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the clansmen wanted to kick back on the throne in place of **George I’s son, George II. **.
   - The Act of Union in 1801 unites England, Wales, Scotland, and Ireland and created the United Kingdom of Great Britain and Ireland.
 
 ### The Enlightenment(啟蒙時代) 1685-1815
@@ -119,6 +121,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - **Adam Smith** laid the foundations for modern economics with his work on free markets in "The Wealth of Nations." 
   - **David Hume** made significant contributions to philosophy, especially empiricism and skepticism. 
   - **James Watt** improved the steam engine, powering the Industrial Revolution and fundamentally changing British society and economy.
+- In 1815, the French Wars ended with the defeat of the Emperor Napoleon by the Duke of Wellington at the **Battle of Waterloo**.
 
 ### The industrial Revolution (1760-1840) 
 
@@ -159,6 +162,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - In 1832, the Reform Act had greatly increased the number of people with the right of vote, but the voting was based on ownership of property. This Act also abolished the *old pocket* and *rotten boroughs*.
   - In 1867, there was another Reform Act to create more urban seats in Parliament and reduced the amount of property that people needed to vote.
 - Acts of Parliament in 1870 and 1882 gave wives the right to keep their own earning and property, before that, those belonged to her husband automatically.
+- The Boer War of 1899 to 1902 took place in South Africa with settlers from the Netherlands called the Boers.
 - In 19th, the UK produced more than half of the world's iron, coal and cotton cloth.
 
 :::infoIsambard Kingdom Brunel (1806-59) 布魯內爾
@@ -255,3 +259,4 @@ Resource: [aupairfect Blog](https://aupairfect.com/blog/entry/33-history-of-the-
     此時聖佐治恰好路過，聽聞此事憤怒異常，他身披代表正義的紅十字，騎士式的向惡龍突擊，手上的長槍一下直刺，把惡龍俘虜了。聖佐治把惡龍拉回城中，跟居民說，若果大家歸信基督，他便會把惡龍消滅。 惡龍之血留在地上形成了一個紅色的十字架。
 - St. Andrew is the patron saint of Scotland, celebrated on November 30th. He was one of the 12 apostles of Jesus and is associated with the Saltire, the Scottish flag, which features a white saltire on a blue background.
 - St. Patrick is the patron saint of Ireland, celebrated on March 17th. He is credited with bringing Christianity to Ireland and is often associated with the use of the shamrock to explain the concept of the Holy Trinity.
+- St. David, was a leading figure and monk in the early Welsh Church who lived in this area in the sixth century.
