@@ -31,7 +31,7 @@ Henry VIII played a pivotal role in the **Reformation** in England, which result
 :::
 
 :::infoThe Habeas Corpus Act
-The Habeas Corpus Act became law in 1679. This was a very important piece of legislation which remains relevant today. Habeas corpus is Latin for 'you must present the person in court'. The Act guaranteed that no one could be held prisoner unlawfullly. Every prisoner has a right to court hearing.
+The Habeas Corpus Act became law in 1679. This was a very important piece of legislation which remains relevant today. Habeas corpus is Latin for 'you must present the person in court'. The Act guaranteed that no one could be held prisoner unlawfully. Every prisoner has a right to court hearing.
 :::
 
 ### Early Britain
@@ -56,8 +56,13 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - War at home and abroad
   - 1200 English ruled an area of Ireland known as the [Pale](https://www.google.com/search?sca_esv=5471e4d8c457d32d&sxsrf=ACQVn09i_py3u8E2JIJZH9KCDvHKzS_W6Q:1710803754356&q=pale+dublin&tbm=isch&source=lnms&sa=X&ved=2ahUKEwip3LvQ-P6EAxW6gP0HHRPAALQQ0pQJegQIEhAB&biw=1309&bih=1277&dpr=1#imgrc=-Kaq-S3suI7GPM) near Dublin. Some lords in other parts of Ireland accepted the authority of the English King
   - 1284 King Edward I of England introduced the Statue of Rhuddlan which is a legal document integrating Welsh territory into the rule of the English crown. [Colonization]
+<<<<<<< HEAD
   - 1314 the Scottish led by **Robert the Bruce** defeated the invaded of English Kings at **Bannockburn**.
   - 1337-1441 Hundred years war between Englishs kings and France. The most famous battle was [Battle of Agincourt](https://www.youtube.com/watch?v=WBAGWgu4ceA) in 1415, King Henry V's vastly outnumbered Englished army defeated the French.
+=======
+  - 1314 the Scottish defeated the invaded of English Kings at Bannockburn.
+  - 1337-1441 Hundred years war between English's kings and France. The most famous battle was [Battle of Agincourt](https://www.youtube.com/watch?v=WBAGWgu4ceA) in 1415, King Henry V's vastly outnumbered Englished army defeated the French.
+>>>>>>> dcba94ff6 (adding rust section)
 - The Black Death(1348): 
   - 1/3 of the population of England, Scotland and Wales died
   - Lots of people died in the Pale in Ireland => The area controlled by the English became smaller
@@ -114,7 +119,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
     - *Pocket boroughs*: some constituencies were controlled by a single wealthy family. 
     - *Rotten boroughs*: constituencies without any voters.
   - **Queen Anna**, William and Mary's successor
-    - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707, creating the **Kingdom of Great Britain**. 
+    - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scotland was agreed in 1707, creating the **Kingdom of Great Britain**. 
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
     - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
     - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the **clansmen from highland** wanted to kick back on the throne in place of **George I’s son, George II. **.
@@ -246,7 +251,7 @@ In May 1940 he became Prime Minister. He refused to surrender to the Nazis and w
   - The UK was a full member of the EU since 1973 but left the EU on 2020.
 - 1979 to 1997
   - Margaret Thatcher became the first Prime Minister, led the Conservative government from 1979 to 1990.
-  - She did the privatisation of nationalised industries and imposed legal controls on trade union powers. 
+  - She did the privatization of nationalised industries and imposed legal controls on trade union powers. 
 - 1997 to 2010
 
 :::infoMargaret Thatcher (1925-2013)
@@ -337,7 +342,7 @@ In the UK Parliament, the Shadow Cabinet is a group of senior opposition party m
 :::
 
 :::infoCounty/Shire 郡
-- 最初使用「Shire」一詞作為行政區劃名稱的是居住在英格蘭中部及南部的盎格魯-薩克遜人。
+> 最初使用「Shire」一詞作為行政區劃名稱的是居住在英格蘭中部及南部的盎格魯-薩克遜人。
 
 In the UK, a county is an administrative division of land that is larger than a city or town but smaller than a region or country. Counties have historically been used for various administrative purposes, including local government, law enforcement, and geographic delineation. They may contain multiple cities, towns, villages, and rural areas, and they often have their own councils responsible for local governance. Counties in the UK can be further divided into districts or boroughs, and they may be part of a larger region or ceremonial county for administrative or ceremonial purposes.
 
@@ -349,3 +354,8 @@ County councils are responsible for functions such as transport, social care and
 
 In the UK Parliament, the Speaker of the House of Commons is an impartial figure responsible for presiding over debates and ensuring that parliamentary rules and procedures are followed. The Speaker is elected by Members of Parliament (MPs) and is expected to remain neutral and impartial, setting aside any party affiliations upon taking office. The Speaker also represents the House of Commons to the monarch, the Lords, and other authorities, and has administrative duties related to the functioning of the House.
 
+## The laws
+
+Laws can be divided into criminal law and civil law:
+- Criminal law relates to crimes, which are usually investigated by the police or another authority such as a council, and which are punished by the courts. some examples of criminal laws are: Carrying a weapon, drugs, racial crime, smoking in the public places and drinking in public.
+- Civil law is used to settle disputes between individuals or groups. Some examples of civil laws are: housing law, consumer rights, employment law and debt.

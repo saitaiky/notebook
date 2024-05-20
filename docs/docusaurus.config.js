@@ -169,6 +169,7 @@ const config = {
         darkTheme: darkCodeTheme,
         additionalLanguages: [
           'rest',
+          'rust',
           'http',
           'haskell',
           'plsql',
