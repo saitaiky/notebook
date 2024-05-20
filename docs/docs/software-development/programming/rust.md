@@ -1,5 +1,6 @@
 ---
 title: Rust
+sidebar_position: 3
 ---
 
 
@@ -29,6 +30,7 @@ Organized version of the explanation on how to use a couple of `cargo` commands 
 - Many developers stick to just `cargo init` to avoid confusion.
 - During development, `cargo run` is commonly used.
 - `cargo check` is handy for quickly verifying if the program compiles.
+- `cargo doc` is used to generate documentation for a Rust project based on the code's documentation comments.
 :::
 
 ## Variable assignment
@@ -843,3 +845,76 @@ In this example:
 - The `divide` function takes two integers `x` and `y` as input and attempts to divide `x` by `y`. If `y` is zero, it returns `None` to indicate division by zero is not allowed. Otherwise, it returns `Some(result)` where `result` is the result of the division.
 - In the `main` function, we call `divide` twice: once with valid inputs (10 and 2) and once with an invalid input (10 and 0).
 - We use `match` expressions to pattern match on the results. If the result is `Some(value)`, we print the value. If the result is `None`, we print a message indicating division by zero.
+
+
+## Create a library
+
+
+### cargo doc
+
+Try to use `cargo doc` to create document for your function and library file.
+
+```rust
+//! ====== This part is for cargo doc to genereate a document ======
+//! ================= when creating a library page section ================
+
+use std::io::{BufReader, BufRead};
+use clap::Parser;
+
+#[derive(Parser)]
+#[command(name = "resplit")]
+#[command(version = "0.0.1")]
+#[command(author = "Alfredo Deza")]
+#[command(about = "Split strings by one or more delimeters and return a field, like cut")]
+
+pub struct Cli {
+    #[arg(short('f'))]
+    field: usize,
+    #[arg(short('d'))]
+    delimeter: String,
+    #[arg(long)]
+    debug: bool,
+}
+
+/// ====== This part is for cargo doc to genereate a document ======
+/// ========== when creating a function section ==========
+/// This function reads a line from stdin and returns it as a String.
+/// It will panic if it fails to read a line with a message "Failed to read input line".
+/// # Examples:
+/// ```
+// let input = read_stdin():
+/// ```
+///***
+pub fn read_stdin() -> String {
+
+    let stdin = std::io::stdin();
+    let mut reader = BufReader::new(stdin.lock());
+    let mut line = String::new();
+
+    // BufRead provides read_line()
+    reader.read_line(&mut line).expect("Failed to read input line");
+    line.trim().to_string()
+}
+```
+
+
+### Debug
+
+The CodeLLDB extension in the Visual Studio Code IDE for debugging Rust programming provides enhanced debugging capabilities, leveraging the LLDB debugger, allowing users to debug Rust code efficiently within the VS Code environment.
+
+Try to use debug mode and set a breakpoint on the line `println! ("Please enter a word (type 'stop' to exit):");` to fix the line position of `input.clear ();`. The current version of the code won't be able to stop the loop since its position is wrong.
+
+```rust
+use std::io;
+
+fn main () {
+    let mut input = String::new();
+    while input.trim() != "stop" {
+        println! ("Please enter a word (type 'stop' to exit):");
+        io::stdin().read_line(&mut input).expect("Failed to read input"); 
+        println! ("You entered: {}", input);
+        input.clear ();
+    }
+    println! ("'Goodbye!");
+}
+```
