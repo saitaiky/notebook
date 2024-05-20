@@ -27,7 +27,7 @@ The two-House system in English Parliament, consisting of the House of Commons a
 :::
 
 :::infoDid Henry VIII start the protestants?
-Henry VIII played a pivotal role in the Reformation in England, which resulted in the establishment of the Church of England separate from the Roman Catholic Church. But he did not actually "start" the Protestants. The Protestant Reformation began in Germany with Martin Luther's actions in 1517, when he published his "95 Theses" challenging the practices and doctrines of the Roman Catholic Church.
+Henry VIII played a pivotal role in the **Reformation** in England, which resulted in the establishment of the Church of England separate from the Roman Catholic Church. But he did not actually "start" the Protestants. **The Protestant Reformation** began in Germany with Martin Luther's actions in 1517, when he published his "95 Theses" challenging the practices and doctrines of the Roman Catholic Church.
 :::
 
 :::infoThe Habeas Corpus Act
@@ -40,11 +40,14 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - Iron Age (700 BC - 1 BC): Defended sites called [hill forts](https://www.google.com/search?q=hill+forts+maiden+castle&tbm=isch&ved=2ahUKEwi9w5mbsfyEAxXIuCcCHYl_DlkQ2-cCegQIABAA&oq=hill+forts+maiden+castle&gs_lp=EgNpbWciGGhpbGwgZm9ydHMgbWFpZGVuIGNhc3RsZTIHEAAYgAQYGEjGQFCrBFjkPnAEeACQAQCYAUSgAc8IqgECMTm4AQPIAQD4AQGKAgtnd3Mtd2l6LWltZ8ICBBAjGCfCAgoQABiABBiKBRhDwgIFEAAYgATCAgYQABgIGB6IBgE&sclient=img&ei=2HP3Zb33DsjxnsEPif-5yAU&bih=1277&biw=1309).
 - The Romans(55 BC): Julius Caesar tried to invade Britain, succeed in AD43 and remain until AD 410 because a retreat for protecting the other part of Roman Empire. 
   - One of the tribal leaders who fought against the Romans was **Boudicca**, the queen of the Iceni in what is now eastern England.
+  - Britain was invaded by tribes from northern Europe: the Jutes, the Angles and the Saxons after the Romans left in AD 410
 - [Anglo-Saxons Kingdom](https://www.youtube.com/watch?v=y4CwNClzegk)
-  - Anglo-Saxons under **King Alfred the Great** from northen Europe becomes the king of England after Roman
+  - Anglo-Saxons under **King Alfred the Great** from northen Europe who defeated the Vikings and became the king of England after Roman
   - St Patrick from Ireland preached about Christaianity
   - The Viking(AD 789) started staying in east England and Scotland
-- The Norman Conquest(1066) - William invaded England and killed Harold(the saxon king of England). **The Battle of Hastings** is commemorated on this art [The Bayeux Tapestry ](https://www.youtube.com/watch?v=F8OPQ_28mdo) in France today. This invasion led to many changes in government, language and social structures in England
+- The Norman Conquest(1066) - **William** invaded England and killed Harold(the saxon king of England). This invasion led to many changes in government, language and social structures in England
+  - **The Battle of Hastings** is commemorated on this art [The Bayeux Tapestry ](https://www.youtube.com/watch?v=F8OPQ_28mdo) in France today.
+  - **Domesday Book** which lists of all the towns and villages in England was written **after the Norman Conquest**.
 
 ### Middle stage (AD 476-1485)
 
@@ -53,7 +56,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - War at home and abroad
   - 1200 English ruled an area of Ireland known as the [Pale](https://www.google.com/search?sca_esv=5471e4d8c457d32d&sxsrf=ACQVn09i_py3u8E2JIJZH9KCDvHKzS_W6Q:1710803754356&q=pale+dublin&tbm=isch&source=lnms&sa=X&ved=2ahUKEwip3LvQ-P6EAxW6gP0HHRPAALQQ0pQJegQIEhAB&biw=1309&bih=1277&dpr=1#imgrc=-Kaq-S3suI7GPM) near Dublin. Some lords in other parts of Ireland accepted the authority of the English King
   - 1284 King Edward I of England introduced the Statue of Rhuddlan which is a legal document integrating Welsh territory into the rule of the English crown. [Colonization]
-  - 1314 the Scottish defeated the invaded of English Kings at Bannockburn.
+  - 1314 the Scottish led by **Robert the Bruce** defeated the invaded of English Kings at **Bannockburn**.
   - 1337-1441 Hundred years war between Englishs kings and France. The most famous battle was [Battle of Agincourt](https://www.youtube.com/watch?v=WBAGWgu4ceA) in 1415, King Henry V's vastly outnumbered Englished army defeated the French.
 - The Black Death(1348): 
   - 1/3 of the population of England, Scotland and Wales died
@@ -76,7 +79,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
    - Edward's half-sister **Mary**(aka. [bloody Mary](https://www.google.com/search?sca_esv=07ac767684f655b4&sxsrf=ACQVn0-ENGgjeJXzaZKIxe-B3F983FyWAQ:1710858787545&q=bloody+mary+queen&tbm=isch&source=lnms&sa=X&ved=2ahUKEwj5hKvSxYCFAxUWWUEAHeDSB10Q0pQJegQIDBAB&biw=1309&bih=1277&dpr=1#imgrc=LEonq5ynziBYZM)) became queen. Mary was a devout Catholic and persecuted Protestants. She died after a short reign.
 - **Elizabeth I**(1533-1603)
   - Mary's half-sister, **Elizabeth I** who was a Protestant became the queen. She tried to avoid serious religious conflict within England. In July 1588, the [Spanish Armada](https://www.google.com/search?sca_esv=58652087346d5a22&sxsrf=ACQVn09wAuYHVeu3gvuYnCrZ5gIRGDwn1w:1710937509008&q=Spanish+Armada&tbm=isch&source=lnms&prmd=ivnmbtz&sa=X&ved=2ahUKEwj169Pz6oKFAxVLV0EAHWN-BOsQ0pQJegQIDhAB&biw=1406&bih=1277&dpr=1#imgrc=XLrMl-5XNq5J1M) set sail from Spain, with the mission of overthrowing the Queen Elizabeth I and restoring Catholic rule over England. The English won the invasion
-  - Her cousin (Mary Stuart, Queen of Scotland) fled to England to find her help because Mary's husband was murdered, but Elizabeth suspected Mary of wanting to take over the English Throne even Mary gave her throne to her Protestant son. Mary was sent to jail for 20 yrs and was eventually executed
+  - Her cousin (Mary Stuart, Queen of Scotland) fled to England to find her help because Mary's husband was murdered, but Elizabeth suspected Mary of wanting to take over the English Throne even Mary gave her throne to her Protestant son. Mary was *sent to jail for 20 yrs and was eventually executed*
   - Elizabeth period is remembered for the richness of its poetry and drama. especially the plays and poems of **William Shakespeare**.
   - The plantation of Ireland was an organized policy of colonizing Ireland with English settlers and attempting to impose English control, language, and culture, often resulting in the displacement of the native Irish population.
   - Elizabeth I never married, her heir was **James VI** of Scotland.
@@ -84,10 +87,10 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 ### Civil War & The Glorious Restoration
 
 - Civil War (1642-1651) and the rise of Parliament
-  - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
+  - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan - 清教徒](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
   - The country split into those who supported the king (the **Cavaliers**) and those who supported Parliament (the **Roundheads**)
   - The army of Parliament won the war and **Charles I** was executed in 1649. The Scots had not agreed to the execution of **Charles I** and declared his son **Charles II** to be King. 
-  - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** exiled to Europe.
+  - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** hid in an oak tree on one occasion and exiled to Europe.
 - The Restoration of the monarchy (1660)
   - After the execution of **Charles I**, England became a republic known as the **Commonwealth of England**, and **Oliver Cromwell** became its Lord Protector which was effectively a monarchical position, albeit with a less hereditary and more constitutionally limited framework. Cromwell ruled until his death in 1658.
   - People wanted stability and parliament invited **Charles II** to come back in May 1660.
@@ -112,7 +115,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
     - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scootland was agreed in 1707, creating the **Kingdom of Great Britain**. 
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
     - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
-    - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the clansmen wanted to kick back on the throne in place of **George I’s son, George II. **.
+    - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the **clansmen from highland** wanted to kick back on the throne in place of **George I’s son, George II. **.
   - The Act of Union in 1801 unites England, Wales, Scotland, and Ireland and created the United Kingdom of Great Britain and Ireland.
 
 ### The Enlightenment(啟蒙時代) 1685-1815
@@ -121,7 +124,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - **Adam Smith** laid the foundations for modern economics with his work on free markets in "The Wealth of Nations." 
   - **David Hume** made significant contributions to philosophy, especially empiricism and skepticism. 
   - **James Watt** improved the steam engine, powering the Industrial Revolution and fundamentally changing British society and economy.
-- In 1815, the French Wars ended with the defeat of the Emperor Napoleon by the Duke of Wellington at the **Battle of Waterloo**.
+- In 1815, **the French Wars** ended with the defeat of the Emperor Napoleon by the Duke of Wellington at the **Battle of Waterloo**.
 
 ### The industrial Revolution (1760-1840) 
 
@@ -133,7 +136,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### The slave trade
 
-- in 1807, it became illegal to trade slaves in British ship or British port and in 1833 the Emancipation Act abolished the slavery throughout the British Empire.
+- in 1807, it became illegal to trade slaves in British ship or British port and in 1833 the **Emancipation Act** abolished the slavery throughout the British Empire.
 - After 1833, 2m Indian and Chinese workers were employed to replace the freed slaves. They worked ..
   - on sugar plantations in the Caribbean
   - in mines in South Africa
@@ -162,8 +165,10 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - In 1832, the Reform Act had greatly increased the number of people with the right of vote, but the voting was based on ownership of property. This Act also abolished the *old pocket* and *rotten boroughs*.
   - In 1867, there was another Reform Act to create more urban seats in Parliament and reduced the amount of property that people needed to vote.
 - Acts of Parliament in 1870 and 1882 gave wives the right to keep their own earning and property, before that, those belonged to her husband automatically.
-- The Boer War of 1899 to 1902 took place in South Africa with settlers from the Netherlands called the Boers.
-- In 19th, the UK produced more than half of the world's iron, coal and cotton cloth.
+- **The Boer War** of 1899 to 1902 took place in South Africa with settlers from the Netherlands called the Boers.
+- Export and import
+  - In 19th, the UK produced more than half of the world's iron, coal and cotton cloth.
+  - Government promote policies of free trade by abolishing a number of taxes on imported goods during the Victorian Age
 
 :::infoIsambard Kingdom Brunel (1806-59) 布魯內爾
 Isambard Kingdom Brunel was originally from Portsmouth. He built tunnels, bridges, railway lines and ships. 2 of his famous works
@@ -176,7 +181,7 @@ Florence Nightingale was born in Florence in Italy. In 1854, she went to Turkey 
 :::
 
 :::infoEmmeline Pankhurst (1858-1928)
-Emmeline was a prominent British suffragette(婦女參政論者) and political activist who played a leading role in the women's suffrage movement in the United Kingdom. She founded the Women's Social and Political Union (WSPU) in 1903, advocating for women's right to vote through direct action and civil disobedience. Pankhurst and the WSPU led numerous campaigns, protests, and hunger strikes, contributing significantly to the eventual granting of voting rights to British women with the Representation of the People Act in 1918.
+Emmeline was a prominent British **suffragette**(婦女參政論者) and political activist who played a leading role in the women's suffrage movement in the United Kingdom. She founded the Women's Social and Political Union (WSPU) in 1903, advocating for women's right to vote through direct action and civil disobedience. Pankhurst and the WSPU led numerous campaigns, protests, and hunger strikes, contributing significantly to the eventual granting of voting rights to British women with the Representation of the People Act in 1918.
 :::
 
 ## The 20th Century
@@ -190,7 +195,7 @@ Emmeline was a prominent British suffragette(婦女參政論者) and political a
 
 Source: [mapsontheweb](https://mapsontheweb.zoom-maps.com/post/178341603579/europe-before-and-after-world-war-1)
 
-- **World War I** erupted primarily due to a complex web of factors including militarism, nationalism, imperialism, and alliances. Tensions escalated after the assassination of Archduke Franz Ferdinand of Austria-Hungary Empire (Composed by Austrian Empire and the Kingdom of Hungary) in 1914. The British Empire played a significant role in the war, being one of the major Allied powers. Britain's involvement stemmed from its alliances and obligations to Belgium and France, as well as its desire to maintain its imperial dominance and protect its overseas territories. British forces fought on multiple fronts, including the Western Front, the Middle East, and Africa, contributing to the eventual Allied victory at 11 am on 11th in November 1918.
+- **World War I** erupted primarily due to a complex web of factors including militarism, nationalism, imperialism, and alliances. Tensions escalated after the assassination of Archduke Franz Ferdinand of Austria-Hungary Empire (Composed by Austrian Empire and the Kingdom of Hungary) in 1914. The British Empire played a significant role in the war, being one of the major Allied powers. Britain's involvement stemmed from its alliances and obligations to Belgium and France, as well as its desire to maintain its imperial dominance and protect its overseas territories. British forces fought on multiple fronts, including the Western Front, the Middle East, and Africa, contributing to the eventual Allied victory at **11 am on 11th in November 1918**.
 - The inter-war period
   - In 1916, an uprising (the Easter Rising) against the British in Dublin.  
   - In 1921 a peace treaty was signed and in 1922 Ireland became two countries.
