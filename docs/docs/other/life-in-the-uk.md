@@ -86,6 +86,8 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### Civil War & The Glorious Restoration
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9jtNGBU-Epw?si=y89mRZ-YogL6E8-B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 - Civil War (1642-1651) and the rise of Parliament
   - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan - 清教徒](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
   - The country split into those who supported the king (the **Cavaliers**) and those who supported Parliament (the **Roundheads**)
@@ -152,6 +154,8 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### War with France
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/An3xaLG34rE?si=DnbpQcXnlJVZL3_y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 - The Battle of Trafalgar, fought on October 21, 1805, was a naval engagement between the British Royal Navy and the combined fleets of France and Spain during the Napoleonic Wars. Led by **Admiral Nelson**, the British fleet employed a bold tactic, breaking the enemy line and securing a decisive victory despite Nelson's death in the battle. 
 - The battle effectively ended Napoleon's ambitions of invading Britain, establishing British naval supremacy for over a century and shaping the course of European history.
 - [Nelson's Column](https://www.google.com/search?sca_esv=afc91ab2542ac84a&sxsrf=ACQVn0-B8GjgsoK818_2OGZ6rM725XoMXA:1711492149357&q=Nelson%27s+column+in+trafalgar&tbm=isch&source=lnms&prmd=ivnmbtz&sa=X&ved=2ahUKEwj9n-SM_ZKFAxUpREEAHbqzB1UQ0pQJegQIDRAB&biw=1284&bih=1277&dpr=1#imgrc=YWToaUIfEszY3M) in Trafallgar Square, London is a monument to him.
@@ -191,7 +195,7 @@ Emmeline was a prominent British **suffragette**(婦女參政論者) and politic
 
 ### World War I (1914-1918)
 
-![](/img/other//europe-before-after-ww1.webp)
+![](/img/other/europe-before-after-ww1.webp)
 
 Source: [mapsontheweb](https://mapsontheweb.zoom-maps.com/post/178341603579/europe-before-and-after-world-war-1)
 
@@ -251,6 +255,34 @@ In 1975 she was elected as Leader of the Conservative Party and so became Leader
 She led the Conservative government from 1979 to 1990 and was the longest-serving Prime Minister of the 20th century
 :::
 
+## The society in the UK
+
+### Religion
+
+Majority of the people identified themselves as Christian. Much smaller proportions identified themselves as Muslim, Hindu, Sikh and Jewish or Buddhist. There are religious buildings all over the UK including Islamic mosques, Hindu temples, Jewish synagogues, Sikh gurdwaras and Buddhist temples.
+
+In England, there is a constitutional link between Church and state.
+- The church of England [called the Anglican Church（聖公會） in other countries]
+- Episcopal Church in Scotland and the United State
+
+Some religious festivals
+- **Diwali** normally falls in October or November and lasts for 5 days and is celebrated by Hindus and Sikhs.
+- **Vaisakhi**, also known as Baisakhi, is a major Sikh festival celebrated annually on April 13 or 14. It marks the Sikh New Year and commemorates the formation of Khalsa Panth by Guru Gobind Singh in 1699.
+- **Hannukah** is in November or December and is celebrated for eight days to remember the Jews' struggle for religious freedom.
+- Muslims
+  - **Eid al-Fitr** celebrate the end of Ramadan, when Muslims have fasted for a month. They thank Allah for giving them the strength to complete the fast.
+  - **Eid ul-Adha**, also known as the Festival of Sacrifice, is an important Islamic holiday commemorating the willingness of Ibrahim (Abraham) to sacrifice his son as an act of obedience to God. It is celebrated with prayers, feasting, and the sacrifice of animals, with the meat distributed among family, friends, and the needy.
+
+:::infoOther festivals
+- Bonfire Night: 5 November. The origin of this celebration was an event in 1605, when a group of Catholics led by Guy Fawkes failed in their plan to kill the Protestant king with a bomb in the houses of Parliament.
+- Remembrance Day, 11 November, commemorates those who died fighting for the UK and its allies. Originally it commemorated the dead of the First World War, which ended on 11 November 1918. People wear poopies. At 11.00 am there is two-minute silence and wreaths are laid at the Cenotaph in Whitehall, London. 
+:::
+
+
+
+
+
+
 ## The Union Flag
 
 ![unionflagflags](http://aupairfect.hu/assets/images/tinymce/old_images/unionflagflags.jpg)
@@ -265,3 +297,55 @@ Resource: [aupairfect Blog](https://aupairfect.com/blog/entry/33-history-of-the-
 - St. Andrew is the patron saint of Scotland, celebrated on November 30th. He was one of the 12 apostles of Jesus and is associated with the Saltire, the Scottish flag, which features a white saltire on a blue background.
 - St. Patrick is the patron saint of Ireland, celebrated on March 17th. He is credited with bringing Christianity to Ireland and is often associated with the use of the shamrock to explain the concept of the Holy Trinity.
 - St. David, was a leading figure and monk in the early Welsh Church who lived in this area in the sixth century.
+
+### Flower symbols
+
+![](/img/other/flower-symbols.jpeg)
+
+Source:[BRITISH FLOWER SYMBOLS | UK | The United Kingdom | BRITISH CULTURE](https://www.youtube.com/watch?app=desktop&v=waIHeHECpeI)
+
+- Northern Ireland - the shamrock
+- England - the rose
+- Wales - the daffodil
+- Scotland - the thistle
+
+## The British constitution 
+
+- MPs are elected at a General Election, which is held at least every five years.
+
+### The House of Commons
+
+The House of Commons is the lower house of Parliament, consisting of Members of Parliament (MPs) who are elected by the public in general elections. It is responsible for making and passing laws, scrutinizing the government, and representing the interests of the public.
+
+#### The House of Lords
+
+The House of Lords, on the other hand, is the upper house of Parliament, made up of appointed members including life peers, hereditary peers, and bishops. Its main functions are to review and revise legislation proposed by the House of Commons, provide expertise and independent scrutiny, and act as a revising chamber.
+
+#### The cabinet (內閣)
+
+The Prime Minister appoints about 20 senior MPs to become ministers in  charge of departments. They include:
+
+The Prime Minister appoints about 20 senior MPs to become ministers in charge of departments. These include:
+
+- Chancellor of the Exchequer - responsible for the economy
+- Home Secretary - responsible for crime, policing and immigration
+- Foreign Secretary - responsible for managing relationships with foreign countries
+- Other ministers (called '**Secretaries of Stat 內閣大臣e**') responsible for subjects such as education, health and defence.
+
+:::infoShadow cabinet 影子內閣
+In the UK Parliament, the Shadow Cabinet is a group of senior opposition party members who hold portfolios mirroring those of the government's Cabinet ministers. The Shadow Cabinet's role is to scrutinize the government's policies, propose alternative policies, and prepare to take over ministerial roles if their party wins the next general election.
+:::
+
+:::infoCounty/Shire 郡
+- 最初使用「Shire」一詞作為行政區劃名稱的是居住在英格蘭中部及南部的盎格魯-薩克遜人。
+
+In the UK, a county is an administrative division of land that is larger than a city or town but smaller than a region or country. Counties have historically been used for various administrative purposes, including local government, law enforcement, and geographic delineation. They may contain multiple cities, towns, villages, and rural areas, and they often have their own councils responsible for local governance. Counties in the UK can be further divided into districts or boroughs, and they may be part of a larger region or ceremonial county for administrative or ceremonial purposes.
+
+County(郡) vs District(區)
+County councils are responsible for functions such as transport, social care and education. District councils are responsible for matters including housing, planning and waste collection.
+:::
+
+#### The Speaker
+
+In the UK Parliament, the Speaker of the House of Commons is an impartial figure responsible for presiding over debates and ensuring that parliamentary rules and procedures are followed. The Speaker is elected by Members of Parliament (MPs) and is expected to remain neutral and impartial, setting aside any party affiliations upon taking office. The Speaker also represents the House of Commons to the monarch, the Lords, and other authorities, and has administrative duties related to the functioning of the House.
+
