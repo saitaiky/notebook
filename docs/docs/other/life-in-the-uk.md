@@ -39,13 +39,13 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - Bronze Age(2000 BC): Celebrate in [stonehenge](https://www.google.com/maps/place/Stonehenge/@51.178882,-1.826215,15z/data=!4m6!3m5!1s0x4873e63b850af611:0x979170e2bcd3d2dd!8m2!3d51.178882!4d-1.826215!16zL20vMDZ3Zmc?entry=ttu), lives in roundhouses and buried in tombs called [round barrows](round barrow).
 - Iron Age (700 BC - 1 BC): Defended sites called [hill forts](https://www.google.com/search?q=hill+forts+maiden+castle&tbm=isch&ved=2ahUKEwi9w5mbsfyEAxXIuCcCHYl_DlkQ2-cCegQIABAA&oq=hill+forts+maiden+castle&gs_lp=EgNpbWciGGhpbGwgZm9ydHMgbWFpZGVuIGNhc3RsZTIHEAAYgAQYGEjGQFCrBFjkPnAEeACQAQCYAUSgAc8IqgECMTm4AQPIAQD4AQGKAgtnd3Mtd2l6LWltZ8ICBBAjGCfCAgoQABiABBiKBRhDwgIFEAAYgATCAgYQABgIGB6IBgE&sclient=img&ei=2HP3Zb33DsjxnsEPif-5yAU&bih=1277&biw=1309).
 - The Romans(55 BC): Julius Caesar tried to invade Britain, succeed in AD43 and remain until AD 410 because a retreat for protecting the other part of Roman Empire. 
-  - One of the tribal leaders who fought against the Romans was **Boudicca**, the queen of the Iceni in what is now eastern England.
-  - Britain was invaded by tribes from northern Europe: the Jutes, the Angles and the Saxons after the Romans left in AD 410
+  - One of the tribal leaders who fought against the Romans was **[Boudicca](https://www.google.com/maps/uv?pb=!1s0x487604c42f3a98b9%3A0x882e199683aed881!3m1!7e115!4s%2Fmaps%2Fplace%2Fboudicca%2Bstatue%2F%4051.5010874%2C-0.1239984%2C3a%2C75y%2C79.46h%2C90t%2Fdata%3D*213m4*211e1*213m2*211sEWxRky3XkY32T35HBtBraQ*212e0*214m2*213m1*211s0x487604c42f3a98b9%3A0x882e199683aed881%3Fsa%3DX%26ved%3D2ahUKEwi41KqEx5yGAxUdgP0HHeQhAS4Qpx96BAgEEAA!5sboudicca%20statue%20-%20Google%20Search!15sCgIgAQ&imagekey=!1e2!2sEWxRky3XkY32T35HBtBraQ&hl=en&ved=1t%3A206134&ictx=111)**, the queen of the Iceni in what is now eastern England.
+  - Britain was invaded by tribes from northern Europe: **the Jutes**, **the Angles** and **the Saxons** after the Romans left in AD 410
 - [Anglo-Saxons Kingdom](https://www.youtube.com/watch?v=y4CwNClzegk)
   - Anglo-Saxons under **King Alfred the Great** from northen Europe who defeated the Vikings and became the king of England after Roman
   - St Patrick from Ireland preached about Christaianity
   - The Viking(AD 789) started staying in east England and Scotland
-- The Norman Conquest(1066) - **William** invaded England and killed Harold(the saxon king of England). This invasion led to many changes in government, language and social structures in England
+- The Norman Conquest(1066) - **William the Conqueror** from France invaded England and killed Harold(the saxon king of England). This invasion led to many changes in government, language and social structures in England
   - **The Battle of Hastings** is commemorated on this art [The Bayeux Tapestry ](https://www.youtube.com/watch?v=F8OPQ_28mdo) in France today.
   - **Domesday Book** which lists of all the towns and villages in England was written **after the Norman Conquest**.
 
@@ -56,13 +56,8 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 - War at home and abroad
   - 1200 English ruled an area of Ireland known as the [Pale](https://www.google.com/search?sca_esv=5471e4d8c457d32d&sxsrf=ACQVn09i_py3u8E2JIJZH9KCDvHKzS_W6Q:1710803754356&q=pale+dublin&tbm=isch&source=lnms&sa=X&ved=2ahUKEwip3LvQ-P6EAxW6gP0HHRPAALQQ0pQJegQIEhAB&biw=1309&bih=1277&dpr=1#imgrc=-Kaq-S3suI7GPM) near Dublin. Some lords in other parts of Ireland accepted the authority of the English King
   - 1284 King Edward I of England introduced the Statue of Rhuddlan which is a legal document integrating Welsh territory into the rule of the English crown. [Colonization]
-<<<<<<< HEAD
   - 1314 the Scottish led by **Robert the Bruce** defeated the invaded of English Kings at **Bannockburn**.
   - 1337-1441 Hundred years war between Englishs kings and France. The most famous battle was [Battle of Agincourt](https://www.youtube.com/watch?v=WBAGWgu4ceA) in 1415, King Henry V's vastly outnumbered Englished army defeated the French.
-=======
-  - 1314 the Scottish defeated the invaded of English Kings at Bannockburn.
-  - 1337-1441 Hundred years war between English's kings and France. The most famous battle was [Battle of Agincourt](https://www.youtube.com/watch?v=WBAGWgu4ceA) in 1415, King Henry V's vastly outnumbered Englished army defeated the French.
->>>>>>> dcba94ff6 (adding rust section)
 - The Black Death(1348): 
   - 1/3 of the population of England, Scotland and Wales died
   - Lots of people died in the Pale in Ireland => The area controlled by the English became smaller
@@ -87,26 +82,28 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - Her cousin (Mary Stuart, Queen of Scotland) fled to England to find her help because Mary's husband was murdered, but Elizabeth suspected Mary of wanting to take over the English Throne even Mary gave her throne to her Protestant son. Mary was *sent to jail for 20 yrs and was eventually executed*
   - Elizabeth period is remembered for the richness of its poetry and drama. especially the plays and poems of **William Shakespeare**.
   - The plantation of Ireland was an organized policy of colonizing Ireland with English settlers and attempting to impose English control, language, and culture, often resulting in the displacement of the native Irish population.
-  - Elizabeth I never married, her heir was **James VI** of Scotland.
+  - Elizabeth I never married, her heir was **James VI** of Scotland, becoming **James I** of England.
 
 ### Civil War & The Glorious Restoration
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9jtNGBU-Epw?si=y89mRZ-YogL6E8-B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 - Civil War (1642-1651) and the rise of Parliament
-  - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted the divine right of kings, and Parliament, which sought more power and was influenced by [Puritan - 清教徒](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
+  - **The Battle of Naseby** (1645) and **the Battle of Marston Moor** (1644) were decisive battles in the English Civil War, where Parliamentarian forces defeated the Royalists, significantly weakening King Charles I's military power.
+  - The English Civil War began primarily due to political power struggles between the monarchy, especially under **Charles I**(James' son ), who asserted **the divine right of kings** (the idea that the king was directly appointed by God to rule), and Parliament, which sought more power and was influenced by [Puritan - 清教徒](https://www.youtube.com/watch?v=VayrvCkjANM) dissatisfaction with Charles's religious policies. Tensions escalated over issues such as taxation without parliamentary consent, disagreements on the role of the Church of England, and the autocratic tendencies of the monarchy, ultimately leading to armed conflict. Attachments: [movie 1](https://www.youtube.com/watch?v=gtxDqcOSWoM), [movie 2](https://www.youtube.com/watch?v=G0Ycp3SiOLw)
   - The country split into those who supported the king (the **Cavaliers**) and those who supported Parliament (the **Roundheads**)
   - The army of Parliament won the war and **Charles I** was executed in 1649. The Scots had not agreed to the execution of **Charles I** and declared his son **Charles II** to be King. 
-  - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** hid in an oak tree on one occasion and exiled to Europe.
+  - **Charles II** led a Scottish army into England and was defeated by **Oliver Cromwell** who is one of the generals of Parliament Army. **Charles II** hid in an oak tree on one occasion and exiled to **Netherlands**.
 - The Restoration of the monarchy (1660)
   - After the execution of **Charles I**, England became a republic known as the **Commonwealth of England**, and **Oliver Cromwell** became its Lord Protector which was effectively a monarchical position, albeit with a less hereditary and more constitutionally limited framework. Cromwell ruled until his death in 1658.
   - People wanted stability and parliament invited **Charles II** to come back in May 1660.
   - During Charles II’s reign, **a great fire** destroyed much of the city, including many churches and St Paul’s Cathedral.
   - **Charles II** had no legitimate children and died in 1685. His brother James became **James II**.
 - [The Glorious Restoration](https://www.youtube.com/watch?v=n6dm2-DphhI) (1688)
-  - The Glorious Revolution was a pivotal event in British history where **James II**, a Catholic king, was overthrown by a group of Parliamentarians and replaced by his daughter **Mary** and her husband, **William** of Orange, who were Protestants. Discontent with **James II**'s perceived favoritism towards Catholicism and his attempts to create a more centralized, absolutist monarchy led to fears of a Catholic autocracy. 
-  - **William** was invited by a coalition of influential Protestants and parliamentary leaders to invade England and assert the throne. The revolution was relatively peaceful and bloodless, as James's army defected or failed to put up resistance, leading to his exile in France. **William** became **William III**
-  - This peaceful transfer of power established **a constitutional monarchy(君主立憲制)** and the principle of parliamentary sovereignty, shaping the future of democratic governance.
+  - The Glorious Revolution was a pivotal event in British history where **James II**, a Catholic king, was overthrown by a group of Parliamentarians and replaced by his daughter **Mary** and her husband, **William of Orange**, who were Protestants. Discontent with **James II**'s perceived favoritism towards Catholicism and his attempts to create a more centralized, absolutist monarchy led to fears of a Catholic autocracy. 
+    - In 1688, **William** was invited by a coalition of influential Protestants and parliamentary leaders to invade England and proclaim himself king. The revolution was relatively peaceful and bloodless, as James's army defected or failed to put up resistance, leading to his exile in France. **William** became **William III**
+    - This peaceful transfer of power established **a constitutional monarchy(君主立憲制)** and the principle of parliamentary sovereignty, shaping the future of democratic governance.
+
   
 ### A Constitutional monarchy - The Bill of Rights (1689)
   - Constitutional monarchy begins, reducing unilateral monarch power; ministers gain influence.
@@ -122,7 +119,8 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
     - Because **Queen Anne** had no surviving children, this uncertainty led to the Treaty of Union in Scotland was agreed in 1707, creating the **Kingdom of Great Britain**. 
     - **Queen Anne**'s death leads Parliament to appoint **George I** in 1714, Anne's nearest Protestant relative.
     - Sir **Robert Walpole** becomes the first Prime Minister under **George I**.
-    - The rebellion in Scotland led by **Bonnie Prince Charlie** (the grandson of **James II**) is because the **clansmen from highland** wanted to kick back on the throne in place of **George I’s son, George II. **.
+    - The rebellion in Scotland led by **Charles Edward Stuart  (Bonnie Prince Charlie)** (the grandson of **James II**) is because the **clansmen from highland** wanted to kick back on the throne in place of **George I’s son, George II. **.
+    - **The Battle of the Boyne**, fought on July 1, 1690, near Drogheda, Ireland, was a decisive conflict where William III (William of Orange) defeated the forces of the deposed **King James II.** 
   - The Act of Union in 1801 unites England, Wales, Scotland, and Ireland and created the United Kingdom of Great Britain and Ireland.
 
 ### The Enlightenment(啟蒙時代) 1685-1815
@@ -243,9 +241,10 @@ In May 1940 he became Prime Minister. He refused to surrender to the Nazis and w
   - Provide a bunch of benefits to provide social security to protect from the cradle to the grave.
   - The UK joined the new NATO.
   - During the 1950s, there was still a shortage of labour in the UK. There were lots of immigrant from West Indies, India and Pakistan to work and settle in Britain. 
-- 1960s
+- 1960s `swinging sixties`
   - 2 well-known pop music groups were The Beatles and The Rolling Stones.
   - In the late 1960s, the government passed new laws to restrict immigration to Britain.
+  - It was also a time when social laws were liberalised, for example in relation to divorce and to abortion in England, Wales and Scotland. The position of women in the workplace also improved.
 - 1970s
   - In the late 1970s, the post-war economic boom came to an end. Imports of goods were valued at more than the price paid for exports.  Conflict between the trade unions and the government led to lots of strikes.
   - The UK was a full member of the EU since 1973 but left the EU on 2020.
