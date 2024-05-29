@@ -1,24 +1,7 @@
 ---
-title: Life in the UK
+title: History and Culture of the UK
 draft: true
 ---
-
-- [life-in-the-uk-test](https://github.com/giuli007/life-in-the-uk-test)
-- [Cheat Sheet](https://lituktest.com/cheat-sheet)
-
-## Value and principles
-
-Following the fundamental principles are **responsibilities and freedoms** which are shared by all those living in the UK and which we expect all residents to respect. The fundamental principles of British life include:
-- Democracy
-- The rule of law
-- Individual liberty
-- Tolerance of those with different faiths and beliefs
-- Participation in community life
-
-
-## What is the UK
-
-The UK is made up of England, Scotland, Wales and Northern Ireland
 
 ## History
 
@@ -259,35 +242,14 @@ In 1975 she was elected as Leader of the Conservative Party and so became Leader
 She led the Conservative government from 1979 to 1990 and was the longest-serving Prime Minister of the 20th century
 :::
 
-## The society in the UK
+## Culture
 
-### Religion
+### Geography
 
-Majority of the people identified themselves as Christian. Much smaller proportions identified themselves as Muslim, Hindu, Sikh and Jewish or Buddhist. There are religious buildings all over the UK including Islamic mosques, Hindu temples, Jewish synagogues, Sikh gurdwaras and Buddhist temples.
+- The UK is made up of England, Scotland, Wales and Northern Ireland
+- Great Britain refers only to England, Wales and Scotland.
 
-In England, there is a constitutional link between Church and state.
-- The church of England [called the Anglican Church（聖公會） in other countries]
-- Episcopal Church in Scotland and the United State
-
-Some religious festivals
-- **Diwali** normally falls in October or November and lasts for 5 days and is celebrated by Hindus and Sikhs.
-- **Vaisakhi**, also known as Baisakhi, is a major Sikh festival celebrated annually on April 13 or 14. It marks the Sikh New Year and commemorates the formation of Khalsa Panth by Guru Gobind Singh in 1699.
-- **Hannukah** is in November or December and is celebrated for eight days to remember the Jews' struggle for religious freedom.
-- Muslims
-  - **Eid al-Fitr** celebrate the end of Ramadan, when Muslims have fasted for a month. They thank Allah for giving them the strength to complete the fast.
-  - **Eid ul-Adha**, also known as the Festival of Sacrifice, is an important Islamic holiday commemorating the willingness of Ibrahim (Abraham) to sacrifice his son as an act of obedience to God. It is celebrated with prayers, feasting, and the sacrifice of animals, with the meat distributed among family, friends, and the needy.
-
-:::infoOther festivals
-- Bonfire Night: 5 November. The origin of this celebration was an event in 1605, when a group of Catholics led by Guy Fawkes failed in their plan to kill the Protestant king with a bomb in the houses of Parliament.
-- Remembrance Day, 11 November, commemorates those who died fighting for the UK and its allies. Originally it commemorated the dead of the First World War, which ended on 11 November 1918. People wear poopies. At 11.00 am there is two-minute silence and wreaths are laid at the Cenotaph in Whitehall, London. 
-:::
-
-
-
-
-
-
-## The Union Flag
+### The Union Flag
 
 ![unionflagflags](http://aupairfect.hu/assets/images/tinymce/old_images/unionflagflags.jpg)
 
@@ -313,10 +275,6 @@ Source:[BRITISH FLOWER SYMBOLS | UK | The United Kingdom | BRITISH CULTURE](http
 - Wales - the daffodil
 - Scotland - the thistle
 
-## The British constitution 
-
-- MPs are elected at a General Election, which is held at least every five years.
-
 ### The House of Commons
 
 The House of Commons is the lower house of Parliament, consisting of Members of Parliament (MPs) who are elected by the public in general elections. It is responsible for making and passing laws, scrutinizing the government, and representing the interests of the public.
@@ -328,8 +286,6 @@ The House of Lords, on the other hand, is the upper house of Parliament, made up
 #### The cabinet (內閣)
 
 The Prime Minister appoints about 20 senior MPs to become ministers in  charge of departments. They include:
-
-The Prime Minister appoints about 20 senior MPs to become ministers in charge of departments. These include:
 
 - Chancellor of the Exchequer - responsible for the economy
 - Home Secretary - responsible for crime, policing and immigration
@@ -353,8 +309,40 @@ County councils are responsible for functions such as transport, social care and
 
 In the UK Parliament, the Speaker of the House of Commons is an impartial figure responsible for presiding over debates and ensuring that parliamentary rules and procedures are followed. The Speaker is elected by Members of Parliament (MPs) and is expected to remain neutral and impartial, setting aside any party affiliations upon taking office. The Speaker also represents the House of Commons to the monarch, the Lords, and other authorities, and has administrative duties related to the functioning of the House.
 
-## The laws
+### The laws
 
 Laws can be divided into criminal law and civil law:
 - Criminal law relates to crimes, which are usually investigated by the police or another authority such as a council, and which are punished by the courts. some examples of criminal laws are: Carrying a weapon, drugs, racial crime, smoking in the public places and drinking in public.
 - Civil law is used to settle disputes between individuals or groups. Some examples of civil laws are: housing law, consumer rights, employment law and debt.
+
+
+### The values and principles
+
+Following the fundamental principles are **responsibilities and freedoms** which are shared by all those living in the UK and which we expect all residents to respect. The fundamental principles of British life include:
+- Democracy
+- The rule of law
+- Individual liberty
+- Tolerance of those with different faiths and beliefs
+- Participation in community life
+
+### The religion in the UK
+
+Majority of the people identified themselves as Christian. Much smaller proportions identified themselves as Muslim, Hindu, Sikh and Jewish or Buddhist. There are religious buildings all over the UK including Islamic mosques, Hindu temples, Jewish synagogues, Sikh gurdwaras and Buddhist temples.
+
+In England, there is a constitutional link between Church and state.
+- The church of England [called the Anglican Church（聖公會） in other countries]
+- Episcopal Church in Scotland and the United State
+
+Some religious festivals
+- **Diwali** normally falls in October or November and lasts for 5 days and is celebrated by Hindus and Sikhs.
+- **Vaisakhi**, also known as Baisakhi, is a major Sikh festival celebrated annually on April 13 or 14. It marks the Sikh New Year and commemorates the formation of Khalsa Panth by Guru Gobind Singh in 1699.
+- **Hannukah** is in November or December and is celebrated for eight days to remember the Jews' struggle for religious freedom.
+- Muslims
+  - **Eid al-Fitr** celebrate the end of Ramadan, when Muslims have fasted for a month. They thank Allah for giving them the strength to complete the fast.
+  - **Eid ul-Adha**, also known as the Festival of Sacrifice, is an important Islamic holiday commemorating the willingness of Ibrahim (Abraham) to sacrifice his son as an act of obedience to God. It is celebrated with prayers, feasting, and the sacrifice of animals, with the meat distributed among family, friends, and the needy.
+
+:::infoOther festivals
+- Bonfire Night: 5 November. The origin of this celebration was an event in 1605, when a group of Catholics led by Guy Fawkes failed in their plan to kill the Protestant king with a bomb in the houses of Parliament.
+- Remembrance Day, 11 November, commemorates those who died fighting for the UK and its allies. Originally it commemorated the dead of the First World War, which ended on 11 November 1918. People wear poopies. At 11.00 am there is two-minute silence and wreaths are laid at the Cenotaph in Whitehall, London. 
+:::
+

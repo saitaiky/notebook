@@ -19,7 +19,7 @@ This section is for recording some hobbies and topics that I would like to learn
 - Books that I've finished
     - Sapiens: a brief history of humankind genre by Yuval Noah Harari
 - Literature
-    Literature can sharply make us feel that the world of ordinary people isn't all that great. It prompts us to reflect on prevailing mainstream values, to accept things that were previously not accepted—that's the value of literature.
+    - Literature can sharply make us feel that the world of ordinary people isn't all that great. It prompts us to reflect on prevailing mainstream values, to accept things that were previously not accepted—that's the value of literature.
     - [Normal people by Sally Rooney](https://www.youtube.com/watch?v=J4neWrY2iF0&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=13)
     - [酒國 (The Republic of Wine)](https://www.youtube.com/watch?v=VL097uC0-ps&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=120) by 莫言
     - 林夕《曾經——林夕90前後》
