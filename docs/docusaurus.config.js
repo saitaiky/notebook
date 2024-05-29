@@ -305,6 +305,10 @@ const config = {
                 to: 'https://www.tablesgenerator.com/',
                 label: 'Markdown Table',
               },
+              {
+                to: 'https://chatgpt-prompt-splitter.vercel.app/',
+                label: 'ChatGPT PROMPTs Splitter',
+              },
             ],
           },
           // {
