@@ -39,9 +39,9 @@ In summary, the market price of a bond moves in the opposite direction to its yi
 
 ## Coupon rate vs yield
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/f5qjhz6Tjrk?si=DhNTrFTPQl4HRx7H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/f5qjhz6Tjrk?si=DhNTrFTPQl4HRx7H" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/0__C9k6DkBE?si=8uW1nVvPc3d1-pzj&amp;start=70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0__C9k6DkBE?si=8uW1nVvPc3d1-pzj&amp;start=70" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Coupon rate is the interest rate paid by the bond issuer, expressed as a percentage of the bond's face value. Yield, on the other hand, is the return you can get when buying the bond at its current market price. If the market price equals the par value, coupon rate and yield are the same. 
 

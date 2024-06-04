@@ -69,7 +69,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### Civil War & The Glorious Restoration
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9jtNGBU-Epw?si=y89mRZ-YogL6E8-B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9jtNGBU-Epw?si=y89mRZ-YogL6E8-B" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 - Civil War (1642-1651) and the rise of Parliament
   - **The Battle of Naseby** (1645) and **the Battle of Marston Moor** (1644) were decisive battles in the English Civil War, where Parliamentarian forces defeated the Royalists, significantly weakening King Charles I's military power.
@@ -140,7 +140,7 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
 
 ### War with France
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/An3xaLG34rE?si=DnbpQcXnlJVZL3_y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/An3xaLG34rE?si=DnbpQcXnlJVZL3_y" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 - The Battle of Trafalgar, fought on October 21, 1805, was a naval engagement between the British Royal Navy and the combined fleets of France and Spain during the Napoleonic Wars. Led by **Admiral Nelson**, the British fleet employed a bold tactic, breaking the enemy line and securing a decisive victory despite Nelson's death in the battle. 
 - The battle effectively ended Napoleon's ambitions of invading Britain, establishing British naval supremacy for over a century and shaping the course of European history.
@@ -192,7 +192,7 @@ Source: [mapsontheweb](https://mapsontheweb.zoom-maps.com/post/178341603579/euro
 - In 1929, the world entered the 'Great Depression'
 - The BBC started radio broadcasts in 1922 and began the world's first regular television service in 1936.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YqNYrYUiMfg?si=6Gjt73doyOnbqfsh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YqNYrYUiMfg?si=6Gjt73doyOnbqfsh" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### World War II (1939-1945)
 
@@ -209,12 +209,12 @@ In May 1940 he became Prime Minister. He refused to surrender to the Nazis and w
 - We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets, we shall fight in the hills; we shall never surrender.
 - Never in the field of human conflict was so much owed by so many to so few.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/skrdyoabmgA?si=SYMIC7iZlzHNZTBG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/skrdyoabmgA?si=SYMIC7iZlzHNZTBG" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 :::
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xBWmkwaTQ0k?si=58AvDTRJyFvLz7-N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xBWmkwaTQ0k?si=58AvDTRJyFvLz7-N" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F-eMt3SrfFU?si=INPNdh03ScCvTt8T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F-eMt3SrfFU?si=INPNdh03ScCvTt8T" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### After 1945
 

@@ -30,6 +30,8 @@ title: Drawing
 
 ![](/img/other//drawing/conceptual-vs-visusal.jpeg)
 
+Source: [Pinterest: Perceptual vs. Conceptual Drawing--two different approaches to drawing.](https://www.pinterest.co.uk/pin/perceptual-vs-conceptual-drawingtwo-different-approaches-to-drawing--376895062536659331/)
+
 ### Common mistakes
 
 - We tend to zoom in one small thing to omit a big picture. Always zoom out to check
@@ -39,6 +41,8 @@ title: Drawing
 ## Different Values
 
 ![different-values](/img/other/drawing/different-values.jpg)
+
+Source: [Pinterest: the art vault](https://www.pinterest.co.uk/pin/the-art-vault-simon-cowell-process-a-couple-weeks-ago-i-posted--124623114679182575/)
 
 ### 2 Level
 

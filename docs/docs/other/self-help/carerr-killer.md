@@ -2,7 +2,7 @@
 title: Career killers
 ---
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uX719LQBLXw?si=iOSZBN1UY0KPa6FW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uX719LQBLXw?si=iOSZBN1UY0KPa6FW" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 This blog post provides a summary of the video above. Additional content will be added to further enhance the comprehensiveness of this topic in the future.
 

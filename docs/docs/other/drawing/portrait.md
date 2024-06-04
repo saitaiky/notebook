@@ -7,7 +7,7 @@ title: Portrait
 - Artist creates abstraction of reality
 - Art is about enhancing various aspects of vision such as the inner plays of cool and warm tones and the science of lighting. It's up to the artist to enhance these theories and make them a little more fancy than they are in real life
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZJkIaMECW6c?si=yy2QHsnVNP_UMwzM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZJkIaMECW6c?si=yy2QHsnVNP_UMwzM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 Please check the video above for the detailed explanation of the below screenshots.
 
@@ -18,7 +18,7 @@ Please check the video above for the detailed explanation of the below screensho
 
 ## Mouths
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EdLBGJ4wjFA?si=drgcWWOwzI593g2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EdLBGJ4wjFA?si=drgcWWOwzI593g2g" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 Please check the video above for the detailed explanation of the below screenshots.
 

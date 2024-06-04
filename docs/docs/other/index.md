@@ -26,6 +26,8 @@ This section is for recording some hobbies and topics that I would like to learn
 - Trading
     - Day trade in Crypto
     - Swing trade in Stock market 
+- Movies
+    - 1983: Amagi Pass (天城越え)
 - Food culture
     - Japanese 
     - Italian

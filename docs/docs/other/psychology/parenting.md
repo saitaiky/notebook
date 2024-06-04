@@ -57,7 +57,7 @@ The primary purpose of Ainsworth's Strange Situation experiment was to observe a
 
 ### 4 Attachment Styles
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WjOowWxOXCg?si=fta1JexAgUKN4OR6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WjOowWxOXCg?si=fta1JexAgUKN4OR6" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 - **Secure Attachment:** Securely attached children are upset when the caregiver leaves but are happy to see the caregiver return, quickly comforted, and return to playing. They use the caregiver as a secure base from which to explore their environment.
     - Trust: Believing that caregivers can meet their needs.
