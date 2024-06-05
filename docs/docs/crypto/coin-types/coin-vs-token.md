@@ -6,19 +6,9 @@ title: Coin vs Token
 
 ## What is a Coin?
 
-### Operates on its blockchain
-
-A blockchain keeps track of all transactions that involve its native crypto coin. 
-
-When you pay someone with Ethereum, the receipt goes to the Ethereum blockchain. If the same person pays you back later with Bitcoin, the receipt goes to the Bitcoin blockchain. Each transaction is protected by encryption and is accessible by any member of the network.
-
-### Acts as money
-
-Bitcoin was created for the sole purpose of replacing traditional money. 
-
-### Can be mined / rewarded
-
-You can earn crypto coins in two ways. One is through traditional mining on the [Proof of Work](https://blog.liquid.com/what-is-the-difference-between-proof-of-work-proof-of-stake-and-delegated-proof-of-stake) system. The other method is [Proof of Stake](https://blog.liquid.com/what-is-the-difference-between-proof-of-work-proof-of-stake-and-delegated-proof-of-stake)
+- **Operates on its blockchain**: A blockchain keeps track of all transactions that involve its native crypto coin. When you pay someone with Ethereum, the receipt goes to the Ethereum blockchain. If the same person pays you back later with Bitcoin, the receipt goes to the Bitcoin blockchain. Each transaction is protected by encryption and is accessible by any member of the network.
+- **Acts as money**: Bitcoin was created for the sole purpose of replacing traditional money. 
+- **Can be mined / rewarded**: You can earn crypto coins in two ways. One is through traditional mining on the [Proof of Work](https://blog.liquid.com/what-is-the-difference-between-proof-of-work-proof-of-stake-and-delegated-proof-of-stake) system. The other method is [Proof of Stake](https://blog.liquid.com/what-is-the-difference-between-proof-of-work-proof-of-stake-and-delegated-proof-of-stake)
 
 ## What is a Token?
 

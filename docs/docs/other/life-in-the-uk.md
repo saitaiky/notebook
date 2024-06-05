@@ -1,6 +1,5 @@
 ---
 title: History and Culture of the UK
-# draft: true
 ---
 
 ## History

@@ -32,6 +32,7 @@ Generally, the concept of stablecoins entails maintaining a 1:1 value with the U
 In 2014, the first stablecoin, Tether (USDT), was introduced, bridging the gap between real fiat and cryptocurrencies, while also energizing the entire cryptocurrency market. To this day, USDT remains the dominant stablecoin, holding 80% of the market's total value in stablecoins, with trading volume consistently above 90%. However, doubts about USDT in the market have never ceased.
 
 ![tether-balance](/img/crypto/coin-types/tether-balance.png)
+
 Source: [Tether Current Balances](https://wallet.tether.to/transparency?__cf_chl_jschl_tk__=pmd_qBqFmUu_LUZ1QnKc1x7lv0m1OLc8Aw3.jW3XN6DuC9I-1633106622-0-gqNtZGzNAeWjcnBszQdR)
 
 
