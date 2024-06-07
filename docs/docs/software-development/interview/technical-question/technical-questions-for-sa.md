@@ -24,20 +24,16 @@ When addressing API-related questions, consider:
         - **Customer**: ID, Name, Phone, Email, Address
         - **Payments**: ID, Date, Time, Amount, Method (card/cash), various fields for storing credit card details, expiry dates, etc.
         - **Coupons**: ID, Type, Description
-
 2. **Clarify Requirements**:
     - Follow up until you've arrived at a specific set of requirements. For example:
         - Can single orders have multiple vouchers? No, an order can have a single voucher, not more.
         - Can an order have multiple pizzas? Yes.
         - Can a customer have multiple orders? Yes.
         - Can an order have only one payment? Yes.
-
 3. **Design Adaptability**:
     - Interviewers look for clear, logical thinking and user-centric design. Is your design adaptable to changing business requirements?
-
 4. **Scope Management**:
     - Database schemas, especially those including payments, can become complex. Clarify what is out of scope. For example, do we need to store multiple payment methods/preferences?
-
 5. **Final Design**:
     - Creating entity-relationship diagrams or database schemas can range from simple to very complex. It's crucial to clarify every requirement before starting the design to avoid costly changes later. When in doubt, include some empty fields for future use.
 

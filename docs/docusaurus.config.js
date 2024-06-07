@@ -105,27 +105,21 @@ const config = {
         showLastUpdateTime: true,
       }),
     ],
-    [
-      path.resolve(
-        __dirname,
-        './src/plugins/docusaurus-plugin-segment-analytics'
-      ),
-      {
-        // Segment write keys are technically public. Most sites have them published in the client facing JS
-        prodKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
-        devKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
-        // boolean (defaults to false) on whether you want
-        // to include analytics.page() automatically
-        trackPage: true,
-        // number (defaults to 50); time to wait after a route update before it should
-        // track the page change, to implement this, make sure your `trackPage` property is set to `true`
-        // trackPageDelay: 50,
-      },
-    ],
     // [
-    //   path.resolve(__dirname, './src/plugins/docusaurus-plugin-google-gtm'),
+    //   path.resolve(
+    //     __dirname,
+    //     './src/plugins/docusaurus-plugin-segment-analytics'
+    //   ),
     //   {
-    //     trackingID: 'GTM-PF5MQ2Z',
+    //     // Segment write keys are technically public. Most sites have them published in the client facing JS
+    //     prodKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
+    //     devKey: 'oDRhcj018aRrEcplMbaBQ0W2bJ9yhZaE',
+    //     // boolean (defaults to false) on whether you want
+    //     // to include analytics.page() automatically
+    //     trackPage: true,
+    //     // number (defaults to 50); time to wait after a route update before it should
+    //     // track the page change, to implement this, make sure your `trackPage` property is set to `true`
+    //     // trackPageDelay: 50,
     //   },
     // ],
     [
