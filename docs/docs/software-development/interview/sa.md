@@ -1,5 +1,6 @@
 ---
 title: Solution Architect
+sidebar_position: 1
 draft: true
 ---
 
