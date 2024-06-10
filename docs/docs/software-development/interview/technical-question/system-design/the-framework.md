@@ -1,6 +1,7 @@
 ---
 title: A System Design Framework 
-sidebar_position: 1
+sidebar_position: 3
+draft: true
 ---
 
 It takes years for a team of engineers to build a system that you've been asked to design within a 45-minute interview. Using a framework is an effective way to structure your response and ensure you're addressing all the key aspects an interviewer is looking for.
@@ -15,6 +16,8 @@ This lesson covers an interview framework that helps you:
 By using this framework, you'll stand out as an experienced candidate who not only envisions the design at a high level, but also dives deep to address realistic constraints and various operational scenarios.
 
 ### The 5-step framework
+
+![System Design Framework](/img/software-development/interview/How_to_Answer_System_Design_Interview_Questions_Framework_-_Lesson.png)
 
 A system design interview answer typically consists of 5 steps:
 
@@ -172,20 +175,7 @@ Because our system does not require the server to independently send or push dat
 
 Below we can mock some of our REST APIs mapped from our functional requirements.
 
-```
-POST /createPost
-{
-    UserID
-    Caption
-    UrlPath
-}
-POST /follow
-{
-    FormUserID
-    ToUserID
-}
-Get /getFeed/{UserID}
-```
+![API Design for Instagram](/img/software-development/interview/Design_Instagram_APIs_transparent_.png)
 :::
 
 ### Design your data model

@@ -20,7 +20,6 @@ Because effective demos are critical to the day-to-day of solutions architecture
 
 Let’s assume that we’re a Solutions Architect at Databricks, demoing the Databricks solution to a potential new client.
 
-> Tip: Watch a Sr. Solutions Architect @ Salesforce demo Snowflake for a banking client [here](https://www.tryexponent.com/courses/amazon-solution-architect-interview/sa-customer-interaction/mock-demo-snowflake).
 
 ## Interviewers Look For
 

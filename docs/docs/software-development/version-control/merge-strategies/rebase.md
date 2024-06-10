@@ -7,7 +7,7 @@ sidebar_position: 1
 ---
 
 :::infoTL;DR
-Rebasing is a common way to integrate upstream changes into your local repository. Pulling in upstream changes with Git `merge` results in a superfluous merge commit every time you want to see how the project has progressed whereas `rebase` moves the your changes to begin on the tip of the other branch(say master branch).
+Rebasing is a common way to integrate upstream changes into your local repository. Pulling in upstream changes with Git `merge` results in a superfluous merge commit every time you want to see how the project has progressed whereas `rebase` moves your changes to begin on the tip of the other branch(say master branch).
 
 If the above description still doesn't make sense to use, just remember rebasing is like saying, 
 - “I want to base my changes on what everybody has already done.” or

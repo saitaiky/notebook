@@ -1,6 +1,6 @@
 ---
-title: Rubric for System Design
-sidebar_position: 2
+title: Rubric for System Design Interviews
+sidebar_position: 3
 ---
 
 System design interviews evaluate your ability to construct systems that are performant, scalable, efficient, and fault-tolerant while exhibiting excellent communication skills. This article outlines 5 rubrics used to assess candidates during system design interview. 

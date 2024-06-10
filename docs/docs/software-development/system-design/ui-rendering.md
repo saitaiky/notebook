@@ -38,6 +38,8 @@ In 2019, Google introduced a set of metrics intent on measuring the actual perfo
 - First Input Delay (FID) -  measures whether the page is really done when the user thinks it’s done.
 
 ![core_web_vitals](/img/software-development/system-design/core_web_vitals.png)
+
+More resources: [System Design — CSR vs SSR vs SSG](https://eishta.medium.com/system-design-csr-vs-ssr-vs-ssg-8e26dbb20b1d)
 :::
 
 ## Overview of Rendering Techniques
@@ -108,6 +110,14 @@ Source: [Visual Explanation and Comparison of CSR, SSR, SSG and ISR](https://dev
 
 ## Comparison Table
 
+- Key Points of Comparison
+    - **Page Serve/Render Time**: CSR is faster than SSR after initial load but requires more client resources. SSR has higher initial load time but benefits SEO.
+    - **Content Freshness**: ISR has a slight lag in content freshness compared to SSR, but it's more efficient than SSG.
+    - **Resource Usage**: Static servers for SSG and ISR generally consume fewer resources than app servers needed for CSR and SSR.
+- When to use which
+    - **CSR** and **SSR**: Ideal for applications with dynamic interactions. CSR suits highly interactive UIs, while SSR benefits SEO and dynamic content needs.
+    - **SSG** and **ISR**: Best for content-heavy sites. SSG is efficient for static content, while ISR provides a balance between static efficiency and content freshness.
+
 | Metric                    | CSR                           | SSR                       | SSG                        | ISR                         |
 |---------------------------|-------------------------------|---------------------------|----------------------------|-----------------------------|
 | **Build Time**            | N/A                           | N/A                       | High                       | Moderate                    |
@@ -128,15 +138,3 @@ for CSR, the browser gets an empty document with links to your JavaScript.
 Source: [Next.js Framework For Full-stack and Frontend Development](https://itclub.com.au/next-js-framework/)
 :::
 
-## Key Points of Comparison
-
-- **Page Serve/Render Time**: CSR is faster than SSR after initial load but requires more client resources. SSR has higher initial load time but benefits SEO.
-- **Content Freshness**: ISR has a slight lag in content freshness compared to SSR, but it's more efficient than SSG.
-- **Resource Usage**: Static servers for SSG and ISR generally consume fewer resources than app servers needed for CSR and SSR.
-
-## Conclusion
-
-- **CSR** and **SSR**: Ideal for applications with dynamic interactions. CSR suits highly interactive UIs, while SSR benefits SEO and dynamic content needs.
-- **SSG** and **ISR**: Best for content-heavy sites. SSG is efficient for static content, while ISR provides a balance between static efficiency and content freshness.
-
-By comparing these techniques, you can choose the one that best fits your web application needs, balancing factors such as dynamic content handling, SEO, and performance.

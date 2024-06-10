@@ -10,7 +10,7 @@ System design interviews may seem strictly focused on assessing your technical a
 
 The system design interview is categorized as a technical interview, much like a coding interview, but it differs significantly. Here are some key differences:
 
-- **Most prompts are intentionally vague**: Coding challenges are clear; system design prompts are not. The system design interview mimics real-world conditions, so the interviewer doesn’t give you clear requests with features neatly outlined. You must tease out specifics yourself, which is why asking clarifying questions and following a [framework](https://www.tryexponent.com/courses/system-design-interview/fundamentals-system-design/intro-architecture) are so important.
+- **Most prompts are intentionally vague**: Coding challenges are clear; system design prompts are not. The system design interview mimics real-world conditions, so the interviewer doesn’t give you clear requests with features neatly outlined. You must tease out specifics yourself, which is why asking clarifying questions and following a [framework](/software-development/interview/technical-question/system-design/the-framework/) are so important.
 - **There is no "right" answer**: It's true that there are good designs and bad designs, but as long as your choices are justifiable and you articulate tradeoffs, you should let your creativity shine.
 - **You're engaged in a two-way dialogue**: This is critical. In a real-world scenario, you wouldn't go off on your own with only a vague idea of what to build. Work with your interviewer every step of the way. Clarify requirements in the beginning, check in throughout, and evaluate your choices at the end.
 
@@ -24,7 +24,7 @@ You'll be asked to use a whiteboard (if you're in person) or an online tool such
 
 > **Tip**: Ask your recruiter how you'll present your solution, and practice with that tool. If you're told you can choose, pick one tool and practice consistently to alleviate anxiety on the big day.
 
-A system design question is broad enough so that there isn’t only one “correct” answer, but includes sufficient context so that you can give a more focused solution. The question is presented in a broad form initially (e.g. [Design TikTok](https://www.tryexponent.com/courses/system-design-interview/system-design/design-tiktok)), and it’s up to you to narrow the problem scope.
+A system design question is broad enough so that there isn’t only one “correct” answer, but includes sufficient context so that you can give a more focused solution. The question is presented in a broad form initially, and it’s up to you to narrow the problem scope.
 
 ## What Interviewers Are Looking For
 
@@ -35,11 +35,11 @@ Interviewers don’t expect you to create a 100% perfect solution. Instead, they
 - Discuss and evaluate multiple solutions, weighing the pros and cons of each to reach a workable solution.
 - Identify scaling opportunities, potential risks, and/or points of failure.
 
-For an in-depth look into how interviewers assess candidates, review our [Rubric for System Design Interviews](https://www.tryexponent.com/courses/system-design-interview/fundamentals-system-design/system-design-interview-rubric).
+For an in-depth look into how interviewers assess candidates, review our [Rubric for System Design Interviews](/software-development/interview/technical-question/system-design/rubric/).
 
 > **Note**: Senior candidates should also prepare to demonstrate their [leadership behaviors and skills](https://www.tryexponent.com/blog/system-design-interview-guide#:~:text=the). In addition to assessing technical skills for designing at scale, interviewers also try to answer, "What is it like to work with you, and would they want you on their team?"
 
-You can demonstrate leadership skills in an interview by:
+You can demonstrate leadership skills in an interview to receiving a positive evaluation by:
 
 - Asking powerful open-ended questions at the outset, such as "What are the goals of this system?" and "What does success look like?"
 - Actively listening (sometimes referred to as [level 5 listening](https://fellow.app/blog/leadership/the-levels-of-listening-as-a-leadership-tool/)).
@@ -49,9 +49,9 @@ You can demonstrate leadership skills in an interview by:
 
 You can best prepare for the interview by ensuring you have a solid grasp on:
 
-1. An [interview framework](https://www.tryexponent.com/courses/system-design-interview/fundamentals-system-design/intro-architecture) to organize your solution and communicate it effectively with the interviewer.
-2. [System design principles](https://www.tryexponent.com/courses/system-design-interview/fundamentals-system-design/system-design-principles) to guide your decisions when weighing complex design tradeoffs.
-3. Practicing with real-world [system design questions](https://www.tryexponent.com/courses/system-design), which helps you apply your knowledge to real-world interview questions. Watching Exponent’s mock interview videos can give you hands-on examples of different answer approaches.
+1. An [interview framework](/software-development/interview/technical-question/system-design/the-framework/) to organize your solution and communicate it effectively with the interviewer.
+2. [System design principles](/software-development/system-design/models-patterns-strategy/system-design-principle/) to guide your decisions when weighing complex design tradeoffs.
+3. Practicing with real-world system design questions, which helps you apply your knowledge to real-world interview questions.
 
 ## Additional Preparation Tips
 

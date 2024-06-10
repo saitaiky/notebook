@@ -157,7 +157,7 @@ const config = {
         respectPrefersColorScheme: true,
       },
       image:
-        'https://graphql-engine-cdn.hasura.io/assets/hge-docs/og-image.png',
+        'https://sai-tai.netlify.app/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg',
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,

@@ -51,9 +51,10 @@ While a monolithic application is a single unified unit, a microservices archite
 
 Within a microservices architecture, the entire functionality is split up into independently deployable modules which communicate with each other through defined methods called APIs (Each service covers its own scope and can be updated, deployed, and scaled independently.
 
-:::info
-In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.
-Martin Fowler
+:::infoAre event-driven and microservices architecture the same thing?
+Event-driven architecture and microservices architecture are not the same but are complementary. Microservices focus on decomposing applications into independent services, while event-driven architecture emphasizes asynchronous communication through events. Together, they can enhance the scalability, responsiveness, and flexibility of modern applications. Below 2 points are how they complement each other:
+- **Combining EDA with Microservices**: Microservices can use an event-driven architecture to communicate asynchronously, enhancing decoupling and scalability.
+- **Event Brokers**: Microservices can publish events to an event broker, and other services can subscribe to these events to perform related tasks.
 :::
 ### Strengths
 

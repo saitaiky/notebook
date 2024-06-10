@@ -4,7 +4,7 @@ sidebar_position: 1
 draft: true
 ---
 
-In this course, you'll prepare for technical questions you're likely to encounter as a Solutions Architect. You'll review key cloud architecture concepts as they apply in the real world, practice choosing APIs, designing database schemas, and more, through interview answers written by senior solutions architects.
+In this section, you'll prepare for technical questions you're likely to encounter as a Solutions Architect. You'll review key cloud architecture concepts as they apply in the real world, practice choosing APIs, designing database schemas, and more, through interview answers written by senior solutions architects.
 
 ## API Questions
 
