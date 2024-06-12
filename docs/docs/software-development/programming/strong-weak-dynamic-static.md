@@ -2,6 +2,7 @@
 title: "Strongly, Weakly, Static and Dynamic typed Language"
 metaTitle: "General programming concept will be recorded in this page "
 metaDescription: "This is the meta description for this page"
+sidebar_position: 2
 ---
 
 ![strongweakstaticdynamic_type](/img/software-development/programming/strongweakstaticdynamic_type.png)

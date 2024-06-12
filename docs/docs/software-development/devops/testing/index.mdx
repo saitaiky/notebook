@@ -58,111 +58,49 @@ Naturally, detecting bugs in a complex workflow entails challenges. The two majo
 
 ## Functional Testing Types
 
-Functional testing has many categories and these can be used based on the scenario.
+### Top 5 Functional Testing Types
 
-The most prominent types are briefly discussed below:
+| **Testing Type**            | **Description**                                                                                                   | **Example Use Case**                                                  | **Common Tools**                  |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------|
+| **Unit Testing**            | Tests individual components or functions in isolation to ensure they work as expected.                             | Verifying that a `calculateTotal()` function correctly sums values.    | JUnit, NUnit, pytest, Jest        |
+| **Integration Testing**     | Tests the interaction between integrated components to identify issues in their interactions.                      | Checking that a user can log in and retrieve their profile from a database. | JUnit, TestNG, Mocha, Postman     |
+| **System Testing**          | Validates the complete and integrated software system to check if it meets the specified requirements.             | Testing the entire booking system of a flight reservation application. | Selenium, TestComplete, QTP       |
+| **End-to-End (E2E) Testing**| Verifies the entire application workflow from start to finish to ensure all components work together as expected.   | Ensuring a user can search for a product, add it to the cart, and complete the purchase. | Cypress, Selenium, TestCafe       |
+| **Acceptance Testing**      | Verifies the system against user requirements and business processes; often performed by end-users or stakeholders. | Ensuring the application meets business requirements before going live. | Cucumber, FitNesse, Manual Testing|
 
-[Unit Testing](https://www.softwaretestinghelp.com/unit-testing/): Unit testing is usually performed by a developer who writes different code units that could be related or unrelated to achieve a particular functionality. His, this usually entails writing unit tests which would call the methods in each unit and validate those when the required parameters are passed, and its return value is as expected.
+### Regression Test
 
-Code coverage is an important part of unit testing where the test cases need to exist to cover the below three:
+:::cautionCaution
+Regression testing is considered a testing approach, not a specific testing type. It involves re-testing to confirm that recent changes haven't introduced new defects in previously working functionalities.
+:::
 
-- Line coverage
-- Code path coverage
-- Method coverage
+![Regression testing](https://browserstack.wpenginepowered.com/wp-content/uploads/2019/09/Regression-testing-tutorual.png)
 
-[Smoke Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Smoke tests are basic tests that check the basic functionality of an application. They are meant to be quick to execute, and their goal is to give you the assurance that the major features of your system are working as expected. It is also called as **build verification testing**. 
-- To execute smoke tests, **you don’t need to write new test cases**, instead, you can just pick the necessary test cases that are already defined by programmers.
-- **Objective**: Smoke Testing rejects a badly broken application so that the QA team does not waste time installing and testing the software application. Instead of performing exhaustive testing, we make sure that critical functionalities are working fine.
-- **When**: 
-    - Testing that is done **after each build is made** to ensure build stability to decide whether or not you can run more expensive tests, 
-    - or **right after a deployment** to make sure that they application is running properly in the newly deployed environment.
+Source: [Regression testing](https://www.linkedin.com/pulse/regression-testing-carsten-olholm/)
 
-[Sanity Testing](https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/): Testing that is done to ensure that all the major and vital functionalities of the application/system are working correctly. Similar to smoke testing, **you don’t need to write new test cases** unless a new feature is introduced.
-- **Objective**: Sanity test is not to verify the core functionalities, instead, it is to verify the correctness and rationality(Sanity) of the software. For instance, if your scientific calculator gives the result of 2 + 2 =5! Then, there is no point testing the advanced functionalities like sin 30 + cos 50
-- **When**: It is usually done **after a smoke test** when the build is stable, to ascertain if bugs have been fixed and if minor changes to the code are well tolerated.
+Regression testing verifies that recent code changes haven't adversely affected existing functionality. It involves re-running tests on the modified software to ensure stability and correctness of the system. This testing detects unintended side effects from bug fixes, enhancements, or new features. Automated regression tests are often integrated into **CI/CD pipelines** for efficiency. By ensuring that new updates do not break existing features, regression testing helps maintain software quality and reliability throughout the development lifecycle.
 
-[Regression Tests](https://www.softwaretestinghelp.com/regression-testing-tools-and-methods/): Testing performed to ensure that adding new code, enhancements, fixing of bugs is not breaking the existing functionality or causing any instability and still works according to the specifications.It is executed based on the project and availability of resources, manpower and time.
+### Acceptance Testing vs. E2E Testing
 
-Regression tests need not be as extensive as the actual functional tests but should ensure just the amount of coverage to certify that the functionality is stable.
+They are essential for validating that the application functions correctly according to specified requirements and workflows. Here’s a deeper look at their roles, importance, and manual implementation options.
 
-[Integration Tests](https://www.softwaretestinghelp.com/what-is-integration-testing/): When the system relies on multiple functional modules that might individually work perfectly, but have to work coherently when clubbed together to achieve an end to end scenario, validation of such scenarios is called Integration testing.
+| **Aspect**                        | **Acceptance Testing**                                         | **End-to-End (E2E) Testing**                                   |
+|-----------------------------------|----------------------------------------------------------------|----------------------------------------------------------------|
+| **Purpose**                         | Validates system against business requirements and user acceptance criteria.            | Verifies Complete system workflows and integration points.              |
+| **Stakeholders**                  | End users, business analysts, or clients.                      | Testers or developers.                                         |
+| **Scope**                         | High-level business requirements.                              | Comprehensive user workflows.                                   |
+| **Typical Questions Addressed**   | Does the system meet user needs and business objectives?       | Does the entire workflow function correctly from start to end? |
+| **Execution**                     | Can be manual or automated.                                    | Can be manual or automated.                                     |
+| **Example**                       | Verify a new feature adheres to business rules.                | Verify the process of ordering a product online works as expected. |
 
-[Beta/Usability Testing](https://www.softwaretestinghelp.com/usability-testing-guide/): Product is exposed to the actual customer in a production like an environment and they test the product. The user's comfort is derived from this and the feedback is taken. This is similar to that of User Acceptance testing.
-
-#### Testing flow
-
-
-```mermaid
-flowchart TD
-    A[Code] --> B[Unit Test] 
-    B[Unit Test] --> C[Integration Test] 
-    C[Integration Test] --> D[Smoke Test]
-    D[Smoke Test] --> E[Sanity Test]
-    E[Sanity Test] --> F[System test / Regression test]
-    style F fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
-```
-
-### Testing diagrams
-
-<Tabs className="tests">
-<TabItem value="regression" label="Regression">
-
-![](https://browserstack.wpenginepowered.com/wp-content/uploads/2019/09/Regression-testing-tutorual.png "Re")
-
-Source: [Stackify](https://stackify.com/wp-content/uploads/2017/04/regression_graph.png)
-
-</TabItem>
-</Tabs>
-
-### Unit, Integration And Functional Testing
-
-#### Cost and time
-
-![result-for-unit-testing-vs-functional-testin](/img/software-development/devops/testing/result-for-unit-testing-vs-functional-testin.png)
-
-Source: [The Differences Between Unit Testing, Integration Testing And Functional Testing](https://www.softwaretestinghelp.com/the-difference-between-unit-integration-and-functional-testing/)
-
-
-#### Example
-
-Almost every web application requires its users/customers to log in. For that, every application has to have a "Login" page which has these elements:
-
-- Account/Username
-- Password
-- Login/Sign in Button
-
-For **Unit Testing**, the following may be the test cases:
-
-- Field length - username and password fields.
-- Input field values should be valid.
-- The login button is enabled only after valid values (Format and lengthwise) are entered in both the fields.
-
-For **Integration Testing**, the following may be the test cases:
-
-- The user sees the welcome message after entering valid values and pushing the login button.
-- The user should be navigated to the welcome page or home page after valid entry and clicking the Login button.
-
-Now, after unit and integration testing are done, let us see the additional test cases that are considered for **functional testing**:
-
-1. The expected behavior is checked, i.e. is the user able to log in by clicking the login button after entering a valid username and password values.
-2. Is there a welcome message that is to appear after a successful login?
-3. Is there an error message that should appear on an invalid login?
-4. Are there any stored site cookies for login fields?
-5. Can an inactivated user log in?
-6. Is there any 'forgot password' link for the users who have forgotten their passwords?
-
-
-#### Marjar differences
-
-|                        | Unit testing                                                 | Integration testing                                                               | Functional testing                                                                                                                        |
-| ---------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Definition and purpose | Testing smallest units or modules individually.              | Testing integration of two or more units/modules combined for performing tasks.   | Testing the behavior of the application as per the requirement.                                                                           |
-| Complexity             | Not at all complex as it includes the smallest codes.        | Slightly more complex than unit tests.                                            | More complex compared to unit and integration tests.                                                                                      |
-| Testing techniques     | White box testing technique.                                 | White box and black box testing technique. Grey box testing                       | Black box testing technique.                                                                                                              |
-| Major attention        | Individual modules or units.                                 | Integration of modules or units.                                                  | Entire application functionality.                                                                                                         |
-| Error/Issues covered   | Unit tests find issues that can occur frequently in modules. | Integration tests find issues that can occur while integrating different modules. | Functional tests find issues that do not allow an application to perform its functionality. This includes some scenario-based issues too. |
-| Issue escape           | No chance of issue escape.                                   | Less chance of issue escape.                                                      | More chances of issue escape as the list of tests to run is always infinite.                                                              |
-
+:::infoFAQ
+- Since we can implemente UAT and E2E manually, which one is harder to be automated?
+  - Both acceptance testing and E2E testing have their own complexities when implemented in code, but generally, E2E testing is harder to automate due to its broader scope and complexity.
+- Why is UAT necessary if E2E testing covers the entire software system?
+  - While E2E testing ensures that all components of the software function together, UAT specifically validates if the software aligns with end-user requirements and expectations, providing a final check from the user’s perspective.
+- How do UAT and E2E testing differ in their testing environments?
+  - User Acceptance Testing (UAT) typically occurs in a controlled environment that closely mirrors production and focuses on validating business requirements with end-users, while End-to-End (E2E) testing is performed in a comprehensive test environment to validate complete workflows, including system integrations and dependencies.
+:::
 
 ### Smoke Testing vs Sanity Testing
 
@@ -207,35 +145,138 @@ If Sanity testing fails, the app is sent back to the developer for troubleshooti
 | Test Coverage     | Shallow & wide approach to include all the major functionalities without going too deep | Narrow & deep approach involving detailed testing of functionalities and features     |
 | Performed By?     | Executed by developers or testers                                                       | Executed by testers                                                                   |
 
+## How to know what to test?
 
-### Tools 
+Here is a comprehensive guide on determining what to test in software development, emphasizing practical and efficient testing strategies. The article covers key concepts, strategies, and practical examples to help developers focus their testing efforts effectively.
 
-#### Unit test for javascript
+:::infoExtra material - Ask the right questions
+I found Charlie Roberts' video on "Testing Software and Systems at Amazon" particularly insightful, especially his analogy that effective testing is akin to asking the right questions.
 
-![](/img/software-development/devops/testing/frameworks-time.png)
-![](/img/software-development/devops/testing/compare-testing-frameworks.png)
+Other interesting topic like mutation tseting in unit test and the topic of validating the local data representative to the real life situation.
 
-Source: [Javascript unit test frameworks](https://raygun.com/blog/javascript-unit-testing-frameworks/)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o1sc3cK9bMU?si=ITfRzyeM4QnFcn2h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## Design test cases
+:::
 
-### How to perform Automated Functional Testing?
+### Key Points
 
-The steps involved in automated functional testing are given below:
+- **Practical Testing Pyramid**: Aligns with the traditional testing pyramid but emphasizes a practical approach tailored to your application's needs.
+  - **End-to-End (E2E) Tests**: Focus on high confidence tests that run through the entire system.
+  - **Integration Tests**: Verify the interaction between different parts of the system.
+  - **Unit Tests**: Test individual functions or components in isolation.
+- **Code Coverage vs. Use Case Coverage**:
+  - **Code Coverage**: Measures how much of your code is executed by tests. It's a useful metric but not the ultimate goal.
+  - **Use Case Coverage**: Focuses on covering the real user scenarios and workflows that the application must support. This is more aligned with user needs and ensures meaningful testing.
+- **How to Decide What to Test**:
+  1. **Identify Critical Paths**: Focus on the most crucial user interactions and workflows in your application.
+  2. **Test the Happy Path First**: Start with scenarios where everything goes right to ensure the basic functionality works.
+  3. **Consider Edge Cases**: Once the happy path is covered, think about less common scenarios or potential failure points.
+  4. **Use Realistic Data**: Tests should use data that reflects actual usage to be meaningful and effective.
+- **Automated Testing Strategies**:
+  - **Write Tests that Add Value**: Focus on tests that provide meaningful feedback and confidence, rather than achieving high code coverage for its own sake.
+  - **Maintainable Tests**: Tests should be easy to understand, maintain, and adapt to changes in the codebase.
+  - **Test in the Right Place**: Ensure tests are located at the appropriate level of the testing pyramid to balance speed and confidence.
+- **Testing Tools and Techniques**:
+  - **Static Analysis Tools**: Use tools like ESLint and Prettier to catch potential issues early.
+  - **Linting and Formatting**: Ensure code consistency and catch errors before they become problematic.
+  - **Continuous Integration (CI)**: Integrate tests into your CI pipeline to catch issues early in the development process.
 
-- **Determine Functionality: **The first of functional testing is to determine the functionality of the product that needs to be tested and it includes testing the main functionalities, error conditions, and messages.
-- **Create Input Data: **Next step is to create the input data for the functionality to be tested as per the requirements specification.
-- **Determine Output: **After creating the input data, the output is determined for the functionality under test. 
-- **Execute test cases: **After determining the required output, the prepared test cases are executed.
-- **Compare Outputs: **Finally, the output obtained after executing the test case and the expected output are compared to find whether the functionality is working as expected or not.
+### Code Coverage vs. Use Case Coverage
 
-### Decide a test case
+| Aspect              | Code Coverage                                     | Use Case Coverage                                |
+|---------------------|---------------------------------------------------|--------------------------------------------------|
+| **Definition**      | Measures the percentage of code executed by tests | Measures how well tests cover actual user scenarios |
+| **Focus**           | Lines, branches, and functions                    | Real-world user interactions and workflows       |
+| **Advantages**      | Identifies untested code                          | Ensures meaningful, user-focused testing         |
+| **Disadvantages**   | May miss real user issues                         | Harder to measure quantitatively                 |
+| **Best Practice**   | Use as a metric, not a goal                        | Focus on critical paths and user experience      |
 
-**TO-DO:** how to know what to test https://kentcdodds.com/blog/how-to-know-what-to-test
+### Practical Examples
+
+- **Example 1**: Testing a login form by covering both successful login (happy path) and potential error cases (e.g., incorrect password).
+- **Example 2**: Testing a shopping cart feature by validating the entire user journey, including adding items, checking out, and applying discounts.
+
+## Test Coverage in Unit Testing
+
+**Test coverage** in unit testing measures the extent to which the source code of an application is tested by a particular set of tests. It quantifies how much of your code is exercised by unit tests, helping to identify untested parts of a codebase. Here’s an overview:
+
+### Types of Test Coverage
+
+- **Statement/Line Coverage**
+   - **Definition**: Measures the percentage of executable statements that have been executed by the tests.
+   - **Formula**: `(Number of executed statements / Total number of statements) * 100`
+   - **Example**: In a function with 10 executable lines of code, if 8 lines are executed by the tests, the statement coverage is 80%.
+- **Branch Coverage**
+   - **Definition**: Measures the percentage of branches (if-else conditions) that have been executed by the tests.
+   - **Formula**: `(Number of executed branches / Total number of branches) * 100`
+   - **Example**: If a function has 5 decision points and tests execute 4 of them, the branch coverage is 80%.
+- **Condition Coverage**
+   - **Definition**: Measures the percentage of boolean expressions evaluated to both true and false.
+   - **Formula**: `(Number of executed conditions / Total number of conditions) * 100`
+   - **Example**: In an if-statement `if (a && b)`, condition coverage checks if both `a` and `b` have been evaluated as true and false.
 
 
+### Example in Python
 
-## Examples
+Here’s a function that calculates discounts based on different conditions:
+
+```python
+def calculate_discount(price, customer_type):
+    discount = 0
+    if customer_type == "regular":
+        if price > 100:
+            discount = 10
+        elif price > 50:
+            discount = 5
+    elif customer_type == "vip":
+        if price > 200:
+            discount = 20
+        elif price > 100:
+            discount = 15
+        else:
+            discount = 5
+    return price - (price * discount / 100)
+```
+
+Here are test cases that do not fully cover all statements, branches, and conditions:
+
+```python
+def test_calculate_discount():
+    assert calculate_discount(150, "regular") == 135.0  # Tests regular customer, price > 100
+    assert calculate_discount(70, "regular") == 66.5    # Tests regular customer, price > 50 but <= 100
+    assert calculate_discount(50, "vip") == 47.5        # Tests vip customer, price <= 100
+    # Commented out tests:
+    # assert calculate_discount(250, "vip") == 200.0   # Would test vip customer, price > 200
+    # assert calculate_discount(120, "vip") == 102.0   # Would test vip customer, price > 100 but <= 200
+```
+
+### Test Coverage Analysis
+
+- **Statement Coverage**:
+   - Statements covered: 7 out of 10 executable statements (3 return statements plus 7 inside conditionals).
+   - **Coverage**: 70% (7/10 statements executed)
+- **Branch Coverage**:
+   - Branches covered: 4 out of 6 branches in decision points.
+     - Tested: 
+       - `if customer_type == "regular"`
+       - `if price > 100` 
+       - `elif price > 50`
+       - `else` in `vip` branch for price <= 100
+     - Not tested:
+       - `elif price > 100` in `vip`
+       - `if price > 200` in `vip`
+   - **Coverage**: 67% (4/6 branches executed)
+- **Condition Coverage**:
+   - Conditions covered: 3 out of 4 conditions tested for both true and false outcomes.
+     - Tested:
+       - `customer_type == "regular"`: True and False
+       - `price > 100` for "regular": True and False
+       - `price <= 100` for "vip": True and False
+     - Not fully tested:
+       - `price > 200` in `vip` branch only partially tested (commented out test).
+   - **Coverage**: 75% (3/4 conditions evaluated both ways)
+
+## Testing Examples
 
 ### End-to-end test with jest-puppeteer
 
@@ -277,7 +318,7 @@ npm install --save-dev jest-puppeteer
 
 3.  Write your test
 
-```js
+```javascript
 describe('Google', () => {
   beforeAll(async () => {
     await page.goto('https://google.com');
@@ -592,31 +633,6 @@ When you run the test using Jest, it will automatically create a snapshot file w
 
 Snapshot testing with Jest helps ensure that the output of a function or component remains consistent over time, making it easier to catch unexpected changes or regressions in your code.
 
-### Automated Regression Testing with perfecto
-
-[Test automation](https://www.perfecto.io/blog/what-is-test-automation) is always preferred by most organizations when it comes to testing. However, finding what should be automated and how to automate it can be challenging.
-
-Creating stable and robust testing scripts can be quite complicated and requires experience to get it right. Besides, scaling the entire automation process is also another hurdle for most organizations that are inexperienced in DevOps.
-
-There are quite a number of tools that help streamline the entire testing process for you. For example, open-source modules such as Jest and Selenium are good choice to kickstart automation process in your project.
-
-In fact, you can combine it with more sophisticated tools that comes with cloud services and smart reporting. One such tool is [Perfecto](https://www.perfecto.io/free-trial), which comes with free trial version that allows you to:
-
--   conduct live and automated testing up to 240 minutes, and
--   access a variety of popular real mobile devices via public cloud.
-
-Also, most professional tools come with their own test data and environments which can be easily configured. This helps to simplify the entire testing process. Have a look at the following Github repository which conducts web testing on both:
-
--   [desktop](https://github.com/PerfectoMobileSA/Jest-perfecto-sample/blob/master/test/webdesktop.spec.js)
--   [mobile](https://github.com/PerfectoMobileSA/Jest-perfecto-sample/blob/master/test/mobileios.spec.js).
-
-You can easily automate your tests inside Perfecto to generate smart reports as illustrated by the image below.
-
-![perfecto page](/img/software-development/devops/testing/perfecto.png)
-
-Image taken from [Perfecto's](https://developers.perfectomobile.com/display/PD/Jest) official documentation
-
-
 ## References
 
 - TO-DO
@@ -626,3 +642,13 @@ Image taken from [Perfecto's](https://developers.perfectomobile.com/display/PD/
 - [What is Automated Functional Testing: Types, Benefits & Tools](https://www.browserstack.com/guide/what-is-automated-functional-testing)
 - [How to run UI Automation Testing using Puppeteer](https://www.browserstack.com/guide/ui-automation-testing-using-puppeteer)
 - [The different types of software testing](https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing)
+
+
+
+### Tools for Unit test in javascript
+
+![](/img/software-development/devops/testing/frameworks-time.png)
+![](/img/software-development/devops/testing/compare-testing-frameworks.png)
+
+Source: [Javascript unit test frameworks](https://raygun.com/blog/javascript-unit-testing-frameworks/)
+

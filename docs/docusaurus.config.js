@@ -161,14 +161,17 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        // https://prismjs.com/#supported-languages
         additionalLanguages: [
           'rest',
           'rust',
           'http',
           'haskell',
-          'plsql',
+          'sql',
           'docker',
           'nginx',
+          'javascript',
+          'typescript',
           'markdown',
         ],
       },
