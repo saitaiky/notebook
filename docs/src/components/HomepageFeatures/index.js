@@ -55,6 +55,11 @@ export default function HomepageFeatures() {
             <Feature key={idx} {...props} />
           ))}
         </div>
+        <div className="row" style={{ textAlign: 'center' }}>
+          <div className="col" >
+            Disclaimer: The views and opinions expressed in this blog are solely my own and do not reflect the positions of any organization or entity I may be affiliated with.
+          </div>
+        </div>
       </div>
     </section>
   );

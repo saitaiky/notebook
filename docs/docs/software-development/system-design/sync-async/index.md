@@ -27,7 +27,7 @@ Optimal for applications processing sizable data bundles on a regular schedule, 
 
 *MapReduce*, established by Google, is a prominent batch processing model that simplifies the process into two stages:
 
-![map-reduce](/img/software-development/system-design/architectural-style/map-reduce.jpg)
+![map-reduce](/img/software-development/system-design/sync-async/map-reduce.jpg)
 
 Source: [Example of the MapReduce process to generate a directed graph.](https://www.researchgate.net/figure/Example-of-the-MapReduce-process-to-generate-a-directed-graph_fig1_352847534)
 
@@ -37,7 +37,7 @@ For example, if you have a complex analytics task where running on one machine w
 
 ### Stream Processing
 
-![flink](flink.webp)
+![flink](/img/software-development/system-design/sync-async/flink.webp)
 
 Source: [Apache Flink 101: Checkpointing](https://blog.stackademic.com/apache-flink-basics-101-checkpointing-904343f47ec0)
 
@@ -47,13 +47,21 @@ With stream processing, data flows into your system as **events** occur. Events 
 
 ### Lambda Architecture
 
-Lambda architecture can bridge the gap between durable-yet-delayed **batch processing** and fresh-yet-brittle **stream processing** by creating a "fast lane" for processing priority events, but this introduces operational complexity.
+Lambda architecture can bridge the gap between durable-yet-delayed **batch processing** and fresh-yet-brittle **stream processing** by creating a "fast lane" for processing priority events, but this introduces operational complexity. It's used to solve the problem of computing arbitrary functions. 
 
-![Lambda-Architecture-with-Unified-Serving-Layer](/img/software-development/system-design/architectural-style/Lambda-Architecture-with-Unified-Serving-Layer.png)
+- **Batch Layer**: Manages the processing of large datasets in batches to create a comprehensive view, typically using MapReduce or similar batch processing frameworks. It stores the master dataset and computes batch views periodically.
+- **Speed Layer**: Handles real-time data processing to provide immediate insights and low-latency updates, complementing the batch layer by processing only the recent data not yet included in the batch views.
+- **Serving Layer**: Merges the outputs from both the batch and speed layers to provide a unified view for querying. It offers fast access to data by combining historical batch results with real-time updates.
+
+#### Implementation 1
+
+![Lambda-Architecture-with-Unified-Serving-Layer](/img/software-development/system-design/sync-async/Lambda-Architecture-with-Unified-Serving-Layer.png)
 
 Another alternative is **two separate serving layers**. One layer is for real-time consumption, the other one for batch consumption:
 
-![Lambda-Architecture-with-Two-Separate-Serving-Layers](/img/software-development/system-design/architectural-style/Lambda-Architecture-with-Two-Separate-Serving-Layers.png)
+#### Implementation 2
+
+![Lambda-Architecture-with-Two-Separate-Serving-Layers](/img/software-development/system-design/sync-async/Lambda-Architecture-with-Two-Separate-Serving-Layers.png)
 
 According to this [Blog post](https://www.kai-waehner.de/blog/2021/09/23/real-time-kappa-architecture-mainstream-replacing-batch-lambda/)
 , the second option much more in the field. In the end, both have the same concept of building two separate layers for data ingestion and processing.
@@ -62,15 +70,33 @@ Source: [Kappa Architecture is Mainstream Replacing Lambda](https://www.kai-waeh
 
 ### Asynchronous Queues
 
-Queues make asynchronous processes more reliable and less brittle as events are captured and processed in an orderly way. 
-
-#### Message queue
-**Task queues** are a type of **message queue**; sometimes they're built on top of message queues. For example, Celery supports many different "**message brokers**", such as Redis, RabbitMQ, and Amazon SQS. Generally:
+Queues make asynchronous processes more reliable and less brittle as events are captured and processed in an orderly way. **Task queues** are a type of **message queue**; sometimes they're built on top of message queues. For example, Celery supports many different "**message brokers**", such as Redis, RabbitMQ, and Amazon SQS. Generally:
 
 - **Message queues**, which receive, log, and deliver messages, can be used to update users that jobs are being processed in the background, thus unblocking them and making for a better user experience. Redis and RabbitMQ are both popular choices.
 - **Task queues** execute in addition to passing information. They schedule jobs, complete tasks, and report results. Celery is a popular choice.
 
+:::infoMessage queues vs Task queues
+As you can see, message queue and task queue focus on different aspects, they can overlap, but not necessarily.
+
+An example for task queue but not message queue - if your tasks don't care about ordering - each task does not depend on one another - then you don't need a "queue", FIFO data structure. You can, but you don't have to. You just need a place to store the buffered tasks like a pool, a simple SQL/NoSQL database or even S3 might suffice.
+
+An opposite example is push notification. You use message queue but not necessarily task queue. Server generates events/notifications and wants to deliver them to the client. The server will push notifications in the queue. The client consumes/pulls down notifications from the queue when they are ready to do so. Products like GCP PubSub, AWS SNS can be used for this.
+
+Reference: [Message Queue vs Task Queue difference](https://stackoverflow.com/questions/10075817/message-queue-vs-task-queue-difference)
+:::
+
+:::infoAWS SQS can be a task queue too
+When implementing a task queue, you can use [Amazon SQS](https://aws.amazon.com/sqs/) [standard](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html) or [FIFO](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html) (First-In-First-Out) queue types. Both queue types give priority to tasks created earlier over tasks that are created later. However, there are use cases where you need a [LIFO](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) (Last-In-First-Out) queue.
+
+Reference: [Implementing a LIFO task queue using AWS Lambda and Amazon DynamoDB](https://aws.amazon.com/blogs/compute/implementing-a-lifo-task-queue-using-aws-lambda-and-amazon-dynamodb/)
+:::
+
 #### Publish/Subscribe (or pub/sub)
+
+![pub/sub](/img/software-development/system-design/sync-async/sns-topic.png)
+
+Source: [AWS: What is Pub/Sub Messaging?](https://aws.amazon.com/what-is/pub-sub-messaging/)
+
 Pub/Sub messaging is another async communication method to know. In pub/sub messaging, you have a subscriber who receives a message sent by a publisher via a broker. Because communication is decoupled, messages can be automatically pushed to all subscribers rather than pulled individually via a message queue. This method is popular in event-driven architecture because event-driven services can be delivered quickly and easily. Additionally, because publishers are isolated from subscribers, the system is easier to maintain and secure.
 
 ## When to choose Async/Syn Processing?
@@ -80,7 +106,7 @@ Pub/Sub messaging is another async communication method to know. In pub/sub mess
     - Immediate processing isn't necessary, like with social media feeds that update in real-time for the poster but propagate through the network gradually.
 - Conversely, synchronous processing is more suited for simpler applications with predictable, quick processing times and when errors must be handled promptly, such as in immediate payment processing systems. 
 
-## Use cases
+### Use cases
 
 - Asynchronous
     - Batch processing is useful when you need to process chunks of data in predictable intervals, as in accounting software. 
@@ -107,18 +133,20 @@ Take a look at the below table to help guide your decisions of which processing 
     - **Cloudera Distribution for Hadoop (CDH):** A commercial distribution of Hadoop providing a software platform for data analytics and machine learning.
     - **Amazon EMR (Elastic MapReduce):** A web service for processing big data using Apache Hadoop and Apache Spark on the AWS cloud.
     - **Google Cloud Dataproc:** A managed service for running Apache Hadoop and Apache Spark on Google Cloud Platform.
-- **Job Queue:**
-    - **RabbitMQ:** An open-source message broker that uses a variety of messaging protocols.
-    - **Amazon Simple Queue Service (SQS):** A scalable and fully managed message queuing service offered by Amazon Web Services.
-    - **Apache Kafka:** A distributed stream-processing software platform that also provides job queue facilities using its durable messaging system.
-    - **Beanstalkd:** A simple and fast work queue service for running background jobs that run for a prolonged period of time.
 - **Stream Processing:**
     - **Apache Flink:** An open-source platform for distributed stream and batch data processing.
     - **Apache Storm:** A distributed real-time computation system for processing fast, large streams of data.
     - **Amazon Kinesis:** A platform to send your streaming data on AWS, which can then be analyzed in real-time.
     - **Google Cloud Dataflow:** A fully-managed service for transforming and enriching data in stream (real-time) and batch (historical) modes with equal reliability and expressiveness.
-- **Pub/Sub (Publish/Subscribe):**
-    - **Google Cloud Pub/Sub:** A scalable and flexible real-time messaging service that allows services to communicate asynchronously with each other.
-    - **Apache Pulsar:** An open-source distributed pub/sub messaging system originally created at Yahoo and designed for high-performance.
-    - **Redis Pub/Sub:** An in-memory data structure store that can be used as a database, cache, or as a pub/sub message broker.
-    - **NATS:** A lightweight, high-performance messaging system for microservices, IoT, and cloud-native systems.
+- **Asynchronous Queues**
+    - **Job Queue:**
+        - **RabbitMQ:** An open-source message broker that uses a variety of messaging protocols.
+        - **Amazon Simple Queue Service (SQS):** A scalable and fully managed message queuing service offered by Amazon Web Services.
+        - **Apache Kafka:** A distributed stream-processing software platform that also provides job queue facilities using its durable messaging system.
+        - **Beanstalkd:** A simple and fast work queue service for running background jobs that run for a prolonged period of time.
+    - **Pub/Sub (Publish/Subscribe):**
+        - **Google Cloud Pub/Sub:** A scalable and flexible real-time messaging service that allows services to communicate asynchronously with each other.
+        - **Apache Pulsar:** An open-source distributed pub/sub messaging system originally created at Yahoo and designed for high-performance.
+        - **Redis Pub/Sub:** An in-memory data structure store that can be used as a database, cache, or as a pub/sub message broker.
+        - **NATS:** A lightweight, high-performance messaging system for microservices, IoT, and cloud-native systems.
+        - **AWS SNS**: Amazon Simple Notification Service (Amazon SNS) is a managed service that facilitates asynchronous message delivery from publishers to subscribers through topics, which serve as communication channels. Subscribers receive messages via endpoints such as Amazon Data Firehose, Amazon SQS, AWS Lambda, HTTP, email, push notifications, and SMS.
