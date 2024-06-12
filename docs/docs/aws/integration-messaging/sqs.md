@@ -65,7 +65,7 @@ The best time value to set for the visibility timeout will be at least the timeo
 ### At-least-once delivery
 
 :::info Deep dive disucssion
-To check different type of messaging systems, visit the [Messaging within distributed system](/software-development/system-design/queue/overview) page. If you want to check the official document, visit [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
+To check different type of messaging systems, visit the [Messaging within distributed system](/software-development/system-design/sync-async/queue/overview) page. If you want to check the official document, visit [AWS - At-least-once delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html#standard-queues-at-least-once-delivery)
 :::
 
 Amazon SQS stores copies of your messages on multiple servers for redundancy and high availability. On rare occasions, one of the servers that stores a copy of a message might be unavailable when you receive or delete a message.

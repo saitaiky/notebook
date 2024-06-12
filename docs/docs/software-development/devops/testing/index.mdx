@@ -18,9 +18,9 @@ That’s why we start to automate and write them. It gives us confidence that we
 
 Software Testing is a crucial phase of the software development cycle. There are many different types of software testing. Each of these testing types has its own purpose. The type of software testing that you choose depends on your testing objective, the complexity, and functionality of your software, and your testing team. The image below lists out some of the most common types of software testing used today.
 
-![](/img/software-development/devops/testing/TestingTypes-768x644.png)
+![](/img/software-development/devops/testing/Software-Testing-Types.jpg)
 
-Source: [Smoke Testing and Sanity Testing: How are they different?](https://www.edureka.co/blog/smoke-testing-and-sanity-testing)
+Source: [TatvaSoft - What are the Types of Software Testing?](https://www.tatvasoft.com/outsourcing/2021/09/types-of-software-testing.html)
 
 ### Functional Testing
 
@@ -68,18 +68,6 @@ Naturally, detecting bugs in a complex workflow entails challenges. The two majo
 | **End-to-End (E2E) Testing**| Verifies the entire application workflow from start to finish to ensure all components work together as expected.   | Ensuring a user can search for a product, add it to the cart, and complete the purchase. | Cypress, Selenium, TestCafe       |
 | **Acceptance Testing**      | Verifies the system against user requirements and business processes; often performed by end-users or stakeholders. | Ensuring the application meets business requirements before going live. | Cucumber, FitNesse, Manual Testing|
 
-### Regression Test
-
-:::cautionCaution
-Regression testing is considered a testing approach, not a specific testing type. It involves re-testing to confirm that recent changes haven't introduced new defects in previously working functionalities.
-:::
-
-![Regression testing](https://browserstack.wpenginepowered.com/wp-content/uploads/2019/09/Regression-testing-tutorual.png)
-
-Source: [Regression testing](https://www.linkedin.com/pulse/regression-testing-carsten-olholm/)
-
-Regression testing verifies that recent code changes haven't adversely affected existing functionality. It involves re-running tests on the modified software to ensure stability and correctness of the system. This testing detects unintended side effects from bug fixes, enhancements, or new features. Automated regression tests are often integrated into **CI/CD pipelines** for efficiency. By ensuring that new updates do not break existing features, regression testing helps maintain software quality and reliability throughout the development lifecycle.
-
 ### Acceptance Testing vs. E2E Testing
 
 They are essential for validating that the application functions correctly according to specified requirements and workflows. Here’s a deeper look at their roles, importance, and manual implementation options.
@@ -100,50 +88,43 @@ They are essential for validating that the application functions correctly accor
   - While E2E testing ensures that all components of the software function together, UAT specifically validates if the software aligns with end-user requirements and expectations, providing a final check from the user’s perspective.
 - How do UAT and E2E testing differ in their testing environments?
   - User Acceptance Testing (UAT) typically occurs in a controlled environment that closely mirrors production and focuses on validating business requirements with end-users, while End-to-End (E2E) testing is performed in a comprehensive test environment to validate complete workflows, including system integrations and dependencies.
+:::                                                   |
+
+## Regression Test
+
+:::cautionCaution
+Regression testing is considered a software testing practice, not a specific testing type. It involves re-testing to confirm that recent changes haven't introduced new defects in previously working functionalities.
 :::
 
-### Smoke Testing vs Sanity Testing
+![Regression testing](https://browserstack.wpenginepowered.com/wp-content/uploads/2019/09/Regression-testing-tutorual.png)
 
-The are both related a build. Smoke Testing has a goal to verify “stability” whereas Sanity Testing has a goal to verify “rationality”.
+Source: [Regression testing](https://www.linkedin.com/pulse/regression-testing-carsten-olholm/)
+
+Regression testing verifies that recent code changes haven't adversely affected existing functionality. It involves re-running tests on the modified software to ensure stability and correctness of the system. This testing detects unintended side effects from bug fixes, enhancements, or new features. Automated regression tests are often integrated into **CI/CD pipelines** for efficiency. By ensuring that new updates do not break existing features, regression testing helps maintain software quality and reliability throughout the development lifecycle.
+
+### Smoke Testing and Sanity Testing
+
+Smoke testing and sanity testing are both relevant and commonly used in * **mobile app build testing** * , as they help ensure the stability and functionality of the app at different stages of the development process.
+
+After each mobile app updates, the app must undergo smoke testing and sanity testing to validate its functionality. Although the definition of sanity testing vs smoke testing is quite similar, they should not be used interchangeably.   
+
+A good distinction between sanity testing vs smoke testing is the depth of the testing objectives. Sanity testing is about making sure that the **core functions** of the app works fine **after a code change**, while smoke testing verifies that the app **works** at its bare minimum or not. Smoke testing has a narrower scope than sanity testing.
 
 ![Smoke Testing vs Sanity Testing](/img/software-development/devops/testing/Sanity_Smoke_Testing.webp)
 
 Source: [guru99 - Sanity Testing Vs. Smoke Testing – Difference Between Them](https://www.guru99.com/smoke-sanity-testing.html)
 
+**Smoke Test Example**: Verify that the mobile app launches successfully, the user can log in using default credentials, and the main dashboard loads correctly. This involves checking that critical functions like navigation between primary screens, basic user interactions, and essential features (e.g., viewing a list of items) are operational. If these tests pass, the build is considered stable for further testing.
 
-#### Smoke Testing example
+**Sanity Test Example**: After fixing a bug in the user profile update feature, run tests to ensure users can now update their profiles correctly, the changes are reflected immediately, and no new issues arise in the profile management area. This focuses only on the updated functionality to confirm the fix works.
 
+:::infoWhy Is Sanity Testing A Subset Of Regression Testing?
+Regression testing is a software testing practice rather than a testing in itself. It contains multiple types of tests, with sanity tests being a checkpoint in the process to decide if the build can proceed with the next level of testing.    
+ 
+Basically, sanity testing works just as regression testing but *deals with a smaller test suite*. This subset contains critical test cases that are run first before the examination of the whole package of regression tests.  
+> Reference: [Katalon - Sanity Testing vs Smoke Testing: In-depth Comparison](https://katalon.com/resources-center/blog/sanity-testing-vs-smoke-testing) 
+:::
 
-
-
-#### Sanity Testing example
-
-Consider you developing an online Food ordering app, and you want to offer a 10% discount on New Year (1st January) for your members having an elite membership.
-
-Sanity testing will verify the following:
-
--  Elite members get the discount on the 1st January.
--  Members, who add the elite membership to their food orders on the 1st, also get the discount.
--  Non-elite members do not get the discount on the 1st January .
--  No member receives that rebate before and after the 1st January.
--  Other discount coupons can not be clubbed together with this 10% discount.
--  Elite members, who opt for other deals, do not get the New Year deduction.
-
-Sanity testing does not verify other areas of the app, like delivery tracking or restaurant reviews. That is done by Smoke testing and Regression testing, which happen before and after Sanity testing. 
-
-If Sanity testing fails, the app is sent back to the developer for troubleshooting. However, if it succeeds, the app is sent for thorough System testing.
-
-
-#### Comparison table
-
-| Features          | Smoke Testing                                                                           | Sanity Testing                                                                        |
-|-------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| System Builds     | Tests are executed on initial builds of software product                                | Tests are done over builds that have passed smoke tests & rounds of regression tests  |
-| Motive of Testing | To measure the stability of the newly created build to face off more rigorous testing   | To evaluate rationality & originality of the functionalities of software builds       |
-| Subset of?        | Is a subset of **acceptance testing **                                                      | Is a subset of **regression testing**                                                     |
-| Documentation     | Involves documentation and scripting work                                               | Doesn’t emphasize any sort of documentation                                           |
-| Test Coverage     | Shallow & wide approach to include all the major functionalities without going too deep | Narrow & deep approach involving detailed testing of functionalities and features     |
-| Performed By?     | Executed by developers or testers                                                       | Executed by testers                                                                   |
 
 ## How to know what to test?
 
@@ -191,10 +172,6 @@ Other interesting topic like mutation tseting in unit test and the topic of vali
 | **Disadvantages**   | May miss real user issues                         | Harder to measure quantitatively                 |
 | **Best Practice**   | Use as a metric, not a goal                        | Focus on critical paths and user experience      |
 
-### Practical Examples
-
-- **Example 1**: Testing a login form by covering both successful login (happy path) and potential error cases (e.g., incorrect password).
-- **Example 2**: Testing a shopping cart feature by validating the entire user journey, including adding items, checking out, and applying discounts.
 
 ## Test Coverage in Unit Testing
 
@@ -635,13 +612,13 @@ Snapshot testing with Jest helps ensure that the output of a function or compone
 
 ## References
 
-- TO-DO
-  - [Complete Functional Testing Guide With Its Types And Example](https://www.softwaretestinghelp.com/guide-to-functional-testing/#EntryExit_criteria)
-  - [How to Create Test Cases for Automated tests?](https://www.browserstack.com/guide/test-cases-for-automated-tests)
-
+- AWS
+  - [Automating safe, hands-off deployments](https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/) by Clare Liguori
+  - [New – Deployment Pipelines Reference Architecture and Reference Implementations](https://aws.amazon.com/blogs/aws/new_deployment_pipelines_reference_architecture_and_-reference_implementations/)
+  - [Deployment Pipeline Reference Architecture](https://pipelines.devops.aws.dev/#architecture)
+- [How to Create Test Cases for Automated tests?](https://www.browserstack.com/guide/test-cases-for-automated-tests)
 - [What is Automated Functional Testing: Types, Benefits & Tools](https://www.browserstack.com/guide/what-is-automated-functional-testing)
 - [How to run UI Automation Testing using Puppeteer](https://www.browserstack.com/guide/ui-automation-testing-using-puppeteer)
-- [The different types of software testing](https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing)
 
 
 
