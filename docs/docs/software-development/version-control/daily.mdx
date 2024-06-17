@@ -37,7 +37,11 @@ git restore path/to/file/to/revert
 ### Remove all local branches but keep master
 `git branch | grep -v "master" | xargs git branch -D`
 
-### Add new origin
+
+## Origin
+
+### Add new origin in theory
+
 ```$ git remote add origin https://github.com/schacon/simplegit-progit```
 Running the command above adds a section to your repository’s .git/config file, specifying the name of the remote (origin), the URL of the remote repository, and the refspec to be used for fetching:
 
@@ -111,6 +115,28 @@ git push origin master:master
 # Use local master branch to update a remote branch called mybranch
 git push origin master:refs/for/mybranch
 ```
+
+### Fork after cloning
+
+Reference: [Github: how to fork after cloning?](https://stackoverflow.com/questions/33817118/github-how-to-fork-after-cloning)
+
+First rename the old remote as upstream, in case you want to be able to keep in sync with the original repository.
+
+`git remote rename origin upstream`
+
+Then add your forked repository as origin:
+
+`git remote add origin https://github.com/<your-username>/<your-project>`
+
+To push to your repository:
+
+`git push -u origin master`
+
+To pull from the base repository:
+
+`git pull upstream`
+
+## Other
 
 ### Create support branch for hotfix(Gitflow) 
 
