@@ -163,6 +163,7 @@ const config = {
         darkTheme: darkCodeTheme,
         // https://prismjs.com/#supported-languages
         additionalLanguages: [
+          'bash',
           'rest',
           'rust',
           'http',
