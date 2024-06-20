@@ -49,12 +49,6 @@ In the fast-paced digital world, traditional enterprise software is becoming out
    - **No Built-In UI**: Freedom in UI development.
    - **Flexible UI Development**: Use any tech stack for user interface design.
 
-## Enterprise Architecture
-
-:::infoDoes Enterprise Architecture Mean an Application with Lots of Users?
-No, Enterprise Architecture is not about an application with lots of users, but rather about the strategic planning and alignment of an organization's entire IT infrastructure and processes with its business objectives.
-:::
-
 
 ## Event-Driven Architecture
 
@@ -150,7 +144,6 @@ Conversely, a client in a request-driven system has no obligation to the server.
 - Your performance control requirements. Your application should be able to handle the asynchronous nature of event routers. 
 - Your event flow tracking. The indirection introduced by an event-driven architecture allows for dynamic tracking via monitoring services, but not static tracking via code analysis. 
 - The data in your event source. If you need to rebuild state, your event source should be deduplicated and ordered.
-
 
 
 
