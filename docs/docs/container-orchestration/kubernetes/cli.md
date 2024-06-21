@@ -1,6 +1,6 @@
 ---
-title: Commands
-sidebar_position: 5
+title: Daily tricks
+sidebar_position: 10
 ---
 
 

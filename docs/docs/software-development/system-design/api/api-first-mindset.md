@@ -4,18 +4,22 @@ title: API first mindset
 
 # Understanding the API-First Mindset
 
-**API-first** is a development approach that prioritizes designing and building APIs before developing the actual application or integrating other components. While many applications build APIs, an API-first approach differs fundamentally in focus, methodology, and outcomes. This leads to better collaboration, quicker time-to-market, and a more scalable architecture. 
+**API-first** is a development approach that prioritizes designing and building APIs before developing the actual application or integrating other components. It is crucial in managing the complexity introduced by **microservices**, where separate services handle different system functions. This architecture supports decoupling and segregation of duties but requires careful handling of inter-service communication. By designing APIs before coding, we can better address system complexity and define clear service boundaries.
 
 ## What is API-First?
 
+![api_first](/img/software-development/system-design/api/api_first.jpg)
+
+Source: [ByteByteGo: Code First vs. API First](https://github.com/ByteByteGoHq/system-design-101?tab=readme-ov-file)
+
 **API-First** means that the API is considered a primary and foundational aspect of the system architecture. Every piece of functionality is designed as an API from the beginning, rather than being an afterthought or add-on to existing features.
 
-## Key Differences from Traditional API Development:
+## Key Differences from code-first
 
 
-Here's a table highlighting the differences between the **API-First mindset** and **traditional API development**:
+Here's a table highlighting the differences between the **API-First** mindset and **code-first** mindset:
 
-| **Aspect**                      | **API-First Mindset**                                              | **Traditional API Development**                                       |
+| **Aspect**                      | **API-First**                                              | **Code-First**                                       |
 |---------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------|
 | **Design Priority**          | **APIs Designed First**: APIs are the starting point of system design, created before other components. | **APIs Developed Later**: APIs are added after the main system components are developed. |
 | **Integration Focus**        | **Integration-Centric**: APIs are central to system interactions, facilitating seamless integration across different components and systems. | **Feature-Centric**: APIs are often created to provide access to existing system functionalities, rather than being designed as the core integration mechanism. Integration may be more challenging if APIs are tightly coupled with the codebase (the feature). |
@@ -36,10 +40,10 @@ The API-First approach can indeed seem like it requires upfront planning similar
 
 ## Benefits
 
-- **Improved Developer Experience**: APIs designed with a focus on usability lead to better integration experiences and faster development cycles.
-- **Reduced Development Time**: Parallel development speeds up project timelines, as frontend and backend teams can work independently based on the API specifications.
-- **Enhanced Flexibility**: The ability to adapt and evolve APIs without significant rework fosters long-term system agility and scalability.
-- **Better Integration**: Consistent, well-documented APIs simplify integration with other systems and applications, reducing errors and maintenance efforts.
+- **Unified Communication:** API-first ensures all functional teams use a common language, fostering consistent integration across components.
+- **Early Validation:** Mocking requests and responses allows early validation of API design, reducing uncertainties before code is written.
+- **Enhanced Quality and Productivity:** With defined APIs, development is smoother, and software quality improves, as developers focus on functionality rather than reacting to unexpected changes.
+- **Reduced Surprises:** Predefined APIs and test-driven development (TDD) minimize late-stage surprises and facilitate concurrent development and testing.
 
 ## Drawback
 
@@ -62,7 +66,7 @@ Let's say you are trying to build a new e-commerce platform
   - **Design Phase**: Define APIs for product management, order processing, user accounts, etc. Create API specifications detailing endpoints, request/response formats, authentication methods, and error handling.
   - **Development Phase**: Backend teams develop the services based on the API specs. Frontend teams develop the user interface using mock APIs or stubs, integrating with the actual API once available.
   - **Outcome**: Both frontend and backend can progress simultaneously. The API serves as a contract, ensuring smooth integration and reducing development time.
-- **Traditional Development**: 
+- **Code-First**(Traditional Development): 
   - **Development Phase**: Backend teams develop core functionalities first. APIs are created later to expose these functionalities.
   - **Integration Phase**: Frontend teams integrate with the APIs, often requiring adjustments to match the backend's implementation.
   - **Outcome**: Potential delays and integration challenges, as frontend and backend development are more sequential.

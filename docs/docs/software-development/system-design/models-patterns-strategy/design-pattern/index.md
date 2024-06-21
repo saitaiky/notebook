@@ -2,15 +2,16 @@
 title: Design Pattern
 ---
 
-> Reference: [Sourcemakring - Design Patterns](https://sourcemaking.com/design_patterns)
-> Reference: [Do you need Design Patterns in Functional Programming?](https://dev.to/patferraggi/do-you-need-design-patterns-in-functional-programming-370c)
+> - Reference: 
+    - [Sourcemakring - Design Patterns](https://sourcemaking.com/design_patterns)
+    - [Do you need Design Patterns in Functional Programming?](https://dev.to/patferraggi/do-you-need-design-patterns-in-functional-programming-370c)
 
-## What is design Pattern
+## What is design pattern
 
 In software engineering, a **design pattern** is a general repeatable solution to a commonly occurring problem in software design. A design pattern isn't a finished design that can be transformed directly into code. It is a description or template for how to solve a problem that can be used in many different situations.
 
 
-### Uses of Design Patterns
+## Uses of design pattern
 
 Design patterns can speed up the development process by providing tested, proven development paradigms. Effective software design requires considering issues that may not become visible until later in the implementation. Reusing design patterns helps to prevent subtle issues that can cause major problems and improves code readability for coders and architects familiar with the patterns.
 
@@ -19,7 +20,7 @@ Often, people only understand how to apply certain software design techniques to
 In addition, patterns allow developers to communicate using well-known, well understood names for software interactions. Common design patterns can be improved over time, making them more robust than ad-hoc designs.
 
 
-### What is SOLID?
+## What is SOLID?
 
 > SOLID is a mnemonic acronym for five design principles intended to make software designs more understandable, flexible and maintainable
 
@@ -33,7 +34,7 @@ Design Patterns](https://fi.ort.edu.uy/innovaportal/file/2032/1/design_principle
 - **Dependency Inversion Principle** - One should depend upon abstractions, [not] concretions.
 
 
-### SOLID in FP
+## SOLID in FP
 
 > Reference: [Do the SOLID principles apply to Functional Programming?](https://dev.to/patferraggi/do-the-solid-principles-apply-to-functional-programming-56lm)
 
@@ -67,7 +68,7 @@ Design Patterns](https://fi.ort.edu.uy/innovaportal/file/2032/1/design_principle
     In functional programming, **abstractions are the default way of handling code, functions are abstractions too**, especially in functional programming where we care more about the "shape" of the data instead of to which specific type they are attached to. This creates the possibility to freely change the implementation at runtime by passing functions as parameters to other functions or even returning functions as results from the computation.
 
 
-### Apply OO design pattern to other areas?
+## Apply OO design pattern to other areas?
 
 > Further reading: [Do you need Design Patterns in Functional Programming?](https://dev.to/patferraggi/do-you-need-design-patterns-in-functional-programming-370c)
 
