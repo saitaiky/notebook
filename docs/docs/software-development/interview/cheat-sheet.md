@@ -41,7 +41,9 @@ draft: true
   - Communicate ideas effectively.
   - Engage with the interviewer throughout the process.
 
-## System Design Principles
+## Key Concepts to Understand
+
+### System Design Principles
 
 - **UDP vs. TCP**:
   - **UDP**: Low latency, no guarantee of delivery, used for streaming.
@@ -53,7 +55,7 @@ draft: true
   - **PUSH**: Proactively push content to edge servers.
   - **Pull**: Content is fetched from the origin server as needed.
 
-## API Design
+### API Design
 
 - **Choosing Between APIs**:
   - **REST**: Simple, standard, widely used.
@@ -65,7 +67,7 @@ draft: true
   - **API Idempotency**: Ensure consistent results for repeated requests.
   - **API Gateways**: Centralize API management and security.
 
-## CAP Theorem
+### CAP Theorem
 
 - **Consistency**:
   - Every read receives the most recent write.
@@ -74,14 +76,14 @@ draft: true
 - **Partition Tolerance**:
   - The system continues to function despite network partitions.
 
-## Caching
+### Caching
 
 - **Key Decisions for Cache Design**:
   1. **Cache Size**: How much data should be cached?
   2. **Eviction Policy**: When and how should data be removed from the cache?
   3. **Expiration Policy**: How long should data remain in the cache before expiring?
 
-## SQL vs. NoSQL
+### SQL vs. NoSQL
 
 - **SQL**:
   - **Pros**: Strong relationships, structured data, supports ACID properties.
@@ -90,13 +92,17 @@ draft: true
   - **Pros**: Handles unstructured data, scales horizontally, supports various data models.
   - **Cons**: Often offers eventual consistency, less structured schema.
 
-## Asynchronous Processing
+### Database Sharding & Replication
+
+**TO-DO**: Distributing and duplicating data for scalability.
+
+### Asynchronous Processing
 
 - **Use Cases**:
   - Handling tasks with long or unpredictable processing times.
   - Situations where immediate processing isn't required, e.g., Facebook's newsfeed propagation.
 
-## Replication Strategy
+### Replication Strategy
 
 - **Goals**:
   - Improve read performance.
@@ -104,13 +110,14 @@ draft: true
   - Support global scaling and handle high write loads.
   - Implement a multi-region strategy for disaster recovery.
 
-## Authentication and Authorization
+### Authentication and Authorization
 
 - **Considerations**:
   - Evaluate the need for Multi-Factor Authentication (MFA).
   - Determine the security requirements based on user and data sensitivity.
+- **Encryption & Authentication**: Securing data and verifying identities.
 
-## Availability vs. Reliability
+### Availability vs. Reliability
 
 - **Availability**:
   - Use queue-based load leveling, gateway aggregation.
@@ -118,3 +125,9 @@ draft: true
 - **Reliability**:
   - Design for retry mechanisms (simple and delayed) to ensure reliable processing.
 
+## Tips for Success
+
+- **Communication**: Keep the conversation interactive with the interviewer.
+- **Trade-offs**: Clearly discuss trade-offs for different design choices.
+- **Scalability**: Always consider how your design can handle growth.
+- **Preparation**: Practice with whiteboarding tools and review common system design principles.
