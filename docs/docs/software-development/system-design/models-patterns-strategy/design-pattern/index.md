@@ -34,7 +34,7 @@ Design Patterns](https://fi.ort.edu.uy/innovaportal/file/2032/1/design_principle
 - **Dependency Inversion Principle** - One should depend upon abstractions, [not] concretions.
 
 
-## SOLID in FP
+## SOLID in functional programming
 
 > Reference: [Do the SOLID principles apply to Functional Programming?](https://dev.to/patferraggi/do-the-solid-principles-apply-to-functional-programming-56lm)
 
@@ -46,11 +46,11 @@ Design Patterns](https://fi.ort.edu.uy/innovaportal/file/2032/1/design_principle
 
     As long as your function or class or module has only one reason to change then you are applying this principle.
 
-- **Open-Closed Principle** (FP supports by default)
+- **Open-Closed Principle** (functional programming supports by default)
 
     Instead of using inheritance, Functional Programming achieves this by using two tools. Composition to create new behaviors from previously defined functions and higher-order functions to change functionality at runtime
 
-- **Liskov Substitution Principle** (FP with polymorphic function or data type supports by default)
+- **Liskov Substitution Principle** (functional programming with polymorphic function or data type supports by default)
 
     when people generally think about this principle the first idea that comes to their head is that if the parent class has some behavior, their children should not break that behavior, but this is not the only applicable case, LSP also applies in case we use generic or parametric programming where we create functions that work on a variety of types, they all hold a common truth that makes them interchangeable.
 
@@ -61,7 +61,7 @@ Design Patterns](https://fi.ort.edu.uy/innovaportal/file/2032/1/design_principle
 
     Every interaction between components is done by an interface (not the OOP interface). When you use functions from a module, you are using the disposed interface of that module, even if we are in a dynamically typed language, that interface still exists. The point of this is that the way you create modules(or classes or interfaces or API's or whatever) needs to be cohesive, you should provide one clear way of doing things instead of many, and you should expose only what is necessary for the users to perform the specific task.
 
-- **Dependency Inversion Principle** (FP supports by default)
+- **Dependency Inversion Principle** (functional programming supports by default)
 
     In languages like C#, this is achieved by using two tools. One is to create interfaces to define contracts of a predefined functionality. The other is to use dependency injection so that users of that functionality don't manually instantiate the concrete class, instead, they receive an instance of the interface through their constructor and they just call the appropriate methods on the instance.
 
@@ -81,7 +81,7 @@ Design patterns -- as a concept -- are a timeless way of building, irrespective 
 Everyone who thinks about what they're doing will uncover design patterns.
 
 :::infoIs there any truth to the claim that functional programming eliminates the need for OOP design patterns?
-Yes, When you work in a FP language, you no longer need the OOP-specific design patterns. But you still need some **general design patterns**, like **MVC** or other **non-OOP specific** stuff, and you need **a couple of new FP-specific "design patterns" instead**. All languages have their shortcomings, and design patterns are usually how we work around them.
+Yes, When you work in a functional programming language, you no longer need the OOP-specific design patterns. But you still need some **general design patterns**, like **MVC** or other **non-OOP specific** stuff, and you need **a couple of new functional programming-specific "design patterns" instead**. All languages have their shortcomings, and design patterns are usually how we work around them.
 
 From [jalf](https://stackoverflow.com/questions/327955/does-functional-programming-replace-gof-design-patterns)
 :::
