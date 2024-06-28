@@ -4,129 +4,110 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
+## Wildcards and Symbols
 
-## Wildcards and symbols
+| Symbols | Meaning |
+|---------|---------|
+| *       | Represents '0 or more' arbitrary characters |
+| ?       | Represents 'exactly one' arbitrary character |
+| [ ]     | Represents 'exactly one character from within the brackets' (not arbitrary). For example, [abcd] means 'exactly one character that could be any of a, b, c, d' |
+| [ - ]   | When a hyphen is within brackets, it represents 'all characters within the specified range'. For example, [0-9] represents all digits between 0 and 9 because their encoding is consecutive! |
+| [^ ]    | If the first character inside the brackets is a caret (^), it means 'negation'. For example, [^abc] means 'exactly one character that is not a, b, or c' |
 
-<table>
-  <tr>
-    <th>Symbols</th>
-    <th>Meaning</th>
-  </tr>
-  <tr>
-    <td>*</td>
-    <td>代表『 0 個到無窮多個』任意字元</td>
-  </tr>
-  <tr>
-    <td>?</td>
-    <td>代表『一定有一個』任意字元</td>
-  </tr>
-  <tr>
-    <td>[ ]	</td>
-    <td>同樣代表『一定有一個在括號內』的字元(非任意字元)。例如 [abcd] 代表『一定有一個字元， 可能是 a, b, c, d 這四個任何一個』</td>
-  </tr>
-  <tr>
-    <td>[ - ]	</td>
-    <td>若有減號在中括號內時，代表『在編碼順序內的所有字元』。例如 [0-9] 代表 0 到 9 之間的所有數字，因為數字的語系編碼是連續的！</td>
-  </tr>
-  <tr>
-    <td>[^ ]</td>
-    <td>若中括號內的第一個字元為指數符號 (^) ，那表示『反向選擇』，例如 [^abc] 代表 一定有一個字元，只要是非 a, b, c 的其他字元就接受的意思。
-    </td>
-  </tr>
-</table>
+### Examples
 
 ```bash
-範例一：找出 /etc/ 底下以 cron 為開頭的檔名
-$ ll -d /etc/cron*    <==加上 -d 是為了僅顯示目錄而已
+# Example 1: Find files in /etc/ that start with "cron"
+$ ls -d /etc/cron*  # The -d option is to display only directories
 
-範例二：找出 /etc/ 底下檔名『剛好是五個字母』的檔名
-$ ll -d /etc/?????    <==由於 ? 一定有一個，所以五個 ? 就對了
+# Example 2: Find files in /etc/ that have exactly five letters
+$ ls -d /etc/?????  # Using ? means exactly one character, so five ?s represent a five-letter filename
 
-範例三：找出 /etc/ 底下檔名含有數字的檔名
-$ ll -d /etc/*[0-9]*  <==記得中括號左右兩邊均需 *
+# Example 3: Find files in /etc/ that contain a digit
+$ ls -d /etc/*[0-9]*  # Remember to place * on both sides of the brackets
 
-範例四：找出 /etc/ 底下，檔名開頭非為小寫字母的檔名：
-$ ll -d /etc/[^a-z]*  <==注意中括號左邊沒有 *
+# Example 4: Find files in /etc/ whose names do not start with a lowercase letter
+$ ls -d /etc/[^a-z]*  # Note there is no * before the brackets
 
-範例五：將範例四找到的檔案複製到 /tmp/upper 中
+# Example 5: Copy the files found in Example 4 to /tmp/upper
 $ mkdir /tmp/upper; cp -a /etc/[^a-z]* /tmp/upper
 ```
 
-## Command Redirect
+## Command Redirection
 
-In Linux/Unix, everything is a file. Regular file, Directories, and even Devices are files. Every File has an associated number called **File Descriptor (FD)**.
+In Linux/Unix, everything is treated as a file, including regular files, directories, and even devices. Each file has an associated number called a **File Descriptor (FD)**.
 
-Your screen also has a File Descriptor. When a program is executed the output is sent to File Descriptor of the screen, and you see program output on your monitor. If the output is sent to File Descriptor of the printer, the program output would have been printed.
+Whenever you execute a program/command at the terminal, three special files are always open:
 
-Whenever you execute a program/command at the terminal, 3 files are always open, viz., standard input (stdin), standard output (stdout), and standard error (stderr).
+| File                   | File Descriptor |
+|------------------------|-----------------|
+| Standard Input (stdin) | 0               |
+| Standard Output (stdout)| 1              |
+| Standard Error (stderr)| 2               |
+
+These file descriptors are essential for handling input and output operations. For example, when you run a command, its output is sent to the file descriptor for the screen (stdout), so you see the output on your monitor. If redirected to a printer, the output would be printed instead.
+
+### Redirection Operators
+
+Redirection allows you to change the standard input/output devices to files or other commands. Here are the common redirection operators:
+
+- `>`: Redirects standard output to a file, overwriting the file if it already exists.
+- `>>`: Redirects standard output to a file, appending to the file if it already exists.
+- `<`: Redirects standard input from a file.
+- `2>`: Redirects standard error to a file.
+- `2>&1`: Redirects standard error to the same location as standard output.
+- `&>` or `&>>`: Redirects both standard output and standard error to a file.
+- `/dev/null`: A special file that discards all data written to it (effectively a "black hole").
 
 ![streams](/img/linux/redirection.jpg)
 
-These files are always present whenever a program is run. As explained before a file descriptor, is associated with each of these files.
-<table>
-  <tr>
-    <th>File</th>
-    <th>File Descriptor</th>
-  </tr>
-  <tr>
-    <td>Standard Input STDIN</td>
-    <td>0</td>
-  </tr>
-  <tr>
-    <td>Standard Output STDOUT</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>Standard Error STDERR</td>
-    <td>2</td>
-  </tr>
-</table>
+### Examples of Redirection
 
-
-### Standard output and Standard error output:
 ```bash
->: Redirects standard output to a file or device(like printer), overwriting the file if it already exists.
->>: Redirects standard output to a file, appending to the file if it already exists.
-<: Redirects standard input from a file.
-2>: Redirects standard error to a file.
-2>&1: Redirects standard error to the same location as standard output.
-&> or &>>: Redirects both standard output and standard error to a file.
-/dev/null ：可以說成是黑洞裝置！
+# Redirect standard output to a file, overwriting if it exists
+$ ls -al > list.txt
 
-# 將顯示的結果輸出到 list.txt 檔案中，若該檔案以存在則予以取代！
-ls -al > list.txt
+# Append standard output to a file
+$ ls -al >> list.txt
 
-# 將顯示的結果累加到 list.txt 檔案中，該檔案為累加的，舊資料保留！
-ls -al >> list.txt
+# Redirect standard output and standard error to different files
+$ ls -al 1> list.txt 2> list.err
 
-# 將顯示的資料，正確的輸出到 list.txt 錯誤的資料輸出到 list.err
-ls -al 1 > list.txt 2 > list.err
+# Redirect both standard output and standard error to the same file
+$ ls -al 1> list.txt 2>&1
 
-# 將顯示的資料，不論正確或錯誤均輸出到 list.txt 當中！
-ls -al 1 > list.txt 2 >&1
-
-# 將顯示的資料，正確的輸出到 list.txt 錯誤的資料則予以丟棄！
-ls -al 1 > list.txt 2 > /dev/null
-
-注意！錯誤與正確檔案輸出到同一個檔案中，則必須以上面的方法來寫！
-不能寫成其他格式！
+# Redirect standard output to a file and discard standard error
+$ ls -al 1> list.txt 2> /dev/null
 ```
 
-### Redirect is important when...
+:::infoWhat happen if I don't discard standard error if an error occur?
+In the above example `ls -al 1> list.txt 2> /dev/null`, consider a scenario where you run ls -al in a directory where some files or directories are not accessible due to permission issues.
 
-- The information output on the screen is important, and we need to save it
-- A program is running in the background and we don't want it to interfere with the normal output on the screen
-- The execution results of some system's routine commands (for example, files written in /etc/crontab) need to be saved
-- Executing some commands, we already know their possible error messages, so we want to discard them with '2> /dev/null';
-- Error messages and correct messages need to be output separately.
+If you do not discard the errors:
+- You will see error messages `ls: cannot access 'somefile': No such file or directory` directly in your terminal. This can be helpful for debugging or for being aware of issues as they occur. 
+- The `list.txt` file will still contain the output of the `ls -al` command, but the terminal will also show any errors that occurred during the execution.
+:::
+
+### When to Use Redirection
+
+- **Saving important output**: When the output displayed on the screen is important and needs to be saved.
+- **Background processes**: When a program is running in the background and shouldn't interfere with normal screen output.
+- **System routine commands**: When the execution results of some routine system commands need to be saved.
+- **Discarding known errors**: When you want to discard known error messages using `2> /dev/null`.
+- **Separating output types**: When error messages and correct messages need to be output separately.
 
 ### Summary
-- Each file in Linux has a corresponding File Descriptor associated with it
-The keyboard is the standard input device while your screen is the standard output device
-- `>` is the output redirection operator. ">>" appends output to an existing file
-- `<` is the input redirection operator
-- `>&`re-directs output of one file to another.
-- ` `` ` 兩個『 ` 』中間為可以先執行的指令，亦可使用 $()
+
+- Each file in Linux has a corresponding File Descriptor associated with it.
+- The keyboard is the standard input device while your screen is the standard output device.
+- `>` is used to redirect output to a file, overwriting it.
+- `>>` is used to append output to an existing file.
+- `<` is used to redirect input from a file.
+- `2>` redirects standard error to a file.
+- `2>&1` redirects standard error to the same location as standard output.
+- `/dev/null` is used to discard unwanted output.
+
+By mastering command redirection, you can efficiently manage where your program outputs its data, making your work on Linux/Unix systems more flexible and powerful.
 
 ## Process substitution
 
