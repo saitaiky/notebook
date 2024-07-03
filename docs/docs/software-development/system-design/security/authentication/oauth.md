@@ -190,15 +190,17 @@ In Google APIs and services, you can restrict which websites are allowed to make
 The concept is quite similar to **redirect uri** in the OAuth flow, isn't it?
 :::
 
-## OAuth in different applications
+## OAuth for different applications
 
-In this section, I'll go through how to use OAuth in various applications. One thing you may notice when registering a client at the OAuth server, the server needs to know the type of application you are building to apply appropriate security policies and configurations. Different application types have unique security requirements and capabilities:
+In next few sections, we'll look at how to use OAuth in various applications. One thing you may notice when registering a client at the OAuth server, the server needs to know the type of application you are building to apply appropriate security policies and configurations. Different application types have unique security requirements and capabilities:
 
 1. **Client Secret**: Server-side apps can securely store a client secret, while mobile and JavaScript apps cannot. Thus, mobile and JavaScript apps are typically not given a client secret.
 2. **Token Policies**: The server may issue different types of tokens (e.g., refresh tokens) and set different token lifetimes based on the application type.
 3. **CORS Headers**: For JavaScript apps, the server might need to enable CORS headers to facilitate secure cross-origin requests.
 
-### OAuth for Server-Side Applications
+## OAuth for Server-Side Applications
+
+### Concepts
 
 - PKCE **Code Verifier**: PKCE mitigates this risk by adding an additional layer of security. It ensures that the authorization code can only be used by the client that requested it.
 - **Code Challenge** (Hash): Created by applying a transformation (SHA-256 and Base64URL encoding) to the PKCE code_verifier.
@@ -210,6 +212,8 @@ In this section, I'll go through how to use OAuth in various applications. One t
 :::infoWhat is PKCE?
 PKCE was originally developed for mobile apps, but now the OAuth working group recommends using PKCE for all types of applications, including server-side apps, even when a client secret is available. This is because PKCE can prevent a subtle attack where authorization codes could be swapped, potentially allowing someone to log into another user's account without detection, posing a significant security risk.
 :::
+
+### Sequence Diagram
 
 ```mermaid
 sequenceDiagram
@@ -223,23 +227,116 @@ sequenceDiagram
     User and User Agent->>App: Clicks Login Button
     App->>App: 1. Generates PKCE Code Verifier<br>2. Hash it to become Code Challenge(Hash)
     App->>User and User Agent: Redirect with Code Challenge(Hash), Client ID, Redirect URL, Scope
-    User and User Agent->>OAuth Server: Sends Auth Request via query string. <br>Check ① for the example URL
-    OAuth Server->>User and User Agent: Sends temporary one time use Authorization Code
+    User and User Agent->>OAuth Server: Sends Auth Request via query string. <br>Check ① for the example URL. <br>Your app won't see the user again until they come back to the redirect URL with the authorization code.
+    OAuth Server->>User and User Agent: Sends temporary one time use Authorization Code<br>Check ② for the example URL
     User and User Agent->>App: Redirect with Authorization Code to get an Access Token
     end
     rect rgb(25, 59, 72)
     note right of App: Back channel request
-    App->>OAuth Server: Requests Access Token with Authorization Code, Client ID, Client Secret, PKCE Code Verifier
+    App->>OAuth Server: Requests Access Token with Authorization Code, Client ID, Client Secret, PKCE Code Verifier <br>Check ③ for the POST request
     OAuth Server->>OAuth Server: 1. Check if anyone used that Authorization Code for the requested Client ID <br>2. Check if the Client Scrent mataches<br>3. Check if I can hash PKCE Code Verifier to get the same the Code Challenge at the first step
-    OAuth Server->>App: Sends Access Token (and Refresh Token)<br>Check ② for the example URL
+    OAuth Server->>App: Sends Access Token (and Refresh Token) <br>Check ④ for the server response
     App->>API Server: Makes API Requests with Access Token
     end
     API Server->>App: Responds to API Requests
     User and User Agent->>App: Uses Application with Access Token
 ```
 
-- ① Authorization Request URL:
-  - https://authorization-server.com/oauth/authorize?response_type=code&client_id=your_client_id&redirect_uri=https%3A%2F%2Fyourapp.com%2Fcallback&scope=openid%20profile%20email&state=random_state_string&code_challenge=your_code_challenge&code_challenge_method=S256
-- ② Redirect URL After User Authorization:
-  - https://yourapp.com/redirect?code=authorization_code&state=random_state_string
-  - - https://yourapp.com/redirect?errorcode=access_denied&state=random_state_string
+- Front channel (via browser)
+  - ① Example of Authorization Request URL:
+    - https://authorization-server.com/oauth/authorize?response_type=code&client_id=your_client_id&redirect_uri=https%3A%2F%2Fyourapp.com%2Fcallback&scope=openid%20profile%20email&state=random_state_string&code_challenge=your_code_challenge&code_challenge_method=S256
+  - ② Example of Redirect URL After User Authorization:
+    - https://yourapp.com/redirect?code=authorization_code&state=random_state_string
+    - If there is an error, you may have https://yourapp.com/redirect?errorcode=access_denied&state=random_state_string
+- Back channel (via  HTTPS request from your application server to the servers token point)
+  - ③ `POST` https://authorization-server.com/token
+    - post body: 
+      ```
+      client_id=CLIENT_ID&
+      client_secret=CLIENT_SECRET&
+      code=AUTH_CODE_HERE
+      redirect_uri=REDIRECT_URI&
+      grant_type=authorization_code&
+      ```
+  - ④ Response
+    ```json
+    {
+    "access_token": "SlAV32hkKG",
+    "token_type": "Bearer",
+    "refresh_token": "8xLOxBtZp8",
+    "expires_in": 3600,
+    "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlOWdkazcifQ.ewogImlzc
+      yI6ICJodHRwOi8vc2VydmVyLmV4YW1wbGUuY29tIiwKICJzdWIiOiAiMjQ4Mjg5
+      NzYxMDAxIiwKICJhdWQiOiAiczZCaGRSa3F0MyIsCiAibm9uY2UiOiAibi0wUzZ
+      fV3pBMk1qIiwKICJleHAiOiAxMzExMjgxOTcwLAogImlhdCI6IDEzMTEyODA5Nz
+      AKfQ.ggW8hZ1EuVLuxNuuIJKX_V8a_OMXzR0EHR9R6jgdqrOOF4daGU96Sr_P6q
+      Jp6IcmD3HP99Obi1PRs-cwh3LO-p146waJ8IhehcwL7F09JdijmBqkvPeB2T9CJ
+      NqeGpe-gccMg4vfKjkM8FcGvnzZUN4_KSP0aAp1tOJ1zZwgjxqGByKHiOtX7Tpd
+      QyHE5lcMiKPXfEIQILVq0pc_E2DzL7emopWoaoZTF_m0_N0YzFC6g6EJbOEoRoS
+      K5hoDalrcvRYLSrQAZZKflyuVCyixEoV9GfNQC3_osjzw2PAithfubEEBLuVVk4
+      XUVrWOLrLl0nx7RkKU8NXNHq-rvKMzqg"
+    }
+    ```
+
+## OAuth for Native Applications
+
+:::infoTL;DR - The only difference is that Mobile application can't use client secret compared with web application!
+Mobile apps differ from web server apps in OAuth implementation, particularly because it's unsafe to include client secrets in mobile apps. The client secret, if embedded in the app's code, can be extracted by anyone who downloads and decompiles the app, compromising security. Therefore, unlike web apps that securely store and use client secrets on the server, mobile apps avoid using client secrets altogether. Instead, they rely on methods like PKCE to securely handle the authorization code exchange. The flow is almost the same as above diagram in OAuth for Server-Side Applications but the only difference is at ③, the post body of the `POST` request doesn't have `client_secret`
+```
+client_id=CLIENT_ID&
+code=AUTH_CODE_HERE
+redirect_uri=REDIRECT_URI&
+grant_type=authorization_code&
+```
+:::
+
+Mobile apps handle OAuth redirect URLs differently than web apps, losing browser protections like DNS checks and HTTPS validation. Traditionally, apps used custom URL schemes, which can be insecure as any app can claim the same scheme, risking authorization code interception. Modern apps use app-claimed URL patterns (**deep linking**), which are more secure as developers must prove domain ownership. However, redirect reliability in mobile environments remains uncertain, we still don't trust the redirect URLs in mobile apps quite as much as we do in a browser environment. 
+
+So you can imagine if you're the OAuth server and you're about to generate this authorization code and send a redirect back to the mobile app, you don't actually know whether that redirect is going to make it back to the app because there are many ways that can fail. This makes PKCE essential to secure authorization flows by mitigating risks of code interception and redirect handling failures.
+
+### How mobile handle redirect URLs
+- **Historical Challenges**
+  - **Native Browser Flow**:
+    - **User Experience**: Initially, mobile apps had to launch the native browser (Safari on iOS, Chrome on Android) for OAuth flows. Users would switch from the app to the browser and back, which was secure but disrupted the user experience.
+    - **Flow**: The app would go to the background, the browser would launch, users would log in, and then switch back to the app. This left users out of the app's context, making the process fragile and less user-friendly.
+  - **Embedded Web Views**:
+    - **Improved UX but Insecure**: To keep users within the app, developers embedded web views. However, this approach had significant drawbacks:
+      - **No Address Bar**: Users couldn't verify the authenticity of the authorization server, risking phishing attacks.
+      - **Isolated Cookies**: Web views didn't share cookies with the system browser. Users had to log in every time, as their sessions weren't shared with Safari or Chrome.
+      - **App Access to Web View**: The app could potentially read the contents of the web view, including user passwords, defeating OAuth's purpose of keeping passwords away from apps.
+- **Modern Solutions**
+  - <iframe width="560" height="315" src="https://www.youtube.com/embed/LVseK_CZp5g?si=af0BhunaTK0DMSgt&amp;start=198" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  - **Secure In-App Browsers**:
+    - **iOS ([SFSafariViewController](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller))** and **Android ([Chrome Custom Tabs](https://developer.chrome.com/docs/android/custom-tabs))**: Modern mobile platforms introduced APIs that provide secure in-app browsers.
+    - **User Experience**: These solutions keep users within the app while launching a secure browser overlay. Users don't leave the app but interact with a fully functional browser.
+    - **Security Benefits**:
+      - **Session Sharing**: These in-app browsers share cookies with the system browser. If users are logged into Safari or Chrome, they are also logged into the in-app browser, avoiding repeated logins.
+      - **No App Access**: The app cannot inspect or control the in-app browser contents, protecting user credentials and supporting secure authentication methods like WebAuthn and TouchID.
+
+### Refresh token
+
+Refresh tokens improve user experience in mobile apps by allowing the app to obtain new access tokens without user involvement, preventing frequent logins. Mobile apps cannot securely store client secrets due to decompilation risks, unlike web apps that securely store them on servers. Instead, mobile apps use Proof Key for Code Exchange (PKCE).
+
+When an access token expires, the app uses the refresh token to request a new access token from the OAuth server via a POST request to the token endpoint, including the `grant_type=refresh_token`, refresh token, and app’s client ID. No client secret is required.
+
+To ensure security, mobile apps use device-specific secure storage APIs for storing refresh tokens. These APIs require biometric authentication (e.g., FaceID or thumbprint) to access the refresh token, allowing the app to request a new access token seamlessly. This approach prevents user interruptions with web browsers or password prompts, unlike web apps, which can quickly redirect users for re-authentication without noticeable disruptions.
+
+![](/img/software-development/system-design/security/biometric.webp)
+
+Source: [Udemy - The Nuts and Bolts of OAuth 2.0](https://www.udemy.com/course/oauth-2-simplified/)
+
+## OAuth for Single-Page Applications
+
+Single-page apps (SPAs) face unique challenges with OAuth due to the browser environment. Unlike web apps with secure backends, SPAs cannot securely store client secrets or API keys because these can be easily extracted from the source code. Therefore, SPAs are considered public clients and rely on the PKCE extension for secure OAuth flows without client secrets.
+
+- **Key Differences**:
+  - **Client Secret Storage**: Web apps can securely store client secrets on servers, but SPAs cannot due to easy accessibility of source code.
+  - **Secure Storage**: SPAs lack secure storage APIs for sensitive data like access or refresh tokens, making them vulnerable to cross-site scripting (XSS) attacks.
+- **Security Challenges**:
+  - **Cross-Site Scripting (XSS)**: XSS vulnerabilities can allow attackers to run malicious code, access user data, and misuse access tokens.
+  - **Content Security Policy (CSP)**: Strong CSPs help mitigate XSS risks but can be challenging to implement due to reliance on third-party JavaScript for ads, analytics, etc.
+  - **Browser Extensions**: User-installed extensions can inject JavaScript, potentially compromising application data.
+- **Mitigation Strategies**:
+  - **Refresh Tokens**: OAuth servers may disable or limit the use of refresh tokens in SPAs to reduce risk.
+  - **Shorter Token Lifetimes**: Tokens may have shorter lifetimes to minimize the impact of leaks.
+
