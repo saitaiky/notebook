@@ -10,7 +10,9 @@ This section is for recording some hobbies and topics that I would like to learn
 - Cognitive psychology / psychology
     - Book: The Laws of Human Nature by Robert Greene
 - Philosophy
-    - Book: A Brief History of Analytic Philosophy: From Russell to Rawls by by Stephen P. Schwart
+    - Book
+        - A Brief History of Analytic Philosophy: From Russell to Rawls by by Stephen P. Schwart
+        - [Dialectic of Enlightenment](https://www.amazon.co.uk/Dialectic-Enlightenment-Cultural-Memory-Present/dp/0804736332)
     - [The Stranger by Albert Camus](https://www.youtube.com/watch?v=53W-3ccLYV0&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=104)
     - [La Mort de Socrate by Socrates](https://www.youtube.com/watch?v=ZQWUEDo7adc&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=67)
     - [The Ego and the Id by Freud, Sigmund](https://www.youtube.com/watch?v=KRPEv520stE&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=52)

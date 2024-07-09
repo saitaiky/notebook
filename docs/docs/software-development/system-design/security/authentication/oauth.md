@@ -215,6 +215,13 @@ PKCE was originally developed for mobile apps, but now the OAuth working group r
 
 ### Sequence Diagram
 
+:::cautionAPP in various systems
+In the below sequence diagram, ..
+- APP in server side application can be your Backend
+- APP in mobile app can be the mobile app on your phone(user agent)
+- APP in single-page application is your application which downloaded on your browser(user agent)
+:::
+
 ```mermaid
 sequenceDiagram
     participant User and User Agent
@@ -280,7 +287,7 @@ sequenceDiagram
 
 ## OAuth for Native Applications
 
-:::infoTL;DR - The only difference is that Mobile application can't use client secret compared with web application!
+:::infoThe only difference is that Mobile application can't use client secret compared with web application!
 Mobile apps differ from web server apps in OAuth implementation, particularly because it's unsafe to include client secrets in mobile apps. The client secret, if embedded in the app's code, can be extracted by anyone who downloads and decompiles the app, compromising security. Therefore, unlike web apps that securely store and use client secrets on the server, mobile apps avoid using client secrets altogether. Instead, they rely on methods like PKCE to securely handle the authorization code exchange. The flow is almost the same as above diagram in OAuth for Server-Side Applications but the only difference is at ③, the post body of the `POST` request doesn't have `client_secret`
 ```
 client_id=CLIENT_ID&
@@ -327,6 +334,12 @@ Source: [Udemy - The Nuts and Bolts of OAuth 2.0](https://www.udemy.com/course/o
 
 ## OAuth for Single-Page Applications
 
+:::infoThe only difference is that Mobile application can't use client secret compared with web application!
+Even though we're talking about a JavaScript app in a browser, we still have a back channel. But in this case, it means that the code in the JavaScript app itself makes a request to the OAuth server, rather than passing data through the address bar. Feel free to go back and review the front channel vs back channel lesson for more background on the distinction between these two different ways of passing data. 
+
+It holds on to that PKCE **Code Verifier** in the browser, usually by storing it in **LocalStorage** or **SessionStorage** and then it calculates a hash of it called the code challenge.  
+:::
+
 Single-page apps (SPAs) face unique challenges with OAuth due to the browser environment. Unlike web apps with secure backends, SPAs cannot securely store client secrets or API keys because these can be easily extracted from the source code. Therefore, SPAs are considered public clients and rely on the PKCE extension for secure OAuth flows without client secrets.
 
 - **Key Differences**:
@@ -340,3 +353,41 @@ Single-page apps (SPAs) face unique challenges with OAuth due to the browser env
   - **Refresh Tokens**: OAuth servers may disable or limit the use of refresh tokens in SPAs to reduce risk.
   - **Shorter Token Lifetimes**: Tokens may have shorter lifetimes to minimize the impact of leaks.
 
+
+### Protecting Tokens in the Browser
+
+Here are the main storage options and their associated risks:
+
+- **Storage Options and Risks**:
+  - **LocalStorage**: Persists data across sessions and tabs but is vulnerable to cross-site scripting (XSS) attacks.
+  - **SessionStorage**: Data persists only within a session and is not shared across tabs, but still vulnerable to XSS.
+  - **Cookies**: Can store tokens but are complex to manage and also susceptible to XSS.
+
+Due to these vulnerabilities, alternatives to storing tokens in JavaScript include:
+
+- **In-Memory Storage**: Keeps tokens in memory to avoid persistence across tabs or sessions, reducing XSS risk, but tokens are lost on page refresh.
+- **Service Workers**: Isolate storage from the main browser window, protecting tokens from XSS, but adds complexity and doesn’t work in IE11. Requires the app to communicate with the Service Worker for API calls, ensuring JavaScript never directly handles tokens.
+- **WebCrypto API**: Allows JavaScript to generate and use private keys to encrypt tokens. Prevents token extraction but requires support not available in all browsers (e.g., not in Safari).
+
+Ultimately, the most secure method is to *avoid giving tokens to JavaScript altogether*, utilizing backend services to manage tokens and handle OAuth flows securely like what you did in a server-side applications. Though, if you're firmly set on deploying your single page app in pure static hosting like Amazon S3 and having that JavaScript app interact with your APIs directly from the JavaScript, then this won't really work for you. For the details, check [Security Considerations for Single-Page Apps](https://www.oauth.com/oauth2-servers/single-page-apps/security-considerations/)
+
+## OAuth for Machine-to-Machine (Client Credentials Grant)
+
+The client credentials grant is an OAuth flow used when no user interaction is required. It allows an application to use its own credentials to obtain an access token for accessing its own resources or backend services, such as microservices or statistical data. This flow is particularly useful for machine-to-machine communication and backend API verification.
+
+**Advantages**:
+- **Simplified API Security**: APIs only need to validate access tokens, not client credentials.
+- **Centralized Credential Validation**: Only the OAuth server validates client credentials, beneficial for large-scale deployments.
+- **Scalability**: APIs across multiple servers do not need to access the database for client credentials.
+
+**Implementation Steps**:
+1. **Register Application**: Register the application with the OAuth server to obtain a client ID and client secret.
+2. **Request Access Token**: Make a POST request to the token endpoint with `grant_type=client_credentials`, including the client ID and client secret.
+3. **Token Usage**: Use the access token to make API requests. Tokens may expire, requiring a new request to obtain a fresh token.
+
+No refresh tokens are typically provided since no user interaction is involved. This process ensures secure and efficient access management for applications interacting with backend services.
+
+## Future reading
+
+- [The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [OAuth 2.0 Playground](https://www.oauth.com/playground/): This is a fun interactive walkthrough of the OAuth Flows. You can see step by step how each one works and you can see the requests and responses from each step along the way. It's a great way to refresh your memory if you're trying to remember how to write some code to deal with a certain part of a flow.

@@ -125,17 +125,24 @@ source: [What's the relationship between a Linux OS and a kernel?](https://stack
 
 ## Dual Mode operations in OS
 
-An error in one program can adversely affect many processes, it might modify data of another program, or also can affect the operating system. For example, if a process stuck in the infinite loop then this infinite loop could affect the correct operation of other processes. So to ensure the proper execution of the operating system, there are two modes of operation: 
+> TL;DR - User mode restricts access to privileged resources, while kernel mode has full access to these resources.
+
+In an operating system, errors in one program can adversely affect many processes. For example, a process stuck in an infinite loop could affect the correct operation of other processes. To ensure the proper execution of the operating system, there are two modes of operation: user mode and kernel mode (synonymous to the terms – **kernel mode and user mode**). 
 
 ![Kernel_Architecture](/img/linux/Kernel_Architecture.jpeg)
 Source: [Linux Kernel Architecture](https://vlinux-freak.blogspot.com/2019/02/linux-kernel-architecture.html)
 
-Memory is divided into 2 areas, known as **kernel space and user space** (synonymous to the terms – **kernel and user mode**).
+Memory is divided into 2 areas, known as **kernel space and user space**.
 
-- **User Space** is the memory area where all **user mode** applications works and this memory can be swapped out when needed. Userspace process normally runs in its own virtual memory space and unless explicitly requested, cannot access the memory of other processes. Due to the protection afforded by this sort of isolation, crashes in **user mode** are always recoverable.
-- **Kernel Space** is strictly reserved for running the kernel, OS background process, kernel extensions and device drivers. In Linux kernel space gives full access to the hardware, although some extensions runs in the user space. Crashes in **kernel mode** are catastrophic; they will halt the entire PC.
+- **User Space/Mode** is the memory area where all **user mode** applications works and this memory can be swapped out when needed. Userspace process normally runs in its own virtual memory space and unless explicitly requested, cannot access the memory of other processes. Due to the protection afforded by this sort of isolation, crashes in **user mode** are always recoverable.
+- **Kernel Space/Mode** is strictly reserved for running the kernel, OS background process, kernel extensions and device drivers. In Linux kernel space gives full access to the hardware, although some extensions runs in the user space. Crashes in **kernel mode** are catastrophic; they will halt the entire PC.
 
-These two modes are enforced by the CPU hardware. If code executing in **User mode** attempts to do something outside, example accessing a privileged CPU instruction or modifying memory that it has no access to, then a trappable exception is thrown. Instead of your entire system crashing, only that particular application crashes.
+These two modes are enforced by the CPU hardware. The CPU operates in either user mode or kernel mode, switching between them as necessary to execute different types of operations. Below is how It Works
+
+1. **Mode Bit:** The CPU has a mode bit that determines the current mode. If the bit is set to 0, the CPU is in kernel mode; if set to 1, it is in user mode.
+2. **Privileged Instructions:** Certain instructions can only be executed in kernel mode. If a user mode program tries to execute these instructions, the CPU raises an exception. For example, accessing a privileged CPU instruction or modifying memory that it has no access to, then a trappable exception is thrown. Instead of your entire system crashing, only that particular application crashes.
+3. **System Calls:** When a user mode program needs to perform a privileged operation (e.g., accessing hardware), it makes a system call. This switches the CPU to kernel mode, the operation is performed, and then the CPU switches back to user mode.
+
 
 ## What is X Window?
 

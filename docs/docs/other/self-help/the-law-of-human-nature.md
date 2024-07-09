@@ -1,9 +1,24 @@
 ---
 title: The laws of human nature
-draft: true
 ---
 
 Robert Greene's "The Laws of Human Nature" aims to help people understand themselves and others better to improve their interactions and decisions in both personal and professional contexts. Greene's motivation for writing the book stemmed from observing that many people struggle due to a lack of understanding of human behavior, leading to poor choices and relationships.
+
+## Key Points
+
+https://www.mentorist.app/books/the-laws-of-human-nature/#:~:text=The%20inflaming%20factors%20that%20can,Extreme%20stress%20%2D%20Changes%20our%20behavior
+
+- Self-Awareness (Inward look):
+    - **Introspection**: The first step is looking inward and recognizing one's own flaws and characteristics, such as envy, aggression, narcissism, and conformity.
+    - **Acceptance**: Everyone has these traits to some extent due to shared human origins and brain wiring.
+    - **Self-Improvement**: By acknowledging these traits, individuals can work to change them, reducing compulsive behaviors that lead to repeated mistakes.
+- Understanding Others (Outward look):
+    - **Objective Observation**: The second half of the book focuses on seeing people as they truly are, without projecting one's own desires or emotions onto them.
+    - **Identifying Toxic Traits**: Recognizing traits like narcissism and incompetence in others can prevent harmful relationships and interactions.
+    - **Making Better Decisions**: Seeing people clearly allows for better decision-making and avoiding toxic individuals, saving oneself from unnecessary drama and pain.
+- Balancing Self and Others
+    - **Dual Approach**: Both introspection and outward observation are necessary. Focusing only on oneself or only on others leads to incomplete understanding and ongoing mistakes.
+    - **Enhanced Social Skills**: Mastering both aspects helps one navigate social interactions with greater skill, reducing unnecessary suffering and improving overall quality of life.
 
 ## The Law of Irrationality
 
@@ -44,28 +59,6 @@ Do not assume extreme irrationality has been overcome by progress. History shows
 
 Human emotion can also lead to positive outcomes, such as empathy, creativity, and passion, which drive meaningful actions and decisions. Balancing rationality and emotion is challenging but beneficial. Emotions often drive us, and while they can lead to irrational actions, they also motivate us, help us set goals, and tolerate challenges. Detaching from our feelings occasionally helps us see the bigger picture and make better decisions.
 :::
-
-
-## Key Points
-
-https://www.mentorist.app/books/the-laws-of-human-nature/#:~:text=The%20inflaming%20factors%20that%20can,Extreme%20stress%20%2D%20Changes%20our%20behavior
-
-### Self-Awareness (Inward look):
-- **Introspection**: The first step is looking inward and recognizing one's own flaws and characteristics, such as envy, aggression, narcissism, and conformity.
-- **Acceptance**: Everyone has these traits to some extent due to shared human origins and brain wiring.
-- **Self-Improvement**: By acknowledging these traits, individuals can work to change them, reducing compulsive behaviors that lead to repeated mistakes.
-
-### Understanding Others (Outward look):
-- **Objective Observation**: The second half of the book focuses on seeing people as they truly are, without projecting one's own desires or emotions onto them.
-- **Identifying Toxic Traits**: Recognizing traits like narcissism and incompetence in others can prevent harmful relationships and interactions.
-- **Making Better Decisions**: Seeing people clearly allows for better decision-making and avoiding toxic individuals, saving oneself from unnecessary drama and pain.
-
-### Balancing Self and Others
-- **Dual Approach**: Both introspection and outward observation are necessary. Focusing only on oneself or only on others leads to incomplete understanding and ongoing mistakes.
-- **Enhanced Social Skills**: Mastering both aspects helps one navigate social interactions with greater skill, reducing unnecessary suffering and improving overall quality of life.
-
-
-
 
 ## My Opinion 
 

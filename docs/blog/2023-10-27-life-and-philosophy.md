@@ -59,3 +59,33 @@ after intellectualism, something is you can't explain, you can only feel
 
 藝術家/文學家： 用另一種prespective 超過語言去表達
 有野係理性接觸唔到
+
+
+
+人文科學 (non-physicalism 一直捱打) vs 自然科學 (physicalism)
+經驗世界 (詮釋學 - subjective) vs 客觀世界（數學，Methodology - objective）
+by induction 你見到科學好勁。你幾唔信科學都要用科學去解釋。星座
+
+人要經meaningful 既filter 去睇呢個世界。
+
+哥德： 大自然係meaningless，但人可以做artifact 比佢meaning。
+
+constructivism vs relativism - https://www.quora.com/What-is-the-difference-between-constructivism-conventionalism-and-relativism-We-construct-conventions-that-depend-on-social-circumstances-Arent-they-the-same-thing-Is-there-an-example-from-philosophy-of-mathematics
+These ideas are neither identical nor necessarily mutually exclusive.
+
+Constructivism: the idea that a thing is constructed by human minds (e.g., money, culture, language, etc.) rather than mind-independent (e.g., whatever would exist even if humans never existed).
+Conventionalism: the idea that what is or ought to be is determined according to what is generally believed or followed (e.g., whether cereal should be consumed with milk, water, or dry) rather than a consensus-independent standard (e.g., whether the square root of 4 is 2).
+Relativism: the idea that a standard depends on something other than itself (e.g., fashion standards depending on elite influencers) vs. not relying on anything else (e.g., the speed of light).
+
+
+個人意義, 要係係一個culture context 程現。
+人生係一個sculpture，一出世係一件石。人大就會定左。
+人生係一個unfinished project, 時間過左係可以重新定義(reinterpret)過去既事。
+有意義既人生，係你overcome 左d咩。
+
+有小朋友: 哥白尼革命。 自己的問題不再是問題，所有問題都係關佢。
+​​antinatalism： 生仔呢個活動只係由自己出發，因為個仔女根本未出現。所以你為唔到個小朋友。 => 會好易令父母唔會當小朋友係一個個體
+但本來係生仔係無可能為小朋友。
+
+
+思想實驗: 如果佢好憎你最鐘意做既野。你會點？會唔會take your value and apply it from your baby.

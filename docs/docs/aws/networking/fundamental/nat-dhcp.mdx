@@ -4,26 +4,119 @@ metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 ---
 
-DHCP (Dynamic Host Configuration Protocol) and NAT (Network Address Translation) are two different networking concepts that serve different purposes but can be related to each other in certain scenarios. Here's the relationship between DHCP and NAT:
 
-1. DHCP and IP address assignment:
-   - DHCP: DHCP is a protocol used to automatically assign IP addresses and other network configuration parameters to devices on a network. It enables devices to obtain IP addresses dynamically without manual configuration.
-   - NAT: NAT, on the other hand, is a technique used to translate IP addresses between different networks. It allows multiple devices on a private network to share a single public IP address when communicating with devices on the internet.
+## Network Address Translation (NAT)
 
-2. DHCP and private IP address assignment:
-   - DHCP: DHCP servers can assign private IP addresses to devices within a local network. Private IP addresses are reserved for internal use and cannot be directly routed over the internet.
-   - NAT: NAT is often used in conjunction with private IP addresses. When devices with private IP addresses communicate with devices outside the local network (e.g., on the internet), NAT translates the private IP addresses to the public IP address of the network, allowing the devices to communicate with external networks.
+Network Address Translation (NAT) is a method used by routers to translate private (local) IP addresses within a local network to a single public IP address before packets are sent out to the internet. NAT is essential for conserving the limited number of IPv4 addresses and for enhancing security by hiding internal network structures from external networks.
 
-3. DHCP and NAT in home networks:
-   - In a typical home network scenario, a router often acts as a DHCP server, assigning private IP addresses to devices connected to the local network.
-   - The router also performs NAT, allowing devices with private IP addresses to access the internet using the router's public IP address. The router keeps track of the translations between private and public IP addresses.
+```mermaid
+graph TD
+    A[Device 192.168.1.2] -->|Send Packet| B[Router 192.168.1.1]
+    B -->|Translate to Public IP| C[Public IP 203.0.113.1]
+    C -->|Send Packet| D[Destination Server]
+    D -->|Send Response| C
+    C -->|Translate to Private IP| B
+    B -->|Forward Packet| A
+```
 
-4. Interaction between DHCP and NAT:
-   - DHCP and NAT work together to enable network connectivity for devices on a local network. **DHCP assigns private IP addresses to devices, while NAT facilitates the translation of those private IP addresses to a single public IP address when communicating with external networks**.
+### Types of NAT
 
-It's important to note that DHCP and NAT are independent of each other and serve different functions. While DHCP focuses on IP address assignment within a network, NAT is primarily concerned with translating IP addresses for routing between private and public networks. However, in many network setups, DHCP and NAT are used together to provide connectivity and address management for devices within a private network that needs access to the internet.
+1. **Static NAT:**
+   - Maps a specific private IP address to a specific public IP address.
+   - Commonly used for servers that need a consistent public IP address.
+2. **Dynamic NAT:**
+   - Maps a private IP address to a public IP address from a pool of available addresses.
+   - The mapping changes dynamically.
+3. **PAT (Port Address Translation) or NAT Overload:**
+   - Maps multiple private IP addresses to a single public IP address by using different ports.
+   - **Most common typ**e of NAT used in home networks.
 
-## Example (sending an email)
+### Workflow
+
+NAT modifies the IP addresses in the headers of IP packets while they are in transit. Here’s a detailed workflow of how NAT functions in a typical home network scenario using PAT:
+
+1. **Initial Setup**
+   - **Local Devices:** Devices within a home network have private IP addresses (e.g., 192.168.1.2, 192.168.1.3).
+   - **Router:** The router has a private IP address on the local side (e.g., 192.168.1.1) and a public IP address assigned by the ISP (e.g., 203.0.113.1).
+2. **Sending a Request**
+   1. **Device Initiates Connection:**
+      - Your computer (192.168.1.2) wants to access a website.
+      - It sends an HTTP request packet with its private IP address (192.168.1.2) as the source IP and the website’s IP address as the destination IP.
+   2. **Router Receives Packet:**
+      - The router receives the packet from the computer.
+      - The packet contains the source IP address (192.168.1.2) and source port (e.g., 12345), along with the destination IP address and port (e.g., 80 for HTTP).
+3. **NAT Translation**
+   1. **IP and Port Mapping:**
+      - The router changes the source IP address from 192.168.1.2 to its own public IP address, 203.0.113.1.
+      - It also changes the source port from 12345 to a unique port number that it tracks (e.g., 54321).
+      - The router maintains a NAT table that maps the internal IP and port (192.168.1.2:12345) to the external IP and port (203.0.113.1:54321).
+   2. **Packet Forwarding:**
+      - The modified packet is sent to the destination server with the source IP address 203.0.113.1 and source port 54321.
+4. **Receiving the Response**
+   1. **Server Sends Response:**
+      - The destination server processes the request and sends a response back to the public IP address 203.0.113.1 on port 54321.
+   2. **Router Receives Response:**
+      - The router receives the incoming packet with the destination IP address 203.0.113.1 and destination port 54321.
+      - It looks up its NAT table to find the original internal IP and port (192.168.1.2:12345).
+5. **NAT Reverse Translation**
+   1. **Reverting IP and Port:**
+      - The router changes the destination IP address back to the internal IP address 192.168.1.2.
+      - It also reverts the destination port to 12345.
+   2. **Packet Forwarding:**
+      - The router forwards the packet to the original requesting device (192.168.1.2).
+6. **Device Receives Response**
+   - The device receives the response packet and processes it, completing the communication.
+
+## Dynamic Host Configuration Protocol (DHCP)
+
+Dynamic Host Configuration Protocol (DHCP) is a network management protocol used to automate the process of configuring devices on IP networks. It enables devices (clients) to receive IP addresses and other necessary network settings automatically from a DHCP server, reducing the need for manual configuration.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: DHCP Discover
+    Server-->>Client: DHCP Offer
+    Client->>Server: DHCP Request
+    Server-->>Client: DHCP Acknowledgment
+```
+
+### Key Components of DHCP
+
+1. **DHCP Server:**
+   - A network server that automatically provides and assigns IP addresses, default gateways, and other network parameters to client devices.
+   - The DHCP server maintains a pool of available IP addresses and leases them to clients.
+2. **DHCP Client:**
+   - Any device (such as a computer, smartphone, or printer) that connects to a network and requests network configuration information from a DHCP server.
+3. **DHCP Lease:**
+   - The temporary assignment of an IP address to a DHCP client.
+   - Leases are time-bound, meaning the client must renew the lease periodically to continue using the assigned IP address.
+
+:::infoLease Renewal
+- **T1 Timer:** When 50% of the lease time has passed, the client attempts to renew the lease by sending a DHCP Request directly to the DHCP server that granted the lease.
+- **T2 Timer:** If the client receives no response by 87.5% of the lease time, it attempts to rebind by broadcasting a DHCP Request to any available DHCP server.
+- If the client fails to renew the lease before it expires, it must stop using the IP address and start the process over with a DHCP Discover message.
+:::
+
+### DHCP Workflow
+
+1. DHCP Discover
+   - When a device (DHCP client) connects to a network, it broadcasts a DHCP Discover message to locate available DHCP servers.
+   - This message contains the device's MAC address and requests an IP address and other network configuration settings.
+2. DHCP Offer
+   - Any DHCP server on the network that receives the Discover message responds with a DHCP Offer message.
+   - The Offer message includes an available IP address, the subnet mask, the default gateway, the DNS server addresses, and the lease duration.
+3. DHCP Request
+   - The client selects one of the offers (usually the first one it receives) and responds with a DHCP Request message.
+   - This message indicates which offer it has accepted and formally requests the IP address and configuration settings.
+4. DHCP Acknowledgment
+   - The DHCP server acknowledges the request with a DHCP Acknowledgment (ACK) message.
+   - The ACK message confirms the lease and includes the lease duration, along with the assigned IP address and other configuration information.
+   - The client then configures its network interface with the provided settings.
+
+## Examples 
+
+### Sending an email
 
 It's kind of like when you send email data packages sent from your laptop will be attached with the local IP address labeled as sender and Youtube server’s domain name as the receiver. 
 
@@ -31,3 +124,68 @@ When packages reach the router NAT will change your local IP address to the publ
 ![NAT 1](/img/aws/networking/fundamental/nat-1.png)
 ![NAT 2](/img/aws/networking/fundamental/nat-2.png)
 
+### Does your ISP using CGNAT or 
+
+#### Public IP Address
+Regardless of the NAT type your ISP is using, your connection to the internet will ultimately have a public IP address. However, the method by which this public IP address is assigned and used can vary:
+
+- **No NAT(Public IP Direct Assignment):** Your device is assigned a public IP address directly.
+- **Single NAT (Common NAT):** The router or gateway in the local network is assigned a single public IP address by the ISP. The router then assigns private IP addresses to devices within the local network and uses NAT to translate these private IPs to the single public IP for internet access.
+- **Carrier-Grade NAT (CGNAT):** Multiple customers share the same public IP address provided by the ISP, and each customer’s router assigns private IP addresses to devices within their local networks.
+
+#### Steps to Identify the Type of NAT
+
+Here are detailed steps to identify the type of NAT your ISP is using:
+
+-  Step 1: Check Your Public IP Address
+   1. Open a web browser.
+   2. Go to a website like [whatismyip.com](https://www.whatismyip.com/).
+   3. Note down the public IP address displayed.
+-  Step 2: Access Your Router's Admin Interface
+   1. Open a web browser.
+   2. Type the default IP address of your router in the address bar (usually `192.168.1.1` or `192.168.0.1`).
+   3. Log in with your router's admin credentials (default username and password can usually be found on the router or in its manual).
+-  Step 3: Check WAN or Internet Settings
+   1. Navigate to the section of the router settings where WAN or Internet settings are displayed.
+   2. Look for the IP address assigned to the WAN/Internet port of your router.
+-  Step 4: Compare IP Addresses
+   - If the WAN IP address shown in the router matches the public IP address you noted earlier, your router is assigned a public IP address directly (No NAT or Single NAT).
+   - If the WAN IP address is within the `100.64.0.0` - `100.127.255.255` range, your ISP is using CGNAT. The private IP ranges (e.g., `192.168.x.x`, `10.x.x.x`, `172.16.x.x`) are typically used within local networks and are distinct from the CGNAT range.
+
+:::infoIP range
+- **CGNAT range**: 100.64.0.0 - 100.127.255.255
+- **Private IP ranges for local networks**:
+   - 192.168.0.0 - 192.168.255.255
+   - 172.16.0.0 - 172.31.255.255
+   - 10.0.0.0 - 10.255.255.255
+:::
+
+:::infoPerform a Traceroute to check if your ISP uses CGNAT or single NAT
+Using `traceroute google.com` can help you determine the type of NAT your ISP is using. Here is a detailed step-by-step process to analyze the traceroute results to understand your ISP's NAT type:
+
+Here's an example of what the output might look like and how to interpret it:
+
+```plaintext
+traceroute to google.com (142.250.182.206), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  1.123 ms  1.088 ms  1.077 ms
+ 2  100.127.200.1 (100.127.200.1)  8.912 ms  8.877 ms  8.862 ms
+ 3  100.127.192.1 (100.127.192.1)  9.761 ms  9.719 ms  9.694 ms
+ 4  203.0.113.1 (203.0.113.1)  10.458 ms  10.416 ms  10.384 ms
+ 5  198.51.100.1 (198.51.100.1)  11.364 ms  11.327 ms  11.295 ms
+ 6  192.0.2.1 (192.0.2.1)  12.265 ms  12.233 ms  12.210 ms
+ 7  72.14.194.1 (72.14.194.1)  13.170 ms  13.132 ms  13.099 ms
+ 8  216.239.41.1 (216.239.41.1)  14.037 ms  14.003 ms  13.968 ms
+ 9  216.239.40.1 (216.239.40.1)  15.867 ms  15.832 ms  15.796 ms
+10  142.250.182.206 (google.com)  16.761 ms  16.727 ms  16.692 ms
+```
+
+### Interpreting the Results
+
+1. **First Hop:**
+   - Typically, the first hop is your local router. If it shows a private IP address like `192.168.x.x`, `10.x.x.x`, or `172.16.x.x`, it indicates that your local network is using private IP addresses assigned by your router.
+2. **Subsequent Hops:**
+   - Look at the IP addresses of the next few hops.
+3. **Identifying CGNAT / Single NAT or No NAT :**
+   - **Identifying CGNAT:** If you see IP addresses in the range `100.64.0.0/10` (which includes addresses from `100.64.0.0` to `100.127.255.255`), it indicates that your ISP is using CGNAT. In the example above, the second and third hops (`100.127.200.1` and `100.127.192.1`) fall within this range, confirming the use of CGNAT.
+   - **Identifying Single NAT or No NAT:** If the first few hops after your local router are public IP addresses (not in the `100.64.0.0/10` range or other private ranges), your ISP is not using CGNAT. Instead, your router is likely using Single NAT, where your ISP assigns a public IP address directly to your router.
+:::

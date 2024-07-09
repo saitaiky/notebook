@@ -80,6 +80,12 @@ Source: [Load Balanced and Auto Scaling containerized app with AWS ECS](https://
 
 To prepare your application to run on Amazon ECS, you create a *task definition*. The task definition is a text file, in JSON format, that describes one or more containers, up to a maximum of ten, that form your application. It can be thought of as a blueprint for your application.
 
+:::infoWhen to set desired count of a task more than 1?
+Setting the desired count of an ECS task to more than 1 is crucial for ensuring high availability, load balancing, scalability, and fault tolerance. This configuration is necessary for critical applications where continuous uptime is essential, such as web servers, API services, and online platforms. It allows multiple instances of a task to run concurrently, distributing the load evenly and handling more traffic efficiently. Multiple task instances ensure redundancy, so if one instance fails, others continue to operate, maintaining service reliability. This setup is also beneficial for batch processing and parallelizing tasks to reduce processing time, as well as for performing rolling updates with zero downtime, ensuring seamless application maintenance and upgrades.
+
+Also, the principles still apply when using the Fargate launch type in ECS. Even though Fargate abstracts away the underlying EC2 instances, the benefits of having multiple task instances remain the same.
+:::
+
 ### Cluster
 
 When you run tasks using Amazon ECS, you place them on a cluster, which is a logical grouping of resources. When using the Fargate launch type with tasks within your cluster, Amazon ECS manages your cluster resources. When using the EC2 launch type, then your clusters are a group of container instances you manage. An Amazon ECS container instance is an Amazon EC2 instance that is running the Amazon ECS container agent. Amazon ECS downloads your container images from a registry that you specify, and runs those images within your cluster.
@@ -176,12 +182,29 @@ For a daemon you do not specify how many tasks you want to run. A daemon service
 
 ## Fargate launch type
 
-The Fargate launch type is suitable for the following workloads:
+Use the Fargate launch type when you want to run containers without managing the underlying infrastructure, allowing you to focus solely on your application. When using the EC2 launch type in Amazon ECS, you need to manage the provisioning and scaling of EC2 instances, including selecting the appropriate instance types and sizes. You are responsible for capacity management, ensuring you have enough instances to handle your workload, and configuring auto-scaling groups. Additionally, you must handle instance maintenance tasks such as patching, monitoring, and handling instance failures.
 
--   Large workloads that require low operational overhead
--   Small workloads that have occasional burst
--   Tiny workloads
--   Batch workloads
+### When to Use Fargate/EC2 launch type
+
+**The Fargate launch type** is ideal when you want to avoid managing the underlying infrastructure. It abstracts away the complexities of server management, making it easier to deploy and scale applications. This is especially beneficial for dynamic and variable workloads, microservices architectures, and when operational simplicity is crucial.
+
+**The EC2 launch type** is suitable when you need more control over the underlying instances, such as specifying instance types, managing network configurations, and optimizing for cost by using Spot instances. This option is typically preferred for steady-state, predictable workloads that can benefit from the cost efficiency of fully utilizing EC2 instances.
+
+- **Considerations**
+    - **Operational Overhead**: Fargate reduces operational overhead since AWS manages the infrastructure, including patching and maintenance.
+    - **Cost Efficiency**: For highly utilized, steady-state applications, EC2 can be more cost-effective. However, Fargate offers cost efficiency for dynamic workloads where over-provisioning of EC2 instances would be costly.
+    - **Scalability and Flexibility**: Fargate provides seamless scaling and isolation for tasks, making it ideal for microservices and batch processing tasks.
+
+:::infoWhy EC2 Instances Remain the Same When Increasing Desired Tasks
+There are 2 scenario when you increase the desired tasks
+- Scenario: EC2 Launch Type
+    - **Desired Tasks**: When you increase the desired tasks to 2, ECS tries to run 2 instances of the task.
+    - **EC2 Instances**: If your existing EC2 instances have enough resources (CPU, memory) to accommodate the additional task, ECS will place the new task on the existing instances. Hence, you might not see an increase in the number of EC2 instances.
+    - **Scaling**: If the existing instances do not have enough resources, you would need to scale the Auto Scaling Group (ASG) manually or through auto-scaling policies.
+- Scenario: Fargate Launch Type
+    - **Desired Tasks**: When you increase the desired tasks to 2, Fargate handles provisioning the necessary compute resources.
+    - **Infrastructure**: You won't see any EC2 instances because Fargate abstracts the infrastructure layer. AWS manages the underlying infrastructure for you.
+:::
 
 ### When to put the two containers into a single task definition
 
