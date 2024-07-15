@@ -137,18 +137,18 @@ Regardless of the NAT type your ISP is using, your connection to the internet wi
 
 Here are detailed steps to identify the type of NAT your ISP is using:
 
--  Step 1: Check Your Public IP Address
+1. Check Your Public IP Address
    1. Open a web browser.
    2. Go to a website like [whatismyip.com](https://www.whatismyip.com/).
    3. Note down the public IP address displayed.
--  Step 2: Access Your Router's Admin Interface
+2. Access Your Router's Admin Interface
    1. Open a web browser.
    2. Type the default IP address of your router in the address bar (usually `192.168.1.1` or `192.168.0.1`).
    3. Log in with your router's admin credentials (default username and password can usually be found on the router or in its manual).
--  Step 3: Check WAN or Internet Settings
+3. Check WAN or Internet Settings
    1. Navigate to the section of the router settings where WAN or Internet settings are displayed.
    2. Look for the IP address assigned to the WAN/Internet port of your router.
--  Step 4: Compare IP Addresses
+4. Compare IP Addresses
    - If the WAN IP address shown in the router matches the public IP address you noted earlier, your router is assigned a public IP address directly (No NAT or Single NAT).
    - If the WAN IP address is within the `100.64.0.0` - `100.127.255.255` range, your ISP is using CGNAT. The private IP ranges (e.g., `192.168.x.x`, `10.x.x.x`, `172.16.x.x`) are typically used within local networks and are distinct from the CGNAT range.
 
