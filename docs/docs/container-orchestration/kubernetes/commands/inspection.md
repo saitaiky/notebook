@@ -179,7 +179,7 @@ $ kubectl edit service rng
 ```
 
 Add label selector `enabled: "yes"` to the rng service YMAL file
-```ymal
+```yml
 apiVersion: v1
 kind: Service
 metadata:

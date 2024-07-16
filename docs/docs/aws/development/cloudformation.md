@@ -398,7 +398,7 @@ This modular approach simplifies template management, promotes reusability, and 
 
 Resource: [Working with nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
 
-```ymal
+```yml
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   myStackWithParams:
@@ -509,7 +509,7 @@ Source: [tutorialsdojo](https://tutorialsdojo.com/aws-cloudformation/)
   - [view on the AWS CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-view-stack-data-resources.html)
 :::
 
-```
+```yml
 AWSTemplateFormatVersion: 2010-09-09
 Resources:
   S3Bucket:

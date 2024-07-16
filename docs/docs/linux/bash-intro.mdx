@@ -155,7 +155,11 @@ Source: [Zsh/Bash startup files loading order (.bashrc, .zshrc etc.)](https://me
 
 ## `source`
 
-Since `/etc/profile` and `~/.bash_profile` are configuration files read only when obtaining a login shell, any preferences you write into these files typically take effect only after logging out and logging back in. So, is there a way to read these configuration files directly without logging out and back in? Yes, there is! You can use the `source` command.
+> TL;DR - read the configuration files directly without logging out and back in
+
+In Linux, the `source` command (or its shorthand `.`) is used to execute commands from a file in the current shell session. This means it runs the script without creating a new subshell, allowing the script to modify the environment variables of the current shell. 
+
+For example, if you modify `~/.bashrc`, you can immediately apply the new settings to the current environment by running `source ~/.bashrc` without logging out. This is very convenient! The settings in `~/.bash_profile` and `/etc/profile` often also use the `source` (or dot) command.
 
 ```bash
 $ source <configuration-file>
@@ -165,7 +169,6 @@ $ source ~/.bashrc  # The following two commands are equivalent!
 $ . ~/.bashrc
 ```
 
-Using `source` or a dot (.) will read the contents of the configuration file into the current shell environment. For example, if you modify `~/.bashrc`, you can immediately apply the new settings to the current environment by running `source ~/.bashrc` without logging out. This is very convenient! The settings in `~/.bash_profile` and `/etc/profile` often also use the `source` (or dot) command.
 
 ## References
 

@@ -11,7 +11,17 @@ AWS CDK uses programming languages for a developer-centric approach, while Terra
 
 ## Custom Resources
 
-Custom resources in AWS CDK allow you to extend AWS CloudFormation templates to manage resources not natively supported by CloudFormation. They enable you to create, update, or delete resources dynamically during stack operations using Lambda functions or other AWS services.
+Custom resources in AWS CDK allow you to extend AWS CloudFormation templates to manage resources not natively supported by CloudFormation. They enable you to create, update, or delete resources dynamically during stack operations using Lambda functions or other AWS services. To build a Custom Resource we need 3 things:
+
+- A Lambda function for `onEvent` handling `create`, `delete` and `update` events.
+- A `Provider` which points the Custom Resource to the lambda.
+- The `CustomResource` itself with any props you need for your third party resource or otherwise.
+
+You can also provide an additional Lambda function to handle `isComplete`.
+This is used when the lifecycle operation cannot be completed immediately.
+The `isComplete` handler will be retried asynchronously after `onEvent` until it returns `{ IsComplete: true }`, or until it times out.
+
+
 
 ### Provider
 
