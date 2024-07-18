@@ -1,8 +1,8 @@
 ---
-title: PGP, GPG
-description: PGP, GPG
+title: PGP, GPG, SOPS
+description: PGP, GPG, SOPS
 keywords:
-  - PGP, GPG
+  - PGP, GPG, SOPS
 ---
 
 **PGP**, originally created by Phil Zimmermann in 1991, is a data encryption and decryption program that provides cryptographic privacy and authentication for data communication. PGP is often used for securing email communication, but it can also encrypt any sort of files, directories, and disk partitions.
@@ -23,13 +23,16 @@ GPG is fully compatible with the OpenPGP standard, which means that it can inter
 Although they work in much the same way and the terms are sometimes used interchangeably, PGP typically refers to the specific software initially created by Zimmermann, while GPG refers to the free software community's version of the protocol.
 :::
 
-## GNU Privacy Guard tool (Symmetric)
+## GNU Privacy Guard
 
 Gnu Privacy Guard (or GnuPG) is the evolution of the earlier encryption standard known as Pretty Good Privacy (or PGP). GPG can use both symmetric and asymmetric encryption to encrypt, decrypt, and sign messages or data using *public* and *private* keys.
 
+> To understand what symmetric and asymmetric in cryptography, check my other post [encryption](/software-development/system-design/security/encryption/#symmetric-encryption)
+
+
 The GPG utility has a lot of options, but fortunately for us, encrypting and decrypting are easy to do and only require that you know three options for quick use: Create or encrypt with a **symmetric** cipher (`-c`), decrypt (`-d`), and extract and decrypt (no option).
 
-### Encrypting a file
+### Symmetric way to encrypt
 
 ```
 $ echo This is an encryption test > file1.txt
@@ -75,7 +78,7 @@ $ file testfile01.doc
 testfile01.doc: GPG symmetrically encrypted data (AES cipher)
 ```
 
-### Decrypting a file
+### Symmetric way to decrypt
 
 :::infoDecrypt within 10mins
 Note that there is no passphrase prompt to decrypt the file within 10 mins after en encryption. If you want to be prompted to enter the password to decrypt the file again, you'll have to wait ten minutes, which is the default timeout value.
@@ -94,6 +97,46 @@ gpg: encrypted with 1 passphrase
 $ ls
 cfile.txt  cfile.txt.gpg
 ```
+
+## Use GPG with SOPS
+
+While GPG is great for general-purpose encryption and decryption, SOPS (Secrets OPerationS) adds several features that are specifically designed for managing secrets, especially in the context of cloud infrastructure and software development. Here are some reasons why you might choose to use SOPS over just GPG:
+
+### Why Use SOPS?
+
+While GPG is great for general-purpose encryption and decryption, SOPS (Secrets OPerationS) adds several features that are specifically designed for managing secrets, especially in the context of cloud infrastructure and software development. Here are some reasons why you might choose to use SOPS over just GPG:
+
+- **Structured Data Handling**: SOPS understands JSON, YAML, and other structured formats. It allows you to encrypt only specific parts of a document, leaving other parts in plain text. This is useful for configuration files where you only want to encrypt sensitive data like passwords and API keys, but leave other configuration settings readable.
+- **Key Management**: SOPS can use multiple encryption methods (PGP, KMS, Vault, etc.). It can encrypt different parts of a file with different keys, making it more flexible in complex environments.
+- **Automatic Decryption**: SOPS can automatically decrypt files when they are opened by certain editors or tools, streamlining the workflow for developers who need to work with encrypted configuration files.
+- **Integration with CI/CD Pipelines**: SOPS is designed to integrate well with CI/CD pipelines and tools, ensuring that secrets are managed securely throughout the development lifecycle.
+- **Version Control Friendliness**: SOPS maintains the original file structure and supports line-by-line encryption, making it more suitable for storing secrets in version-controlled repositories.
+
+### Example Use Case
+
+Imagine you have a configuration file `config.yaml` that contains both non-sensitive settings and sensitive secrets:
+
+```yaml
+database:
+  host: db.example.com
+  port: 5432
+  user: admin
+  password: supersecret
+api_key: abcdef123456
+```
+
+Using SOPS, you can encrypt just the sensitive parts:
+
+```yaml
+database:
+  host: db.example.com
+  port: 5432
+  user: ENC[AES256_GCM,data:encrypted_user,iv:iv_value,tag:tag_value]
+  password: ENC[AES256_GCM,data:encrypted_password,iv:iv_value,tag:tag_value]
+api_key: ENC[AES256_GCM,data:encrypted_api_key,iv:iv_value,tag:tag_value]
+```
+
+This way, anyone who needs to see or edit the non-sensitive parts can do so without decrypting the entire file, while the sensitive parts remain protected.
 
 ## Keyservers (Asymmetric)
 

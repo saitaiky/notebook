@@ -54,7 +54,7 @@ $ kubectl expose deployment/httpenv --port 8888
 
 Let's create a container called `shpod` that you can install on your cluster, then it allows you to attach into that container(Essentially get a shell in your cluster).
 
-```yml
+```yaml
 # https://bret.run/shpod.yml
 apiVersion: v1
 kind: Namespace

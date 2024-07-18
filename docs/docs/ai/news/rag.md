@@ -14,9 +14,21 @@ This post aims to clarify these methods, highlighting their differences, benefit
 
 ## RAG, Retrain, Fine-tuning
 
+![rag](/img/ai/news/rag.webp)
+
+Source: [What’s the Difference Between Fine-tuning, Retraining, and RAG?](https://mindsdb.com/blog/whats-the-difference-between-fine-tuning-retraining-and-rag#heading-fine-tuning)
+
 **Retrieval-Augmented Generation (RAG)** is designed to enhance model responses by dynamically retrieving external information and integrating it with the model's generation capabilities. This makes RAG ideal for applications that require real-time, up-to-date information such as question-answering systems and chatbots that need to pull in current data from external sources. For instance, a legal advice bot might use RAG to pull in the latest legal precedents, or a financial assistant could fetch real-time stock prices to provide accurate financial advice.
 
+![retrain](/img/ai/news/retraining.webp)
+
+Source: [What’s the Difference Between Fine-tuning, Retraining, and RAG?](https://mindsdb.com/blog/whats-the-difference-between-fine-tuning-retraining-and-rag#heading-fine-tuning)
+
 **Retraining** involves updating a pre-trained model with new data to improve its performance and adapt to changes in the data distribution. This process helps the model remain relevant and effective over time. Retraining is particularly useful in scenarios where the underlying data patterns evolve, such as in predictive analytics for customer behavior or fraud detection systems that need to stay current with emerging fraud tactics. Another example is updating a recommendation engine with new user behavior data to improve the accuracy of recommendations.
+
+![fine-tuning](/img/ai/news/fine-tuning.webp)
+
+Source: [What’s the Difference Between Fine-tuning, Retraining, and RAG?](https://mindsdb.com/blog/whats-the-difference-between-fine-tuning-retraining-and-rag#heading-fine-tuning)
 
 **Fine-tuning**, *a specific type of retraining*, adapts a pre-trained model to a particular task using a smaller, task-specific dataset. This approach leverages the general knowledge captured by the pre-trained model and refines it for specialized applications. Fine-tuning is efficient and requires fewer resources compared to training a model from scratch, making it suitable for tasks like sentiment analysis in social media monitoring or named entity recognition (NER) for extracting specific information from medical records. Another example of fine-tuning is customizing a language model for customer support to handle domain-specific queries more effectively.
 

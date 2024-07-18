@@ -224,7 +224,7 @@ You can put a DeletionPolicy on any resource to control what happens when the Cl
   - Note: for AWS::RDS::DBCluster resources, the default policy is Snapshot
   - Note: to delete an S3 bucket, you need to first empty the bucket of its content
 
-```yml
+```yaml
 NewVolume:
   Type: AWS::EC2::Volume
   Properties:
@@ -398,7 +398,7 @@ This modular approach simplifies template management, promotes reusability, and 
 
 Resource: [Working with nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
 
-```yml
+```yaml
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   myStackWithParams:
@@ -509,7 +509,7 @@ Source: [tutorialsdojo](https://tutorialsdojo.com/aws-cloudformation/)
   - [view on the AWS CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-view-stack-data-resources.html)
 :::
 
-```yml
+```yaml
 AWSTemplateFormatVersion: 2010-09-09
 Resources:
   S3Bucket:

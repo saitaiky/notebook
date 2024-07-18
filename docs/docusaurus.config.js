@@ -174,6 +174,7 @@ const config = {
           'javascript',
           'typescript',
           'markdown',
+          'yaml',
         ],
       },
       algolia: {
