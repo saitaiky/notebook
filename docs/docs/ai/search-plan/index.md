@@ -3,7 +3,7 @@ title: Home
 ---
 
 :::infoAs of July 2024
-It might take a while to write everything down, but I'll do my best to create blog posts that make these concepts easy to understand. In the meantime, I've already created a [showcase section](/ai/showcase/) with all the source code to demo the techniques I'll be covering. Stay tuned!
+It might take a while to write everything down, but I'll do my best to create notes that make these concepts easy to understand. In the meantime, I've already created a [showcase section](/ai/showcase/) with all the source code to demo the techniques I'll be covering. Stay tuned!
 :::
 
 ## Overview
