@@ -2,9 +2,15 @@
 title: Home
 ---
 
+:::infoAs of July 2024
+It might take a while to write everything down, but I'll do my best to create blog posts that make these concepts easy to understand. In the meantime, I've already created a [showcase section](/ai/showcase/) with all the source code to demo the techniques I'll be covering. Stay tuned!
+:::
+
 ## Overview
 
-In this section I will provide notes about search, optimization, planning, and probabilistic graphical models which have been used in Artificial Intelligence applications for automation, logistics, operations research, and more. These concepts form the foundation for many of the most exciting advances in AI in recent years.
+Understanding the fundamental techniques of AI, such as search, planning, and reasoning, is crucial for developing intelligent systems capable of solving complex problems. These methods allow AI agents to navigate environments, make decisions, and find solutions efficiently. For instance, building an AI to solve Sudoku introduces the basics of logical constraints and backtracking, essential for structured problem-solving. This foundational knowledge helps create systems that can handle various real-world tasks, from scheduling to automated reasoning.
+
+Additionally, techniques like uninformed and informed search, optimization methods, and game theory play a significant role in more advanced applications, such as developing AI chess players or competitive game agents. These methods enable AI to optimize decisions, anticipate opponents' moves, and perform well in strategic scenarios. Furthermore, probabilistic models and natural language processing equip AI with the ability to understand and generate human language, making these techniques indispensable for applications in communication, translation, and more. By mastering these core AI techniques, we pave the way for creating smarter, more efficient, and versatile AI systems that can revolutionize various industries.
 
 ## Table of content
 

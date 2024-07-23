@@ -497,7 +497,7 @@ Amazon VPC provides the facility to create an **IPsec VPN** connection (also kno
 
 ### How to setup route table
 
-When establishing a static VPN connection between an on-premises network and a VPC in AWS, the virtual private gatewa (also known as a **VPN Gateway**)  must be configured to route traffic to the customer gateway on the on-premises side, and the customer gateway must be configured to route traffic to the virtual private gateway on the AWS side.
+When establishing a static VPN connection between an on-premises network and a VPC in AWS, the virtual private gateway (also known as a **VPN Gateway**)  must be configured to route traffic to the customer gateway on the on-premises side, and the customer gateway must be configured to route traffic to the virtual private gateway on the AWS side.
 
 From the AWS side, in order to enable instances in your VPC to reach your customer gateway, you must configure your route table to include the routes used by your VPN connection and point them to your virtual private gateway. You can enable route propagation for your route table to automatically propagate those routes to the table for you.
 
@@ -507,6 +507,15 @@ From the AWS side, in order to enable instances in your VPC to reach your custom
 The type of routing that you select can depend on the make and model of your customer gateway device. If your customer gateway device supports Border Gateway Protocol (BGP), specify dynamic routing when you configure your Site-to-Site VPN connection. If your customer gateway device does not support BGP, specify static routing.
 
 For static routing, the static IP prefixes that you specify for your VPN configuration are propagated to the route table when the status of the VPN connection is UP. Similarly, for dynamic routing, the BGP-advertised routes from your customer gateway are propagated to the route table when the status of the VPN connection is UP.
+:::
+
+:::infoExample
+Imagine you have 3 subnets - `10.0.0.0/20`, `10.0.16.0/20`, and `10.0.32.0/20` and now you want to connect them to a route table to allow communication between them. To do so, you'll need to set the following route in the route table:
+
+- **Destination**: `10.0.0.0/16` (WS automatically configures the route table for a VPC, it sets the route to cover the entire VPC's CIDR range.)
+- **Target**: `local`
+
+This route allows all traffic within the `10.0.0.0/16` range to be routed locally within the VPC, enabling communication between the specified subnets.
 :::
 
 ### VPN CloudHub
