@@ -25,6 +25,7 @@ This section is for recording some hobbies and topics that I would like to learn
     - [Normal people by Sally Rooney](https://www.youtube.com/watch?v=J4neWrY2iF0&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=13)
     - [酒國 (The Republic of Wine)](https://www.youtube.com/watch?v=VL097uC0-ps&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=120) by 莫言
     - 林夕《曾經——林夕90前後》
+    - 林夕 - [拚命無恙](https://www.eslite.com/product/1001276622682165200006)
     - 臺灣最好的時刻，1977-1987：民族記憶美麗島
     - 保育黃霑（限定製作紀念套裝
 - Trading

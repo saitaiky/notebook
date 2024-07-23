@@ -1,5 +1,5 @@
 ---
-title: Large Language Models
+title: History
 ---
 
 ## Introduction to LLMs
@@ -305,7 +305,7 @@ It’s worth noting that large language models can be applied to other content c
 They’re currently widely used for speech-, image-, and video-related tasks, such as image generation
 or video classification. 
 
-### Future reading
+## Future reading
 
 - [How LLMs are Unlocking New Opportunities for Enterprises](https://resources.nvidia.com/en-us-large-language-model-ebooks/llm-ebook-part2)
 - [Large Language Models Explained](https://www.nvidia.com/en-us/glossary/large-language-models/#:~:text=A%20transformer%20model%20is%20a,blocks%2C%20also%20known%20as%20layers.)
