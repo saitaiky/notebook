@@ -1,112 +1,313 @@
 ---
-title: Introduction
+title: History
 ---
 
-## Introduction to Language Models
+## Introduction to LLMs
 
-Language models, including tools like ChatGPT, are becoming ubiquitous in today's digital landscape. Understanding the mechanisms of Large Language Models (LLMs) is crucial for navigating and leveraging these technologies effectively.
+Large Language Models (LLMs) largely represents a class of deep learning architectures called [transformer networks](https://blogs.nvidia.com/blog/2022/03/25/what-is-a-transformer-model/). A transformer model is a neural network that learns context and meaning by tracking relationships in sequential data, like the words in this sentence. 
 
-### What is a Corpus?
+LLMs are a subset of language models, distinguished by their size, which is attributed to their extensive training data and a vast number of learnable parameters. Larger LLMs tend to produce more accurate and sophisticated responses.
 
-A corpus is a collection of texts that a language model is trained on. It determines the model's vocabulary and the words it can generate. For example, if a model named “T&C” was trained on terms and conditions agreements, it will only understand and generate words found in such documents. If you input a word that the model has never encountered during its training, it won't be able to predict or generate related content.
+However, the quality of data used for training LLMs is crucial. Models trained on peer-reviewed content, such as research papers and novels, typically outperform those trained on unreviewed data like social media posts. LLMs require diverse data to perform various natural language processing (NLP) tasks. Fine-tuning allows a foundation language model to specialize in specific domains.
 
-### Applications of Language Models
+:::infoFoundation Language Models vs. Fine-Tuned Language Models
+Foundation language models, like MT-NLG and GPT-3, are versatile and perform a wide range of NLP tasks. They excel in general performance but may not be ideal for specific tasks. Fine-tuned language models, derived from foundation LLMs, are customized for specialized purposes and offer improved task-specific performance. Fine-tuning is commonly achieved through parameter-efficient techniques like p-tuning and adapters, making it a cost-effective and practical approach.
+:::
 
-Language models are integral to various technologies that many people interact with daily. These include customer service chatbots, predictive text on phones, and virtual personal assistants like Siri or Alexa. Each of these applications uses a language model to process and generate human language. They work by turning language into numbers (using probabilities) and then back into language.
+## Evolution of Large Language Models
 
-### Predictive Text and Probabilities
+The evolution of large language models (LLMs) has brought about a paradigm shift in natural language processing (NLP). Historically, AI systems focused on data analysis rather than generation, but the advent of LLMs shifted this balance. This change can be observed by comparing three NLP regimes:
 
-A common application of language models is predictive text, which is used in modern email programs and messaging apps. These systems predict the next word in a sentence by calculating the probability of various possible words following a given sequence of words. This process is based on the data (corpus) they were trained on.
+- **Pre-transformers NLP**: This era relied on rule-based models and simple neural networks like RNNs and LSTMs. While suitable for basic tasks, they struggled with complex and novel data.
+- **Transformers NLP**: Transformers, introduced in 2017, improved NLP by better generalization, enhanced context understanding, and more efficient data processing. However, limitations in data and resources hindered their capabilities.
+- **LLM NLP**: OpenAI's GPT-3 in 2020 marked the LLM era. These models, trained on extensive data, produced highly accurate NLP responses, democratizing NLP for non-technical users.
+
+The transition was driven by technological advancements like neural networks, **attention mechanisms**, and transformers, along with unsupervised and self-supervised learning. These concepts are fundamental in comprehending the workings of LLMs and building new ones.
+
+### Neural Networks
+
+![simple_neural_network_vs_deep_learning](/img/ai/news/simple_neural_network_vs_deep_learning.webp)
+
+Source: [What Deep Learning Is And Isn’t](https://thedatascientist.com/what-deep-learning-is-and-isnt/)
+
+Large language models (LLMs) initially used simpler neural network (NN) architectures, particularly recurrent neural networks (**RNNs**) and long short-term memory networks (**LSTMs**). RNNs and LSTMs excelled at considering context, position, and word relationships in data, making them effective for sentiment analysis and text classification. These neural networks possessed the remarkable ability to learn autonomously, generating their rules from data rather than relying on predefined rules, a concept known as representation learning.
+
+The biggest advantage that neural networks like RNNs and LSTMs had over traditional, rule-based
+systems was that they were capable of learning on their own with little to no human involvement.
+They analyze data to create their own rules, rather than learn the rules first and apply them to data
+later. This is also known as representation learning and is inspired by human learning processes.
+
+:::infoHow it works
+Representations, or features, are hidden patterns that neural networks can extract from data. To
+exemplify this, let’s imagine we’re training an NN-based model on a dataset containing the following
+tokens:
+```
+“cat,” “cats,” dog,” “dogs”
+```
+After analyzing these tokens, the model may identify a representation that one could formulate as:
+```
+Plural nouns have the suffix “-s.”
+```
+
+The model will then extract this representation and apply it to new or edge-case scenarios whose data
+distribution follows that of training data. For example, the assumption can be made that the model
+will correctly classify tokens like “chairs” or “table” as plural or singular even if it had not encountered
+them before. Once it encounters irregular nouns that don’t follow the extracted representation, the
+model will update its parameters to reflect new representations, such as:
+
+```
+Plural nouns are followed by plural verbs.
+```
+
+This approach enables NN-based models to generalize better than rule-based systems and
+successfully perform a wider range of tasks.
+:::
+
+The capacity to extract representations depends on the neural network's size, with more neurons and layers enabling more complex representations. However, deep neural networks became practical only after hardware improvements, notably the introduction of GPUs in 1999. These GPUs facilitated parallel processing and powered deep learning, leading to transformative NNs like transformers.
+
+The most basic training of language models involves predicting a word in a sequence of words. Most commonly, this is observed as either next-token-prediction and masked-language-modeling.
+
+![next-token-prediction](/img/ai/news/next-token-prediction.webp)
+
+In this basic sequencing technique, often deployed through a Long-Short-Term-Memory (LSTM) model, the model is filling in the blank with the most statistically probable word given the surrounding context. There are two major limitations with this sequential modeling structure.
+
+1.  The model is unable to value some of the surrounding words more than others. In the above example, while 'reading' may most often associate with 'hates', in the database 'Jacob' may be such an avid reader that the model should give more weight to 'Jacob' than to 'reading' and choose 'love' instead of 'hates'.
+2.  The input data is processed individually and sequentially rather than as a whole corpus. This means that when an LSTM is trained, the window of context is fixed, extending only beyond an individual input for several steps in the sequence. This limits the complexity of the relationships between words and the meanings that can be derived.
+
+In response to this issue, in 2017 a team at Google Brain introduced **transformers**. Unlike **LSTMs**, transformers can process all input data simultaneously. Using a self-attention mechanism, the model can give varying weight to different parts of the input data in relation to any position of the language sequence. This feature enabled massive improvements in infusing meaning into LLMs and enables processing of significantly larger datasets.
+
+### Transformers
+
+RNNs and LSTMs are advantageous for natural language processing (NLP) tasks, such as sentiment analysis and text classification, as they consider word context and relationships. However, they are limited when handling longer data sequences and broader context. Their sequential processing results in slower inference, which poses challenges when processing lengthy text. They can always determine word order due to sequential processing, ensuring accurate output.
+
+The introduction of **transformers** in 2017 revolutionized NLP. A transformer is made up of multiple transformer blocks, also known as layers. For example, a transformer has self-attention layers, feed-forward layers, and normalization layers, all working together to decipher input to predict streams of output at inference. The layers can be stacked to make deeper transformers and powerful language models. Transformers were first introduced by Google in the 2017 paper ["Attention Is All You Need."](https://arxiv.org/abs/1706.03762)
+
+![transformer-architecture](/img/ai/news/transformer-architecture.png)
+
+Source: [attention is all you need](https://arxiv.org/abs/1706.03762)
+
+There are two key innovations that make transformers particularly adept for large language models: positional encodings and self-attention. 
+
+- Positional encoding embeds the order of which the input occurs within a given sequence. Essentially, instead of feeding words within a sentence sequentially into the neural network, thanks to positional encoding, the words can be fed in **non-sequentially**.
+- Self-attention renders RNNs and convolutions unnecessary for sequential data then assigns a weight to each part of the input data while processing it. This weight signifies the importance of that input in context to the rest of the input. In other words, models no longer have to dedicate the same attention to all inputs and can focus on the parts of the input that actually matter. This representation of what parts of the input the neural network needs to pay attention to is learnt over time as the model sifts and analyzes mountains of data.
+
+These two techniques in conjunction allow for analyzing the subtle ways and contexts in which distinct elements influence and relate to each other over long distances, non-sequentially. 
+
+The ability to process data non-sequentially enables the decomposition of the complex problem into multiple, smaller, simultaneous computations. Naturally, GPUs are well suited to solve these types of problems in parallel, allowing for large-scale processing of large-scale unlabelled datasets and enormous transformer networks.
+
+#### What is self-attention?
+The analogy of self-attention is that imagine you're at a cocktail party trying to understand the story your friend is telling (which we'll think of as the current word we want to process). As your friend speaks, you're not only listening to them but also paying attention to the context:
+
+- Other friends chiming in with comments (other words in the sequence)
+- The background music and noise (irrelevant information)
+- The expressions and gestures of your storytelling friend (accentuating certain words or meanings)
+
+In this analogy, your brain is performing a kind of self-attention. It's figuring out which pieces of information (inputs) are important to focus on so that you can fully understand the story your friend is telling (processing the current word). Just like in the GPT model, some inputs (comments, noise, gestures) are given more weight than others, and that affects your understanding of the story.
+
+:::infoHow Attention mechanism works
+To demonstrate this, let’s imagine the desired model is a transformer-based model to predict the next
+words for the following input sentence:
+
+```
+Mary had a little lamb.
+```
+
+Attention mechanisms – or, rather, self-attention layers that are based on attention mechanisms –
+would first calculate attention weights for each word in our input. Attention weights represent the
+importance of each token, so the more weight a token is assigned, the more important it's deemed.
+For example, the attention mechanism might give more weight to the word "lamb" than the word "a,"
+as it’s likely to have more influence on the final output.
+The model would then use these weights to dynamically emphasize or downplay each word as it
+generates output. If one assumes that the most weight was assigned to the word “lamb,” the model
+may produce a continuation such as:
+
+```
+"whose fleece was white as snow"
+```
+
+To determine how important each token is, self-attention layers examine its relationships with other
+tokens in a sequence:
+
+1. If a token has many relevant relationships with other tokens with respect to the task being
+performed, then that token is deemed as important and, potentially, more important than other
+tokens in the same sequence.
+2. If a token doesn’t have many relationships with other tokens, or if they are irrelevant to a specific
+task, that token is considered less important or completely unimportant. This means the model
+will virtually ignore it when generating the output.
+:::
+
+So, by enabling models to handle context more effectively, attention mechanisms allowed them to
+generate more accurate outputs than models based on RNNs and LSTMs. Simultaneously, this new
+approach to data processing also allowed transformer-based models to generate outputs more
+quickly than RNN- and LSTM-based models.
+
+Yet, transformers face a challenge due to non-sequential data processing. Changes in word order can distort meaning or lead to nonsensical variations. Transformers use **positional encodings** to overcome this issue, retaining position information. 
+
+#### Positional encodings to overcome non-sequential word order
+
+LSTMs and RNNs need more time to generate output because they process input sequentially. To
+clarify what this means, let’s explore how LSTMs would approach processing our original input
+sentence: `Mary had a little lamb.`
+
+Since LSTMs process data sequentially, they would need to process one word in our sequence at a
+time: Mary, had, a, little, lamb. This significantly slows down inference, especially with longer data
+sequences. For example, just imagine how long it would take LSTMs and RNNs to process a single
+Wikipedia page. Too long.
+
+Transformers, on the other hand, process data in parallel, which means they “read” all input tokens at
+once instead of processing one at a time. It also means they are able to perform NLP tasks faster than
+LSTMs and RNNs.
+
+However, despite being slow, sequential data processing has one big advantage. By processing one
+word at a time, LSTMs and RNNs are always able to tell which word came first, second, and so on.
+They know the word order of the input sequence because they use that same order to process it.
+Conversely, transformers are not initially “aware” of the original word order because they process
+data non-sequentially. While this may seem like only a minor problem at first, analyzing the sentences
+below may illustrate otherwise:
+
+```
+1. Mary had a little lamb.
+2. A little lamb had Mary.
+3. Had a little lamb Mary.
+```
+
+Sentence (2) shows how a slight change in word order can distort the intended meaning, while
+sentence (3) exemplifies an even bigger issue — how changes in word order can result in completely
+nonsensical and grammatically incorrect variations.
+
+To overcome this challenge, transformers use positional encodings that help them retain position
+information. Positional encodings are additional inputs, or vectors, associated with each token. They
+can be fixed or trainable, depending on whether the desire is for the model to refine them during
+training or not
 
 
-## The simplest language models (N-gram)
-
-One of the simplest types of language models is the N-gram model. This model predicts the next word in a sequence based on the previous 'N-1' words. For example, in a bigram model (where N=2), the model looks at the previous word to predict the next one.
-
-### Introduction to N-gram Models
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/E_mN90TYnlg?si=M8qrz_hjZAG3VVIv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-N-gram models are a foundational concept in understanding how language models predict the next word in a sequence. These models assign probabilities to possible next words based on the preceding words in the sequence.
-
-### Bigram and Trigram Models
-
-A bigram model predicts the next word based on the immediately preceding word. For example, if you're writing an email that starts with "Thanks for the update...", the model might predict the next word to be "on" or "about" rather than something nonsensical like "truck." When prompted with a word, the bigram model uses the last word as context to predict the next word. This is based on the Markov assumption, which states that the probability of a future word depends only on the current word. 
-
-A trigram model, on the other hand, uses two preceding words as context to predict the next word. This often results in more coherent predictions than a bigram model because it has more context to base its predictions on. When prompted with a two-word sequence, the trigram model uses those two words to predict the next word, resulting in more context-aware predictions.
-
-### Higher-order N-gram Models and Context Window Size
-
-N-gram models can use any number of preceding words (n-1) to predict the next word. For example, an 8-gram model uses seven preceding words as context. Using a very large n can lead to more accurate predictions but also requires more specific context that exactly matches sequences in the training corpus. This makes the model both powerful and limited, as it can produce very context-specific predictions but might struggle with less frequent sequences. The size of the context window (the n in n-gram) depends on the task. Text autocorrect requires a smaller context window since it only needs to correct a word based on immediate context, whereas plagiarism detection requires a larger context window to determine if a sequence of words matches a source text.
-
-### Generating Probabilities in N-gram Models
-
-The probabilities in N-gram models are generated based on the frequency of word sequences in the corpus. For example, if "Thanks for the update" is frequently followed by "on" or "about" in the training corpus, those words will have higher probabilities as the next word.
+## Transformer Language models
 
 
-## Calculating Word Probabilities and Limitations of N-gram Models
+### GPT
 
-### Understanding Word Probabilities
+> TL;DR - GPT, developed by OpenAI, is one of the most famous large language models. It's known for its impressive text generation capabilities and can be fine-tuned for various NLP tasks.
 
-N-gram models predict the next word based on the probability derived from word counts in a given corpus. Let's take "Mastering the Art of French Cooking" as an example. The first step in creating an n-gram model is to count the frequency of each word in the corpus. Common words like "the" often appear most frequently. A unigram model would predict "the" most often because it appears most frequently in the text. For a bigram model, we need to consider pairs of words. For example, in the sentence "Turn off the heat and stir in the butter and herbs," after "the," the most likely word is "butter." After "egg," 34% of the time, the next word is "whites"; 8.2% of the time, it's "yolk."
+Generative Pre-training Transformer (GPT) models were first launched in 2018 by openAI as GPT-1. The models continued to evolve over 2019 with GPT-2, 2020 with GPT-3, 2022 with InstructGPT and ChatGPT and most recently GPT-4 in 2023.
 
-### Limitations of N-gram Models
+| Feature/Version | GPT-2 | GPT-3 | GPT-4 |
+|-----------------|-------|-------|-------|
+| Parameters | 1.5 billion | 175 billion | Estimated over 175 billion (not officially released) |
+| Dataset | WebText (40GB) | Common Crawl, WebText2, Books1, Books2, and additional data (570GB) | Unspecified, but likely larger and more diverse than GPT-3 |
+| Tuning | Supervised fine-tuning possible but not a main feature | Few-shot, one-shot, and zero-shot learning capabilities | Presumably improved few-shot, one-shot, and zero-shot learning with more sophisticated fine-tuning|
+| Architecture | Transformer-based neural network with 48 layers | Transformer-based neural network with 96 layers | Expected to be a more advanced version of transformer architecture, potentially with more layers |
+| Performance | High-quality text generation with some limits in coherence over long passages | Significantly improved performance with better context understanding and coherence over longer passages | Expected to surpass GPT-3 in performance, coherence, context understanding and possibly in handling more nuanced prompts |
 
-N-gram models are effective for predicting the next word based on immediate context but have significant limitations. They can't link words or concepts separated by many words, and they don't understand who is performing an action or when something will happen. For instance, a bigram model would struggle to connect “it” to prior information, identify who is making the cake, or identify when the cake will be made. Due to these limitations, n-gram models have been largely replaced by more complex models, such as neural networks, for many tasks. However, counting words and understanding their probabilities remain fundamental to all language models.
+All GPT models leverage the transformer architecture, which means they have an encoder to process the input sequence and a decoder to generate the output sequence. Both the encoder and decoder have a **multi-head self-attention mechanism** that allows the model to differentially weight parts of the sequence to infer meaning and context. In addition, the encoder leverages masked-language-modeling to understand the relationship between words and produce more comprehensible responses.
+
+The self-attention mechanism that drives GPT works by converting tokens (pieces of text, which can be a word, sentence, or other grouping of text) into vectors that represent the importance of the token in the input sequence. To do this, the model,
+1. Creates a query, key, and value vector for each token in the input sequence.
+2. Calculates the similarity between the query vector from step one and the key vector of every other token by taking the dot product of the two vectors.
+3. Generates normalized weights by feeding the output of step 2 into a softmax function.
+4. Generates a final vector, representing the importance of the token within the sequence by multiplying the weights generated in step 3 by the value vectors of each token.
+
+The ‘multi-head’ attention mechanism that GPT uses is an evolution of self-attention because it allows the model to simultaneously attend to information from different representation subspaces at different positions. Instead of focusing on one single aspect of the data by performing steps 1–4 once, multi-head attention aggregates multiple perspectives by performing steps 1-4 in parallel, enabling the model to capture a more comprehensive understanding of the context. This leads to improvements in capturing nuances and complex relationships within the data, thereby enhancing the performance on tasks such as language translation, question-answering, and text generation. Each "head" in multi-head attention can be seen as an independent feature detector, and collectively they provide a multifaceted representation of the input sequence.
+
+**ChatGPT** is a spinoff of InstructGPT, which introduced a novel approach to incorporating human feedback into the training process to better align the model outputs with user intent. Reinforcement Learning from Human Feedback (RLHF) is described in depth in openAI’s 2022 paper Training language models to follow instructions with human feedback and is simplified below.
+
+:::infoWhat is InstructGPT?
+InstructGPT is a variant of the GPT (Generative Pre-trained Transformer) language model developed by OpenAI, specifically fine-tuned to better understand and follow user instructions. Unlike the standard GPT models which generate text based on a given prompt, InstructGPT is trained to respond more accurately to prompts that require specific actions or outputs, such as creating a list, summarizing information, or providing explanations. It aims to be more aligned with the intentions behind user requests, providing more relevant and useful responses.
+:::
+
+### BERT
+
+Google's BERT (Bidirectional Encoder Representations from Transformers) is a pioneering transformer-based language model. It's bidirectional and more accurate than unidirectional models, as it considers both sides of masked tokens.
+
+To illustrate this, let’s imagine that a model is given the following input sentence:
+
+```
+"I [have] a mask."
+```
+
+BERT’s task is to predict the masked word “have.” It does so by analyzing the tokens on both of its
+sides, namely "I,", "a," and “mask.” This is what makes it bidirectional, as well as more accurate than
+previous language models that could only consider the context on the left of the masked token. In this
+case, unidirectional models would only consider the word “I” when predicting the masked word,
+which provides little context. The chances of a unidirectional model generating the right predictions
+are smaller.
+
+BERT was the first model to show how bidirectionality can model performance NLP tasks. It benefited various applications, including Google's search engine's enhanced query understanding. It demonstrated the potential of transformer-based models for NLP tasks, marking a significant shift in the field.
+
+### Other LLMs
+
+- **LLaMA** Announced February 2023 by Meta AI, the LLaMA model is available in multiple parameter sizes from 7 billion to 65 billion parameters. Meta claims LLaMA could help democratize access to the field, which has been hampered by the computing power required to train large models. Try it [here](https://www.llama2.space/)
+- **RoBERTa** (A Robustly Optimized BERT Pretraining Approach): RoBERTa is a variant of BERT developed by Facebook AI. It optimizes pretraining tasks and data to improve performance on a wide range of NLP benchmarks.
+- **ALBERT** (A Lite BERT): ALBERT, by Google Research and Toyota Technological Institute at Chicago, focuses on model efficiency and reducing the number of parameters while maintaining performance.
+
+These large language models have played a significant role in advancing natural language processing tasks, making them more accurate, context-aware, and versatile across a wide range of applications.
+
+### Unsupervised and Self-Supervised Learning
+
+Unsupervised and self-supervised learning have been pivotal in the development of advanced natural language models like BERT. *BERT's significance lies not only in its bidirectional nature but also in its unsupervised learning approach*, which involves pattern recognition from unlabeled data, making it a pure form of AI. Both unsupervised and self-supervised learning models benefit from feedback loops, although self-supervised learning relies on supervisory signals generated automatically from data, eliminating the need for human annotation. This minimizes data labeling and human feedback, making model training more efficient.
+
+**Benefits of GPT Vs Bert**
+
+- How the model works
+    - GPT, a generative model, excels at generating coherent sentences from scratch, making it suitable for language generation tasks such as text completion, summarization, and question answering. 
+    - On the other hand, BERT is a discriminative model that classifies sentences or tokens into categories like sentiment analysis, named entity recognition, and text classification. It considers both left and right contexts for word meaning, making it effective for tasks like sentiment analysis and question answering.
+
+Architecturally, GPT uses a unidirectional transformer, considering only the left context when predicting, while BERT employs a bidirectional transformer, accounting for both left and right contexts. Both GPT and BERT are influential models in NLP, with their choice depending on the specific task at hand. Often, a combination of both models is used to achieve optimal results in NLP applications.
+
+Both GPT and BERT are powerful models that have revolutionized the field of NLP. Their choice
+depends on the specific task at hand, and researchers and practitioners often use a combination of
+both models to achieve optimal results.
 
 
-## Creativity and Temperature in Large Language Models
+## How Enterprises Can Benefit From Using Large Language Models
 
-### Understanding LLMs' Creativity
+### Challenges of LLMs
 
-Large language models, such as the Pythia 12B model, can produce novel and unexpected text sequences despite being built from finite training data. This ability makes them appear creative and human-like in generating content. Consider the haiku: "Late nights fueled by code, / A technical ballet unfolds, / Heart and work in one ode." This could be generated by a human or a language model, demonstrating the model's capability to create coherent and creative content.
+Enterprises venturing into the use of large language models (LLMs) should be cautious of several common pitfalls, which apply irrespective of whether they customize, fine-tune, or build LLMs from the ground up. These include:
 
-### How LLMs Generate Text and Adjusting Probability with Temperature
+- **Vulnerability to Adversarial Examples**: LLMs can be tricked by specially crafted inputs, posing security concerns, especially in sensitive industries like healthcare or finance.
+- **Lack of Interpretabilit**y: Some LLMs may lack interpretability, making it challenging to understand their decision-making processes. This can be problematic in high-stakes scenarios and industries requiring transparency.
+- **Generic Responses**: LLMs may provide generic, uncustomized answers, sometimes reproducing trained text data. This raises ethical and legal issues, necessitating techniques like Reinforcement Learning from Human Feedback for improvement.
+- **Ethical Considerations**: The ethical use of LLMs in decision-making tasks, like candidate selection, without human supervision, should be questioned. Furthermore, their use for tasks typically performed by human white-collar workers requires assessment.
+- **Generation of Inappropriate Content**: LLMs, often trained on extensive Internet texts, may produce toxic, biased, and inappropriate content. Enterprises should be cautious of this potential issue.
 
-LLMs generate text based on probabilities and mathematical calculations rather than magic. They predict the next word in a sequence by storing probabilities for all possible following words. Temperature is a setting that adjusts the randomness of an LLM's output. A high temperature (e.g., 2) produces more random and diverse outputs where all words have nearly equal likelihood, while a low temperature (e.g., 0) produces deterministic outputs where the most likely word is always chosen, eliminating randomness. For example, with a high temperature prompt "My new AI-powered app will...", the responses tend to be nonsensical or highly creative but lack coherence. With a low temperature prompt, the responses are highly predictable and identical each time, providing reliable but potentially boring outputs.
+Building proprietary LLMs from scratch introduces additional challenges, including the need for sufficient computing resources, datasets, expertise, and financial backing for development, implementation, and maintenance.
 
-### Optimizing Temperature for Different Tasks
+### Ways of building LLMs
 
-The appropriate temperature setting depends on the task at hand. Low temperature is ideal for tasks requiring predictability and reliability, such as writing cover letters. Medium temperature balances predictability and creativity, making it suitable for tasks like poetry or creative writing. High temperature is suitable for highly creative tasks where novelty is more important than coherence, but can lead to nonsensical outputs.
+Building large language models from scratch is often impractical, especially for enterprises not specialized in AI or NLP. Customizing existing base models is a more viable approach. This process involves three main steps:
 
+1. **Selecting a Foundation Model (PLM)**: Choosing an appropriate base model involves considering factors like model size, training tasks, datasets, and LLM providers.
+2. **Fine-Tuning**: Base models can be fine-tuned for specific use cases, such as sentiment analysis or legal terminology, by training them on relevant data.
+3. **Optimization**: Further enhancements can be achieved through techniques like Reinforcement Learning from Human Feedback (RLHF), which fine-tunes the model based on human feedback.
 
-## Training Large Language Models (LLMs)
+Alternatively, parameter-efficient methods like adapters and p-tuning can be used to customize base models. Customization is particularly effective when the base model aligns with the selected downstream tasks, leveraging the knowledge gained during training for improved performance.
 
-### Epochs and Loss
+### How to Evaluate LLMs
 
-Training a large language model involves exposing it to a large corpus of text multiple times. Each complete pass through the training data is called an **epoch**. For example, an LLM exposed to 800 GB of English text for one epoch might still generate random and incoherent outputs. Initially, the predictions made by the model are random because the neural network has not yet learned any meaningful patterns. During each epoch, the model compares its predictions to the original data. The difference between the predicted and actual values is called the **loss**. The goal of training is to reduce this loss over time.
+LLMs employ deep learning techniques to process and generate natural language, making them versatile for tasks like language translation, text summarization, and question-answering. Evaluating LLM performance involves considering several key factors:
 
-### Reducing Loss Over Epochs and Overfitting
+1. **Training Data**: The quality and diversity of the training data are vital. It should represent the target language and domain to allow effective pattern learning and generalization. Annotation with relevant labels is often required for supervised learning, a common approach in LLMs.
+2. **Model Size**: Larger models generally perform better, but they demand more computational resources. Researchers must strike a balance between model size and performance, tailored to the specific task and available resources. Larger models may also be more susceptible to overfitting.
+3. **Inference Speed**: Real-world LLM applications require efficient inference processing. Faster inference times enhance data processing capabilities. Techniques like pruning, quantization, and distillation help reduce model size and improve inference speed.
 
-As the model is exposed to more data and adjusts its predictions, the loss decreases, indicating that the model is learning and improving. For example, after 1,000 epochs, the output might be more coherent but still not perfect. After 120,000 epochs, the model's output becomes more fluent and relevant. However, training a model until the loss is zero can lead to overfitting, where the model replicates the training data exactly and cannot generate novel text or adapt to new data. Overfitting occurs when a model is too closely fitted to the training data. This state can be avoided by stopping training when the model performs well without overfitting, monitoring training closely, and balancing the number of epochs to avoid overfitting while ensuring the model learns adequately.
+To assess LLM performance, researchers often rely on standardized benchmarks, which provide datasets and evaluation metrics for specific language-related tasks. These benchmarks, such as GLUE, SuperGLUE, and CoQA, facilitate fair comparisons between different LLM models and methods, highlighting their strengths and weaknesses.
 
+## Example applications
 
-## Preprocessing and Tokenization of Text
+- **Content generation** - Marketing content and copy, paraphrasing, email composition
+- **Summarization** - Legal summarization, news summarization
+- **Translation** - Language translation, code translation
+- **Classification** - Toxicity classification, sentiment analysis, fraud analytics
+- **Chatbot support** - EQA and ODQA chatbots, AI companions
+- **Tools and technologies** - Character generation
 
-### Preprocessing
+It’s worth noting that large language models can be applied to other content categories besides text.
+They’re currently widely used for speech-, image-, and video-related tasks, such as image generation
+or video classification. 
 
-Preprocessing is the first stage in preparing raw text for training a language model. It involves cleaning and standardizing the text to make it computer-readable. This step often includes removing inconsistencies like typos, abbreviations, inconsistent capitalization, and punctuation. For example, consider a bigram model trained on the Terms and Conditions (T&C) of Big Tech companies. An original sentence like "We’ve updated our Terms of Use, Data Policy, and Cookies Policy to reflect the new name." might be preprocessed to "weve updated our terms of use data policy and cookies policy to reflect the new name."
+## Future reading
 
-### Capitalization and Punctuation
-
-Capitalization affects the vocabulary size of the model. By making all letters lowercase, we reduce the vocabulary size, which means the model will see more examples of each word, making predictions more reliable. While removing capitalization can simplify the dataset, it's sometimes necessary to retain it, especially in contexts where capitalization holds significance, such as identifying spam emails. Punctuation provides valuable information about sentence structure and meaning. Different strategies can be applied to handle punctuation during preprocessing. Using special characters like
-
- `<s>` and `</s>` to mark the start and end of sentences can help retain the information without ambiguity. For example, "Ms. Zhang is here." might be preprocessed with special characters as <s> ms zhang is here </s>."
-
-### Tokenization
-
-Tokenization is the process of breaking down text into smaller units called tokens, making it easier for the model to train on. The initial step often involves splitting the text by spaces (whitespace tokenization). For example, the sentence "my ai did my homework." becomes tokens ["my", "ai", "did", "my", "homework", "."].
-
-### Advanced Tokenization: Stems and Affixes
-
-To capture more linguistic information, text can be further broken down into stems (roots of words) and affixes (prefixes and suffixes). For example, in the sentence "I tested the model," the tokens might be ["I", "test", "ed", "the", "model", "."] where "test" is the stem of "tested" and "ed" is an affix indicating past tense.
-
-### Byte-Pair Encoding (BPE)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HEikzVL-lZU?si=iF5JCtT2I74srZGr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-An alternative and more generalizable approach to tokenization is Byte-Pair Encoding (BPE), which builds tokens from characters based on their frequency in the corpus. The steps in BPE include identifying the most common characters in the corpus, finding the most common letter pairs, and updating the vocabulary until the desired vocabulary size or iteration count is reached. Stopping criteria for BPE can include specifying the vocabulary size or setting a fixed number of iterations. Tokenization is crucial for creating a manageable and effective vocabulary for training large language models. Large models are typically trained on hundreds of billions of tokens, making robust and efficient tokenization essential.
-
-## Summary
-
-Language models, particularly large ones like LLMs, are central to many AI applications we interact with daily. From understanding the basics of what a corpus is and how language models like N-grams predict text based on probabilities derived from word sequences, to exploring the creativity of LLMs and how their output can be controlled with settings like temperature, we see the varied and complex functionalities of these models. Training these models involves numerous epochs, with the goal of reducing loss and avoiding overfitting to ensure the model can generate coherent and novel text. Preprocessing and tokenization are critical steps in preparing the text corpus for training, ensuring that the data is clean and structured for the model to effectively learn from. Understanding these processes provides a solid foundation for delving deeper into the capabilities and applications of large language models.
+- [How LLMs are Unlocking New Opportunities for Enterprises](https://resources.nvidia.com/en-us-large-language-model-ebooks/llm-ebook-part2)
+- [Large Language Models Explained](https://www.nvidia.com/en-us/glossary/large-language-models/#:~:text=A%20transformer%20model%20is%20a,blocks%2C%20also%20known%20as%20layers.)
+- [What Is a Transformer Model?](https://blogs.nvidia.com/blog/what-is-a-transformer-model/)
+- [An Overview of Attention Is All You Need](https://dantegates.github.io/2018/07/06/an-overview-of-attention-is-all-you-need.html)
