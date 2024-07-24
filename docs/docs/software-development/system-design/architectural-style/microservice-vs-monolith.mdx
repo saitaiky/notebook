@@ -19,21 +19,19 @@ The monolithic architecture is considered to be a traditional way of building ap
 
 Normally, monolithic applications have one large code base and lack modularity. If developers want to update or change something, they access the same code base. So, they make changes in the whole stack at once.
 
-
 ### Strengths
 
-- **Less cross-cutting concerns.** Cross-cutting concerns are the concerns that affect the whole application such as logging, handling, caching, and performance monitoring. In a monolithic application, this area of functionality concerns only one application so it is easier to handle it.
-- **Easier debugging and testing.** In contrast to the microservices architecture, monolithic applications are much easier to debug and test. Since a monolithic app is a single indivisible unit, you can run end-to-end testing much faster.
-- **Simple to deploy. Another advantage associated with the simplicity of monolithic apps is easier deployment. When it comes to monolithic applications, you do not have to handle many deployments – just one file or directory.**
-- **Simple to develop. As long as the monolithic approach is a standard way of building applications, any engineering team has the right knowledge and capabilities to develop a monolithic application.**
+- **Less Cross-Cutting Concerns:** Managing logging, caching, and performance monitoring is simpler since they are handled within one unified application context.
+- **Easier Debugging and Testing:** Debugging and testing are more straightforward because the application is a single unit, allowing faster end-to-end testing processes.
+- **Simple Deployment:** Deployment is simplified, as the entire application is packaged and deployed as a single file or directory.
+- **Ease of Development:** Development is straightforward for teams familiar with this approach, as it follows conventional application-building practices.
 
 ### Weaknesses
 
-- **Understanding. When a monolithic applicati
-on scales up, it becomes too complicated to understand. Also, a complex system of code within one application is hard to manage.**
-- **Continuous deployment is difficult.** It is harder to implement changes in such a large and complex application with highly tight coupling. Any code change affects the whole system so it has to be thoroughly coordinated. This makes the overall development process much longer.
-- **Scalability.** You cannot scale components independently, only the whole application.
-- **New technology barriers.** It is extremely problematic to apply a new technology in a monolithic application because then the entire application has to be rewritten.
+- **Complexity:** As the application grows, it becomes increasingly difficult to understand and manage due to the large, intertwined codebase.
+- **Continuous Deployment Challenges:** Implementing changes is complex and time-consuming because any modification can impact the entire tightly coupled system.
+- **Scalability:** The inability to scale individual components independently limits the application’s flexibility in resource allocation and management.
+- **Technology Adoption Barriers:** Introducing new technologies often necessitates rewriting substantial parts of the application, posing significant hurdles.
 
 ### Use cases
 
@@ -41,7 +39,6 @@ on scales up, it becomes too complicated to understand. Also, a complex system o
 - A simple application. Small applications which do not demand much business logic, superior scalability, and flexibility work better with monolithic architectures.
 - No microservices expertise. Microservices require profound expertise to work well and bring business value. If you want to start a microservices application from scratch with no technical expertise in it, most probably, it will not pay off.
 - Quick launch. If you want to develop your application and launch it as soon as possible, a monolithic model is the best choice. It works well when you aim to spend less initially and validate your business idea.
-
 
 ## Microservices Architecture
 
