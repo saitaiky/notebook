@@ -2,6 +2,14 @@
 title: History
 ---
 
+:::infoThe reason I didn't put this LLM section into ML or DL section
+Large Language Models (LLMs) primarily fall under the categories of deep learning and machine learning, leveraging advanced neural network architectures like transformers. Initially, machine learning models represented words using numerical tables or one-hot encoding, which couldn't capture semantic relationships. This limitation was addressed with word embeddings, where words are represented as multi-dimensional vectors in a vector space, allowing words with similar meanings to be close to each other.
+
+Transformers, a key architecture in LLMs, use an encoder to convert text into numerical representations and understand the context of words and phrases. The encoder-decoder mechanism enables LLMs to process and generate text by understanding relationships between words, such as parts of speech and contextual meanings. This sophisticated understanding allows LLMs to generate coherent and contextually relevant outputs.
+
+Thus, LLMs are a product of deep learning due to their use of deep neural networks and extensive training on large datasets. They also fall under machine learning, as they learn patterns from data to perform tasks. While they exhibit advanced AI capabilities in natural language understanding, they are not yet examples of general AI, which requires broader reasoning and learning abilities across diverse tasks.
+:::
+
 ## Introduction to LLMs
 
 Large Language Models (LLMs) largely represents a class of deep learning architectures called [transformer networks](https://blogs.nvidia.com/blog/2022/03/25/what-is-a-transformer-model/). A transformer model is a neural network that learns context and meaning by tracking relationships in sequential data, like the words in this sentence. 

@@ -48,11 +48,17 @@ The probabilities in N-gram models are generated based on the frequency of word 
 
 ### Understanding Word Probabilities
 
-N-gram models predict the next word based on the probability derived from word counts in a given corpus. Let's take "Mastering the Art of French Cooking" as an example. The first step in creating an n-gram model is to count the frequency of each word in the corpus. Common words like "the" often appear most frequently. A unigram model would predict "the" most often because it appears most frequently in the text. For a bigram model, we need to consider pairs of words. For example, in the sentence "Turn off the heat and stir in the butter and herbs," after "the," the most likely word is "butter." After "egg," 34% of the time, the next word is "whites"; 8.2% of the time, it's "yolk."
+N-gram models predict the next word based on the probability derived from word counts in a given corpus. Let's take "Mastering the Art of French Cooking" as an example. The first step in creating an n-gram model is to count the frequency of each word in the corpus. Common words like "the" often appear most frequently. A unigram model would predict "the" most often because it appears most frequently in the text. For a bigram model, we need to consider pairs of words.
+
+For instance, in the sentence "The cat is on the mat," the bigrams are "The cat," "cat is," "is on," "on the," and "the mat." This helps in understanding and generating text by considering the immediate word context but lacks the broader context that more advanced models like transformers use.
 
 ### Limitations of N-gram Models
 
-N-gram models are effective for predicting the next word based on immediate context but have significant limitations. They can't link words or concepts separated by many words, and they don't understand who is performing an action or when something will happen. For instance, a bigram model would struggle to connect “it” to prior information, identify who is making the cake, or identify when the cake will be made. Due to these limitations, n-gram models have been largely replaced by more complex models, such as neural networks, for many tasks. However, counting words and understanding their probabilities remain fundamental to all language models.
+N-gram models are effective for predicting the next word based on immediate context but have significant limitations. They can't link words or concepts separated by many words, and they don't understand who is performing an action or when something will happen. 
+
+For example, in the sentence "She baked a cake, and it was delicious,"  a bigram model would struggle to connect “it” to prior information, identify who is making the cake, or identify when the cake will be made. A bigram model would consider word pairs like "She baked," "baked a," "a cake," and "cake, and." However, this model would struggle to link "it" back to "cake" or understand who "she" refers to. 
+
+Due to these limitations, n-gram models have been largely replaced by more complex models, such as neural networks, for many tasks. However, counting words and understanding their probabilities remain fundamental to all language models.
 
 
 ## Creativity and Temperature in Large Language Models
@@ -63,7 +69,9 @@ Large language models, such as the Pythia 12B model, can produce novel and unexp
 
 ### How LLMs Generate Text and Adjusting Probability with Temperature
 
-LLMs generate text based on probabilities and mathematical calculations rather than magic. They predict the next word in a sequence by storing probabilities for all possible following words. Temperature is a setting that adjusts the randomness of an LLM's output. A high temperature (e.g., 2) produces more random and diverse outputs where all words have nearly equal likelihood, while a low temperature (e.g., 0) produces deterministic outputs where the most likely word is always chosen, eliminating randomness. For example, with a high temperature prompt "My new AI-powered app will...", the responses tend to be nonsensical or highly creative but lack coherence. With a low temperature prompt, the responses are highly predictable and identical each time, providing reliable but potentially boring outputs.
+LLMs generate text based on probabilities and mathematical calculations rather than magic. They predict the next word in a sequence by storing probabilities for all possible following words. Temperature is a setting that adjusts the randomness of an LLM's output. A high temperature (e.g., 2) produces more random and diverse outputs where all words have nearly equal likelihood, while a low temperature (e.g., 0) produces deterministic outputs where the most likely word is always chosen, eliminating randomness. 
+
+For example, with a high temperature setting, the prompt "My new AI-powered app will..." might produce varied and creative but incoherent responses like "sing clouds and laugh." With a low temperature setting, the prompt yields predictable and identical responses each time, such as "improve productivity."
 
 ### Optimizing Temperature for Different Tasks
 
@@ -78,20 +86,28 @@ Training a large language model involves exposing it to a large corpus of text m
 
 ### Reducing Loss Over Epochs and Overfitting
 
-As the model is exposed to more data and adjusts its predictions, the loss decreases, indicating that the model is learning and improving. For example, after 1,000 epochs, the output might be more coherent but still not perfect. After 120,000 epochs, the model's output becomes more fluent and relevant. However, training a model until the loss is zero can lead to overfitting, where the model replicates the training data exactly and cannot generate novel text or adapt to new data. Overfitting occurs when a model is too closely fitted to the training data. This state can be avoided by stopping training when the model performs well without overfitting, monitoring training closely, and balancing the number of epochs to avoid overfitting while ensuring the model learns adequately.
+As the model is exposed to more data and adjusts its predictions, the loss decreases, indicating that the model is learning and improving. For example, after 1,000 epochs, the output might be more coherent but still not perfect. After 120,000 epochs, the model's output becomes more fluent and relevant. 
+
+However, training a model until the loss is zero can lead to overfitting, where the model replicates the training data exactly and cannot generate novel text or adapt to new data. Overfitting occurs when a model is too closely fitted to the training data. This state can be avoided by stopping training when the model performs well without overfitting, monitoring training closely, and balancing the number of epochs to avoid overfitting while ensuring the model learns adequately.
 
 
 ## Preprocessing and Tokenization of Text
 
 ### Preprocessing
 
-Preprocessing is the first stage in preparing raw text for training a language model. It involves cleaning and standardizing the text to make it computer-readable. This step often includes removing inconsistencies like typos, abbreviations, inconsistent capitalization, and punctuation. For example, consider a bigram model trained on the Terms and Conditions (T&C) of Big Tech companies. An original sentence like "We’ve updated our Terms of Use, Data Policy, and Cookies Policy to reflect the new name." might be preprocessed to "weve updated our terms of use data policy and cookies policy to reflect the new name."
+Preprocessing is the initial step in preparing raw text for training a language model. It involves cleaning and standardizing the text to ensure consistency and readability by the model. This process typically includes removing typos, abbreviations, inconsistent capitalization, and excess punctuation. For instance, when training a bigram model on the Terms and Conditions (T&C) of Big Tech companies, an original sentence like "We’ve updated our Terms of Use, Data Policy, and Cookies Policy to reflect the new name." might be preprocessed to "we have updated our terms of use data policy and cookies policy to reflect the new name."
+
+**Key Improvements**:
+
+1. **Standardized Abbreviations:** "We’ve" is expanded to "we have" for clarity.
+2. **Typo and Abbreviation Handling:** Demonstrates typical preprocessing steps more clearly.
+3. **Consistent Language:** Uses "we have" instead of "we've" to better show preprocessing standardization.
 
 ### Capitalization and Punctuation
 
 Capitalization affects the vocabulary size of the model. By making all letters lowercase, we reduce the vocabulary size, which means the model will see more examples of each word, making predictions more reliable. While removing capitalization can simplify the dataset, it's sometimes necessary to retain it, especially in contexts where capitalization holds significance, such as identifying spam emails. Punctuation provides valuable information about sentence structure and meaning. Different strategies can be applied to handle punctuation during preprocessing. Using special characters like
 
- `<s>` and `</s>` to mark the start and end of sentences can help retain the information without ambiguity. For example, "Ms. Zhang is here." might be preprocessed with special characters as <s> ms zhang is here </s>."
+ `<s>` and `</s>` to mark the start and end of sentences can help retain the information without ambiguity. For example, "Ms. Zhang is here." might be preprocessed with special characters as "`<s> ms zhang is here </s>`"
 
 ### Tokenization
 
