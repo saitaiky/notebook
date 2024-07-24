@@ -26,7 +26,7 @@ Deep learning also integrates with reinforcement learning to train agents for de
 
 Mastering these deep learning techniques equips you with the skills to develop sophisticated AI systems capable of solving complex real-world problems, making them invaluable in advancing technology across various fields.
 
-##
+## Table of content
 
 - Neural Network
     - Gradient Descents
