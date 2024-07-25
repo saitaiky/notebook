@@ -22,7 +22,7 @@ Rate limiting is a strategy used to control the amount of incoming requests that
 
 This helps prevent system overload and ensures that the service remains available for all users.
 
-:::infoUse Cases
+:::info Use Cases
 - Prevent an autoscaling component from running over budget.
 - **DDoS Mitigation**: Protecting against distributed denial-of-service attacks by capping the number of requests from any particular source.
 - **SaaS provider cost management**: Ensuring fair usage and preventing resource starvation by allotting specific usage quotas on a per-customer basis.
@@ -37,7 +37,7 @@ In queue-based load leveling, the solution is to decouple the task(s) and servic
 
 Queue-based load leveling is like a supermarket check-out system; customers (requests) line up in a queue and are served one by one. As the checkout process (system), you wouldn't try to serve 1000 customers who've all arrived at the same time. Instead, cars are funneled through a queue in a FIFO (first-in-first-out) fashion.
 
-:::infoUse Cases - Consider this strategy anytime a service is:
+:::info Use Cases - Consider this strategy anytime a service is:
 - susceptible to overloading
 - higher latency is acceptable during spikes, and
 - it's important that requests are processed in order.
@@ -48,13 +48,13 @@ Queue-based load leveling is like a supermarket check-out system; customers (req
 
 Gateway aggregation is a pattern where a gateway is used to combine multiple requests into a single request. Imagine a personal shopper in a mall who takes requests from several customers and then goes to retrieve all items in one trip, instead of each customer fetching each item individually. This reduces the number of calls that the backend systems have to handle.
 
-:::infoUse Cases
+:::info Use Cases
 - **Microservices Architecture**: Reducing the chattiness between client-side applications and services by aggregating several service calls into one gateway call.
 - **Performance Optimization**: Decreasing latency and improving user experience by minimizing the number of server-to-server calls.
 - **Bandwidth Reduction**: Aggregating requests to use less bandwidth, especially important for mobile users or environments with limited connectivity.
 :::
 
-:::cautionTechniques & considerations
+:::warning Techniques & considerations
 Gateways are simple, but if yours isn't designed well you'll have built a potential point of failure. Make sure your gateway can handle the anticipated load and scale as you grow. Implement reliable design techniques like circuit breakers or retries and be sure to load test the gateway. If it performs multiple functions, you might want to add an aggregation service in front of the gateway, freeing it up to perform its other functions and route requests correctly and quickly.
 :::
 

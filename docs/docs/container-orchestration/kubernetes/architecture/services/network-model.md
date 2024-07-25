@@ -49,7 +49,7 @@ sidebar_position: 2
         (in which case you're already familiar with kernel tuning)
 - If necessary, there are alternatives to `kube-proxy`; e.g. [`kube-router`](https://www.kube-router.io/)
 
-:::cautionDon't customise it that much
+:::warning Don't customise it that much
 One of the challenges with Kubernetes is everything seems to be so customizable that if you kept customizing everything, eventually, you would end up with a solution that only you could support.  
 
 So, I always encourage you to stick with the defaults as much as possible to rein in your requirements and limit the scope of those so that your solution is looking more and more like all the other solutions out there, so that you don't have a crazy, wild configuration that no one else knows how it works.

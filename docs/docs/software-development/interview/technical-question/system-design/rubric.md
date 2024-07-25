@@ -16,7 +16,7 @@ System design interviews evaluate your ability to construct systems that are per
 
 ## Problem Understanding and Requirement Collection
 
-:::infoTL;DR
+:::info TL;DR
 - Demonstrates the ability to ask relevant and clarifying questions.
 - Understands the problem, system requirements, and constraints.
 - Scopes the problem effectively within the interview's time constraints.
@@ -27,7 +27,7 @@ For an interview question about an unreliable network, you might ask: “Do we p
 
 ## Technical Design and Tradeoffs
 
-:::infoTL;DR
+:::info TL;DR
 - Capably explains design decisions and the tradeoffs between different design choices.
 - Analyzes design components and their interactions within the system.
 - Demonstrates technical depth and real-world application of design principles.
@@ -41,7 +41,7 @@ For an interview question about an unreliable network, you might ask: “Do we p
 
 ## Scalability and Performance
 
-:::infoTL;DR
+:::info TL;DR
 - Distinguishes potential bottlenecks and selects appropriate scaling techniques.
 - Uses realistic data and calculations to project solutions for scalability and performance challenges.
 :::
@@ -53,7 +53,7 @@ For an interview question about an unreliable network, you might ask: “Do we p
 
 ## Fault Tolerance and Reliability
 
-:::infoTL;DR
+:::info TL;DR
 Incorporates strategies in the design to support fault tolerance and system reliability while considering potential failures.
 :::
 
@@ -66,7 +66,7 @@ Incorporates strategies in the design to support fault tolerance and system reli
 
 ## Communication and Collaboration
 
-:::infoTL;DR
+:::info TL;DR
 - Communicates ideas clearly and listens actively to the interviewer's feedback throughout the interview.
 - Seeks collaboration and maintains a two-way dialogue with the interviewer.
 :::

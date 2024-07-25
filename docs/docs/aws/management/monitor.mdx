@@ -105,7 +105,7 @@ If you have created an organization in AWS Organizations, you can also create a 
 
 > TL;DR - Log file integrity validation is for auditing integrity of the CloudTrail log files by using digest file
 
-:::infoTips
+:::info Tips
 You can use Amazon S3 MFA Delete on the S3 bucket that holds CloudTrail logs and digest files to secure the CloudTrail logs
 :::
 
@@ -150,7 +150,7 @@ Assessment:
 
 During the assessment run, the network, file system, and process activity within the specified target are monitored, and a wide set of activity and configuration data is collected. The collected data is correlated, analyzed, and compared to a set of security rules specified in the assessment template. A completed assessment run produces a list of findings - potential security problems of various severity.
 
-:::infoAmazon Inspector vs AWS Trusted Advisor
+:::info Amazon Inspector vs AWS Trusted Advisor
 **Trusted Advisor** provides advice about your AWS Account in the areas of Cost Optimization, Fault Tolerance, Performance, Service Limits, Security.
 
 **Amazon Inspector** checks the configuration of EC2 instances. An agent runs on EC2 instances and checks operating system patches, known vulnerabilities, and common issues.
@@ -175,7 +175,7 @@ Another example is you can view **the IAM policy that was assigned to an IAM use
 **Config rule with SSM Automation document**
 In order to detect any activity that exposes the application externally and restricts the action right away. You can create a custom **AWS Config rule** that continuously evaluates whether a security group allows inbound requests outside of the corporate CIDR range. Then, configure an **AWS Systems Manager Automation document** to automatically remove any noncorporate CIDR range from the security groups of the application.
 
-:::infoAmazon Inspector vs AWS Config
+:::info Amazon Inspector vs AWS Config
 Amazon Inspector is a **security assessment service** that helps you to identify potential security issues and compliance of applications deployed on AWS but it may not be the most efficient way to **address the specific security concern**.
 
 For example, if you want to check a specific security concern whether a public SSH is always disabled for the private servers. It is more efficient to use AWS Config instead of Amazon Inspector
@@ -203,7 +203,7 @@ When you add a rule to your account, you can specify when you want AWS Config to
 - **Configuration changes**: AWS Config runs evaluations for the rule when certain types of resources are created, changed, or deleted.
 - **Periodic**: AWS Config runs evaluations for the rule at a frequency that you choose (for example, every 24 hours).
 
-:::infoYou can use both types in one rule
+:::info You can use both types in one rule
 If you choose **both configuration changes and periodic to the same rule**, AWS Config invokes your Lambda function when it detects a configuration change and also at the frequency that you specify. 
 :::
 
@@ -234,7 +234,7 @@ AWS Config uses
 - **AWS Lambda** functions perform compliance evaluations, and 
 -  **System Manager automation documents** perform auto-remediation to automatically correct non-compliant resources.
 
-:::infoSome rules for S3
+:::info Some rules for S3
 AWS Config includes **auto-remediation** for specific non-compliant S3 activities through rules like `s3-bucket-logging-enabled` and `s3-bucket-server-side-encryption-enabled`.
 :::
 

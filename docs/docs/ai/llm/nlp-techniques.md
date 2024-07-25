@@ -32,7 +32,7 @@ Source: [What’s the Difference Between Fine-tuning, Retraining, and RAG?](http
 
 **Fine-tuning**, *a specific type of retraining*, adapts a pre-trained model to a particular task using a smaller, task-specific dataset. This approach leverages the general knowledge captured by the pre-trained model and refines it for specialized applications. Fine-tuning is efficient and requires fewer resources compared to training a model from scratch, making it suitable for tasks like sentiment analysis in social media monitoring or named entity recognition (NER) for extracting specific information from medical records. Another example of fine-tuning is customizing a language model for customer support to handle domain-specific queries more effectively.
 
-:::infoFine-tuning is just one type of retraining.
+:::info Fine-tuning is just one type of retraining.
 Fine-tuning is a type of retraining an AI model. Different retraining approaches have their own advantages on their areas. For example, fine-tuning offers several benefits compared to other retraining methods:
 - Efficiency: Fine-tuning requires less computational power and data, making it faster and more cost-effective than full retraining or incremental learning.
 - Task-Specific Adaptation: It adapts a pre-trained model to perform exceptionally well on a specific task using a smaller, task-specific dataset, unlike general retraining or domain adaptation.
@@ -82,7 +82,7 @@ Here are the key differences between the two:
 
 ## When to Retrain a LLM vs RAG
 
-:::infoTL;DR
+:::info TL;DR
 **Retrain a LLM** when you need to significantly improve the model's performance, adapt it to specific tasks or domains, handle substantial changes in data, or localize it for different languages or regions. This approach is resource-intensive but provides deep customization and accuracy improvements.
 
 **Use RAG** when you need to dynamically access up-to-date information, enhance the model's responses with a broad knowledge base, reduce costs, quickly adapt to new data, mitigate overfitting, or handle specialized and complex queries. RAG is less resource-intensive and allows for flexible integration of external knowledge, making it ideal for applications requiring dynamic and contextually rich responses.

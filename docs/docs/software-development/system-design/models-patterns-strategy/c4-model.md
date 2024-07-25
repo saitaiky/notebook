@@ -40,7 +40,7 @@ ExternalSystem <.. MySystem : Integrates with
 
 ### Level 2: Container Diagrams
 
-:::infoNot docker!
+:::info Not docker!
 Not Docker! In the C4 model, a container represents an application or a data store. A container is something that needs to be running in order for the overall software system to work.
 :::
 

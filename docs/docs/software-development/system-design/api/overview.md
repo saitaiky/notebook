@@ -48,7 +48,7 @@ Standardized data formats prompted APIs to become pivotal in application archite
 - **Usage:** Well-known and widely used for simplicity and immediate productivity.
 - **Structure:** Stateless request-response with JSON or XML response formats.
 
-:::cautionDownside
+:::warning Downside
 Although REST APIs are among the most popular choices, a downside is that a client might have to deal with redundant data when making REST API calls.
 
 For example, to fetch the name and members of a musical band, requesting the dedicated resources for that band would retrieve the name and its members (possibly from multiple endpoints) and also other information (such as its albums, founding year, and so on), depending on how the resources are organized by the server.
@@ -75,7 +75,7 @@ For example, to fetch the name and members of a musical band, requesting the ded
 - **Usage:** Enables explicit definition of returned data structure in queries. Supports asynchronous messaging via Subscriptions.
 - **Structure:** Defined by a schema language, allowing clients to specify the structure of returned data.
 
-:::cautionDownside
+:::warning Downside
 Performance can suffer when the client has too many nested fields in one request. Additionally, there is a steep learning curve that requires extensive knowledge.
 
 Therefore, GraphQL users need to find a balance between its benefits and implementation costs.

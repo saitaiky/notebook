@@ -86,7 +86,7 @@ TLDs return a list of name servers to a DNS resolver, e.g.
 - ns3.dnsimple.com 
 - ns4.dnsimple.com
 
-:::caution Glue records
+:::warning Glue records
 
 Since 'ns1.dnsimple.com' is a subdomain of 'dnsimple.com', how could we resolve 'ns1.dnsimple.com' without resolving 'dnsimple.com' first?
 
@@ -129,7 +129,7 @@ If you want to know who are the authoritative name servers for your domain, run 
 - [Who.is](https://who.is/whois/google.com)
 :::
 
-:::infoAuthoritative Nameserver vs. Recursive Nameserver
+:::info Authoritative Nameserver vs. Recursive Nameserver
 Here are the key differences:
 
 **Authoritative Nameserver**:
@@ -198,7 +198,7 @@ There are several types of DNS records that serve different purposes and provide
 
 2. CNAME (Canonical Name) Record is used to create **an alias or nickname for a domain or subdomain**. It points a domain or subdomain to another domain name, allowing multiple names to resolve to the same IP address. 
 
-:::infoNo Top node for a CNAME record
+:::info No Top node for a CNAME record
 You should keep in mind that the DNS protocol does not allow you to create a CNAME record for the top node of a DNS namespace, also known as the zone apex.  e.g. create `CNAME` record like: `example.com` but you can create `CNAME` record like:  `www.example.com`, `newproduct.example.com`
 :::
 

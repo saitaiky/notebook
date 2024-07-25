@@ -133,7 +133,7 @@ The reason we use declarative is that it's what you do to make it automated. You
 
 The most important rule is don't mix the approaches (**Imperative Commands**, **Imperative Objects** and **Declarative Objects**). If you create something with run, it's going to be harder later to use the apply to manage that resource. There are little tricks of the trade you can get around with some of these commands to try to edit objects later without screwing them up. But really, if you're going to be doing production, you probably shouldn't start with those run commands on your production server. You should probably think long term and stick with the YAML.
 
-:::caution Don't mix `apply` and `create`
+:::warning Don't mix `apply` and `create`
 When you go into production, or anywhere on a cluster server, you want to stick with the same process. 
 - If you're using apply, you should start with apply and stick with the YAML that you're using. 
 - If you're using create commands, then later on you're going to use edit commands to change things.

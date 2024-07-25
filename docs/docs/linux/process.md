@@ -30,11 +30,11 @@ Parent process keep doing its own thing instead calling `wait()` , so it would
 ![zombie-scenario](/img/linux/zombie-scenario.png)
 Source: [Operating System — How does zombie process happen and how to prevent it](https://medium.com/@lsc830621/operating-system-how-does-zombie-process-happen-and-how-to-prevent-it-c05a3a48a4bc)
 
-:::infoWhy does this happened?
+:::info Why does this happened?
 These functions usually happen very quickly, so there is no time for zombie processes to accumulate on your system. However, for a zombie process to be removed entirely from the system, the parent process must be appropriately programmed to call on `wait()`. If you’re unsure how to identify zombie processes in your system, conduct a routine zombie test using predetermined patterns and methods.
 :::
 
-:::infoWhy are zombie process bad?
+:::info Why are zombie process bad?
 Although zombies do not use up your system's precious resources like a rogue app does, it can pose a significant threat by retaining all PIDs (Process IDs). Since a Linux system has a [finite amount of PIDs](https://www.techrepublic.com/article/how-to-find-and-kill-zombie-processes-on-your-linux-data-center-servers/), when numerous PIDs are zombied, no other process can easily be launched. 
 :::
 
@@ -60,7 +60,7 @@ However, oftentimes the parent process is ‘inactive’. It may be possible tha
 
 In such a case, it makes sense for you to remove the parent process so that **an init process** will be the latest parent to the zombie processes. (In Unix , when the parent process terminate , the init process (created by Unix Kernel) would take care all of its child process. )
 
-:::infoWhat is an init process?
+:::info What is an init process?
 An init process -- short for initialization -- is the first process that is issued when a system reboots. An init process will then [periodically execute the regular protocol](https://www.geeksforgeeks.org/init-command-in-linux-with-examples/): giving the wait() system call to clean up its zombie children.
 :::
 

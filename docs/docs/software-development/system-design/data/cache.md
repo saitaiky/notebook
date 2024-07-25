@@ -40,7 +40,7 @@ To maintain coherent caches, systems may use:
 | Write-behind                | Speed (both reads and writes.)                                                          | Risky. You're more susceptible to issues with consistency and you may lose data during a crash. |
 | Cache-aside / Lazy Loading | Simplicity and reliability. Also, only requested data is cached.                        | Cache misses cause delays. May result in stale data.                                            |
 
-:::infoFurther Considerations
+:::info Further Considerations
 Exploring detailed case studies, like Facebook's [lessons](https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf) with Memcache or Stack Overflow's [caching strategies](https://nickcraver.com/blog/2019/08/06/stack-overflow-how-we-do-app-caching/), provides valuable real-world insights.
 :::
 

@@ -33,7 +33,7 @@ Here are a few common questions where the story bank comes in handy. Use these a
 - "Tell me about the project you're most proud of."
 - "What's the most complex project you've worked on?"
 
-:::infoDo's and Don'ts
+:::info Do's and Don'ts
 - **Do:** Choose recent stories.
 - **Don't:** Select stories lacking details.
 - **Do:** Map stories to company values.
@@ -58,7 +58,7 @@ Document each story thoroughly, including both technical and interpersonal aspec
 - **Where:** The setting or context.
 - **Why:** Purpose and goals of the project.
 
-:::infoDo's and Don'ts
+:::info Do's and Don'ts
 - **Do:** Consider all stakeholders, including internal team members and customers.
 - **Don't:** Overlook any interpersonal dynamics or conflicts.
 - **Do:** Connect your actions to company values.

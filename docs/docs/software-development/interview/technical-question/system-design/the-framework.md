@@ -32,7 +32,7 @@ A system design interview answer typically consists of 5 steps:
 5. Review and summarize. (4 minutes)
     - Summarize requirements, justify decisions, suggest alternatives, discuss additional tradeoffs, and answer any questions. 
 
-:::infoNote
+:::info Note
 While it's important to integrate all the steps into a structured interview framework, you can adjust the time allotted for each step based on your interview style and the problem you're trying to solve.
 :::
 
@@ -124,7 +124,7 @@ Interviewers generally want to see you make two key calculations:
 
 To make these estimations, you'll need to make some assumptions about user volume and typical user behavior. Since these estimates won't be exact, check with your interviewer to see if these assumptions match their expectations.
 
-:::cautionNote
+:::warning Note
 It's possible your interview will have a system design problem that doesn't exactly fit this mold of servers. For example, your interviewer may ask you to "design a web crawler." In this scenario, pick a different way to measure throughput and storage, such as the number of web pages and frequency of jobs.
 :::
 
@@ -166,7 +166,7 @@ Each requirement should translate to one or more APIs. You can choose what type 
 
 When choosing your APIs, consider the request's parameters and the response type. Clarify which APIs you've chosen with your interviewer, and explain why.
 
-:::cautionNote
+:::warning Note
 If you notice that the APIs don't fit the solution well as the interview progresses, it's okay to iterate on them.
 :::
 
@@ -240,7 +240,7 @@ After designing the APIs and data model, the next step is to create a high-level
 
 At this step, your interviewer wants to see that you have a broad understanding of how the overall system will function. Instead of diving into the details of each service, *communicate whether the design satisfies all the functional requirements*. Demonstrate to the interviewer **how the data and control flow look in each functional requirement**.
 
-:::cautionCaution
+:::warning Caution
 However, if the interviewer explicitly asks us to design one of the functionalities, omit the rest in the diagram and only focus on the service of interest.
 :::
 
@@ -268,7 +268,7 @@ The interviewer will likely want to ask questions about the system and how it wo
 - What other data storage options can we use to optimize performance?
 - What benefit does splitting the write/read servers have on performance?
 
-:::cautionRemember to checkin regularly
+:::warning Remember to checkin regularly
 That being said, don't rely on them to drive the conversation. Check in regularly with your interviewer by asking questions such as:
 :::
 
@@ -377,7 +377,7 @@ If given more time, I would check and see if our system would benefit from any o
 - **Take hints from the interviewer about which topics to focus on**. 
     - Usually there's not enough time to optimize everything, so prioritize the areas that the interviewer expresses the most curiosity and interest in.
 
-:::infoTip
+:::info Tip
 "**The biggest misconception with system design interviews** is that you should focus on creating the 'optimal solution'. These interviews are meant to **assess a candidate's ability to analyze trade offs, make informed decisions, and communicate a solution effectively** to the interviewer. 
 
 Oftentimes the question up front is intentionally broad and asking the right clarifying questions is needed to get critical information. **Questions are a strength** that show your ability to break down a complex problem into smaller components, asking 'I need X information so that I can decide whether Y or Z is best for our product use case."

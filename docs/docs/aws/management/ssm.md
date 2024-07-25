@@ -48,13 +48,13 @@ You can also run commands via SSM document and choose which EC2 targets you want
 
 Resource: [EC2 Systems Manager – Configure & Manage EC2 and On-Premises Systems](https://aws.amazon.com/blogs/mt/writing-your-own-aws-systems-manager-documents/)
 
-:::infoRescue EC2 via Document
+:::info Rescue EC2 via Document
 You can use `AWSSupport-ExecuteEC2Rescue` document..
 - to recover impaired instances. An instance can become unreachable for a variety of reasons, including network misconfigurations, RDP issues, or firewall settings. 
 - to troubleshoot and regaining access to the instance previously required dozens of manual steps before you could regain access. The `AWSSupport-ExecuteEC2Rescue` document lets you regain access by specifying an instance ID and clicking a button.
 :::
 
-:::infoRescue EC2 via EC2Rescue tool
+:::info Rescue EC2 via EC2Rescue tool
 EC2Rescue for EC2 Windows is a convenient, straightforward, GUI-based troubleshooting tool that can be run on your Amazon EC2 Windows Server instances to 
 - troubleshoot operating system-level issues 
 - **collect operating system logs** 
@@ -79,7 +79,7 @@ The service integrates with AWS Identity and Access Management (IAM), AWS CloudT
 - Access through AWS Console, AWS CLI, or Session Manager SDK
 - Does not need SSH access, bastion hosts, or SSH keys
 
-:::infoWhy use Session manager instead of SSH?
+:::info Why use Session manager instead of SSH?
 > TL;DR - Way more control and a lot more compliance around it
 Using SSH, you need to create inbound rules in security group for the users with specific IP addresses as a session to our instance, but using session manager, we don't need any inbound rules. 
 

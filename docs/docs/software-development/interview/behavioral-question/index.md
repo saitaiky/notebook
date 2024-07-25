@@ -5,7 +5,7 @@ draft: true
 
 In this section, we'll focus on tackling behavioral interview questions, such as “Tell me about yourself” and “Why do you want to work here?”. These questions can be intimidating due to their open-ended nature. The core advice is to focus on **authenticity** and practice to improve your confidence and effectiveness in interviews.
 
-:::infoJust be authentic
+:::info Just be authentic
 - Be genuine and true to yourself during the interview.
 - Passion for the company or interest in learning more will naturally reflect in your responses.
 :::
@@ -56,7 +56,7 @@ We observe a fair mix of experiential and hypothetical questions that assess how
 
 ### Preparation Tips
 
-:::infoKeep infusing "why you want to work here" in each question!
+:::info Keep infusing "why you want to work here" in each question!
 Infuse "why you want to work here" into your answers into each answer, even if no one asked. Keeping this in mind will help you position yourself as a cultural fit while focusing your answers. For example, when you're asked "tell me about yourself" don't forget to include why you're excited to step into this specific role at your chosen company.
 :::
 

@@ -14,7 +14,7 @@ Finally, modern messaging apps like iMessage, Whatsapp, and Signal often use **
 
 Source: [Encryption](https://computer-trickster.blogspot.com/2015/11/encryption.html)
 
-:::infoWhat is a cipher?
+:::info What is a cipher?
 In cryptography, a cipher (or cypher) is an algorithm for performing encryption or decryption—a series of well-defined steps that can be followed as a procedure. An alternative, less common term is encipherment. To encipher or encode is to convert information into cipher or code.
 :::
 

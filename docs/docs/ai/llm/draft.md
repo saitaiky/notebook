@@ -63,7 +63,7 @@ Feel free to ask any follow-up questions or request further clarification on spe
 
 ------
 
-:::infoThe bigger the model is, The better?
+:::info The bigger the model is, The better?
 Large language models (LLMs) with more parameters are better suited to handle a wide variety of tasks and can provide accurate completions through zero-shot inference due to their increased representational power and better generalization capabilities. These models can capture and learn complex patterns and relationships within vast and diverse datasets, allowing them to understand and generate text across different domains effectively. Their ability to represent rich and diverse features of language enables them to perform tasks they weren't explicitly trained for, showcasing emergent properties such as zero-shot learning. 
 
 However, when it comes to specific areas, smaller LLMs with fewer parameters can sometimes outperform larger models because they can be fine-tuned to overfit particular tasks, making them highly specialized and efficient for those tasks. Smaller models focus on a narrower set of features and patterns relevant to a specific task, resulting in better performance within that area. Additionally, smaller models require less computational power and memory, leading to faster training and inference times, making them more practical and resource-efficient for specialized applications. Thus, while larger models excel in generalization and versatility, smaller models can offer superior performance in specialized tasks due to their focused training and resource efficiency.
@@ -320,8 +320,8 @@ This summary covers the essential aspects of the transformer architecture and it
 
 7. **Temperature**:
    - Adjusts the randomness of the output by scaling the probability distribution.
-   - **Low Temperature (<1)**: Concentrates probabilities on fewer words, leading to predictable text.
-   - **High Temperature (>1)**: Spreads probabilities more evenly, increasing randomness and creativity.
+   - **Low Temperature (\<1)**: Concentrates probabilities on fewer words, leading to predictable text.
+   - **High Temperature (\>1)**: Spreads probabilities more evenly, increasing randomness and creativity.
    - **Default Temperature (=1)**: Uses the unaltered probability distribution.
 
 ### Practical Implications
@@ -639,7 +639,7 @@ Here we see a case where the few-shot didn't do much better than the one shot. T
 - **Scaling Laws**: Guide optimal model size and training dataset size based on compute budget, though real-world constraints may require adjustments.
 - **Practical Constraints**: Data availability and compute resources often dictate the feasibility of achieving theoretical optimal performance.
 
-:::infoChinchilla Law in LLM
+:::info Chinchilla Law in LLM
 The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal Large Language Models," which identifies the optimal balance between model size, training dataset size, and compute budget for large language models (LLMs). The research suggests that many large models, such as GPT-3, are over-parameterized and under-trained, indicating that they could perform better if trained with larger datasets relative to their size. Specifically, the optimal training dataset should be about 20 times the number of model parameters. This balance ensures that the model fully leverages the data, avoiding inefficiencies associated with having too many parameters but insufficient data.
 
 **Why the Pretraining Scaling Laws Are Correct**
@@ -651,23 +651,8 @@ The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal 
    - "PetaFlops per second-day" is a metric that effectively captures the compute budget required for training models, reflecting both hardware capability and training duration. This measure helps in understanding the resources needed to train models optimally, aligning with the Chinchilla Law's emphasis on balancing compute budget with model and dataset size for efficient training.
 :::
 
-:::infoPetaFlops per second-day
+:::info PetaFlops per second-day
 PetaFlops per second-day is a metric used to quantify the computational power required to train large language models (LLMs). It combines the concepts of computational speed and duration, representing the total work done by a system. One petaFLOP stands for one quadrillion (10^15) floating-point operations per second. Thus, a petaFLOP per second-day measures how many floating-point calculations a system can perform in one second, extended over a full 24-hour period. This metric is crucial for benchmarking, planning, and budgeting the resources needed for training LLMs. For instance, training a model like GPT-3 required approximately 3,700 petaFLOP per second-days, highlighting the immense computational effort involved. By providing a standard measure, this metric helps compare the efficiency and requirements of different training setups and hardware configurations.
-
-- If a system runs at 1 petaFLOP (one quadrillion operations per second) for one day (24 hours), the total computational work is:
-  \[
-  1 \text{ petaFLOP} \times 1 \text{ day} = 1 \text{ petaFLOP per second-day}
-  \]
-
-- For a system running at a different rate, say 2 petaFLOPs, for one day:
-  \[
-  2 \text{ petaFLOPs} \times 1 \text{ day} = 2 \text{ petaFLOP per second-days}
-  \]
-
-- Similarly, if a system runs at 1 petaFLOP for half a day:
-  \[
-  1 \text{ petaFLOP} \times 0.5 \text{ days} = 0.5 \text{ petaFLOP per second-days}
-  \]
 :::
 
 

@@ -36,7 +36,7 @@ Source: [Get started with Amazon Elasticsearch Service: Use Amazon Cognito for K
   - Azure AD will act as an identity provider (IdP), and AWS Cognito will act as a service provider (SP).
   - This is for authentication to use credentails from idP to login
 
-:::infoAlternatively you can create a self-hosted ADFS as an IDP
+:::info Alternatively you can create a self-hosted ADFS as an IDP
 An example of SAML identity provider (IDP) is a self-hosted** Active Directory Federation Services (ADFS)** server. ADFS is a service provided by Microsoft to provide login using existing Active Directory credentials.
 :::
 
@@ -50,7 +50,7 @@ Before granting the user access to AWS services, AWS Cognito verifies the user's
 
 Reference: [Single Sign-On (SSO) using AWS Cognito and Azure AD](https://blog.getambassador.io/single-sign-on-sso-using-aws-cognito-and-azure-ad-356951536218)
 
-:::infoAnother example
+:::info Another example
 ![saml-based-federation](/img/aws/management/cognito/saml-based-federation.png)
 Example: A solution that incorporates an IAM Identity Center single sign-on access from your corporate AD or LDAP directory and also restricts access of each individual user to a designated user folder in an S3 bucket.
 
@@ -78,7 +78,7 @@ Example: A solution that incorporates an IAM Identity Center single sign-on acce
 
 ## Custom Login URL
 
-:::cautionOne account, one alias
+:::warning One account, one alias
 Your AWS account can have only one alias. If you create a new alias for your AWS account, the new alias overwrites the previous alias. The URL containing the previous alias stops working. 
 Also, the account alias must be unique across all AWS products and must contain only lowercase letters, digits, and hyphens.
 :::
@@ -105,11 +105,11 @@ You can generate and download a credential report that lists all users in your a
 
 ### AWS SSO
 
-:::infoReplacement
+:::info Replacement
 Please check [AWS IAM Identity Center](https://aws.amazon.com/iam/identity-center/) as the successor to AWS SSO
 :::
 
-:::infoA permission set
+:::info A permission set
 A permission set is a collection of administrator-defined policies that AWS SSO uses to determine a user’s effective permissions to access a given AWS account. Permission sets can contain either AWS-managed policies or custom policies that are stored in AWS SSO. 
 
 ![sso](/img/aws/management/cognito/sso.png)

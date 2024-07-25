@@ -2,7 +2,7 @@
 title: Home
 ---
 
-:::cautionAs of July 2024
+:::warning As of July 2024
 It might take me a bit to get everything written down, but I'll carve out some time for this section (there's just so much new tech these days!). In the meantime, I've set up a [showcase section](/ai/showcase/) where you can check out all the source code and demos of the techniques I'll be covering. Stay tuned and happy learning!
 :::
 

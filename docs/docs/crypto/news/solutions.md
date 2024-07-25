@@ -31,7 +31,7 @@ Traditional on-chain scaling may compromise decentralization. Sidechains and lay
 
 > TL;DR - Layer 2 blockchains are **Off-chain** solutions which means taking off workload from Layer 1(the main chain). 
 
-:::infoSome Layer 2 scaling solutions include channels, plasma, and rollups.
+:::info Some Layer 2 scaling solutions include channels, plasma, and rollups.
 You may heard of some of these layer 2 scaling solutions, for example, `channels`, `plasma`, and `rollups`. For the detailed explaination, please refer to [Chainlink: What Is Layer 2?](https://chain.link/education-hub/what-is-layer-2#:~:text=A%20layer%202%20refers%20to,such%20as%20higher%20transaction%20throughputs.) 
 :::
 
@@ -50,13 +50,13 @@ In other words, a great portion of the work that would be performed by the main 
 
 ### SideChain
 
-:::infoHow sidechain works behind the sense
+:::info How sidechain works behind the sense
 Sidechains on Ethereum deploy smart contracts responsible for depositing and withdrawing functions. The Ethereum or other tokens users deposit on the Layer 1 contract get locked. Upon receiving the confirmation message on the sidechain, validators of the side chain have the authority to mint corresponding cryptocurrencies on the sidechain. Users can engage in numerous transactions with other users on the sidechain's system. 
 
 When users finish their transactions and wish to withdraw their balances on Layer 1, the sidechain validators report the latest balance status back to Ethereum, enabling users to withdraw based on their balances. Additionally, the sidechain validators synchronize the destruction of the corresponding cryptocurrencies on the sidechain.
 :::
 
-:::cautionIs sidechain a layer 2 solution?
+:::warning Is sidechain a layer 2 solution?
 One core requirement for a network, system, or technology to be considered a layer 2 is that it **inherits the security of the blockchain it is built on top of**. Transaction data must, in some shape or form, be verified and confirmed by the underlying blockchain network rather than a separate set of nodes. For example, sidechains are often not considered layer 2s because they usually deploy their own consensus mechanisms and validators, leading to a different set of security guarantees than that of the base layer chain.
 :::
 
@@ -74,7 +74,7 @@ Users can transfer assets or tokens between the main Ethereum chain and the side
 
 > TL;DR - The main difference between sidechains and Ethereum layer 2 solutions is that while layer 2 inherits the security of the main network,  sidechains rely on their own security model. 
 
-:::cautionCan a blockchain be both Layer 2 and sidechain?
+:::warning Can a blockchain be both Layer 2 and sidechain?
 Yes! A blockchain can simultaneously function as both a sidechain and a layer-2. A sidechain operates independently with its own consensus mechanism, while a layer-2 enhances Ethereum by increasing scalability and reducing gas fees. One of the example is **Polygon**, which serves as an example of a blockchain that combines these roles.
 
 Reference:

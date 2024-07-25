@@ -75,7 +75,7 @@ Queues make asynchronous processes more reliable and less brittle as events are 
 - **Message queues**, which receive, log, and deliver messages, can be used to update users that jobs are being processed in the background, thus unblocking them and making for a better user experience. Redis and RabbitMQ are both popular choices.
 - **Task queues** execute in addition to passing information. They schedule jobs, complete tasks, and report results. Celery is a popular choice.
 
-:::infoMessage queues vs Task queues
+:::info Message queues vs Task queues
 As you can see, message queue and task queue focus on different aspects, they can overlap, but not necessarily.
 
 An example for task queue but not message queue - if your tasks don't care about ordering - each task does not depend on one another - then you don't need a "queue", FIFO data structure. You can, but you don't have to. You just need a place to store the buffered tasks like a pool, a simple SQL/NoSQL database or even S3 might suffice.
@@ -85,7 +85,7 @@ An opposite example is push notification. You use message queue but not necessar
 Reference: [Message Queue vs Task Queue difference](https://stackoverflow.com/questions/10075817/message-queue-vs-task-queue-difference)
 :::
 
-:::infoAWS SQS can be a task queue too
+:::info AWS SQS can be a task queue too
 When implementing a task queue, you can use [Amazon SQS](https://aws.amazon.com/sqs/) [standard](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html) or [FIFO](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html) (First-In-First-Out) queue types. Both queue types give priority to tasks created earlier over tasks that are created later. However, there are use cases where you need a [LIFO](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) (Last-In-First-Out) queue.
 
 Reference: [Implementing a LIFO task queue using AWS Lambda and Amazon DynamoDB](https://aws.amazon.com/blogs/compute/implementing-a-lifo-task-queue-using-aws-lambda-and-amazon-dynamodb/)

@@ -45,14 +45,14 @@ The TD Countdown is a follow-up to the TD Setup, aiming to identify the exact po
     5. **Enter Trade**: Upon completion of the Sell Countdown and confirmation, enter a short position.
     6. **Set Stop-Loss**: Place a stop-loss above the recent high.
 
-:::infoPerfected Setups
+:::info Perfected Setups
 - A "perfected" TD Setup occurs when:
   - For a Buy Setup, the low of bars 12 or 13 is less than or equal to the low of bars 10 and 11.
   - For a Sell Setup, the high of bars 12 or 13 is greater than or equal to the high of bars 10 and 11.
   - Perfected setups can provide stronger signals for trend exhaustion and potential reversal.
 :::
 
-:::infoPAdditional Tips
+:::info PAdditional Tips
 - **Adjust Timeframes**: Experiment with different timeframes to see how TD Sequential behaves in various market conditions.
 - **Patience and Discipline**: Wait for the TD Sequential to fully develop and confirm signals. Premature entries can lead to losses. (That said, mature entries don't imply the trade will success 100%, it just have higher chance)
 - **Adaptability**: Market conditions change, and so should your application of TD Sequential. Adapt your strategy based on the current market environment.

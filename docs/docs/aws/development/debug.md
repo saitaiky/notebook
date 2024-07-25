@@ -90,7 +90,7 @@ Output
 }
 ```
 
-:::infoWhy do we need 2 different logging levels(your application and boto3)?
+:::info Why do we need 2 different logging levels(your application and boto3)?
 Imagine you are developing a Lambda function that interacts with multiple AWS services using Boto3. You want to log detailed information about your application logic but keep the AWS SDK logs minimal unless there is a critical issue.
 :::
 

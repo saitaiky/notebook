@@ -14,7 +14,7 @@ Extrinsic motivation is when we are motivated to perform a behavior or engage in
 
 Future reading: [Understanding Extrinsic Motivation](https://www.verywellmind.com/what-is-extrinsic-motivation-2795164)
 
-:::infoExamples
+:::info Examples
 - Playing crypto game because you want to earn money
 - Participating in a sport to win awards
 - Cleaning your room to avoid being reprimanded by your parents
@@ -29,7 +29,7 @@ Intrinsic motivation is when you engage in a behavior because you find it rewar
 
 [What Does Intrinsic Motivation Mean?](https://www.verywellmind.com/what-is-intrinsic-motivation-2795385)
 
-:::infoExamples
+:::info Examples
 - Playing crypto game because you think that is fun to play
 - Participating in a sport because you find the activity enjoyable
 - Cleaning your room to avoid being reprimanded by your parents

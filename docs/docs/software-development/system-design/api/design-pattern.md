@@ -98,7 +98,7 @@ Although APIs offer security to the systems on either end, they are susceptible 
 
 An API gateway is a reverse proxy that acts as a unified interface to a set of individual back-end services. By centralizing common tasks and facilitating communication between services and clients, it significantly streamlines backend management and enhances the overall efficiency and reliability of the system.
 
-:::infoBest Practices for API Gateway Implementation
+:::info Best Practices for API Gateway Implementation
 - Limit Complexity: Avoid making the API Gateway a performance bottleneck or a single point of failure.
 - Scalability: Ensure the Gateway can handle increasing loads smoothly.
 - Security: Implement strong security practices, as it's a critical layer exposed to the public.

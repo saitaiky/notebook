@@ -17,7 +17,7 @@ GPG includes the same basic capabilities as PGP, such as:
 - **Signing**: Using a private key to sign data, making it possible for recipients to verify the sender's identity.
 - **Signature verification**: Checking the signature against the sender's public key to ensure that the data hasn't been altered and that the claimed sender is genuine.
 
-:::infoComparison and Interoperability
+:::info Comparison and Interoperability
 GPG is fully compatible with the OpenPGP standard, which means that it can interoperate with PGP and other OpenPGP-compliant systems. Essentially, GPG can be used as a drop-in replacement for PGP, but it is available under a free software license (the GNU General Public License), whereas PGP includes proprietary elements.
 
 Although they work in much the same way and the terms are sometimes used interchangeably, PGP typically refers to the specific software initially created by Zimmermann, while GPG refers to the free software community's version of the protocol.
@@ -80,7 +80,7 @@ testfile01.doc: GPG symmetrically encrypted data (AES cipher)
 
 ### Symmetric way to decrypt
 
-:::infoDecrypt within 10mins
+:::info Decrypt within 10mins
 Note that there is no passphrase prompt to decrypt the file within 10 mins after en encryption. If you want to be prompted to enter the password to decrypt the file again, you'll have to wait ten minutes, which is the default timeout value.
 :::
 
@@ -140,7 +140,7 @@ This way, anyone who needs to see or edit the non-sensitive parts can do so with
 
 ## Keyservers (Asymmetric)
 
-:::infoA List of Keyservers
+:::info A List of Keyservers
 - [https://keybase.io](https://keybase.io/) (Originally created my PGP key here)
 - [https://keys.openpgp.org](https://keys.openpgp.org/)
 - [https://keyserver.ubuntu.com](https://keyserver.ubuntu.com/)
@@ -250,7 +250,7 @@ The `gpg --keyserver` option is part of the GnuPG (GPG) suite, a free implementa
 
 ### Important Considerations
 
-:::dangerOnly use a keyserver that you trust
+:::danger Only use a keyserver that you trust
 It's important to use a keyserver that you trust since keyservers can contain spam or false keys. Sometimes, keyservers synchronize with one another, spreading any changes globally.
 
 Future reading: [Receiving a key from a keyserver in gnupg](https://superuser.com/questions/931812/receiving-a-key-from-a-keyserver-in-gnupg)

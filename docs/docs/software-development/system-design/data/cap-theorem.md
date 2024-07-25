@@ -18,13 +18,13 @@ The CAP theorem is a fundamental concept that applies to distributed databases, 
 - **Partition Tolerance** means the system continues to operate despite arbitrary message loss or failure of part of the system (partitions). It's the system's resilience to network splits.
 
 
-:::infoDoes consistency in CAP mean strong consistency?
+:::info Does consistency in CAP mean strong consistency?
 In a strongly consistent database, if data is written and then immediately read after, it should always return the updated data. The problem is that in a distributed system, network communication doesn’t happen instantly, since nodes/servers are physically separated from each other and transferring data takes >0 time. 
 
 This is why it’s not possible to have a perfectly, strongly consistent distributed database. In the real world, when we talk about databases that prioritize consistency, we usually refer to databases that are eventually consistent, with a very short, unnoticeable lag time between nodes.
 :::
 
-:::cautionDoes consistency in CAP mean strong consistency?
+:::warning Does consistency in CAP mean strong consistency?
 I’ve heard the CAP Theorem defined differently as “Choose 2 of the 3, Consistency, Availability or Partition Tolerance”?
 
 This definition is incorrect. You can only choose a database to prioritize consistency or availability in the case of a network partition. You can’t choose to forfeit the “P” in CAP, because network partitions happen all the time in the real world. A database that is not partition tolerant would mean that it’s unresponsive during network failures, and could not be available either.
@@ -74,11 +74,11 @@ graph LR;
 
 ### Conclusion
 
-:::infoRead requests
+:::info Read requests
 Notice that only write requests were discussed above. This is because read requests don’t affect the state of the data, and don’t require re-syncing between nodes. Read requests are typically fine during network partitions for both consistent and available databases.
 :::
 
-:::infoSQL databases
+:::info SQL databases
 SQL databases like MySQL, PostgreSQL, Microsoft SQL Server, Oracle, etc, usually prioritize consistency. **Primary-secondary replication** is a common distributed architecture in SQL databases, and in the event of a primary becoming unavailable, the role of primary would failover to one of the replica nodes. During this failover process and electing a new primary node, the database cannot be written to, so that consistency is preserved.
 :::
 

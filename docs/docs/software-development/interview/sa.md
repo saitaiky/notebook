@@ -193,18 +193,18 @@ You can expect questions on your long-term vision for your career and what drive
         - **Result**:
             - Describe the outcome (e.g., deployment success, performance improvements, customer satisfaction).
 
-:::infoReusing Examples
+:::info Reusing Examples
 - One question can qualify across multiple leadership principles.
 - Prepare at least 8-10 examples (minimum 7 examples).
 - It is acceptable to reuse examples, but not the same example across all five rounds. You can reuse an example for up to two intervals maximum.
 :::
 
-:::infoCritical Points
+:::info Critical Points
 - Be able to dive deep into your example from a technical perspective.
 - Explain how you scale a solution from a single customer deployment to a full-fledged platform for other customers.
 :::
 
-:::infoKey Questions After Preparing Examples
+:::info Key Questions After Preparing Examples
 1. What was the challenge? How did you solve it?
 2. What were the success criteria? Did you create indicators to baseline your performance (e.g., increased page load speed, increased customer acquisition)?
 3. What lessons did you learn? How would you implement the system to improve it today?

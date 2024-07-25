@@ -53,7 +53,7 @@ Amazon EBS is a high-performance block storage service which is designed for use
 </tbody>
 </table>
 
-:::infoIOPS vs Throughput
+:::info IOPS vs Throughput
 > 
   - IOPS – Count of read/write operations per second
   - Throughput – Count of read/write bits per second (bps)
@@ -176,7 +176,7 @@ The maximum ratio of provisioned **IOPS SSD (io1) volumes** to requested volume 
 
 16000 IOPS /3 IOPS = 5.3 TiB / 5,334 GiB   
 
-:::caution When Max IOPS/Volume has reached, adding extra volumne(GB) won't increase the IOPS
+:::warning When Max IOPS/Volume has reached, adding extra volumne(GB) won't increase the IOPS
 Even if you add extra volumne(GB) to this EBS, it won't add more IOPS. Because the max IOPS/volumn of gp2 is 16.000 IOPS. 
 :::
 
@@ -202,11 +202,11 @@ You can set `DeleteOnTermination` to `False` to change this default behavior **t
 
 If you want to disable this flag while the instance is still running, you can set `DeleteOnTermination` attribute to `False` using the **command line**
 
-:::cautionData on a non-root EBS volume is preserved even if the instance is shutdown or terminated
+:::warning Data on a non-root EBS volume is preserved even if the instance is shutdown or terminated
 By default, when you attach a non-root EBS volume to an instance, its `DeleteOnTermination` attribute is set to false. Therefore, the default is to preserve these volumes. After the instance terminates, you can take a snapshot of the preserved volume or attach it to another instance. You must delete a volume to avoid incurring further charges.
 :::
 
-:::cautionAmazon EBS volumes deleted with the EC2 `TerminateInstances` API call will continue to show for some time on AWS Config console
+:::warning Amazon EBS volumes deleted with the EC2 `TerminateInstances` API call will continue to show for some time on AWS Config console
 **Context** - You can delete Amazon EBS volumes by:
 - Stopping the Amazon EC2 instance, detaching the Amazon EBS volume, and then running the [DeleteVolume](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteVolume.html) API call to remove the EBS volume from the  the list of resources in AWS Config.
 - Setting the [DeleteOnTermination](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#preserving-volumes-on-termination) attribute to true, and then running the [TerminateInstances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_TerminateInstances.html) API call.

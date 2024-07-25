@@ -2,9 +2,6 @@
 title: Testing
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 ## Why we need to test
 
 Testing is essential to test the quantity of an application to meet both the functional requirements or non-functional requirements. Of course, we are able to test it manually but the problems are:
@@ -81,7 +78,7 @@ They are essential for validating that the application functions correctly accor
 | **Execution**                     | Can be manual or automated.                                    | Can be manual or automated.                                     |
 | **Example**                       | Verify a new feature adheres to business rules.                | Verify the process of ordering a product online works as expected. |
 
-:::infoFAQ
+:::info FAQ
 - Since we can implemente UAT and E2E manually, which one is harder to be automated?
   - Both acceptance testing and E2E testing have their own complexities when implemented in code, but generally, E2E testing is harder to automate due to its broader scope and complexity.
 - Why is UAT necessary if E2E testing covers the entire software system?
@@ -92,7 +89,7 @@ They are essential for validating that the application functions correctly accor
 
 ## Regression Test
 
-:::cautionCaution
+:::warning Caution
 Regression testing is considered a software testing practice, not a specific testing type. It involves re-testing to confirm that recent changes haven't introduced new defects in previously working functionalities.
 :::
 
@@ -118,7 +115,7 @@ Source: [guru99 - Sanity Testing Vs. Smoke Testing – Difference Between Them](
 
 **Sanity Test Example**: After fixing a bug in the user profile update feature, run tests to ensure users can now update their profiles correctly, the changes are reflected immediately, and no new issues arise in the profile management area. This focuses only on the updated functionality to confirm the fix works.
 
-:::infoWhy Is Sanity Testing A Subset Of Regression Testing?
+:::info Why Is Sanity Testing A Subset Of Regression Testing?
 Regression testing is a software testing practice rather than a testing in itself. It contains multiple types of tests, with sanity tests being a checkpoint in the process to decide if the build can proceed with the next level of testing.    
  
 Basically, sanity testing works just as regression testing but *deals with a smaller test suite*. This subset contains critical test cases that are run first before the examination of the whole package of regression tests.  
@@ -132,7 +129,7 @@ Basically, sanity testing works just as regression testing but *deals with a sma
 
 Here is a comprehensive guide on determining what to test in software development, emphasizing practical and efficient testing strategies. The article covers key concepts, strategies, and practical examples to help developers focus their testing efforts effectively.
 
-:::infoExtra material - Ask the right questions
+:::info Extra material - Ask the right questions
 I found Charlie Roberts' video on "Testing Software and Systems at Amazon" particularly insightful, especially his analogy that effective testing is akin to asking the right questions.
 
 Other interesting topic like mutation tseting in unit test and the topic of validating the local data representative to the real life situation.
@@ -240,7 +237,7 @@ def test_calculate_discount():
        - `if customer_type == "regular"`
        - `if price > 100` 
        - `elif price > 50`
-       - `else` in `vip` branch for price <= 100
+       - `else` in `vip` branch for price \<= 100
      - Not tested:
        - `elif price > 100` in `vip`
        - `if price > 200` in `vip`
@@ -267,13 +264,13 @@ def test_calculate_discount():
 - [Jest Puppeteer](https://github.com/smooth-code/jest-puppeteer) provides all required configuration to run your tests using Puppeteer.
 
 
-:::infoWhat is Headless Browser Testing? 
+:::info What is Headless Browser Testing? 
 Headless Browsers play a major role in CI/CD, as these web browsers provide automated control of the web page without any graphical user interface (GUI). This allows the tester to perform automation testing on the web application using a command-line interface without testing the whole site by performing actions through the GUI.
 
 Headless Browser Testing speeds up the QA process, which is required in CI/CD, where quick feedback is required to ensure the high performance of the application. It generates faster results even with a high volume of test cases, with due consistency and accuracy, which helps save time and resources. 
 :::
 
-:::info4 Characteristics of Jest
+:::info 4 Characteristics of Jest
 - **Zero config:** "Jest aims to work out of the box, config free, on most JavaScript projects." This means you can simply install Jest as a dependency for your project, and with no or minimal adjustments, you can start writing your first test.
 - **Isolated:** Isolation is a very important property when running tests. It ensures that different tests don't influence each other's results. For Jest, tests are executed in parallel, each running in their own process. This means they can't interfere with other tests, and Jest acts as the orchestrator that collects the results from all the test processes.
 - **Snapshots:** Snapshots are a key feature for front-end testing because they allow you to verify the integrity of large objects. This means you don't have to write large tests full of assertions to check if every property is present on an object and has the right type. You can simply create a snapshot and Jest will do the magic. Later, we'll discuss in detail how snapshot testing works.
@@ -582,7 +579,7 @@ Test results HTML report is also generated as index.html under *jest-stare/ *
 
 ### Snapshot testing with Jest
 
-:::infoWhere do we store the snapshot?
+:::info Where do we store the snapshot?
 Snapshot testing is based on history of your previous tests. When you first run a snapshot test it creates a text file including the textual render of your component tree.
 
 You need to keep these snapshot files in your VCS (git). When you make a change you can run these tests to see if it yet matches the snapshot text file or not.

@@ -21,13 +21,13 @@ Using AWS Firewall Manager, you can centrally configure
 
 across accounts and resources in your organization.
 
-:::caution
+:::warning
 AWS Firewall Manager does not support Network ACLs today.
 :::
 
 ### Change the administrator account
 
-:::infoONly one account in an organization can be the default Firewall Manager administrator
+:::info ONly one account in an organization can be the default Firewall Manager administrator
 Users can designate only one account in an organization as the default Firewall Manager administrator account. The default administrator account follows the principle of first in, last out.
 :::
 

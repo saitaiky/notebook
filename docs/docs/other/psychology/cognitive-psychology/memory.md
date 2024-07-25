@@ -40,7 +40,7 @@ Consider you meet someone and learn their name. If you repeat the name to yourse
 
 ### Elaborative rehearsal
 
-:::info2 types of rehearsal
+:::info 2 types of rehearsal
 - Maintenance Rehearsal: Repeating the information mentally to keep it in short term memory longer but it will eventually fade out. Since it is a shallow(淺層) information processing method, It can't turn the memory into long term memory.
 - Elaborative Rehearsal: It is a technique for improving memory by forming associations between new information you're trying to learn and information you already know. The goal is to integrate the new knowledge deeply into your long-term memory by creating meaningful links.
 :::

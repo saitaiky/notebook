@@ -78,7 +78,7 @@ Above is an example of direct password handling in Yelp and LinkedIn before 2007
   - **ID Tokens**: Issues ID tokens, which are statements about the user, in addition to OAuth's access tokens.
   - **Analogy Continuation**: Adds the concept of user information to the existing OAuth process, enabling the OAuth server to communicate user data back to the application.
 
-:::infoAuth0 vs. OAuth: What Is the Difference? 
+:::info Auth0 vs. OAuth: What Is the Difference? 
 Auth0 and OAuth (Open Authorization) are both authentication and authorization systems that are used to secure web and mobile applications. However, there are some key differences:
 
 | Auth0                                                                                                                                                                            | 0Auth                                                                                                                      |
@@ -121,7 +121,7 @@ In OAuth 2.0, client types are defined based on whether the application can use 
     - **Risk**: Authorization server cannot be sure if requests are from the real application or a mimic.
     - **Usage**: Must handle authentication without relying on stored credentials.
 
-:::cautionSecurity Best Practices
+:::warning Security Best Practices
 ![](/img/software-development/system-design/security/get-your-client-id-client-secret.jpg)
 
 Never include **a client secret** in public client(e.g. a mobile or single-page application). Use alternative, more secure methods like public/private key pairs if higher security is needed.
@@ -147,11 +147,11 @@ Understanding the front channel and back channel is crucial for secure OAuth flo
 
 OAuth involves users through the front channel for consent, but delivering access tokens this way is insecure. Modern OAuth implementations prefer the back channel, especially with the advent of CORS, which allows secure cross-origin requests in JavaScript apps. The OAuth working group now recommends phasing out the **Implicit flow** to enhance security.
 
-:::infoImplicit Flow
+:::info Implicit Flow
 The Implicit Flow is an OAuth 2.0 method where the access token is directly returned to the client via the user's browser, designed for client-side applications that cannot securely store secrets.
 :::
 
-:::cautionIs the following JavaScript code making a front-channel or back-channel request?
+:::warning Is the following JavaScript code making a front-channel or back-channel request?
 ```javascript
   fetch("https://authorization-server.com/", {
     method: "GET",
@@ -167,7 +167,7 @@ The Implicit Flow is an OAuth 2.0 method where the access token is directly retu
 **Answer**: Back channel, Even though the request method is GET, this is a back-channel request since the JavaScript code handles the HTTP response directly.
 :::
 
-:::cautionIs the following JavaScript code making a front-channel or back-channel request?
+:::warning Is the following JavaScript code making a front-channel or back-channel request?
 ```javascript
 window.location = 'https://authorization-server.com/authorize?client_id=example';
 ```
@@ -182,7 +182,7 @@ Mobile and single-page apps can't use **client secrets**, making them vulnerable
 
 **Redirect URIs** play a crucial role in verifying application identity, especially for public clients. While HTTPS URLs provide a reliable identity verification, custom URL schemes lack global uniqueness, making them less secure.
 
-:::infoHow to verify the application identity in the API world?
+:::info How to verify the application identity in the API world?
 ![](/img/software-development/system-design/security/protect-api.png)
 
 In Google APIs and services, you can restrict which websites are allowed to make API calls by specifying allowed domains. This involves setting up application restrictions in the Google Cloud Console, where you can declare specific domains that are permitted to use the API key.
@@ -209,13 +209,13 @@ In next few sections, we'll look at how to use OAuth in various applications. On
    - Used to obtain new access tokens without repeating the authorization code flow.
    - Include the refresh token, client ID, and secret in a back-channel request to the OAuth server.
 
-:::infoWhat is PKCE?
+:::info What is PKCE?
 PKCE was originally developed for mobile apps, but now the OAuth working group recommends using PKCE for all types of applications, including server-side apps, even when a client secret is available. This is because PKCE can prevent a subtle attack where authorization codes could be swapped, potentially allowing someone to log into another user's account without detection, posing a significant security risk.
 :::
 
 ### Sequence Diagram
 
-:::cautionAPP in various systems
+:::warning APP in various systems
 In the below sequence diagram, ..
 - APP in server side application can be your Backend
 - APP in mobile app can be the mobile app on your phone(user agent)
@@ -287,7 +287,7 @@ sequenceDiagram
 
 ## OAuth for Native Applications
 
-:::infoThe only difference is that Mobile application can't use client secret compared with web application!
+:::info The only difference is that Mobile application can't use client secret compared with web application!
 Mobile apps differ from web server apps in OAuth implementation, particularly because it's unsafe to include client secrets in mobile apps. The client secret, if embedded in the app's code, can be extracted by anyone who downloads and decompiles the app, compromising security. Therefore, unlike web apps that securely store and use client secrets on the server, mobile apps avoid using client secrets altogether. Instead, they rely on methods like PKCE to securely handle the authorization code exchange. The flow is almost the same as above diagram in OAuth for Server-Side Applications but the only difference is at ③, the post body of the `POST` request doesn't have `client_secret`
 ```
 client_id=CLIENT_ID&
@@ -334,7 +334,7 @@ Source: [Udemy - The Nuts and Bolts of OAuth 2.0](https://www.udemy.com/course/o
 
 ## OAuth for Single-Page Applications
 
-:::infoThe only difference is that Mobile application can't use client secret compared with web application!
+:::info The only difference is that Mobile application can't use client secret compared with web application!
 Even though we're talking about a JavaScript app in a browser, we still have a back channel. But in this case, it means that the code in the JavaScript app itself makes a request to the OAuth server, rather than passing data through the address bar. Feel free to go back and review the front channel vs back channel lesson for more background on the distinction between these two different ways of passing data. 
 
 It holds on to that PKCE **Code Verifier** in the browser, usually by storing it in **LocalStorage** or **SessionStorage** and then it calculates a hash of it called the code challenge.  

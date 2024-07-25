@@ -4,15 +4,15 @@ title: History and Culture of the UK
 
 ## History
 
-:::infoThe two-House system
+:::info The two-House system
 The two-House system in English Parliament, consisting of the House of Commons and the House of Lords, has its roots in medieval England. Initially, the Magna Carta of 1215 established a council of barons to consult with the king, leading to the emergence of a bicameral system where the Lords represented the nobility and clergy, while the Commons represented the broader population. Over time, through power struggles and legislative reforms, the two Houses evolved into their current form, embodying the principles of checks and balances and separation of powers within the parliamentary framework.
 :::
 
-:::infoDid Henry VIII start the protestants?
+:::info Did Henry VIII start the protestants?
 Henry VIII played a pivotal role in the **Reformation** in England, which resulted in the establishment of the Church of England separate from the Roman Catholic Church. But he did not actually "start" the Protestants. **The Protestant Reformation** began in Germany with Martin Luther's actions in 1517, when he published his "95 Theses" challenging the practices and doctrines of the Roman Catholic Church.
 :::
 
-:::infoThe Habeas Corpus Act
+:::info The Habeas Corpus Act
 The Habeas Corpus Act became law in 1679. This was a very important piece of legislation which remains relevant today. Habeas corpus is Latin for 'you must present the person in court'. The Act guaranteed that no one could be held prisoner unlawfully. Every prisoner has a right to court hearing.
 :::
 
@@ -159,17 +159,17 @@ The Habeas Corpus Act became law in 1679. This was a very important piece of leg
   - In 19th, the UK produced more than half of the world's iron, coal and cotton cloth.
   - Government promote policies of free trade by abolishing a number of taxes on imported goods during the Victorian Age
 
-:::infoIsambard Kingdom Brunel (1806-59) 布魯內爾
+:::info Isambard Kingdom Brunel (1806-59) 布魯內爾
 Isambard Kingdom Brunel was originally from Portsmouth. He built tunnels, bridges, railway lines and ships. 2 of his famous works
 - Great Western Railway
 - ![Clifton Suspension Bridge](https://images.squarespace-cdn.com/content/v1/5ee52f7d9edc8a7ee635591a/1627147415019-XN7REHKNRSGOTEDV9WD6/A+photo+of+Clifton+Suspension+Bridge+in+Bristol+taken+at+sunset+by+Trevor+Sherwin?format=1500w)
 :::
 
-:::infoFlorence Nightingale (1821-1910) 南丁格爾
+:::info Florence Nightingale (1821-1910) 南丁格爾
 Florence Nightingale was born in Florence in Italy. In 1854, she went to Turkey and worked in military hospitals, treating soldiers who were fighting in the Crimean War. She and her fellow improved the conditions in the hospital and reduced the mortality rate.
 :::
 
-:::infoEmmeline Pankhurst (1858-1928)
+:::info Emmeline Pankhurst (1858-1928)
 Emmeline was a prominent British **suffragette**(婦女參政論者) and political activist who played a leading role in the women's suffrage movement in the United Kingdom. She founded the Women's Social and Political Union (WSPU) in 1903, advocating for women's right to vote through direct action and civil disobedience. Pankhurst and the WSPU led numerous campaigns, protests, and hunger strikes, contributing significantly to the eventual granting of voting rights to British women with the Representation of the People Act in 1918.
 :::
 
@@ -202,7 +202,7 @@ Source: [mapsontheweb](https://mapsontheweb.zoom-maps.com/post/178341603579/euro
 - D-Day, which occurred on June 6, 1944, was the Allied invasion of Normandy, France, during World War II. It marked the beginning of the liberation of Western Europe from Nazi occupation and was a turning point in the war, allowing the Allies to gain a foothold on the continent and ultimately leading to the defeat of Nazi Germany in May 1945.
 - The war against Japan ended in August 1945 when the US dropped its newly developed atom bombs on the Japanese cities of Hiroshima and Nagasaki.
 
-:::infoWinston Churchill 1874-1965
+:::info Winston Churchill 1874-1965
 In May 1940 he became Prime Minister. He refused to surrender to the Nazis and was an inspirational leader to the British people in a time of great hardship. He lost the General Election in 1945 but returned as Prime Minister in 1951. Some of his famous speeches:
 - I have nothing to offer but blood, toil, tears and sweat.
 - We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets, we shall fight in the hills; we shall never surrender.
@@ -235,7 +235,7 @@ In May 1940 he became Prime Minister. He refused to surrender to the Nazis and w
   - She did the privatization of nationalised industries and imposed legal controls on trade union powers. 
 - 1997 to 2010
 
-:::infoMargaret Thatcher (1925-2013)
+:::info Margaret Thatcher (1925-2013)
 In 1975 she was elected as Leader of the Conservative Party and so became Leader of the Opposition. Following the Conservative victory in the General Election in 1979, Margaret Thatcher became the first woman Prime Minister of the UK.
 
 She led the Conservative government from 1979 to 1990 and was the longest-serving Prime Minister of the 20th century
@@ -291,11 +291,11 @@ The Prime Minister appoints about 20 senior MPs to become ministers in  charge o
 - Foreign Secretary - responsible for managing relationships with foreign countries
 - Other ministers (called '**Secretaries of Stat 內閣大臣e**') responsible for subjects such as education, health and defence.
 
-:::infoShadow cabinet 影子內閣
+:::info Shadow cabinet 影子內閣
 In the UK Parliament, the Shadow Cabinet is a group of senior opposition party members who hold portfolios mirroring those of the government's Cabinet ministers. The Shadow Cabinet's role is to scrutinize the government's policies, propose alternative policies, and prepare to take over ministerial roles if their party wins the next general election.
 :::
 
-:::infoCounty/Shire 郡
+:::info County/Shire 郡
 > 最初使用「Shire」一詞作為行政區劃名稱的是居住在英格蘭中部及南部的盎格魯-薩克遜人。
 
 In the UK, a county is an administrative division of land that is larger than a city or town but smaller than a region or country. Counties have historically been used for various administrative purposes, including local government, law enforcement, and geographic delineation. They may contain multiple cities, towns, villages, and rural areas, and they often have their own councils responsible for local governance. Counties in the UK can be further divided into districts or boroughs, and they may be part of a larger region or ceremonial county for administrative or ceremonial purposes.
@@ -340,7 +340,7 @@ Some religious festivals
   - **Eid al-Fitr** celebrate the end of Ramadan, when Muslims have fasted for a month. They thank Allah for giving them the strength to complete the fast.
   - **Eid ul-Adha**, also known as the Festival of Sacrifice, is an important Islamic holiday commemorating the willingness of Ibrahim (Abraham) to sacrifice his son as an act of obedience to God. It is celebrated with prayers, feasting, and the sacrifice of animals, with the meat distributed among family, friends, and the needy.
 
-:::infoOther festivals
+:::info Other festivals
 - Bonfire Night: 5 November. The origin of this celebration was an event in 1605, when a group of Catholics led by Guy Fawkes failed in their plan to kill the Protestant king with a bomb in the houses of Parliament.
 - Remembrance Day, 11 November, commemorates those who died fighting for the UK and its allies. Originally it commemorated the dead of the First World War, which ended on 11 November 1918. People wear poopies. At 11.00 am there is two-minute silence and wreaths are laid at the Cenotaph in Whitehall, London. 
 :::

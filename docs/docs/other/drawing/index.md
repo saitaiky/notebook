@@ -81,7 +81,7 @@ Source: [Pinterest: the art vault](https://www.pinterest.co.uk/pin/the-art-vault
 
 ### Form shadow and Cast shadow 
 
-:::infoImportant point
+:::info Important point
 - Shadow shape = form shadow + cast shadow 
 - Form shadow is softer and Cast shadow is shaper 
 - Terminator = the edge of light 

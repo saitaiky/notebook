@@ -18,7 +18,7 @@ A dead container cannot come back to life, if the liveness probe fails, the cont
 - **Never**: the container is not restarted
 - **OnFailure or Always**: the container is restarted
 
-:::cautionWhen to use a liveness probe
+:::warning When to use a liveness probe
 - To indicate failures that can't be recovered
     - deadlocks (causing all requests to time out)
     - internal corruption (causing all requests to error)
@@ -34,7 +34,7 @@ A dead container cannot come back to life, if the liveness probe fails, the cont
     - the container is *not* killed
     - if the pod is a member of a service, it is temporarily removed then re-added as soon as the readiness probe passes again
 
-:::cautionWhen to use a readiness probe
+:::warning When to use a readiness probe
 
 - To indicate failure due to an external cause => it won't work before the external cause is fixed anyways
     - database is down or unreachable
@@ -127,7 +127,7 @@ spec:
         command: ["redis-cli", "ping"]
 ```
 
-:::cautionCaveat of using exec
+:::warning Caveat of using exec
 In Kubernetes, we can run a Docker exec in the container and run a script, or any commands, you want on the local system where that container is running. This tends to be the most expensive type of check. It will end up using more resources because it has to launch another shell and run some form of app, or script, that you've written. 
 
 That's a lot more work than the kubelet process simply checking an HTTP port for a response code, or checking a TCP open connection. So, you want to be careful with these.

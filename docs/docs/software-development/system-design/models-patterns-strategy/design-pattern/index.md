@@ -80,13 +80,13 @@ Design patterns -- as a concept -- are a timeless way of building, irrespective 
 
 Everyone who thinks about what they're doing will uncover design patterns.
 
-:::infoIs there any truth to the claim that functional programming eliminates the need for OOP design patterns?
+:::info Is there any truth to the claim that functional programming eliminates the need for OOP design patterns?
 Yes, When you work in a functional programming language, you no longer need the OOP-specific design patterns. But you still need some **general design patterns**, like **MVC** or other **non-OOP specific** stuff, and you need **a couple of new functional programming-specific "design patterns" instead**. All languages have their shortcomings, and design patterns are usually how we work around them.
 
 From [jalf](https://stackoverflow.com/questions/327955/does-functional-programming-replace-gof-design-patterns)
 :::
 
-:::infoA typical OOP design pattern and its functional equivalent?
+:::info A typical OOP design pattern and its functional equivalent?
 The above shouldn't exist. That's like asking for a piece of procedural code rewritten as OO code. If I translate the original Fortran (or C) into Java, I haven't done anything more than translate it. If I totally rewrite it into an OO paradigm, it will no longer look anything like the original Fortran or C -- it will be unrecognizable.
 
 From [S.Lott](https://stackoverflow.com/questions/327955/does-functional-programming-replace-gof-design-patterns)

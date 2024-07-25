@@ -53,7 +53,7 @@ Try not to be a type of person who makes $100 an hour and yet will spend a coupl
 Divide your day into different session to work on different tasks based on your level of productivity
 
 
-:::caution The right goal is to allocate your year optimally, not your day
+:::warning The right goal is to allocate your year optimally, not your day
 Don’t fall into the trap of productivity porn—chasing productivity for its own sake isn’t helpful
 Working on the right problem stead of squeezing out every second to work on the wrong thing.
 :::
@@ -80,6 +80,6 @@ Working on the right problem stead of squeezing out every second to work on the 
 - It can be beneficial to slightly overcommit oneself to tasks, as it can increase efficiency and help avoid distractions. However, overcommitting significantly can have disastrous consequences.
 
 
-:::cautionDon’t neglect things that matter your life
+:::warning Don’t neglect things that matter your life
 Don’t neglect your family and friends for the sake of productivity—that’s a very stupid tradeoff (and very likely a net productivity loss, because you’ll be less happy).  
 :::

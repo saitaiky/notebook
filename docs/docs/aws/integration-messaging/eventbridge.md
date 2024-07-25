@@ -2,7 +2,7 @@
 title: EventBridge
 ---
 
-:::infoIs EventBridge same as CloudWatch?
+:::info Is EventBridge same as CloudWatch?
 Amazon EventBridge is the preferred way to manage your events. CloudWatch Events and EventBridge are the same underlying service and API, but EventBridge provides more features. Changes you make in either CloudWatch or EventBridge will appear in each console. 
 [What Is Amazon CloudWatch Events?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)
 :::
@@ -31,7 +31,7 @@ Snapshots are incremental backups, which means that only the blocks on the devic
 [Schedule Automated Amazon EBS Snapshots Using CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/TakeScheduledSnapshot.html)
 
 
-:::infoPermission for different targets
+:::info Permission for different targets
 - IAM roles for rules are only used for events related to Kinesis Streams. 
 - For Lambda functions and Amazon SNS topics, you need to provide resource-based permissions.
 :::

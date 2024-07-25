@@ -33,7 +33,7 @@ Apache Bench is designed to test a HTTP endpoint, but its main purpose is to thr
 
 The python code which handle the service endpoint request. This is a function which simulate a crypto hash valuable for the miner the solve. It has a `time.sleep(0.1)` to act like a **load** of a request. If you use a single threaded system and it receives a ton of requests at the same time, it may fails to respond with in the **readiness prob** that you set in K8s yml file.
 
-:::dangerWhat will happen if you use **liveness prob** to check an endpoint which its performance degrades due to external pressure
+:::danger What will happen if you use **liveness prob** to check an endpoint which its performance degrades due to external pressure
 1. It respond time will be above a given threshold, the liveness probe starts failing(about 10 concurrent requests per backend should be plenty enough)
 2. When the liveness probe fails 3 times in a row, the container is restarted
 3. During the restart, there is less capacity available

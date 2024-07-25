@@ -28,7 +28,7 @@ To grant cross-account permissions, you need to attach an identity-based permiss
 2. The account A administrator attaches a trust policy to the role that identifies account B as the **principal** who can assume the role.
 3. The account B administrator delegates the permission to assume the role to any users in account B. This allows users in account B to create or access queues in account A.
 
-:::caution
+:::warning
 Remember it isn't a service principal, but IAM user principals. For more [details](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
 :::
 

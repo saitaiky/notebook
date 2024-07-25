@@ -30,7 +30,7 @@ You need to use license according to your project. Some other licenses are:
 ```
 // SPDX-License-Identifier: GPL-3.0-or-later
 ```
-You can find list of licenses here: <https://spdx.org/licenses/>
+You can find list of licenses here: https://spdx.org/licenses/
 
 :::info What is Software Package Data Exchange(SPDX)?
 The right which granted by an application owner depends on which license the developer selects. Most projects use one of a few standard licenses, but they're not always clearly communicated. For example, a project may be released under "the GNU General Public License (GPL)." But which version? And can the recipient choose a later version if they wish? 
@@ -66,7 +66,7 @@ Polygon is a framework for constructing Ethereum-compatible blockchain networks.
 
 ### Testnet
 
-:::infoWhat is a testnet?
+:::info What is a testnet?
 A testnet is a separate blockchain network designed for testing and experimentation purposes. It mimics the functionalities of the main Ethereum network but operates with fake or test Ether (ETH) and has its own tokens, which hold *no real-world value*. Testnets are crucial for developers and users to test smart contracts, decentralized applications (DApps), and other blockchain-related features in a risk-free environment
 :::
 

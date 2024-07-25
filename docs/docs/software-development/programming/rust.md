@@ -26,7 +26,7 @@ Organized version of the explanation on how to use a couple of `cargo` commands 
 - `cargo check`
     - Checks if the program compiles without actually compiling it.
 
-:::infoPersonal preference:
+:::info Personal preference:
 - Many developers stick to just `cargo init` to avoid confusion.
 - During development, `cargo run` is commonly used.
 - `cargo check` is handy for quickly verifying if the program compiles.
@@ -45,7 +45,7 @@ Organized version of the explanation on how to use a couple of `cargo` commands 
    - In Rust, the semicolon (`;`) is used to terminate statements, including return statements.
    - However, the last expression in a function without a semicolon is implicitly returned as the function's value.
 
-:::infoIf statement can be used for assignment.
+:::info If statement can be used for assignment.
 The if statement can be used for assignment, here's an example:
 ```rust
 let result = if num % 2 == 0 {
@@ -56,7 +56,7 @@ let result = if num % 2 == 0 {
 ```
 :::
 
-:::infoShadowing
+:::info Shadowing
 Shadowing refers to the act of re-declaring a variable within the same scope, effectively hiding the previous variable with a new one of the same name. This allows for changing the type or value of a variable without having to create a new variable name. 
 
 ```rust
@@ -181,7 +181,7 @@ In this example:
 - When calling the `add` function in the `main` function, we provide two integer values `3` and `5` as arguments.
 - The result of calling `add(3, 5)` is `8`, which is printed to the console.
 
-:::infoWhat is the type of the main()?
+:::info What is the type of the main()?
 The () type has exactly one value (), and is used when there is no other meaningful value that could be returned. () is most commonly seen implicitly: functions without a -> ... implicitly have return type (), that is, these are equivalent (Ref:[Primitive Type](https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/std/primitive.unit.html#:~:text=The%20()%20type%2C%20sometimes%20called,without%20a%20%2D%3E%20...)):
 ```rust
 fn long() -> () {}
@@ -273,7 +273,7 @@ Scalar types, such as integers and booleans, are always copied when passed to a 
 
 On the other hand, string and vector types are dynamically sized and stored on the heap, so passing them to a function would require transferring ownership or borrowing a reference to the data to avoid moving the data out of scope. Therefore, strings and vectors are borrowed when passed to a function to avoid transferring ownership and maintain memory safety.
 
-:::infoWhy copying only for some types only?
+:::info Why copying only for some types only?
 Rust is going to copy the value because that's very cheap to do, so you don't have to worry about it. But the same thing with booleans, but with strings, not so much because the size of the string is not known at the compilation time. Rust can be confident of just copying that value.
 :::
 
@@ -387,7 +387,7 @@ In this example:
 
 ### Structs and Constructor
 
-:::infoWhat is self?
+:::info What is self?
 In Rust, `Self` and `self` are not the same thing. `Self` refers to the implementing type in trait definitions, while `self` refers to the current instance of a struct or enum in method definitions. :
 
 1. **Self**: `Self` (with a capital "S") is a special keyword used to refer to the type in which it is used. It is often used in trait definitions and implementations to denote the implementing type.
@@ -581,7 +581,7 @@ fn main() {
 
 Enums (enumerations) in Rust are a way to define a type by enumerating its possible variants. Here's how you can use enums in Rust to represent disk sizes and disk types:
 
-:::infoEnums vs Victor
+:::info Enums vs Victor
 Enums and vectors serve different purposes in Rust, so they are used in different contexts.
 
 Use an enum when:

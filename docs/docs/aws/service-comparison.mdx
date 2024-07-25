@@ -41,7 +41,7 @@ In summary, a VPC Security Group controls the traffic to resources within a VPC,
 
 ### ALB vs API Gateway
 
-:::infoCan API Gateway act as Load Balancer?
+:::info Can API Gateway act as Load Balancer?
 Yes, API Gateway can replace what a Load Balancer would usually provide, with a simpler interface and many more features on top of it. The downside is that it doesn’t come cheap.
 :::
 
@@ -56,68 +56,44 @@ The following table summarizes some of the key differences between ALB and API G
 
 <table>
   <tr>
-   <td>Feature
-   </td>
-   <td>API Gateway
-   </td>
-   <td>ALB
-   </td>
+   <td>Feature</td>
+   <td>API Gateway</td>
+   <td>ALB</td>
   </tr>
   <tr>
-   <td>Protocols supported
-   </td>
-   <td>HTTP/2 (HTTP API, REST API), WebSockets
-   </td>
-   <td>HTTP/2, WebSockets, gRPC
-   </td>
+   <td>Protocols supported</td>
+   <td>HTTP/2 (HTTP API, REST API), WebSockets</td>
+   <td>HTTP/2, WebSockets, gRPC</td>
   </tr>
   <tr>
-   <td>HTTPS
-   </td>
-   <td>Out-of-the-box support
-   </td>
-   <td>SSL certificate configuration required for SSL termination
-   </td>
+   <td>HTTPS</td>
+   <td>Out-of-the-box support</td>
+   <td>SSL certificate configuration required for SSL termination</td>
   </tr>
   <tr>
-   <td>A/B testing support
-   </td>
-   <td>Support through defining separate routes
-   </td>
-   <td>Load balancing based on % of traffic
-   </td>
+   <td>A/B testing support</td>
+   <td>Support through defining separate routes</td>
+   <td>Load balancing based on % of traffic</td>
   </tr>
   <tr>
-   <td>Load balancing strategy
-   </td>
-   <td>Round robin
-   </td>
-   <td>Round robin or least connections strategies
-   </td>
+   <td>Load balancing strategy</td>
+   <td>Round robin</td>
+   <td>Round robin or least connections strategies</td>
   </tr>
   <tr>
-   <td>AWS service integration
-   </td>
-   <td>Amazon EC2, Amazon ECS, AWS Lambda, Amazon S3, Amazon Kinesis
-   </td>
-   <td>Amazon EC2, Amazon ECS, AWS Lambda
-   </td>
+   <td>AWS service integration</td>
+   <td>Amazon EC2, Amazon ECS, AWS Lambda, Amazon S3, Amazon Kinesis</td>
+   <td>Amazon EC2, Amazon ECS, AWS Lambda</td>
   </tr>
   <tr>
-   <td>Sticky session support
-   </td>
-   <td>No out-of-the-box support
-   </td>
-   <td>Direct support
-   </td>
+   <td>Sticky session support</td>
+   <td>No out-of-the-box support</td>
+   <td>Direct support</td>
   </tr>
   <tr>
-   <td>REST API management support
-   </td>
-   <td>Integrated REST API management platform
-   </td>
-   <td>Requires additional coding to support
-   </td>
+   <td>REST API management support</td>
+   <td>Integrated REST API management platform</td>
+   <td>Requires additional coding to support</td>
   </tr>
 </table>
 
@@ -178,11 +154,11 @@ If you need to serve a lot of files and want to take advantage of the request 
 
 **AWS Shield** is a managed Distributed Denial of Service (DDoS) protection service that safeguards web applications running on AWS. It also provides protection against common and most frequently occurring infrastructure (**layer 3 and 4**) attacks like SYN/UDP floods, reflection attacks, and others to support high availability of your applications on AWS.
 
-:::cautionAWS Shield Advance for DDoS cost protection
+:::warning AWS Shield Advance for DDoS cost protection
 AWS Shield Standard **cannot protect your AWS bill** from usage spikes due to DDoS attacks. Only with **AWS Shield Advance**, you get **DDoS cost protection for scaling**, a feature that protects your AWS bill from usage spikes on your AWS Shield
 :::
 
-:::dangerAWS WAF is included in AWS Shield Advanced subscription
+:::danger AWS WAF is included in AWS Shield Advanced subscription
 **AWS WAF is included in AWS Shield Advanced subscription**, so basically, AWS Shield is not a WAF, but if you use the Advanced subscription, you will get a WAF for free.
 :::
 
@@ -212,7 +188,7 @@ You can select the following types of targets when using **Amazon EventBridge** 
 - Built-in targets (CloudWatch alarm actions)
 - Amazon SNS topics
 
-:::infoAWS Health API to access info from Personal Health Dashboard 
+:::info AWS Health API to access info from Personal Health Dashboard 
 The AWS Health API provides programmatic access to the AWS Health information that appears in the AWS Personal Health Dashboard. You can use the API operations to get information about events that might affect your AWS services and resources.
 
 You must have **a Business or Enterprise Support plan** from AWS Support to use the AWS Health API. If you call the AWS Health API from an AWS account that doesn't have a Business or Enterprise Support plan, you receive a `SubscriptionRequiredException` error.

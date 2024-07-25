@@ -49,7 +49,7 @@ Patch compliance is a vital component of cybersecurity, encompassing various ele
 
 WORM Compliant stands for "Write Once, Read Many" compliant. It refers to a data storage or archival system that allows data to be written only once and then read multiple times. Once data is written, it becomes **immutable** and cannot be altered or deleted, ensuring data integrity and compliance with regulatory requirements for data retention.
 
-:::infoDo I Need WORM Compliant Storage?
+:::info Do I Need WORM Compliant Storage?
 Unless your business is in securities or health care, which fall under [SEC rules](http://www.17a-4.com/regulations-summary/) or [HIPAA privacy rules](https://www.hhs.gov/hipaa/for-professionals/privacy/index.html#:~:text=The%20HIPAA%20Privacy%20Rule%20establishes,certain%20health%20care%20transactions%20electronically.), you're probably not legally required to have write once read many compliant storage.
 
 Legal requirements aren’t the only reasons to make use of WORM compliant storage. If you want to archive records of historical value, WORM storage makes sense for you.

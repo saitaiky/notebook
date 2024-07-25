@@ -134,7 +134,7 @@ Answer:
 
 ### WaitCondition vs CreationPolicy
 
-:::infoWhat is CreationPolicy?
+:::info What is CreationPolicy?
 You can associate the `CreationPolicy` attribute with a resource to prevent its status from reaching create complete until AWS CloudFormation receives** a specified number of success signals or the timeout period is exceeded**. 
 :::
 
@@ -268,11 +268,11 @@ Reference: [Updating stacks using change sets](https://docs.aws.amazon.com/AWSCl
 
 Change sets allow you to **preview how proposed changes to a stack might impact your existing resources**, for example, whether your changes will delete or replace any critical resources, AWS CloudFormation makes the changes to your stack only when you decide to execute the change set, allowing you to decide whether to proceed with your proposed changes or explore other changes by creating another change set. You can create and manage change sets using the AWS CloudFormation console, AWS CLI, or AWS CloudFormation API.
 
-:::caution
+:::warning
 After you execute a change, AWS CloudFormation removes all change sets that are associated with the stack because they aren't applicable to the updated stack.
 :::
 
-:::info2 ways to update stacks
+:::info 2 ways to update stacks
 AWS CloudFormation provides two methods for updating stacks:
 - Direct update
 - Creating and executing change sets.
@@ -348,7 +348,7 @@ The power and customizability of Lambda functions in combination with AWS CloudF
 - automatically copy objects from an existing S3 bucket into the new one
 - implementing and using utility functions, such as string reversal functions
 
-:::infoUse Case: S3 bucket copying
+:::info Use Case: S3 bucket copying
 To copy all the objects from an existing S3 bucket to a new S3 bucket created by the CloudFormation template, you need to create a custom Lambda function that can copy the objects from the source bucket to the new S3 bucket. You can also define the options you want Amazon S3 to apply during replication, such as server-side encryption, replica ownership, and transitioning replicas to another storage class.
 :::
 ## Stack
@@ -360,7 +360,7 @@ To copy all the objects from an existing S3 bucket to a new S3 bucket created by
 
 A stack set lets you create stacks in AWS accounts across regions by using a single AWS CloudFormation template. All the resources included in each stack are defined by the stack set’s AWS CloudFormation template. As you create the stack set, you specify the template to use, as well as any parameters and capabilities that the template requires.
 
-:::infoSstack instance status is `OUTDATED`
+:::info Sstack instance status is `OUTDATED`
 In the event that the stack operation failed and the stack instance status is OUTDATED, the following are the possible culprits:
 
 - The AWS CloudFormation template might have errors. Validate the template in AWS CloudFormation and fix errors before trying to create your stack set.
@@ -390,7 +390,7 @@ A nested stack is a way to encapsulate and manage reusable components within a C
 
 This modular approach simplifies template management, promotes reusability, and improves the organization and readability of complex infrastructure deployments. The nested stack acts as a standalone unit with its own set of resources, parameters, and outputs, enabling you to independently create, update, or delete the nested stack while working within the main stack.
 
-:::caution
+:::warning
 - To update a nested stack, always update the parent (root stack)
 :::
 
@@ -410,7 +410,7 @@ Resources:
         KeyName: mykey
 ```
 
-:::infoIntegrating Cloudformation with parameter store
+:::info Integrating Cloudformation with parameter store
 You can then reference values by using the unique name that you specified when you created the parameter. You can integrate Parameter Store with CloudFormation to automate your operational process.
 
 Any time you use a template containing Systems Manager parameters to create/update your stacks, CloudFormation uses the values for these Systems Manager parameters at the time of the create/update operation. So, as parameters are updated in Systems Manager, you can have the new value of the parameter take effect by just **executing a stack update operation**(calling the update-stack API). 
@@ -442,7 +442,7 @@ Its **default value** is `ROLLBACK` which means that the CloudFormation service 
     1.  You must look up and type the logical IDs of the resources that you want to skip. 
     2. Specify only resources that went into the `UPDATE_FAILED` state during the `UpdateRollback` and not during the forward update.
 
-:::infoNotes
+:::info Notes
 - You can't update a stack in this state
 - For nested stacks, rolling back the parent stack will attempt to roll back all the child stacks as well
 :::
@@ -455,7 +455,7 @@ Stack sets can be created using either self-managed permissions or service-manag
 
 With service-managed permissions model, you can deploy stack instances to accounts managed by AWS Organizations **without creating the necessary IAM roles; StackSets creates the IAM roles on your behalf**. 
 
-:::infoPrerequisite
+:::info Prerequisite
 - Before you can use a stack set to create stacks in a target account, you must set up **a trust relationship** between the administrator and target accounts.
 - **An administrator account** is the AWS account in which you create stack sets. The administrator account is either the organization's management account or a delegated administrator account. 
 - **A target account** is an account into which you create, update, or delete one or more stacks in your stack set. 
@@ -477,7 +477,7 @@ If you created an AWS resource outside of AWS CloudFormation management, you can
 
 For a list of AWS resources that support import operations, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html).
 
-:::infoDrift detection
+:::info Drift detection
 Performing a drift detection operation on a stack determines whether the stack has drifted from its expected template configuration, and returns detailed information about the drift status of each resource in the stack that supports drift detection. It is not useful for importing resources into CloudFormation.
 :::
 
@@ -502,7 +502,7 @@ Source: [tutorialsdojo](https://tutorialsdojo.com/aws-cloudformation/)
 - Because this bucket resource has a DeletionPolicy attribute set to Retain, AWS CloudFormation will not delete this bucket when it deletes the stack. 
 - When run from AWS CLI, URL of the website hosted on S3 will be displayed as output. The Output section uses `Fn::GetAtt` to retrieve the WebsiteURL attribute and DomainName attribute of the S3Bucket resource.
 
-:::infoOutputs section
+:::info Outputs section
 - The optional `Outputs` section declares output values that you can
   - [import into other stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html)(to [create cross-stack references](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)) by using Export
   - return in response in CLI (to describe stack calls)

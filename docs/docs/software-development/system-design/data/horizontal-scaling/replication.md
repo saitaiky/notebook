@@ -16,7 +16,7 @@ Moreover, replication serves as a proactive means for scaling applications. By d
 
 ## The Mechanics of Replication
 
-:::infoHow AWS provides the features
+:::info How AWS provides the features
 If you want to know more how the AWS provides the corresponding replication strategies in their database products, check the below links:
 - [RDS - replication](/aws/database/rds/#replication)
 - [aurora-replica-for-read](/aws/database/rds/aurora/#replica-for-read)
@@ -58,7 +58,7 @@ To mitigate the implications of leader failure, you can employ a **multi-leader*
 
 In the wake of a leader's demise, consensus algorithms like **Paxos** and its more approachable counterpart **Raft** play a role in choosing a new leader and reaching consistency through data replication.
 
-:::infoPaxos
+:::info Paxos
 Google, which uses Paxos as the foundation of [Spanner](https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf), its scalable-yet-synchronously-replicated distributed database, [published a paper](https://research.google/pubs/pub33002/) on its struggles to create a fault-tolerant system based on Paxos.
 
 Try your luck with [Paxos Made Simple](https://www.microsoft.com/en-us/research/publication/paxos-made-simple/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Fpaxos-simple.pdf), the slightly frustrated attempt by brilliant computer scientist Leslie Lamport to explain his widely-used but little-understood consensus algorith

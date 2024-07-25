@@ -27,7 +27,7 @@ In 2001, Lorin Anderson and David Krathwohl — one of Bloom's original collabor
 
 ## Importance 
 
-:::infoIt helps both teachers and students
+:::info It helps both teachers and students
 Not only does Bloom’s Taxonomy help teachers understand the process of learning, but it also provides more concrete guidance on how to create effective learning objectives.
 :::
 

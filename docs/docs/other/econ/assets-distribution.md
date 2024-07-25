@@ -24,7 +24,7 @@ For instance, looking at the S&P index from 2000 to 2022, the average annual ret
 
 Then, if we expand our historical view, from 1990 to 2022, the S&P averaged an annual increase of 11.3%. Its geometric mean stood at 9.8%. How about other markets? The MSCI World Index, comprising stocks worldwide, averaged 6.4% from 2000 to 2022, with a geometric mean of 4.6%. Now, turning to the MSCI Emerging Markets Index, it's noteworthy. Its average annual return is 9.5%, higher than the S&P 500, but its geometric mean is lower at 5.4%. 
 
-:::cautionThe importance of an asset's volatility
+:::warning The importance of an asset's volatility
 This illustrates the importance of an asset's volatility due to the compounding effect. If an asset or portfolio is too volatile, it can negatively impact wealth accumulation. For instance, consider an extreme example: an asset gaining 200% in the first year and losing 100% in the second. The arithmetic mean would suggest an average increase of 50% ((200-100)/2 = 50%), which sounds promising. However, in reality, **the actual return is 0 due to the geometric mean's calculation**. 
 :::
 

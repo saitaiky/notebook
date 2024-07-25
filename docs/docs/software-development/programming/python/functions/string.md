@@ -5,7 +5,7 @@ metaDescription: "This is the meta description for this page"
 ---
 
 ## String Interpolation
-String interpolation is a process substituting values of variables into placeholders in a string. For instance, if you have a template for saying hello to a person like "Hello {Name of person}, nice to meet you!", you would like to replace the placeholder for name of person with an actual name. This process is called string interpolation.
+String interpolation is a process substituting values of variables into placeholders in a string. For instance, if you have a template for saying hello to a person like "Hello \{Name of person\}, nice to meet you!", you would like to replace the placeholder for name of person with an actual name. This process is called string interpolation.
 
 ### f-strings (formatted strings)
 Python supports multiple ways to format text strings. These include %-formatting [1], str.format() [2], and string.Template [3]. Each of these methods have their advantages, but in addition have disadvantages that make them cumbersome to use in practice. This PEP proposed to add a new string formatting mechanism: Literal String Interpolation. In this PEP, such strings will be referred to as "f-strings", taken from the leading character used to denote such strings, and standing for "formatted strings".
@@ -26,8 +26,8 @@ F-strings provide a way to embed expressions inside string literals, using a min
 String format() Parameters
 format() method takes any number of parameters. But, is divided into two types of parameters:
 
-- **Positional parameters** - list of parameters that can be accessed with index of parameter inside curly braces {index}
-- **Keyword parameters** - list of parameters of type key=value, that can be accessed with key of parameter inside curly braces {key}
+- **Positional parameters** - list of parameters that can be accessed with index of parameter inside curly braces \{index\}
+- **Keyword parameters** - list of parameters of type key=value, that can be accessed with key of parameter inside curly braces \{key\}
 
 #### For positional arguments
 ![python-format-positional-argument](/img/software-development/programming/python/python-format-positional-argument.jpg)

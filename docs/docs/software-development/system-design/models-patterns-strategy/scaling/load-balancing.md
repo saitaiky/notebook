@@ -2,7 +2,7 @@
 title: Load Balancing
 ---
 
-:::infoLoad balancing algorithms
+:::info Load balancing algorithms
 To check what algorithms available in AWS, please check my other post [Request Routing Algorithms](/aws/networking/elb/#request-routing-algorithms)
 :::
 

@@ -4,7 +4,7 @@ title: Encoding
 
 Encoding is the process of converting data from one form to another. This process often involves transforming data into a format that can be efficiently stored, transmitted, or interpreted by different systems. Encoding ensures that data maintains its integrity and usability across various environments and platforms.
 
-:::infoEncryption vs Encoding
+:::info Encryption vs Encoding
 Encryption and encoding are fundamentally different processes with different purposes. Encryption is intended to protect data by converting it into a form that is unreadable without the decryption key, thus ensuring confidentiality. Encoding, on the other hand, is about data representation, transforming it into a different format for compatibility or efficiency in transport or storage.
 :::
 
@@ -39,7 +39,7 @@ ASCII (American Standard Code for Information Interchange), developed in the 196
 
 UTF-8, a widely used Unicode encoding, maintains ASCII compatibility while supporting global characters using 1 to 4 bytes. This ensures efficient, scalable, and universal text processing, accommodating diverse languages, symbols, and emojis, which ASCII couldn't handle. Thus, UTF-8 replaces ASCII for comprehensive internationalization and modern computing requirements, allowing seamless text processing across different languages and platforms.
 
-:::infoUTF vs ASCII
+:::info UTF vs ASCII
 Using UTF instead of ASCII in modern operating systems is essential because UTF (Unicode Transformation Format) supports a vast range of characters from virtually every language, enabling global language support and internationalization, which ASCII cannot provide due to its 128-character limitation. 
 
 UTF includes not only basic English letters but also accented letters, symbols, emojis, and more, making it crucial for modern applications requiring diverse characters. Additionally, UTF-8, a popular Unicode encoding, maintains compatibility with ASCII while efficiently encoding a broad spectrum of characters, ensuring that systems can handle text from any language seamlessly.

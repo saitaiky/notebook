@@ -48,7 +48,7 @@ In the **DB parameter groups** - You can allow only SSL connections to your RDS 
 
 Source: [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.SSL)
 
-:::infoFor application doesn't accept certificate chains
+:::info For application doesn't accept certificate chains
 A root certificate that works for all regions can be downloaded from the AWS website. It is the trusted root entity and should work in most cases but might fail if your application doesn’t accept certificate chains. If your application doesn’t accept certificate chains, download the AWS Region–specific certificate from AWS. Ref: [Using SSL/TLS to encrypt a connection to a DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
 :::
 
@@ -69,7 +69,7 @@ In order to enable Transparent Data Encryption for your RDS, you need to
 
 ![transparent-data-encryption-in-aws-rds-option-grou](/img/aws/database/rds/transparent-data-encryption-in-aws-rds-option-grou.png)
 
-:::infoWhat is option group?
+:::info What is option group?
 Some DB engines offer additional features that make it easier to manage data and databases, and to provide additional security for your database. Amazon RDS uses **option groups** to enable and configure these features. An *option group* can specify features, called options, that are available for a particular Amazon RDS DB instance. 
 :::
 
@@ -86,7 +86,7 @@ RDS Proxy reduces failover times, integrates with AWS Secrets Manager and IAM fo
 
 Enhanced Monitoring for RDS provides the following **OS level metrics** which are free memory, active memory, swap free, processes running, file system used. It is useful when you want to see how **different processes or threads** on a DB instance use the CPU.
 
-:::infoNormal CloudWatch metrics vs Enhanced Monitoring
+:::info Normal CloudWatch metrics vs Enhanced Monitoring
 A hypervisor creates and runs virtual machines (VMs). Using a hypervisor, an instance can support multiple guest VMs by virtually sharing memory and CPU. **CloudWatch** gathers metrics about CPU utilization from the **hypervisor** for a DB instance. In contrast, **Enhanced Monitoring** gathers its metrics from an agent on the DB instance.
 
 You might find differences between the CloudWatch and Enhanced Monitoring measurements, because the hypervisor layer performs a small amount of work. The differences can be greater if your DB instances use smaller instance classes. In this scenario, more virtual machines (VMs) are probably managed by the hypervisor layer on a single physical instance.
@@ -126,7 +126,7 @@ Important points:
 
 Vertical scaling enhances the current database instance(the actual hardware). For example more memory, more CPU, or more storage. Auto Scaling allows you to scale up and down automatically, based on a policy. A policy can be based on a metric like free storage. `A common example is: if there is only 10% free storage → Scale up`
 
-:::infoWhy scaling write operations is more challenging
+:::info Why scaling write operations is more challenging
 For write operations, horizontal scaling can be more challenging due to the need to maintain data consistency and handle conflicts across the distributed environment. In some cases, certain types of databases, such as those that support multi-master replication, can horizontally scale write operations as well, but this often comes with increased complexity.
 
 In general, horizontal scaling is preferred for handling larger scale-out scenarios, especially when **read operations dominate**, while vertical scaling can be a quicker and sometimes simpler solution **for improving both read and write performance up to a point**. However, vertical scaling has its limits due to the physical constraints of a single machine, and it often comes with downtime during scaling operations.

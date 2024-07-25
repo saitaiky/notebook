@@ -7,11 +7,11 @@ keywords:
 
 ## 2 AWS cost allocation tags
 
-:::infoOnly a Master account can activate this AWS generated tags feature
+:::info Only a Master account can activate this AWS generated tags feature
 If you have a Master account for AWS, you can activate AWS generated tags from the Billing and Cost Management console. You must know that if you activate the tags from your master account, it will activate tags for all the member accounts as well.
 :::
 
-:::infoUse Tag Editor to attach tag to resources
+:::info Use Tag Editor to attach tag to resources
 **AWS Resource Groups Tag Editor** to identify resources lacking tags in each account. Tag Editor shows you any tags that are attached to resources. It also shows you whether those tags were added in Tag Editor, by the resource's service console, or by using the API.
 ![te_manage_tags_selected](/img/aws/management/cost/te_manage_tags_selected.png)
 :::
@@ -90,7 +90,7 @@ The payment options for the Savings Plans can be:
 
 Take note that in reserving your computing capacity, you'll gain **the most discount if you paid everything upfront**. This means that the cheapest option among the payment options above is the All Upfront type, and conversely, the most expensive one is the No Upfront.
 
-:::infoSavings Plans in EC2 vs Reserved Instances
+:::info Savings Plans in EC2 vs Reserved Instances
 **Reserved Instances** are based on the commitment to use an instance at a particular price over a specific period, while **Savings Plans** are based on the commitment to spend a particular dollar amount per hour over a specific period.
 :::
 
@@ -107,7 +107,7 @@ You can turn on billing alert in your Billing preferences page
 
 In AWS Cost and Usage reports, you can choose to have AWS publish billing reports to a S3 bucket that you own. You can receive reports that break down your costs by the hour or month, by product or product resource, or by tags that you define yourself. AWS updates the report in your bucket once a day in a comma-separated value (CSV) format. 
 
-:::infoConsolidated billing
+:::info Consolidated billing
 - If you use the consolidated billing feature in AWS Organizations, the Amazon S3 bucket that you designate to receive the billing reports **must be owned by the master account** in your organization. 
 - You can't receive billing reports in a bucket that is owned by a member account. 
 - If you use consolidated billing, you can also have your costs broken down by member account.

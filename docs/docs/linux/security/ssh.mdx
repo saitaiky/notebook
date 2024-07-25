@@ -26,7 +26,7 @@ The problem with the above process is that if your private key is encrypted with
 - **Handles authentication requests** from SSH clients using the loaded keys.
 - **Eliminates the need** to repeatedly enter passphrases during a session.
 
-:::infoUsage
+:::info Usage
 
 When you start a session, you can add your private keys to the agent by executing `ssh-add`. If your keys are passphrase-protected, you will need to enter the passphrase once.
 
@@ -41,7 +41,7 @@ SSH clients are configured to communicate with the agent and use it for authenti
 
 SSH agent can also handle SSH agent forwarding, which allows you to connect from the server you're logged into to another server, without having your keys on the intermediate server. This is useful but also poses a security risk if not used carefully.
 
-:::cautionConsiderations
+:::warning Considerations
 
 - **Security Implication**: You should be cautious with agent forwarding because if a server you're using is compromised, an attacker might use your ssh-agent to authenticate to other servers.
 - **Life Span**: By default, the ssh-agent doesn't persist across system reboots. Keys need to be re-added after a reboot.

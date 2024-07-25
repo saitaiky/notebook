@@ -29,7 +29,7 @@ Together, these services form the control plane of our cluster
 - When high availability is required, each service of the control plane must be resilient
 - The control plane is then replicated on multiple nodes (This is sometimes called a "multi-master" setup)
 
-:::infoControl plane can be one or more master nodes
+:::info Control plane can be one or more master nodes
 When we talk about the masters, I like to refer to it as the control plane because it may be one or more master nodes, and control plane refers to all those services that are in control of the cluster.
 :::
 
@@ -40,7 +40,7 @@ When we talk about the masters, I like to refer to it as the control plane becau
 - In some hosted Kubernetes offerings (e.g. AKS, GKE, EKS), the control plane is invisible (We only "see" a Kubernetes API endpoint. **You manage your nodes, they manage the control plane.**)
 - In that case, there is no "master node". For this reason, it is more accurate to say "control plane" rather than "master."
 
-:::cautionDo we need to run Docker at all?
+:::warning Do we need to run Docker at all?
 - By default, Kubernetes uses the Docker Engine to run containers or leverage other pluggable runtimes through the Container Runtime Interface
 - `containerd`: maintained by Docker, IBM, and community - Used by Docker Engine, microK8s, k3s, GKE, and standalone; has `ctr` CLI
 - `CRI-O`: maintained by Red Hat, SUSE, and community; based on containerd - Used by OpenShift and Kubic, version matched to Kubernetes

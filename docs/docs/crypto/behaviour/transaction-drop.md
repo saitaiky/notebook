@@ -24,7 +24,7 @@ Common reasons a replacement transaction is broadcasted :
 2.  The Ethereum Node that the wallet/service connected to was not fully synced, and an incorrect nonce was used
 3.  User-initiated to replace or cancel a pending transaction
 
-*A transaction can be {Dropped} or {Dropped & Replaced}. For additional assistance, please contact the sender/transaction creator directly for more information.*
+*A transaction can be \{Dropped\} or \{Dropped & Replaced\}. For additional assistance, please contact the sender/transaction creator directly for more information.*
 
 
 ## What is nonce?

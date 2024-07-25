@@ -22,7 +22,7 @@ I firmly believe in the idea of taking from society and giving back. If the idea
 
 ## Adapt and adjust
 
-:::infoSurvival of the fittest
+:::info Survival of the fittest
 Charles Darwin's quote, "It is not the strongest of the species that survives; nor the most intelligent; it is the one most responsive to change," emphasizes the importance of adaptability and flexibility in the process of evolution. This idea, often paraphrased as "survival of the fittest," doesn't imply that physical strength or intellectual prowess alone guarantee survival. Instead, it underscores that the species most capable of adapting to changing environmental conditions and challenges has a better chance of survival.
 :::
 

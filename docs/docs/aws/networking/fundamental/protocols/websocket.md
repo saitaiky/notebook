@@ -58,7 +58,7 @@ Always consider the specific needs of your application, such as support for lega
 
 > WebSocket open a connection within a session, but unlike long pulling which provides one way communication, it's bi-directional communication. Rather than the usual request/response lifecycle, with a client asking a server for resources, WebSockets allow for messages to be sent in either direction. 
 
-:::infoBusting a myth - 64K Port limitation
+:::info Busting a myth - 64K Port limitation
 Because Websocket builds on top of TCP, it'll have the same port limitation inherited from TCP. A TCP Port field is 2x bytes and holds a quantity of 65536. This number limits the amount of addresses a server can have. **But this doesn't limit the number of clients to ~64k. **
 
 A given TCP connection is a tuple of the source and destination, each with IP address and Port number. The destination (the server side) remains fixed, but the source address (the client side) can vary over both Port AND IP Address.
@@ -90,7 +90,7 @@ Most WebSocket use cases require real-time data. In a system design interview, c
 
 ### A WebSocket connection flow
 
-:::infoTL;DR
+:::info TL;DR
 WebSocket connections are initiated via a regular HTTP request from the client that indicates it would like to switch, or upgrade, to talking via a WebSocket connection. It's *kind of* like sending someone a Slack message asking if they want to hop on a quick video call --- it's still communicating over the computer, and you're using one method to initiate the next.
 :::
 

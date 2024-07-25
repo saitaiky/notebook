@@ -87,7 +87,7 @@ Each Aurora DB cluster **has one reader endpoint**, which load-balances connecti
 
 ![amazon_rds_aurora_backtracking](/img/aws/database/aurora/amazon_rds_aurora_backtracking.png)
 
-:::infoMaximum backtrack window 
+:::info Maximum backtrack window 
 Aurora Backtrack has a **maximum backtrack window of 72 hours**, which means you can only roll back your database to any point in time within the last 72 hours. This is because Aurora Backtrack uses the transaction log to roll back changes, and transaction logs are only kept for 72 hours.
 :::
 

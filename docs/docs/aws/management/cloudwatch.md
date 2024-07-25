@@ -69,7 +69,7 @@ You can export log data from your CloudWatch log groups to an Amazon S3 bucket a
 
 ### Trusted Advisor(Service limit)
 
-:::infoWhat is Service limit from Trusted Advisor
+:::info What is Service limit from Trusted Advisor
 Service limit is a feature provided by Trusted Advisor a reference implementation that automatically provisions the services necessary to proactively **track resource usage** and send notifications as you approach limits. 
 
 ![ta-dashboard](/img/aws/management/cw/ta-dashboard.png)
@@ -90,7 +90,7 @@ Depending on the type of status change, you might want to send notifications, ca
 
 Metrics, sometimes called time series, are concerned with events aggregated across time. They count how often each type of event happens, how long each type of event takes and how much data was processed by the event type.
 
-:::infoWhat is Dimensions?
+:::info What is Dimensions?
 > TL;DR - Think Dimension as a label 
 
 The key to distinguishing between Metrics with the same Name are Dimensions:
@@ -108,7 +108,7 @@ Every metric has specific characteristics that describe it, and you can think of
 
 ## Metrics for RDS
 
-:::dangerUse Enhanced Monitoring when you don't have access
+:::danger Use Enhanced Monitoring when you don't have access
 Because you don't have direct access to the instances/servers of your RDS database instance, unlike with your EC2 instances where you can install a CloudWatch agent or a custom script to get CPU and memory utilization of your instance.
 
 You can use **Enhanced Monitoring** feature in RDS to monitor the RDS. 
@@ -122,7 +122,7 @@ The differences can be greater if your DB instances use smaller instance classes
 
 ## Metrics for EC2 & ASG
 
-:::caution
+:::warning
 RAM is NOT included in the AWS EC2 metrics
 :::
 
@@ -185,7 +185,7 @@ aws sqs get-queue-attributes --queue-url https://sqs.<region>.amazonaws.com/<acc
 
 ## Unified CloudWatch Agent
 
-:::infoAWS Unified CloudWatch Agent & AWS CloudWatch Agent
+:::info AWS Unified CloudWatch Agent & AWS CloudWatch Agent
 "AWS Unified CloudWatch Agent" and "AWS CloudWatch Agent" are the same thing. AWS Unified CloudWatch Agent is the latest version of the agent used to collect and send logs and metrics to Amazon CloudWatch.
 :::
 
@@ -222,7 +222,7 @@ You **must create and attach** a IAM role to the EC2 instance to be able to run 
 
 ### Features
 
-:::cautionMemory Utilization
+:::warning Memory Utilization
 Take note that there is no built-in “Memory Utilization” metric available in CloudWatch for EC2. You have to set up a **custom metric** to track the memory usage of your EC2 instances.
 :::
 

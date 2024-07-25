@@ -41,7 +41,7 @@ The number and size of disks that you want to allocate for your gateway is up to
     -   Stored gateways require **at least one disk** to use as an upload buffer.
     -   Cached gateways require **at least two disks**. One to use as a cache, and one to use as an upload buffe
 
-:::infoManging the local disks (Exam)
+:::info Manging the local disks (Exam)
 - For upload buffer disk
     - **Short answer**: [Can be **in-place** replacement] Shut down the gateway, remove upload buffer disk, allocate a new disk
     - **Long answer**: For disks that are allocated as upload buffer for an existing gateway, you need to first **shut down the gateway before removing the disk**. After the gateway is shut down, you can remove the upload buffer disk. Then, you can allocate a new disk with the reduced upload buffer size.

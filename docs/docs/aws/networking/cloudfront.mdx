@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 AWS CloudFront is a content delivery network (CDN) service which accelerates the delivery of web content, including images, videos, and dynamic assets, to users worldwide. By distributing content across a global network of edge locations, it reduces latency, improves load times, and enhances the user experience. CloudFront also offers security features, such as DDoS protection and access control, making it a versatile solution for both static and dynamic web applications. It integrates seamlessly with other AWS services and provides detailed analytics for monitoring content delivery performance.
 
-:::cautionImportant Points
+:::warning Important Points
 - What options of HTTPS are available in AWS CloudFront? 
   - Between clients and CloudFront as well as between CloudFront and origin
     via - [Viewer to Cloudfront ](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html), [Cloudfront to Origin](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html)
@@ -112,7 +112,7 @@ To require that users access content through CloudFront, change the following se
 
 Configure CloudFront to forward custom headers to your origin. See [Configuring CloudFront to add custom headers to origin requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html#add-origin-custom-headers-configure).
 
-:::infoUser-Agent header
+:::info User-Agent header
 - If you want CloudFront to cache different versions of your objects based on the device that a user is using to view your content, use `User-Agent` header. You can create values like CloudFront-Is-Desktop-Viewer, CloudFront-Is-Mobile-Viewer, etc
   ![s3web-specific-cloudfront](/img/aws/networking/cloudfront/s3web-specific-cloudfront.jpg)
   Based on the value of the `User-Agent` header, CloudFront sets the value of these headers to true or false before forwarding the request to your origin. If a device falls into more than one category, more than one value might be true. 

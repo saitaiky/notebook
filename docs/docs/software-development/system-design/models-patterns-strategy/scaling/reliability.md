@@ -10,13 +10,13 @@ A reliable system can *perform its function*, *tolerate errors,* and *prev
 
 It should logically follow that beefing up system reliability will have implications for performance and cost in terms of complexity, engineering time, and money. 
 
-:::cautionReliability implies availability,but availability doesn't imply reliability.
+:::warning Reliability implies availability,but availability doesn't imply reliability.
 Reliability implies availability, but it's more than that. Building for reliability means added security, error-handling, disaster recovery, and countless other contingencies.
 
 Why? Because things will fail. Whether due to network outages, hardware failure, a botched roll-out, or a malicious attack, any system with dependencies must include logic to deal with failures. 
 :::
 
-:::cautionReliability in an interview
+:::warning Reliability in an interview
 When implementing reliability techniques in an interview scenario, it's helpful to:
 - Refer back to the requirements you've defined upfront. This will help you focus on mitigating the most important / most likely risks.
 - Assume failures will happen, and design your system to recover gracefully (in alignment with predefined requirements) from the very beginning.
@@ -33,7 +33,7 @@ When implementing reliability techniques in an interview scenario, it's helpful 
     - It holds the retry back for a set amount of time allowing the system to recover. 
     - Many engineers implement an **exponential backoff** strategy that systematically decreases the rate of re-transmission in search of an acceptable retry rate.
 
-:::cautionTechniques & considerations
+:::warning Techniques & considerations
 Retry buildup in high-traffic systems can lead to extremely high system load once the error is resolved. This is called the **thundering herd** problem, and it can cause even more problems than the transient error as your resource(s) struggle to cope with the request volume. A simple solution is to introduce **jitter**, or "randomness" to the delay intervals so that client requests don't synchronize.
 
 From a UX perspective, keep in mind that in some cases it's better to fail fast and simply let users know. In this case, implement a low retry limit and alert users that they'll need to try again later.
@@ -48,7 +48,7 @@ A circuit breaker is a pattern that detects failures and encloses the failure op
 
 While a retry pattern assumes that the operation will ultimately succeed, a **circuit breaker** accepts failure and stops the application from repeatedly trying to execute. This saves computing power and helps prevent the cascading failures we discussed above. 
 
-:::cautionTechniques & considerations
+:::warning Techniques & considerations
 There are a few main points to remember when implementing circuit breakers.
 
 - When configuring circuit breakers in system design, it's important to consider factors such as the failure threshold, timeout duration, recovery timeout(depends on the recovery patterns you anticipate), and expected traffic patterns to ensure resilience while avoiding unnecessary interruptions to service.

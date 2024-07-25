@@ -17,7 +17,7 @@ Using AWS Auto Scaling, you can configure automatic scaling for all of the scala
 - Amazon DynamoDB: Enable a DynamoDB table or a global secondary index to increase its provisioned throughput (read and write) capacity to handle sudden increases in traffic without request throttling.
 - Amazon Aurora: Dynamically adjust the number of **Aurora Read Replicas** provisioned for an Aurora DB cluster to handle sudden increases in active connections or workload.
 
-:::info2 types of Auto Scaling
+:::info 2 types of Auto Scaling
 In Amazon Web Services (AWS), there are two types of Auto Scaling that can be used with Auto Scaling Groups (ASGs):
 
 - **Dynamic scaling** = Scaling on Demand. 
@@ -40,7 +40,7 @@ Some points to remember:
 
 ### ASG terminates unhealthy EC2 instance
 
-:::infoScaling without ASG update the size of the group
+:::info Scaling without ASG update the size of the group
 The default behaviour of after ternminating instances, ASG addes new instances. If you want to terminate an instance from the specified Auto Scaling group without updating the size of the group.
 
 You can use `terminate-instance-in-auto-scaling-group` CLI command terminates the specified instance and optionally adjusts the desired group size. This call simply makes a termination request so the instance is not terminated immediately.
@@ -95,7 +95,7 @@ You can enable Capacity Rebalancing for your Auto Scaling groups when using Spot
 
 A launch configuration in AWS Auto Scaling group is a template that defines the configuration for launching instances. It includes details such as the Amazon Machine Image (AMI), instance type, security groups, and user data. When scaling actions are triggered, the launch configuration is referenced to provision new instances. It provides a consistent setup for instances within the Auto Scaling group and enables easy replication of configurations across multiple instances.
 
-:::caution
+:::warning
 You can't modify a launch configuration after you've created it.
 :::
 
@@ -149,7 +149,7 @@ To create a target tracking scaling policy, you specify **an Amazon CloudWatch m
 - ALBRequestCountPerTarget
 - ASGAverageCPUUtilization
 
-:::cautionScaling based on Amazon SQS
+:::warning Scaling based on Amazon SQS
 Besides target tracking scaling policy, You can also scalling based on the number of messages in a SQS queue - [document](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-using-sqs-queue.html)
 :::
 
@@ -245,7 +245,7 @@ Imagine you are deploying a critical monolith application that must be deployed 
 - Assign an EC2 Instance Role to perform the necessary API calls
   - For that Elastic IP to be attached to our EC2 instance, we must use an EC2 user data script, and our EC2 instance must have the correct IAM permissions to perform the API call, so we need an EC2 instance role.
 
-:::caution Don't use ALB and a target group with the instance(s) of the Auto Scaling Group
+:::warning Don't use ALB and a target group with the instance(s) of the Auto Scaling Group
 If we use an ALB, things will still work, but we will have to **pay for the provisioned ALB** which sends traffic to only one EC2 instance. 
 :::
 

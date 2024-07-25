@@ -17,7 +17,7 @@ When we were adolescents, we might feel a sense of confusion while searching for
 
 Self-awareness, known as self-identity, plays a crucial role in shaping one's life goals. Life goals represent what one desires most in this world. If someone doesn't quite understand what they like, setting the tone and direction for their entire life becomes even more challenging in the vast expanse of life.
 
-:::infoWhy understanding who we are is important to our life goal?
+:::info Why understanding who we are is important to our life goal?
 Having a clear self-awareness is a prerequisite for setting life goals. What makes a suitable life goal for oneself? It should align with your values and involve doing things you enjoy. Only then can it generate intrinsic motivation to achieve those goals. Life goals crafted to meet external expectations don’t ignite the passionate pursuit of dreams; their motivation tends to be external and short-lived. Ultimately, every individual bears the responsibility for dealing with everything in their life. Hence, life goals belong to oneself, not to others.
 :::
 
@@ -200,11 +200,11 @@ Here are a few reasons why psychologists advocate for a growth mindset over a pe
 
 The preference for a growth mindset is well-supported by research, which demonstrates its benefits for learning, motivation, and psychological well-being. By viewing life as a journey and adopting a growth mindset, individuals can develop more adaptive coping strategies, maintain a positive outlook in the face of adversity, and continue to invest in their personal and professional growth. That being said, it's important to recognize that the efficacy of a growth mindset may vary from person to person and that a balance between striving for growth and recognizing one's current achievements is also crucial for well-being.
 
-:::infoThe mastery-oriented and growth mindset lead to a positive life
+:::info The mastery-oriented and growth mindset lead to a positive life
 By exalting these qualities, we foster an environment where individuals are motivated to persist, innovate, and contribute to the greater good without the fear of failing to achieve a specific outcome. This not only makes our lives more positive but also creates a society that values growth, learning, and moral action over mere results.
 :::
 
-:::infoNeither success nor failure is permanent
+:::info Neither success nor failure is permanent
 Would you prefer life to be straightforward or as vibrant as a rainbow? Neither success nor failure is permanent. Since nothing is eternal, how can success or failure be absolute? Life is a journey, a roller coaster ride. When riding a roller coaster, is it more fun to stay at the top or the bottom? The most thrilling moments are, of course, when you zoom down from the top and soar right back up!
 :::
 

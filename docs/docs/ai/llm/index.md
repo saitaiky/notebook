@@ -2,7 +2,7 @@
 title: History
 ---
 
-:::infoThe reason I didn't put this LLM section into ML or DL section
+:::info The reason I didn't put this LLM section into ML or DL section
 Large Language Models (LLMs) primarily fall under the categories of deep learning and machine learning, leveraging advanced neural network architectures like transformers. Initially, machine learning models represented words using numerical tables or one-hot encoding, which couldn't capture semantic relationships. This limitation was addressed with word embeddings, where words are represented as multi-dimensional vectors in a vector space, allowing words with similar meanings to be close to each other.
 
 Transformers, a key architecture in LLMs, use an encoder to convert text into numerical representations and understand the context of words and phrases. The encoder-decoder mechanism enables LLMs to process and generate text by understanding relationships between words, such as parts of speech and contextual meanings. This sophisticated understanding allows LLMs to generate coherent and contextually relevant outputs.
@@ -18,11 +18,11 @@ LLMs are a subset of language models, distinguished by their size, which is attr
 
 However, the quality of data used for training LLMs is crucial. Models trained on peer-reviewed content, such as research papers and novels, typically outperform those trained on unreviewed data like social media posts. LLMs require diverse data to perform various natural language processing (NLP) tasks. Fine-tuning allows a foundation language model to specialize in specific domains.
 
-:::infoFoundation Language Models vs. Fine-Tuned Language Models
+:::info Foundation Language Models vs. Fine-Tuned Language Models
 Foundation language models, like MT-NLG and GPT-3, are versatile and perform a wide range of NLP tasks. They excel in general performance but may not be ideal for specific tasks. Fine-tuned language models, derived from foundation LLMs, are customized for specialized purposes and offer improved task-specific performance. Fine-tuning is commonly achieved through parameter-efficient techniques like p-tuning and adapters, making it a cost-effective and practical approach.
 :::
 
-:::infoA general purpose technology
+:::info A general purpose technology
 Generative AI and LLMs specifically are a general purpose technology. That means that similar to other general purpose technologies like deep learning and electricity, is useful not just for a single application, but for a lot of different applications that span many corners of the economy. 
 :::
 
@@ -49,7 +49,7 @@ systems was that they were capable of learning on their own with little to no hu
 They analyze data to create their own rules, rather than learn the rules first and apply them to data
 later. This is also known as representation learning and is inspired by human learning processes.
 
-:::infoHow it works
+:::info How it works
 Representations, or features, are hidden patterns that neural networks can extract from data. To
 exemplify this, let’s imagine we’re training an NN-based model on a dataset containing the following
 tokens:
@@ -118,7 +118,7 @@ The analogy of self-attention is that imagine you're at a cocktail party trying 
 
 In this analogy, your brain is performing a kind of self-attention. It's figuring out which pieces of information (inputs) are important to focus on so that you can fully understand the story your friend is telling (processing the current word). Just like in the GPT model, some inputs (comments, noise, gestures) are given more weight than others, and that affects your understanding of the story.
 
-:::infoHow Attention mechanism works
+:::info How Attention mechanism works
 To demonstrate this, let’s imagine the desired model is a transformer-based model to predict the next
 words for the following input sentence:
 
@@ -224,7 +224,7 @@ The ‘multi-head’ attention mechanism that GPT uses is an evolution of self-a
 
 **ChatGPT** is a spinoff of InstructGPT, which introduced a novel approach to incorporating human feedback into the training process to better align the model outputs with user intent. Reinforcement Learning from Human Feedback (RLHF) is described in depth in openAI’s 2022 paper Training language models to follow instructions with human feedback and is simplified below.
 
-:::infoWhat is InstructGPT?
+:::info What is InstructGPT?
 InstructGPT is a variant of the GPT (Generative Pre-trained Transformer) language model developed by OpenAI, specifically fine-tuned to better understand and follow user instructions. Unlike the standard GPT models which generate text based on a given prompt, InstructGPT is trained to respond more accurately to prompts that require specific actions or outputs, such as creating a list, summarizing information, or providing explanations. It aims to be more aligned with the intentions behind user requests, providing more relevant and useful responses.
 :::
 

@@ -99,7 +99,7 @@ There are various patterns/solutions for implementing transactions and queries t
 
 The event sourcing pattern is typically used with the **CQRS pattern** to **decouple read from write workloads**, and optimize for performance, scalability, and security. Data is stored as a series of events, instead of directli storing the current state to data stores. Microservices replay events from an event store to compute the appropriate state of their own data stores. 
 
-:::infoWhat is an event?
+:::info What is an event?
 Events represent the state transitions of things that have occurred in your system. 
 :::
 
@@ -179,7 +179,7 @@ You should consider using this pattern if:
 - Your read and write workloads have separate requirements for scaling, latency, and consistency.
 - Eventual consistency is acceptable for the read queries.
 
-:::caution Important
+:::warning Important
 The CQRS pattern typically results in **eventual consistency** between the data stores.
 :::
 
@@ -187,7 +187,7 @@ The CQRS pattern typically results in **eventual consistency** between the data 
 
 The saga pattern is **a failure management pattern** that helps establish consistency in distributed applications, and coordinates transactions between multiple microservices to maintain data consistency. A microservice publishes an event for every transaction, and the next transaction is initiated based on the event's outcome. It can take two different paths, depending on the success or failure of the transactions.
 
-:::cautionTechniques & considerations
+:::warning Techniques & considerations
 Sagas can introduce quite a lot of complexity into your system. You'll have to build the set(s) of compensating transactions that are triggered by different failures. Depending on your application, this might require substantial work upfront to understand user behavior and potential failure modes.
 :::
 
@@ -200,11 +200,11 @@ To maintain consistency in a transaction, relational databases provide **two-pha
 
 In distributed systems architected with microservices, **two-phase commit** is not an option as the transaction is distributed across various databases. In this case, one solution is to use **the saga pattern**.
 
-:::infoExample
+:::info Example
 For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit. Since Orders and Customers are in different databases owned by different services the application cannot simply use a local ACID transaction.
 :::
 
-:::infoUse cases
+:::info Use cases
 - Maintains data consistency across multiple services.
 - Well-suited to any microservice application where **idempotency** (the ability to apply the same operation multiple times without changing the result beyond the first try) is important, like when charging credit cards.
 - **Choreographed saga**: For microservices in which there aren't many participants or the set of counter transactions required is discrete and small consider choreographed saga as there's no single point of failure.

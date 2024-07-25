@@ -14,7 +14,7 @@ sidebar_position: 2
 
 In AWS Key Management Service (KMS), CMK stands for Customer Master Key. It is a fundamental component of KMS and is used to encrypt and decrypt data in AWS services and applications securely. CMKs are created, owned, and managed by AWS customers, allowing them to have control over their encryption keys.
 
-:::infoSome points for exam
+:::info Some points for exam
 - Automatic key rotation 
     - AWS KMS doesn't rotate the backing keys of CMKs that are **pending deletion**
     - Automatic key rotation is not supported for imported keys, asymmetric keys, or keys generated in an AWS CloudHSM cluster using the AWS KMS custom key store feature
@@ -108,7 +108,7 @@ CloudWatch Logs decrypts this data whenever it is requested. CloudWatch Logs mus
 
 Based on its respective DB engine, configure the database to use SSL and use the root certificates which are readily available from AWS.
 
-:::infoRoot certificate
+:::info Root certificate
 A **root certificate** that works for all regions can be downloaded from the AWS website. It is the trusted root entity and should work in most cases but might fail if your application doesn't accept certificate chains. 
 
 If your application doesn't accept certificate chains, download the **AWS Region–specific certificate** from AWS.

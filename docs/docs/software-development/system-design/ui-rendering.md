@@ -29,7 +29,7 @@ Rendering a webpage is the process of turning HTML, CSS, and JavaScript code int
     - **Instant**: Loads immediately without fetching on request. - **SSG**, **ISR**
     - **Loads Before/After Render**: Slight delay before or after rendering. - **CSR**, **SSR**
 
-:::infoNews
+:::info News
 In 2019, Google introduced a set of metrics intent on measuring the actual performance of a website as the users would see it. These metrics are collectively called the Core Web Vitals.
 
 - First Contentful Paint (FCP)
@@ -127,7 +127,7 @@ Source: [Visual Explanation and Comparison of CSR, SSR, SSG and ISR](https://dev
 | **Most Recent Content**   | Excellent                     | Excellent                 | Poor                       | Moderate                    |
 | **Server Requirement**    | App Server                    | App Server                | Static Server              | Static Server               |
 
-:::infoCSR vs SSR
+:::info CSR vs SSR
 The main difference here is that:
 
 for SSR, your server’s response to the browser is the HTML of your page that is ready to be rendered;

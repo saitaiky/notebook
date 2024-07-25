@@ -7,7 +7,7 @@ After you have install and run your first application. You will need to prepare 
 
 Day-2 has been very hard to do. It's the worst part of the job because we're always dealing with limiting tools that don't do declarative deployments and don't have rolling updates built in. 
 
-:::infoHistory of Day-2 operations
+:::info History of Day-2 operations
 Amazon was one of the first companies to really get Day-2 Operations right with their auto scaling groups, but I'm not going to talk about our history.
 :::
 

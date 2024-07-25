@@ -28,7 +28,7 @@ Here's a table highlighting the differences between the **API-First** mindset an
 | **Consumer Focus**           | **Consumer-Centric APIs**: APIs are designed with the end-user (developers, applications) in mind, ensuring they are easy to understand and use. | **Internal Needs Focus**: APIs are often designed to meet internal requirements, potentially neglecting external usability. |
 | **Flexibility and Iteration**| **Adaptable and Iterative**: APIs are continuously refined based on feedback, supporting agile development practices. | **Fixed and Reactive**: Changes to APIs are typically reactive and made after core functionalities are developed, limiting flexibility. |
 
-:::infoHow can the API-first approach be agile while you have to design the API up front
+:::info How can the API-first approach be agile while you have to design the API up front
 
 The API-First approach can indeed seem like it requires upfront planning similar to Waterfall, but it is fundamentally Agile in nature due to how it facilitates iterative development and adaptability.
 

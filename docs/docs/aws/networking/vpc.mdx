@@ -75,7 +75,7 @@ In a VPC, the first four IP addresses and the last IP address in each subnet CID
 
 ### Configs with VPC wizard 
 
-:::infoWhat is piblic subnet and private subnet
+:::info What is piblic subnet and private subnet
 A public subnet basically means that it has a route to the Internet Gateway and a private subnet does not.
 :::
 
@@ -104,7 +104,7 @@ You can create a flow log for a VPC, a subnet, or a network interface. If you cr
 
 Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow.
 
-:::cautionFlow log is immutable
+:::warning Flow log is immutable
 After you've created a flow log, you cannot change its configuration or the flow log record format. For example, you can't associate a different IAM role with the flow log or add or remove fields in the flow log record. Instead, you can delete the flow log and create a new one with the required configuration.
 :::
 
@@ -180,7 +180,7 @@ The following are the key concepts for Traffic Mirroring:
 - Target — The destination for mirrored traffic.
 - Session — Establishes a relationship between a source, a filter, and a target.
 
-:::info2 reasons the Packet is truncated when sending to the mirror target
+:::info 2 reasons the Packet is truncated when sending to the mirror target
 Packet truncation to the MTU value occurs when the following two conditions are true:
 
 - The traffic mirror target is a standalone instance.
@@ -199,7 +199,7 @@ A VPC peering connection is a networking connection between two VPCs that enable
 - Both VPCs for peering need to update their route table for communication
 - You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks.
 
-:::cautionIt is so easy to get messy
+:::warning It is so easy to get messy
 To mesh n VPCs together, you would need n*(n-1)/2 peering connections.
 
 This creates huge complexity maintaining and configuring so many VPC Peering Connections at scale. For example:
@@ -217,7 +217,7 @@ You cannot use VPC peering to communicate with on-premises DCs or with other clo
 All the above are reasons why AWS introduced the concept of “**Transit VPC**” and subsequently “**Transit Gateway**” to support communications between multiple VPCs.
 :::
 
-:::infoExample
+:::info Example
 Imagine there are 2 VPCs, VPC-A (10.10.0.0/16) and VPC-B (192.168.0.0/16). To establish a VPC peering connection between the two VPCs which has an ID of `pcx-tutsd0j0`, you need to declare the remote VPC IP block as Destination and choose the VPC peering connection ID as the target. 
 
 ![peering](/img/aws/networking/vpc/peering.png)
@@ -314,7 +314,7 @@ To enable access to or from the internet for instances in a subnet in a VPC, you
 
 An egress-only internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows outbound communication over IPv6 from instances in your VPC to the internet, and prevents the internet from initiating an IPv6 connection with your instances.
 
-:::cautionEgress-only Internet gateway is for **IPv6 traffic**.
+:::warning Egress-only Internet gateway is for **IPv6 traffic**.
 - To enable outbound-only internet communication over **IPv6**, use a **egress-only internet gateway** instead.
   - Don't forget to assign an IPv6 address to the instance in private subnet otherwise the instance cannot access IPv6 websites.
 - To enable outbound-only internet communication over **IPv4**, use a **NAT gateway** instead.
@@ -336,7 +336,7 @@ A dedicated connection is made through a 1 Gbps, 10 Gbps, or 100 Gbps Ethernet p
 
 AWS Direct Connect is a network service that provides an alternative to using the Internet to utilize AWS cloud services. AWS Direct Connect enables customers to have low latency and private connections to AWS for workloads that require higher speed or lower latency than the internet. Direct Connect is a paid service and is available only if the customer opts for it.
 
-:::infoVirtual interfaces (VIF)
+:::info Virtual interfaces (VIF)
 
 ![vif-propogation](/img/aws/networking/vpc/vif-propogation.png)
 
@@ -428,7 +428,7 @@ Here are the stpes to create a NAT Gateway:
 1. You must also specify an Elastic IP address to associate with the NAT gateway when you create it. 
 2. After you’ve created a NAT gateway, you must update the route table associated with one or more of your private subnets to point Internet-bound traffic to the NAT gateway. This enables instances in your private subnets to communicate with the internet.
 
-:::infoBlackhole status in NAT
+:::info Blackhole status in NAT
 The `blackhole` status indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).
 
 ![nat-blackhole](/img/aws/networking/vpc/nat-blackhole.png)
@@ -458,13 +458,13 @@ The following is a high-level summary of the differences between NAT gateways an
 > Full table of comparision: [Compare NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
 
 
-:::infoWhat is Bastion hosts? 
+:::info What is Bastion hosts? 
 Including **bastion hosts** in your VPC environment enables you to securely connect to your Linux instances without exposing your environment to the Internet. After you set up your bastion hosts, you can access the other instances in your VPC through **Secure Shell (SSH)** connections on Linux. Bastion hosts are also configured with security groups to provide fine-grained ingress control.
 
 You need to remember that **Bastion Hosts are using the SSH protocol**, which is a TCP based protocol on port 22. They must be publicly accessible.
 :::
 
-:::infoBastion instance vs NAT instance
+:::info Bastion instance vs NAT instance
 NAT instances allows **outbound** traffic from instances in VPC where as Bastion instance allows **inbound SSH traffic** to the instances in VPC.
 :::
 
@@ -501,7 +501,7 @@ When establishing a static VPN connection between an on-premises network and a V
 
 From the AWS side, in order to enable instances in your VPC to reach your customer gateway, you must configure your route table to include the routes used by your VPN connection and point them to your virtual private gateway. You can enable route propagation for your route table to automatically propagate those routes to the table for you.
 
-:::infoStatic and dynamic routing
+:::info Static and dynamic routing
 > Reference: [Site-to-Site VPN routing options](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPNRoutingTypes.html)
 
 The type of routing that you select can depend on the make and model of your customer gateway device. If your customer gateway device supports Border Gateway Protocol (BGP), specify dynamic routing when you configure your Site-to-Site VPN connection. If your customer gateway device does not support BGP, specify static routing.
@@ -509,7 +509,7 @@ The type of routing that you select can depend on the make and model of your cus
 For static routing, the static IP prefixes that you specify for your VPN configuration are propagated to the route table when the status of the VPN connection is UP. Similarly, for dynamic routing, the BGP-advertised routes from your customer gateway are propagated to the route table when the status of the VPN connection is UP.
 :::
 
-:::infoExample
+:::info Example
 Imagine you have 3 subnets - `10.0.0.0/20`, `10.0.16.0/20`, and `10.0.32.0/20` and now you want to connect them to a route table to allow communication between them. To do so, you'll need to set the following route in the route table:
 
 - **Destination**: `10.0.0.0/16` (WS automatically configures the route table for a VPC, it sets the route to cover the entire VPC's CIDR range.)
@@ -531,7 +531,7 @@ There are 2 use cases that you may consider to use VPN CloudHub:
 
 ## Elastic IP
 
-:::cautionAuto detach public IP when attach an Elastic IP
+:::warning Auto detach public IP when attach an Elastic IP
 AWS releases your instance's public IP address when you associate an Elastic IP address with it. When you disassociate the Elastic IP address from your instance, it receives a new public IP address.
 :::
 
@@ -553,7 +553,7 @@ Let’s say you setup the apache to host a website. Now, you need to scale up th
 
 So it may be the case that you need to update all DNS entries again. However, You can reserve the public ip for you and that ip can be attached to any ec2 which you have, so there will be no issue regarding PUBLIC IP Change.
 
-:::caution Cost
+:::warning Cost
 Elastic IP is a free service, but you’re limited to five in total (to prevent exhaustion of Amazon’s address pool). And, while they are entirely free to use, they’re actually **the only AWS service that costs money if you don’t use it**
 
 Having an Elastic IP provisioned but not attached to a running machine will cost you $7.50 a month. Make sure your machine isn’t off for extended periods of time, and if you change servers or stop using the IP, make sure to release it so you aren’t charged for letting it sit idle in your account.
@@ -581,7 +581,7 @@ You can share the subnet(s) within a VPC using RAM. This will allow all EC2 inst
 To set this up, the account that owns the VPC (owner) shares one or more subnets with other accounts (participants) that belong to the same organization from AWS Organizations. 
 After a subnet is shared, the participants can view, create, modify, and delete their application resources in the subnets shared with them. Participants cannot view, modify, or delete resources that belong to other participants or the VPC owner.
 
-:::infoAWS Resource Access Manager
+:::info AWS Resource Access Manager
 AWS RAM enables you to share specified AWS resources that you own with other AWS accounts. It's a centralized service that provides a consistent experience for sharing different types of AWS resources across multiple accounts. 
 :::
 
@@ -614,7 +614,7 @@ Source: [Security Group and Network Access Control List Migration between differ
 
 Source: [Youtube: AWS Network Access Control List | AWS NACL | NACL](https://www.youtube.com/watch?v=tLAgYQlMWGo)
 
-:::infoLog from VPC flow log to show ACL is stateless
+:::info Log from VPC flow log to show ACL is stateless
 This is a VPC flow log to demostrate what it looks like when Network ACL permits inbound ICMP traffic but does not permit outbound ICMP traffic. In this example, I usde the ping command from your home computer (IP address is 203.0.113.12) to an EC2 instance (the network interface’s private IP address is 172.31.16.139)
 
 Apparently, the first one is an `ACCEPT` record, and the second one is a `REJECT` record, which means that the incoming traffic was successfully accepted by your EC2 instance, but the response, or the outgoing traffic, was rejected by either your security group or network ACL.
@@ -631,7 +631,7 @@ Apparently, the first one is an `ACCEPT` record, and the second one is a `REJECT
 
 The following table summarizes the differences between IPv4 and IPv6 in Amazon EC2 and Amazon VPC. For a list of AWS services that support dual-stack configuration (IPv4 and IPv6) and IPv6-only configurations, see [Services that support IPv6](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ipv6-support.html#ipv6-service-support) / [Getting started with IPv6 on AWS](https://cloudonaut.io/getting-started-with-ipv6-on-aws/) for more details.
 
-:::caution
+:::warning
 You can create a custom VPC with both IPV4 and IPV6 support (Dual Support).
 - IPV4 CIDR Block: 10.0.0.0/16
 - IPV6 CIDR Block: AWS will provide you a /56 IPV6 CIDR Block (You cannot explicitly specify an IP range for IPv6, as this is only provided by Amazom)
@@ -656,15 +656,8 @@ You can create a custom VPC with both IPV4 and IPV6 support (Dual Support).
     </tr>
     <tr>
       <td>Address selection</td>
-      <td>You can choose the IPv4 CIDR block for your VPC or you can allocate a
-        CIDR block from Amazon VPC IP Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
-        <em>Amazon VPC IPAM User Guide</em>.
-      </td>
-      <td>You can bring your own IPv6 CIDR block to AWS for your VPC, choose an
-        Amazon-provided IPv6 CIDR block, or you can allocate a CIDR block from Amazon VPC IP
-        Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
-        <em>Amazon VPC IPAM User Guide</em>.
-      </td>
+      <td>You can choose the IPv4 CIDR block for your VPC or you can allocate a <br/>CIDR block from Amazon VPC IP Address Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the<em>Amazon VPC IPAM User Guide</em>.</td>
+      <td>You can bring your own IPv6 CIDR block to AWS for your VPC, choose an<br/>Amazon-provided IPv6 CIDR block, or you can allocate a CIDR block from Amazon VPC IP<br/>AAddress Manager (IPAM). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the<em>Amazon VPC IPAM User Guide</em>.</td>
     </tr>
     <tr>
       <td>Internet access</td>

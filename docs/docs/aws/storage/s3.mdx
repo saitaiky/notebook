@@ -32,7 +32,7 @@ In the Amazon S3 console, prefixes are called folders. You can view all your obj
 
 - **S3 Standard-IA** is for data that is accessed less frequently but requires rapid access when needed. (high durability, high throughput, and low latency). 
 
-:::caution Use Standard-IA only when you need big thoughput
+:::warning Use Standard-IA only when you need big thoughput
 If you need to access objects frequently and you don't need a big thoughput, don't use `standard-IA`. Because it will cost you a lot of money.
 :::
 
@@ -53,7 +53,7 @@ Source: [Transitioning objects using Amazon S3 Lifecycle](https://docs.aws.amazo
 
 ![s3_lifecycle_policy_standard-ia](/img/aws/storage/s3/s3_lifecycle_policy_standard-ia.png)
 
-:::cautionStandard IA vs One Zone IA
+:::warning Standard IA vs One Zone IA
 While Standard Infrequent Access and Standard offer the same durability (99.999999999%), One Zone IA does not. As its name implies, data is stored in a single Availability Zone, which means there is **no cross-AZ data replication** in the event of failure. 
 
 It isn't resilient to the physical loss of an Availability Zone resulting from disasters, such as earthquakes and floods. **If the AZ is destroyed, so is your data**.
@@ -96,7 +96,7 @@ Amazon S3 Inventory helps manage storage by providing reports on **object replic
 
 Reports are generated in CSV, ORC, or Parquet format on a daily or weekly basis, depending on your preference, for an S3 bucket or objects with shared prefixes. Weekly reports are generated every Sunday (UTC time zone) after the initial report.
 
-:::cautionWhat happen when a S3 object has more than 1 million version?
+:::warning What happen when a S3 object has more than 1 million version?
 If you notice a significant increase in the number of HTTP 503-slow down responses received for Amazon S3 `PUT` or `DELETE` object requests to a bucket that has versioning enabled, you might have one or more objects in the bucket for which there are millions of versions. 
 
 When you have objects with millions of versions, Amazon S3 automatically **throttles requests to the bucket to protect the customer** from an excessive amount of request traffic, which could potentially impede other requests made to the same bucket.
@@ -189,7 +189,7 @@ MFA-Delete represents another layer of security wherein you can configure a buck
 - Change the versioning state of your bucket
 - Permanently delete an object version
 
-:::cautionHow to delete a bucket which enabled Versioning and MFA Delete features
+:::warning How to delete a bucket which enabled Versioning and MFA Delete features
 Before jump to the answer, you should know:
 - Only the **bucket owner (root account)** can enable/suspend the MFA-Delete on the objects.
 - However, both the **bucket owner(root account)** and all authorized IAM users **can enable versioning**.
@@ -230,7 +230,7 @@ AWS notification feature enables you to receive notifications when certain event
 - Replication events
 :::
 
-:::caution 2 Writes are made to a single non-versioned object
+:::warning 2 Writes are made to a single non-versioned object
 If two writes are made to a single non-versioned object at the same time, it is **possible that only a single event notification** will be sent. If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket. With versioning, every successful write will create a new version of your object and will also send an event notification.
 
 With versioning, you can easily recover from both unintended user actions and application failures. When you enable versioning for a bucket, if Amazon S3 receives multiple write requests for the same object simultaneously, it stores all of the objects.
@@ -255,11 +255,11 @@ Depending on your Region, your Amazon S3 website endpoints follow one of these t
 
 These URLs return the default index document that you configure for the website.
 
-:::cautionCloudFront can only use HTTP to connect to S3 as a website endpoint
+:::warning CloudFront can only use HTTP to connect to S3 as a website endpoint
 If your Amazon S3 bucket is configured as a website endpoint, you can't configure CloudFront to use HTTPS to communicate with your origin because Amazon S3 **doesn't support HTTPS connections** in that configuration.
 :::
 
-:::cautionYou must give the S3 bucket the same name as the record that you want to use to route traffic to the bucket
+:::warning You must give the S3 bucket the same name as the record that you want to use to route traffic to the bucket
 When you configure an Amazon S3 bucket for website hosting, you must give the bucket the same name as the record that you want to use to route traffic to the bucket. 
 
 For example, to route traffic for "example.com" to an Amazon S3 bucket that's configured for website hosting, the bucket name must be "example.com".
@@ -426,7 +426,7 @@ Source: [Background: Amazon S3 Access Control Tools](https://www.msp360.com/reso
 
 In contrast, **bucket policies** and **ACLs** are attached to the resource itself *either an S3 bucket or an S3 object* to control access. 
 
-:::infoNote
+:::info Note
 **IAM roles** and **resource-based policies** delegate access across accounts only within a single partition. For example, you can't add cross-account access between an account in the standard `aws` partition and an account in the `aws-cn` partition. [(reference)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)
 :::
 </TabItem>
@@ -445,7 +445,8 @@ ACL in AWS console
 Source: [An easier way to control access to aws resources by using the aws organization of iam principals](https://noise.getoto.net/tag/s3-bucket-policy/)
 
 The below table is the set of ACL permissions is the same for an object ACL and a bucket ACL. The important one are `WRITE_ACP` and `READ_ACP` to control **whether the grantee can read/create ACL or not**  Ref:[What permissions can I grant?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html)
-<table><thead><tr><th class="table-header" colspan="100"><div class="title">ACL permissions</div></th></tr>
+<table><thead>
+<tr><th class="table-header" colspan="100"><div class="title">ACL permissions</div></th></tr>
 <tr>
 <th>Permission</th>
 <th>When granted on a bucket</th>
@@ -557,7 +558,7 @@ In this bucket policy, if you don't have either `arn:aws:s3:::tutorialsdojo/*` f
 
 ### HTTPS for encryption
 
-:::caution
+:::warning
 Among all 4 encryption types, only SSE-C requires all the requests need to through HTTPS.
 :::
 
@@ -569,7 +570,7 @@ Among all 4 encryption types, only SSE-C requires all the requests need to throu
 
 ### Force encryption in bucket policy
 
-:::infoUpdate January 5, 2023
+:::info Update January 5, 2023
 
 > Reference: [Amazon S3 now automatically encrypts all new objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-encryption-faq.html)
 
@@ -648,11 +649,11 @@ If you restrict access by using, for example, CloudFront signed URLs or signed c
 
 ### Restricting only CloudFront access
 
-:::infoWhen to use OAI/OAC?
+:::info When to use OAI/OAC?
 Use an Origin Access Identity (OAI) in AWS S3 when you want to securely deliver **private content stored in an S3 bucket** through a CloudFront distribution. OAI restricts direct access to S3 objects while allowing controlled distribution via CloudFront edge locations, enhancing performance and security for delivering sensitive or restricted content to users.
 :::
 
-:::cautionNo OAI for S3 static website
+:::warning No OAI for S3 static website
 If you use an Amazon S3 bucket configured as a website endpoint, you must set it up with CloudFront **as a custom origin**. That means you can't use OAC (or OAI). However, you can restrict access to a custom origin by setting up custom headers and configuring the origin to require them. For more information, see [Restricting access to files on custom origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html#forward-custom-headers-restrict-access).
 :::
 
@@ -700,7 +701,7 @@ AWS Snowball is a physical data transfer device offered by Amazon Web Services (
 *You can't move data directly from Snowball into a **Glacier Vault** or a **Glacier Deep Archive Vault** *. You need to go through S3 first and then use a lifecycle policy.
 :::
 
-:::infoAWS OpsHub - an UI replacement of CLI to manage of Snow Family Devices
+:::info AWS OpsHub - an UI replacement of CLI to manage of Snow Family Devices
 AWS OpsHub **presents all Snowball API as a graphical user interface**. This interface helps you quickly migrate data to the AWS Cloud and deploy edge computing applications on Snow Family Devices.
 
 When your Snow device arrives at your site, you download, install, and launch the AWS OpsHub application on a client machine, such as a laptop. After installation, you can unlock the device and start managing it and using supported AWS services locally.

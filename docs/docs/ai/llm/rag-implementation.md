@@ -95,7 +95,7 @@ Therefore, Kendra is better suited for enterprise search applications or website
 
 The answer is yes, in theory you can use the same model for both embedding and text generation in a RAG application, though it involves certain trade-offs. The primary reason not many practitioners use the same model for both embedding and text generation tasks in Retrieval-Augmented Generation (RAG) applications is due to the distinct optimization requirements for each task. Embedding models, like BERT, are optimized for capturing semantic similarity and relevance, making them effective for information retrieval. In contrast, text generation models, such as GPT-3, are designed to produce coherent and contextually appropriate responses, focusing on fluency and coherence.
 
-:::infoFurther material
+:::info Further material
 To understand this topic further, there is a [research paper](https://arxiv.org/pdf/2201.10005.pdf) by [OpenAI](https://openai.com/blog/introducing-text-and-code-embeddings) that explain this more.
 
 Generative, auto-regressive models **aren't well suited for embeddings** because their understanding of the input is spread out over multiple hidden states. You need to train a model whose specific purpose is to produce embeddings. Typically this is a transformer encoder, and in such cases you take the hidden state from the last layer of the last "end of sequence" token. This means that the model's understanding is concentrated in a single place.

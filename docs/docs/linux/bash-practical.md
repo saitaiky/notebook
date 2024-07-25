@@ -80,7 +80,7 @@ $ ls -al 1> list.txt 2>&1
 $ ls -al 1> list.txt 2> /dev/null
 ```
 
-:::infoWhat happen if I don't discard standard error if an error occur?
+:::info What happen if I don't discard standard error if an error occur?
 In the above example `ls -al 1> list.txt 2> /dev/null`, consider a scenario where you run ls -al in a directory where some files or directories are not accessible due to permission issues.
 
 If you do not discard the errors:
@@ -111,7 +111,7 @@ By mastering command redirection, you can efficiently manage where your program 
 
 ## Process substitution
 
-Many commands can accept input from a facility called standard input. By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. To redirect standard input from *a file* instead of *the keyboard*, the "<" character is used like this. 以最簡單的說法來說， 那就是『將原本需要由鍵盤輸入的資料，改由檔案內容來取代』的意思。:
+Many commands can accept input from a facility called standard input. By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. To redirect standard input from *a file* instead of *the keyboard*, the "\<" character is used like this. 以最簡單的說法來說， 那就是『將原本需要由鍵盤輸入的資料，改由檔案內容來取代』的意思。:
 
 ```bash
 $ sort < file_list.txt
@@ -120,7 +120,7 @@ In the example above, we used the sort command to process the contents of file_l
 ```bash
 $ sort < file_list.txt > sorted_file_list.txt
 ```
-As you can see, a command can have both its input and output redirected. Be aware that the order of the redirection does not matter. The only requirement is that the redirection operators (the "<" and ">") must appear after the other options and arguments in the command.
+As you can see, a command can have both its input and output redirected. Be aware that the order of the redirection does not matter. The only requirement is that the redirection operators (the "\<" and ">") must appear after the other options and arguments in the command.
 
 
 ## $? (指令回傳值) 與 && 或 ||
@@ -224,7 +224,7 @@ $ echo "$s"
 
 ## xargs
 
-:::infoxargs vs exec
+:::info xargs vs exec
 Using xargs is far more efficient. In fact [several benchmarks](https://www.everythingcli.org/find-exec-vs-find-xargs/) suggest using xargs over exec {} is six times more efficient.
 :::
 

@@ -119,7 +119,7 @@ Source: [Difference between DynamoDb PutItem vs UpdateItem?](https://stackoverfl
 
 ### Parallel scans
 
-:::caution `FilterExpression` won't improve your performance
+:::warning `FilterExpression` won't improve your performance
 Keep in mind that `Scan` api with `FilterExpression`  won't improve the preformance of retrieving data, because a filter expression is applied after a Scan finishes, but before the results are returned. Therefore, a Scan consumes the same amount of read capacity, regardless of whether a filter expression is present.
 :::
 

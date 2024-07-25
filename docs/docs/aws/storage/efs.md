@@ -10,7 +10,7 @@ sidebar_position: 2
 
 EFS is a scalable, managed Network Attached Storage (NAS) service offered by Amazon Web Services. It is designed to provide shared file storage that can be easily accessed by multiple Amazon EC2 instances, making it suitable for a wide range of applications, including content management, web serving, and data sharing. EFS offers automatic scalability, high availability, and a simple, pay-as-you-go pricing model. It is an ideal choice for workloads that require shared file storage across multiple servers or applications in an AWS environment.
 
-:::infoIs EFS a NTFS?
+:::info Is EFS a NTFS?
 No, EFS (Elastic File System) in AWS is not an NTFS (New Technology File System). NTFS is a file system used primarily in Windows operating systems, whereas EFS is a managed cloud-based file storage service provided by AWS.
 
 EFS provides its own file system that is accessible from multiple EC2 instances and on-premises servers, supporting various operating systems like Linux and Windows. The specific file system used by EFS is not publicly disclosed, but it is designed to be compatible with different operating systems and applications, making it suitable for a wide range of workloads.
@@ -30,7 +30,7 @@ Amazon EFS offers two performance modes, General Purpose and Max I/O:
 - General Purpose mode
 - **Max I/O mode** is designed for highly parallelized workloads that can tolerate higher latencies than the General Purpose mode. 
 
-:::infoWhen to use which?
+:::info When to use which?
 If the `PercentIOLimit` percentage returned in CloudWatch was at or near 100 percent for a significant amount of time during the test, your application should use the Max I/O performance mode. Otherwise, it should use the default General Purpose mode.
 :::
 ### Throughput modes

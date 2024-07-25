@@ -1,9 +1,12 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+
 const path = require('path');
-const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer').themes.vsLight;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -73,7 +76,8 @@ const config = {
             },
           }
           */
-          remarkPlugins: [[require('mdx-mermaid'), { mermaid: { theme: 'dark' } }]],
+          remarkPlugins: [[require('mdx-mermaid'), { mermaid: { theme: 'dark' } }, remarkMath]],
+          rehypePlugins: [rehypeKatex],
         },
         blog: false,
         theme: {

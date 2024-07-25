@@ -80,7 +80,7 @@ Source: [Load Balanced and Auto Scaling containerized app with AWS ECS](https://
 
 To prepare your application to run on Amazon ECS, you create a *task definition*. The task definition is a text file, in JSON format, that describes one or more containers, up to a maximum of ten, that form your application. It can be thought of as a blueprint for your application.
 
-:::infoWhen to set desired count of a task more than 1?
+:::info When to set desired count of a task more than 1?
 Setting the desired count of an ECS task to more than 1 is crucial for ensuring high availability, load balancing, scalability, and fault tolerance. This configuration is necessary for critical applications where continuous uptime is essential, such as web servers, API services, and online platforms. It allows multiple instances of a task to run concurrently, distributing the load evenly and handling more traffic efficiently. Multiple task instances ensure redundancy, so if one instance fails, others continue to operate, maintaining service reliability. This setup is also beneficial for batch processing and parallelizing tasks to reduce processing time, as well as for performing rolling updates with zero downtime, ensuring seamless application maintenance and upgrades.
 
 Also, the principles still apply when using the Fargate launch type in ECS. Even though Fargate abstracts away the underlying EC2 instances, the benefits of having multiple task instances remain the same.
@@ -195,7 +195,7 @@ Use the Fargate launch type when you want to run containers without managing the
     - **Cost Efficiency**: For highly utilized, steady-state applications, EC2 can be more cost-effective. However, Fargate offers cost efficiency for dynamic workloads where over-provisioning of EC2 instances would be costly.
     - **Scalability and Flexibility**: Fargate provides seamless scaling and isolation for tasks, making it ideal for microservices and batch processing tasks.
 
-:::infoWhy EC2 Instances Remain the Same When Increasing Desired Tasks
+:::info Why EC2 Instances Remain the Same When Increasing Desired Tasks
 There are 2 scenario when you increase the desired tasks
 - Scenario: EC2 Launch Type
     - **Desired Tasks**: When you increase the desired tasks to 2, ECS tries to run 2 instances of the task.

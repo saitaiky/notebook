@@ -10,7 +10,7 @@ sidebar_position: 5
 For the high level overview of what is caching, please refer to my another post: [What is Caching](/software-development/system-design/data/cache/)
 ## Memcached
 
-:::cautionImportant points
+:::warning Important points
 - Amazon ElastiCache for Memcached does not support Multi-AZ for high availability.
 - You can use `CreateCacheCluster` API action to create a new ElastiCache cluster.
 - Each node is an EC2 instance, thus you can set its `CacheNodeType` parameter to choose the underlying EC2 instance type of the cluster.
@@ -30,7 +30,7 @@ The Memcached engine supports partitioning your data across multiple nodes. Beca
 
 ## Redis
 
-:::cautionImportant Points
+:::warning Important Points
 - When choosing the replica to promote to primary, ElastiCache for Redis chooses the replica with **the least replication lag**
 - You can manually promote read replicas to primary on Redis (cluster mode disabled), only **when Multi-AZ** and **automatic failover are disabled**.
 - To maintain high availability, you have to make sure that there are **at least two nodes in the cluster**. 
@@ -46,7 +46,7 @@ Enabling Cluster Mode provides a number of additional benefits in scaling your c
   Configure the slots in your new cluster differently than they were in the old cluster. Offline method only.
 - **Vertical Scaling** - Change the node type to resize the cluster. The online vertical scaling allows **scaling up/down** while the cluster continues serving incoming requests. [[AWS: Online vertical scaling by modifying node type]](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/redis-cluster-vertical-scaling.html)
 
-:::infoNotes
+:::info Notes
 - Limitation
   - All the nodes in a Redis cluster (cluster mode enabled or cluster mode disabled) must reside in the same region.
   - While using Redis with cluster mode enabled, you cannot manually promote any of the replica nodes to primary.
@@ -103,7 +103,7 @@ A: To address scalability and to provide a shared data storage for sessions, usi
 
 Source: [AWS: Session Management](https://aws.amazon.com/caching/session-management/)
 
-:::cautionEnable sticky sessions in the ALB is not an option!
+:::warning Enable sticky sessions in the ALB is not an option!
 As the Application Load Balancer itself is replaced on each new deployment, so maintaining sticky sessions via the Application Load Balancer will not work. 
 :::
 

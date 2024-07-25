@@ -4,7 +4,7 @@ title: Enterprise Architecture
 
 ## Overview
 
-:::infoDoes Enterprise Architecture Mean an Application with Lots of Users?
+:::info Does Enterprise Architecture Mean an Application with Lots of Users?
 No, Enterprise Architecture is not about an application with lots of users, but rather about the strategic planning and alignment of an organization's entire IT infrastructure and processes with its business objectives.
 :::
 
@@ -12,7 +12,7 @@ Enterprise Architecture (EA) is a strategic framework that aligns an organizatio
 
 EA is fundamentally * **an approach** rather than a specific technical guidance*. It focuses on how to use IT resources effectively to support and enhance the overall strategy and operations of an organization. Below is an architecture overview diagram.
 
-:::infoEnterprise Architecture diagram
+:::info Enterprise Architecture diagram
 The architecture overview provided in the below diagram was a generalized depiction to illustrate the core elements of Enterprise Architecture (EA), not tied to any specific framework like TOGAF, Zachman, or FEAF. The intent was to give a conceptual understanding of how EA integrates business goals, processes, information systems, and technology infrastructure.
 :::
 
@@ -29,7 +29,7 @@ Source: [visual-paradigm - What is Enterprise Architecture Diagram?](https://onl
 
 ## Top 3 EA frameworks
 
-:::infoIs there one common EA framework that can adopt all scenarios?  
+:::info Is there one common EA framework that can adopt all scenarios?  
 There isn't a single "common" Enterprise Architecture (EA) framework universally adopted by all organizations; rather, the choice of framework depends on the specific needs, goals, and context of the organization. Companies typically choose one framework that aligns best with their requirements or even adapt elements from multiple frameworks to create a tailored approach.
 :::
 

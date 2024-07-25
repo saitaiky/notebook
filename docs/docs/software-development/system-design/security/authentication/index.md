@@ -22,7 +22,7 @@ Here is a comparison table summarizing key differences:
 | Portability | Cookies tied to a single domain | Tokens can be used across different domains and applications |
 | Revocation | Sessions can be deleted server-side | Tokens are not easily revoked before expiry |
 
-:::infoJWT
+:::info JWT
 JWTs are a particularly popular flavor of token-based authentication because they save user data inside the token and can be validated without the database lookups mentioned above. This makes them well-suited for serverless and stateless applications. That said, being stateless is both an advantage in terms of scalability and a disadvantage the application cannot easily be revoked or invalidated on the server-side, introducing risk. (Because of this, they typically use shorter expiration times.) We'll explore JWT in the coming section.
 :::
 

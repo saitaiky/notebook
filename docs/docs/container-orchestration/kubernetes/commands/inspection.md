@@ -67,7 +67,7 @@ littletomcat-79d56f5694-th56d   1/1     Running   0          67m   app=littletom
 
 ### Selector (Label selector)
 
-:::infoSelector vs Label selector
+:::info Selector vs Label selector
 **Labels don't provide uniqueness**. In general, we can say many objects can carry the same labels. Labels selector are core grouping primitive in Kubernetes. They are used by the users to select a set of objects.
 :::
 

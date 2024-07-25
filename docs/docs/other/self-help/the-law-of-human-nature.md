@@ -54,7 +54,7 @@ Certainly! Here are the inflaming factors with each point in one line:
 - **Find the optimal balance of thinking and emotion**: maintain a balance between skepticism and curiosity.
 - **Love the rational**: taming the emotional self will lead to calmness and clarity.
 
-:::infoMy thoughts
+:::info My thoughts
 Do not assume extreme irrationality has been overcome by progress. History shows cycles of rising and falling irrationality. The golden age of Pericles, with its philosophers and scientific beginnings, was followed by an age of superstition and intolerance. This pattern repeated after the Italian Renaissance and will recur due to human nature. The irrational changes its appearance. The 20th century saw Stalin's show trials, McCarthy's hearings, and the Chinese Cultural Revolution. Various cults, including personality cults and celebrity worship, continually emerge. Technology now inspires fervor, and many people still believe in ghosts and spirits. The irrational will always find ways to manifest. Rationality must be developed individually, not through mass movements or technology. Feeling superior to irrationality is a sign it is at work.
 
 Human emotion can also lead to positive outcomes, such as empathy, creativity, and passion, which drive meaningful actions and decisions. Balancing rationality and emotion is challenging but beneficial. Emotions often drive us, and while they can lead to irrational actions, they also motivate us, help us set goals, and tolerate challenges. Detaching from our feelings occasionally helps us see the bigger picture and make better decisions.

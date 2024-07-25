@@ -92,7 +92,7 @@ sequenceDiagram
    - The temporary assignment of an IP address to a DHCP client.
    - Leases are time-bound, meaning the client must renew the lease periodically to continue using the assigned IP address.
 
-:::infoLease Renewal
+:::info Lease Renewal
 - **T1 Timer:** When 50% of the lease time has passed, the client attempts to renew the lease by sending a DHCP Request directly to the DHCP server that granted the lease.
 - **T2 Timer:** If the client receives no response by 87.5% of the lease time, it attempts to rebind by broadcasting a DHCP Request to any available DHCP server.
 - If the client fails to renew the lease before it expires, it must stop using the IP address and start the process over with a DHCP Discover message.
@@ -152,7 +152,7 @@ Here are detailed steps to identify the type of NAT your ISP is using:
    - If the WAN IP address shown in the router matches the public IP address you noted earlier, your router is assigned a public IP address directly (No NAT or Single NAT).
    - If the WAN IP address is within the `100.64.0.0` - `100.127.255.255` range, your ISP is using CGNAT. The private IP ranges (e.g., `192.168.x.x`, `10.x.x.x`, `172.16.x.x`) are typically used within local networks and are distinct from the CGNAT range.
 
-:::infoIP range
+:::info IP range
 - **CGNAT range**: 100.64.0.0 - 100.127.255.255
 - **Private IP ranges for local networks**:
    - 10.0.0.0 - 10.255.255.255
@@ -173,7 +173,7 @@ Private IP ranges are used based on the size of the network.
 Each range is chosen based on the number of required IP addresses and the scale of the network. AWS often uses `10.x.x.x` for its vast address space, while home networks commonly use `192.168.x.x`.
 :::
 
-:::infoPerform a Traceroute to check if your ISP uses CGNAT or single NAT
+:::info Perform a Traceroute to check if your ISP uses CGNAT or single NAT
 Using `traceroute google.com` can help you determine the type of NAT your ISP is using. Here is a detailed step-by-step process to analyze the traceroute results to understand your ISP's NAT type:
 
 Here's an example of what the output might look like and how to interpret it:

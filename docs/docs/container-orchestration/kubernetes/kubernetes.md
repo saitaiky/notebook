@@ -38,7 +38,7 @@ When you get a vendor solution,they will provide custom features like authentica
 - Amazon Elastic Kubernetes Service (EKS)
 - Elastisys Compliant Kubernetes
 
-:::caution
+:::warning
 Use raw GitHub upstream version of Kubernetes only for **learning how K8s works**.  Because one of the things about Kubernetes that's  different from Swarm is that it needs a lot of things added to it to really make it easy to use out-of-the-box. 
 :::
 

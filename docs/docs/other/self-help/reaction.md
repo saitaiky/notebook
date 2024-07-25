@@ -43,7 +43,7 @@ Be prepared yourself and be able to construct a strategy when people challenge y
 - It helps organsining your mind and venting emotions. After venting emotions, thinking will become easy and less stressed.
 - Without doubt and anxiety, confidence will be grown naturally
 
-:::info1 - When will my mind go blank
+:::info 1 - When will my mind go blank
 
 - When I was questioned by my boss, my mind went blank.
 - When people talks too fast, I will unconsciously some strange behavior while clarifying what they said.
@@ -52,14 +52,14 @@ Be prepared yourself and be able to construct a strategy when people challenge y
 :::
 
 
-:::info2 - Why ABC, who joined the company a year earlier than me, don't afraid of being asked questions?
+:::info 2 - Why ABC, who joined the company a year earlier than me, don't afraid of being asked questions?
 - ABC, can always answer calmly.
 - The preparations he made didn't look the same as mine.
 - The written information he prepared was similar to mine, but he was unlikely to be questioned.
 - Why can he answer the question so easily?
 :::
 
-:::info3 - Try to ask why ABC can calm down
+:::info 3 - Try to ask why ABC can calm down
 - How did he prepare?
 - When a supervisor asks a question, how does he think and answer?
 - Why is he not speechless and overwhelmed?
@@ -83,13 +83,13 @@ Usually people who don't have confidence and have a sense of inferiority tend to
 - Get the feedback from the others to see if it's easy to understand
 - Modify the speech and reiterate the steps from step 2
 
-:::cautionNotes
+:::warning Notes
 - Bear in mind, if the audience doesn't understand what you say, it means you haven't said anything
 - Speaking while thinking what message you want to give to the audience, if he/she can understand completely 
 - Observe people who are good at share ideas and learn the speaking skills from them 
 :::
 
-:::infoExample - What to present at the hiring meeting
+:::info Example - What to present at the hiring meeting
 - The quality of transferees is low.
 - The number of applicants has decreased.
 - We have to think about a different way of recruiting from the previous gold.
@@ -101,7 +101,7 @@ Usually people who don't have confidence and have a sense of inferiority tend to
 - Putting on an act doesn't work. If you truly believe in what you said, you will be able to explain your idea fluently.
 - Only emphase 3 points in your speech. You can start speaking even if you have 2 points only and you can think about the third point during your speech though it's difficult. 
 
-:::cautionStay away from people who are toxic
+:::warning Stay away from people who are toxic
 
 Stay away from people who like to say.
 - 'Your speak is unorganised'

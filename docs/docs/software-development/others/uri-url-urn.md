@@ -67,7 +67,7 @@ That would also be a URI, but more specifically a **URL** because it **locates t
 
 I say "like" because these examples *do not follow the required syntax*.
 
-:::caution Popular confusion
+:::warning Popular confusion
 
 From [Wikipedia](http://en.wikipedia.org/wiki/Uniform_Resource_Locator):
 

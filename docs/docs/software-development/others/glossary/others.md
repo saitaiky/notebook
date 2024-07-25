@@ -136,7 +136,7 @@ Enter virtualization. This technology allows multiple virtual machines to run on
 
 A hypervisor might be hardware, or it could be a program to manage virtual machines, whether software or firmware. What makes a hypervisor a hypervisor is what it’s used for—it creates, monitors, and manages virtual machines.
 
-:::infoHypervisor vs. Virtual Machine?
+:::info Hypervisor vs. Virtual Machine?
 It is possible to have VMs without a hypervisor. Such virtualization typically takes the form of containers, basically tinier, cheaper, more portable VMs that use the same O/S as the host machine.
 
 It’s probably best to think of hypervisors and VMs as a package deal, however, with containers representing a different architecture with its own advantages and use cases.

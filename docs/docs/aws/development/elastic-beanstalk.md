@@ -36,7 +36,7 @@ When you create an environment, AWS Elastic Beanstalk prompts you to provide the
   - Upload logs to Amazon S3.
   - Perform other tasks that vary depending on the environment type and platform.
 
-:::cautionInsufficient permission
+:::warning Insufficient permission
 Q: While creating an Elastic bean stalk environment via CLI, you receive an error message - `The instance profile aws-elasticbeanstalk-ec2-role associated with the environment does not exist`. Why does this happen?
 
 A: AWS EB CLI cannot create the **instance profile** for your beanstalk environment if your IAM role has no permission to creating roles.
@@ -93,7 +93,7 @@ Saved configurations are YAML formatted templates that define an environment's p
 
 ## Decouple the database from EB without downtime
 
-:::cautionThis solution has downtime
+:::warning This solution has downtime
 Take a snapshot of the database and terminate the current environment. Create a new one without attaching an RDS instance directly to it (from the snapshot).
 :::
 

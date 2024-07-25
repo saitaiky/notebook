@@ -13,7 +13,7 @@ Understanding the fundamental differences between structured and unstructured da
 **Unstructured data** refers to information that does not have a pre-defined data model or schema. This includes a variety of formats such as text, images, audio, and video, which do not fit neatly into relational databases. Despite this, many NoSQL databases and other storage systems can indeed store and manage unstructured data. 
 Unstructured data refers to information that does not have a pre-defined data model or schema.
 
-:::cautionIf we can store unstructured data in SQL databases, why we need to use NoSQL?
+:::warning If we can store unstructured data in SQL databases, why we need to use NoSQL?
 You can store unstructured data, such as text data, web content, or social media data, in SQL databases. However, these types of data are still considered unstructured because they do not fit neatly into the rigid schema of a traditional relational database, which is designed for highly organized, tabular data with well-defined relationships.
 
 SQL databases excel at handling tabular data with well-defined relationships and constraints. When dealing with unstructured data, several challenges arise:
@@ -170,7 +170,7 @@ Web content is stored as documents with fields for URL, title, HTML content, and
     - **Structured Rigidity:** Predefined columns and tables necessitate more setup time and hinder the handling of unstructured data.
     - **Scaling Challenges:** Horizontal scaling is cumbersome for SQL databases due to their relational framework, particularly for write-intensive applications. Ultimately, expensive vertical scaling may be the only option.
 
-:::infoWhat is ACID?
+:::info What is ACID?
 > TL-DR: If one of a SQL statement in a db transaction fails, the whole db transaction will be forbidden
 
 - **Atomicity** requires that either transaction as a whole be successfully executed or if a part of the transaction fails, then the entire transaction be invalidated. 
@@ -179,15 +179,15 @@ Web content is stored as documents with fields for URL, title, HTML content, and
 - **Durability** requires that all of the changes made to the database be permanent once a transaction is successfully completed.
 :::
 
-:::cautionIs relational database same as SQL database?
+:::warning Is relational database same as SQL database?
 Yes. An SQL database—also known as a relational database—is named for the programming language it's written in, Structured Query Language (SQL). It's the more rigid, structured way of storing data.
 :::
 
-:::cautionAren't SQL and the relational model synonymous?
+:::warning Aren't SQL and the relational model synonymous?
 No. The relational model is a set of mathematical concepts applied to data of different shapes. It is the most general form of database mathematics and provides a mathematical foundation to effectively support any operation within a given domain. On the other hand, SQL is a database language that supports an important subset of relational capabilities.
 :::
 
-:::cautionSQL can only apply horizontally scaling to Read, but not write
+:::warning SQL can only apply horizontally scaling to Read, but not write
 ```mermaid
 graph LR
   MasterDB((Master DB - Write)) --> Replica1((Read Replica))

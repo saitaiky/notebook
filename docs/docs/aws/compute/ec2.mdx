@@ -88,7 +88,7 @@ When you purchase a Reserved Instance, you determine the scope of the Reserved I
 - **Regional**: When you purchase a Reserved Instance for a Region, it's referred to as a regional Reserved Instance. **It does not reserve capacity.**
 - **Zonal**: When you purchase a Reserved Instance for a specific Availability Zone, it's referred to as a zonal Reserved Instance. **It reserves capacity.**
 
-:::infoUpgrade and downgrade instance type
+:::info Upgrade and downgrade instance type
 When you purchase a Reserved Instance, you can choose between a `Standard` or `Convertible` offering class. The Reserved Instance applies to a single instance family, platform, scope, and tenancy over a term. 
 
 You can upgrade or downgrade the **instance size** of both Standard and Convertible Reserved Instance. However, only the Convertible Reserved instance can change the **instance type**.
@@ -96,7 +96,7 @@ You can upgrade or downgrade the **instance size** of both Standard and Converti
 
 ### On-demand Instance
 
-:::infoCapacity Reservations
+:::info Capacity Reservations
 By creating Capacity Reservations, you ensure that you always have access to EC2 capacity when you need it, for as long as you need it(no commitment is required). You can also sepecify the duratin for how long you want it to be. Please remember capacity reservations **do not offer any billing discounts**
 
 [AWS official link: On-Demand Capacity Reservations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html)
@@ -165,7 +165,7 @@ Usage: This strategy is typically used by large distributed and replicated workl
 
 Rebooting an instance only performs a graceful restart on your EC2 instance without instance interruption. The instance will remain in the same hardware.  To resolve the system status check failure issue, you need to migrate the instance to a new host.
 
-:::infoWhat is Status check?
+:::info What is Status check?
 AWS monitors the health of each EC2 instance with two status checks. An EC2 instance becomes unreachable if a status check fails. 
 :::
 
@@ -243,7 +243,7 @@ By default, the Shutdown Behavior is set to "`stop`" for EC2 instances. When an 
 
 However, you can also choose to set the Shutdown Behavior to "`terminate`" for an instance. In this case, when the instance is stopped, it is automatically terminated, and the instance and its associated resources, **including EBS volumes, are deleted**. The data and configuration stored on the instance and its volumes will be lost.
 
-```
+```shell
   aws ec2 run-instance --region ap-south-1 \
   --count 1 \
   --image-id myamiid \
@@ -262,7 +262,7 @@ However, you can also choose to set the Shutdown Behavior to "`terminate`" for a
 
 By default, you can terminate your instance using the Amazon EC2 console, command line interface, or API. To prevent your instance from being accidentally terminated using Amazon EC2, you can enable **termination protection** for the instance. The `DisableApiTermination` attribute controls whether the instance can be terminated using **the console, CLI, or API**. 
 
-:::caution
+:::warning
 You can still terminate the `DisableApiTermination` EC2 instance 
 - by initiating shutdown from the instance
 - or shutdown by ASG
@@ -284,7 +284,7 @@ When you launch an instance in Amazon EC2, you have the option of passing user d
 - shell scripts 
 - cloud-init directives.
 
-:::caution Default behaviour
+:::warning Default behaviour
 - By default, scripts entered as user data are executed with root user privileges
 - By default, user data runs only during the boot cycle when you first launch an instance
 :::
@@ -295,7 +295,7 @@ When you launch an instance in Amazon EC2, you have the option of passing user d
 
 An instance profile is a container that holds an IAM role. When you launch an EC2 instance with an associated profile, the instance can then use the permissions granted by the IAM role *to access only those AWS services or resources the role permits — without having to manually manage credentials or access keys*. This helps improve security and simplifies AWS resource management.
 
-:::infoMake sure instance profile has enough permission to access other AWS services
+:::info Make sure instance profile has enough permission to access other AWS services
 Imagine there is a case - a CloudWatch Logs Agent has been set up on the instance to publish application logs. Despite having full access to the AWS account, the administrator is still unable to view the logs in the CloudWatch Logs Console. What should I do?
 
 Attach an IAM role with sufficient CloudWatch Logs permission to the instance profile of the EC2 instance
@@ -316,7 +316,7 @@ Source: [New – T3 Instances on Dedicated Single-Tenant Hardware](https://aws.a
 
 The more isolated of your EC2 instance, the more expensive it will be. Here is the price ordering: Dedicated Host > Dedicated instance > Shared(default)
 
-:::caution Type change
+:::warning Type change
 You can only change the tenancy of an instance from dedicated to host, or from host to dedicated after you've launched it. 
 :::
 
@@ -349,7 +349,7 @@ Source: [Full comparsion table](https://docs.aws.amazon.com/AWSEC2/latest/UserGu
   - **Image Builder** uses the AWS **Task Orchestrator and Executor** (AWSTOE) component management application to orchestrate complex workflows. Build and test components that work with the AWSTOE application are based on YAML documents that define the scripts to customize or test your image. 
     - For AMI images, Image Builder installs components and the AWSTOE component management application on *its Amazon EC2 build and test instances*. 
     - For container images, the components and AWSTOE component management application are installed *inside of the running container*.
-    - An AWS document (<https://docs.aws.amazon.com/pdfs/imagebuilder/latest/userguide/imagebuilder-ug.pdf>) defines AWSTOE as a "*standalone application that creates, validates, and runs commands within a component definition framework*." With AWSTOE, you can modify system configuration and orchestrate complex workflows without writing code. That means you can have a series of components written in YAML, which are instructions that you want to be executed on your operating system, and AWSTOE can simply run and validate against your operational system.
+    - An [AWS document](https://docs.aws.amazon.com/pdfs/imagebuilder/latest/userguide/imagebuilder-ug.pdf) defines AWSTOE as a "*standalone application that creates, validates, and runs commands within a component definition framework*." With AWSTOE, you can modify system configuration and orchestrate complex workflows without writing code. That means you can have a series of components written in YAML, which are instructions that you want to be executed on your operating system, and AWSTOE can simply run and validate against your operational system.
 - **A Golden AMI** is an AMI that you standardize through configuration, consistent security patching, and hardening. It also contains agents you approve for logging, security, performance monitoring, etc. Reference: [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
 - **ASG** need to have permission to access the customer-managed customer master keys (CMKs) when an IAM is encrypted.
 
@@ -364,7 +364,7 @@ Source: [Full comparsion table](https://docs.aws.amazon.com/AWSEC2/latest/UserGu
   - It is beneficial in situations where you want to create an AMI without disrupting the availability or continuity of your applications.
   -  The AMI will be **crash-consistent** (all the volumes are snapshotted at the same time), but not **application-consistent** (all the operating system buffers are not flushed to disk before the snapshots are created).
 
-:::cautionAWS Backup does not reboot EC2 instances at any time.
+:::warning AWS Backup does not reboot EC2 instances at any time.
 
 AWS Backup follows the default mechanism of taking backups. In this case, the default mechanism for backing up EBS volumes is to backup with no-reboot behavior. This means that AWS Backup will **not be able to help you create an AMI that guarantees file system integrity** since you need to reboot the instance to do this.
 
@@ -376,7 +376,7 @@ Screenshot to show you can't set the reboot parameter on AWS Backup:
 ![amazon_aws_backup_ebs_noreboot_only](/img/aws/compute/ec2/amazon_aws_backup_ebs_noreboot_only.png)
 :::
 
-:::infoAWS Backup with tags
+:::info AWS Backup with tags
 1. Create a backup plan in AWS Backup. 
 2. Assign tags to resources based on the environment ( Production, Development, Testing). 
 3. Create one backup policy for production environments and one backup policy for non-production environments. 
@@ -526,7 +526,7 @@ permissions, else you will get “Unprotected private key file” error
 
 In order to change the EC2 instance type, you must stop your Amazon EBS–backed instance before you can change its instance type. When you stop and start an instance, AWS moves the instance to new hardware; however, the instance ID does not change.
 
-:::infoChange EC2 instance type in an Auto Scaling group 
+:::info Change EC2 instance type in an Auto Scaling group 
 If your instance is in an **Auto Scaling group**, the Amazon EC2 Auto Scaling service marks the stopped instance as unhealthy, and may terminate it and launch a replacement instance. To prevent this, you can **suspend the scaling processes for the group** while you're resizing your instance.
 :::
 

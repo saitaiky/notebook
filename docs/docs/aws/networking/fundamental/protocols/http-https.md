@@ -16,7 +16,7 @@ Every time you visit a site with a http:// link, your browser makes a HTTP GET r
 
 HTTP is still in use, but it's been largely replaced by HTTPS (Hypertext Transport Protocol Secure), which serves the same purpose but with much better security features. In 2014, Google announced that it would give HTTPS sites a bump in rankings. That, combined with the increasing need for encrypted data transmission, resulted in much of the web over migrating to HTTPS. Below sections list out 3 benefits of using HTTPs instead of HTTP.
 
-:::infoSome other differences
+:::info Some other differences
 - HTTP operates at Application Layer. HTTPS operates at Transport Layer.
 - HTTP by default operates on port 80, while HTTPS operates on port 443.
 - HTTP transfers data in plain text. HTTPS transfers data in cipher text (encrypted text).
@@ -65,7 +65,7 @@ Once the session key is created, the handshake is finished and the session begin
 
 The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3. 
 
-:::infoKey Exchange Algorithms
+:::info Key Exchange Algorithms
 Key exchange algorithms are methods used to securely establish a shared secret key between the client and the server. There are various key exchange mechanisms, and they can provide different features such as Forward Secrecy (FS). Examples of key exchange algorithms include:
 
 - RSA (Rivest–Shamir–Adleman)
@@ -75,7 +75,7 @@ Key exchange algorithms are methods used to securely establish a shared secret k
 Each key exchange algorithm works differently and offers varying levels of security and efficiency. For instance, ECDHE allows for forward secrecy, which means that even if the server's key is compromised in the future, past communication remains secure.
 :::
 
-:::infoCipher Suites
+:::info Cipher Suites
 A cipher suite is a combination of encryption algorithms that define how the data will be encrypted during the TLS session. It includes algorithms for:
 
 - Key exchange
@@ -166,7 +166,7 @@ When a CA issues a certificate, they sign the certificate with their root certif
 
 Source: [What is a chain of SSL certificates?](https://www.nexcess.net/help/what-is-a-chain-of-ssl-certificates/)
 
-:::caution Cat-astrophy case
+:::warning Cat-astrophy case
 If a cat-astrophy would occur and the root certificate is compromised, it's easier to revoke the intermediate certificates, since the root certificates are installed on each device.
 :::
 
@@ -192,7 +192,7 @@ A self-signed certificate provides
 - No one can spy on your data
 - There is no charge to self-sign your certificates!
 
-:::caution Yes, but no!
+:::warning Yes, but no!
 Almost every browser checks that the certificate is issued by a trusted authority. As such visitors are warned that the certificate cannot be trusted.
 
 Self-signed certificates can be useful for testing, and intranets, but you should avoid using them on public sites.

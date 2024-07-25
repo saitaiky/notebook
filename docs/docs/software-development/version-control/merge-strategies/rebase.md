@@ -6,7 +6,7 @@ metaDescription: "We will discuss topics related to git revert, reset, rebase, s
 sidebar_position: 1
 ---
 
-:::infoTL;DR
+:::info TL;DR
 Rebasing is a common way to integrate upstream changes into your local repository. Pulling in upstream changes with Git `merge` results in a superfluous merge commit every time you want to see how the project has progressed whereas `rebase` moves your changes to begin on the tip of the other branch(say master branch).
 
 If the above description still doesn't make sense to use, just remember rebasing is like saying, 
@@ -35,7 +35,7 @@ git merge master branchname
 git rebase --abort
 ```
 
-:::caution Tips
+:::warning Tips
 - If at some point during the `git rebase` you got panic (due to the CONFLICT error), just do `git rebase --abort` and you’re back to normal. You can then calm down and gather your breath to see what you want to do next.
     - When resolving a conflict, the conflicted files may seem to miss some of your latest changes. This is normal because the files is at a specific commit where the conflict first occured. You may need to resolve different conflicts in the same file multiple times.
 - If you’re not entirely comfortable with `git rebase`, you can always perform the rebase in a temporary branch. That way, if you accidentally mess up your feature’s history, you can check out the original branch and try again. For example:
@@ -97,7 +97,7 @@ Typically, you do this in feature branches whenever there's a change in the main
 - **Simplifies Potential Merge Conflicts:** Rebasing allows you to resolve conflicts from a series of commits incrementally which can simplify the conflict resolution process.
 - **Up-to-Date History:** Running rebase frequently keeps your feature branch up-to-date with the main branch, facilitating a smoother final merge.
 
-:::infoThe Paradox of Merging in Git: When Rivers of Code Defy Logic
+:::info The Paradox of Merging in Git: When Rivers of Code Defy Logic
 Merging creates a loop which **destroys the mental model that Git was designed** by which causes troubles in any visualization of the Git history.
 
 Imagine there's a river (e.g. the "Nile"). Water is flowing in one direction (direction of time in Git history). Now and then, imagine there's a branch to that river and suppose most of those branches `merge` back into the river. That's what the flow of a river might look like naturally. It makes sense.

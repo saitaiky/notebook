@@ -29,7 +29,7 @@ metadata:
 spec:
 ```
 
-:::dangerAlways look at the YAML information before you apply it to your system
+:::danger Always look at the YAML information before you apply it to your system
 Because `kubectl apply` is the new `curl | sh`, so essentially, treat the YAML like it's a Superuser, because it can..
 - starts bitcoin miners on the whole cluster
 - It could hide resources in a non-default namespace so that you didn't see them.

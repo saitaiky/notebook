@@ -45,7 +45,7 @@ The concept of the 3Vs in big data is foundational in understanding the characte
 
 Using a NoSQL database in your application does not necessarily mean that your application is a big data application. While NoSQL databases are commonly used in big data applications due to their scalability and flexibility, the classification of an application as a big data application depends on several key factors beyond just the type of database used.
 
-:::infoWhy Non-Big Data applications use NoSQL?
+:::info Why Non-Big Data applications use NoSQL?
 Let's see 
 - **Volume**:
     - **Big Data**: Applications handling vast amounts of data (terabytes, petabytes, or more).
