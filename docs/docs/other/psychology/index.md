@@ -19,17 +19,20 @@ I've recently been drawn to psychology as I noticed the mounting stress that wor
 
 ## Psychologists and their theories
 
-Here are the psychologists I've mentioned in this website
+Here are the influential psychologists mentioned on this website, along with their theories and respective lifespans:
 
-- Jean Piaget's cognitive development stage theory  
-- Lawrence Kohlberg's morality development theory  
-- Erik Erikson's psychosocial development stage theory - [Stage theory](/other/psychology/life/stage-theory/)
-- James Marcia's Identity status theory - [Identity status theory](/other/psychology/life/meaning-in-life/#identity-status-theory)
-- Carol Ryff's Psychological Well-being Model - [Meaningful life](/other/psychology/life/meaning-in-life/#meaningful-life)
-- Edwin Locke
-    - Self-Determination Theory (SDT) - [Life goal](/other/psychology/life/meaning-in-life/#life-goal)
-    - Goal Setting Theory - [Goal Planning](/other/psychology/life/meaning-in-life/#goal-planning)
-- Atkinson and Shiffrin's [Three-Stage Memory Model](/other/psychology/cognitive-psychology/memory/)
-- Abraham Maslow’s [Hierarchy Of Needs](/other/psychology/life/money-work/#the-indispensable-role-of-money)
-- Frederick Herzberg’s [Two-Factor Theory](/other/psychology/cognitive-psychology/extrinsic-intrinsic-motiviation/)
-- Harlow and John Bowlby, Mary Ainsworth's [Attachment theory](/other/psychology/life/love/)
+- **1896~1980**: Jean Piaget's cognitive development stage theory
+- **1902~1994**: Erik Erikson's psychosocial development stage theory - [Stage theory](/other/psychology/life/stage-theory/)
+- **1905~1981**: Harry Harlow, Attachment theory - [Attachment theory](/other/psychology/life/love/)
+- **1907~1990**: John Bowlby, Attachment theory - [Attachment theory](/other/psychology/life/love/)
+- **1908~1970**: Abraham Maslow’s [Hierarchy Of Needs](/other/psychology/life/money-work/#the-indispensable-role-of-money)
+- **1913~1999**: Mary Ainsworth, Attachment theory - [Attachment theory](/other/psychology/life/love/)
+- **1923~2000**: Frederick Herzberg’s [Two-Factor Theory](/other/psychology/cognitive-psychology/extrinsic-intrinsic-motiviation/)
+- **1927~1987**: Lawrence Kohlberg's morality development theory
+- **1937~Present**: James Marcia's Identity status theory - [Identity status theory](/other/psychology/life/meaning-in-life/#identity-status-theory)
+- **1938~Present**: Edwin Locke
+  - Self-Determination Theory (SDT) - [Life goal](/other/psychology/life/meaning-in-life/#life-goal)
+  - Goal Setting Theory - [Goal Planning](/other/psychology/life/meaning-in-life/#goal-planning)
+- **1929~Present**: Richard Atkinson's [Three-Stage Memory Model](/other/psychology/cognitive-psychology/memory/)
+- **1942~Present**: Richard Shiffrin's [Three-Stage Memory Model](/other/psychology/cognitive-psychology/memory/)
+- **1950~Present**: Carol Ryff's Psychological Well-being Model - [Meaningful life](/other/psychology/life/meaning-in-life/#meaningful-life)

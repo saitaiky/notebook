@@ -5,8 +5,6 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 const path = require('path');
-const lightCodeTheme = require('prism-react-renderer').themes.vsLight;
-const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -76,8 +74,8 @@ const config = {
             },
           }
           */
-          remarkPlugins: [[require('mdx-mermaid'), { mermaid: { theme: 'dark' } }, remarkMath]],
-          rehypePlugins: [rehypeKatex],
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [[rehypeKatex, { strict: false }]],
         },
         blog: false,
         theme: {
@@ -145,7 +143,17 @@ const config = {
       },
     ],
   ],
-
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
+    },
+  ],
+  markdown:{mermaid: true},
+  themes: ['@docusaurus/theme-mermaid'],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -160,11 +168,14 @@ const config = {
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
+      mermaid: {
+        theme: {light: 'neutral', dark: 'dark'}, // https://mermaid.js.org/config/theming.html
+      },
       image:
         'https://sai-tai.netlify.app/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg',
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: require('prism-react-renderer').themes.vsLight,
+        darkTheme: require('prism-react-renderer').themes.dracula,
         // https://prismjs.com/#supported-languages
         additionalLanguages: [
           'bash',

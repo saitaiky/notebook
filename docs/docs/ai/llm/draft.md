@@ -652,7 +652,22 @@ The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal 
 :::
 
 :::info PetaFlops per second-day
-PetaFlops per second-day is a metric used to quantify the computational power required to train large language models (LLMs). It combines the concepts of computational speed and duration, representing the total work done by a system. One petaFLOP stands for one quadrillion (10^15) floating-point operations per second. Thus, a petaFLOP per second-day measures how many floating-point calculations a system can perform in one second, extended over a full 24-hour period. This metric is crucial for benchmarking, planning, and budgeting the resources needed for training LLMs. For instance, training a model like GPT-3 required approximately 3,700 petaFLOP per second-days, highlighting the immense computational effort involved. By providing a standard measure, this metric helps compare the efficiency and requirements of different training setups and hardware configurations.
+PetaFlops per second-day is a metric used to quantify the computational power required to train large language models (LLMs). It combines the concepts of computational speed and duration, representing the total work done by a system. One petaFLOP stands for one quadrillion (10^15) floating-point operations per second. Thus, a petaFLOP per second-day measures how many floating-point calculations a system can perform in one second, extended over a full 24-hour period. 
+
+This metric is crucial for benchmarking, planning, and budgeting the resources needed for training LLMs. For instance, training a model like GPT-3 required approximately 3,700 petaFLOP per second-days, highlighting the immense computational effort involved. By providing a standard measure, this metric helps compare the efficiency and requirements of different training setups and hardware configurations.
+
+If a system runs at 1 petaFLOP (one quadrillion operations per second) for one day (24 hours), the total computational work is:
+$$
+1 \text{ petaFLOP} \times 1 \text{ day} = 1 \text{ petaFLOP per second-day}
+$$
+
+For a system running at a different rate, say 2 petaFLOPs, for one day:
+$$
+2 \text{ petaFLOPs} \times 1 \text{ day} = 2 \text{ petaFLOP per second-days}
+$$
+
+Similarly, if a system runs at 1 petaFLOP for half a day:
+$$
+1 \text{ petaFLOP} \times 0.5 \text{ days} = 0.5 \text{ petaFLOP per second-days}
+$$
 :::
-
-
