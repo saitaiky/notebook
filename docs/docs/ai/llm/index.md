@@ -22,6 +22,10 @@ However, the quality of data used for training LLMs is crucial. Models trained o
 Foundation language models, like MT-NLG and GPT-3, are versatile and perform a wide range of NLP tasks. They excel in general performance but may not be ideal for specific tasks. Fine-tuned language models, derived from foundation LLMs, are customized for specialized purposes and offer improved task-specific performance. Fine-tuning is commonly achieved through parameter-efficient techniques like p-tuning and adapters, making it a cost-effective and practical approach.
 :::
 
+:::infoA general purpose technology
+Generative AI and LLMs specifically are a general purpose technology. That means that similar to other general purpose technologies like deep learning and electricity, is useful not just for a single application, but for a lot of different applications that span many corners of the economy. 
+:::
+
 ## Evolution of Large Language Models
 
 The evolution of large language models (LLMs) has brought about a paradigm shift in natural language processing (NLP). Historically, AI systems focused on data analysis rather than generation, but the advent of LLMs shifted this balance. This change can be observed by comparing three NLP regimes:
@@ -85,6 +89,8 @@ In this basic sequencing technique, often deployed through a Long-Short-Term-Mem
 In response to this issue, in 2017 a team at Google Brain introduced **transformers**. Unlike **LSTMs**, transformers can process all input data simultaneously. Using a self-attention mechanism, the model can give varying weight to different parts of the input data in relation to any position of the language sequence. This feature enabled massive improvements in infusing meaning into LLMs and enables processing of significantly larger datasets.
 
 ### Transformers
+
+> Do you know a sequence-to-sequence task, which was the original objective of the transformer architecture designers?
 
 RNNs and LSTMs are advantageous for natural language processing (NLP) tasks, such as sentiment analysis and text classification, as they consider word context and relationships. However, they are limited when handling longer data sequences and broader context. Their sequential processing results in slower inference, which poses challenges when processing lengthy text. They can always determine word order due to sequential processing, ensuring accurate output.
 
@@ -284,7 +290,7 @@ Building proprietary LLMs from scratch introduces additional challenges, includi
 
 Building large language models from scratch is often impractical, especially for enterprises not specialized in AI or NLP. Customizing existing base models is a more viable approach. This process involves three main steps:
 
-1. **Selecting a Foundation Model (PLM)**: Choosing an appropriate base model involves considering factors like model size, training tasks, datasets, and LLM providers.
+1. **Selecting a Foundation Model/Base model**: Choosing an appropriate base model involves considering factors like model size, training tasks, datasets, and LLM providers.
 2. **Fine-Tuning**: Base models can be fine-tuned for specific use cases, such as sentiment analysis or legal terminology, by training them on relevant data.
 3. **Optimization**: Further enhancements can be achieved through techniques like Reinforcement Learning from Human Feedback (RLHF), which fine-tunes the model based on human feedback.
 

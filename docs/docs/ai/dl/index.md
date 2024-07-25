@@ -2,8 +2,8 @@
 title: Home
 ---
 
-:::infoAs of July 2024
-It might take a while to write everything down, but I'll do my best to create notes that make these concepts easy to understand. In the meantime, I've already created a [showcase section](/ai/showcase/) with all the source code to demo the techniques I'll be covering. Stay tuned!
+:::cautionAs of July 2024
+It might take me a bit to get everything written down, but I'll carve out some time for this section (there's just so much new tech these days!). In the meantime, I've set up a [showcase section](/ai/showcase/) where you can check out all the source code and demos of the techniques I'll be covering. Stay tuned and happy learning!
 :::
 
 ## Overview
