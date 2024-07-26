@@ -6,9 +6,9 @@ import LastUpdated from '@theme/LastUpdated';
 import EditThisPage from '@theme/EditThisPage';
 import TagsListInline from '@theme/TagsListInline';
 import styles from './styles.module.css';
+import {CommentSection} from '@site/src/components/CommentSection/CommentSection';
 // import { Feedback } from '@site/src/components/Feedback/Feedback';
 // import { HasuraReleaseNotification } from '@site/src/components/HasuraReleaseNotification/HasuraReleaseNotification';
-// import { GiscusComponent } from '@site/src/components/GiscusComponent/GiscusComponent';
 
 function TagsRow(props) {
   return (
@@ -83,7 +83,7 @@ export default function DocItemFooter() {
       </footer>
       {!disableComments && (
         <div className='margin-top--xl'>
-          {/* <GiscusComponent /> */}
+          <CommentSection/>
         </div>
       )}
     </>

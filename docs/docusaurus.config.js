@@ -10,7 +10,7 @@ const path = require('path');
 const config = {
   title: 'Sai\'s Notebook',
   tagline: 'Adapt and adjust',
-  url: 'https://sai-tai.netlify.app',
+  url: 'https://sai-tai.com',
   baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
@@ -152,7 +152,7 @@ const config = {
         theme: {light: 'neutral', dark: 'dark'}, // https://mermaid.js.org/config/theming.html
       },
       image:
-        'https://sai-tai.netlify.app/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg',
+        'https://sai-tai.com/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg',
       prism: {
         theme: require('prism-react-renderer').themes.vsLight,
         darkTheme: require('prism-react-renderer').themes.dracula,

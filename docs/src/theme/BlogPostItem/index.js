@@ -3,7 +3,7 @@ import BlogPostItem from '@theme-original/BlogPostItem';
 
 // https://dev.to/m19v/how-to-add-giscus-comments-to-docusaurus-439h
 import { useBlogPost } from '@docusaurus/theme-common/internal'
-// import { GiscusComponent } from '@site/src/components/GiscusComponent/GiscusComponent';
+import {CommentSection} from '@site/src/components/CommentSection/CommentSection';
 
 export default function BlogPostItemWrapper(props) {
 
@@ -14,7 +14,7 @@ export default function BlogPostItemWrapper(props) {
     <>
       <BlogPostItem {...props} />
       {(!disableComments && isBlogPostPage) && (
-        "<GiscusComponent />"
+        <CommentSection />
       )}
     </>
   );

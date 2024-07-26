@@ -2782,18 +2782,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@giscus/react@npm:^2.3.0":
-  version: 2.4.0
-  resolution: "@giscus/react@npm:2.4.0"
-  dependencies:
-    giscus: ^1.4.0
-  peerDependencies:
-    react: ^16 || ^17 || ^18
-    react-dom: ^16 || ^17 || ^18
-  checksum: 29c1fbb776f679d4eaf8a381c87599e1314357ba187c29e0052151e25b6407d4158c26cb0647ec91f5814f46a1bed68abc2039b32341cfdd25494eeeccb2c81d
-  languageName: node
-  linkType: hard
-
 "@graphiql/react@npm:^0.10.0":
   version: 0.10.0
   resolution: "@graphiql/react@npm:0.10.0"
@@ -2936,22 +2924,6 @@ __metadata:
   version: 2.0.5
   resolution: "@leichtgewicht/ip-codec@npm:2.0.5"
   checksum: 4fcd025d0a923cb6b87b631a83436a693b255779c583158bbeacde6b4dd75b94cc1eba1c9c188de5fc36c218d160524ea08bfe4ef03a056b00ff14126d66f881
-  languageName: node
-  linkType: hard
-
-"@lit-labs/ssr-dom-shim@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@lit-labs/ssr-dom-shim@npm:1.2.0"
-  checksum: 704621c28df8d651e54a1b93f6ede8103db2dd3e7a1f02463fe5492bd28aa22de813314c7833260204fed5c8491a6bbd763f6051abc25690df537d812a508c35
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@lit/reactive-element@npm:2.0.4"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.2.0
-  checksum: 368d788d9eefdde74e77721e38c78de222dc5ec87d543e0638d0d28f7a8cf530c3d7b49aa8606efeec3f3485abbb22a43b58c2f20c1e6e7f0de266d4c6d125c4
   languageName: node
   linkType: hard
 
@@ -3885,13 +3857,6 @@ __metadata:
   version: 4.2.5
   resolution: "@types/stylis@npm:4.2.5"
   checksum: 24f91719db5569979e9e2f197e050ef82e1fd72474e8dc45bca38d48ee56481eae0f0d4a7ac172540d7774b45a2a78d901a4c6d07bba77a33dbccff464ea3edf
-  languageName: node
-  linkType: hard
-
-"@types/trusted-types@npm:^2.0.2":
-  version: 2.0.7
-  resolution: "@types/trusted-types@npm:2.0.7"
-  checksum: 8e4202766a65877efcf5d5a41b7dd458480b36195e580a3b1085ad21e948bc417d55d6f8af1fd2a7ad008015d4117d5fdfe432731157da3c68678487174e4ba3
   languageName: node
   linkType: hard
 
@@ -5101,6 +5066,15 @@ __metadata:
     has-own-prop: ^2.0.0
     repeat-string: ^1.6.1
   checksum: 006a03a7d142fcf4588a8a42f2d63bee7652ac7b66eef25aa71a556181b0af4548f1b9f68e85118c553b86e98f6d06aa777e8b1f864f2bc01668aa655121588e
+  languageName: node
+  linkType: hard
+
+"commentbox.io@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "commentbox.io@npm:2.1.0"
+  dependencies:
+    qs: ^6.5.2
+  checksum: cc2c0bfad5240b855807fe0e02bf9675b93741166ea0b107677f89e38412c829d034e308dbdce58557f6aa97488697131741f8608c08477ce6e92eb528854f7e
   languageName: node
   linkType: hard
 
@@ -6363,13 +6337,13 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": ^6.4.2
     "@fortawesome/free-solid-svg-icons": ^6.4.2
     "@fortawesome/react-fontawesome": ^0.2.0
-    "@giscus/react": ^2.3.0
     "@mdx-js/react": ^3.0.0
     "@swc/core": ^1.3.23
     "@types/react": ^18.2.29
     algoliasearch: ^4.14.2
     algoliasearch-helper: ^3.7.4
     clsx: ^1.2.1
+    commentbox.io: ^2.1.0
     cspell: ^6.18.1
     docusaurus-plugin-sass: ^0.2.2
     graphiql: ^1.5.1
@@ -7381,15 +7355,6 @@ __metadata:
   version: 6.0.1
   resolution: "get-stream@npm:6.0.1"
   checksum: e04ecece32c92eebf5b8c940f51468cd53554dcbb0ea725b2748be583c9523d00128137966afce410b9b051eb2ef16d657cd2b120ca8edafcf5a65e81af63cad
-  languageName: node
-  linkType: hard
-
-"giscus@npm:^1.4.0":
-  version: 1.5.0
-  resolution: "giscus@npm:1.5.0"
-  dependencies:
-    lit: ^3.1.2
-  checksum: 9ea1379ff257a04a1f8c597e95905cd4f5e8e4dde8dcae37efdcda77521087283457cb2d6d4194f7ad9f908b649e2cf3bc2ee0fb8bab2fe52db3e5e472de41a2
   languageName: node
   linkType: hard
 
@@ -8933,37 +8898,6 @@ __metadata:
   dependencies:
     uc.micro: ^1.0.1
   checksum: 31367a4bb70c5bbc9703246236b504b0a8e049bcd4e0de4291fa50f0ebdebf235b5eb54db6493cb0b1319357c6eeafc4324c9f4aa34b0b943d9f2e11a1268fbc
-  languageName: node
-  linkType: hard
-
-"lit-element@npm:^4.0.4":
-  version: 4.0.6
-  resolution: "lit-element@npm:4.0.6"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.2.0
-    "@lit/reactive-element": ^2.0.4
-    lit-html: ^3.1.2
-  checksum: 4f73cd1c0d8dc9643a92a5a6cb93b5a4f1d25675ecd38c2e39583e0ed03f0b2725c0b08330f0f1a70b372e7e4c693839c94d95f59c7c65bbca596f4faf91bfee
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^3.1.2":
-  version: 3.1.4
-  resolution: "lit-html@npm:3.1.4"
-  dependencies:
-    "@types/trusted-types": ^2.0.2
-  checksum: 428593679cd295ef56db7220d1349a2eeba67aa513f99ddb7653d265e914017a17060c293f5fc899d3b6f36329fbac2d9c3392be26648091e3404da90c76bbf4
-  languageName: node
-  linkType: hard
-
-"lit@npm:^3.1.2":
-  version: 3.1.4
-  resolution: "lit@npm:3.1.4"
-  dependencies:
-    "@lit/reactive-element": ^2.0.4
-    lit-element: ^4.0.4
-    lit-html: ^3.1.2
-  checksum: c6ffa5580f902404212dd0fc7b8d7b5f394698348521ca04f3f7c3bb2ce1369976e13c9c55166a8c89a6322f620982460fcff29b19474179d4e502fb9c2736bc
   languageName: node
   linkType: hard
 
@@ -11755,6 +11689,15 @@ plugin-image-zoom@flexanalytics/plugin-image-zoom:
   languageName: node
   linkType: hard
 
+"qs@npm:^6.5.2":
+  version: 6.12.3
+  resolution: "qs@npm:6.12.3"
+  dependencies:
+    side-channel: ^1.0.6
+  checksum: 9a9228a623bc36d41648237667d7342fb8d64d1cfeb29e474b0c44591ba06ac507e2d726f60eca5af8dc420e5dd23370af408ef8c28e0405675c7187b736a693
+  languageName: node
+  linkType: hard
+
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -12826,7 +12769,7 @@ plugin-image-zoom@flexanalytics/plugin-image-zoom:
   languageName: node
   linkType: hard
 
-"side-channel@npm:^1.0.4":
+"side-channel@npm:^1.0.4, side-channel@npm:^1.0.6":
   version: 1.0.6
   resolution: "side-channel@npm:1.0.6"
   dependencies:
