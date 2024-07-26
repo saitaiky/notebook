@@ -87,26 +87,6 @@ const config = {
   plugins: [
     'docusaurus-plugin-sass',
     'plugin-image-zoom',
-    [
-      'content-docs',
-      /** @type {import('@docusaurus/plugin-content-docs').Options} */
-      ({
-        id: 'wiki',
-        path: 'wiki',
-        routeBasePath: 'wiki',
-        editUrl: ({ docPath }) =>
-          `https://github.com/hasura/graphql-engine/edit/master/docs/docs/${docPath}`,
-        editCurrentVersion: true,
-        docItemComponent: require.resolve(
-          './src/components/CustomDocItem/CustomDocItemWiki.tsx'
-        ),
-        // disableVersioning: true,
-        breadcrumbs: true,
-        sidebarPath: require.resolve('./sidebarsWiki.js'),
-        showLastUpdateAuthor: true,
-        showLastUpdateTime: true,
-      }),
-    ],
     // [
     //   path.resolve(
     //     __dirname,
@@ -294,10 +274,6 @@ const config = {
               {
                 to: 'https://mermaid-js.github.io/mermaid/#/',
                 label: 'Mermaid',
-              },
-              {
-                to: 'wiki',
-                label: 'Theme Style',
               },
               {
                 to: 'https://euangoddard.github.io/clipboard2markdown/',

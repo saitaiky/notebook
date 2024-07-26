@@ -169,7 +169,8 @@ The benefit of hypothetical thinking is you can give your opinion with limited i
 - People who think hypothetical thinking is not practical, but that is not true. 
     - Even hypothetical thinking only use limited information to infer the real issue, but it's still practical. Because you can verify your hypothesis during inferential period.
 - People who are afraid of using hypothetical thinking, because you don't have confidence of their ideas.
-    - Try to use the [**jotting notes** technique](#jotting-notes-important) to increase your confidence. Also, tell yourself, your can verify the thinking later.
+    - Try to use the [jotting notes technique](#jot-mindset-notes-important) to increase your confidence. Also, tell yourself, your can verify the thinking later.
+
 ### Return-to-origin thinking
 
 The benefit of this thinking is your thinking won't be bounded based on the current constraints. Thus, it's easier to come up with new ideas to success.

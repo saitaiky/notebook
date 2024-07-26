@@ -12,7 +12,7 @@ AWS CloudFormation is an AWS service that allows you to define and provision inf
 ## EC2 interaction
 ### User Data in EC2
 
-> Check [user data scripts](aws/compute/ec2/#user-data-scripts) for more information.
+> Check [user data scripts](/aws/compute/ec2/#user-data-scripts) for more information.
 
 - We can have user data at EC2 instance launch through the console
 - We can also include it in CloudFormation

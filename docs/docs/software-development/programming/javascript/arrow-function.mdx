@@ -116,9 +116,9 @@ When there is no argument provided to an arrow function, you need to provide par
 
 ### this reference (Important concept)
 
-To understand this subtlety introduced with arrow functions, you must know how [this](#this_def) behaves in JavaScript.
+To understand this subtlety introduced with arrow functions, you must know how `this` behaves in JavaScript.
 
-In an arrow function, *this* is equal to the *this* value of the enclosing execution context. What it means is that an arrow function doesn't create a new *this*, it grabs it from its surrounding instead.
+In an arrow function, `this` is equal to *the this value of the enclosing execution context*. What it means is that an arrow function doesn't create a new *this*, it grabs it from its surrounding instead.
 
 Without arrow function, if you wanted to access a variable from *this* in a function inside a function, you had to use the *that = this* or *self = this* trick.
 
