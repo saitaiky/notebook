@@ -64,3 +64,12 @@ Infuse "why you want to work here" into your answers into each answer, even if n
 - Create a story bank mapped to company values.
 - Practice using a structured framework to keep answers focused and relevant.
 
+## Questions to ask
+
+- Not HR
+  - What gets you most excited about the company's future and the role?
+  - What aspects of working here excite you the most?
+- Your manager / founder
+  - What do you see as the most pressing challenges in the coming Q and year? How would I, if successful, be able to play a part in helping the team/business overcome this?
+  - What would you call a success in this role in the first 30, 60 and 90 days on the job?
+- Is there anything I've said, or perhaps not covered in enough detail for you, which will leave you with any doubt in my ability to do this role successfully?

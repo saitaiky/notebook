@@ -68,3 +68,46 @@ Question: "What’s your favorite product and why?"
 - **Consistency:** Use this method for various questions to maintain a clear and organized response.
 - **Engagement:** Helps keep the interviewer engaged by providing a structured and easy-to-follow answer.
 - **Flexibility:** Applicable to both small and large questions, adding a backbone to your responses.
+
+
+## How to Pause During an Interview
+
+Pausing during an interview is crucial for giving thoughtful answers. To make pauses feel less awkward, try these two tactics:
+
+- **Restate the Question**: Repeat what the interviewer asked. This buys time and shows you are actively listening. For example, say:
+  - Just to clarify, you're asking about how I managed [specific task or situation], correct?
+  - So, you want to understand my approach to [specific topic], is that right?
+  - If I understand correctly, you're interested in hearing about my experience with [specific example].
+  - To confirm, you're asking how I would handle [specific scenario], am I correct?
+  - It sounds like you're asking about my strategy for [specific situation], is that accurate?
+- **Drink Water**: Keep a bottle of water handy. Taking a sip provides a natural pause, giving you a few seconds to think.
+
+Remember, pauses are important and should be used liberally to ensure clear and thoughtful responses.
+
+### How to Check In with interviewers
+
+:::warning Keep these 2 points in mind
+- An interview should be a 2-way speech!
+- You can actively check in when you notice yourself giving **a monologue**. A good rule of thumb is you shouldn't speak for more than two minutes without actively checking in with your interviewers
+:::
+
+A common mistake candidates make during interviews is not checking in enough with the interviewer. This can lead to a one-sided conversation instead of a two-way interaction. Here are two ways to check in with your interviewer:
+
+- **Passive Check-In(Strategic Pauses):** Pause deliberately during your answers to give the interviewer a chance to interject or ask questions. This is especially important in remote interviews where reading social cues is harder.
+  - **Pause After Key Points:**  "In this approach, we focus on scalability... [pause]"
+  - **Pause for Emphasis:** "This solution will improve efficiency by -%... [pause]"
+  - **Pause After Explaining a Concept:** "To address security concerns, we implement multi-factor authentication... [pause]"
+  - **Pause to Invite Questions:** "This is the proposed timeline for the project... [pause]"
+- **Active Check-In(Explicit Questions):** Ask the interviewer if they have any questions or if they’re following along, especially between sections of your answer. For example, say, "I just covered point one, do you have any questions before I move on to point two?"
+  - **After Explaining a Section:** "I've outlined the main features. Do you have any questions before I move on?"
+  - **To Confirm Understanding:** "Does this approach make sense so far, or is there something you’d like me to clarify?"
+  - **After a Detailed Explanation:** "I've covered the technical aspects. Should I continue to the implementation details, or do you have any questions?"
+  - **To Engage the Interviewer:**"I’ve just discussed the benefits of this strategy. Would you like to delve deeper into any specific part?"
+   
+
+**Tip:** Don't speak for more than two minutes without checking in. Use both active and passive check-ins to keep the conversation focused and on track.
+
+
+## Discussing Tradeoffs
+
+Discussing trade-offs is **effective** because it addresses potential concerns the interviewer might have about your depth of thought. By proactively bringing up trade-offs, you demonstrate that you have thoroughly considered various aspects of the solution, alleviating any doubts the interviewer may have about your analytical abilities and thoroughness. This approach shows that you are not just providing a superficial answer but are thinking critically about the practical implications and challenges of your design choices.

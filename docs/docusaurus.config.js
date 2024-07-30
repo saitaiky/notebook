@@ -239,7 +239,7 @@ const config = {
               },
               {
                 to: 'ai/search-plan/',
-                label: 'Search, Plan, Reasoning',
+                label: 'AI(Search, Plan, Reasoning)',
               },
               {
                 to: 'ai/ml',
@@ -248,6 +248,10 @@ const config = {
               {
                 to: 'ai/dl',
                 label: 'Deep Learning',
+              },
+              {
+                to: 'ai/llm',
+                label: 'Large Language Model',
               },
             ],
           },

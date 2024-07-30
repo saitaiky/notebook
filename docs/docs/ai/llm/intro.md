@@ -2,6 +2,8 @@
 title: Introduction
 ---
 
+There are 2 tasks: Text summarization and text translation
+
 ## Introduction to Language Models
 
 Language models, including tools like ChatGPT, are becoming ubiquitous in today's digital landscape. Understanding the mechanisms of Large Language Models (LLMs) is crucial for navigating and leveraging these technologies effectively.
@@ -22,6 +24,10 @@ A common application of language models is predictive text, which is used in mod
 ## The simplest language models (N-gram)
 
 One of the simplest types of language models is the N-gram model. This model predicts the next word in a sequence based on the previous 'N-1' words. For example, in a bigram model (where N=2), the model looks at the previous word to predict the next one.
+
+:::info What is unigram?
+A unigram in the context of Large Language Models (LLMs) is a single word treated as the smallest unit for analysis. Unigrams are used in evaluating and processing text, where each word is considered independently of its neighbors. This helps in calculating simple metrics like word frequency or in tasks like ROUGE-1 scoring, which measures the overlap of single words between generated and reference texts.
+:::
 
 ### Introduction to N-gram Models
 
