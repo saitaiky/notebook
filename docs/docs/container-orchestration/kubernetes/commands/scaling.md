@@ -1,3 +1,6 @@
+---
+title: Scaling
+---
 
 ## Scaling Pods
 

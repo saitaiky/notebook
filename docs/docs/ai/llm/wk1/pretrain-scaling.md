@@ -4,56 +4,87 @@ sidebar_position: 2
 draft: true
 ---
 
+## Pre-training Large Language Models
 
-## Generative AI project lifecycle
+![generative-ai-project-lifecycle](/img/ai/llm/pre-train/generative-ai-project-lifecycle.jpg)
 
-1. **Introduction to the Lifecycle**:
-   - The course will guide you through developing and deploying an LLM-powered application.
-   - The lifecycle framework covers the journey from project conception to launch.
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
 
-2. **Defining the Project Scope**:
-   - The most critical step is to define the scope as accurately and narrowly as possible.
-   - Determine the specific function the LLM will have in your application.
-   - Consider whether the model needs to handle many tasks or just a specific task.
+- **Project Lifecycle**: The development of a generative AI application involves several steps before launch. After scoping out the use case, selecting an appropriate model is crucial.
+- **Model Selection**: 
+  - Choose between using an existing model or training a new one from scratch.
+  - Generally, starting with an existing foundation model is recommended.
 
-3. **Choosing a Model**:
-   - Decide whether to train a model from scratch or use an existing base model.
-   - Generally, starting with an existing model is preferred.
-   - Learn considerations and rules of thumb for this decision later in the course.
+:::info Existing Models and Model Hubs
 
-4. **Assessing Model Performance**:
-   - Start with prompt engineering to see if in-context learning meets your needs.
-   - If the model’s performance is insufficient, consider fine-tuning it.
-   - Fine-tuning, a supervised learning process, will be detailed in Week 2.
+![flan2_architecture](/img/ai/llm/pre-train/flan2_architecture.jpg)
 
-5. **Ensuring Model Alignment**:
-   - Models must behave well and align with human preferences during deployment.
-   - Week 3 covers reinforcement learning with human feedback to ensure proper behavior.
-   - Evaluation is crucial, using metrics and benchmarks to assess performance and alignment.
+Source: [Hugging face: google/flan-t5-large](https://huggingface.co/google/flan-t5-large)
 
-6. **Iterative Development**:
-   - The adapt and align stage is highly iterative.
-   - Start with prompt engineering, then fine-tune as needed, and re-evaluate.
+- **Model Hubs**: Platforms like Hugging Face and PyTorch offer curated hubs with many open-source models.
+- **Model Cards**: These provide details such as best use cases, training methods, and known limitations, aiding in selecting the right model. For more details, check [Hugging face: What are Model Cards?](https://huggingface.co/docs/hub/en/model-cards)
+:::
 
-7. **Deployment**:
-   - Once the model meets performance and alignment needs, deploy it into your infrastructure.
-   - Optimize the model for deployment to make efficient use of compute resources and enhance user experience.
+## Understanding Pre-training
 
-8. **Additional Infrastructure Considerations**:
-   - Address fundamental limitations of LLMs, such as the tendency to invent information and limited reasoning capabilities.
-   - Learn techniques to overcome these limitations in the final part of the course.
+:::info TL;DR
+- **Model Architectures**:
+  - **Autoencoding Models**: Encoder-only, masked language modeling, suited for classification tasks.
+  - **Autoregressive Models**: Decoder-only, causal language modeling, suited for text generation.
+  - **Sequence-to-Sequence Models**: Encoder-decoder, various objectives, suited for complex tasks like translation and summarization.
+- **Choosing a Model**: Select based on the task, with larger models often providing better performance. 
+:::
 
-9. **Visual Aid**:
-   - The course will frequently revisit this lifecycle visual to reinforce understanding of each stage.
+- **Pre-training Phase**: The initial training phase for LLMs, involving learning from vast amounts of unstructured textual data.
+  - **Data Sources**: When you scrape training data from public sites such as the Internet, you often need to process the data to increase quality, address bias, and remove other harmful content. As a result of this data quality curation, often only **1-3%** of tokens are used for pre-training.
+  - **Self-Supervised Learning**: The model learns patterns and structures in the language to minimize the training objective loss.
 
-- Key Takeaways
-    - **Project Scope**: Define clearly and narrowly to save time and resources.
-    - **Model Selection**: Start with existing models; train from scratch only when necessary.
-    - **Performance Assessment**: Use prompt engineering first, then fine-tuning if needed.
-    - **Model Alignment**: Ensure models align with human values using reinforcement learning.
-    - **Iterative Process**: Continuously adapt, align, and evaluate the model.
-    - **Deployment Optimization**: Optimize for efficient resource use and user experience.
-    - **Addressing Limitations**: Learn and apply techniques to mitigate LLM limitations.
+## Training Objectives
+
+### Encoder-Only Models(Autoencoding)
+
+![encoder-model](/img/ai/llm/pre-train/encoder-model.jpg)
+
+Source: [Hugging face: google/flan-t5-large](https://huggingface.co/google/flan-t5-large)
+
+- **Training Objective**: Masked Language Modeling(MLM) - Predicts masked tokens to reconstruct the original sentence.
+- **Bidirectional Context**: Understands the full context of a token and not just of the words that come before.
+- **Use Cases**: 
+   - Encoder-only models are ideally suited to task that benefit from this bi-directional contexts. 
+   - Sentence classification (e.g., sentiment analysis), token-level tasks (e.g., named entity recognition).
+- **Examples**: BERT, RoBERTa.
+
+### Decoder-Only Models (Autoregressive)
+
+![decoder-model](/img/ai/llm/pre-train/decoder-model.jpg)
+
+Source: [Hugging face: google/flan-t5-large](https://huggingface.co/google/flan-t5-large)
+
+- **Training Objective**: Causal Language Modeling - Predicts the next token based on previous sequence of tokens.  Predicting the next token is sometimes called **full language modeling** by researchers. 
+- **Unidirectional Context**: Can only see preceding tokens, not subsequent ones. The model has no knowledge of the end of the sentence.
+- **Use Cases**: Text generation, strong zero-shot inference.
+- **Examples**: GPT, BLOOM.
+
+### Sequence-to-Sequence Models (Encoder-Decoder)
+
+![encoder-decoder-model](/img/ai/llm/pre-train/encoder-decoder-model.jpg)
+
+Source: [Hugging face: google/flan-t5-large](https://huggingface.co/google/flan-t5-large)
+
+- **Training Objective**: 
+   - The exact details of the pre-training objective vary from model to model.
+   - T5 uses span corruption which masks random sequences of input tokens. Those mass sequences are then replaced with a unique Sentinel token, shown here as x. Sentinel tokens are special tokens added to the vocabulary, but do not correspond to any actual word from the input text. The decoder is then tasked with reconstructing the mask token sequences auto-regressively. 
+   - The output is the Sentinel token followed by the predicted tokens. `<x> teaches the`
+- **Bidirectional and Unidirectional Contexts**: Uses both encoder and decoder parts.
+- **Use Cases**: Translation, summarization, question-answering.
+- **Examples**: T5, BART.
+
+:::info Model Size and Capability
+- **Larger Models**: Generally more capable and perform tasks better without additional in-context learning or further training.
+- **Trend**: Increased model size correlates with improved performance, driving the development of larger models.
+- **Challenges**: Training large models is difficult and expensive, raising questions about the feasibility of continuously increasing model size.
+:::
+
 
 
 ----
@@ -73,246 +104,141 @@ Keep in mind, this is a very inexpensive way to try out these models and to even
 Here we see a case where the few-shot didn't do much better than the one shot. This is something that you want to pay attention to because in practice, people often try to just keep adding more and more shots, five shots, six shots. Typically, in my experience, above five or six shots, so full prompt and then completions, you really don't gain much after that. Either the model can do it or it can't do it and going about five or six. 
 
 
-### Computational challenges of training LLMs
+## Computational challenges of training LLMs
 
-#### Generative AI Project Lifecycle: Model Selection and Training
-
-1. **Introduction**:
-   - Before launching a generative AI application, you need to scope your use case and determine how the LLM will function within your application.
-
-2. **Model Selection**:
-   - Choose between using an existing model or training one from scratch.
-   - Typically, you start with an existing foundation model available on model hubs like Hugging Face or PyTorch.
-   - Model cards on these hubs provide essential details, including use cases, training data, and limitations.
-
-3. **Pre-Training Phase**:
-   - LLMs undergo a pre-training phase, learning from vast amounts of unstructured textual data (gigabytes to petabytes).
-   - This self-supervised learning step involves internalizing language patterns to minimize the training objective's loss.
-   - Data quality curation is crucial, as only 1-3% of tokens may be used for effective pre-training.
-
-4. **Model Variants and Training Objectives**:
-   - **Encoder-Only Models (Autoencoding)**:
-     - Trained using masked language modeling, predicting masked tokens to reconstruct the original sentence.
-     - Build bidirectional representations, understanding the full context.
-     - Suitable for tasks like sentiment analysis and named entity recognition.
-     - Examples: BERT, RoBERTa.
-   
-   - **Decoder-Only Models (Autoregressive)**:
-     - Trained using causal language modeling, predicting the next token based on the previous sequence.
-     - Unidirectional context, focusing only on preceding tokens.
-     - Often used for text generation.
-     - Examples: GPT, BLOOM.
-   
-   - **Sequence-to-Sequence Models (Encoder-Decoder)**:
-     - Use both encoder and decoder parts of the transformer architecture.
-     - Pre-training objectives vary; T5 uses span corruption, masking sequences of tokens replaced with sentinel tokens.
-     - Suitable for tasks like translation, summarization, and question-answering.
-     - Examples: T5, BART.
-
-5. **Model Capabilities and Size**:
-   - Larger models generally perform better and can handle tasks with minimal in-context learning or further training.
-   - The trend towards larger models has been driven by advancements in scalable architectures, data availability, and compute power.
-   - Researchers hypothesize a new "Moore's Law" for LLMs, but training enormous models remains challenging and expensive.
-
-6. **Challenges of Training Large Models**:
-   - Training large models is resource-intensive and may become impractical beyond a certain scale.
-
-### Key Takeaways
-
-- **Project Scope**: Clearly define the scope and requirements of your LLM application.
-- **Model Selection**: Use existing models when possible, leveraging resources from model hubs.
-- **Pre-Training**: Understand the importance of pre-training and data curation.
-- **Model Variants**: Choose the appropriate model architecture (encoder-only, decoder-only, or sequence-to-sequence) based on the task.
-- **Model Size**: Larger models generally offer better performance but come with increased training challenges and costs.
-
-
-
-### Computational Challenges of Training Large Language Models (LLMs)
-
-1. **Memory Constraints**:
-   - One common issue when training LLMs is running out of memory, especially on Nvidia GPUs using CUDA.
-   - CUDA is used by libraries like PyTorch and TensorFlow to enhance performance in deep learning operations.
-
-2. **Memory Requirements**:
-   - A single 32-bit float parameter takes 4 bytes of memory.
-   - To store one billion parameters at 32-bit precision, you'll need 4 GB of GPU RAM.
-   - Training a model involves additional memory overhead (e.g., optimizer states, gradients), often requiring about six times the memory needed for just the model weights.
-
-3. **Quantization**:
-   - **Definition**: Reduces memory required for model weights by lowering precision from 32-bit to 16-bit or 8-bit.
-   - **FP32 to FP16**: Reduces memory use by half (4 bytes to 2 bytes).
-   - **BFLOAT16**: Maintains the dynamic range of FP32 with reduced precision, providing stability in training.
-   - **INT8**: Further reduces memory but with significant loss of precision.
-
-4. **FP32 vs. FP16 vs. BFLOAT16**:
-   - **FP32**: Full precision, uses 32 bits.
-   - **FP16**: Half precision, uses 16 bits, but with a smaller range of representable numbers.
-   - **BFLOAT16**: A hybrid format that keeps the 8-bit exponent of FP32 but reduces the fraction to 7 bits, offering a balance between memory savings and performance.
-
-5. **Practical Implications of Quantization**:
-   - Quantization reduces the memory footprint, enabling training on GPUs with limited memory.
-   - **Example**: Training a one billion parameter model with FP32 requires ~24 GB RAM; using FP16 reduces it to ~12 GB.
-
-6. **Challenges with Larger Models**:
-   - Models with billions of parameters require enormous amounts of memory, making single-GPU training impractical.
-   - Distributed computing across multiple GPUs is necessary for models with tens or hundreds of billions of parameters.
-   - This requires significant computational resources and is costly.
-
-7. **Fine-Tuning**:
-   - While pre-training large models from scratch is usually infeasible, fine-tuning existing models is a common practice.
-   - Fine-tuning still requires substantial memory to store all training parameters.
-
-8. **Distributed Training**:
-   - Distributed training techniques are essential for managing memory and computational demands of large models.
-   - An optional detailed video is available to understand technical aspects of distributed training across multiple GPUs.
-
-### Key Takeaways
-
-- **Memory Management**: Understanding memory requirements and using techniques like quantization is crucial for training large models.
-- **Quantization Techniques**: Reducing precision can significantly lower memory usage while maintaining acceptable performance.
-- **Scale of LLMs**: As models grow, single-GPU training becomes impractical, necessitating distributed computing.
-- **Fine-Tuning**: A practical approach for adapting large pre-trained models to specific tasks, requiring careful memory management.
-- **Technical Resources**: Access to advanced resources and techniques is often necessary to handle the computational challenges of training and fine-tuning LLMs.
-
-
-### Summary of the Transcript
-
-#### Efficient Multi-GPU Compute Strategies
-
-1. **Introduction to Multi-GPU Strategies**:
-   - Scaling model training beyond a single GPU is often necessary, both for fitting large models and speeding up training for smaller models.
-   - Efficient distribution of compute tasks across multiple GPUs can greatly enhance performance.
-
-2. **Distributed Data-Parallel (DDP)**:
-   - DDP replicates the model across multiple GPUs and processes batches of data in parallel.
-   - Results from each GPU are synchronized to update the model.
-   - Requires that the model weights and additional parameters fit on a single GPU.
-
-3. **Model Sharding with Fully Sharded Data Parallel (FSDP)**:
-   - FSDP is based on the ZeRO (Zero Redundancy Optimizer) technique.
-   - ZeRO eliminates redundancy by distributing model parameters, gradients, and optimizer states across GPUs.
-   - ZeRO has three stages:
-     - **Stage 1**: Shards optimizer states across GPUs.
-     - **Stage 2**: Shards gradients across GPUs.
-     - **Stage 3**: Shards all components, including model parameters, gradients, and optimizer states.
-
-4. **Comparison of DDP and FSDP**:
-   - FSDP allows working with models too large for a single GPU by distributing data and model states across multiple GPUs.
-   - Synchronization of gradients is required after forward and backward passes.
-   - FSDP can offload part of the training computation to CPUs to further reduce GPU memory utilization.
-   - The sharding factor in FSDP can be adjusted to manage the trade-off between performance and memory utilization.
-
-5. **Performance Metrics**:
-   - Performance measured in teraflops per GPU (one teraflop = one trillion floating-point operations per second).
-   - For smaller models (e.g., T5 with 611 million parameters), DDP and FSDP have similar performance.
-   - For larger models (e.g., T5 with 11.3 billion parameters), DDP runs into out-of-memory errors, while FSDP handles these models efficiently.
-   - Performance decreases with increasing GPUs due to the communication volume between chips.
-
-6. **Practical Implications**:
-   - FSDP can be used for both small and large models, enabling seamless scaling across multiple GPUs.
-   - Understanding the trade-offs between performance and memory utilization is crucial for efficient model training.
-
-7. **Future Research**:
-   - Due to the complexity and expense of training large models across GPUs, researchers are exploring ways to achieve better performance with smaller models.
-
-### Key Takeaways
-
-- **Scaling Training**: Multi-GPU strategies are essential for scaling training of large models and speeding up training for smaller models.
-- **DDP and FSDP**: Different strategies like DDP and FSDP offer various ways to distribute and manage training workloads across GPUs.
-- **ZeRO and FSDP**: ZeRO-based sharding techniques implemented in FSDP significantly reduce memory footprint and enable training of large models.
-- **Performance vs. Memory Trade-Offs**: Adjusting sharding factors and understanding the balance between performance and memory usage are critical.
-- **Practical Use**: FSDP provides flexibility and efficiency for training models of various sizes, making it a valuable technique for model training.
-
-### Scaling Laws and Compute-Optimal Models
-
-1. **Introduction to Scaling Laws**:
-   - Research explores the relationship between model size, training configuration, and performance.
-   - The goal of pre-training is to maximize performance by minimizing loss when predicting tokens.
-
-2. **Compute Budget**:
-   - Defined as the number of resources available, such as GPUs and time.
-   - A unit of compute is measured as petaFLOP per second day (one quadrillion floating point operations per second running for a day).
-   - Example: One petaFLOP per second day is approximately equivalent to eight NVIDIA V100 GPUs running at full efficiency for a day.
-
-3. **Comparison of Compute Requirements**:
-   - Different models (e.g., BERT, RoBERTa, T5, GPT-3) require varying compute budgets based on their size.
-   - Larger models need more compute resources and data for good performance.
-   - Example: GPT-3 (175 billion parameters) required around 3,700 petaFLOP per second days.
-
-4. **Power-Law Relationships**:
-   - There is a power-law relationship between compute budget and model performance.
-   - Increasing compute budget generally improves performance, but practical constraints like hardware and financial budget exist.
-   - Power-law also applies to training dataset size and number of model parameters.
-
-5. **Optimal Balance**:
-   - Researchers aim to find the ideal balance between model size, training data size, and compute budget.
-   - The "Chinchilla" paper (2022) provides empirical data on optimal pre-training for compute-optimal models.
-
-6. **Findings from the Chinchilla Paper**:
-   - Many large models like GPT-3 may be over-parameterized and under-trained.
-   - Optimal training dataset size should be about 20 times the number of parameters in the model.
-   - Example: A 70 billion parameter model should be trained on 1.4 trillion tokens.
-
-7. **Practical Implications**:
-   - Smaller models trained on larger datasets can achieve similar or better performance than larger, non-optimal models.
-   - Teams are moving away from the "bigger is better" trend, focusing on optimizing model design and training datasets.
-   - Example: Bloomberg GPT, trained in a compute-optimal way, achieves good performance with 50 billion parameters.
-
-### Key Takeaways
-
-- **Compute Budget**: Understand and manage compute resources efficiently for training models.
-- **Power-Law Relationships**: Recognize the scaling relationships between compute budget, dataset size, and model parameters.
-- **Optimal Training**: Aim for the optimal balance between model size and training dataset size to achieve better performance.
-- **Empirical Data**: Utilize research findings (e.g., Chinchilla paper) to guide model training and design.
-
-
-### Pre-training for domain adaptation
-
-1. **Working with Existing LLMs**:
-   - Generally, using existing LLMs saves time and helps in quickly developing a working prototype.
-
-2. **When to Pretrain Your Own Model**:
-   - **Domain Adaptation**: Necessary when the target domain uses specific vocabulary and language structures uncommon in general language.
-   - **Examples**:
-     - **Legal Domain**: Terms like *mens rea*, *res judicata*, and *consideration* in a legal context are not widely used outside legal texts.
-     - **Medical Domain**: Contains specialized terms and idiosyncratic language, such as medical conditions, procedures, and shorthand used in prescriptions.
-
-3. **Case Study: BloombergGPT**:
-   - **Background**: Announced in 2023, BloombergGPT is a large language model pretrained specifically for the finance domain.
-   - **Data Composition**: Combined 51% financial data and 49% general-purpose text data.
-   - **Performance**: Achieves best-in-class results on financial benchmarks while maintaining competitive performance on general LLM benchmarks.
-
-4. **Adhering to Scaling Laws**:
-   - **Guidance**: Used Chinchilla scaling laws to determine optimal model size and compute budget.
-   - **Trade-offs**: 
-     - **Model Size**: BloombergGPT follows Chinchilla's recommendations closely for the given compute budget of 1.3 million GPU hours.
-     - **Training Dataset Size**: Used 569 billion tokens, which is below the Chinchilla-recommended size due to limited availability of financial domain data.
-
-5. **Real-World Constraints**:
-   - Practical limitations, such as data availability, may necessitate trade-offs when pretraining models for specific domains.
-
-6. **Recap of Week One**:
-   - Covered various topics related to developing and deploying LLM-powered applications, including computational challenges, scaling laws, and domain-specific pretraining.
-
-### Key Takeaways
-
-- **Use Existing Models**: Preferred approach for rapid development unless domain-specific language requirements necessitate pretraining.
-- **Domain Adaptation**: Critical for specialized fields like law and medicine, where specific vocabulary and context are crucial.
-- **BloombergGPT Example**: Demonstrates effective domain-specific pretraining by combining specialized and general data, while adhering to scaling laws within compute constraints.
-- **Scaling Laws**: Guide optimal model size and training dataset size based on compute budget, though real-world constraints may require adjustments.
-- **Practical Constraints**: Data availability and compute resources often dictate the feasibility of achieving theoretical optimal performance.
-
-:::info Chinchilla Law in LLM
-The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal Large Language Models," which identifies the optimal balance between model size, training dataset size, and compute budget for large language models (LLMs). The research suggests that many large models, such as GPT-3, are over-parameterized and under-trained, indicating that they could perform better if trained with larger datasets relative to their size. Specifically, the optimal training dataset should be about 20 times the number of model parameters. This balance ensures that the model fully leverages the data, avoiding inefficiencies associated with having too many parameters but insufficient data.
-
-**Why the Pretraining Scaling Laws Are Correct**
-1. **Joint Increase of Dataset Size and Model Size**:
-   - According to Chinchilla Law, both dataset size and model size must be increased together to prevent bottlenecks. If the dataset size is increased without scaling the model size, the model may not effectively utilize the additional data, leading to suboptimal performance. Conversely, a larger model without sufficient data will not train effectively, underscoring the need for joint scaling.
-2. **Relationship Between Model Size and Training Tokens**:
-   - The Chinchilla paper demonstrates a power-law relationship between model size and the optimal number of training tokens. This means that models need an appropriately large dataset relative to their parameters to achieve optimal performance. Many large models are over-parameterized, meaning they have more parameters than needed for the amount of training data, leading to inefficiencies.
-3. **Compute Budget Measured in PetaFlops per Second-Day**:
-   - "PetaFlops per second-day" is a metric that effectively captures the compute budget required for training models, reflecting both hardware capability and training duration. This measure helps in understanding the resources needed to train models optimally, aligning with the Chinchilla Law's emphasis on balancing compute budget with model and dataset size for efficient training.
+:::info TL;DR
+- **Quantization**: Key technique to reduce memory footprint by lowering the precision of model parameters, with FP16 and BFLOAT16 being popular choices.
+- **Memory Management**: Critical for training large models, involving techniques like quantization and distributed computing.
+- **Future Challenges**: Training increasingly larger models presents significant computational and financial challenges, highlighting the need for innovative solutions in AI research and development.
 :::
+
+:::info Memory Constraints
+- **Out-of-Memory Issues**: Training or even loading large language models on Nvidia GPUs often leads to memory errors.
+- **CUDA**: Libraries like PyTorch and TensorFlow use CUDA to optimize performance on Nvidia GPUs, but large models require significant memory.
+:::
+
+### Reducing Memory Usage: Quantization
+
+> TL;DR - you can use quantization to reduce the memory footprint off the model during training. 
+
+- Memory Calculation
+   - **32-bit Float Representation**:
+      - A single parameter in a model is typically a 32-bit float, taking up 4 bytes of memory.
+      - For one billion parameters, this requires 4 gigabytes of GPU RAM just to store the weights.
+   - **Training Overheads**:
+      - Additional memory is needed for optimizer states, gradients, activations, and temporary variables, often requiring 20 extra bytes per parameter.
+      - Training a one billion parameter model at 32-bit full precision thus needs approximately 24 gigabytes of GPU RAM.
+- **Quantization**:
+  - Reduces memory by lowering the precision of model weights from 32-bit to 16-bit floats or 8-bit integers.
+  - **FP32 (32-bit full precision)**: Default representation.
+  - **FP16 or BFLOAT16 (16-bit half precision)**: Reduces memory usage by half, commonly used for training large models.
+  - ![FP-16](/img/ai/llm/pre-train/FP-16.jpg)
+      Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+  - **INT8 (8-bit integer)**: Reduces memory further but with significant precision loss.
+- **Precision and Range**:
+   - **FP32**: Can represent a wide range of values, but requires 4 bytes per value.
+   - **FP16**: Uses less memory (2 bytes per value) with a smaller range and precision.
+   - **BFLOAT16**: 
+      - Maintains FP32's dynamic range with 16-bit memory usage, offering a balance between precision and memory efficiency.
+      - Many LLMs, including FLAN-T5, have been pre-trained with BFLOAT16. BFLOAT16 or BF16 is a hybrid between half precision FP16 and full precision FP32. BF16 significantly helps with training stability and is supported by newer GPU's such as NVIDIA's A100.
+      - BFLOAT16 uses the full eight bits to represent the exponent, but truncates the fraction to just seven bits. This not only saves memory, but also increases model performance by speeding up calculations. The downside is that BF16 is not well suited for integer calculations, but these are relatively rare in deep learning.
+      - BFLOAT16 has become a popular choice of precision in deep learning as it maintains the dynamic range of FP32, but reduces the memory footprint by half. Many LLMs, including FLAN-T5, have been pre-trained with BFOLAT16.
+      - ![BFLOAT16](/img/ai/llm/pre-train/quantization.jpeg)
+         Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+:::warning Impact of Using Lower Precision Floating Point Representations
+While using lower precision floating point representations does lead to some loss of information, this loss is often managed effectively through various techniques, making it a viable trade-off for the benefits of reduced memory and increased computational efficiency.
+:::
+
+:::warning Even
+![BFLOAT16](/img/ai/llm/pre-train/bloat16.jpeg)
+
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+By applying quantization, you can **reduce your memory consumption required to store the model parameters** down to only two gigabyte using 16-bit half precision of 50% saving. Note that, you still have a model with one billion parameters. As you can see, the circles representing the models are the same size. Quantization will give you the same degree of savings when it comes to **training**. 
+
+However, many models now have sizes in excess of 50 billion or even 100 billion parameters. Meaning you'd need up to 500 times more memory capacity to train them, tens of thousands of gigabytes. It becomes impossible to train them on a single GPU. Instead, you'll need to turn to **distributed computing techniques** while you train your model across multiple GPUs. Another reason **why you won't pre-train your own model from scratch** most of the time.
+:::
+
+
+## Efficient multi-GPU compute strategies
+
+Large language models often exceed the memory capacity of a single GPU, necessitating the use of multiple GPUs to handle the extensive computational load. Even if a model fits on a single GPU, distributing the workload across multiple GPUs can significantly reduce training time by parallelizing computations.
+
+### Model Replication
+
+![ddp](/img/ai/llm/pre-train/ddp.jpeg)
+
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+![ddp-memopry](/img/ai/llm/pre-train/ddp-memopry.jpeg)
+
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+- **Distributed Data-Parallel (DDP)**:
+  - **Implementation**: DDP involves copying the model onto each GPU and dividing large datasets into batches that are processed in parallel by each GPU.
+  - **Synchronization**: After processing the data, the results from each GPU are combined in a synchronization step, updating the model uniformly across all GPUs. This ensures that all copies of the model remain identical.
+  - **Memory Requirement**: DDP requires that the model weights, gradients, and optimizer states fit within the memory of a single GPU, limiting its use for very large models.
+
+:::warning You can't use DDP if you model can't fits into one single GPU 
+Note that DDP requires that your model weights and all of the additional parameters, gradients, and optimizer states that are needed for training, fit onto a single GPU. If your model is too big for this, you should look into another technique called modal sharding.
+:::
+
+### Model Sharding
+
+![FSDP-memopry](/img/ai/llm/pre-train/FSDP-memory.jpeg)
+
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+- **Fully Sharded Data-Parallel (FSDP)**:
+  - **Concept**: FSDP distributes (shards) the model parameters, gradients, and optimizer states across multiple GPUs instead of replicating them, based on the ZeRO (Zero Redundancy Optimizer) technique.
+  - **ZeRO Stages**:
+    - **ZeRO Stage 1** ($P_{os}$): Shards only the optimizer states across GPUs, which can reduce memory usage by up to four times.
+    - **ZeRO Stage 2** ($P_{os+g}$): Shards gradients as well, potentially reducing memory usage by up to eight times.
+    - **ZeRO Stage 3** ($P_{os+g+p}$): Shards all model components, including parameters, gradients, and optimizer states, allowing memory reduction to scale linearly with the number of GPUs. For instance, sharding across 64 GPUs could reduce memory requirements by a factor of 64.
+
+![FSDP-Synchronization](/img/ai/llm/pre-train/FSDP-Synchronization.jpeg)
+
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+    
+- **Sharding Process**:
+  - **Data Distribution**: Data is distributed across GPUs, similar to DDP, but with the added advantage of sharding the model states.
+  - **On-Demand Data Collection**: During the forward and backward passes, GPUs request the necessary data from each other, materializing the sharded data as needed for computations.
+  - **Release of Data**: After operations, the non-local data is released back to its original shard, or retained if required for subsequent operations.
+  - **Synchronization**: Following the backward pass, gradients are synchronized across GPUs, ensuring consistent updates.
+
+:::info Memory Utilization
+- **Reduction**: FSDP can dramatically reduce the overall GPU memory utilization by efficiently distributing the memory load.
+- **Sharding Factor**: The sharding factor controls the extent of sharding, ranging from full replication (similar to DDP) to full sharding across all available GPUs. Full sharding offers the highest memory savings but increases communication overhead.
+:::
+
+### Performance Comparison
+
+- **FSDP vs. DDP**:
+  - **Small Models**: For smaller models (e.g., up to 2.28 billion parameters), FSDP and DDP show similar performance.
+  - **Large Models**: For larger models (e.g., 11.3 billion parameters), DDP may encounter out-of-memory errors, while FSDP can handle such models by effectively utilizing multiple GPUs. FSDP also achieves higher teraflops (trillions of floating-point operations per second) when models are reduced to 16-bit precision.
+- **Communication Overhead**: As the number of GPUs increases, the volume of communication between GPUs grows, which can impact performance. This is particularly evident with very large models spread across many GPUs, where the communication time can slow down overall computation.
+
+:::info Key Takeaways
+- **Balancing Memory and Performance**:
+  - Efficient multi-GPU strategies like FSDP allow for the training of extremely large models by reducing the memory footprint through sharding.
+  - However, there is a trade-off between memory savings and communication overhead, which needs to be managed to maintain optimal performance.
+- **Future Directions**: Researchers are exploring methods to achieve better performance with smaller models, aiming to reduce the computational and memory requirements without sacrificing accuracy or capability.
+:::
+
+## Scaling Laws and Compute-Optimal Models
+
+> TL;DR - Understanding the relationship between model size, dataset size, and compute budget is crucial for developing efficient and high-performing language models. By following the principles outlined in research like the Chinchilla paper, developers can design models that are both compute-efficient and effective, moving away from the trend of simply increasing model size. This approach not only makes training large language models more feasible but also allows for better utilization of available resources.
+
+- **The Trade-offs in training LLMs**: 
+  - During pre-training, the goal is to maximize a model's performance by minimizing the loss when predicting tokens.
+  - To achieve this, you can either increase the size of the dataset or the number of parameters in the model. However, this must be balanced with the compute budget, which includes factors like GPU availability and training time.
+- **Measurement the compute budget**: 
+  - A common unit of compute is the petaFLOP per second day, which measures the number of floating-point operations performed at a rate of one petaFLOP per second over a day.
+  - For example, training with eight NVIDIA V100 GPUs for one day equates to one petaFLOP per second day. More powerful GPUs, like two NVIDIA A100s, can achieve the same compute.
+- **Comparison of compute requirements for different models**:
+  - Training larger models requires significantly more compute. For instance, T5 with three billion parameters required around 100 petaFLOP per second days, while GPT-3 with 175 billion parameters needed approximately 3,700 petaFLOP per second days.
+  - As models grow in size, they require not only more compute but also more data to perform well.
 
 :::info PetaFlops per second-day
 PetaFlops per second-day is a metric used to quantify the computational power required to train large language models (LLMs). It combines the concepts of computational speed and duration, representing the total work done by a system. One petaFLOP stands for one quadrillion (10^15) floating-point operations per second. Thus, a petaFLOP per second-day measures how many floating-point calculations a system can perform in one second, extended over a full 24-hour period. 
@@ -333,4 +259,76 @@ Similarly, if a system runs at 1 petaFLOP for half a day:
 $$
 1 \text{ petaFLOP} \times 0.5 \text{ days} = 0.5 \text{ petaFLOP per second-days}
 $$
+:::
+
+### Power-Law Relationships
+
+- **Model Performance and Compute Budget**:
+  - There is a power-law relationship between compute budget and model performance, where performance improves predictably as compute increases.
+  - Graphs from OpenAI research show that as the compute budget increases, test loss decreases, suggesting that larger compute budgets generally lead to better-performing models.
+  - ![power-law-comput-budget](/img/ai/llm/pre-train/power-law.jpeg)
+      Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+- **Impact of Training Dataset Size**:
+  - Holding compute budget and model size constant, increasing the dataset size also improves performance.
+  - Similarly, with constant compute budget and dataset size, increasing the model parameters improves performance.
+
+### Compute-Optimal Models
+
+![compute-optimal-models](/img/ai/llm/pre-train/compute-optimal-models.jpeg)
+
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+- **Chinchilla Paper** - [the page link](https://arxiv.org/abs/2203.15556v1): 
+  - Research led by Jordan Hoffmann and others explored ***the optimal balance** of model parameters and training data size for a given compute budget*.
+  - The study found that many large models like GPT-3 are over-parameterized and under-trained. Smaller models trained on larger datasets can achieve similar or better performance.
+- **Key Findings**:
+  - *The optimal training dataset size is about **20 times** the number of parameters in the model*.
+  - For example, a 70 billion parameter model should ideally be trained on 1.4 trillion tokens.
+  - ![chinchilla](/img/ai/llm/pre-train/chinchilla.jpeg)
+      Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+   - **Examples**:
+   - LLaMA, trained on 1.4 trillion tokens, follows this optimal ratio closely.
+   - Compute-optimal models like Chinchilla outperform non-optimal models like GPT-3 in various tasks.
+
+Because of the Chinchilla Paperm, the implications for model development is shifting from "bigger is better" to optimizing model size and training data for better performance within a given compute budget. Models like Bloomberg GPT, which follow the compute-optimal guidelines, achieve high performance with fewer parameters.
+
+:::info The Chinchilla Law
+The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal Large Language Models," which identifies the optimal balance between model size, training dataset size, and compute budget for large language models (LLMs). The research suggests that many large models, such as GPT-3, are over-parameterized and under-trained, indicating that they could perform better if trained with larger datasets relative to their size. Specifically, the optimal training dataset should be about 20 times the number of model parameters. This balance ensures that the model fully leverages the data, avoiding inefficiencies associated with having too many parameters but insufficient data.
+
+**Why the Pretraining Scaling Laws Are Correct**
+1. **Joint Increase of Dataset Size and Model Size**:
+   - According to Chinchilla Law, both dataset size and model size must be increased together to prevent bottlenecks. If the dataset size is increased without scaling the model size, the model may not effectively utilize the additional data, leading to suboptimal performance. Conversely, a larger model without sufficient data will not train effectively, underscoring the need for joint scaling.
+2. **Relationship Between Model Size and Training Tokens**:
+   - The Chinchilla paper demonstrates a power-law relationship between model size and the optimal number of training tokens. This means that models need an appropriately large dataset relative to their parameters to achieve optimal performance. Many large models are over-parameterized, meaning they have more parameters than needed for the amount of training data, leading to inefficiencies.
+3. **Compute Budget Measured in PetaFlops per Second-Day**:
+   - "PetaFlops per second-day" is a metric that effectively captures the compute budget required for training models, reflecting both hardware capability and training duration. This measure helps in understanding the resources needed to train models optimally, aligning with the Chinchilla Law's emphasis on balancing compute budget with model and dataset size for efficient training.
+:::
+
+## Pre-training for domain adaptation
+
+- **Using Existing Models vs. Pre-training**
+   - **Existing Models**: Generally, using pre-existing large language models (LLMs) can save significant time and expedite the development of your application.
+   - **Pre-training from Scratch**: Necessary when your target domain uses specific vocabulary and language structures not common in everyday language, especially in specialized fields like law, medicine, finance, or science.
+- **Domain-Specific Language Challenges**
+   - Because models learn their vocabulary and understanding of language through the original pretraining task. Pretraining your model from scratch will result in better models for highly specialized domains like **law**, **medicine**, **finance** or **science**. 
+   - **Legal Domain**: Terms like "mens rea" and "res judicata" are rarely found outside legal contexts, posing challenges for general LLMs. Legal jargon and redefined everyday terms (e.g., "consideration" in contracts) necessitate domain-specific training for accurate comprehension and usage.
+   - **Medical Domain**: Medical terminology and shorthand used in prescriptions (e.g., "1 tab PO qid ac and hs") are not commonly found in general training datasets, requiring specialized training for accurate interpretation.
+
+### BloombergGPT(Finance-Specific Pre-training)
+
+BloombergGPT was pretrained using both financial and general-purpose text data to optimize performance in the finance domain while maintaining general LLM capabilities. The model used 51% financial data and 49% public data to achieve best-in-class results on financial benchmarks and competitive performance on general benchmarks.
+
+![BloombergGPT](/img/ai/llm/pre-train/BloombergGPT.jpeg)
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+
+- On the left, the diagonal lines trace **the optimal model size** in billions of parameters for a range of compute budgets. 
+   - In terms of model size, you can see that BloombergGPT roughly follows the Chinchilla approach for the given compute budget of 1.3 million GPU hours, or roughly 230,000,000 petaflops. The model is only a little bit above the pink shaded region, suggesting the number of parameters is fairly close to optimal. 
+- On the right, the lines trace **the compute optimal training data set size** measured in number of tokens.
+   - However, the actual number of tokens used to pretrain BloombergGPT (569 billion tokens) is below the recommended Chinchilla value for the available compute budget. The smaller than optimal training data set is due to the limited availability of financial domain data due to the limited availability of financial data (real world constraints).
+- Pink line and region:
+   - The dashed pink line on each graph indicates **the compute budget** that the Bloomberg team had available for training their new model. 
+   - The pink shaded regions correspond to the compute optimal scaling loss determined in the Chinchilla paper. 
+
+:::warning Real-World Constraints (Trade-offs)
+In practice, constraints like data availability can force trade-offs between ideal model design and achievable training datasets.
 :::

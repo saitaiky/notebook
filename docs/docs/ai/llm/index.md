@@ -98,7 +98,7 @@ The introduction of **transformers** in 2017 revolutionized NLP. A transformer i
 
 ![transformer-architecture](/img/ai/news/transformer-architecture.png)
 
-Source: [attention is all you need](https://arxiv.org/abs/1706.03762)
+Source: [Attention is all you need](https://arxiv.org/abs/1706.03762)
 
 There are two key innovations that make transformers particularly adept for large language models: positional encodings and self-attention. 
 

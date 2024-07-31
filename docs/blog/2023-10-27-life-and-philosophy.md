@@ -89,3 +89,7 @@ Relativism: the idea that a standard depends on something other than itself (e.g
 
 
 思想實驗: 如果佢好憎你最鐘意做既野。你會點？會唔會take your value and apply it from your baby.
+
+
+
+劉創馥(上半part): 理性既相反係荒謬, 感性既相反係麻木

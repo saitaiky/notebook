@@ -70,7 +70,7 @@ Question: "What’s your favorite product and why?"
 - **Flexibility:** Applicable to both small and large questions, adding a backbone to your responses.
 
 
-## How to Pause During an Interview
+## How to Pause
 
 Pausing during an interview is crucial for giving thoughtful answers. To make pauses feel less awkward, try these two tactics:
 
@@ -84,7 +84,7 @@ Pausing during an interview is crucial for giving thoughtful answers. To make pa
 
 Remember, pauses are important and should be used liberally to ensure clear and thoughtful responses.
 
-### How to Check In with interviewers
+## How to Check In
 
 :::warning Keep these 2 points in mind
 - An interview should be a 2-way speech!
@@ -106,6 +106,20 @@ A common mistake candidates make during interviews is not checking in enough wit
    
 
 **Tip:** Don't speak for more than two minutes without checking in. Use both active and passive check-ins to keep the conversation focused and on track.
+
+## How to Get Unstuck
+
+Feeling stuck in a PM interview can be daunting, especially during analytical questions. Here are some strategies to help:
+
+1. **Breathe:** Take a moment to relax instead of powering through. This can help clear your mind.
+
+2. **Recap:** Review what you've already discussed, including key assumptions and the question itself. This can spark new ideas and help the interviewer guide you if needed.
+
+3. **Ask for Direction:** If you're still stuck, communicate this to the interviewer by suggesting a direction and asking for their input. This shows initiative and openness to guidance.
+
+4. **Stay Positive:** If you struggle with a question, don't let it affect your performance on subsequent questions. Maintain a positive attitude throughout the interview.
+
+Using these tips can help you navigate challenging questions and demonstrate your resilience and problem-solving skills.
 
 
 ## Discussing Tradeoffs
