@@ -306,6 +306,8 @@ The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal 
 
 ## Pre-training for domain adaptation
 
+### Challenges
+
 - **Using Existing Models vs. Pre-training**
    - **Existing Models**: Generally, using pre-existing large language models (LLMs) can save significant time and expedite the development of your application.
    - **Pre-training from Scratch**: Necessary when your target domain uses specific vocabulary and language structures not common in everyday language, especially in specialized fields like law, medicine, finance, or science.
@@ -314,9 +316,9 @@ The "Chinchilla Law" is a concept from the 2022 paper "Training Compute-Optimal 
    - **Legal Domain**: Terms like "mens rea" and "res judicata" are rarely found outside legal contexts, posing challenges for general LLMs. Legal jargon and redefined everyday terms (e.g., "consideration" in contracts) necessitate domain-specific training for accurate comprehension and usage.
    - **Medical Domain**: Medical terminology and shorthand used in prescriptions (e.g., "1 tab PO qid ac and hs") are not commonly found in general training datasets, requiring specialized training for accurate interpretation.
 
-### BloombergGPT(Finance-Specific Pre-training)
+### BloombergGPT
 
-BloombergGPT was pretrained using both financial and general-purpose text data to optimize performance in the finance domain while maintaining general LLM capabilities. The model used 51% financial data and 49% public data to achieve best-in-class results on financial benchmarks and competitive performance on general benchmarks.
+BloombergGPT was pre-trained using both financial and general-purpose text data to optimize performance in the finance domain while maintaining general LLM capabilities. The model used 51% financial data and 49% public data to achieve best-in-class results on financial benchmarks and competitive performance on general benchmarks.
 
 ![BloombergGPT](/img/ai/llm/pre-train/BloombergGPT.jpeg)
 Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
