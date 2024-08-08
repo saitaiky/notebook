@@ -1,6 +1,9 @@
 ---
 title: Love
+description: Explore Robert Sternberg's Triangular Theory of Love and understand the different types of love relationships. Learn about the factors influencing the quality of romantic relationships and attachment styles.
+keywords: Sternberg's Triangular Theory of Love, types of love, intimacy, passion, commitment, attachment styles, romantic relationships, psychology of love
 ---
+
 
 Love is a force that powers countless songs, poems, and stories. It's the invisible glue that binds us together, yet its true nature often remains an enigma. Psychology offers us lenses to view love's multifaceted dimensions, and one such insightful perspective is offered by Robert Sternberg's Triangular Theory of Love. Imagine love as a dynamic triangle, each side representing a vital component: Passion, Intimacy, and Commitment. Dive with us into this geometric representation of affection and discover what makes love not just a feeling, but a rich tapestry woven by our human experience.
 

@@ -1,6 +1,9 @@
 ---
 title: Self-fulfilling prophecy
+description: Explore the impact of beliefs on success through the self-fulfilling prophecy theory, highlighting how our thoughts shape our actions and outcomes. Understand the role of mindset, talent perception, and deliberate practice in achieving goals.
+keywords: self-fulfilling prophecy, beliefs and success, mindset, deliberate practice, talent perception, psychological theories
 ---
+
 
 To do something well, to achieve a goal, perhaps your beliefs play a more crucial role than the abilities you possess. I believe that each of you reading this article holds a goal, a dream. Ask yourself: Do you truly believe you can achieve it? Belief in oneself is often the first step toward success.
 

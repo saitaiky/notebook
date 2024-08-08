@@ -1,5 +1,5 @@
 ---
 title: LLM-powered applications
-sidebar_position: 2
+sidebar_position: 3
 draft: true
 ---

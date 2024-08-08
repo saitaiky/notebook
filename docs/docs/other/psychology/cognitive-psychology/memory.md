@@ -1,6 +1,9 @@
 ---
 title: Memory
+description: Delve into Atkinson and Shiffrin's Three-Stage Memory Model, covering sensory, short-term, and long-term memory. Understand the characteristics, examples, and processes involved in encoding, storing, and retrieving information.
+keywords: memory, Atkinson-Shiffrin model, sensory memory, short-term memory, long-term memory, elaborative rehearsal, cognitive psychology
 ---
+
 # Atkinson and Shiffrin's Three-Stage Memory Model
 
 Understanding how memory functions is a complex endeavor, but models such as Atkinson and Shiffrin's Three-Stage Memory Model help us conceptualize the process of how we encode, store, and retrieve information. Introduced by Richard Atkinson and Richard Shiffrin in 1968, this model has formed the foundation of our understanding of memory for many years. The model explains memory in terms of three distinct stages: Sensory Memory, Short-Term Memory (which they also referred to as "Working Memory"), and Long-Term Memory. Let's dive into each of these stages to better understand how our memory works.

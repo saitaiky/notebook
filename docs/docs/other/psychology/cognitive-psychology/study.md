@@ -1,6 +1,9 @@
 ---
 title: Study
+description: Understand the difference between studying and learning, the evolution of education, and common illusions of learning. Gain insights into effective study habits and the importance of meaningful learning.
+keywords: study vs learning, education evolution, effective study habits, meaningful learning, lifelong learning, psychological theories
 ---
+
 
 In modern times, the act of "study" consumes approximately twenty years of each person's life. From the age of three in kindergarten to around the early twenties after college graduation – and this doesn't even account for the growing number of individuals pursuing master's or doctoral degrees – "study" typically occupies about a quarter of one's lifespan. However, "study" and "learning" are two distinct concepts. Those engaged in "study" aren't necessarily "learning," and those who excel in "learning" don't always "study" extensively.
 

@@ -1,5 +1,7 @@
 ---
 title: Extrinsic and Intrinsic Motivation
+description: Explore the differences between extrinsic and intrinsic motivation, their impact on behavior, and when to use external rewards effectively. Learn about motivation factors, examples, and key research findings on how rewards influence motivation.
+keywords: motivation, extrinsic motivation, intrinsic motivation, rewards, behavior, psychology, overjustification effect, Herzberg's Two-Factor Theory
 ---
 
 ![HerzbergsTwoFactor](/img/other/psychology/cognitive/HerzbergsTwoFactor.jpg)

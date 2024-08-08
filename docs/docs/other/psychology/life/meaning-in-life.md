@@ -1,7 +1,9 @@
 ---
-title: Meaning in life
-sidebar_position: 2
+title: Meaning in Life
+description: Explore the psychological perspectives on finding meaning in life, identity development, and goal setting. Learn about identity status theory, the role of self-determination, and the impact of meaning on mental well-being.
+keywords: meaning in life, psychological perspectives, identity development, goal setting, self-determination theory, mental well-being
 ---
+
 
 The question "What is life?" has been asked throughout human history, echoing through the halls of philosophy, theology, biology, and, more recently, psychology. In the strictest biological sense, life is typically characterized by the ability to grow, reproduce, maintain homeostasis, respond to stimuli, adapt through evolution, and, at some point, die. 
 

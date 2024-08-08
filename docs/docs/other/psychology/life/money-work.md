@@ -1,6 +1,9 @@
 ---
-title: Money, work and happiness
+title: Money, Work, and Happiness
+description: Understand the complex relationship between money, work, and happiness. Discover how financial stability impacts mental health, cultural differences in perceptions of money, and strategies for achieving work-life balance.
+keywords: money, work, happiness, mental health, financial stability, cultural differences, work-life balance
 ---
+
 
 # Understanding the Role of Money in Our Lives
 
