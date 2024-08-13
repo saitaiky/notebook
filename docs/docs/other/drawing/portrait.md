@@ -1,7 +1,7 @@
 ---
 title: Portrait
 description: Learn the intricate art of portrait drawing, focusing on shadows, mouths, and essential techniques for capturing the human form. Enhance your skills with detailed explanations and visual guides.
-keywords: portrait drawing, shadows, mouth drawing, art techniques, drawing tutorials, visual art, drawing basics
+keywords: [portrait drawing, shadows, mouth drawing, art techniques, drawing tutorials, visual art, drawing basics]
 ---
 
 

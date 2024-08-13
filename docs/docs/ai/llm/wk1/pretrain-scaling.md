@@ -117,9 +117,9 @@ Here we see a case where the few-shot didn't do much better than the one shot. T
 - **CUDA**: Libraries like PyTorch and TensorFlow use CUDA to optimize performance on Nvidia GPUs, but large models require significant memory.
 :::
 
-### Reducing Memory Usage: Quantization
+### Quantization
 
-> TL;DR - you can use quantization to reduce the memory footprint off the model during training. 
+> TL;DR - you can use quantization to reduce the memory usage(footprint) off the model during training. 
 
 - Memory Calculation
    - **32-bit Float Representation**:
@@ -146,20 +146,24 @@ Here we see a case where the few-shot didn't do much better than the one shot. T
       - ![BFLOAT16](/img/ai/llm/pre-train/quantization.jpeg)
          Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
 
+
+### Takeaway
+
+Remember that the goal of quantization is to reduce the memory required to store and train models by reducing the precision off the model weights. Quantization statistically projects the original 32-bit floating point numbers into lower precision spaces using scaling factors calculated based on the range of the original 32-bit floats. Modern deep learning frameworks and libraries support **quantization aware training (QAT)**, which learns the quantization scaling factors during the training process. 
+
 :::warning Impact of Using Lower Precision Floating Point Representations
 While using lower precision floating point representations does lead to some loss of information, this loss is often managed effectively through various techniques, making it a viable trade-off for the benefits of reduced memory and increased computational efficiency.
 :::
 
-:::warning Even
+:::warning Even using Quantization doesn't mean it can reduce the model storage size
 ![BFLOAT16](/img/ai/llm/pre-train/bloat16.jpeg)
 
 Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
 
-By applying quantization, you can **reduce your memory consumption required to store the model parameters** down to only two gigabyte using 16-bit half precision of 50% saving. Note that, you still have a model with one billion parameters. As you can see, the circles representing the models are the same size. Quantization will give you the same degree of savings when it comes to **training**. 
+By applying quantization, you can **reduce your memory consumption required to store the model parameters** down to only two gigabyte using 16-bit half precision of 50% saving. Note that, you still have a model with one billion parameters. Quantization will give you the same degree of savings when it comes to **training**. 
 
 However, many models now have sizes in excess of 50 billion or even 100 billion parameters. Meaning you'd need up to 500 times more memory capacity to train them, tens of thousands of gigabytes. It becomes impossible to train them on a single GPU. Instead, you'll need to turn to **distributed computing techniques** while you train your model across multiple GPUs. Another reason **why you won't pre-train your own model from scratch** most of the time.
 :::
-
 
 ## Efficient multi-GPU compute strategies
 
@@ -183,6 +187,7 @@ Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-worl
 :::warning You can't use DDP if you model can't fits into one single GPU 
 Note that DDP requires that your model weights and all of the additional parameters, gradients, and optimizer states that are needed for training, fit onto a single GPU. If your model is too big for this, you should look into another technique called modal sharding.
 :::
+
 
 ### Model Sharding
 
@@ -227,6 +232,10 @@ Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-worl
 :::
 
 ## Scaling Laws and Compute-Optimal Models
+
+
+![scaling-choices](/img/ai/llm/pre-train/scaling-choices.jpg)
+Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
 
 > TL;DR - Understanding the relationship between model size, dataset size, and compute budget is crucial for developing efficient and high-performing language models. By following the principles outlined in research like the Chinchilla paper, developers can design models that are both compute-efficient and effective, moving away from the trend of simply increasing model size. This approach not only makes training large language models more feasible but also allows for better utilization of available resources.
 

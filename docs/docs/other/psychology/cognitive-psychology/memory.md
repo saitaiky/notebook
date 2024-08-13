@@ -1,7 +1,7 @@
 ---
 title: Memory
 description: Delve into Atkinson and Shiffrin's Three-Stage Memory Model, covering sensory, short-term, and long-term memory. Understand the characteristics, examples, and processes involved in encoding, storing, and retrieving information.
-keywords: memory, Atkinson-Shiffrin model, sensory memory, short-term memory, long-term memory, elaborative rehearsal, cognitive psychology
+keywords: [memory, Atkinson-Shiffrin model, sensory memory, short-term memory, long-term memory, elaborative rehearsal, cognitive psychology]
 ---
 
 # Atkinson and Shiffrin's Three-Stage Memory Model

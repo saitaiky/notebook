@@ -1,7 +1,7 @@
 ---
 title: Cognitive Psychology
 description: Discover the field of cognitive psychology, its history, key concepts, and examples. Learn how cognitive psychologists study mental processes like memory, decision-making, and problem-solving to understand human behavior.
-keywords: cognitive psychology, mental processes, memory, decision-making, problem-solving, attention, perception, cognitive revolution
+keywords: [cognitive psychology, mental processes, memory, decision-making, problem-solving, attention, perception, cognitive revolution]
 ---
 
 Cognitive psychology is a branch of psychology that focuses on studying mental processes, including how people think, perceive, remember, and learn. It's concerned with understanding internal mental structures and processes that influence behavior. This field examines various aspects of cognition, such as problem-solving, decision-making, language, attention, memory, and reasoning, aiming to uncover how humans process information, solve problems, and interact with the world around them. Cognitive psychologists often use experimental methods to explore mental processes and develop theories to explain human cognition.

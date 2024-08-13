@@ -1,7 +1,7 @@
 ---
 title: Ukiyoe map 浮世絵地図
 description: Explore the historical locations of landscape Ukiyo-e drawings from 200-300 years ago. Navigate through the map to see where these iconic artworks were created.
-keywords: Ukiyo-e map, landscape Ukiyo-e, Japanese art locations, historical Ukiyo-e, Edo period art, Ukiyo-e geography
+keywords: [Ukiyo-e map, landscape Ukiyo-e, Japanese art locations, historical Ukiyo-e, Edo period art, Ukiyo-e geography]
 hide_table_of_contents: true
 ---
 

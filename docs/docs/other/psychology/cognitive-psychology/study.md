@@ -1,7 +1,7 @@
 ---
 title: Study
 description: Understand the difference between studying and learning, the evolution of education, and common illusions of learning. Gain insights into effective study habits and the importance of meaningful learning.
-keywords: study vs learning, education evolution, effective study habits, meaningful learning, lifelong learning, psychological theories
+keywords: [study vs learning, education evolution, effective study habits, meaningful learning, lifelong learning, psychological theories]
 ---
 
 

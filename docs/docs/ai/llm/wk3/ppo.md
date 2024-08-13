@@ -4,6 +4,8 @@ sidebar_position: 2
 draft: true
 ---
 
+> TL;DR - The "Proximal" in Proximal Policy Optimization refers to the constraint that limits the distance between the new and old policy, which prevents the agent from taking large steps in the policy space that could lead to catastrophic changes in behavior.
+
 ![ppo](/img/ai/llm/ppo/ppo.jpeg)
 
 Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)

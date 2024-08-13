@@ -1,7 +1,7 @@
 ---
 title: Blooms taxonomy
 description: Learn about Bloom's Taxonomy, a framework for categorizing educational goals to promote higher forms of thinking. Understand its historical development, importance, and application in modern education.
-keywords: Bloom's Taxonomy, educational objectives, higher-order thinking, cognitive skills, education framework, teaching strategies
+keywords: [Bloom's Taxonomy, educational objectives, higher-order thinking, cognitive skills, education framework, teaching strategies]
 sidebar_position: 6
 ---
 

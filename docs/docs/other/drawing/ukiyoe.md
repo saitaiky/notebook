@@ -1,7 +1,7 @@
 ---
 title: Ukiyoe 浮世絵
 description: Discover the captivating world of Ukiyo-e, featuring renowned artists like Kitagawa Utamaro, Katsushika Hokusai, and Utagawa Hiroshige. Explore their iconic works, historical significance, and influence on global art.
-keywords: Ukiyo-e, Kitagawa Utamaro, Katsushika Hokusai, Utagawa Hiroshige, Japanese art, Edo period, woodblock prints, nishiki-e
+keywords: [Ukiyo-e, Kitagawa Utamaro, Katsushika Hokusai, Utagawa Hiroshige, Japanese art, Edo period, woodblock prints, nishiki-e]
 ---
 
 ## Kitagawa Utamaro (喜多川 歌麿)

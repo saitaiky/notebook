@@ -1,7 +1,7 @@
 ---
 title: Meaning in Life
 description: Explore the psychological perspectives on finding meaning in life, identity development, and goal setting. Learn about identity status theory, the role of self-determination, and the impact of meaning on mental well-being.
-keywords: meaning in life, psychological perspectives, identity development, goal setting, self-determination theory, mental well-being
+keywords: [meaning in life, psychological perspectives, identity development, goal setting, self-determination theory, mental well-being]
 ---
 
 
