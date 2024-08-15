@@ -4,9 +4,11 @@ sidebar_position: 0
 ---
 
 This section is for recording some hobbies and topics that I would like to learn or jot in the future. They include:
-- Art
-    - Finger style and Jazz guitar
-    - Drawing
+- AI
+    - **LangChain**: Best for complex workflows involving multiple LLM calls, integrations, and memory management. Use when building sophisticated LLM-powered applications.
+    - **LangGraph**: Ideal for applications that require a graph-based approach to managing conversational logic or complex decision paths. Use when you need visual representation and control over conversation flows.
+    - **Langroid**: Great for rapid prototyping and modular development of LLM applications. Use when you want a simple, lightweight framework for quick development.
+    - **Dify**: Suited for enterprises or teams that need to deploy, manage, and monitor LLM applications at scale. Use when you require robust management, A/B testing, and performance monitoring in production environments.
 - Cognitive psychology / psychology
     - Book: The Laws of Human Nature by Robert Greene
 - Philosophy
@@ -18,8 +20,7 @@ This section is for recording some hobbies and topics that I would like to learn
     - [The Ego and the Id by Freud, Sigmund](https://www.youtube.com/watch?v=KRPEv520stE&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=52)
     - Ethics
     - Logic
-- Books that I've finished
-    - Sapiens: a brief history of humankind genre by Yuval Noah Harari
+- Sapiens: a brief history of humankind genre by Yuval Noah Harari
 - Literature
     - Literature can sharply make us feel that the world of ordinary people isn't all that great. It prompts us to reflect on prevailing mainstream values, to accept things that were previously not accepted—that's the value of literature.
     - [Normal people by Sally Rooney](https://www.youtube.com/watch?v=J4neWrY2iF0&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=13)
@@ -28,14 +29,6 @@ This section is for recording some hobbies and topics that I would like to learn
     - 林夕 - [拚命無恙](https://www.eslite.com/product/1001276622682165200006)
     - 臺灣最好的時刻，1977-1987：民族記憶美麗島
     - 保育黃霑（限定製作紀念套裝
-- Trading
-    - Day trade in Crypto
-    - Swing trade in Stock market 
 - Movies
     - 1983: Amagi Pass (天城越え)
     - 七人樂隊
-- Food culture
-    - Japanese 
-    - Italian
-    - Chinese
-

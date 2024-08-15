@@ -37,7 +37,7 @@ Source: [Hugging face: google/flan-t5-large](https://huggingface.co/google/flan-
 
 - **Pre-training Phase**: The initial training phase for LLMs, involving learning from vast amounts of unstructured textual data.
   - **Data Sources**: When you scrape training data from public sites such as the Internet, you often need to process the data to increase quality, address bias, and remove other harmful content. As a result of this data quality curation, often only **1-3%** of tokens are used for pre-training.
-  - **Self-Supervised Learning**: The model learns patterns and structures in the language to minimize the training objective loss.
+  - **Self-Supervised Learning**: The model learns patterns and structures in the language to minimize the training objective loss. All it has to do is to predict the next word. There is not labled data
 
 ## Training Objectives
 

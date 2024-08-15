@@ -6,12 +6,25 @@ draft: true
 
 ## Introduction
 
-:::info Instruction fine-tuning is a major breakthrough
 Instruction fine-tuning is a major breakthrough because it transforms a large language model (LLM) trained on vast amounts of general internet text, which learns to predict the next word, into a model that can **follow specific instructions** using a much smaller dataset. This adaptation makes the model more useful for specific tasks, bridging the gap between general language understanding and task-specific responsiveness.
+
+:::info Instruction Fine-Tuning vs General Fine-Tuning
+
+- **General Fine-Tuning:**
+   - **Purpose**: Correct. General fine-tuning is about enhancing the model's overall knowledge, updating its data, and correcting inaccuracies.
+   - **Knowledge Changes**:
+      - **Gain knowledge of new specific concepts**: Correct. This involves updating the model with new information, allowing it to understand and generate responses about topics it previously wasn't trained on.
+      - **Correct old incorrect information**: Correct. Retraining on corrected data helps to eliminate factual errors and update the model's knowledge base.
+- **Instruction Fine-Tuning:**
+   - **Purpose**: Instruction fine-tuning is aimed at improving the model's ability to follow specific instructions and produce more useful outputs in response to prompts.
+   - **Behavioral Changes**:
+   - **Learning to respond more consistently**: Correct. This fine-tuning trains the model to be more uniform and reliable in its responses to similar instructions.
+      - **Learning to focus, e.g., moderation**: Correct. Instruction fine-tuning can include adjusting the model to prioritize certain aspects, such as safety, moderation, or ethical considerations.
+      - **Teasing out capability, e.g., better at conversation**: Correct. Fine-tuning can be used to enhance specific skills like conversation management, making the model more effective in dialogue.
 :::
 
 ### Instruction Fine-Tuning
-- **Purpose**: Instruction fine-tuning adapts a pretrained base model to follow specific instructions effectively, enhancing its utility in responding to prompts.
+- **Purpose**: Instruction fine-tuning adapts a pretrained base model to follow specific instructions effectively, enhancing its utility in responding to prompts.  
 - **Significance**: It's a major breakthrough, allowing a model trained on general internet text to be refined for task-specific responses using a smaller dataset.
 - **Challenges**: One significant issue is catastrophic forgetting, where the model forgets previously learned information during fine-tuning.
   - **Mitigation Techniques**: Broad range instruction tuning helps prevent the model from forgetting previous knowledge by instructing it on a wide variety of tasks.

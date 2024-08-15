@@ -6,7 +6,8 @@ title: Time Efficiency in SQL
 
 In database management and query optimization, the efficiency of SQL queries is crucial for application performance. Understanding algorithmic complexity helps in evaluating how an algorithm’s execution time scales with input size. Here’s a concise overview of key complexities and their impact on SQL queries:
 
-> To understand Algorithmic Complexity, check my another post [Big-O Notation](/software-development/programming/big-o/)
+- To understand Algorithmic Complexity, check my another post [Big-O Notation](/software-development/programming/big-o/)
+- This post is also a great reference: [Understanding Algorithmic Time Efficiency in SQL Queries](https://medium.com/learning-data/understanding-algorithmic-time-efficiency-in-sql-queries-616176a85d02)
 
 
 ## Constant Time Complexity: O(1)
@@ -39,6 +40,35 @@ SELECT * FROM products WHERE price = 99.99;
 - **Indexed Search**: When a column is indexed, the database uses a tree structure (e.g., B-tree) to locate the record efficiently. Instead of scanning the entire dataset, it divides the data into smaller segments, quickly narrowing down the search space.
 - **Logarithmic Growth**: As the dataset grows, the time increase is minimal. The additional time required for searching large datasets is significantly less compared to linear scans, making it advantageous for rapid and precise data retrieval.
 
+:::info Why when the column is indexed, it won't read the whole table?
+
+- **Understanding Indexes**
+    - **Indexes as Data Structures**: 
+        - An index is a special data structure that stores the values of a column (or columns) in a way that makes searching efficient. Most relational databases use **B-trees** or **B+ trees** for this purpose.
+        - These tree structures are balanced, meaning that the tree's height is kept low relative to the number of entries. This allows operations like search, insertion, and deletion to be performed in $ O(\log(n)) $ time.
+    - **Indexed Search**:
+        - When a column is indexed, the database engine uses the index to perform searches instead of scanning the entire table.
+        - The index provides a map of the data, allowing the database to jump directly to the location where the data is stored.
+- Consider a simple binary search in an index:
+    - **Starting Point**: The database starts at the root of the tree and checks if the target value (e.g., `12345`) is equal to, less than, or greater than the current node's value.
+    - **Navigating the Tree**: Based on the comparison, it moves left (if the target is smaller) or right (if the target is larger) down the tree.
+    - **Reaching the Leaf**: This process continues until it either finds the exact match (reaching a leaf node) or determines that the value isn't present.
+
+Since the tree is balanced, the number of comparisons made is logarithmic relative to the number of entries, making the operation much faster than a linear scan.
+:::
+
+:::info How to index a string column?
+When a database engine indexes a string column, it typically uses a B-tree or B+ tree structure, which organizes strings in lexicographical (alphabetical) order. This structure allows the database to efficiently perform searches, sorts, and prefix matches. The engine navigates the tree by comparing strings at each node, enabling fast lookups with logarithmic time complexity.
+
+### Key Points:
+1. **Lexicographical Order**: Strings are stored alphabetically within the tree.
+2. **Efficient Search**: The database can quickly find specific strings or ranges by traversing the tree.
+3. **Prefix Matching**: The tree structure is ideal for queries that involve finding strings with specific prefixes.
+4. **Case Sensitivity**: Depending on configuration, the indexing may be case-sensitive or case-insensitive.
+5. **Variable Length**: The B-tree can efficiently handle strings of varying lengths.
+
+This indexing strategy ensures that string queries are executed quickly and efficiently, even in large datasets.
+:::
 
 
 ## Linear Time Complexity: O(n)
