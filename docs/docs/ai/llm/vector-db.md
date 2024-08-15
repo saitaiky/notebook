@@ -1,5 +1,6 @@
 ---
 title: Vector DB
+draft: true
 ---
 
 Vector databases use embeddings to capture the meaning of data, gauge the similarity between different pairs of vectors, and navigate large datasets to identify the most similar vectors. In the context of large language models, the primary use of vector databases is retrieval augmented generation (RAG), where text embeddings are stored and retrieved for specific queries. 

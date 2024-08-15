@@ -6,22 +6,26 @@ draft: true
 
 ## Introduction
 
+Fine-tuning represents a significant advancement in the development of large language models (LLMs). Initially, LLMs are pretrained on vast amounts of general internet text, where they learn to predict the next word in a sequence. However, this general training doesn't make them particularly adept at **following specific instructions** or performing specialized tasks. Instruction fine-tuning addresses this limitation by adapting the pretrained model using a much smaller, labeled dataset tailored to specific tasks. Unlike pretraining, which relies on *self-supervised learning* with unstructured text, fine-tuning employs supervised learning with prompt-completion pairs. This process sharpens the model's ability to respond accurately to particular instructions, bridging the gap between broad language understanding and precise, task-specific performance, thereby making the model far more effective for specialized applications.
+
 Instruction fine-tuning is a major breakthrough because it transforms a large language model (LLM) trained on vast amounts of general internet text, which learns to predict the next word, into a model that can **follow specific instructions** using a much smaller dataset. This adaptation makes the model more useful for specific tasks, bridging the gap between general language understanding and task-specific responsiveness.
 
-:::info Instruction Fine-Tuning vs General Fine-Tuning
+### General Fine-Tuning vs Instruction Fine-Tuning
+Instruction-tuning is a relatively recent development in the field of large language models (LLMs), emerging around 2021 with models like FLAN, T0, and papers on Natural Instructions. This approach focuses on training models to better follow natural language instructions, marking a shift from earlier methods that primarily involved general fine-tuning. Prior to instruction-tuning, models were often fine-tuned on specific datasets without a focus on instruction-following, which is still common today for domain-specific models like those in biomedicine or law. 
+
+Reinforcement Learning from Human Feedback (RLHF), which is even more recent, has also become important in refining models to align with human preferences. Despite these advancements, traditional fine-tuning remains relevant, especially in specialized domains where instruction-following isn't the primary concern. Distinguishing between different tuning methods—such as vanilla fine-tuning, RLHF, and instruction fine-tuning—is crucial because each can yield different performance outcomes. Categorizing models by these methods allows for more meaningful comparisons, particularly on leaderboards, where performance metrics can vary significantly depending on the tuning approach used.
 
 - **General Fine-Tuning:**
-   - **Purpose**: Correct. General fine-tuning is about enhancing the model's overall knowledge, updating its data, and correcting inaccuracies.
+   - **Purpose**: General fine-tuning is about enhancing the model's overall knowledge, updating its data, and correcting inaccuracies.
    - **Knowledge Changes**:
-      - **Gain knowledge of new specific concepts**: Correct. This involves updating the model with new information, allowing it to understand and generate responses about topics it previously wasn't trained on.
-      - **Correct old incorrect information**: Correct. Retraining on corrected data helps to eliminate factual errors and update the model's knowledge base.
+      - **Gain knowledge of new specific concepts**: This involves updating the model with new information, allowing it to understand and generate responses about topics it previously wasn't trained on.
+      - **Correct old incorrect information**: Retraining on corrected data helps to eliminate factual errors and update the model's knowledge base.
 - **Instruction Fine-Tuning:**
    - **Purpose**: Instruction fine-tuning is aimed at improving the model's ability to follow specific instructions and produce more useful outputs in response to prompts.
    - **Behavioral Changes**:
-   - **Learning to respond more consistently**: Correct. This fine-tuning trains the model to be more uniform and reliable in its responses to similar instructions.
-      - **Learning to focus, e.g., moderation**: Correct. Instruction fine-tuning can include adjusting the model to prioritize certain aspects, such as safety, moderation, or ethical considerations.
-      - **Teasing out capability, e.g., better at conversation**: Correct. Fine-tuning can be used to enhance specific skills like conversation management, making the model more effective in dialogue.
-:::
+      - **Learning to respond more consistently**: This fine-tuning trains the model to be more uniform and reliable in its responses to similar instructions.
+      - **Learning to focus, e.g., moderation**: Instruction fine-tuning can include adjusting the model to prioritize certain aspects, such as safety, **moderation** (which means encouraging the model to not get too off track), or ethical considerations.
+      - **Teasing out capability, e.g., better at conversation**: Fine-tuning can be used to enhance specific skills like conversation management, making the model more effective in dialogue.
 
 ### Instruction Fine-Tuning
 - **Purpose**: Instruction fine-tuning adapts a pretrained base model to follow specific instructions effectively, enhancing its utility in responding to prompts.  
@@ -52,12 +56,8 @@ Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-worl
 
 Fine-tuning exists because prompt engineering alone often can't achieve the desired performance, especially with smaller models. While prompt engineering can improve responses by providing examples (one-shot or few-shot learning), it has limitations: it doesn't always work well with smaller models and uses valuable context window space. Fine-tuning, on the other hand, adapts the model's weights using specific labeled examples, allowing the model to better understand and execute tasks without needing extensive prompt instructions. This supervised learning process leads to more accurate and efficient performance for specific applications, overcoming the inherent limitations of prompt engineering.
 
-- **Fine-Tuning Basics:**
-   - **Purpose**: Fine-tuning adapts a pretrained LLM to perform better on specific tasks using labeled examples.
-   - **Contrast with Pretraining**: Pretraining involves using vast amounts of unstructured text data via *self-supervised learning*, while fine-tuning uses *supervised learning* with prompt-completion pairs.
-
 :::warning
-When you hear the term **fine-tuning**, you can assume that it always means **instruction fine tuning**.
+When you hear the term **fine-tuning**, most of the time you can assume that it always means **instruction fine tuning**.
 :::
 
 ### Instruction Fine-Tuning
@@ -224,6 +224,25 @@ Both metrics, while simple and low-cost to calculate, have limitations. They can
 
 For comprehensive model evaluation, it is essential to use established benchmarks in addition to ROUGE and BLEU. These benchmarks provide a broader assessment of a model's performance across various tasks and scenarios, ensuring a more accurate evaluation.
 
+## Error Analysis in LLMs
+
+Error analysis in machine learning typically requires training the model first. However, in the context of fine-tuning LLMs, you can perform error analysis even before fine-tuning because you have a pre-trained base model. This early analysis helps in understanding the model's initial performance, allowing for targeted improvements during fine-tuning.
+
+Before fine-tuning, analyzing the base model helps you identify its strengths and weaknesses. This analysis allows you to determine what types of data will most effectively enhance the model's performance during fine-tuning. It serves as a diagnostic tool to optimize the dataset for better results. Below are the common error categories in LLMs
+
+- **Misspellings**: A straightforward category of errors involves misspellings in the dataset. Correcting these errors is crucial for improving the accuracy of the model's output. For example, in a dataset, correcting a typo like "liver" instead of "lover" ensures the model learns the correct context and meaning.
+- **Length and Verbosity**:
+    - **Verbosity Issues**: LLMs, including generative models like ChatGPT, are often overly verbose. This verbosity can dilute the quality of responses. One approach is to refine the dataset to encourage more succinct answers, leading to more direct and concise outputs.
+    - **Training Adjustments**: During training, adjustments like those made in the training notebook can help reduce verbosity and repetitiveness, contributing to clearer, more focused responses.
+
+| **Common Error Category** | **Example with Problem**                            | **Example Fixed**                             |
+|---------------------------|-----------------------------------------------------|------------------------------------------------|
+| **Misspellings**           | "Go get your liver checked" (intended to be "lover")| "Go get your lover checked"                    |
+| **Length and Verbosity**   | "The model was trained using a very large dataset that contained a lot of different examples and variations, which made it perform quite well in a variety of tasks, and it also helped in generalizing better to unseen data, though sometimes it could still be verbose and repetitive in its answers." | "The model was trained on a large dataset, improving performance and generalization, but it can still be verbose." |
+| **Repetitiveness**         | "The cat is on the mat. The cat is on the mat. The cat is on the mat." | "The cat is on the mat."                       |
+
+Repetitiveness is a common issue in outputs generated by large language models (LLMs). This can be effectively mitigated through the use of stop tokens and carefully designed prompt templates, which guide the model towards producing more varied and less repetitive responses. Additionally, ensuring that your dataset includes a diverse range of examples with minimal repetition is another crucial strategy. This diversity helps the model learn to generate more varied and engaging content, reducing the likelihood of repetitive outputs and enhancing the overall quality of the generated text.
+
 ## Benchmarks
 
 Evaluating large language models (LLMs) requires comprehensive benchmarks that go beyond simple metrics like ROUGE and BLEU in order to measure and compare LLMs more holistically. These benchmarks use pre-existing datasets to measure and compare the holistic capabilities of LLMs, focusing on specific skills and potential risks.
@@ -242,11 +261,11 @@ As models get larger, their performance against benchmarks such as SuperGLUE sta
 
 - **MMLU (Massive Multitask Language Understanding)**: Designed for modern LLMs, MMLU tests extensive world knowledge and problem-solving abilities across subjects like elementary mathematics, US history, computer science, and law. In other words, tasks that *extend way beyond **basic language understanding***.
 - **BIG-bench**: Consisting of 204 tasks across diverse fields such as linguistics, childhood development, math, common sense reasoning, and software development. BIG-bench is available in different sizes to manage inference costs.
+- **ARC**: The AI2 Reasoning Challenge is designed to test a model's ability to answer grade-school science questions that require reasoning beyond simple factual recall. It assesses the model's understanding of scientific concepts, deductive reasoning, and its ability to apply knowledge in novel contexts.
+- **HellaSwag**: This benchmark tests a model's commonsense reasoning by challenging it to predict the most plausible continuation of a given scenario. The task requires the model to understand context, sequence of events, and the subtleties of human behavior and interactions.
 - **HELM (Holistic Evaluation of Language Models)**: HELM aims to improve model transparency and guidance for specific tasks. It uses a multi-metric approach, assessing seven metrics across 16 core scenarios, including fairness, bias, and toxicity, which are becoming increasingly important to assess as LLMs become more capable of human-like language generation, and in turn of exhibiting potentially harmful behavior. 
-
-![HELM](/img/ai/llm/fine-tune/helm.jpeg)
-
-Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
+   ![HELM](/img/ai/llm/fine-tune/helm.jpeg)
+   Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
 
 ### Using Benchmarks
 
@@ -254,6 +273,12 @@ Benchmarks like GLUE, SuperGLUE, MMLU, BIG-bench, and HELM provide valuable insi
 
 For comprehensive evaluations, it's essential to refer to the results pages of these benchmarks, which offer detailed comparisons and metrics relevant to specific projects.
 
+
+:::warning Caution on Benchmark Relevance
+While ARC and similar benchmarks are commonly used to rank models, it's important to recognize that they may not correlate with real-world use cases. The performance of a model on these benchmarks doesn't necessarily reflect how well it will perform on tasks that are specific to your needs or business objectives.
+
+**Importance of Use Case Alignment**: Fine-tuning models allows them to be tailored to a wide variety of tasks, each requiring different evaluation metrics. Therefore, it's essential to focus on the evaluation metrics that are relevant to your specific use case rather than getting too caught up in benchmark rankings, which might not align with your goals.
+:::
 
 
 
