@@ -42,7 +42,7 @@ void printAllElementOfArray(int arr[], int size)
 
 This function runs in `O(n)` time (or "linear time"), where `n` is the number of items in the array. If the array has 10 items, we have to print 10 times. If it has 1000 items, we have to print 1000 times.
 
-## 3. O(n2)
+## 3. O(n^2)
 
 ```c
 void printAllPossibleOrderedPairs(int arr[], int size)
@@ -60,7 +60,7 @@ void printAllPossibleOrderedPairs(int arr[], int size)
 
 Here we're nesting two loops. If our array has `n` items, our outer loop runs `n` times and our inner loop runs `n` times for each iteration of the outer loop, giving us n2 total prints. Thus this function runs in O(n2) time (or "quadratic time"). If the array has 10 items, we have to print 100 times. If it has 1000 items, we have to print 1000000 times.
 
-## 4. O(2n)
+## 4. O(2^n)
 
 ```c
 int fibonacci(int num)

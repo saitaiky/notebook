@@ -1,6 +1,6 @@
 ---
 title: Responsible AI and ongoing research
-sidebar_position: 5
+sidebar_position: 100
 draft: true
 ---
 

@@ -10,7 +10,26 @@ Fine-tuning represents a significant advancement in the development of large lan
 
 Instruction fine-tuning is a major breakthrough because it transforms a large language model (LLM) trained on vast amounts of general internet text, which learns to predict the next word, into a model that can **follow specific instructions** using a much smaller dataset. This adaptation makes the model more useful for specific tasks, bridging the gap between general language understanding and task-specific responsiveness.
 
-### General Fine-Tuning vs Instruction Fine-Tuning
+### Finetuning steps overview
+
+1. **Define Your Task**: Begin by clearly identifying the task you want the model to perform.
+2. **Collect Relevant Data**: Gather data that is directly related to the inputs and outputs of your task.
+3. **Generate if you don't have enough data**: Generate additional data or use prompt templates to create more.
+4. **Fine-Tune a Small Model**: Start by fine-tuning a smaller model, typically between 400 million to a billion parameters, to get a sense of the performance.
+5. **Vary the Data Quantity**: Experiment with different amounts of data to understand how data quantity affects model performance.
+6. **Evaluate Model Performance**: After fine-tuning, assess the model to determine what is working well and what needs improvement.
+7. **Collect More Data Based on Evaluation**: Use insights from the evaluation to gather more data and further refine the model.
+8. **Increase Task Complexity**: Once initial fine-tuning is successful, you can increase the complexity of the task.
+9. **Scale Up the Model Size**: As task complexity increases, also scale up the model size to handle the more demanding tasks effectively.
+
+
+### Extraction & Expansion tasks
+
+Extraction tasks in fine-tuning primarily involve simpler, less complex activities, like reading tasks, where the model is required to understand and process input data without generating extensive outputs. These tasks typically require fewer tokens and thus can be managed effectively by smaller models. The focus here is on accurately extracting information from the input, which demands less computational power and smaller model sizes.
+
+Expansion tasks, on the other hand, involve generating extensive outputs, such as in writing tasks like chatting, composing emails, or coding. These tasks are inherently more complex because they require the model to produce a large number of tokens, increasing the computational load. When tasks are combined, or when a model is asked to perform multiple activities simultaneously, the difficulty further escalates, necessitating the use of larger, more robust models to maintain accuracy and performance. This approach ensures the model can handle the increased complexity and deliver reliable outputs across various applications.
+
+### General Finetuning vs Instruction Finetuning
 Instruction-tuning is a relatively recent development in the field of large language models (LLMs), emerging around 2021 with models like FLAN, T0, and papers on Natural Instructions. This approach focuses on training models to better follow natural language instructions, marking a shift from earlier methods that primarily involved general fine-tuning. Prior to instruction-tuning, models were often fine-tuned on specific datasets without a focus on instruction-following, which is still common today for domain-specific models like those in biomedicine or law. 
 
 Reinforcement Learning from Human Feedback (RLHF), which is even more recent, has also become important in refining models to align with human preferences. Despite these advancements, traditional fine-tuning remains relevant, especially in specialized domains where instruction-following isn't the primary concern. Distinguishing between different tuning methods—such as vanilla fine-tuning, RLHF, and instruction fine-tuning—is crucial because each can yield different performance outcomes. Categorizing models by these methods allows for more meaningful comparisons, particularly on leaderboards, where performance metrics can vary significantly depending on the tuning approach used.
@@ -28,12 +47,13 @@ Reinforcement Learning from Human Feedback (RLHF), which is even more recent, ha
       - **Teasing out capability, e.g., better at conversation**: Fine-tuning can be used to enhance specific skills like conversation management, making the model more effective in dialogue.
 
 ### Instruction Fine-Tuning
+
 - **Purpose**: Instruction fine-tuning adapts a pretrained base model to follow specific instructions effectively, enhancing its utility in responding to prompts.  
 - **Significance**: It's a major breakthrough, allowing a model trained on general internet text to be refined for task-specific responses using a smaller dataset.
 - **Challenges**: One significant issue is catastrophic forgetting, where the model forgets previously learned information during fine-tuning.
   - **Mitigation Techniques**: Broad range instruction tuning helps prevent the model from forgetting previous knowledge by instructing it on a wide variety of tasks.
 
-### Parameter Efficient Fine-Tuning (PEFT)
+## Parameter Efficient Fine-Tuning (PEFT)
 
 - **Definition**: PEFT techniques optimize fine-tuning by minimizing memory and compute requirements.
 - **Objective**: Allows tuning for specific tasks while preserving original model weights and using adaptive layers to maintain performance with a smaller memory footprint.
