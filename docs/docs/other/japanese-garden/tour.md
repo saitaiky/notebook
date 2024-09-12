@@ -3,7 +3,7 @@ title: 庭園見学
 sidebar_position: 3
 ---
 
-Below is the ranking of [Shiosai project](https://gardenrankings.com/) which I want to visit 
+Below is the ranking of [Shiosai project](https://gardenrankings.com/) which I want to visit. Also, this is a good recourse for gardening guide in japanses:  [庭園ガイド](https://garden-guide.jp/spot.php?i=katsurarikyu)
 
 <table><thead>
   <tr>
