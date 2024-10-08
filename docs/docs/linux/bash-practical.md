@@ -302,6 +302,49 @@ $ cat $(echo test.txt)
 ```
 I hope that makes it more clear now.
 
+## End of options marker / option delimiter
+
+An **options marker** (or **end of options marker**) is a command-line convention in Unix/Linux systems, represented by a double dash (`--`). Its primary purpose is to differentiate between **options** (also called flags) and **positional arguments** in commands.
+
+Many command-line tools allow the use of options, which typically start with a dash (`-`) or double dash (`--`), to modify the behavior of the command. However, sometimes you may need to pass arguments to the command that begin with a dash but are not meant to be interpreted as options. In such cases, the options marker `--` helps clarify to the command-line tool that all subsequent inputs should be treated as positional arguments (i.e., regular inputs), not options. Consider the following scenario:
+
+You want to delete a file named `-file.txt` using the `rm` (remove) command. Normally, you might type:
+
+```bash
+rm -file.txt
+```
+
+But here, `rm` will interpret `-file.txt` as an option due to the leading dash (`-`), which would likely result in an error because there is no such option as `-file.txt`.
+
+To avoid this, you can use the options marker (`--`):
+
+```bash
+rm -- -file.txt
+```
+
+Here, `--` tells `rm` that everything following it is a positional argument (in this case, the file `-file.txt`) and not an option. This ensures that the file gets removed without `rm` misinterpreting it as an option.
+
+### Difference Between `dotenv --` and `dotenv &&` in `package.json` Scripts
+
+```json
+"scripts": {
+  ...
+  "dev": "PORT=5174 dotenv -- node ./server.js",
+  ...
+},
+```
+When working with environment variables in Node.js, you might encounter two common ways to use the `dotenv` package in `package.json` scripts: `dotenv -- node` and `dotenv && node`. Though they look similar, they work differently, and understanding the distinction is important for managing environment variables effectively.
+
+- **1. `dotenv -- node ./server.js`**
+  - This syntax runs the `dotenv` command-line tool to load environment variables from the `.env` file **before** executing `node ./server.js`.
+  - The **double dash (`--`)** separates the `dotenv` command from the `node` command. Everything after the `--` is passed to `node`, not `dotenv`.
+  - `dotenv` and `node` run as part of the **same process**, which means the environment variables loaded by `dotenv` are immediately available to `node` when the server starts.
+  - This is the preferred approach because it ensures that the environment variables are accessible to `node` from the start, without requiring any additional steps.
+- **2. `dotenv && node ./server.js`**
+  - The `&&` operator is a **command chaining** mechanism in Unix/Linux. It runs the first command (`dotenv`), and if it succeeds, it runs the second command (`node ./server.js`).
+  - However, the `dotenv` command in this case runs as a **separate process** from `node`. It simply executes and exits, without persisting the environment variables in a way that the `node` process can access.
+  - Since the environment variables loaded by `dotenv` do not carry over to the next command in the chain (`node ./server.js`), this method won’t work as expected. The environment variables won’t be available to `node`.
+
 ## References
 
 - [Input Output Redirection in Linux/Unix Examples](https://www.guru99.com/linux-redirection.html)
