@@ -1,5 +1,5 @@
 ---
-title: Hydration in React
+title: Hydration In React
 ---
 
 ## React Hydration and How Incognito Mode Fixes Hydration Issues
