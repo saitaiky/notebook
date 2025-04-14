@@ -30,34 +30,34 @@ Creating a Retrieval-Augmented Generation (RAG) application involves several key
 7. Response Generation
     - **Contextual Augmentation**: Integrate retrieved documents with the original query to form a rich context.
     - **Generation**: Use the language model to generate a response based on the augmented context.
-8. Evaluation and Feedback Loop
-    - **Relevance Feedback**: Collect feedback from users on the relevance of responses to improve the system.
-    - **Continuous Learning**: Continuously fine-tune the retrieval and generation models based on feedback.
 
 ```mermaid
-graph TD
-    A[Data Ingestion] --> B[Knowledge Base]
-    B --> C[Document Store]
-    B --> D[Vector Store]
-    A --> E[Embedding Generation]
-    E --> D
-    F[Retrieval Mechanism] --> D
-    F --> C
-    G[Language Model Integration] --> H[Pre-trained Language Models]
-    G --> I[Fine-tuning]
-    J[Query Processing] --> K[Query Understanding]
-    J --> L[Query Embedding]
-    M[Response Generation] --> N[Contextual Augmentation]
-    M --> O[Generation]
-    P[Evaluation and Feedback Loop] --> Q[Relevance Feedback]
-    P --> R[Continuous Learning]
+sequenceDiagram
+    participant User
+    participant QP as Query Processing
+    participant RM as Retrieval Mechanism
+    participant KB as Knowledge Base
+    participant LLM as Language Model
+    participant RG as Response Generation
+
+    Note over User,RG: RAG Query Flow
+    User->>QP: Submit query
+    QP->>QP: Process & understand query
+    QP->>QP: Generate query embedding
+    QP->>RM: Send processed query
     
-    K --> F
-    L --> F
-    F --> N
-    N --> O
-    Q --> F
-    R --> I
+    RM->>KB: Retrieve relevant documents
+    KB->>KB: Vector similarity search
+    KB->>KB: Keyword-based search
+    KB->>RM: Return relevant documents
+    
+    RM->>RG: Send query + retrieved context
+    RG->>RG: Augment query with context
+    RG->>LLM: Send augmented context
+    LLM->>LLM: Generate response
+    LLM->>RG: Return generated text
+    RG->>User: Deliver final response
+    
 ```
 
 
@@ -82,31 +82,6 @@ Indexing multi-modal data, such as audio, video, and text, into a centralized kn
 
 ### For text generation (TODO)
 
-
-### Same model for embedding and generation?
-
-The answer is yes, in theory you can use the same model for both embedding and text generation in a RAG application, though it involves certain trade-offs. The primary reason not many practitioners use the same model for both embedding and text generation tasks in Retrieval-Augmented Generation (RAG) applications is due to the distinct optimization requirements for each task. Embedding models, like BERT, are optimized for capturing semantic similarity and relevance, making them effective for information retrieval. In contrast, text generation models, such as GPT-3, are designed to produce coherent and contextually appropriate responses, focusing on fluency and coherence.
-
-:::info Further material
-To understand this topic further, there is a [research paper](https://arxiv.org/pdf/2201.10005.pdf) by [OpenAI](https://openai.com/blog/introducing-text-and-code-embeddings) that explain this more.
-
-Generative, auto-regressive models **aren't well suited for embeddings** because their understanding of the input is spread out over multiple hidden states. You need to train a model whose specific purpose is to produce embeddings. Typically this is a transformer encoder, and in such cases you take the hidden state from the last layer of the last "end of sequence" token. This means that the model's understanding is concentrated in a single place.
-
-Relevant excerpts from the paper below.
-
-Generative models aren't well suited for performing predictions:
-
-> In generative models, the information about the input is typically distributed over multiple hidden states of the model. While some generative models can learn a single representation of the input, most autoregressive Transformer models do not
-
-You need a purpose-built embeddings model:
-
-> Embedding models are explicitly optimized to learn a low dimensional representation that captures the semantic meaning of the input
-
-You use a transformer encoder, and use the hidden state from the last layer of the last token:
-
-> Given a training pair (x, y), a Transformer (Vaswani et al., 2017) encoder E is used to process x and y independently. The encoder maps the input to a dense vector representation or embedding (Figure 2). We insert two special token delimiters, [SOS] and [EOS], to the start and end of the input sequence respectively. The hidden state from the last layer corresponding to the special token [EOS] is considered as the embedding of the input sequence.
-:::
-
 ### Transformer architecture for both embedding and generation?
 
 It is not strictly necessary to use a model that employs Transformer architecture for both embedding and text generation tasks in a Retrieval-Augmented Generation (RAG) system. However, there are several reasons why it is beneficial to use models that share similar architectures, such as Transformers, for both tasks:
@@ -124,50 +99,31 @@ While using Transformer models for both tasks has its advantages, mixing differe
 - **Faiss (non-Transformer)** for efficient retrieval with embeddings generated by **BERT** or **SBERT**.
 - **CLIP (Transformer-based)** for embedding multimodal data and **T5 (Transformer-based)** for generation.
 
+## Should I use the Same LLM for Both Retrieval and Generation?
 
-## Hosting a model in AWS
+It is technically possible to use a single LLM for both embeddings (retrieval) and text generation in a Retrieval-Augmented Generation (RAG) system. **However, the industrial standard is to use specialised models for each task.**
 
-Amazon SageMaker Jumpstart allows users to host custom machine learning models with extensive customization and control over infrastructure, making it suitable for complex projects. It includes pre-trained models for various domains and offers tools for training and inference. Amazon Bedrock, on the other hand, is a fully managed service providing API access to pre-built AI models, aimed at rapid deployment and ease of use without needing infrastructure management. Bedrock is ideal for standard tasks and integrates seamlessly with AWS services but offers less customization and model choice compared to Jumpstart.
+### Why Specialisation?
 
-| Criteria                    | Amazon SageMaker JumpStart                                                                                                                                                                                                      | Amazon Bedrock                                                                                                                                                                                |
-|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Use Case & Customization    | Designed for comprehensive control over custom models with extensive customization options.                                                                                                                                     | Simplified approach with seamless integration with hosted models, offering limited customization.                                                                                             |
-| Development Time & Training | Requires a longer development cycle due to custom model creation and training, supporting user-provided data.                                                                                                                    | Accelerates development by leveraging pre-trained models, eliminating the need for custom training.                                                                                           |
-| Scalability & Cost Control  | Provides robust scalability options and granular cost control through resource allocation.                                                                                                                                      | Scalability influenced by AWS-hosted models with less flexibility in managing costs.                                                                                                          |
-| Model & Integration Options | Allows selection from a wide array of models and frameworks with flexible integration options, requiring more configuration effort.                                                                                             | Restricted to pre-built models within Bedrock, offering seamless integration with AWS services.                                                                                               |
-| Maintenance & Security      | Users manage model versions, updates, and security settings, ensuring tailored control.                                                                                                                                         | AWS handles updates and maintenance, providing robust security measures for hosted models.                                                                                                    |
-| Data & RAG Integration      | Users manage data and training workflows independently, providing flexibility to integrate Retrieval-Augmented Generation (RAG) models as needed.                                                                               | No additional training data required for pre-trained models; RAG integration depends on the availability of such models within Bedrock.                                                      |
-
-## Multi-agent and Single-agent system
-
-In the context of Large Language Models (LLMs), a single-agent approach involves one agent (or model) handling all tasks within an application. This approach is simpler and easier to manage, making it suitable for straightforward applications. However, it can become inefficient or overwhelmed when dealing with complex, multifaceted tasks. Conversely, a multi-agent approach employs multiple specialized agents, each optimized for specific tasks, working collaboratively. This method enhances efficiency and scalability for large-scale, complex applications. Despite its complexity, requiring coordination and a task orchestrator, it offers greater flexibility and robustness in managing diverse tasks.
-
-## Query Processing and Response Generation
-
-- Receive Query: API Gateway receives the user query.
-- Generate Query Embedding: Embed the query using the embedding model.
-- Retrieve Documents: Search for the closest embeddings in OpenSearch.
-- Generate Response: Pass the retrieved documents to the LLM for response generation.
+- **Embedding Models**:  
+  Models like BERT are designed to capture semantic meaning in a single, compact vector. This makes them effective for retrieving relevant information.
+- **Generative Models**:  
+  Models such as GPT-3 spread input information over several hidden states to generate coherent text. This distributed representation is not ideal for producing embeddings.
 
 
-## FAQ
+### Supporting Evidence from Literature
 
-The answers provided are based on general principles and practices derived from research and applications in the field of natural language processing (NLP) and machine learning, particularly in the development and use of large language models (LLMs) for tasks like Retrieval Augmented Generation (RAG). Below, I outline the basis for each answer:
+The following points are well supported in the research literature: [Text and Code Embeddings by Contrastive Pre-Training](https://arxiv.org/pdf/2201.10005.pdf) by [OpenAI](https://openai.com/blog/introducing-text-and-code-embeddings):
 
-### Do You Have to Use the Same LLM for Both Retrieval and Generation?
-
-#### Basis for Answer:
-- **General Practice in NLP**: In many applications of RAG and similar systems, it's common to use different models for retrieval and generation because they serve different purposes. For example, retrieval models like BERT are often used because they excel at understanding and encoding the meaning of text into vectors, while generation models like GPT are designed to generate fluent and coherent text based on input.
-- **Specialization of Models**: The concept of using specialized models for different tasks is well-established in machine learning. Retrieval tasks benefit from models trained specifically for semantic understanding and matching, while generation tasks benefit from models optimized for text generation.
-- **Academic and Industry Implementations**: There are numerous research papers and implementations that combine different models for retrieval and generation. For instance, the use of BERT for retrieval and GPT for generation is a common practice in the industry. This approach allows leveraging the strengths of each model type.
-
-### How Do You Know if a LLM Used for Retrieval is Compatible with Generation?**
-
-#### Basis for Answer:
-- **Embedding Space Compatibility**: The idea that embeddings generated by different models need to be compatible is based on the understanding of how vector spaces are used in NLP. If two models produce embeddings that are misaligned, the generation model may not be able to properly interpret the information retrieved, leading to poor performance.
-- **Joint Fine-Tuning**: Fine-tuning models together to align their embeddings is a widely used technique in transfer learning and domain adaptation. This is supported by numerous studies and practical implementations in machine learning, where models are fine-tuned on specific tasks to ensure compatibility and better performance.
-- **Empirical Testing**: The recommendation to empirically test the compatibility of models is grounded in the practical realities of machine learning, where theoretical compatibility does not always translate into effective performance. A/B testing and iterative experimentation are standard practices in machine learning development to ensure that the models work well together in a specific application.
+- **Generative models' limitations for embeddings**:  
+  "In generative models, the information about the input is typically distributed over multiple hidden states of the model. While some generative models can learn a single representation of the input, most autoregressive Transformer models do not."  
+  This indicates why a model optimised purely for generation often falls short when used as an embedding extractor.
+- **Purpose-built Embedding Models**:  
+  "Embedding models are explicitly optimised to learn a low dimensional representation that captures the semantic meaning of the input."  
+  This confirms the need to use models built for the task of embedding.
 
 
-###  Check the compatibility between two models (Embedding and Generation)
+
+
+
 

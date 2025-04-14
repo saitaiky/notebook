@@ -1,5 +1,6 @@
 ---
 title: Cache
+sidebar_position: 2
 ---
 
 Language models are powerful, but they can also be expensive and slow when called repeatedly with similar inputs. LangChain offers elegant caching mechanisms that help mitigate latency and cost, especially when prototyping or running high-throughput applications.
