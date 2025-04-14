@@ -1,7 +1,6 @@
 ---
 title: Help LLM to reasoning
 sidebar_position: 4
-draft: true
 ---
 
 ## Chain of Thought Prompting for Improved Reasoning in LLMs

@@ -1,7 +1,6 @@
 ---
 title: Fine-tuning with instruction
 sidebar_position: 1
-draft: true
 ---
 
 ## Introduction

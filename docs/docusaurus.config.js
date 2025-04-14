@@ -253,6 +253,10 @@ const config = {
                 to: 'ai/llm',
                 label: 'Large Language Model',
               },
+              {
+                to: 'ai/agentic-system',
+                label: 'Agentic System Design',
+              },
             ],
           },
           {

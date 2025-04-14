@@ -75,20 +75,12 @@ Embeddings enable intelligent search and similarity analysis. For example, in id
 
 Indexing multi-modal data, such as audio, video, and text, into a centralized knowledge base becomes feasible with transformer models. This approach supports intelligent, context-aware searches, significantly reducing the manual effort traditionally required for adding metadata.
 
-### Storage: AWS OpenSearch vs AWS Kendra
-
-The key difference between Amazon OpenSearch (formerly CloudSearch) and Amazon Kendra lies in their underlying technologies and target use cases. OpenSearch, based on Solr, is a keyword search engine suitable for structured data and requires data to be formatted in JSON or XML batches. It primarily returns lists of documents based on keyword matching.
-
-In contrast, Amazon Kendra is an ML-powered search engine designed for unstructured data such as Word documents, PDFs, HTML, PPTs, and FAQs. Kendra excels at handling natural language queries and providing specific answers rather than just document lists. Additionally, Kendra offers out-of-the-box connectors for popular repositories like SharePoint, S3, Salesforce, and ServiceNow, facilitating automatic content indexing directly into Kendra.
-
-Therefore, Kendra is better suited for enterprise search applications or website searches requiring deeper language understanding, while OpenSearch is more appropriate for structured data and keyword-based search scenarios.
-
 ## Choose the right model
 
-### For embedding
+### For embedding (TODO)
 
 
-### For text generation
+### For text generation (TODO)
 
 
 ### Same model for embedding and generation?

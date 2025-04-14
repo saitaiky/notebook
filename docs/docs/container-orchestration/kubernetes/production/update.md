@@ -15,23 +15,55 @@ Deployment strategies in K8s are important, if we donn't have this feature, we w
 
 
 ## Update Deployment Strategies
-Kubernetes offers Deployment strategies that allow you to update in a variety of ways depending on the needs of the system. The three most common are:
 
-- **Rolling update strategy**
-    - When: Minimizes downtime at the cost of update speed
-    - What: The default deployment strategy in Kubernetes
-    - How: To perform a rolling update, simply update the image of your pods using kubectl set image. This will automatically trigger a rolling update. A rolling update replaces the existing version of pods with a new version, updating pods slowly one by one, without cluster downtime. 
-        - **MaxSurge** specifies the maximum number of pods the Deployment is allowed to create at one time. You can specify this as a whole number (e.g. 5), or as a percentage of the total required number of pods 
-            - Rounded up: if we have 10pods with 25% MaxSurge, K8s will **rounded up** to the next whole number which is 3pods). 
-            - If you do not set MaxSurge, the implicit, default value is 25%.
-        - **MaxUnavailable** specifies the maximum number of pods that are allowed to be unavailable during the rollout. 
-            - Rounded down: if we have 10pods with 25% MaxSurge, K8s will **rounded down** to the next whole number which is 2pods). 
-            - Like MaxSurge, you can define it as an absolute number or a percentage. 
-- **Recreation Strategy**: Causes downtime but updates quickly.
-- **Canary Strategy**: Quickly updates for a select few users with a full rollout later.
-- **[Ramped slow rollout](https://spot.io/resources/kubernetes-autoscaling/5-kubernetes-deployment-strategies-roll-out-like-the-pros/#a3)**: rolls out replicas of the new version, while in parallel, shutting down old replicas. 
-- **[Best-effort controlled rollout](https://spot.io/resources/kubernetes-autoscaling/5-kubernetes-deployment-strategies-roll-out-like-the-pros/#a4s)**: pecifies a "max unavailable" parameter which indicates what percentage of existing pods can be unavailable during the upgrade, enabling the rollout to happen much more quickly.
-- **[Canary deployment](https://spot.io/resources/kubernetes-autoscaling/5-kubernetes-deployment-strategies-roll-out-like-the-pros/#a5)**: uses a progressive delivery approach, with one version of the application serving most users, and another, newer version serving a small pool of test users. The test deployment is rolled out to more users if it is successful.
+| **Strategy / Pattern**              | **Official / Pattern** | **How It Works**                                             | **Key Trade-off**                     |
+|-------------------------------------|------------------------|--------------------------------------------------------------|---------------------------------------|
+| **Rolling Update**                  | Official               | Gradual update via pod replacement with controlled surge and unavailability. | Minimises downtime; can be slower.    |
+| **Recreate**                        | Official               | Stops all pods then restarts the application with new pods.  | Simpler & faster update; incurs downtime. |
+| **Canary Deployment**               | Pattern                | Routes a small fraction of traffic to a new version; scales up if successful. | Reduced risk; requires extra tooling (traffic routing). |
+| **Ramped Slow Rollout / Best-Effort** | Pattern/Descriptive    | Variants of controlled rolling updates using parameters like maxUnavailable. | Adjusts speed vs. availability trade-offs. |
+
+
+### Official Deployment Strategies
+
+Kubernetes deployments support **two built-in update strategies**:
+
+1. **Rolling Update (default)**
+   - **What it does:** Gradually replaces old pods with new ones to ensure a smooth transition.
+   - **How it works:**  
+     - You update the pod template (for example, by changing the container image with `kubectl set image`), and Kubernetes automatically performs a rolling update.
+     - It uses two key parameters:
+       - **MaxSurge:** Specifies the maximum number of extra pods that can be created above the desired number during the update.  
+         - For example, with 10 pods and a 25% surge, 25% of 10 is 2.5, which is rounded **up** to 3 pods.
+       - **MaxUnavailable:** Indicates the maximum number of pods that can be unavailable during the update.  
+         - For 10 pods at 25%, 25% of 10 is 2.5, rounded **down** to 2 pods.
+   - **Trade-offs:** Minimises downtime while updating gradually, though the update can be slower compared to strategies that replace all pods at once.
+2. **Recreate**
+   - **What it does:** Terminates all existing pods before creating new ones.
+   - **How it works:**  
+     - This strategy stops all old pods first and then starts new pods.
+   - **Trade-offs:** The downtime is usually more noticeable, but the update process can be simpler and faster since all pods are replaced at once.
+
+
+### Deployment Patterns Beyond the Built-in Strategies
+
+While Kubernetes only provides the two strategies above in its Deployment API, many **deployment patterns** have emerged in the community and practice. These include:
+
+1. **Canary Deployment**
+   - **Description:**  
+     - A small subset of users is routed to a new version of the application. If the new version performs well, it is rolled out more broadly.
+   - **Implementation Note:**  
+     - This isn’t a built-in feature of the Kubernetes Deployment object. Instead, you achieve canary deployments through additional configuration or tools (e.g. using multiple deployments with different labels and a service mesh to route traffic).
+   - **In your description:**  
+     - You mentioned two versions of the Canary strategy. Essentially, they describe the same underlying principle, though in practice both refer to progressively shifting traffic towards the new version.
+2. **Other Descriptive Patterns**
+   - **Ramped Slow Rollout:**  
+     - This seems to refer to a controlled, gradual roll-out of the new version—much like the default rolling update but perhaps with tighter control over how quickly pods are switched.
+     - **Note:** This is not an official Kubernetes term. It may simply be a descriptive way to refer to a rolling update with a more conservative pace.
+   - **Best-Effort Controlled Rollout:**  
+     - This is similar to specifying a `maxUnavailable` parameter that allows a certain percentage of pods to be down at once, thus enabling a faster update if the system can handle it.
+     - **Note:** Again, this term isn’t part of the Kubernetes API specification but captures a variant of the rolling update strategy's tuning.
+
 
 ## Rolling Deployment 
 

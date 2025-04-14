@@ -1,7 +1,6 @@
 ---
 title: Other considerations
 sidebar_position: 6
-draft: true
 ---
 
 ## Introduction to Compute Requirements for Model Deployment

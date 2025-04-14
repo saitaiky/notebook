@@ -1,5 +1,6 @@
 ---
 title: Introduction
+sidebar_position: 1
 ---
 
 There are 2 tasks: Text summarization and text translation

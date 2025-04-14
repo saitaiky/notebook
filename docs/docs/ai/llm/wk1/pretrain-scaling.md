@@ -1,7 +1,6 @@
 ---
 title: LLM pre-training and scaling laws
 sidebar_position: 2
-draft: true
 ---
 
 ## Pre-training Large Language Models

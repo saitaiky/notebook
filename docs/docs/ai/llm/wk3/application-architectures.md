@@ -1,7 +1,6 @@
 ---
 title: Build a LLM application
 sidebar_position: 5
-draft: true
 ---
 
 The section is to bring together the various components and considerations necessary to build effective LLM-powered applications. The discussion emphasizes that creating end-to-end solutions involves more than just deploying large language models (LLMs); it requires a comprehensive infrastructure and strategic integration of multiple elements.

@@ -1,7 +1,6 @@
 ---
 title: Transformer, Prompt engineering, Config
 sidebar_position: 1
-draft: true
 ---
 
 

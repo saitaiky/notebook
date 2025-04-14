@@ -1,5 +1,6 @@
 ---
 title: RAG vs Retrain vs Finetune
+sidebar_position: 2
 ---
 
 > TL;DR - Retraining a model is a broad, widely-used term in machine learning for updating any pre-trained model with new data. In contrast, Retrieval-Augmented Generation (RAG) is a specialized approach within NLP, designed to add context to language models by incorporating external information during text generation.
