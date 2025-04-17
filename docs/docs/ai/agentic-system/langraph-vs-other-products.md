@@ -14,7 +14,7 @@ Source: [LangGraph](https://blog.langchain.dev/langgraph/)
 
 Before diving into comparisons, let’s look at three core orchestration paradigms:
 
-### 1. **Static DAGs (Airflow, Prefect)**
+### 1. **Static DAGs(Directed Acyclic Graph) - (Airflow, Prefect)**
 - Built on Directed Acyclic Graphs.
 - Nodes represent static tasks. Transitions are fixed before execution.
 - Ideal for batch pipelines (ETL, data movement).

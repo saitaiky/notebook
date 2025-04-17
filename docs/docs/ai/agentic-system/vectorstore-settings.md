@@ -26,17 +26,15 @@ flowchart LR
 - **Analogy:**  
   Imagine a dense index as a full‑colour image where every pixel holds a piece of the picture.
 
-#### Why Dense Indexes for LLM Embeddings?
+:::info Why Dense Indexes for LLM Embeddings?
 1. **Continuous, high‑dimensional space**  
    Neural embed­ders output real‑valued vectors (e.g. `[0.12, –0.03, 1.27, …]`) in which **every** dimension carries subtle semantic signals.  
-
 2. **Smooth similarity landscape**  
    Nearby points in this space interpolate meaning smoothly—e.g.  
    ```
    vec("king") – vec("man") + vec("woman") ≈ vec("queen")
    ```  
    Approximate nearest‑neighbour (ANN) structures like HNSW or IVF‑PQ are optimised for these dense vectors.
-
 3. **Semantic arithmetic**  
    Real‑valued dimensions support vector arithmetic and permit fine‑grained semantic shifts along learned axes (gender, tense, topic, …).
 
@@ -47,6 +45,7 @@ flowchart TD
   Dense --> ANN["ANN Index (HNSW, IVF‑PQ, …)"]
   Dense --> Search["Semantic Search"]
 ```
+:::
 
 ### Sparse Index
 - **What it is:**  
@@ -82,20 +81,4 @@ When querying vector databases like Pinecone, you choose a metric that determine
 - **Analogy:**  
   Consider dimension as the number of pixels in an image: more pixels (higher dimension) provide a higher resolution, while fewer pixels yield a simpler, coarser image.
 
-## Chunking Strategies
 
-How you split text into “chunks” determines the granularity of your retrieval and affects both relevance and performance. Each chunk becomes one row (one vector) in your vector‑store.
-
-| **Strategy**               | **How it works**                                                                                                 | **Pros**                                                     | **When to use**                                                               |
-|----------------------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------|
-| **Fixed‑Token Window**     | Slide a window of *N* tokens (e.g. 200) with optional overlap (e.g. 50 tokens).                                   | Uniform size; simple to implement.                           | Structureless text (logs, code), or when you need even coverage.              |
-| **Sentence‑Boundary**      | Split at sentence ends (e.g. on punctuation). Each sentence → one chunk.                                           | Preserves grammatical units; clear Q&A granularity.          | Chatbot answers, precise Q&A where exact sentences matter.                    |
-| **Paragraph‑Boundary**     | Use blank lines or indentation to detect paragraphs; each paragraph → one chunk.                                  | Keeps ideas coherent; fewer vectors overall.                 | Blog posts, reports, essays with clear paragraphing.                          |
-| **Semantic/Topic Segments**| Use topic‑modelling or clustering on sliding‑window embeddings; merge windows into semantically coherent segments. | Adapts to topic shifts; yields tight, meaningful chunks.     | Multi‑topic articles, interviews, meeting transcripts, long heterogeneous text.|
-
-:::info What can be stored in one vector space?
-- **Scope:**  You can embed anything from a single token to an entire document.  In practice, you choose your “unit”—usually paragraphs or fixed‑length text chunks—and ask:  
-  > “Is this *chunk* semantically similar to that *chunk*?”  
-- **Word vs Sentence:**  
-  You *could* embed single words and compare them (“is ‘happy’ similar to ‘joyful’?”), but embeddings shine when you capture **broader context**.  For Q&A or document search you typically embed and compare whole sentences, paragraphs or sections.
-:::
