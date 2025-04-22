@@ -1,5 +1,6 @@
 ---
 title: Enhanced Networking
+sidebar_position: 5
 ---
 
 EC2 instances can be enhanced and customized by attaching ENIs, and their networking capabilities can be further improved using ENAs and EFAs. These network interfaces play a crucial role in optimizing connectivity, performance, and high availability for EC2 instances based on their specific use cases.
