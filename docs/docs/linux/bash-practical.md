@@ -109,6 +109,27 @@ If you do not discard the errors:
 
 By mastering command redirection, you can efficiently manage where your program outputs its data, making your work on Linux/Unix systems more flexible and powerful.
 
+## Double Dash (`--`)
+
+The double dash (`--`) is often called:
+
+1. **Command Delimiter**
+2. **Argument Separator**
+3. **Option Terminator**
+4. **End of Options Marker**
+
+For example, in a development script that uses the command delimiter pattern (`--`) to separate CLI tool options from the command to be executed. Below is how it works:
+- Everything before `--` is interpreted as options for the `dotenv` command
+- Everything after `--` is the command that will be executed with the environment from .env files
+
+```bash
+cross-env NODE_ENV=development PORT=5174 dotenv -- node ./server.js
+```
+
+This convention comes from the POSIX standard and is used in many command-line tools. In the GNU getopt documentation, it's officially called the "end of options" marker, signaling that any further arguments should be treated as positional parameters rather than options.
+
+This pattern is particularly common in utility commands that need to run other commands with modified environments or configurations.
+
 ## Process substitution
 
 Many commands can accept input from a facility called standard input. By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. To redirect standard input from *a file* instead of *the keyboard*, the "\<" character is used like this. 以最簡單的說法來說， 那就是『將原本需要由鍵盤輸入的資料，改由檔案內容來取代』的意思。:
