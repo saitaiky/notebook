@@ -2,119 +2,151 @@
 title: Is Updating State A Side effect?
 ---
 
-In React (and programming in general), a **side effect** refers to anything that affects something **outside** the current function’s scope or produces an observable change beyond returning a value. This can include things like making network requests, logging data, updating the DOM, or interacting with browser APIs.
+:::info TL-DR;
+* **Side Effects**: External interactions outside React's internal component scope.
+* **State Updates**: Internal to React, triggering predictable re-renders, and not classified as side effects.
+:::
 
-### Definition
-- A **pure function** is one that always returns the same output given the same input and doesn’t produce any observable side effects (e.g., no network requests, no direct DOM manipulations, no modifying external variables).
-- A **side effect** happens when a function interacts with the outside world or alters something beyond its immediate scope. For example:
-  - Fetching data from an API
-  - Logging to the console
-  - Subscribing to WebSocket events
-  - Setting up timers (`setTimeout`, `setInterval`)
-  - Manipulating the DOM directly
-  - Storing data in local storage
+In React (and programming in general), a **side effect** refers to anything that affects something **outside** the current function’s scope or produces an observable change beyond returning a value. Examples include network requests, logging data, updating the DOM directly, or interacting with browser APIs.
 
-These types of actions are called **side effects** because they don't belong purely to the logic of rendering a component or calculating a state value based on inputs.
+## Core Definitions
 
-### Examples
-- **API Call**: When you fetch data from an external API, it affects the outside world by sending a network request and potentially changing the state of the server.
-- **DOM Manipulation**: When you change the document title or directly manipulate DOM elements, you are creating side effects outside the function’s scope.
-- **Logging**: Even logging to the console is a side effect because it interacts with the developer environment, not just the component itself.
+* **Pure Function**: Always returns the same output for the same input and produces no observable side effects (no network calls, DOM manipulations, or external variable changes).
 
-### Why is Updating State Not Considered a "Side Effect"?
-Although updating state **may seem like a side effect**, it’s not considered one in React for a few reasons:
+* **Side Effect**: Occurs when a function interacts externally or modifies something beyond its immediate scope. Examples:
 
-- **State Updates Are Local**: Updating the state in React is an operation confined to the component itself. React's internal mechanism handles state updates in a controlled, predictable manner. It triggers a re-render but does not affect external systems or the broader environment, which is why it's not treated as a side effect.
-  
-- **Controlled by React**: React provides its own `setState` or `useState` mechanism to manage the state. These updates are considered part of the component's lifecycle and logic, and React ensures that these updates happen in a predictable, isolated way. This makes state updates deterministic (the same inputs always produce the same output within the component).
+  * Fetching data from an API
+  * Logging to the console
+  * Subscribing to WebSocket events
+  * Setting timers (`setTimeout`, `setInterval`)
+  * Direct DOM manipulation
+  * Storing data in local storage
 
-- **Side Effects Are External**: In contrast, side effects involve actions that are **external** to the component and are not managed directly by React’s rendering logic (such as interacting with APIs, changing browser history, or manually manipulating the DOM). These actions go beyond the local scope of the function.
+These actions are termed **side effects** because they aren't purely about rendering logic or state calculations.
 
-### `useEffect` and side effects
-`useEffect` is specifically designed for handling **side effects** that React components can't handle directly through rendering logic. State updates can trigger these side effects, but they are not side effects by themselves.
+## Practical Examples of Side Effects
 
-#### Example of a Side Effect in `useEffect`:
-```tsx
+* **API Call**: Fetching external data affects server states and network traffic.
+* **DOM Manipulation**: Changing the document title or directly modifying DOM elements impacts the webpage beyond the component.
+* **Logging**: Console logs interact with the developer environment externally.
+
+## Why React State Updates Are **Not** Side Effects
+
+State updates in React might seem like side effects because they trigger re-renders. However, they're not considered side effects due to key reasons:
+
+* **Local and Internal**: State updates are confined to the component itself. React manages these updates predictably without affecting external systems or the broader environment.
+
+* **Controlled by React**: React’s mechanisms (`setState`, `useState`) ensure state updates occur deterministically and predictably. Given the same inputs, React consistently produces the same outputs internally.
+
+* **External Interaction Defines Side Effects**: Side effects are specifically external to the component and involve interactions not managed directly by React's internal rendering logic.
+
+## Common Misunderstandings
+
+* **Is updating React state ever a side effect?**
+  - No. React manages state updates internally, ensuring determinism and no external interactions.
+* **What about state updates inside `useEffect`?**
+  - The state update itself isn't the side effect. The external action preceding the state update (e.g., fetching data) constitutes the side effect.
+* **State updates triggered by event handlers (e.g., `onClick`)**:
+  - These are not side effects. They’re still internal operations fully controlled by React.
+
+## `useEffect` and Side Effects
+
+`useEffect` explicitly handles **side effects** React can't manage directly through rendering logic alone. State updates may trigger these effects but are themselves internal and not side effects.
+
+### Example
+
+```typescript
 import { useState, useEffect } from "react";
 
 function DataFetcher() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    // Fetching data is a side effect
+    // Fetching data is the side effect
     async function fetchData() {
       const response = await fetch("https://api.example.com/data");
       const result = await response.json();
-      setData(result); // Updating state
+      setData(result); // This state update is internal
     }
     
     fetchData();
-  }, []); // Empty array ensures this effect runs only once (after the initial render)
+  }, []); // Runs only once after initial render
 
   return <div>Data: {data ? JSON.stringify(data) : "Loading..."}</div>;
 }
 ```
 
-- The **side effect** here is the API request that fetches data from an external source.
-- The **state update** (`setData`) is not a side effect; it's React’s way of re-rendering the component when the data is available.
+* **Side effect**: The external API call.
+* **Not a side effect**: The subsequent internal state update (`setData`).
 
-:::info State updates vs Side effects
-- **State updates** are internal to the component and managed by React, causing re-renders.
-- **Side effects** go beyond the internal workings of React and interact with the outside world (network requests, DOM manipulation, etc.).
-:::
+### Dependencies in `useEffect`
 
-### `useEffect` Dependency
+Dependency arrays (`[variable]`) in `useEffect` control when side effects run:
 
-```tsx
+```typescript
 import { useState, useEffect } from "react";
 
 function SearchComponent({ query }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    // Fetching data based on the query is a side effect
     async function fetchData() {
       const response = await fetch(`https://api.example.com/data?search=${query}`);
       const result = await response.json();
-      setData(result); // Updating state with fetched data
+      setData(result);
     }
 
-    // Only fetch data when the query changes
-    if (query) {
-      fetchData();
-    }
-  }, [query]); // 'query' is the dependency
+    if (query) fetchData();
+  }, [query]); // Runs effect when 'query' changes
 
   return <div>Search Results: {data ? JSON.stringify(data) : "No data available"}</div>;
 }
 ```
-In this example, `useEffect` now has a dependency array with `query` in it:
-
-- **Why include variables in the dependency array?**
-  The `useEffect` hook runs its effect (the function you define) after rendering. By adding variables (like `query`) in the dependency array, you control *when* the effect runs. Specifically, the effect will re-run **only** when any of the variables in the dependency array change.
-- **What happens here?**
-  1. The component renders.
-  2. When the `query` prop changes, `useEffect` detects the change because `query` is in the dependency array.
-  3. The effect runs, fetching new data based on the updated `query`.
-- **Why use it?**
-  Including dependencies in the array ensures that the effect is run only when necessary, optimizing performance by avoiding unnecessary function executions (like fetching data) on every render.
 
 ### When React Calls `useEffect()`
 
-| **Phase**             | **When `useEffect()` Runs**                      | **When Cleanup Runs**                |
-|-----------------------|--------------------------------------------------|--------------------------------------|
-| **After Initial Render**   | Runs once after the component renders for the first time (if no dependencies or empty array). | Not applicable yet (no cleanup).     |
-| **After Re-Render**    | Runs after every update (unless dependencies are specified). | Before the next re-render if the effect has a cleanup. |
-| **When Dependencies Change** | Runs only when one of the dependencies changes. | Before the effect re-runs if the dependencies changed. |
-| **When Unmounting**    | Cleanup function runs when the component unmounts (for effects with cleanup). | Always cleans up before unmounting. |
+The table below summarises the lifecycle phases of useEffect(), clearly outlining when effects run and when their corresponding cleanup functions execute. 
 
-- **No dependencies** (`[]`): The effect runs **only after the initial render**.
-- **Specific dependencies** (`[count, name]`): The effect runs **only when any of the listed dependencies change**.
-- **Cleanup function**: The cleanup function inside `useEffect` is called when the component is unmounted or before the effect re-runs.
+| **Phase**                | **When `useEffect()` Runs**                                    | **When Cleanup Runs**                           |
+| ------------------------ | -------------------------------------------------------------- | ----------------------------------------------- |
+| **After Initial Render** | Once after the initial render (with no or empty dependencies). | Not applicable yet (no cleanup).                |
+| **After Re-Render**      | After every update (if no dependencies specified).             | Before the next re-render (if cleanup exists).  |
+| **Dependencies Change**  | Only when specified dependencies change.                       | Before effect re-runs (if dependencies change). |
+| **Unmounting**           | Not applicable (component unmounts).                           | Always runs cleanup before unmounting.          |
 
-### Summary
-- **Side effects** are actions that happen **outside** the React component’s scope (API calls, subscriptions, logging, etc.).
-- **State updates** are internal to the component and trigger re-renders but are not side effects by React's definition.
+* **No dependencies (`[]`)**: Effect runs only once after initial render.
+* **Specific dependencies (`[variable]`)**: Effect runs only when dependencies change.
+* **Cleanup function**: Runs cleanup before re-runs or unmounting.
 
 
+:::info Related Concepts: `useRef()` vs `useEffect()`
 
+While `useEffect()` manages side effects triggered by state or prop changes, `useRef()` offers direct references to DOM elements or persistent values across renders without causing re-renders.
+
+**When to use `useRef()`:**
+
+* **Direct DOM interactions**: Focus, text selection, or media playback.
+* **Imperative animations**: Directly trigger complex animations.
+* **Integration with external libraries**: Reference DOM nodes that third-party libraries manage.
+
+**Avoid using `useRef()` for:**
+
+* **Triggering re-renders**: Changes in refs won't cause a component to re-render.
+* **Declarative logic**: React is declarative; use state instead whenever possible.
+
+**Quick Example:**
+
+```typescript
+import { useRef, useEffect } from "react";
+
+function InputFocus() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus(); // useRef to directly interact with the DOM element
+  }, []);
+
+  return <input ref={inputRef} />;
+}
+```
+:::

@@ -12,7 +12,7 @@ React's `useMemo` hook is often misused or overused. Let's explore the three key
 ### When to Use
 When you have computationally expensive operations that don't need to be recalculated on every render.
 
-```tsx
+```typescript
 // Bad: Recalculates on every render
 function ProductList({ products }) {
   const sortedProducts = products
@@ -41,7 +41,7 @@ function ProductList({ products }) {
 ### When to Use
 When passing objects or arrays as props or dependencies to other hooks.
 
-```tsx
+```typescript
 // Bad: Creates new object every render
 function MapComponent({ center }) {
   const options = {
@@ -70,7 +70,7 @@ function MapComponent({ center }) {
 ### When to Use
 When a value is used as a dependency in useEffect or other hooks.
 
-```tsx
+```typescript
 // Bad: Triggers useEffect on every render
 function SearchResults({ query }) {
   const searchConfig = {
@@ -107,7 +107,7 @@ function SearchResults({ query }) {
 ## Anti-Patterns and Common Mistakes
 
 ### Don't Memoize Everything
-```tsx
+```typescript
 // Unnecessary: Primitive values don't benefit
 const count = useMemo(() => 42, []);
 
@@ -138,7 +138,7 @@ Skip memoization when:
 ## Best Practices
 
 1. Profile First
-```tsx
+```typescript
 // Add console.time to measure
 function ExpensiveComponent({ data }) {
   const result = useMemo(() => {
@@ -151,12 +151,12 @@ function ExpensiveComponent({ data }) {
 ```
 
 2. Use DevTools
-```tsx
+```typescript
 // React DevTools Profiler can help identify unnecessary re-renders
 ```
 
 3. Document Your Reasoning
-```tsx
+```typescript
 // Good: Clear documentation
 const memoizedValue = useMemo(
   () => expensiveOperation(props.data),
