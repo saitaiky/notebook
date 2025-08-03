@@ -1,5 +1,5 @@
 ---
-title: Editable
+title: Editable install
 ---
 
 ### **Understanding Editable Installs in Python**
@@ -52,21 +52,9 @@ pip install -e /path/to/your/package
 When you install a package in editable mode, `pip` creates a special file called `easy-install.pth` in the site-packages directory. This file contains a path to the source code directory, effectively linking the installed package to the source code.
 
 
-### **Using Editable Installs with 
+### **Using Editable Installs with setup.py**
 
-setup.py
-
-**
-
-Editable installs are typically used with packages that have a 
-
-setup.py
-
- file. Here’s an example of a simple 
-
-setup.py
-
- file:
+Editable installs are typically used with packages that have a setup.py file. Here’s an example of a simple  setup.py file:
 
 ```python
 from setuptools import setup, find_packages
@@ -81,28 +69,16 @@ setup(
 )
 ```
 
-To install this package in editable mode, navigate to the directory containing 
-
-setup.py
-
- and run:
+To install this package in editable mode, navigate to the directory containing setup.py and run:
 
 ```bash
 pip install -e .
 ```
 
 
-### **Using Editable Installs with 
+### **Using Editable Installs with pyproject.toml**
 
-pyproject.toml
-
-**
-
-With the introduction of PEP 517 and PEP 518, you can also use 
-
-pyproject.toml
-
- for package configuration. Here’s an example:
+With the introduction of PEP 517 and PEP 518, you can also use pyproject.toml for package configuration. Here’s an example:
 
 ```toml
 [build-system]
@@ -117,18 +93,14 @@ dependencies = [
 ]
 ```
 
-To install this package in editable mode, navigate to the directory containing 
-
-pyproject.toml
-
- and run:
+To install this package in editable mode, navigate to the directory containing pyproject.toml and run:
 
 ```bash
 pip install -e .
 ```
 
 
-### **Removing an Editable Install**
+### Removing an Editable Install
 
 To remove an editable install, you can use the `pip uninstall` command:
 
@@ -139,12 +111,12 @@ pip uninstall mypackage
 This will remove the package from the site-packages directory, including the special link created by the editable install.
 
 
-### **Conclusion**
+### Conclusion
 
 Editable installs are a powerful feature in Python that facilitate development by allowing immediate reflection of code changes. By using the `-e` flag with `pip install`, you can create an editable install that links the installed package to the source code, making it easier to develop, test, and collaborate on Python projects.
 
 
-### **Further Reading**
+### Further Reading
 
 - [Python Packaging User Guide](https://packaging.python.org/)
 - [Setuptools Documentation](https://setuptools.readthedocs.io/en/latest/)

@@ -82,7 +82,9 @@ Here are a few key points about ephemeral ports:
 
 Ephemeral ports play a vital role in facilitating communication between client applications and servers in a scalable and efficient manner. **By assigning temporary port numbers from a dynamic range, multiple client applications can establish simultaneous connections to servers without conflicts, enabling concurrent network communication.**
 
-### Example
+### Real-life Example
+
+When you connect to a web server, your browser (the client) uses an ephemeral port to establish a connection. For example, if your computer's IP address is `
 ![Linux hardware-kernal-shell](/img/aws/networking/fundamental/why-add-ephemeral-ports-on-nacl.png)
 
 Let us try to understand that with a simple scenario. When you want to visit a webpage you use a browser type in the url, in the background, Your browser(client) sends a request to the website(web-server).
@@ -94,4 +96,8 @@ For example, if a request comes into a web server in your VPC from a Windows 10 
 
 > Further reading: [Ephemeral port : What is it and what does it do?](https://unix.stackexchange.com/questions/65475/ephemeral-port-what-is-it-and-what-does-it-do), [AWS Security - Why add Ephemeral ports to NACL](https://github.com/miztiik/dev-sec-ops/tree/master/nacl-outbound-ephemeral-ports)
 
+## What happens when you type a URL into a broswer
 
+![what-happens-when-you-type-a-url-into-a-broswer](/img/aws/networking/fundamental/what-happens-when-you-type-a-url-into-a-broswer.png)
+
+Source: [ByteByteGo: Alex Xu](https://x.com/alexxubyte/status/1949132976932954149/photo/1)

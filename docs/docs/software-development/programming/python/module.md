@@ -1,5 +1,5 @@
-**Understanding `__name__`, `__main__`, and Running Scripts as Modules in Python**
-
+---
+title: __name__ vs __main__ 
 ---
 
 ### **1. The `__name__` and `__main__` Logic in Python**
@@ -40,11 +40,7 @@ if __name__ == "__main__":
   import example_module
   ```
   Output:
-  *(No output, unless 
-
-main()
-
- is explicitly called)*
+  *(No output, unless main()is explicitly called)*
 
 #### **Purpose of `if __name__ == "__main__":`**
 

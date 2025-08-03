@@ -15,6 +15,7 @@ keywords:
     - semantic search optimization
     - embedding database best practices
 
+sidebar_position: 3
 ---
 
 Chunking strategies determine how documents are split into smaller segments ("chunks") before being embedded and stored in a vector database. Selecting the right chunking strategy—whether standard (fixed-token, sentence, paragraph) or advanced (hierarchical, semantic)—is critical for balancing retrieval precision, context relevance, and performance in your retrieval-augmented generation (RAG) application. This guide explains each method clearly, provides code examples, and helps you choose the optimal chunking approach for your use case.
@@ -56,6 +57,11 @@ flowchart TB
         - Ensures each chunk is meaningfully coherent.
 
 
+Below is a useful gif that I find easy to understand different type of strategy.
+
+![9-chunking-strategy](/img/ai/agentic-system/9-chunking-strategy.gif)
+
+Reference: [9 Chunking Strategies to Improve RAG Performance](https://www.nb-data.com/p/9-chunking-strategis-to-improve-rag)
 
 ### Details
 
