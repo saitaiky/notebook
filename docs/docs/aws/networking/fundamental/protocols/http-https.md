@@ -198,3 +198,57 @@ Almost every browser checks that the certificate is issued by a trusted authorit
 Self-signed certificates can be useful for testing, and intranets, but you should avoid using them on public sites.
 :::
 
+
+## mTLS (Mutual TLS)
+
+**What it is:** mTLS is just TLS where **both sides** prove their identity with X.509 certificates. You still get encryption and integrity, but now the **client authenticates the server** *and* the **server authenticates the client** at the transport layer.
+
+### How it changes the handshake (at a high level)
+
+```mermaid
+%% Mermaid 10.4.0
+sequenceDiagram
+  autonumber
+  participant C as Client
+  participant S as Server
+  C->>S: ClientHello
+  S-->>C: ServerHello + Certificate (+ CertificateRequest)
+  C-->>S: ClientCertificate
+  C-->>S: Finished
+  S-->>C: Finished
+  Note over C,S: Encrypted channel and mutual authentication complete
+```
+
+Key differences vs “plain” TLS:
+
+* **Client certificate**: the client presents its own certificate and proves it holds the private key.
+* **Server trust store**: must include a CA (or pinned cert) that signs **client** certs.
+* **Client trust store**: as usual, must trust the **server**’s CA.
+* **Failure mode**: if either side can’t validate the other’s cert/chain (or EKU/SANs don’t match), the connection is terminated during the handshake.
+
+### When to use it
+
+* Service-to-service calls (ECS/Fargate/K8s), B2B/private APIs, IoT devices.
+* Environments where **machine/service identity** must be enforced **before** any application-layer auth (e.g., OAuth scopes).
+
+> mTLS handles **transport identity** (who is calling). You’ll often still send an **OAuth2/JWT bearer token** for **authorisation** (what the caller may do) — exactly like in your diagram.
+
+### TLS vs mTLS (quick compare)
+
+| Aspect                | TLS                  | mTLS                                                           |
+| --------------------- | -------------------- | -------------------------------------------------------------- |
+| Who is authenticated? | Server               | Server **and** Client                                          |
+| Client needs…         | Public CA bundle     | Public CA bundle **+** client cert & key                       |
+| Server needs…         | Its own cert & key   | Its own cert & key **+** trust of client-issuing CA            |
+| Typical use           | Browsers → websites  | Service→service, B2B, IoT                                      |
+| Risk if misconfigured | MITM to fake servers | Connection refusal; or unintended trust if client CA too broad |
+
+### Implementation essentials (checklist)
+
+* **Issue & rotate client certs** per workload/instance (short lifetimes help avoid revocation headaches).
+* **Constrain identity**: use SANs/URIs (e.g., SPIFFE IDs) and **EKU: ClientAuth**/**ServerAuth** as appropriate.
+* **Lock trust**: servers trust **only** the CA that issues client certs; avoid over-broad trust stores.
+* **Terminator awareness**: if a proxy/LB terminates TLS, mTLS stops there — re-establish mTLS on the next hop if you need end-to-end assurance.
+* **Network controls** (optional but common): pair with IP allowlists or PrivateLink/VPC endpoints for defence-in-depth.
+
+This section should drop in after your TLS note; your existing sequence diagram (with OAuth2) nicely shows **transport identity (mTLS)** + **authorisation (Bearer token)** together.

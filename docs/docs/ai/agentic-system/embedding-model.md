@@ -194,6 +194,19 @@ By following these steps, you’ll avoid the “it scored well on BEIR, so it’
    * For **domain-specific** (e.g. biomedical, legal), look for publicly released models fine-tuned on that domain (BioE5, LegalBERT, CodeE5).
    * If no specialist model exists, consider **fine-tuning** on a small domain corpus—E5 can be fine-tuned quickly on domain-specific pairs.
 
+:::info Amazon Titan Embedding model
+Amazon Titan Text Embeddings V2 (the latest version):
+- Supports over 100 languages in pre-training
+- Can process input text up to 8,192 tokens or 50,000 characters
+- Optimized for English but handles multilingual queries across a wide range of languages
+
+Important considerations:
+
+- While the model supports multilingual input, it's optimized primarily for English
+- Cross-language queries (such as having a knowledge base in one language and querying it in another language) may result in sub-optimal performance
+- The model generates meaningful vector representations (embeddings) for text in various languages
+:::
+
 3. ### “Should I worry about embedding dimension?”
 
    * **Higher dimension** (e.g. 768 vs. 384) can capture more nuance, but increases index size and search latency.

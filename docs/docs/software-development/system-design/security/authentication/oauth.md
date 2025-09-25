@@ -387,6 +387,7 @@ The client credentials grant is an OAuth flow used when no user interaction is r
 
 No refresh tokens are typically provided since no user interaction is involved. This process ensures secure and efficient access management for applications interacting with backend services.
 
+
 ## Future reading
 
 - [The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)

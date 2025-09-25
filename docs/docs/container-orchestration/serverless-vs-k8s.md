@@ -6,8 +6,6 @@ title: Serverless vs K8s
 
 ## When should we use Serverless instead of Kubernetes?
 
-We will preface our recommendation here with this:
-
 We would suggest using Serverless in every use-case, which does not strictly fit the criteria of using something else. When circumstances do not push us strongly away from Serverless, as described in the Kubernetes section, we believe the benefits heavily outweigh the drawbacks.
 
 We would also state that this recommendation specifically holds true for the Amazon Web Services flavour of Serverless. While Azure and Google Cloud also have Serverless offerings as of this being written in late 2020, the AWS offering has a higher level of maturity, combined with the breadth of functionality to implement almost any kind of system imaginable.

@@ -62,9 +62,6 @@ Certainly patches will still be part of the sysadmin’s world, but they aren’
 ### Where does the application server run
 Application servers translates into a service run inside of a Docker container. Certainly there may be cases where microservices-based applications need to connect to a non-containerized service, but for the most part standalone servers where application code is executed give way to one or more containers that provide the same functionality with much less overhead (and much better horizontal scaling) 
 
-## Containersand VMsTogether
-
-
 ## Further reading
 
 - [Docker for the Virtualization Admin](https://github.com/mikegcoleman/docker101/blob/master/Docker_eBook_Jan_2017.pdf)

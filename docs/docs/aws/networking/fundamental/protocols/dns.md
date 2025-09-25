@@ -216,6 +216,15 @@ You should keep in mind that the DNS protocol does not allow you to create a CNA
 
     source: [What is a DNS NS record?](https://www.cloudflare.com/learning/dns/dns-records/dns-ns-record/#:~:text=NS%20stands%20for%20'name%20server,example.com)
 
+:::caution NS Record vs. Nameservers
+
+> TL;DR: **NS records** live in your DNS zone; **nameservers** define who manages that zone.
+
+* **Nameservers** are set at your domain registrar (e.g. GoDaddy) to point your domain to a DNS provider like Cloudflare.
+* **NS records** are DNS entries that delegate control of a domain or subdomain within the DNS zone.
+
+Once you change your nameservers to Cloudflare, your registrar's DNS (e.g. GoDaddy's) no longer applies — Cloudflare becomes authoritative.
+:::
 
 7. SOA (Start of Authority) Record contains administrative information about a domain. It includes details such as the primary authoritative name server for the domain, contact information for the domain administrator, and other important parameters.
 
