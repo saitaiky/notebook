@@ -32,7 +32,7 @@ A unigram in the context of Large Language Models (LLMs) is a single word treate
 
 ### Introduction to N-gram Models
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/E_mN90TYnlg?si=M8qrz_hjZAG3VVIv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/E_mN90TYnlg?si=M8qrz_hjZAG3VVIv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 N-gram models are a foundational concept in understanding how language models predict the next word in a sequence. These models assign probabilities to possible next words based on the preceding words in the sequence.
 
@@ -126,7 +126,7 @@ To capture more linguistic information, text can be further broken down into ste
 
 ### Byte-Pair Encoding (BPE)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HEikzVL-lZU?si=iF5JCtT2I74srZGr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/HEikzVL-lZU?si=iF5JCtT2I74srZGr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 An alternative and more generalizable approach to tokenization is Byte-Pair Encoding (BPE), which builds tokens from characters based on their frequency in the corpus. The steps in BPE include identifying the most common characters in the corpus, finding the most common letter pairs, and updating the vocabulary until the desired vocabulary size or iteration count is reached. Stopping criteria for BPE can include specifying the vocabulary size or setting a fixed number of iterations. Tokenization is crucial for creating a manageable and effective vocabulary for training large language models. Large models are typically trained on hundreds of billions of tokens, making robust and efficient tokenization essential.
 

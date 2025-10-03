@@ -296,7 +296,7 @@ Building large language models from scratch is often impractical, especially for
 Alternatively, parameter-efficient methods like adapters and p-tuning can be used to customize base models. Customization is particularly effective when the base model aligns with the selected downstream tasks, leveraging the knowledge gained during training for improved performance.
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LPZh9BOjkQs?si=k2AhRbPHjCH7jhEs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/LPZh9BOjkQs?si=k2AhRbPHjCH7jhEs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 > A video that I found super useful if you want to know how LLM works visually
 
