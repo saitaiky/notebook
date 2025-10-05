@@ -47,13 +47,15 @@ This extended version is particularly suitable for handling complex tasks that r
 
 ### When to use an agent (and when not)
 
-![should-i-build-an-agent](/img/ai/agentic-system/pormpt-vs-agentic/should-i-build-an-agent.jpg)
+![should-i-build-an-agent](/img/ai/agentic-system/pormpt-vs-agentic/prompt-engineering-vs-context-engineering.jpeg)
 
 Use agents when the task is **complex + valuable**, requires **tool use**, and the **path is uncertain**. By “**path**” I mean the **sequence of intermediate decisions and actions** needed to get from a goal to a finished result: which tool to call first, what to search for, how to react to partial answers or errors, whether to branch, when to stop, and how to verify.
 
 When the **path is uncertain**, you *can’t* reliably specify that sequence up-front because it depends on information you don’t yet have (or on non-deterministic environments). That’s why it matters: **agents** (models using tools in a loop) are designed to *discover and adapt the path at runtime*. If the path is fixed and predictable, a single prompt or a scripted workflow is cheaper, faster, and more reliable.
 
-![should-i-build-an-agent](/img/ai/agentic-system/pormpt-vs-agentic/should-i-examples.jpg)
+![should-i-build-an-agent](/img/ai/agentic-system/pormpt-vs-agentic/should-i-build-an-agent.jpg)
+
+![should-i-build-an-agent-examples](/img/ai/agentic-system/pormpt-vs-agentic/should-i-examples.jpg)
 
 ## Agent prompting 
 
