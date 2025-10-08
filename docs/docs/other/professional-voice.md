@@ -1,6 +1,6 @@
 ---
 title: Professional Voice
-draft: true
+unlisted: true
 ---
 
 ### Finding Your Professional Voice

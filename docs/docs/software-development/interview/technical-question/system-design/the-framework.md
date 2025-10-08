@@ -1,7 +1,7 @@
 ---
 title: A System Design Framework 
 sidebar_position: 3
-draft: true
+unlisted: true
 ---
 
 It takes years for a team of engineers to build a system that you've been asked to design within a 45-minute interview. Using a framework is an effective way to structure your response and ensure you're addressing all the key aspects an interviewer is looking for.

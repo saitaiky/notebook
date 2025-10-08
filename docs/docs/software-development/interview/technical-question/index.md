@@ -1,6 +1,6 @@
 ---
 title: Technical Questions
-draft: true
+unlisted: true
 ---
 
 ## Types of Technical Questions in SA Interviews

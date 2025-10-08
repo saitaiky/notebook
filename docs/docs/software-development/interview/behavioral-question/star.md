@@ -1,7 +1,7 @@
 ---
 title: Star framework
 sidebar_position: 1
-draft: true
+unlisted: true
 ---
 
 While the interview experts don't recommend heavy use of frameworks, the STAR framework can be a helpful starting point for structuring behavioral interview answers, especially where rambling is a real danger.

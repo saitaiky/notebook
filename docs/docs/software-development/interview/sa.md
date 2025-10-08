@@ -1,7 +1,7 @@
 ---
 title: Solution Architect
 sidebar_position: 1
-draft: true
+unlisted: true
 ---
 
 The client really sees you as the technical expert. You are the one who builds the trust between the client and your company, unlike a salesperson.

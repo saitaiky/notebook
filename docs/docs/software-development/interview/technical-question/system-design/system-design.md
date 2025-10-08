@@ -1,7 +1,7 @@
 ---
 title: System Design Interview
 sidebar_position: 2
-draft: true
+unlisted: true
 ---
 
 System design interviews may seem strictly focused on assessing your technical abilities, but that’s not quite the case.

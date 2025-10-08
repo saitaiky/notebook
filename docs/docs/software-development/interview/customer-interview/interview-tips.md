@@ -1,7 +1,7 @@
 ---
 title: Customer Interaction Interview Tips
 sidebar_position: 3
-draft: true
+unlisted: true
 ---
 
 ## Know Your Audience

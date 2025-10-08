@@ -1,7 +1,7 @@
 ---
 title: Handling Customer Objections
 sidebar_position: 3
-draft: true
+unlisted: true
 ---
 
 # Handling Customer Objections in discovery and demo interview

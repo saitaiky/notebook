@@ -1,7 +1,7 @@
 ---
 title: Discovery Interviews
 sidebar_position: 1
-draft: true
+unlisted: true
 ---
 
 ## What Is Discovery? Why Is It Important?

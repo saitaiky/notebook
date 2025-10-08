@@ -1,7 +1,7 @@
 ---
 title: Demo Interviews
 sidebar_position: 2
-draft: true
+unlisted: true
 ---
 
 ## Main Points

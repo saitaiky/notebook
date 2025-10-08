@@ -1,6 +1,6 @@
 ---
 title: How I Mentor Junior Developers
-draft: true
+unlisted: true
 ---
 
 ## Core Approach & Framework

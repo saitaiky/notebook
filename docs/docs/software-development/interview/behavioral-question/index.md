@@ -1,6 +1,6 @@
 ---
 title: Behavioral Questions for Solutions Architects
-draft: true
+unlisted: true
 ---
 
 In this section, we'll focus on tackling behavioral interview questions, such as “Tell me about yourself” and “Why do you want to work here?”. These questions can be intimidating due to their open-ended nature. The core advice is to focus on **authenticity** and practice to improve your confidence and effectiveness in interviews.

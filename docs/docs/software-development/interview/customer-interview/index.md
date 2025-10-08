@@ -1,6 +1,6 @@
 ---
 title: Customer interview
-draft: true
+unlisted: true
 ---
 
 

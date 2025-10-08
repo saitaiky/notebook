@@ -1,7 +1,7 @@
 ---
 title: CheatSheet
 sidebar_position: 100
-draft: true
+unlisted: true
 ---
 
 ## 5-Step Framework for Answering System Design Interview Questions

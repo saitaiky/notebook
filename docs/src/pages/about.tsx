@@ -5,7 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.scss';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import logo from '@site/static/img/about-me/favicon.JPEG'
+import logo from '@site/static/img/about-me/favicon.jpg'
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -26,7 +26,7 @@ function HomepageHeader() {
         <br/>
         <p>👋 Hi, this is Sai. I’m documenting my learning progress in this notebook(<a href="/blog/hello-world/">About this place</a>).</p>
         <p>I'm a software architect with 12+ years of experience living in London, currently focusing in AI-driven web applications.</p>
-        <p>Outside of work, I like to play guitar and draw; yoga has become my favourite sport since the pandemic.</p>
+        <p>Outside of work, I like to play guitar and draw; baking has become my favourite hobby since the pandemic.</p>
         <div>
           <img src="/img/about-me/sa.png" width="200px"></img>
           <img src="/img/about-me/developer.png" width="200px"></img>

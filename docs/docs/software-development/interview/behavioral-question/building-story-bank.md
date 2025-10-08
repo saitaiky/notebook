@@ -1,7 +1,7 @@
 ---
 title: Story Bank
 sidebar_position: 1
-draft: true
+unlisted: true
 ---
 
 # Building Your Solutions Architect Story Bank
