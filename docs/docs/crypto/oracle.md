@@ -1,5 +1,5 @@
 ---
-title: Blockchain Oracles Explained
+title: Blockchain Oracles
 ---
 
 ## Blockchain Oracles Explained: Why Do We Need Oracles?
