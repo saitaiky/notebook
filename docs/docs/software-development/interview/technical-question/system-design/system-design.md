@@ -72,4 +72,4 @@ You can best prepare for the interview by ensuring you have a solid grasp on:
 - **Consider Cloud-Native Services**:
     - Understand the risks of vendor lock-in for clients and be prepared to discuss them.
 
-For a detailed approach, refer to [The framework](/software-development/interview/technical-question/framework/).
+For a detailed approach, refer to [The framework](/software-development/interview/technical-question/system-design/the-framework/).
