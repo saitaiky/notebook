@@ -4,11 +4,6 @@ sidebar_position: 0
 ---
 
 This section is for recording some hobbies and topics that I would like to learn or jot in the future. They include:
-- AI
-    - **LangChain**: Best for complex workflows involving multiple LLM calls, integrations, and memory management. Use when building sophisticated LLM-powered applications.
-    - **LangGraph**: Ideal for applications that require a graph-based approach to managing conversational logic or complex decision paths. Use when you need visual representation and control over conversation flows.
-    - **Langroid**: Great for rapid prototyping and modular development of LLM applications. Use when you want a simple, lightweight framework for quick development.
-    - **Dify**: Suited for enterprises or teams that need to deploy, manage, and monitor LLM applications at scale. Use when you require robust management, A/B testing, and performance monitoring in production environments.
 - Cognitive psychology / psychology
     - Book: The Laws of Human Nature by Robert Greene
 - Philosophy
