@@ -26,35 +26,35 @@ Overall, these machine learning techniques form the foundation for creating inte
 
 ## Table of content
 
-- Predicting Boston Housing Prices (Basic Knowledge)
-    - Training and testing models
-    - Evaluation metrics
-    - Valuation and validation
-- Find Donors for CharityML (Supervised Learning)
-    - Linear regression
-    - Perceptron Algorithm
-    - Logistic Regression
-    - Neural Networks
-    - Decision Tree
-    - Naive Bayes
-    - Support Vector Machines(SVM)
-    - Ensemble of learners
-- Create Customer Segments (Unsupervised Learning)
-    - Clustering
-    - Hierarchical & Density-based clustering
-    - Gaussian mixture models
-    - Feature scaling
-    - Dimensionality reduction
-- Dog Breed Classifier (Deep learning)
-    - Deep Neural Network (DNN)
-    - Convolutional Neural Networks (CNN)
-- Train a Quadcopter to fly (Reinforcement Learning)
-    - `Problem` - RL framework: Markov Decision Processes
-    - `Solution` - RL framework: Policies, value function and Bellman Equations
-    - Dynamic progremming
-    - Monte Carlo Methods
-    - Temporal - Sarsa, Q-Learning, Expected Sarsa algorithms
-    - Work with Continuous spaces
-    - Deep Q-learning
-    - Policy gradients
-    - Actor-critic methods
+- [Predicting Boston Housing Prices (Basic Knowledge)](./term1#part-1-model-evaluation-validation)
+  - [Training and testing models](./term1#the-core-task-training-and-testing)
+  - [Evaluation metrics](./term1#how-good-is-good-metrics-for-success)
+  - [Valuation and validation](./term1#the-process-finding-the-best-model-with-validation)
+- [Find Donors for CharityML (Supervised Learning)](./term1#part-2-supervised-learning-classification)
+  - [Linear regression](./term1#the-first-step-linear-polynomial-regression)
+  - [Perceptron Algorithm](./term1#the-perceptron)
+  - [Logistic Regression](./term1#linear-models-the-foundation)
+  - [Neural Networks](./term2#part-4-from-neural-networks-to-deep-learning)
+  - [Decision Tree](./term1#decision-trees)
+  - [Naive Bayes](./term1#probabilistic-models-naive-bayes)
+  - [Support Vector Machines(SVM)](./term1#support-vector-machines-svm)
+  - [Ensemble of learners](./term1#ensemble-methods)
+- [Create Customer Segments (Unsupervised Learning)](./term1#part-3-unsupervised-learning-clustering-dimensionality-reduction)
+  - [Clustering](./term1#clustering-finding-groups-in-data)
+  - [Hierarchical & Density-based clustering](./term1#hierarchical-clustering)
+  - [Gaussian mixture models](./term1#gaussian-mixture-models-gmms)
+  - [Feature scaling](./term1#the-importance-of-preprocessing-feature-scaling)
+  - [Dimensionality reduction](./term1#dimensionality-reduction-finding-the-latent-features)
+- [Dog Breed Classifier (Deep learning)](./term2#part-5-convolutional-neural-networks-cnns)
+  - [Deep Neural Network (DNN)](./term2#part-4-from-neural-networks-to-deep-learning)
+  - [Convolutional Neural Networks (CNN)](./term2#part-5-convolutional-neural-networks-cnns)
+- [Train a Quadcopter to fly (Reinforcement Learning)](./term2#part-6-reinforcement-learning-foundations)
+  - [`Problem` - RL framework: Markov Decision Processes](./term2#the-formal-framework-markov-decision-processes-mdps)
+  - [`Solution` - RL framework: Policies, value function and Bellman Equations](./term2#the-solution-value-functions-policies)
+  - [Dynamic progremming](./term2#part-6-reinforcement-learning-foundations)
+  - [Monte Carlo Methods](./term2#part-6-reinforcement-learning-foundations)
+  - [Temporal - Sarsa, Q-Learning, Expected Sarsa algorithms](./term2#part-6-reinforcement-learning-foundations)
+  - [Work with Continuous spaces](./term2#beyond-dqn-modern-reinforcement-learning)
+  - [Deep Q-learning](./term2#value-based-methods-deep-q-networks-dqn)
+  - [Policy gradients](./term2#policy-based-methods-the-road-ahead)
+  - [Actor-critic methods](./term2#beyond-dqn-modern-reinforcement-learning)

@@ -1,2 +1,39 @@
+# ============ Block Common Crawl from the West ============
+# Block OpenAI training crawler
+User-agent: GPTBot
+Disallow: /
+
+# Block Google's AI-training/grounding control (does NOT affect Google Search crawling/indexing)
+User-agent: Google-Extended
+Disallow: /
+
+# Block Anthropic training crawler
+User-agent: ClaudeBot
+Disallow: /
+
+# Block Common Crawl (often used as a downstream dataset source)
+User-agent: CCBot
+Disallow: /
+
+# ============ Block Common Crawl from China ============
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+User-agent: 360Spider
+Disallow: /
+
+User-agent: ChinasoSpider
+Disallow: /
+
+User-agent: Sosospider
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+# Allow everything else (Googlebot, Bingbot, etc.)
 User-agent: *
 Disallow:

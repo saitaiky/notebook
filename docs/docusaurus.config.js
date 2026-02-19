@@ -247,7 +247,7 @@ const config = {
               },
               {
                 to: 'ai/dl',
-                label: 'Deep Learning',
+                label: 'Deep Learning Foundations',
               },
               {
                 to: 'ai/llm',
