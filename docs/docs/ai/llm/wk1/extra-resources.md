@@ -1,6 +1,16 @@
 ---
 title: Extra resources
+description: 'Below you''ll find links to the research papers discussed in this weeks videos. You don''t need to understand all the technical details discussed in these papers -.'
 sidebar_position: 3
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - extra resources
+  - extra
+  - resources
+  - below
+  - you
 ---
 
 

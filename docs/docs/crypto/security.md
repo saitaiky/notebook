@@ -1,5 +1,15 @@
 ---
 title: Attack on block chain
+description: 'Double-spending in the cryptocurrency world refers to the risk that a digital currency can be spent more than once. This is a fundamental problem that cryptocurre.'
+keywords:
+  - crypto
+  - attack block chain
+  - attack
+  - block
+  - chain
+  - double
+  - spending
+  - cryptocurrency
 ---
 
 ## Double-spending

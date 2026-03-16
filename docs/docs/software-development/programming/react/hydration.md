@@ -1,5 +1,14 @@
 ---
 title: Hydration In React
+description: React hydration explained covering server-side rendering, how React attaches event listeners to static HTML, hydration errors, and SSR performance trade-offs.
+keywords:
+  - react hydration
+  - server side rendering
+  - react ssr
+  - react hydration error
+  - react dom hydrate
+  - next.js hydration
+  - react performance
 ---
 
 ## React Hydration and How Incognito Mode Fixes Hydration Issues

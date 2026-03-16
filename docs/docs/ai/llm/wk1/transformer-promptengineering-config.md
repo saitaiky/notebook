@@ -1,6 +1,16 @@
 ---
 title: Transformer, Prompt engineering, Config
+description: 'Pre-training in the context of Large Language Models (LLMs) is essentially the same fundamental action as training in the broader AI field. Both involve updating.'
 sidebar_position: 1
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - transformer prompt engineering
+  - transformer
+  - prompt
+  - engineering
+  - config
 ---
 
 

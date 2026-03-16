@@ -1,5 +1,14 @@
 ---
 title: Services
+description: Kubernetes Services providing stable DNS endpoints for pods using kube-proxy and iptables, enabling reliable internal and external connectivity for applications.
+keywords:
+  - kubernetes services
+  - kubernetes dns
+  - kube-proxy
+  - kubectl expose
+  - kubernetes networking
+  - service discovery
+  - kubernetes endpoints
 ---
 
 ## Problem statement

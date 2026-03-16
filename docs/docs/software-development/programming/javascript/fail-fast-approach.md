@@ -1,5 +1,14 @@
 ---
 title: "Fail-Fast approach & javascript Engine"
+description: Fail-fast approach in JavaScript and the V8 engine's hidden class optimization, explaining how property order affects performance and memory usage.
+keywords:
+  - fail fast javascript
+  - javascript engine
+  - v8 engine
+  - hidden classes
+  - javascript optimization
+  - fail fast principle
+  - javascript performance
 ---
 
 

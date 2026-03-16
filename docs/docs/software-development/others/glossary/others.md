@@ -1,6 +1,14 @@
 ---
 title: Others
-description: Others
+description: Software development glossary with miscellaneous terms, definitions, and concepts for developers covering common industry terminology and patterns.
+keywords:
+  - software glossary
+  - development terms
+  - programming definitions
+  - software concepts
+  - tech glossary
+  - developer terminology
+  - software development
 ---
 
 ## What does LTS mean?

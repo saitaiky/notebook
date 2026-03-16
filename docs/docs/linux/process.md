@@ -1,5 +1,15 @@
 ---
 title: Zombie Process
+description: 'In the world of Linux, a zombie process refers to any process that is essentially removed from the system as ‘defunct’, but still somehow resides in the processor.'
+keywords:
+  - linux
+  - zombie process
+  - zombie
+  - process
+  - world
+  - refers
+  - any
+  - essentially
 ---
 
 ## What is a Zombie process?

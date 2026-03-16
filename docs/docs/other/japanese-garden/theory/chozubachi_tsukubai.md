@@ -1,6 +1,12 @@
 ---
 title: 手水鉢と蹲踞
+description: '我們經常看到有人把手水鉢和蹲踞作為同義詞混淆，但其實它們大有不同。在日本，自古參拜神社和寺院時，在參拜前先要用水洗手漱口來淨化身心。為此，在神佛前設置了手水鉢，正如其名，手水鉢指的是洗手漱口的蓄水鉢。.'
 sidebar_position: 6
+keywords:
+  - japanese garden
+  - theory
+  - learning notes
+  - personal knowledge base
 ---
 
 ## 手水鉢和蹲踞的區別

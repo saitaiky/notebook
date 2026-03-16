@@ -1,5 +1,14 @@
 ---
 title: Enterprise Architecture
+description: Enterprise architecture patterns covering SOA, TOGAF, domain-driven design, bounded contexts, and integration patterns for large-scale enterprise systems.
+keywords:
+  - enterprise architecture
+  - soa
+  - togaf
+  - domain driven design
+  - bounded context
+  - enterprise integration
+  - architectural patterns
 ---
 
 ## Overview

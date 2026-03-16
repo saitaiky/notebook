@@ -1,5 +1,14 @@
 ---
 title: GitOps
+description: GitOps methodology using Git as the single source of truth for declarative infrastructure, enabling automated continuous delivery and infrastructure-as-code workflows.
+keywords:
+  - gitops
+  - git ops
+  - infrastructure as code
+  - continuous delivery
+  - declarative infrastructure
+  - gitops workflow
+  - devops automation
 ---
 
 > Reference: [Gitlab - What is GitOps?](https://about.gitlab.com/topics/gitops/#what-is-git-ops)

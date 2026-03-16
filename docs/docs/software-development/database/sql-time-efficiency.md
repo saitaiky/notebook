@@ -1,5 +1,14 @@
 ---
 title: Time Efficiency in SQL
+description: SQL query optimization and algorithmic complexity covering O(1) to O(n log n) complexity impacts on database performance and index usage.
+keywords:
+  - sql optimization
+  - sql time efficiency
+  - sql algorithmic complexity
+  - query performance
+  - database indexing
+  - sql big-o
+  - sql query tuning
 ---
 
 # SQL Query Optimization and Algorithmic Complexity

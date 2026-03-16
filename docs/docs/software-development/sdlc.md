@@ -1,5 +1,14 @@
 ---
 title: SDLC (Software Development Life Cycle)
+description: Software Development Life Cycle (SDLC) overview covering Agile, Waterfall, and iterative methodologies, phases, and best practices for software project management.
+keywords:
+  - sdlc
+  - software development life cycle
+  - agile
+  - waterfall methodology
+  - software project management
+  - sdlc phases
+  - development methodology
 ---
 
 > Reference: [SDLC (Software Development Life Cycle) Phases, Process, Models](https://www.softwaretestinghelp.com/software-development-life-cycle-sdlc/#Software_Development_Life_Cycle_Process)

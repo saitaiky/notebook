@@ -1,5 +1,14 @@
 ---
 title: Compliance
+description: Software compliance glossary covering regulatory standards, audit requirements, data governance, and compliance frameworks for enterprise software systems.
+keywords:
+  - compliance
+  - software compliance
+  - regulatory standards
+  - data governance
+  - audit
+  - compliance frameworks
+  - enterprise compliance
 ---
 
 ## Patch Compliance

@@ -1,9 +1,18 @@
 ---
 title: "Fast-forward"
+description: Git fast-forward merge explained showing linear history advancement when the target branch has no diverged commits, preserving a clean project timeline.
 metaTitle: "Git undo changes and remote controls"
 metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
 
 sidebar_position: 3
+keywords:
+  - git fast-forward
+  - git merge
+  - fast-forward merge
+  - git linear history
+  - git branching
+  - git merge strategies
+  - version control
 ---
 
 ![what is git rebase](/img/software-development/version-control/fast-forward.gif)

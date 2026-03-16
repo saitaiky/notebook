@@ -1,6 +1,15 @@
 ---
 title: Daily tricks
 sidebar_position: 10
+description: Kubernetes daily CLI tricks including one-off debugging pods with netshoot, kubectl run with bash, and working with unopinionated Kubernetes tooling.
+keywords:
+  - kubectl tricks
+  - kubernetes debugging
+  - kubectl run
+  - netshoot
+  - kubernetes cli
+  - one-off pod
+  - kubernetes tips
 ---
 
 

@@ -1,5 +1,14 @@
 ---
 title: Scaling
+description: Kubernetes pod scaling with kubectl scale command updating Deployment spec and ReplicaSet replicas across single and multi-node cluster configurations.
+keywords:
+  - kubernetes scaling
+  - kubectl scale
+  - kubernetes replicas
+  - kubernetes horizontal scaling
+  - replicaset
+  - kubernetes deployment scaling
+  - kubectl commands
 ---
 
 ## Scaling Pods

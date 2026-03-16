@@ -1,6 +1,15 @@
 ---
 title: Deployment
 sidebar_position: 2
+description: Kubernetes Deployment, ReplicaSet, and Pod abstraction layers for managing containerized production applications with kubectl create and scale commands.
+keywords:
+  - kubernetes deployment
+  - kubernetes replicaset
+  - kubernetes pod
+  - kubectl create deployment
+  - kubernetes production
+  - kubectl commands
+  - kubernetes workloads
 ---
 
 ## Deployment, ReplicaSet, Pod

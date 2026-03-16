@@ -1,5 +1,14 @@
 ---
 title: Deep link in mobile
+description: Mobile deep linking directing users to specific in-app content rather than the home page, with universal links, URI schemes, and deferred deep linking explained.
+keywords:
+  - deep link
+  - mobile deep linking
+  - universal links
+  - uri scheme
+  - app links
+  - deferred deep linking
+  - mobile development
 ---
 
 ## What is Deep Linking?

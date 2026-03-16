@@ -1,5 +1,14 @@
 ---
 title: Knowledge graph
+description: Knowledge graphs as semantic networks representing real-world entities and relationships, stored in graph databases for interconnected knowledge modeling.
+keywords:
+  - knowledge graph
+  - semantic network
+  - graph database
+  - entity relationships
+  - knowledge modeling
+  - graph data
+  - ontology
 ---
 
 ## What is a knowledge graph?

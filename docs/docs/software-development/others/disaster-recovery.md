@@ -1,5 +1,14 @@
 ---
 title: Disaster Recovery
+description: Disaster recovery planning with RTO, RPO, and MTD metrics, backup strategies, and recovery approaches for business continuity after system failures.
+keywords:
+  - disaster recovery
+  - rto
+  - rpo
+  - maximum tolerable downtime
+  - business continuity
+  - backup strategy
+  - recovery planning
 ---
 
 ![rpo-rto](/img/software-development/others/rpo-rto.png)

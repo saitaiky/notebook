@@ -1,5 +1,15 @@
 ---
 title: History and Culture of the UK
+description: 'The two-House system in English Parliament, consisting of the House of Commons and the House of Lords, has its roots in medieval England.'
+keywords:
+  - history culture uk
+  - history
+  - culture
+  - uk
+  - two
+  - house
+  - system
+  - english
 ---
 
 ## History

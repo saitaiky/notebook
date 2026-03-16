@@ -1,7 +1,16 @@
 ---
 title: Exactly Once
+description: Exactly-once message delivery guarantee preventing duplicate processing using idempotency keys, transactional outbox, and distributed transaction patterns.
 
 sidebar_position: 4
+keywords:
+  - exactly-once delivery
+  - message queue
+  - idempotency key
+  - transactional outbox
+  - duplicate prevention
+  - kafka exactly once
+  - distributed transactions
 ---
 
 > Disclaimer: This note is mostly inspired by the [Lightbend: How Akka Works](https://www.lightbend.com/blog/how-akka-works-at-most-once-message-delivery) series

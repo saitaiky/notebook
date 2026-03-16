@@ -1,5 +1,15 @@
 ---
 title:  "English Grammar Study Notes"
+description: '**Have got** and **have** both express possession, but they differ in formality and usage.'
+keywords:
+  - languages
+  - english grammar study
+  - english
+  - grammar
+  - study
+  - notes
+  - have
+  - got
 ---
 
 ## 1. Core Grammar Foundations

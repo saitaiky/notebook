@@ -1,5 +1,14 @@
 ---
 title: AWS Landing Zones 
+description: AWS Landing Zones for multi-account governance with Account Factory, guardrails, SCP policies, and centralized security controls for enterprise AWS adoption.
+keywords:
+  - aws landing zone
+  - aws control tower
+  - multi-account aws
+  - account factory
+  - aws guardrails
+  - scp policies
+  - enterprise aws
 ---
 
 ## 1) Concept & Why

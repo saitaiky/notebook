@@ -1,6 +1,15 @@
 ---
 title: ClusterIP
 sidebar_position: 1
+description: "Kubernetes ClusterIP service for pod-to-pod communication using DNS names, with two access approaches: pod-to-service curl and direct node IP access on Linux."
+keywords:
+  - kubernetes clusterip
+  - kubernetes services
+  - pod to pod communication
+  - kubernetes dns
+  - kubectl expose
+  - kubernetes networking
+  - service discovery
 ---
 
 ## How to talk to services

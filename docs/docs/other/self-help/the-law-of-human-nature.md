@@ -1,5 +1,15 @@
 ---
 title: The laws of human nature
+description: 'eene''s \"The Laws of Human Nature\" aims to help people understand themselves and others better to improve their interactions and decisions in both personal and professi.'
+keywords:
+  - self help
+  - laws human nature
+  - laws
+  - human
+  - nature
+  - robert
+  - greene
+  - s
 ---
 
 Robert Greene's "The Laws of Human Nature" aims to help people understand themselves and others better to improve their interactions and decisions in both personal and professional contexts. Greene's motivation for writing the book stemmed from observing that many people struggle due to a lack of understanding of human behavior, leading to poor choices and relationships.

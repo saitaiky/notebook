@@ -1,8 +1,16 @@
 ---
 title: Developmental stage theory
-description: Discover key developmental stage theories in psychology, including Piaget's cognitive development, Kohlberg's moral development, and Erikson's psychosocial development. Understand their importance and application.
-keywords: [developmental stage theory, Piaget, Kohlberg, Erikson, cognitive development, moral development, psychosocial development, psychology stages]
+description: 'Discover key developmental stage theories in psychology, including Piaget''s cognitive development, Kohlberg''s moral development, and Erikson''s psychosocial development. Understand their importance and application.'
 sidebar_position: 1
+keywords:
+  - psychology
+  - life
+  - developmental stage theory
+  - developmental
+  - stage
+  - theory
+  - refers
+  - idea
 ---
 
 

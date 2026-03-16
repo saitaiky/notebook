@@ -1,5 +1,14 @@
 ---
 title: Serverless vs K8s
+description: Decision guide comparing serverless and Kubernetes for time-to-market speed, stateful apps, low-latency requirements, long-running tasks, and predictable high load.
+keywords:
+  - serverless vs kubernetes
+  - serverless
+  - kubernetes
+  - aws lambda
+  - container orchestration
+  - faas
+  - serverless trade-offs
 ---
 
 > Reference : https://chaordic.io/blog/serverless-vs-kubernetes/

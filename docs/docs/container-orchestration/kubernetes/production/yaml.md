@@ -1,5 +1,14 @@
 ---
 title: YAML
+description: Kubernetes YAML manifests as a superset of JSON for declarative resource definitions with proper two-space indentation, key/value pairs, arrays, and maps.
+keywords:
+  - kubernetes yaml
+  - kubernetes manifests
+  - yaml syntax
+  - kubernetes declarative
+  - yaml indentation
+  - kubernetes resource definition
+  - yaml vs json kubernetes
 ---
 
 ## YAML refresher

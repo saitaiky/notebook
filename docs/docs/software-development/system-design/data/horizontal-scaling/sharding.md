@@ -1,5 +1,14 @@
 ---
 title: Sharding
+description: Database sharding strategies for horizontal scaling covering range, hash, and directory-based sharding, with hot shard prevention and resharding techniques.
+keywords:
+  - database sharding
+  - horizontal scaling
+  - hash sharding
+  - range sharding
+  - hot shard
+  - resharding
+  - distributed database
 ---
 
 > TL;DR - Database sharding can significantly improve both read and write performance under the right circumstances unlike replication which only improve the read performance.

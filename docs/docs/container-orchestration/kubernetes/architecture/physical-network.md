@@ -1,6 +1,15 @@
 ---
 title: Physical Network perspective
 sidebar_position: 2
+description: Kubernetes physical network architecture with API server, scheduler, controller manager, etcd on master nodes and kubelet agents on worker nodes.
+keywords:
+  - kubernetes physical network
+  - kubernetes master node
+  - kubernetes worker node
+  - kubernetes api server
+  - kubernetes etcd
+  - kubernetes network architecture
+  - kubernetes cluster
 ---
 
 

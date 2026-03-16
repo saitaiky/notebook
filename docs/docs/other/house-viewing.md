@@ -1,6 +1,16 @@
 ---
 title: "House Viewing"
+description: 'Below is a consolidated document containing all the essential questions, considerations, and negotiation strategies you might need during a house viewing in the UK.'
 unlisted: true
+keywords:
+  - house viewing
+  - house
+  - viewing
+  - below
+  - consolidated
+  - document
+  - containing
+  - all
 ---
 
 Below is a consolidated document containing all the essential questions, considerations, and negotiation strategies you might need during a house viewing in the UK. You can print or save this as a quick-reference guide. Adjust any wording to suit your personal style.

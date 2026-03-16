@@ -1,5 +1,14 @@
 ---
 title: __name__ vs __main__ 
+description: Python __name__ vs __main__ explained, covering how Python modules detect if run directly or imported and the pattern for executable scripts and libraries.
+keywords:
+  - python __name__
+  - python __main__
+  - python module
+  - if __name__ main
+  - python script vs module
+  - python import
+  - python executable script
 ---
 
 ### **1. The `__name__` and `__main__` Logic in Python**

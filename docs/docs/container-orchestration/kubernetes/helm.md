@@ -1,6 +1,15 @@
 ---
 title: Helm
 sidebar_position: 5
+description: Helm package manager for Kubernetes automating application lifecycle with charts, repositories, versioning, and single CLI commands for deploy and updates.
+keywords:
+  - helm
+  - helm charts
+  - kubernetes package manager
+  - helm deploy
+  - helm chart repository
+  - kubernetes deployment
+  - helm cli
 --- 
 
 ## What is Helm

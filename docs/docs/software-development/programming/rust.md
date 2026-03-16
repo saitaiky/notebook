@@ -1,6 +1,15 @@
 ---
 title: Rust
+description: Rust programming language overview covering ownership, borrowing, lifetimes, memory safety without garbage collection, and systems programming use cases.
 sidebar_position: 7
+keywords:
+  - rust programming
+  - rust language
+  - rust ownership
+  - rust borrowing
+  - rust memory safety
+  - systems programming
+  - rust lifetimes
 ---
 
 

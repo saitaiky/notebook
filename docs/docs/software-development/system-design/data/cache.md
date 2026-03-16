@@ -1,5 +1,14 @@
 ---
 title: Cache
+description: Caching strategies covering cache-aside, write-through, write-behind, TTL, eviction policies, Redis, and CDN caching for distributed system performance.
+keywords:
+  - caching
+  - cache strategies
+  - cache-aside
+  - write-through cache
+  - redis cache
+  - cdn caching
+  - cache eviction
 ---
 
 Caching is a critical element of system performance and scalability, providing rapid data access and reducing strain on key parts of the system. By harnessing the power of data **locality**, caching keeps frequently accessed data readily available for quicker retrieval, whether embedded within your local machine or deployed across massive internet applications.

@@ -1,6 +1,15 @@
 ---
 title: Node, Pod, Control Plane
 sidebar_position: 3
+description: Kubernetes node and control plane components including kubelet, kube-proxy, container engine on nodes and API server, etcd, scheduler, controller manager.
+keywords:
+  - kubernetes node
+  - kubernetes pod
+  - kubernetes control plane
+  - kubelet
+  - kube-proxy
+  - etcd
+  - kubernetes components
 ---
 
 ## The nodes

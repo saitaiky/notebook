@@ -1,6 +1,15 @@
 ---
 title: Bond
-description: Bond
+description: 'The coupon rate in a bond refers to the fixed annual interest rate that the issuer of the bond agrees to pay to bondholders.'
+keywords:
+  - econ
+  - products
+  - bond
+  - coupon
+  - rate
+  - refers
+  - fixed
+  - annual
 ---
 
 

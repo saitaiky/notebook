@@ -1,6 +1,16 @@
 ---
 title: Embedding Model
+description: 'Embeddings lie at the heart of many modern AI applications—semantic search, Retrieval-Augmented Generation (RAG), clustering, classification, even cross-modal ret.'
 sidebar_position: 1
+keywords:
+  - ai
+  - agentic system
+  - embedding model
+  - embedding
+  - model
+  - embeddings
+  - lie
+  - heart
 ---
 
 Embeddings lie at the heart of many modern AI applications—semantic search, Retrieval-Augmented Generation (RAG), clustering, classification, even cross-modal retrieval. Yet, with dozens of open-source and proprietary options (E5, GTE, Ada-002, BGE, Cohere Embed, Jina Embeddings 2, NV-Embed, etc.), it’s easy to feel overwhelmed. This post synthesises advice from the Beam blog ("Choosing the Best Embedding Models for RAG and Document Understanding" ([beam.cloud][1])) along with evidence from leading benchmarks (MTEB, BEIR) and recent academic work. By the end, you should have a clear framework for selecting and evaluating an embedding model that fits your use case, budget, and performance requirements.

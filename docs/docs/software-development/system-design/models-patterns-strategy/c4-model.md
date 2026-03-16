@@ -1,5 +1,14 @@
 ---
 title: C4 model
+description: C4 model for visualizing software architecture using Context, Container, Component, and Code diagrams for clear multi-level system documentation.
+keywords:
+  - c4 model
+  - software architecture diagrams
+  - context diagram
+  - container diagram
+  - component diagram
+  - system documentation
+  - architectural visualization
 ---
 
 > For more diagrams to illustrate the concept of C4 model, check https://c4model.com/

@@ -1,6 +1,16 @@
 ---
 title: Overview
+description: 'The primary objective of this crypto section is to provide concise knowledge about cryptocurrencies, offering valuable insights that can be of assistance in your.'
 sidebar_position: 0
+keywords:
+  - crypto
+  - overview
+  - primary
+  - objective
+  - section
+  - provide
+  - concise
+  - knowledge
 ---
 
 The primary objective of this crypto section is to provide concise knowledge about cryptocurrencies, offering valuable insights that can be of assistance in your journey into the crypto world. Rather than a conventional linear approach, we aim to provide bite-sized, practical information.

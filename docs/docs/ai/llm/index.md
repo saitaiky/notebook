@@ -1,5 +1,15 @@
 ---
 title: Introduction to LLMs
+description: 'Large Language Models (LLMs) primarily fall under the categories of deep learning and machine learning, leveraging advanced neural network architectures like tran.'
+keywords:
+  - ai
+  - llm
+  - introduction llms
+  - introduction
+  - llms
+  - large
+  - language
+  - models
 ---
 
 :::info The reason I didn't put this LLM section into ML or DL section

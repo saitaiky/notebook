@@ -1,6 +1,16 @@
 ---
 title: Professional Voice
+description: 'https://www.coursera.org/learn/machine-learning-linear-algebra/home/week/1.'
 unlisted: true
+keywords:
+  - professional voice
+  - professional
+  - voice
+  - https
+  - www
+  - coursera
+  - org
+  - learn
 ---
 
 ### Finding Your Professional Voice

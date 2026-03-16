@@ -1,5 +1,14 @@
 ---
 title: Update 
+description: Kubernetes Day-2 operations covering Deployment update strategies including rolling updates, blue-green, and canary deployments for zero-downtime upgrades.
+keywords:
+  - kubernetes update
+  - kubernetes rolling update
+  - kubernetes deployment strategies
+  - blue-green deployment
+  - canary deployment
+  - kubernetes day 2 operations
+  - zero downtime deployment
 ---
 
 

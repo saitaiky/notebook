@@ -1,6 +1,14 @@
 ---
 title: Storage
-description: Storage
+description: Storage types overview comparing block, file, and object storage, with use cases for databases, file systems, and cloud storage solutions like S3.
+keywords:
+  - storage types
+  - block storage
+  - file storage
+  - object storage
+  - cloud storage
+  - s3
+  - database storage
 ---
 
 Data storage is the retention of information using technology specifically developed to keep that data and have it as accessible as necessary. Data storage refers to the use of recording media to retain data using computers or other devices. The most prevalent forms of data storage are file storage, block storage, and object storage, with each being ideal for different purposes.

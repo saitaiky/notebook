@@ -1,9 +1,18 @@
 ---
 title: "Rebase"
+description: Git rebase explained covering interactive rebase, golden rule of rebasing, replay of commits onto a new base, and when to use rebase versus merge.
 metaTitle: "Git undo changes and remote controls"
 metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
 
 sidebar_position: 1
+keywords:
+  - git rebase
+  - interactive rebase
+  - git rebase vs merge
+  - rebase commits
+  - git history rewrite
+  - git workflow
+  - version control
 ---
 
 :::info TL;DR

@@ -1,5 +1,14 @@
 ---
 title: NoSQL vs SQL
+description: NoSQL versus SQL database comparison covering relational versus document, key-value, column-family, and graph databases with use case selection criteria.
+keywords:
+  - nosql vs sql
+  - relational database
+  - nosql database
+  - document database
+  - key-value store
+  - database selection
+  - sql nosql trade-offs
 ---
 
 When we design a system, a critical decision is the choice of database technology: SQL or NoSQL. Each type has distinct advantages and disadvantages that must be weighed against the specific requirements of the use case. A key consideration in this decision is the nature of the data you need to store and manage. Structured data and unstructured data play a crucial role in determining the appropriate database technology. Structured data is highly organized, typically stored in tabular formats with well-defined relationships, making it ideal for SQL databases. On the other hand, unstructured data lacks a predefined schema, encompassing diverse formats like text, images, and videos, which are better suited for NoSQL databases.

@@ -1,9 +1,18 @@
 ---
 title: "Squash"
+description: Git squash merge combining multiple commits into one for a clean pull request history, with trade-offs between commit granularity and readable project history.
 metaTitle: "Git undo changes and remote controls"
 metaDescription: "We will discuss topics related to git revert, reset, rebase, stash, fetch, pull, push and merge."
 
 sidebar_position: 2
+keywords:
+  - git squash
+  - squash merge
+  - git pull request
+  - clean git history
+  - combine commits
+  - git workflow
+  - version control
 ---
 
 There are 2 comamands that you can use to produce a "squashed" commit. But they serve different purposes. They are 

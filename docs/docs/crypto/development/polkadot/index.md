@@ -1,6 +1,16 @@
 ---
 title: Polkadot Ecosystem
+description: 'Polkadot is a multi-chain, interoperable, shared security protocol. ([docs.polkadot.com][1]) Its mission is to allow many blockchains (parachains) to interoperate.'
 draft: true
+keywords:
+  - crypto
+  - development
+  - polkadot ecosystem
+  - polkadot
+  - ecosystem
+  - multi
+  - chain
+  - interoperable
 ---
 
 > **Audience & assumptions**: You are comfortable with Rust (or willing to learn), basics of blockchain architectures (state machines, consensus, networks), and want a step-by-step view of how to build, test, and deploy components (parachains, smart contracts, apps) in the Polkadot ecosystem.

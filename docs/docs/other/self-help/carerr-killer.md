@@ -1,5 +1,13 @@
 ---
 title: Career killers
+description: 'Career killers notes covering core concepts, practical examples, and key takeaways.'
+keywords:
+  - self help
+  - career killers
+  - career
+  - killers
+  - learning notes
+  - personal knowledge base
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uX719LQBLXw?si=iOSZBN1UY0KPa6FW" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

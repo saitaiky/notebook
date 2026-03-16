@@ -1,5 +1,14 @@
 ---
 title: Editable install
+description: Python editable installs with pip install -e explaining development mode, how changes reflect immediately without reinstalling, and package structure requirements.
+keywords:
+  - python editable install
+  - pip install -e
+  - development mode python
+  - python package development
+  - editable packages
+  - python setup.py
+  - pip editable
 ---
 
 ### **Understanding Editable Installs in Python**

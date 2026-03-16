@@ -1,5 +1,14 @@
 ---
 title: Is Updating State A Side effect?
+description: Whether updating React state is a side effect, explaining pure functions, useEffect boundaries, and why setState calls during render cause unexpected behavior.
+keywords:
+  - react side effects
+  - react state
+  - useeffect
+  - react pure functions
+  - react setState
+  - react hooks
+  - react rendering
 ---
 
 :::info TL-DR;

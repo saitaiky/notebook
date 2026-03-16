@@ -1,5 +1,15 @@
 ---
 title: Coin vs Token
+description: 'Unlike coins, tokens do not have their blockchain. Instead, they operate on other crypto coins'' blockchains, such as Ethereum. Some of the most commonly seen toke.'
+keywords:
+  - crypto
+  - coin types
+  - coin token
+  - coin
+  - token
+  - unlike
+  - coins
+  - tokens
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/422HORNUfkU" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>

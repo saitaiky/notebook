@@ -1,5 +1,15 @@
 ---
 title: Reaction
+description: 'People question others when your thinking is not deep enough or lack of confidence.'
+keywords:
+  - self help
+  - reaction
+  - people
+  - question
+  - others
+  - when
+  - your
+  - thinking
 ---
 
 > TL; DR -  To be able to react immediately, it doesn't need communication skill. It's all about the ability to handle and solve a problem. Preparation is your good friend to answer challenging questions and good for relaxing yourself. 

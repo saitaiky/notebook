@@ -1,7 +1,17 @@
 ---
 title: "Bash practical"
+description: '| Symbols | Meaning | |---------|---------| | | Represents ''0 or more'' arbitrary characters | | ? | Represents ''exactly one'' arbitrary character | | [ ] | Represe.'
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
+keywords:
+  - linux
+  - bash practical
+  - bash
+  - practical
+  - symbols
+  - meaning
+  - represents
+  - 0
 ---
 
 ## Wildcards and Symbols

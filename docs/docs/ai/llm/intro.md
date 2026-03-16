@@ -1,6 +1,16 @@
 ---
 title: Introduction
+description: 'There are 2 tasks: Text summarization and text translation.'
 sidebar_position: 1
+keywords:
+  - ai
+  - llm
+  - introduction
+  - there
+  - 2
+  - tasks
+  - text
+  - summarization
 ---
 
 There are 2 tasks: Text summarization and text translation

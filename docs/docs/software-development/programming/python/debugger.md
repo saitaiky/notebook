@@ -1,5 +1,14 @@
 ---
 title: Debugging in Python
+description: Python debugging techniques using pdb, breakpoint(), logging, and IDE debuggers with tips for setting breakpoints, inspecting state, and tracing execution.
+keywords:
+  - python debugger
+  - pdb
+  - python debugging
+  - breakpoint python
+  - python debug tips
+  - python logging
+  - debug python code
 ---
 
 In the Python debugger (such as in VSCode or when using `pdb`), the terms **special variables** and **function variables** refer to different types of information available during debugging. Here’s a breakdown of what each category means:

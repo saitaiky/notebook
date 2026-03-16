@@ -1,5 +1,14 @@
 ---
 title: JS bundler
+description: JavaScript bundlers overview comparing Webpack, Rollup, Vite, and esbuild for module bundling, tree shaking, code splitting, and build optimization.
+keywords:
+  - javascript bundler
+  - webpack
+  - rollup
+  - vite
+  - esbuild
+  - module bundling
+  - tree shaking
 ---
 
 The JavaScript world has changed a lot in the last few years. Gone are the days of manually including jQuery, Bootstrap, and React on every page of your site. Nowadays, it's all about bundling everything up into one static file that you can load with just a single line of code.

@@ -1,5 +1,15 @@
 ---
 title: Home DIY
+description: 'Using primers and/or undercoats are necessary during the painting process.'
+keywords:
+  - home diy
+  - home
+  - diy
+  - using
+  - primers
+  - undercoats
+  - necessary
+  - during
 ---
 
 

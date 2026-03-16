@@ -1,7 +1,15 @@
 ---
 title: Self-fulfilling prophecy
-description: Explore the impact of beliefs on success through the self-fulfilling prophecy theory, highlighting how our thoughts shape our actions and outcomes. Understand the role of mindset, talent perception, and deliberate practice in achieving goals.
-keywords: [self-fulfilling prophecy, beliefs and success, mindset, deliberate practice, talent perception, psychological theories]
+description: 'Explore the impact of beliefs on success through the self-fulfilling prophecy theory, highlighting how our thoughts shape our actions and outcomes. Understand the role of mindset, talent perception, and deliberate practice in achieving goals.'
+keywords:
+  - psychology
+  - self fulfilling prophecy
+  - self
+  - fulfilling
+  - prophecy
+  - do
+  - something
+  - well
 ---
 
 

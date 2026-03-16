@@ -1,5 +1,14 @@
 ---
 title: Using CONCURRENTLY PostgreSql with psycopg in Python
+description: How to run PostgreSQL CREATE INDEX CONCURRENTLY with psycopg outside a transaction block using autocommit mode in Python async connection pools.
+keywords:
+  - postgresql concurrently
+  - psycopg
+  - create index concurrently
+  - postgresql python
+  - async connection pool
+  - psycopg3
+  - database migration python
 ---
 
 When you run your database–initialization script (for example, `scripts/init_langgraph_db.py`) to bootstrap a PostgreSQL schema from Python—loading your `.env`, opening a `psycopg_pool.AsyncConnectionPool`, and executing DDL migrations—you might hit:

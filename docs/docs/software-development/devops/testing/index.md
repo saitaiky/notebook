@@ -1,5 +1,14 @@
 ---
 title: Testing
+description: Software testing overview covering unit, integration, and end-to-end tests, test pyramids, and why automated testing reduces human error and time costs.
+keywords:
+  - software testing
+  - test automation
+  - unit testing
+  - integration testing
+  - end-to-end testing
+  - test pyramid
+  - automated testing
 ---
 
 ## Why we need to test

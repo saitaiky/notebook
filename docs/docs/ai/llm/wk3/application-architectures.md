@@ -1,6 +1,16 @@
 ---
 title: Build a LLM application
+description: 'The section is to bring together the various components and considerations necessary to build effective LLM-powered applications. The discussion emphasizes that c.'
 sidebar_position: 5
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - build llm application
+  - build
+  - application
+  - section
+  - bring
 ---
 
 The section is to bring together the various components and considerations necessary to build effective LLM-powered applications. The discussion emphasizes that creating end-to-end solutions involves more than just deploying large language models (LLMs); it requires a comprehensive infrastructure and strategic integration of multiple elements.

@@ -1,6 +1,15 @@
 ---
 title: 3 ways to manage K8s workload
 sidebar_position: 2
+description: Three kubectl approaches to manage Kubernetes workloads using generators with run, expose, and create commands to produce YAML declarative resource specs.
+keywords:
+  - kubernetes workload management
+  - kubectl generators
+  - kubectl run
+  - kubectl create
+  - kubernetes yaml
+  - declarative kubernetes
+  - kubectl commands
 ---
 
 ## Generators

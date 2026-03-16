@@ -1,5 +1,15 @@
 ---
 title: VectorStore DB settings
+description: 'flowchart LR A[Vector Representation] B[Dense Vector] C[Sparse Vector] D[High‑dimensional, mostly non‑zero values] E[Lower storage, mostly zeros with few non‑zero.'
+keywords:
+  - ai
+  - agentic system
+  - vectorstore db settings
+  - vectorstore
+  - db
+  - settings
+  - flowchart
+  - lr
 ---
 
 ## Sparse vs Dense Index

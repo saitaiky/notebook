@@ -1,5 +1,14 @@
 ---
 title: 'DeamonSet'
+description: Kubernetes DaemonSet workload ensuring one pod runs per node across the cluster or a subset, with taints, tolerations, and comparison to ReplicaSet mission.
+keywords:
+  - kubernetes daemonset
+  - daemonset
+  - kubernetes workloads
+  - one pod per node
+  - kubernetes taints
+  - kubernetes tolerations
+  - replicaset vs daemonset
 ---
 
 Like other workload objects, a DaemonSet manages groups of replicated Pods. However, DaemonSets attempt to adhere to a one-Pod-per-node model, either across the entire cluster or a subset of nodes. As you add nodes to a node pool, DaemonSets automatically add Pods to the new nodes as needed.

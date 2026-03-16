@@ -1,5 +1,15 @@
 ---
 title: Context Engineering
+description: 'Modern agents interleave LLM calls with tool use, scratchpads, and persistence. While foundation models keep improving, their outputs are limited by a finite cont.'
+keywords:
+  - ai
+  - agentic system
+  - context engineering
+  - context
+  - engineering
+  - modern
+  - agents
+  - interleave
 ---
 
 ## Why Context Engineering Matters

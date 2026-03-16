@@ -1,12 +1,16 @@
 ---
 title: Kaiseki 懐石
-description: Kaiseki is a traditional Japanese dining experience that embodies the essence of seasonal and meticulously prepared dishes. It is a multi-course meal that follows a specific sequence and showcases the harmony of flavors, textures, and presentation. Each dish is carefully crafted using fresh, locally sourced ingredients to highlight their natural flavors.
-keywords:
-  - Kaiseki
-  - Honzen
-  - Kaiseki
-  - Kaizeki
+description: 'Kaiseki is a traditional Japanese dining experience that embodies the essence of seasonal and meticulously prepared dishes. It is a multi-course meal that follows a specific sequence and showcases the harmony of flavors, textures, and presentation. Each dish is carefully crafted using fresh, locally sourced ingredients to highlight their natural flavors.'
 sidebar_position: 1
+keywords:
+  - food culture
+  - kaiseki
+  - traditional
+  - japanese
+  - dining
+  - experience
+  - embodies
+  - essence
 ---
 
 Kaiseki is a traditional Japanese dining experience that embodies the essence of seasonal and meticulously prepared dishes. It is a multi-course meal that follows a specific sequence and showcases the harmony of flavors, textures, and presentation. Each dish is carefully crafted using fresh, locally sourced ingredients to highlight their natural flavors.

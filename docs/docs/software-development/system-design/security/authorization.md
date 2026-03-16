@@ -1,5 +1,14 @@
 ---
 title: Authorization (Access control)
+description: Authorization and access control patterns covering RBAC, ABAC, ACLs, policy-based access control, and permission models for securing resources.
+keywords:
+  - authorization
+  - access control
+  - rbac
+  - abac
+  - role based access control
+  - permission model
+  - acl
 ---
 
 Authorization is the process of defining and enforcing access policies - that is, what you can do once you're authenticated.

@@ -1,5 +1,14 @@
 ---
 title: "Managing Python Projects with Poetry (and a Bit of pyenv)"
+description: Managing Python projects with Poetry and pyenv for version isolation, dependency management, virtual environments, and reproducible Python development setups.
+keywords:
+  - python poetry
+  - pyenv
+  - python version management
+  - poetry dependencies
+  - python virtual environment
+  - poetry pyproject.toml
+  - python project management
 ---
 
 # Managing Python Projects with Poetry (and a Bit of pyenv)

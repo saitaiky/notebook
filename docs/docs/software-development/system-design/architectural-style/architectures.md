@@ -1,8 +1,14 @@
 ---
 title: Architectures
-description: Architectures
+description: Software architecture styles overview including monolithic, microservices, event-driven, and serverless architectures with trade-offs and selection criteria.
 keywords:
-  - architectures
+  - software architectures
+  - microservices
+  - monolithic architecture
+  - event-driven architecture
+  - serverless architecture
+  - architectural patterns
+  - system design
 ---
 
 ## MACH Architecture

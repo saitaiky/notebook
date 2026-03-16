@@ -1,3 +1,17 @@
+---
+title: Safeguarding Agentic Systems
+description: 'Agentic systems (plan, retrieve, call tools, act) are high-leverage—and high-risk. This guide distills defense-in-depth patterns you can ship today, mapping conce.'
+keywords:
+  - ai
+  - agentic system
+  - safeguarding agentic systems
+  - safeguarding
+  - agentic
+  - systems
+  - plan
+  - retrieve
+---
+
 # Safeguarding Agentic Systems
 
 Agentic systems (plan, retrieve, call tools, act) are high-leverage—and high-risk. This guide distills **defense-in-depth** patterns you can ship today, mapping conceptual guardrails to concrete implementation (especially on AWS Bedrock).

@@ -1,6 +1,15 @@
 ---
 title: Strategies for availability
+description: Availability strategies in distributed systems covering redundancy, failover, multi-region deployment, health checks, and SLA targets for high availability.
 sidebar_position: 10
+keywords:
+  - availability strategies
+  - high availability
+  - redundancy
+  - failover
+  - multi-region
+  - sla
+  - distributed systems availability
 ---
 
 Availability, on the other hand, refers to the degree to which a system is operable and accessible when required for use. It not only involves the system’s ability to run without failure but also includes its ability to recover from failures that do occur. In reality, High availability (HA) is difficult to achieve for two reasons. 

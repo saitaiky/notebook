@@ -1,5 +1,14 @@
 ---
 title: Big-O Notation
+description: Big-O notation guide covering time and space complexity from O(1) to O(n!), with examples for common algorithms, sorting, and data structure operations.
+keywords:
+  - big-o notation
+  - time complexity
+  - space complexity
+  - algorithm complexity
+  - o(n)
+  - o(log n)
+  - asymptotic analysis
 ---
 
 > This post is hugely referenced by [Big-O Notation Explained with Examples](https://developerinsider.co/big-o-notation-explained-with-examples/)

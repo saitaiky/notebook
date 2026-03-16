@@ -1,5 +1,14 @@
 ---
 title: package manager
+description: Node.js package management with npm and yarn covering package.json, semantic versioning, workspaces, and managing dependencies in JavaScript projects.
+keywords:
+  - nodejs packaging
+  - npm
+  - yarn
+  - package.json
+  - semantic versioning
+  - node modules
+  - javascript package manager
 ---
 
 

@@ -1,5 +1,15 @@
 ---
 title: Dropped Transaction
+description: 'A transaction that is previously broadcasted on the network (but yet to be included in a block) can get dropped from the connected nodes. Dropped transaction happ.'
+keywords:
+  - crypto
+  - behaviour
+  - dropped transaction
+  - dropped
+  - transaction
+  - previously
+  - broadcasted
+  - network
 ---
 
 A transaction that is previously broadcasted on the network (but yet to be included in a block) can get dropped from the connected nodes. Dropped transaction happens more frequently during times when the network is busy.

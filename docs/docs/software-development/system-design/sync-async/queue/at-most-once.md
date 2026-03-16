@@ -1,7 +1,16 @@
 ---
 title: At-Most-Once
+description: At-most-once message delivery guarantee where messages may be lost but never duplicated, suitable for non-critical fire-and-forget notifications and metrics.
 
 sidebar_position: 2
+keywords:
+  - at-most-once delivery
+  - message queue
+  - fire and forget
+  - message loss
+  - delivery guarantee
+  - queue pattern
+  - non-critical messages
 ---
 
 > Disclaimer: This note is mostly inspired by the [Lightbend: How Akka Works](https://www.lightbend.com/blog/how-akka-works-at-most-once-message-delivery) series

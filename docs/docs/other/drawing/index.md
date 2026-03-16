@@ -1,7 +1,15 @@
 ---
 title: Drawing
-description: Master the basics of drawing with insights into size, proportion, angles, and values. Discover techniques for visual and conceptual training, and explore the impact of light and shadow on form.
-keywords: [drawing basics, art techniques, visual training, conceptual training, light and shadow, drawing values, figure drawing]
+description: 'Master the basics of drawing with insights into size, proportion, angles, and values. Discover techniques for visual and conceptual training, and explore the impact of light and shadow on form.'
+keywords:
+  - drawing
+  - source
+  - pinterest
+  - perceptual
+  - conceptual
+  - two
+  - different
+  - approaches
 ---
 
 

@@ -1,5 +1,15 @@
 ---
 title: The TD Sequential indicator
+description: 'The TD Sequential indicator, developed by Tom Demark, is a technical analysis tool designed to identify potential turning points in the price of an asset.'
+keywords:
+  - econ
+  - indicators strategies
+  - td sequential indicator
+  - td
+  - sequential
+  - indicator
+  - developed
+  - tom
 ---
 
 ## Basic

@@ -1,5 +1,14 @@
 ---
 title: Encoding
+description: Data encoding overview covering Base64, URL encoding, UTF-8, ASCII, and binary encoding schemes used for data transmission, storage, and web communication.
+keywords:
+  - encoding
+  - base64
+  - url encoding
+  - utf-8
+  - ascii encoding
+  - data encoding
+  - binary encoding
 ---
 
 Encoding is the process of converting data from one form to another. This process often involves transforming data into a format that can be efficiently stored, transmitted, or interpreted by different systems. Encoding ensures that data maintains its integrity and usability across various environments and platforms.

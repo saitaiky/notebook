@@ -1,7 +1,15 @@
 ---
 title: Love
-description: Explore Robert Sternberg's Triangular Theory of Love and understand the different types of love relationships. Learn about the factors influencing the quality of romantic relationships and attachment styles.
-keywords: [Sternberg's Triangular Theory of Love, types of love, intimacy, passion, commitment, attachment styles, romantic relationships, psychology of love]
+description: 'Explore Robert Sternberg''s Triangular Theory of Love and understand the different types of love relationships. Learn about the factors influencing the quality of romantic relationships and attachment styles.'
+keywords:
+  - psychology
+  - life
+  - love
+  - force
+  - powers
+  - countless
+  - songs
+  - poems
 ---
 
 

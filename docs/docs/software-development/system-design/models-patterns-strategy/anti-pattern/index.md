@@ -1,5 +1,14 @@
 ---
 title: Anti-pattern
+description: Software anti-patterns catalog covering God Object, Spaghetti Code, Golden Hammer, Singleton abuse, and other common design mistakes to avoid in system design.
+keywords:
+  - anti-patterns
+  - software anti-patterns
+  - god object
+  - spaghetti code
+  - design mistakes
+  - code anti-patterns
+  - software design
 ---
 
 > Reference: [sourcemaking - What Is an AntiPattern?](https://sourcemaking.com/antipatterns)

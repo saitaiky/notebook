@@ -1,5 +1,15 @@
 ---
 title: Architectures in AI Agents
+description: 'LangGraph offers powerful tools for building AI agents, but as agent architectures evolve, it’s essential to understand some of the advanced frameworks emerging i.'
+keywords:
+  - ai
+  - agentic system
+  - architectures ai agents
+  - architectures
+  - agents
+  - langgraph
+  - offers
+  - powerful
 ---
 
 LangGraph offers powerful tools for building AI agents, but as agent architectures evolve, it’s essential to understand some of the advanced frameworks emerging in the field. These architectures enable more complex workflows, multi-agent interactions, and flow control. Here, we’ll explore a few key architectures, their characteristics, and their potential use cases.

@@ -1,5 +1,14 @@
 ---
 title: Merge Strategies
+description: Git merge strategies overview comparing fast-forward, recursive, rebase, and squash merges with trade-offs for team workflows and repository history management.
+keywords:
+  - git merge strategies
+  - git merge
+  - git rebase
+  - git squash
+  - merge vs rebase
+  - git workflow
+  - version control strategies
 ---
 
 There are three merge strategies in version control. Each strategy has its own set of trade-offs, and the choice often depends on the project's version control workflow, collaboration practices, and the desired structure of the commit history.

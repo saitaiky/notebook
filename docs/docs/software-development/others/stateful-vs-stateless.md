@@ -1,5 +1,14 @@
 ---
 title: Stateful vs Stateless
+description: Stateful versus stateless architecture comparison showing how stateless services improve scalability and resilience while stateful systems manage session data.
+keywords:
+  - stateful vs stateless
+  - stateless architecture
+  - stateful services
+  - scalability
+  - session management
+  - microservices
+  - rest stateless
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UQ2cfQV5nJ4" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>

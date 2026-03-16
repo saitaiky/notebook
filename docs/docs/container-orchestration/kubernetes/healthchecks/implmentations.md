@@ -1,4 +1,16 @@
 
+---
+title: Health Check Implementation
+description: Liveness vs readiness probe selection, using Apache Bench for load testing, and avoiding cascading failures from liveness probes under external load pressure.
+keywords:
+  - kubernetes liveness probe
+  - kubernetes readiness probe
+  - health check implementation
+  - apache bench kubernetes
+  - kubernetes probe selection
+  - kubernetes load testing
+  - probe failure cascades
+---
 
 
 ## Liveness vs readiness

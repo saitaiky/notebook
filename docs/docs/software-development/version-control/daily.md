@@ -1,7 +1,16 @@
 ---
 title: "Daily operations"
+description: Daily Git operations reference covering commit, branch, stash, cherry-pick, reset, and common workflows for everyday version control tasks.
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
+keywords:
+  - git daily operations
+  - git commands
+  - git commit
+  - git branch
+  - git stash
+  - git workflow
+  - version control
 ---
 
 There are 2 useful websites when learning Gitflow or Git in general.

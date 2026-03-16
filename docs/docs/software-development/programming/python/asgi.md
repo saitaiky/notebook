@@ -1,5 +1,14 @@
 ---
 title: "Async in Python: Power and Pitfalls"
+description: Async in Python with ASGI covering asyncio power and pitfalls, event loops, async/await patterns, and common mistakes in asynchronous Python code.
+keywords:
+  - python async
+  - asgi
+  - asyncio
+  - python event loop
+  - async await python
+  - python concurrency
+  - asynchronous python
 ---
 
 Asynchronous programming is one of the key capabilities behind high-performance Python web applications. Frameworks like **FastAPI** and servers like **Uvicorn** promise concurrency, non-blocking execution, and scalable request handling. But there’s a flip side: using `async` indiscriminately can **degrade** performance and add unnecessary complexity.

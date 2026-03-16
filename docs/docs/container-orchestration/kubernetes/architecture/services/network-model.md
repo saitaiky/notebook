@@ -1,6 +1,15 @@
 ---
 title: Network model
 sidebar_position: 2
+description: Kubernetes flat IP network model where all nodes and pods communicate without NAT or port translation, with implementation-agnostic IP address assignment per pod.
+keywords:
+  - kubernetes network model
+  - kubernetes networking
+  - kubernetes flat network
+  - pod ip addresses
+  - kubernetes no nat
+  - container networking
+  - kubernetes cni
 ---
 
 > TL;DR - Our cluster (nodes and pods) is one big flat IP network. You can have routing, but you can't have translation. 

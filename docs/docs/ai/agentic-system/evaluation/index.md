@@ -1,5 +1,15 @@
 ---
 title: Evaluation
+description: 'When applying evaluation, consider the following approaches:.'
+keywords:
+  - ai
+  - agentic system
+  - evaluation
+  - when
+  - applying
+  - consider
+  - following
+  - approaches
 ---
 
 

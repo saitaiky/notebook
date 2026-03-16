@@ -1,5 +1,14 @@
 ---
 title: Manual Secondary Index Maintenance in DynamoDB
+description: Manual secondary index maintenance in DynamoDB for sort order and derived value updates, replacing relational triggers in NoSQL schema-less design.
+keywords:
+  - dynamodb secondary index
+  - dynamodb manual index
+  - nosql index maintenance
+  - dynamodb pattern
+  - dynamodb design
+  - computed columns nosql
+  - dynamodb sort key
 ---
 
 In traditional relational databases, you might rely on computed columns or triggers to automatically update derived values—ensuring that your indexes or sort orders remain in sync with the underlying data. However, DynamoDB, with its schema-less, NoSQL design, does not offer built-in computed columns. This requires a different approach: **manual secondary index maintenance**.

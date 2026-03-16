@@ -1,5 +1,15 @@
 ---
 title: Ethereum Ecosystem
+description: 'The following sections outline essential concepts for constructing smart contracts to develop decentralised applications (DApps) on the Ethereum platform. The int.'
+keywords:
+  - crypto
+  - development
+  - ethereum ecosystem
+  - ethereum
+  - ecosystem
+  - following
+  - sections
+  - outline
 ---
 The following sections outline essential concepts for constructing smart contracts to develop decentralised applications (DApps) on the Ethereum platform. The intention is to **provide key insights** and a **practical developer path** from zero to deployed contract.
 

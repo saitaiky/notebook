@@ -1,5 +1,14 @@
 ---
 title: Rendering web content
+description: Web rendering approaches covering SSR, CSR, SSG, ISR, and streaming rendering with trade-offs for performance, SEO, and user experience in modern web apps.
+keywords:
+  - web rendering
+  - server side rendering
+  - client side rendering
+  - static site generation
+  - isr
+  - ssr vs csr
+  - web performance
 ---
 
 ## What is Rendering?

@@ -1,6 +1,16 @@
 ---
 title: Practical Questions
+description: 'The context window limit of 512 tokens is a common restriction for many transformer-based models, including the google/flan-t5-base, due to computational and memo.'
 sidebar_position: 100
+keywords:
+  - ai
+  - llm
+  - practical questions
+  - practical
+  - questions
+  - context
+  - window
+  - limit
 ---
 
 

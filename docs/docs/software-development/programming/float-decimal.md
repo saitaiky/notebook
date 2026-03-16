@@ -1,5 +1,14 @@
 ---
 title: Float vs Decimal data type
+description: Float versus Decimal data type differences covering IEEE 754 floating-point precision issues and when to use Decimal for exact monetary calculations.
+keywords:
+  - float vs decimal
+  - floating point precision
+  - ieee 754
+  - decimal data type
+  - python decimal
+  - numeric precision
+  - monetary calculations
 ---
 
 When working with DynamoDB, converting floating-point numbers (`float`) to `Decimal` can inadvertently cause issues due to DynamoDB's strict **number precision limit**. This blog post explains why the problem occurs and how to handle it effectively.

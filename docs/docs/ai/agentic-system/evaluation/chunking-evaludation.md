@@ -1,6 +1,16 @@
 ---
 title: Evaluating a Chunking Strategy with Precision and Recall
+description: 'When you design a chunking strategy for a Retrieval‐Augmented Generation (RAG) pipeline, you ultimately want to know how well that strategy allows your system to.'
 sidebar_position: 5
+keywords:
+  - ai
+  - agentic system
+  - evaluating chunking strategy
+  - evaluating
+  - chunking
+  - strategy
+  - precision
+  - recall
 ---
 
 When you design a chunking strategy for a Retrieval‐Augmented Generation (RAG) pipeline, you ultimately want to know **how well** that strategy allows your system to locate the “right” piece of text (i.e. the relevant chunk) given a user’s query. Two of the most common metrics in Information Retrieval (IR) are **precision** and **recall**. In simple terms:

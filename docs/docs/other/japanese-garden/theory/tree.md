@@ -1,6 +1,12 @@
 ---
 title: 植栽技術
+description: '在平安時代後期編撰的《作庭記》（さくていき）和自鎌倉時代末期至室町時代的《山水並野形圖》（さんすいならびにやけいず）中，記述了具體的栽植方法。.'
 sidebar_position: 1
+keywords:
+  - japanese garden
+  - theory
+  - learning notes
+  - personal knowledge base
 ---
 
 ## 自古傳承至今的植栽技術

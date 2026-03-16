@@ -1,6 +1,16 @@
 ---
 title: Help LLM to reasoning
+description: 'This section discusses the challenges LLMs face with complex reasoning tasks, such as multi-step math problems, and introduces a technique called chain of thought.'
 sidebar_position: 4
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - help llm reasoning
+  - help
+  - reasoning
+  - section
+  - discusses
 ---
 
 ## Chain of Thought Prompting for Improved Reasoning in LLMs

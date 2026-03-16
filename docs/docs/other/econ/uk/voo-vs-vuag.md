@@ -1,5 +1,15 @@
 ---
 title: Why VUSA Underperforms VOO — 3 Key Differences Every UK Investor Should Know
+description: 're investing in the **S\&P 500** through ETFs, chances are you''ve come across two popular Vanguard options: **VOO** (US-domiciled) and **VUSA** (UCITS-compliant, Irela.'
+keywords:
+  - econ
+  - uk
+  - why vusa underperforms
+  - why
+  - vusa
+  - underperforms
+  - voo
+  - 3
 ---
 
 If you're investing in the **S\&P 500** through ETFs, chances are you've come across two popular Vanguard options:

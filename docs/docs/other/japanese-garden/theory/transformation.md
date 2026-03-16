@@ -1,6 +1,12 @@
 ---
 title: 日本庭園の変遷
+description: '在古代，人們在自然環境中維持生活，既對一望無際的大海盡頭和巍然屹立的優美山形抱有憧憬，又對峻崖峭壁和驚濤駭浪心存畏懼。所以時而將周圍的自然物作為神靈的寄托來信仰和崇拜。用巨石打造的神靈下凡的磐座，在被喻為大海的水池中築造的祭祀海神的神島，這些可以被視為是日本園林的起源。.'
 sidebar_position: 9
+keywords:
+  - japanese garden
+  - theory
+  - learning notes
+  - personal knowledge base
 ---
 
 ## 飛鳥・奈良時代園林文化的萌芽和製作方法

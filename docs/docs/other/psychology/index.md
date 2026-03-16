@@ -1,7 +1,15 @@
 ---
 title: Psychology
-description: Dive into the scientific study of the mind and behavior. Explore various subsets of psychology, influential psychologists, and their theories, offering a comprehensive understanding of this fascinating field.
-keywords: [psychology, mind and behavior, clinical psychology, cognitive psychology, developmental psychology, social psychology, influential psychologists, psychological theories]
+description: 'Dive into the scientific study of the mind and behavior. Explore various subsets of psychology, influential psychologists, and their theories, offering a comprehensive understanding of this fascinating field.'
+keywords:
+  - psychology
+  - scientific
+  - study
+  - mind
+  - behavior
+  - covers
+  - expansive
+  - range
 ---
 
 

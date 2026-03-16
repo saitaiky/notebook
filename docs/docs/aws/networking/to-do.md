@@ -5,10 +5,10 @@ keywords:
   - aws
   - amazon web services
   - networking
-   - nat instance
-   - route table troubleshooting
+  - nat instance
+  - route table troubleshooting
   - networking on aws
-   - private subnet connectivity
+  - private subnet connectivity
 ---
 
 Here's a comprehensive explanation of all the network issues we encountered:

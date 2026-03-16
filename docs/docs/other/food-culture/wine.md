@@ -1,5 +1,15 @@
 ---
 title: Wine
+description: 'Wine notes covering core concepts, practical examples, and key takeaways.'
+keywords:
+  - food culture
+  - wine
+  - 2
+  - very
+  - high
+  - quality
+  - posts
+  - learning notes
 ---
 
 2 very high quality posts

@@ -1,6 +1,16 @@
 ---
 title: RAG vs Retrain vs Finetune
+description: 'Artificial Intelligence (AI) has made remarkable progress in natural language processing (NLP), offering powerful tools for everything from text generation to que.'
 sidebar_position: 2
+keywords:
+  - ai
+  - llm
+  - rag retrain finetune
+  - rag
+  - retrain
+  - finetune
+  - artificial
+  - intelligence
 ---
 
 > TL;DR - Retraining a model is a broad, widely-used term in machine learning for updating any pre-trained model with new data. In contrast, Retrieval-Augmented Generation (RAG) is a specialized approach within NLP, designed to add context to language models by incorporating external information during text generation.

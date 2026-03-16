@@ -1,5 +1,15 @@
 ---
 title: Other
+description: 'Source: What Is a Hardware Security Module? HSMs Explained.'
+keywords:
+  - linux
+  - security
+  - source
+  - what
+  - hardware
+  - module
+  - hsms
+  - explained
 ---
 
 ## What is HSM?

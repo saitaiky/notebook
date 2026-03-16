@@ -1,6 +1,14 @@
 ---
 title: What is docker?
-description:  What is docker?
+description: Docker fundamentals covering OCI images for app packaging, registries for distribution, and containers using Linux namespaces and cgroups for application isolation.
+keywords:
+  - docker
+  - docker image
+  - docker registry
+  - docker container
+  - oci
+  - container runtime
+  - what is docker
 
 sidebar_position: 0
 ---

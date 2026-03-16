@@ -1,5 +1,14 @@
 ---
 title: Design Pattern
+description: Software design patterns overview covering creational, structural, and behavioral patterns like Singleton, Factory, Observer, and Strategy for reusable solutions.
+keywords:
+  - design patterns
+  - creational patterns
+  - structural patterns
+  - behavioral patterns
+  - singleton pattern
+  - factory pattern
+  - observer pattern
 ---
 
 > - Reference: 

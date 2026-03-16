@@ -1,6 +1,16 @@
 ---
 title: "The current problem in 2024"
+description: 'As blockchain technology continues to develop and gain more users, people are also discovering its limitations, leading to the concept of the "Impossible Triangle.'
 sidebar_position: 1
+keywords:
+  - crypto
+  - current problem 2024
+  - current
+  - problem
+  - 2024
+  - blockchain
+  - technology
+  - continues
 ---
 
 

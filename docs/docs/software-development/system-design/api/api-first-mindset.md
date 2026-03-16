@@ -1,5 +1,14 @@
 ---
 title: API first mindset
+description: API-first mindset approach designing APIs as first-class products before implementation, improving developer experience, reusability, and team collaboration.
+keywords:
+  - api first
+  - api first mindset
+  - api design
+  - api first development
+  - api strategy
+  - api product
+  - developer experience
 ---
 
 # Understanding the API-First Mindset

@@ -1,5 +1,14 @@
 ---
 title: Load Balancing
+description: Load balancing strategies covering round-robin, least connections, consistent hashing, Layer 4 vs Layer 7 balancing, and health check mechanisms.
+keywords:
+  - load balancing
+  - round robin
+  - least connections
+  - consistent hashing
+  - layer 4 load balancer
+  - layer 7 load balancer
+  - health checks
 ---
 
 :::info Load balancing algorithms

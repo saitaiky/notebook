@@ -1,6 +1,15 @@
 ---
 title: Overview
 sidebar_position: 1
+description: Kubernetes cluster architecture with master node controlling workers, ETCD key-value store, API server, scheduler, controller manager, and kubelet components.
+keywords:
+  - kubernetes architecture
+  - kubernetes master
+  - kubernetes worker node
+  - etcd
+  - api server
+  - kubernetes scheduler
+  - kubelet
 ---
 
 A **Cluster** is a set of nodes grouped together, this way even if one node fails you have your application still accessible from the other Nodes. Moreover having multiple nodes helps in sharing load as well.

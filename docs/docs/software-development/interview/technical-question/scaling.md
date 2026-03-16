@@ -1,5 +1,14 @@
 ---
 title: Scaling a System
+description: System scaling framework covering horizontal and vertical scaling, performance bottleneck identification, architectural patterns, and monitoring key metrics.
+keywords:
+  - scaling a system
+  - horizontal scaling
+  - vertical scaling
+  - performance bottleneck
+  - system architecture
+  - scaling patterns
+  - system design interview
 ---
 
 Scaling a system is not just about adding more resources—it’s about systematically understanding requirements, identifying performance bottlenecks, choosing the right architectural pattern, and then continuously monitoring key metrics to ensure the system meets its targets. Below is a comprehensive framework to guide your thinking when answering the question, "How could you scale a system?" in an interview.

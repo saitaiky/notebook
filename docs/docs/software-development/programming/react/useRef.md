@@ -1,5 +1,14 @@
 ---
 title: "Caveat: using useRef with setTimeout"
+description: useRef caveat with setTimeout showing stale closure issues, how refs capture mutable values, and patterns to access current state inside async callbacks.
+keywords:
+  - useref
+  - react useref
+  - react stale closure
+  - useref settimeout
+  - react hooks
+  - stale state react
+  - mutable ref react
 ---
 
 :::info TL-DR;

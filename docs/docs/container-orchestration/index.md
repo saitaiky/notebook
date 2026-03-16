@@ -1,6 +1,15 @@
 ---
 title: Overview
 sidebar_position: 1
+description: Container orchestration overview covering Docker Swarm, Kubernetes, and Mesos, explaining when orchestration is beneficial and alternatives for small teams.
+keywords:
+  - container orchestration
+  - kubernetes
+  - docker swarm
+  - orchestration overview
+  - container management
+  - mesos
+  - ecs
 ---
 
 ## Why Orchestration?

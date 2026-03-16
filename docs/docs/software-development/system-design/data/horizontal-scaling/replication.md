@@ -1,5 +1,14 @@
 ---
 title: Replication
+description: Database replication strategies covering primary-replica, multi-master, and synchronous versus asynchronous replication for read scaling and high availability.
+keywords:
+  - database replication
+  - primary replica
+  - multi-master replication
+  - read scaling
+  - synchronous replication
+  - asynchronous replication
+  - high availability
 ---
 
 # Strategies for Database Replication

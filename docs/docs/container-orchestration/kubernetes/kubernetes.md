@@ -1,6 +1,16 @@
 ---
 title: Overview
---- 
+description: Kubernetes overview as an API-driven container orchestrator with distributions from EKS to OpenShift, kubectl CLI, and multicloud vendor lock-in considerations.
+keywords:
+  - kubernetes
+  - k8s
+  - kubernetes overview
+  - kubernetes distributions
+  - eks
+  - kubectl
+  - container orchestration
+  - kubernetes multicloud
+---
 
 > TL;DR - Kubernetes is a tool to deploy application in the form of containers on a set of machines that are configured as worker nodes in a cluster.
 

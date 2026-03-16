@@ -1,5 +1,14 @@
 ---
 title: Monitoring system
+description: Monitoring system concepts covering metrics, logs, traces, alerting, dashboards, and observability pillars for maintaining production system health.
+keywords:
+  - monitoring
+  - system monitoring
+  - observability
+  - metrics
+  - logging
+  - distributed tracing
+  - alerting
 ---
 
 ## StatsD Protocol

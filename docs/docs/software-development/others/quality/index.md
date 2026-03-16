@@ -1,5 +1,14 @@
 ---
 title: Quality, maintainability, extensibility
+description: Software quality, maintainability, and extensibility principles including code smells, technical debt, refactoring, and SOLID design for long-term codebase health.
+keywords:
+  - software quality
+  - maintainability
+  - extensibility
+  - technical debt
+  - code smells
+  - solid principles
+  - refactoring
 ---
 
 To ensure high quality, maintainability, and extensibility in a system and its code, consider the following best practices:

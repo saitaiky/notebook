@@ -1,6 +1,15 @@
 ---
 title: POSIX user
-description: POSIX user
+description: 'A POSIX user refers to a user account in a UNIX-like operating system that adheres to the POSIX (Portable Operating System Interface) standard. POSIX is a set of.'
+keywords:
+  - linux
+  - posix user
+  - posix
+  - user
+  - refers
+  - account
+  - unix
+  - like
 ---
 
 A POSIX user refers to a user account in a UNIX-like operating system that adheres to the POSIX (Portable Operating System Interface) standard. POSIX is a set of standards defined by the Institute of Electrical and Electronics Engineers (IEEE) that specifies the APIs, command line interface, and various system interfaces for compatibility across different UNIX-like operating systems.

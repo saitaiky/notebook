@@ -1,5 +1,15 @@
 ---
 title: "Spec-Centric Agentic System Architecture"
+description: 'Most agentic systems today are task-centric: the agent breaks down a user request into steps, executes them, and refines as it goes. This works, but it’s fragile..'
+keywords:
+  - ai
+  - agentic system
+  - spec centric agentic
+  - spec
+  - centric
+  - agentic
+  - system
+  - architecture
 ---
 
 # Spec-Centric Agentic System Architecture

@@ -1,7 +1,16 @@
 ---
 title: At-Least-Once
+description: At-least-once message delivery guarantee ensuring messages are processed even after failures, with idempotency requirements to handle duplicate message processing.
 
 sidebar_position: 3
+keywords:
+  - at-least-once delivery
+  - message queue
+  - idempotency
+  - duplicate messages
+  - message delivery guarantee
+  - queue reliability
+  - message broker
 ---
 
 > Disclaimer: This note is mostly inspired by the [Lightbend: How Akka Works](https://www.lightbend.com/blog/how-akka-works-at-most-once-message-delivery) series

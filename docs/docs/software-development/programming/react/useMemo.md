@@ -1,5 +1,14 @@
 ---
 title: "useMemo: When and Why to Use It"
+description: useMemo hook guide covering when and why to memoize expensive calculations, dependency arrays, avoiding premature optimization, and real performance use cases.
+keywords:
+  - usememo
+  - react usememo
+  - react memoization
+  - react performance
+  - react hooks
+  - memoize react
+  - react optimization
 ---
 
 # Understanding useMemo in React: When and Why to Use It

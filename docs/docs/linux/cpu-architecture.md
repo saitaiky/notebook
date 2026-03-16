@@ -1,8 +1,15 @@
 ---
 title: CPU architecture
-description: CPU architecture
+description: 'Apple silicon chips. Apple''s custom chips are Arm-based and are similar to the A-series chips used in iPhones and iPads, and Apple unveiled the first Apple silico.'
 keywords:
-  - CPU architecture
+  - linux
+  - cpu architecture
+  - cpu
+  - architecture
+  - apple
+  - silicon
+  - chips
+  - s
 ---
 
 ## Apple Silicon

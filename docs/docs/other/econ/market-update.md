@@ -1,5 +1,15 @@
 ---
 title: Market Update 2024
+description: 'The Nikkei index has surged over 15% this year, outperforming major indices like the S&P 500.'
+keywords:
+  - econ
+  - market update 2024
+  - market
+  - update
+  - 2024
+  - nikkei
+  - has
+  - surged
 ---
 
 ## Feb: Nikkei hits record high above 40000

@@ -1,6 +1,14 @@
 ---
 title: Data streaming
-description: Data streaming
+description: Data streaming system design case study covering Kafka, Kinesis, real-time pipelines, consumer groups, and architecture for high-throughput stream processing.
+keywords:
+  - data streaming
+  - kafka
+  - kinesis
+  - stream processing
+  - real-time pipeline
+  - data pipeline
+  - streaming architecture
 ---
 
 Streaming data must be durably captured by massively scalable storage that is capable of handling high data volume from data producers. A producer can be thousands of data sources, each generating streaming data continuously and which, typically, submit records simultaneously and in small sizes (kilobytes).

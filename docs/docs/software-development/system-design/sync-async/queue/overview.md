@@ -1,7 +1,16 @@
 ---
 title: Overview
+description: Message queue overview covering producers, consumers, topics, partitions, delivery semantics, dead letter queues, and choosing between SQS, Kafka, and RabbitMQ.
 
 sidebar_position: 1
+keywords:
+  - message queue overview
+  - message broker
+  - producer consumer
+  - dead letter queue
+  - sqs kafka rabbitmq
+  - queue delivery semantics
+  - messaging patterns
 ---
 
 > Disclaimer: This note is mostly inspired by the [Lightbend: How Akka Works](https://www.lightbend.com/blog/how-akka-works-at-most-once-message-delivery) series

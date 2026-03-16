@@ -1,5 +1,15 @@
 ---
 title: Money market fund
+description: 'We''ll look at Money Market ETFs, exploring their characteristics, advantages, and drawbacks compared to traditional savings and fixed deposits.'
+keywords:
+  - econ
+  - products
+  - money market fund
+  - money
+  - market
+  - fund
+  - we
+  - ll
 ---
 
 We'll look at Money Market ETFs, exploring their characteristics, advantages, and drawbacks compared to traditional savings and fixed deposits. Here are the key points:

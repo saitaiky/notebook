@@ -1,6 +1,15 @@
 ---
 title: VM vs Docker
 sidebar_position: 3
+description: Containers versus virtual machines comparison showing containers as lightweight process isolation using namespaces while VMs virtualize entire hardware stacks.
+keywords:
+  - vm vs docker
+  - containers vs virtual machines
+  - docker containers
+  - virtual machines
+  - container isolation
+  - docker vs vm
+  - linux namespaces
 ---
 
 > TL;DR - Let's not even compare them to virtual machines. Because really they're just a process. They're a **process** running on your host operating system. in our case - Linux. 

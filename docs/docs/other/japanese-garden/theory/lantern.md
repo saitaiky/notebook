@@ -1,6 +1,12 @@
 ---
 title: 石灯籠
+description: '現代的石燈籠已經成為園林中非常普遍的裝飾，以至於提到“石燈籠”，大多數人腦海中立即會浮現出它的形象。然而，石燈籠在日本園林歷史中的應用並沒有那麼久遠。.'
 sidebar_position: 5
+keywords:
+  - japanese garden
+  - theory
+  - learning notes
+  - personal knowledge base
 ---
 
 ## 石燈籠的結構和設計

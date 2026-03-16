@@ -1,5 +1,14 @@
 ---
 title: API design patterns
+description: API design patterns covering versioning, pagination, error handling, rate limiting, idempotency, and best practices for building robust and scalable APIs.
+keywords:
+  - api design patterns
+  - api versioning
+  - api pagination
+  - api error handling
+  - rate limiting
+  - idempotency
+  - rest api design
 ---
 
 Effective API design is crucial for building scalable, maintainable, and user-friendly web services. There are several design patterns that have emerged as common solutions to recurring problems in API design. In this post, we will discuss three key patterns: pagination, long-running operations, and API idempotency.

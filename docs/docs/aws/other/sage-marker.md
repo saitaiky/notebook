@@ -4,12 +4,12 @@ description: SageMaker Pipelines for ML workflow automation versus Step Function
 keywords:
   - aws
   - amazon web services
-  - other
-  - sage marker
-  - sagemarker aws
-  - sagemarker guide
-  - other on aws
-  - sagemarker tutorial
+  - sagemaker
+  - sagemaker pipelines
+  - sagemaker aws
+  - ml workflow
+  - machine learning on aws
+  - step functions vs sagemaker
 ---
 
 ## TO-DO

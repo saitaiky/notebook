@@ -1,5 +1,14 @@
 ---
 title: URI, URL & URN
+description: Differences between URI, URL, and URN with examples showing how URLs locate resources and URNs name them within the broader URI identifier scheme.
+keywords:
+  - uri url urn
+  - uri vs url
+  - url vs urn
+  - uniform resource identifier
+  - uniform resource locator
+  - web addressing
+  - resource naming
 ---
 
 

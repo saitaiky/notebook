@@ -1,6 +1,15 @@
 ---
 title: Strategies for reliability
+description: System reliability strategies covering fault tolerance, circuit breakers, retries with backoff, bulkheads, and chaos engineering for resilient distributed systems.
 sidebar_position: 9
+keywords:
+  - reliability strategies
+  - fault tolerance
+  - circuit breaker
+  - retry pattern
+  - bulkhead pattern
+  - chaos engineering
+  - resilient systems
 ---
 
 A reliable system can *perform its function*, *tolerate errors,* and *prevent unauthorized access or abuse.* Most failures in distributed systems come from either:

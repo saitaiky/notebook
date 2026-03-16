@@ -1,6 +1,16 @@
 ---
 title: Fine-tuning with instruction
+description: 'Fine-tuning represents a significant advancement in the development of large language models (LLMs). Initially, LLMs are pretrained on vast amounts of general int.'
 sidebar_position: 1
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - fine tuning instruction
+  - fine
+  - tuning
+  - instruction
+  - represents
 ---
 
 ## Introduction

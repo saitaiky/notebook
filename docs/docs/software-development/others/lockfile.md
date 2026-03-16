@@ -1,4 +1,17 @@
 
+---
+title: Lock file
+description: Package manager lockfiles explain why committing yarn.lock, package-lock.json, and poetry.lock ensures reproducible dependency resolution across environments.
+keywords:
+  - lockfile
+  - package lock
+  - yarn.lock
+  - package-lock.json
+  - dependency management
+  - reproducible builds
+  - package manager
+---
+
 > TL;DR - Always commit the lock file to your source repository **if your project is an application!** If you don't, package managers would miss important imformation about installed packages without a lock file. It may result in installing two different modules from the same dependency definition.
 
 ### What is a Lock file?

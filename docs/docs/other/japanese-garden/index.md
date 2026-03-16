@@ -1,5 +1,15 @@
 ---
 title: Japanese Gardens
+description: 'gardens are a personal favorite of mine, and I thought it would be interesting to share a bit of their history and some tips on how to appreciate their unique beauty i.'
+keywords:
+  - japanese garden
+  - japanese gardens
+  - japanese
+  - gardens
+  - personal
+  - favorite
+  - mine
+  - i
 ---
 
 Japanese gardens are a personal favorite of mine, and I thought it would be interesting to share a bit of their history and some tips on how to appreciate their unique beauty in my notebook.

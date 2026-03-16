@@ -1,5 +1,14 @@
 ---
 title: CAP Theorem
+description: CAP theorem explained covering consistency, availability, and partition tolerance trade-offs, with examples of CP, AP, and CA distributed database systems.
+keywords:
+  - cap theorem
+  - consistency availability partition
+  - distributed systems
+  - cap trade-offs
+  - database consistency
+  - eventual consistency
+  - nosql cap
 ---
 
 CAP stands for “Consistency”, “Availability”, and “Partition tolerance”. A network partition is a (temporary) network failure between nodes. Partition tolerance means being able to keep the nodes in a distributed database running even when there are network partitions. The theorem states that, in a distributed database, you can only ensure consistency or availability in the case of a network partition.

@@ -1,6 +1,16 @@
 ---
 title: Reinforcement learning from human feedback
+description: 'We''ll delve into Reinforcement Learning from Human Feedback (RLHF) and explore how LLMs can function as reasoning engines to create agents capable of taking actio.'
 sidebar_position: 1
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - reinforcement learning human
+  - reinforcement
+  - learning
+  - human
+  - feedback
 ---
 
 ## Introduction to Reinforcement Learning

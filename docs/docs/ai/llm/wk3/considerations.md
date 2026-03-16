@@ -1,6 +1,16 @@
 ---
 title: Other considerations
+description: 'When working with large language models (LLMs), understanding the compute requirements is as crucial as knowing the appropriate model size for your task''s complex.'
 sidebar_position: 6
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - considerations
+  - when
+  - working
+  - large
+  - language
 ---
 
 ## Introduction to Compute Requirements for Model Deployment

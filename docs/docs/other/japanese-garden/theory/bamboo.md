@@ -1,6 +1,12 @@
 ---
 title: 竹
+description: '自古以來，沒有哪一種植物像竹子一樣融入日本人的生活，竹筐、茶刷、花瓶、筷子、扇子、竹簾……人們以竹子為原材料，精心設計並製作了各種道具和工藝品。除此之外，房屋的籬笆和圍牆、保護隱私的屏風等也是用竹子製作。.'
 sidebar_position: 7
+keywords:
+  - japanese garden
+  - theory
+  - learning notes
+  - personal knowledge base
 ---
 
 

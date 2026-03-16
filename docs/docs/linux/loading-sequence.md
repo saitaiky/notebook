@@ -1,5 +1,15 @@
 ---
 title: Bootup Sequence
+description: 'Press the power button on your system and after few moments you may see the Linux login prompt. Have you ever wondered what happens behind the scenes from the tim.'
+keywords:
+  - linux
+  - bootup sequence
+  - bootup
+  - sequence
+  - press
+  - power
+  - button
+  - your
 ---
 
 Press the power button on your system and after few moments you may see the Linux login prompt. Have you ever wondered what happens behind the scenes from the time you press the power button until the Linux login prompt appears. The Booting process starts when the system/machine power is switched “On”.

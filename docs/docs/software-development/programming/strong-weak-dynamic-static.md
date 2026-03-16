@@ -1,8 +1,17 @@
 ---
 title: "Strongly, Weakly, Static and Dynamic typed Language"
+description: Strongly, weakly, statically, and dynamically typed languages compared with examples showing how type systems affect runtime safety and developer experience.
 metaTitle: "General programming concept will be recorded in this page "
 metaDescription: "This is the meta description for this page"
 sidebar_position: 2
+keywords:
+  - type systems
+  - strongly typed
+  - weakly typed
+  - static typing
+  - dynamic typing
+  - type safety
+  - programming languages
 ---
 
 ![strongweakstaticdynamic_type](/img/software-development/programming/strongweakstaticdynamic_type.png)

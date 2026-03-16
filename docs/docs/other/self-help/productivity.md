@@ -1,5 +1,15 @@
 ---
 title: Productivity
+description: 'Compound growth gets discussed as a financial concept, but it works in careers as well, and it is magic.'
+keywords:
+  - self help
+  - productivity
+  - compound
+  - growth
+  - gets
+  - discussed
+  - financial
+  - concept
 ---
 
 Compound growth gets discussed as a financial concept, but it works in careers as well, and it is magic.  A small productivity gain, compounded over 50 years, is worth a lot.  So it’s worth figuring out how to optimize productivity. If you get 10% more done and 1% better every day compared to someone else, the compounded difference is massive. 

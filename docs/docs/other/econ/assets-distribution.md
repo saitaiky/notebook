@@ -1,6 +1,15 @@
 ---
 title: Asset distribution
-description: Asset distribution
+description: 'There are 3 steps in order to execute the asset distribution plan.'
+keywords:
+  - econ
+  - asset distribution
+  - asset
+  - distribution
+  - there
+  - 3
+  - steps
+  - order
 ---
 
 There are 3 steps in order to execute the asset distribution plan.

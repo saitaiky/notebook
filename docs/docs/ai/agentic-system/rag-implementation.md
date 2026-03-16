@@ -1,5 +1,15 @@
 ---
 title: RAG Implementation
+description: 'Creating a Retrieval-Augmented Generation (RAG) application involves several key components that work together to enhance the generation capabilities of a languag.'
+keywords:
+  - ai
+  - agentic system
+  - rag implementation
+  - rag
+  - implementation
+  - creating
+  - retrieval
+  - augmented
 ---
 
 

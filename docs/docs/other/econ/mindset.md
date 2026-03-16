@@ -1,5 +1,15 @@
 ---
 title: Mindset
+description: 'oijer is centered around a core investment philosophy that emphasizes simplicity, low costs, and the recognition that most investors cannot outperform the market over.'
+keywords:
+  - econ
+  - mindset
+  - book
+  - investing
+  - demystified
+  - how
+  - invest
+  - without
 ---
 
 

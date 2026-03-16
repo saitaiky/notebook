@@ -1,5 +1,14 @@
 ---
 title: OAuth
+description: OAuth 2.0 authorization framework covering grant types, access tokens, refresh tokens, scopes, and PKCE flow for secure third-party application authorization.
+keywords:
+  - oauth
+  - oauth 2.0
+  - access token
+  - refresh token
+  - authorization code flow
+  - pkce
+  - oauth grant types
 ---
 
 ## History

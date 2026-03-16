@@ -1,21 +1,19 @@
 ---
 title: Chunking Strategies
-description: Chunking strategies determine how documents are split into smaller segments ("chunks") before being embedded and stored in a vector database. Selecting the right chunking strategy—whether standard (fixed-token, sentence, paragraph) or advanced (hierarchical, semantic)—is critical for balancing retrieval precision, context relevance, and performance in your retrieval-augmented generation (RAG) application. This guide explains each method clearly, provides code examples, and helps you choose the optimal chunking approach for your use case.
+description: 'Chunking strategies determine how documents are split into smaller segments ("chunks") before being embedded and stored in a vector database. Selecting the right chunking strategy—whether standard (fixed-token, sentence, paragraph) or advanced (hierarchical, semantic)—is critical for balancing retrieval precision, context relevance, and performance in your retrieval-augmented generation (RAG) application. This guide explains each method clearly, provides code examples, and helps you choose the optimal chunking approach for your use case.'
 
 
-keywords:
-    - text chunking strategies
-    - vector embedding chunking methods
-    - semantic chunking
-    - hierarchical chunking AWS Bedrock
-    - document preprocessing for embeddings
-    - retrieval augmented generation chunking
-    - RAG best practices
-    - LangChain text chunking
-    - semantic search optimization
-    - embedding database best practices
 
 sidebar_position: 3
+keywords:
+  - ai
+  - agentic system
+  - chunking strategies
+  - chunking
+  - strategies
+  - determine
+  - how
+  - documents
 ---
 
 Chunking strategies determine how documents are split into smaller segments ("chunks") before being embedded and stored in a vector database. Selecting the right chunking strategy—whether standard (fixed-token, sentence, paragraph) or advanced (hierarchical, semantic)—is critical for balancing retrieval precision, context relevance, and performance in your retrieval-augmented generation (RAG) application. This guide explains each method clearly, provides code examples, and helps you choose the optimal chunking approach for your use case.

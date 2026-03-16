@@ -1,5 +1,14 @@
 ---
 title: "System design principle"
+description: System design principles covering SOLID, DRY, KISS, YAGNI, separation of concerns, and architectural principles for scalable and maintainable software systems.
+keywords:
+  - system design principles
+  - solid principles
+  - dry principle
+  - kiss principle
+  - yagni
+  - separation of concerns
+  - clean architecture
 ---
 
 ## System Design Principles

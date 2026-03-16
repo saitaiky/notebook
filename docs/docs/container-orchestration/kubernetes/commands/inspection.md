@@ -1,6 +1,15 @@
 ---
 title: Inspection
 sidebar_position: 1
+description: Kubernetes resource introspection using kubectl api-resources and kubectl explain to discover cluster-specific API types, plugins, and resource definitions.
+keywords:
+  - kubectl inspection
+  - kubectl api-resources
+  - kubectl explain
+  - kubernetes introspection
+  - kubernetes resource types
+  - kubectl documentation
+  - kubernetes api
 ---
 
 ## Checking resources

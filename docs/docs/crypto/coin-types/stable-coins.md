@@ -1,5 +1,15 @@
 ---
 title: What is a stablecoin?
+description: 'With the rise of cryptocurrencies, an increasing number of investors and institutions have entered the world of digital currencies. In this highly volatile market.'
+keywords:
+  - crypto
+  - coin types
+  - what stablecoin
+  - what
+  - stablecoin
+  - rise
+  - cryptocurrencies
+  - increasing
 ---
 
 ## The Origin of Stablecoins

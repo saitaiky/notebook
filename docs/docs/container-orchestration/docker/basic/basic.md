@@ -1,6 +1,14 @@
 ---
 title: Why does Docker exist?
-description: Play with Docker
+description: "Why Docker exists: solving isolation, environment consistency, and deployment speed problems with containers compared to VMs and traditional bare-metal deployments."
+keywords:
+  - why docker
+  - docker history
+  - docker isolation
+  - containers vs vms
+  - docker environment
+  - docker speed
+  - docker use cases
 
 sidebar_position: 2
 ---

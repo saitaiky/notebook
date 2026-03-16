@@ -1,6 +1,16 @@
 ---
 title: Home
+description: 'This section is for recording some hobbies and topics that I would like to learn or jot in the future.'
 sidebar_position: 0
+keywords:
+  - home
+  - section
+  - recording
+  - some
+  - hobbies
+  - topics
+  - i
+  - would
 ---
 
 This section is for recording some hobbies and topics that I would like to learn or jot in the future. They include:

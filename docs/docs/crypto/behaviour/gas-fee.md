@@ -1,5 +1,15 @@
 ---
 title: Gas Price
+description: 'Gas Limit represents the maximum number of Gas units you''re willing to pay for in a given transaction. The amount of Gas units needed to complete a transaction de.'
+keywords:
+  - crypto
+  - behaviour
+  - gas price
+  - gas
+  - price
+  - limit
+  - represents
+  - maximum
 ---
 
 ## Gas Limit

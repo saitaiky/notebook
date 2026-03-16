@@ -1,6 +1,16 @@
 ---
 title: LLM pre-training and scaling laws
+description: 'Source: DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications.'
 sidebar_position: 2
+keywords:
+  - ai
+  - llm
+  - llm course notes
+  - llm pre training
+  - pre
+  - training
+  - scaling
+  - laws
 ---
 
 ## Pre-training Large Language Models

@@ -1,5 +1,14 @@
 ---
 title: All Orchestration Systems Are State Machines
+description: All orchestration systems as state machines, covering states, transitions, events, and how workflow engines, sagas, and service meshes implement state management.
+keywords:
+  - state machine
+  - orchestration
+  - workflow engine
+  - state transitions
+  - saga pattern
+  - finite state machine
+  - distributed state
 ---
 
 # All Orchestration Systems Are State Machines: A Conceptual Guide for AI Architects

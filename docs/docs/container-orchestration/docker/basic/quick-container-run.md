@@ -1,6 +1,14 @@
 ---
 title: Play with Docker
-description: Play with Docker
+description: Getting started with Docker using Play With Docker (PWD) browser-based playground to run and interact with containers before local Docker installation.
+keywords:
+  - play with docker
+  - docker tutorial
+  - docker playground
+  - docker getting started
+  - docker beginner
+  - pwd docker
+  - learn docker
 
 sidebar_position: 1
 ---

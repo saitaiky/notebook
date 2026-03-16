@@ -1,5 +1,14 @@
 ---
 title: API(SOAP, REST, GraphQL, and gRPC)
+description: API types comparison covering SOAP, REST, GraphQL, and gRPC with use cases, trade-offs, and when to choose each protocol for system integration.
+keywords:
+  - soap rest graphql grpc
+  - api types
+  - rest api
+  - graphql
+  - grpc
+  - soap api
+  - api comparison
 ---
 
 ## Introduction

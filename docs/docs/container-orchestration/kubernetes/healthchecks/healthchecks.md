@@ -1,5 +1,14 @@
 ---
 title: Health Check
+description: "Kubernetes health check probes: liveness for dead containers, readiness for traffic readiness, and startup probes using HTTP, TCP, and exec handlers."
+keywords:
+  - kubernetes health checks
+  - liveness probe
+  - readiness probe
+  - startup probe
+  - kubernetes probes
+  - kubernetes container health
+  - kubectl health
 ---
 
 ## Basic 

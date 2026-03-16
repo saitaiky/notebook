@@ -1,6 +1,15 @@
 ---
 title: Asynchronous vs. Synchronous Processing in System Design
+description: Asynchronous versus synchronous processing in system design covering blocking calls, message queues, event-driven architecture, and when to use each pattern.
 sidebar_label: Asynchronous Processing
+keywords:
+  - async vs sync
+  - asynchronous processing
+  - synchronous processing
+  - message queue
+  - event-driven
+  - async system design
+  - non-blocking
 ---
 
 Knowing whether to use synchronous or asynchronous processing is crucial in system design, as making the wrong choice can lead to performance issues or poor user experience. Let's clarify the differences between these two approaches.

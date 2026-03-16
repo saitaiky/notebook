@@ -1,6 +1,16 @@
 ---
 title: Rate limit
+description: 'When working with large language models (LLMs), especially from cloud-based providers like OpenAI or Anthropic, you''ll inevitably face rate limits — hard constrai.'
 sidebar_position: 5
+keywords:
+  - ai
+  - agentic system
+  - rate limit
+  - rate
+  - limit
+  - when
+  - working
+  - large
 ---
 
 When working with large language models (LLMs), especially from cloud-based providers like OpenAI or Anthropic, you'll inevitably face **rate limits** — hard constraints on how frequently or quickly your application can interact with the provider's API. These limits are imposed to ensure fair resource distribution and infrastructure stability.

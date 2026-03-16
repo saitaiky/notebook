@@ -1,5 +1,14 @@
 ---
 title: Encryption
+description: Encryption fundamentals covering symmetric and asymmetric encryption, AES, RSA, TLS, key management, and encryption at rest versus in transit.
+keywords:
+  - encryption
+  - symmetric encryption
+  - asymmetric encryption
+  - aes
+  - rsa
+  - tls encryption
+  - key management
 ---
 
 Generally, you should encrypt both **in transit** and **at rest**. Encrypting in transit these days mainly means using HTTPS rather than HTTP, making use of TLS protocols above. Check this [post](/aws/networking/fundamental/protocols/http-https/) for HTTPS explanation.

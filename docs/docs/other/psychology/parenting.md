@@ -1,7 +1,15 @@
 ---
 title: Parenting
-description: Delve into attachment theory and its influence on child development. Understand different attachment styles and their long-term effects, as well as practical tips for fostering secure attachments and effective praise.
-keywords: [attachment theory, child development, parenting styles, secure attachment, Mary Ainsworth, John Bowlby, effective praise, Lev Vygotsky]
+description: 'Delve into attachment theory and its influence on child development. Understand different attachment styles and their long-term effects, as well as practical tips for fostering secure attachments and effective praise.'
+keywords:
+  - psychology
+  - parenting
+  - attachment
+  - refers
+  - emotional
+  - bond
+  - established
+  - between
 ---
 
 

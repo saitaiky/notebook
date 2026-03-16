@@ -1,3 +1,16 @@
+---
+title: Platform engineer
+description: Platform engineering role building internal developer platforms, golden paths, and self-service infrastructure to streamline developer productivity and deployments.
+keywords:
+  - platform engineering
+  - platform engineer
+  - internal developer platform
+  - idp
+  - golden path
+  - self-service infrastructure
+  - developer experience
+---
+
 # Platform engineer
 
 The software development process is complex and often involves multiple teams with different roles and responsibilities. Platform engineers work to streamline the software development process by providing a standardized platform that developers can use to build and deploy applications quickly and reliably.

@@ -1,8 +1,16 @@
 ---
 title: Limitations of the Scientific Method
-description: Examine the limitations of the scientific method in psychology, exploring challenges in quantifying human behavior, the impact of sample representativeness, and the need for diverse research methodologies.
-keywords: [scientific method, psychology research, human behavior, sample representativeness, research methodologies, quantitative data, limitations]
+description: 'Examine the limitations of the scientific method in psychology, exploring challenges in quantifying human behavior, the impact of sample representativeness, and the need for diverse research methodologies.'
 slug: limitation-scientific-method
+keywords:
+  - psychology
+  - limitations scientific method
+  - limitations
+  - scientific
+  - method
+  - recently
+  - delving
+  - into
 ---
 
 

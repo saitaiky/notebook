@@ -1,5 +1,14 @@
 ---
 title: Configuration
+description: Kubectl configuration using kubeconfig file with Kubernetes API server address and TLS certificates for authenticating to single or multiple clusters.
+keywords:
+  - kubectl configuration
+  - kubeconfig
+  - kubernetes authentication
+  - kubectl tls
+  - kubernetes api access
+  - kubectl setup
+  - kubernetes config file
 ---
 
 ## Kubeconfig File

@@ -1,6 +1,16 @@
 ---
 title: RAG Evaluation
+description: 'Source: Langchain - Rag from scratch.'
 draft: true
+keywords:
+  - ai
+  - agentic system
+  - rag evaluation
+  - rag
+  - evaluation
+  - source
+  - langchain
+  - scratch
 ---
 
 > Reference: 

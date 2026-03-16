@@ -1,5 +1,15 @@
 ---
 title: Decentralised app
+description: 'Source: What is a DAPP?'
+keywords:
+  - crypto
+  - ecosystem
+  - decentralised app
+  - decentralised
+  - app
+  - source
+  - what
+  - dapp
 ---
 
 ## What is A DApp

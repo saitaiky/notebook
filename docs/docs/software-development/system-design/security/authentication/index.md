@@ -1,5 +1,14 @@
 ---
 title: Authentication (Identity verification)
+description: Authentication and identity verification methods covering passwords, MFA, tokens, session management, JWTs, and SSO for securing application access.
+keywords:
+  - authentication
+  - identity verification
+  - mfa
+  - jwt
+  - session management
+  - sso
+  - oauth authentication
 ---
 
 Authentication is the process of proving you are who you say you are when accessing an application.

@@ -1,5 +1,15 @@
 ---
 title:  Product design metrics
+description: 'The real question isn’t whether your AI is good enough — it’s whether your users are **confident enough** to use it.'
+keywords:
+  - product design
+  - product design metrics
+  - product
+  - design
+  - metrics
+  - real
+  - question
+  - isn
 ---
 
 ## CAIR Metric (Confidence in AI Results)

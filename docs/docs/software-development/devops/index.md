@@ -1,5 +1,14 @@
 ---
 title: DevOps
+description: DevOps overview covering shift-left and shift-right testing practices, culture, automation, and the principles for faster, more reliable software delivery.
+keywords:
+  - devops
+  - devops overview
+  - shift left testing
+  - shift right testing
+  - devops culture
+  - continuous integration
+  - software delivery
 ---
 
 ## Overview

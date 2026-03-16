@@ -1,5 +1,14 @@
 ---
 title: Async in Python vs in Javascript
+description: Async programming comparison between Python and JavaScript covering event loops, coroutines, callbacks, and the key differences in concurrency models.
+keywords:
+  - python async vs javascript async
+  - asyncio vs javascript
+  - python coroutines
+  - async programming
+  - event loop comparison
+  - python concurrency
+  - javascript promises
 ---
 
 Because I come from a javascript background. When using async in Python I like to think about what is the equivalent in Javascript world. To begin with, first you need to understand when you call an `async def` function in Python, it returns a **coroutine object**. This coroutine object has some conceptual similarities with a JavaScript **Promise**, but there are important differences worth exploring.

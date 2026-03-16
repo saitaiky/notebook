@@ -1,6 +1,15 @@
 ---
 title: Others
 sidebar_position: 3
+description: Docker CLI reference for interactive containers, Alpine Linux benefits for small secure images, and Docker image versus container image terminology glossary.
+keywords:
+  - docker cli
+  - alpine linux
+  - docker image
+  - docker container
+  - docker glossary
+  - alpine docker
+  - docker commands
 ---
 
 ## Glossary

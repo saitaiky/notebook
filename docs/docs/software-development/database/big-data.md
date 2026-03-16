@@ -1,5 +1,14 @@
 ---
 title: Big data
+description: Big data concepts covering massive datasets, user behavior analytics, predictive analytics, and modern data processing tools for large-scale data ecosystems.
+keywords:
+  - big data
+  - data analytics
+  - data processing
+  - predictive analytics
+  - user behavior analytics
+  - big data tools
+  - large scale data
 ---
 
 ## What is big data

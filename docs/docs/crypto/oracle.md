@@ -1,5 +1,15 @@
 ---
 title: Blockchain Oracles
+description: 'Oracles are computer programs that connect data from the outside world (off-chain) with the blockchain world (on-chain).'
+keywords:
+  - crypto
+  - blockchain oracles
+  - blockchain
+  - oracles
+  - computer
+  - programs
+  - connect
+  - data
 ---
 
 ## Blockchain Oracles Explained: Why Do We Need Oracles?

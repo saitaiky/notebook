@@ -1,6 +1,15 @@
 ---
 title: Network
 sidebar_position: 2
+description: Docker networking modes including None, Host, and Bridge with DNS naming, user-defined networks, port mapping, and inter-container communication patterns.
+keywords:
+  - docker networking
+  - docker bridge network
+  - docker host network
+  - docker dns
+  - container networking
+  - user-defined bridge
+  - docker network
 ---
 
 ## 3 different networks

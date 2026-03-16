@@ -1,6 +1,15 @@
 ---
 title: Hedge
-description: Hedge
+description: 'Say you buy some Apple stock. This gives you shares that are traded in New York in USD.'
+keywords:
+  - econ
+  - hedge
+  - say
+  - you
+  - buy
+  - some
+  - apple
+  - stock
 ---
 
 ## Hedged VS Unhedged ETFs

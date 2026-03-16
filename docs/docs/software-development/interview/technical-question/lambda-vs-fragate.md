@@ -1,5 +1,14 @@
 ---
 title: Lambda vs Fragate(contained service)
+description: AWS Lambda versus Fargate comparison for serverless and container workloads covering execution time limits, cost models, cold starts, and use case selection.
+keywords:
+  - lambda vs fargate
+  - aws lambda
+  - aws fargate
+  - serverless vs container
+  - lambda limitations
+  - fargate containers
+  - aws compute comparison
 ---
 
 ## When to Use AWS Lambda

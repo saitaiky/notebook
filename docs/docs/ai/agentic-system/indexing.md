@@ -1,6 +1,16 @@
 ---
 title: Indexing
+description: 'When building retrieval-augmented applications—semantic search, recommendations, similarity search—your choice of index structure in a vector database has a direc.'
 sidebar_position: 2
+keywords:
+  - ai
+  - agentic system
+  - indexing
+  - when
+  - building
+  - retrieval
+  - augmented
+  - applications
 ---
 
 When building retrieval-augmented applications—semantic search, recommendations, similarity search—your choice of **index structure** in a vector database has a direct impact on latency, throughput and memory footprint. Common techniques include:
