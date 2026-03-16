@@ -1,5 +1,15 @@
 ---
 title: Common ports
+description: Common networking ports with their protocols including HTTP, HTTPS, SSH, DNS, FTP, SMTP, RDP for network communication and service identification.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - common ports aws
+  - common ports guide
+  - networking on aws
+  - common ports tutorial
 ---
 
 There are 65,535 possible port numbers, although not all are in common use. Some of the most commonly used ports, along with their associated networking protocol, are:

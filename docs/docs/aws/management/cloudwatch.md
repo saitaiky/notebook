@@ -1,9 +1,16 @@
 ---
 title: CloudWatch
-description: CloudWatch
-keywords:
-- CloudWatch
 sidebar_position: 2
+description: Monitoring and observability service collecting metrics and logs with alarms, dashboards, synthetic canaries, and metric math for analysis and visualization.
+keywords:
+  - aws
+  - amazon web services
+  - management
+  - cloudwatch
+  - cloudwatch aws
+  - cloudwatch guide
+  - management on aws
+  - cloudwatch tutorial
 ---
 
 AWS CloudWatch is a comprehensive monitoring and observability service provided by Amazon Web Services. It allows users to collect, monitor, and store various operational data, such as logs and metrics, from AWS resources and applications in one central location. CloudWatch provides insights into system performance, resource utilization, and application behavior, enabling users to troubleshoot issues, set alarms, and automate responses to maintain the reliability and availability of their applications. It's a valuable tool for optimizing resource usage and ensuring the overall health of AWS environments.

@@ -1,3 +1,16 @@
+---
+title: To-do
+description: Troubleshooting notes documenting NAT instance interface naming, route table configuration, and private subnet connectivity issues and solutions.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+   - nat instance
+   - route table troubleshooting
+  - networking on aws
+   - private subnet connectivity
+---
+
 Here's a comprehensive explanation of all the network issues we encountered:
 
 ## Network Issues Summary

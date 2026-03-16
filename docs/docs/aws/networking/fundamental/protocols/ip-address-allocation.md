@@ -1,5 +1,15 @@
 ---
 title: IP Address Allocation
+description: IP address allocation strategies including classful addressing, CIDR, subnetting, VLSM, and IPv6 adoption for efficient network segmentation.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - ip address allocation aws
+  - ip address allocation guide
+  - networking on aws
+  - ip address allocation tutorial
 ---
 
 ## Network segmentation VS IP address allocation

@@ -1,9 +1,16 @@
 ---
 title: SQS
-description: SQS
-keywords:
-  - SQS
 sidebar_position: 2
+description: Message queue service enabling decoupling with temporary queues, delay queues, visibility timeouts, and delivery guarantees for standard and FIFO queues.
+keywords:
+  - aws
+  - amazon web services
+  - integration messaging
+  - sqs
+  - sqs aws
+  - sqs guide
+  - integration messaging on aws
+  - sqs tutorial
 ---
 
 SQS is a fully managed message queuing service which enables decoupling of the components in a cloud application, allowing distributed, loosely-coupled systems to communicate efficiently. With SQS, you can send, store, and receive messages between software components at any volume without the need to manage infrastructure. It offers high availability, durability, and supports various messaging patterns, making it an essential service for building scalable and resilient cloud applications.

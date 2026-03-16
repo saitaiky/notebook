@@ -1,5 +1,15 @@
 ---
 title: "DNS"
+description: Domain name system translating domain names to IP addresses through recursive resolvers, root servers, TLD servers, and authoritative nameservers.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - dns aws
+  - dns guide
+  - networking on aws
+  - dns tutorial
 ---
 
 > A very good resource to understand DNS in comic: [A fun and colorful explanation of how DNS works.](https://howdns.works/)

@@ -1,9 +1,16 @@
 ---
 title: Route 53
-description: Route 53
-keywords:
-  - Route 53
 sidebar_position: 3
+description: Domain name system service with routing policies including weighted, latency-based, failover, and private hosted zones for VPC internal DNS resolution.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - route53
+  - route 53 aws
+  - route 53 guide
+  - networking on aws
+  - route 53 tutorial
 ---
 
 Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. Amazon Route 53 effectively connects user requests to infrastructure running in AWS – such as Amazon EC2 instances – and can also be used to route users to infrastructure outside of AWS. 

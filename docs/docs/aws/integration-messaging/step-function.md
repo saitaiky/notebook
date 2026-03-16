@@ -1,9 +1,16 @@
 ---
 title: Step function
-description: Step function
-keywords:
-  - Step function
 sidebar_position: 2
+description: Serverless orchestration service defining workflows as state machines with tasks, choice, map, and parallel states for coordinating distributed applications.
+keywords:
+  - aws
+  - amazon web services
+  - integration messaging
+  - step function
+  - step function aws
+  - step function guide
+  - integration messaging on aws
+  - step function tutorial
 ---
 
 > Step functions is a much more simplified version of SWF (it was internally developed as **SWFv2** btw) 

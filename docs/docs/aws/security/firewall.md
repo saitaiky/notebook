@@ -1,7 +1,16 @@
 ---
 title: Firewall
-description: Firewall
 sidebar_position: 5
+description: AWS Firewall Manager centralizing WAF rules, Shield protections, security groups, network firewalls, and Route 53 DNS firewall across accounts.
+keywords:
+  - aws
+  - amazon web services
+  - security
+  - firewall
+  - firewall aws
+  - firewall guide
+  - security on aws
+  - firewall tutorial
 ---
 
 ## Firewall manager

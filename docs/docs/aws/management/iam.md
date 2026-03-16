@@ -1,9 +1,16 @@
 ---
 title: IAM
-description: IAM
-keywords:
-  - IAM
 sidebar_position: 1
+description: Identity and access management controlling user and service permissions with policies, roles, access analyzer, and principle of least privilege implementation.
+keywords:
+  - aws
+  - amazon web services
+  - management
+  - iam
+  - iam aws
+  - iam guide
+  - management on aws
+  - iam tutorial
 ---
 
 AWS Identity and Access Management (IAM) is a service that enables you to securely manage access to AWS resources. It allows you to create and control users, groups, and roles and define their permissions to interact with various AWS services. IAM helps you implement the principle of least privilege, ensuring that users and services have only the necessary permissions for their tasks. It's a fundamental tool for enhancing security and managing access to your AWS resources, making it a critical component of any AWS environment.

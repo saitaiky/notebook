@@ -1,11 +1,17 @@
 ---
 title: Elastic File System
-description: EFS
-keywords:
-  - EFS
-  - Elastic File System
 sidebar_label: EFS
 sidebar_position: 2
+description: Managed NAS service providing shared file storage across EC2 instances with encryption, performance modes, throughput modes, and access points.
+keywords:
+  - aws
+  - amazon web services
+  - storage
+  - efs
+  - elastic file system aws
+  - elastic file system guide
+  - storage on aws
+  - elastic file system tutorial
 ---
 
 EFS is a scalable, managed Network Attached Storage (NAS) service offered by Amazon Web Services. It is designed to provide shared file storage that can be easily accessed by multiple Amazon EC2 instances, making it suitable for a wide range of applications, including content management, web serving, and data sharing. EFS offers automatic scalability, high availability, and a simple, pay-as-you-go pricing model. It is an ideal choice for workloads that require shared file storage across multiple servers or applications in an AWS environment.

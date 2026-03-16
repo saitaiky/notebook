@@ -1,5 +1,15 @@
 ---
 title: EventBridge
+description: Event-driven service integrating with SaaS and AWS services, supporting CloudTrail monitoring, EBS snapshots, and templated targets for event routing.
+keywords:
+  - aws
+  - amazon web services
+  - integration messaging
+  - eventbridge
+  - eventbridge aws
+  - eventbridge guide
+  - integration messaging on aws
+  - eventbridge tutorial
 ---
 
 :::info Is EventBridge same as CloudWatch?

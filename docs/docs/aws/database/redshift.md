@@ -1,9 +1,16 @@
 ---
 title: Redshift
-description: Redshift
-keywords:
-  - Redshift
 sidebar_position: 7
+description: Data warehouse service for OLAP workloads with petabyte-scale storage, Redshift Spectrum for querying S3 data, and columnar storage for analytics.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - redshift
+  - redshift aws
+  - redshift guide
+  - database on aws
+  - redshift tutorial
 ---
 
 ## Amazon Redshift

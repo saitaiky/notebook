@@ -1,9 +1,16 @@
 ---
 title: DynamoDB
-description: DynamoDB
-keywords:
-  - DynamoDB
 sidebar_position: 3
+description: Fully managed NoSQL database for high-performance applications with partition keys, global tables, conditional writes, and multiple backup and export methods.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - dynamodb
+  - dynamodb aws
+  - dynamodb guide
+  - database on aws
+  - dynamodb tutorial
 ---
 
 Amazon DynamoDB is a fully managed NoSQL database service which is designed for high-performance, low-latency, and scalable applications. DynamoDB can handle massive amounts of data and traffic, making it ideal for web, gaming, IoT, and mobile applications. It offers seamless scalability, automatic data replication, and built-in security. Users can choose on-demand or provisioned capacity modes. With its flexible data model, consistent performance, and ease of use, DynamoDB is a popular choice for applications requiring fast and reliable database services in the cloud.

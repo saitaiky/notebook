@@ -1,9 +1,16 @@
 ---
 title: Kinesis
-description: Kinesis
-keywords:
-  - Kinesis
 sidebar_position: 1
+description: Data streaming services including Data Streams for concurrent consumers, Firehose for data loading, and Analytics for SQL queries on streaming data.
+keywords:
+  - aws
+  - amazon web services
+  - integration messaging
+  - kinesis
+  - kinesis aws
+  - kinesis guide
+  - integration messaging on aws
+  - kinesis tutorial
 ---
 
 Amazon Kinesis Data Streams is recommended when you need the ability for multiple applications to consume the same stream concurrently.

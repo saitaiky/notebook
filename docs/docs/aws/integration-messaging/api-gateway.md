@@ -1,9 +1,16 @@
 ---
 title: API Gateway
-description: API Gateway
-keywords:
-  - API Gateway
 sidebar_position: 4
+description: "API management service controlling access through CORS, caching, and three authorization types: IAM, Cognito user pools, and Lambda authorizers."
+keywords:
+  - aws
+  - amazon web services
+  - integration messaging
+  - api gateway
+  - api gateway aws
+  - api gateway guide
+  - integration messaging on aws
+  - api gateway tutorial
 ---
 
 

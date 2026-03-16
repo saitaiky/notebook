@@ -1,5 +1,15 @@
 ---
 title: Reverse Proxy
+description: Reverse proxy architecture positioning behind firewall to handle client requests, providing web acceleration, caching, and security while hiding backend servers.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - reverse proxy aws
+  - reverse proxy guide
+  - networking on aws
+  - reverse proxy tutorial
 ---
 
 > TL;DR - Load balancers are most commonly deployed when a site needs multiple servers because the volume of requests is too much for a single server to handle efficiently. Whereas deploying a load balancer makes sense only when you have multiple servers, it often makes sense to deploy a reverse proxy even with just one web server or application server. 

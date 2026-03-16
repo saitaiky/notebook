@@ -1,7 +1,16 @@
 ---
 title: Security Manager
-description: Security Manager
 sidebar_position: 4
+description: Secrets Manager storing database credentials with automatic rotation using Lambda, compared to SSM Parameter Store for encrypted secret management.
+keywords:
+  - aws
+  - amazon web services
+  - security
+  - security manager
+  - security manager aws
+  - security manager guide
+  - security on aws
+  - security manager tutorial
 ---
 
 - Newer service compared to SSM, meant for storing secrets

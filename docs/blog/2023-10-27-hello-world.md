@@ -1,7 +1,10 @@
 ---
 title: About this place
 slug: hello-world
-tags: [dairy]
+description: Why this notebook exists, who it is for, and how adaptable thinking shapes what I document across software, AI, and life topics.
+tags: [diary, personal-notes, writing, learning-journey, adaptability]
+keywords: [personal knowledge base, docusaurus blog, learning in public, software engineer notes, adaptability mindset]
+image: https://sai-tai.com/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg
 ---
 
 Hi, welcome to my blog. Here's a brief intro.

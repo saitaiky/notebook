@@ -1,6 +1,15 @@
 ---
 title: AWS Systems Manager
-description: AWS Systems Manager (Systems Manager) was formerly known as "Amazon Simple Systems Manager (SSM)" and "Amazon EC2 Systems Manager (SSM)". The original abbreviated name of the service, "SSM", is still reflected in various AWS resources, including a few other service consoles.
+description: Systems Manager service providing automation, documents for operational tasks, patch management, session manager for secure instance access without SSH.
+keywords:
+  - aws
+  - amazon web services
+  - management
+  - ssm
+  - aws systems manager aws
+  - aws systems manager guide
+  - management on aws
+  - aws systems manager tutorial
 ---
 
 ## Systems Manager Agent (SSM Agent)

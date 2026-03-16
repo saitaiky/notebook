@@ -1,9 +1,16 @@
 ---
 title: Kinesis Data Stream
-description: Kinesis Data Stream
-keywords:
-  - Kinesis Data Stream
 sidebar_position: 1
+description: Real-time streaming service with KMS encryption, PutRecord operations, and throughput limits requiring shard scaling for sustained increase in data rate.
+keywords:
+  - aws
+  - amazon web services
+  - integration messaging
+  - kinesis
+  - kinesis data stream aws
+  - kinesis data stream guide
+  - integration messaging on aws
+  - kinesis data stream tutorial
 ---
 
 

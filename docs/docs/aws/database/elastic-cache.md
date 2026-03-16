@@ -1,9 +1,16 @@
 ---
 title: ElasticCache
-description: ElasticCache
-keywords:
-  - ElasticCache
 sidebar_position: 5
+description: In-memory caching service with Memcached and Redis engines, supporting cluster modes, scaling options, and geospatial data structures for performance optimization.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - elastic cache
+  - elasticcache aws
+  - elasticcache guide
+  - database on aws
+  - elasticcache tutorial
 ---
 
 

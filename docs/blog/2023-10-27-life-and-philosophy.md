@@ -1,7 +1,10 @@
 ---
 title: Life philosophy
 slug: Life-and-philosophy
-tags: [dairy]
+description: Draft reflections on meaning, work, beauty, and rationality through Chinese philosophy and modern life questions.
+tags: [diary, philosophy, life-reflection, meaning, chinese-thought]
+keywords: [life philosophy notes, meaning of life reflections, chinese philosophy ideas, career versus vocation, personal worldview]
+image: https://sai-tai.com/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg
 draft: true
 ---
 

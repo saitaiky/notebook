@@ -1,9 +1,16 @@
 ---
 title: Cognito, IAM Identity Center 
-description: Cognito
-keywords:
-  - Cognito
 sidebar_position: 3
+description: Authentication and authorization service with user pools for identity verification and identity pools for AWS resource access and federated identities.
+keywords:
+  - aws
+  - amazon web services
+  - management
+  - cognito
+  - cognito, iam identity center aws
+  - cognito, iam identity center guide
+  - management on aws
+  - cognito iam identity tutorial
 ---
  
 ## Cognito

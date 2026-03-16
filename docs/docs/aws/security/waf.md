@@ -1,9 +1,16 @@
 ---
 title: WAF
-description: WAF
-keywords:
-  - WAF
 sidebar_position: 3
+description: Web application firewall at layer 7 protecting CloudFront, API Gateway, ALB, and AppSync from attacks with custom rules and managed rule groups.
+keywords:
+  - aws
+  - amazon web services
+  - security
+  - waf
+  - waf aws
+  - waf guide
+  - security on aws
+  - waf tutorial
 ---
 
 AWS WAF is a web application firewall (**layer 7**) that lets you configure rules that allow, block, or monitor (count) web requests to below 4 services based on conditions that you define. 

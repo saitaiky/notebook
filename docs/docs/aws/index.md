@@ -1,10 +1,17 @@
 ---
 title: Intro 
-description: AWS
-keywords:
-  - aws
 sidebar_label: Intro
 sidebar_position: 0
+description: AWS certification study guide covering SysOps, Developer, and Solutions Architect associate certifications with practical knowledge, hands-on experience, and exam preparation strategies.
+keywords:
+  - aws
+  - amazon web services
+  - index
+  - intro aws
+  - intro guide
+  - index on aws
+  - intro tutorial
+  - cloud architecture
 ---
 
 Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS [SysOps](https://aws.amazon.com/certification/certified-sysops-admin-associate/), [Developer](https://aws.amazon.com/certification/certified-developer-associate/), and [Solutions Architect](https://aws.amazon.com/certification/certified-solutions-architect-associate/) associate certifications. If you find any inaccuracy, kindly notify me through GitHub/the comment section.

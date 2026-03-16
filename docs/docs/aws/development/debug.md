@@ -1,5 +1,15 @@
 ---
 title: Debug
+description: Debugging serverless applications using logging libraries, structured logging, and AWS Lambda logging best practices for troubleshooting Lambda functions.
+keywords:
+  - aws
+  - amazon web services
+  - development
+  - debug
+  - debug aws
+  - debug guide
+  - development on aws
+  - debug tutorial
 ---
 
 ## Logging in Lambda

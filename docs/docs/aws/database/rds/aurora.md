@@ -1,9 +1,16 @@
 ---
 title: Aurora
-description: Aurora
-keywords:
-  - Aurora
 sidebar_position: 4
+description: Managed relational database with MySQL/PostgreSQL compatibility, automatic backups, up to 15 replicas, global database, multi-master writes, and backtrack capability.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - rds
+  - aurora aws
+  - aurora guide
+  - database on aws
+  - aurora tutorial
 ---
 
 Amazon Aurora is a fully managed relational database engine developed by AWS. It offers high performance, availability, and scalability, while being compatible with **MySQL and PostgreSQL**. Aurora's architecture is designed for cloud-native capabilities and provides features like automatic backups, replication, and seamless scaling to meet the demands of modern applications.

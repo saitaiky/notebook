@@ -1,5 +1,15 @@
 ---
 title: HTTP and HTTPS
+description: HTTP and HTTPS protocols with HTTPS using TLS encryption for privacy, integrity, and identification through certificate-based authentication.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - http and https aws
+  - http and https guide
+  - networking on aws
+  - http and https tutorial
 ---
 
 ## Why we need Https?

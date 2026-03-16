@@ -1,6 +1,15 @@
 ---
 title: Storage Gateway
-description: Gateways
+description: Hybrid cloud storage gateway providing file, volume, and tape gateway options for on-premises access with caching and backup to S3.
+keywords:
+  - aws
+  - amazon web services
+  - storage
+  - gateways
+  - storage gateway aws
+  - storage gateway guide
+  - storage on aws
+  - storage gateway tutorial
 ---
 
 ![AWS-Storage-Gateway](/img/aws/storage/AWS-Storage-Gateway.png)

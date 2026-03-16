@@ -1,6 +1,16 @@
 ---
 title: CDK
 sidebar_position: 3
+description: Infrastructure as Code framework using programming languages like TypeScript and Python to define AWS resources with type safety and custom resources.
+keywords:
+  - aws
+  - amazon web services
+  - development
+  - cdk
+  - cdk aws
+  - cdk guide
+  - development on aws
+  - cdk tutorial
 ---
 
 ## Introduction

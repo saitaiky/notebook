@@ -1,9 +1,16 @@
 ---
 title: Organizations
-description: Organizations
-keywords:
-  - Organizations
 sidebar_position: 5
+description: Multi-account governance service with service control policies, consolidated billing, and centralized policy management across AWS accounts and organization units.
+keywords:
+  - aws
+  - amazon web services
+  - management
+  - organizations
+  - organizations aws
+  - organizations guide
+  - management on aws
+  - organizations tutorial
 ---
 
 AWS Organizations offers policy-based management for multiple AWS accounts. With Organizations, you can create groups of accounts, automate account creation, apply and manage policies for those groups. Organizations enables you to centrally manage policies across multiple accounts, without requiring custom scripts and manual processes.

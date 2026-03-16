@@ -1,8 +1,15 @@
 ---
 title: Cost
-description: Cost
+description: Cost optimization tools including cost allocation tags, AWS Budget, Compute Optimizer, and Savings Plans for managing and reducing AWS expenses.
 keywords:
-  - Cost
+  - aws
+  - amazon web services
+  - management
+  - cost
+  - cost aws
+  - cost guide
+  - management on aws
+  - cost tutorial
 ---
 
 ## 2 AWS cost allocation tags

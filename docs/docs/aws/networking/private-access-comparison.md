@@ -1,6 +1,16 @@
 ---
 title: SSH Tunneling vs VPN vs SSM
 sidebar_position: 6
+description: Secure access comparison of SSH tunneling via bastion, VPN connections, and SSM Session Manager port forwarding for private AWS resources.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - private access comparison
+  - ssh tunneling vs vpn vs ssm aws
+  - ssh tunneling vs vpn vs ssm guide
+  - networking on aws
+  - ssh tunneling vs tutorial
 ---
 
 # Comparing Secure Access Methods for Private AWS Resources

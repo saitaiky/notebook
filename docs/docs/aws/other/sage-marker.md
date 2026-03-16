@@ -1,5 +1,15 @@
 ---
 title: SageMarker
+description: SageMaker Pipelines for ML workflow automation versus Step Functions for general-purpose orchestration with different features and integration.
+keywords:
+  - aws
+  - amazon web services
+  - other
+  - sage marker
+  - sagemarker aws
+  - sagemarker guide
+  - other on aws
+  - sagemarker tutorial
 ---
 
 ## TO-DO

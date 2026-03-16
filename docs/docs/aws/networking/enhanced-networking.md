@@ -1,6 +1,16 @@
 ---
 title: Enhanced Networking
 sidebar_position: 5
+description: High-performance networking using ENI, ENA with SR-IOV, and EFA with OS-bypass for HPC workloads requiring ultra-low latency and high bandwidth.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - enhanced networking
+  - enhanced networking aws
+  - enhanced networking guide
+  - networking on aws
+  - enhanced networking tutorial
 ---
 
 EC2 instances can be enhanced and customized by attaching ENIs, and their networking capabilities can be further improved using ENAs and EFAs. These network interfaces play a crucial role in optimizing connectivity, performance, and high availability for EC2 instances based on their specific use cases.

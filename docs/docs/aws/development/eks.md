@@ -1,6 +1,16 @@
 ---
 title: EKS
 sidebar_position: 5
+description: Kubernetes service on AWS providing kubeconfig authentication, AWS IAM integration, and kubectl CLI for managing containerized applications.
+keywords:
+  - aws
+  - amazon web services
+  - development
+  - eks
+  - eks aws
+  - eks guide
+  - development on aws
+  - eks tutorial
 ---
 
 The kubectl command-line tool uses configuration information in kubeconfig files to communicate with the API server of a cluster. You can choose either of these two procedures to create or update a kubeconfig file for your Amazon EKS cluster:

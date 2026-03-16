@@ -1,11 +1,16 @@
 ---
 title: KMS
-description: KMS
-keywords:
-  - cross account sharing
-  - host account
-  - cross account
 sidebar_position: 2
+description: Key management service with customer master keys, envelope encryption, KMS integration with EBS, SQS, Parameter Store, and multiregion key sharing.
+keywords:
+  - aws
+  - amazon web services
+  - security
+  - kms ssm
+  - kms aws
+  - kms guide
+  - security on aws
+  - kms tutorial
 ---
 
 ## CMK (customer master key)

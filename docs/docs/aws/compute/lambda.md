@@ -1,9 +1,16 @@
 ---
 title: Lambda
-description: Lambda
-keywords:
-  - Lambda
 sidebar_position: 5
+description: Serverless compute service executing code in response to events without server provisioning, supporting multiple languages and enabling microservices and automation.
+keywords:
+  - aws
+  - amazon web services
+  - compute
+  - lambda
+  - lambda aws
+  - lambda guide
+  - compute on aws
+  - lambda tutorial
 ---
 
 AWS Lambda is a serverless compute service offered by AWS. It allows you to run code in response to various events without the need to provision or manage servers. You can upload your code, define event triggers, and Lambda automatically scales and manages the infrastructure. It supports a variety of programming languages and is ideal for building microservices, data processing tasks, and automation. With Lambda, you only pay for the compute time consumed during code execution, making it cost-effective and scalable for a wide range of applications.

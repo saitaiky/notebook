@@ -1,5 +1,15 @@
 ---
 title: IPsec VPNs vs. SSL VPNs
+description: VPN comparison between IPsec operating at network layer for full access and SSL/TLS at application layer for web-based granular access control.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - ipsec vpns vs. ssl vpns aws
+  - ipsec vpns vs. ssl vpns guide
+  - networking on aws
+  - ipsec vpns vs tutorial
 ---
 
 ![networking-sitetosite_vpn_02](/img/aws/networking/fundamental/networking-sitetosite_vpn_02.png)

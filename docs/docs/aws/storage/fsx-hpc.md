@@ -2,6 +2,16 @@
 title: High Performance Computing 
 sibebar_lable: FSx - HPC
 sidebar_position: 4
+description: High-performance file systems including Lustre for HPC with S3 integration and Windows File Server using SMB protocol for Windows environments.
+keywords:
+  - aws
+  - amazon web services
+  - storage
+  - fsx hpc
+  - high performance computing aws
+  - high performance computing guide
+  - storage on aws
+  - high performance computing tutorial
 ---
 
 ## Background

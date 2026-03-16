@@ -1,5 +1,15 @@
 ---
 title: Email
+description: Email protocols including SMTP for sending, IMAP for receiving with multi-device access, and POP3 for single-device offline access.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - email aws
+  - email guide
+  - networking on aws
+  - email tutorial
 ---
 
 ## Workflow

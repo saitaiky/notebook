@@ -1,5 +1,15 @@
 ---
 title: Real-Time Communication Technologies
+description: Real-time bidirectional communication technology with comparison to HTTP polling, long polling, SSE, and WebRTC for persistent connections.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - real-time communication technologies aws
+  - real-time communication technologies guide
+  - networking on aws
+  - real-time communication technologies tutorial
 ---
 
 ## Real-Time Communication Technologies

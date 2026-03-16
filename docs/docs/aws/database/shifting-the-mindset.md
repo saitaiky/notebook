@@ -1,3 +1,17 @@
+---
+title: Mindshift from Relational Databases to DynamoDB (NoSQL)
+description: NoSQL design patterns for DynamoDB including denormalization, single-table design, access pattern optimization, and salting partition keys for hot partition prevention.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - shifting the mindset
+  - mindshift from relational databases to dynamodb (nosql) aws
+  - mindshift from relational databases to dynamodb (nosql) guide
+  - database on aws
+  - mindshift from relational tutorial
+---
+
 # Mindshift from Relational Databases to DynamoDB (NoSQL)
 
 When transitioning from a relational database (RDBMS) to a NoSQL database like **DynamoDB**, it's essential to understand the **paradigm shift** in data modelling, access patterns, and scalability strategies. Unlike traditional relational databases that rely on structured tables, predefined schemas, and joins, NoSQL databases like DynamoDB are designed to optimize for scalability, speed, and flexibility in modern, data-driven applications.

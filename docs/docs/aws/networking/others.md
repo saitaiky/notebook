@@ -1,9 +1,16 @@
 ---
 title: Other services
-description: AWS Networking & Content Delivery
-keywords:
-  - AWS Global Accelerator
 sidebar_label: Other services
+description: AWS Global Accelerator providing static IPs and multi-region routing without changing DNS, simplifying global application distribution and failover management.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - others
+  - other services aws
+  - other services guide
+  - networking on aws
+  - other services tutorial
 ---
 
 ## AWS Global Accelerator

@@ -1,5 +1,15 @@
 ---
 title: Database
+description: Overview of AWS database services including RDS, Aurora, DynamoDB, ElastiCache, Redshift with operation, security, reliability, and cost considerations.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - index
+  - database aws
+  - database guide
+  - database on aws
+  - database tutorial
 ---
 
 ## Database types

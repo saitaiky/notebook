@@ -1,9 +1,16 @@
 ---
 title: RDS
-description: RDS
-keywords:
-  - RDS
 sidebar_position: 1
+description: Managed relational database service supporting MySQL, PostgreSQL, MariaDB, Oracle with automated patching, backup, replication, and encryption options.
+keywords:
+  - aws
+  - amazon web services
+  - database
+  - rds
+  - rds aws
+  - rds guide
+  - database on aws
+  - rds tutorial
 ---
 
 Amazon RDS (Relational Database Service) is a managed database service offered by AWS that simplifies the process of setting up, operating, and scaling relational databases in the cloud. It allows you to choose from various database engines such as **MySQL, PostgreSQL, MariaDB, Oracle**, and **Microsoft SQL Server**, and provides automated tasks like hardware provisioning, patching, backup, recovery, and scaling. 

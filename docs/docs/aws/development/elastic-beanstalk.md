@@ -1,9 +1,16 @@
 ---
 title: Elastic Beanstalk
-description: Elastic Beanstalk
-keywords:
-  - Elastic Beanstalk
 sidebar_position: 4
+description: Platform as a service layer abstracting EC2, load balancers, and auto-scaling for rapid application deployment with various deployment policies and monitoring.
+keywords:
+  - aws
+  - amazon web services
+  - development
+  - elastic beanstalk
+  - elastic beanstalk aws
+  - elastic beanstalk guide
+  - development on aws
+  - elastic beanstalk tutorial
 ---
 
 ## Overview

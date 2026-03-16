@@ -1,8 +1,15 @@
 ---
 title: Other Concepts
-description: Other Concepts of AWS
+description: AWS managed services covering shared responsibility, Directory Service, CloudHSM, Service Catalog, and security tools like GuardDuty, Macie, Security Hub for governance and compliance.
 keywords:
-  - Others
+  - aws
+  - amazon web services
+  - others
+  - other concepts aws
+  - other concepts guide
+  - others on aws
+  - other concepts tutorial
+  - cloud architecture
 ---
 
 ## Shared Responsibility Model

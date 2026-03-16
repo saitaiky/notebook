@@ -1,5 +1,15 @@
 ---
 title: Static and Dynamic routing
+description: Routing protocols with static routes manually configured and dynamic routing using BGP for automatic path selection and adaptation to network changes.
+keywords:
+  - aws
+  - amazon web services
+  - networking
+  - fundamental
+  - static and dynamic routing aws
+  - static and dynamic routing guide
+  - networking on aws
+  - static and dynamic tutorial
 ---
 
 I Found the below video is so handy to understand the concept of Static and Dynamic routing and how they work with Cloud Computing. (I wish AWS can have similar videos like this )

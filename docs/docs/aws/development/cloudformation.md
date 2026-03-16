@@ -1,9 +1,16 @@
 ---
-title: Cloudformation
-description: Cloudformation
-keywords:
-  - Cloudformation
+title: CloudFormation
 sidebar_position: 2
+description: Infrastructure as Code service using JSON or YAML to define AWS resources, with helper scripts cfn-init and cfn-signal for EC2 instance configuration.
+keywords:
+  - aws
+  - amazon web services
+  - development
+  - cloudformation
+  - cloudformation aws
+  - cloudformation guide
+  - development on aws
+  - cloudformation tutorial
 ---
 
 
