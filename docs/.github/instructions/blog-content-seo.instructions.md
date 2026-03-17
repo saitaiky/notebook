@@ -43,6 +43,55 @@ Recommended when available:
 - Keep `<!-- truncate -->` in long posts for blog list previews.
 - Preserve existing links unless they are broken; fix broken links in the same change.
 
+## Audience And Voice Rules
+
+Use these defaults unless the user explicitly requests a different audience or tone.
+
+### Audience
+
+- For technical posts: software engineers and technical practitioners.
+- For non-technical posts: general readers seeking practical reflection and clearer understanding.
+- Match depth, examples, and vocabulary to the topic domain.
+
+### Tone
+
+- Professional, practical, and clear.
+- Confident but not hype-driven.
+- Helpful and direct; avoid marketing language.
+- Use plain English and define niche jargon on first use.
+- For non-technical topics, allow a warmer and more reflective voice while staying structured and evidence-aware.
+
+### Style
+
+- Start with the problem and why it matters in practice.
+- Prefer short paragraphs and concrete examples.
+- Favor actionable guidance, trade-offs, and decision criteria.
+- Use active voice and specific wording; avoid vague filler.
+- Keep claims grounded; avoid overpromising outcomes.
+
+### Non-Technical Topic Style (Psychology-Inspired)
+
+Apply this style for non-technical domains such as psychology, life, culture, education, and related reflective topics.
+
+- Use explanatory and human-centered writing with practical relevance.
+- Allow first-person motivation/context briefly when it improves reader connection.
+- Balance concept explanation with lived examples and actionable takeaways.
+- Keep a calm, thoughtful tone; avoid sales-like or overly promotional phrasing.
+- Preserve nuance: avoid absolute claims when discussing human behavior.
+- Separate evidence-backed points from personal opinion clearly.
+- Prefer educational clarity over dense academic jargon.
+
+### Readability And Structure
+
+- Include a concise intro that states audience value.
+- Keep heading flow logical (`##` then `###`) without jumps.
+- Use lists for steps, comparisons, and checklists.
+- End with practical takeaways or next-step guidance when appropriate.
+
+### Audience/Tone Override Rule
+
+- If a user specifies audience, tone, or depth, that explicit request overrides these defaults.
+
 ## Pre-merge Checklist
 
 - Frontmatter fields present and valid.

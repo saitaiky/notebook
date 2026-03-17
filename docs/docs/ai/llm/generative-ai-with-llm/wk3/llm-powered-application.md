@@ -104,8 +104,8 @@ Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-worl
 - **Calibration Step**: Statistically capture the dynamic range of parameter values for effective quantization.
 
 :::info Is Quantization Aware Training and Post-training Quantization the same thing?
-QAT: [Quantization](/ai/llm/wk1/pretrain-scaling/#quantization) is `integrated into the training process`, leading to better performance under quantization but requiring more complex training.
-PTQ: [Quantization](/ai/llm/wk1/pretrain-scaling/#quantization) is `applied after training`, offering ease of implementation but potentially with a small trade-off in performance.
+QAT: [Quantization](/ai/llm/generative-ai-with-llm/wk1/pretrain-scaling/#quantization) is `integrated into the training process`, leading to better performance under quantization but requiring more complex training.
+PTQ: [Quantization](/ai/llm/generative-ai-with-llm/wk1/pretrain-scaling/#quantization) is `applied after training`, offering ease of implementation but potentially with a small trade-off in performance.
 :::
 
 :::warning

@@ -53,7 +53,7 @@ PAL is a technique to explore involves enabling LLMs to interact with external p
 
 This section discusses the limitations of large language models (LLMs) in handling arithmetic and other mathematical operations, and introduces the Program-Aided Language Models (PAL) framework as a solution to improve accuracy by leveraging external code interpreters.
 
-LLMs often struggle with performing accurate mathematical operations, especially when dealing with large numbers or complex calculations. This is because LLMs are designed to predict the most probable tokens based on training data rather than performing actual arithmetic. Even when using [chain of thought prompting](/ai/llm/wk3/llm-powered-application/#chain-of-thought-prompting-for-improved-reasoning-in-llms), where the model reasons through the steps of a problem, it can still arrive at incorrect results due to its inherent limitations in handling math.
+LLMs often struggle with performing accurate mathematical operations, especially when dealing with large numbers or complex calculations. This is because LLMs are designed to predict the most probable tokens based on training data rather than performing actual arithmetic. Even when using [chain of thought prompting](/ai/llm/generative-ai-with-llm/wk3/reasoning/#chain-of-thought-prompting-for-improved-reasoning-in-llms), where the model reasons through the steps of a problem, it can still arrive at incorrect results due to its inherent limitations in handling math.
 
 ### Introducing PAL (Program-Aided Language Models)
 
@@ -80,7 +80,7 @@ Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-worl
 
 Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)
 
-In simpler math problems, the model might get the answer right using [chain of thought prompting](/ai/llm/wk3/reasoning/#chain-of-thought-prompting-for-improved-reasoning-in-llms). However, for more complex math, like large number arithmetic, trigonometry, or calculus, PAL ensures accurate and reliable calculations. To *automate this process* and avoid manual data transfer between the LLM and interpreter, the **orchestrator** you saw earlier becomes essential.
+In simpler math problems, the model might get the answer right using [chain of thought prompting](/ai/llm/generative-ai-with-llm/wk3/reasoning/#chain-of-thought-prompting-for-improved-reasoning-in-llms). However, for more complex math, like large number arithmetic, trigonometry, or calculus, PAL ensures accurate and reliable calculations. To *automate this process* and avoid manual data transfer between the LLM and interpreter, the **orchestrator** you saw earlier becomes essential.
 
 - **Orchestrator Role**: The orchestrator is a technical component that automates the flow of information between the LLM and external applications like a Python interpreter. It manages calls to the interpreter, processes the outputs, and ensures that the correct actions are taken based on the LLM’s plan.
 - **Simplifying Complex Applications**: While PAL focuses on executing Python code, real-world applications may involve multiple decision points, interactions with various data sources, and more complex logic. The orchestrator handles these complexities, enabling the LLM to power more sophisticated applications.
