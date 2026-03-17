@@ -17,6 +17,11 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
 - Keep markdown structure semantic (`#`, `##`, tables, lists) for readability and indexing.
 - Ensure links are valid and keep existing internal URLs stable.
 
+## Author Voice (Personal Site)
+
+- This is a personal knowledge site, so default to first-person singular voice for project narratives and reflective explanations (use "I" instead of "we" when describing work completed by the site owner).
+- Avoid platform or institutional tone unless the user explicitly requests it.
+
 ## Frontmatter Safety
 
 - Always write valid YAML frontmatter wrapped by `---` delimiters.

@@ -17,9 +17,9 @@ This section focuses on classical AI projects where the core challenge is struct
 
 ## Projects in this section
 
-- [A Sign Language Recognizer](./a-sign-language-recognizer): In this project, we build a recognition pipeline for sign-language sequences using probabilistic models to infer the most likely word sequence from observed features. The project demonstrates practical sequence modeling, likelihood-based scoring, and evaluation under ambiguity.
-- [An Adversarial Search Agent](./an-adversarial-search-agent): This project implements a competitive game-playing agent using adversarial search, heuristic evaluation, and time-aware decision logic. We use it to study how minimax-style search quality depends on evaluation functions, pruning behavior, and computational budget.
-- [A planning search](./a-planning-search): In this project, we benchmark planning/search strategies and heuristic variants across problem instances to compare solution quality and runtime cost. The project shows how heuristic design and search-space structure affect scalability in classical AI planning tasks.
+- [A Sign Language Recognizer](./a-sign-language-recognizer): In this project, I build a recognition pipeline for sign-language sequences using probabilistic models to infer the most likely word sequence from observed features. The project demonstrates practical sequence modeling, likelihood-based scoring, and evaluation under ambiguity.
+- [An Adversarial Search Agent](./an-adversarial-search-agent): This project implements a competitive game-playing agent using adversarial search, heuristic evaluation, and time-aware decision logic. I use it to study how minimax-style search quality depends on evaluation functions, pruning behavior, and computational budget.
+- [A planning search](./a-planning-search): In this project, I benchmark planning/search strategies and heuristic variants across problem instances to compare solution quality and runtime cost. The project shows how heuristic design and search-space structure affect scalability in classical AI planning tasks.
 
 ## Key knowledge to learn
 
