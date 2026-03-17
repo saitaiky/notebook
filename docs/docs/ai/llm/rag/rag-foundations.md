@@ -1,5 +1,5 @@
 ---
-title: "RAG Foundations in Practice: A Software Engineer's Overview"
+title: "RAG Foundations in Practice"
 description: "Practical introduction to Retrieval-Augmented Generation (RAG), including architecture, use cases, retrieval bottlenecks, and implementation guidance."
 keywords:
   - retrieval augmented generation

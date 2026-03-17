@@ -1,7 +1,7 @@
 ---
 title: RAG vs Retrain vs Finetune
-description: 'Artificial Intelligence (AI) has made remarkable progress in natural language processing (NLP), offering powerful tools for everything from text generation to que.'
-sidebar_position: 2
+description: "How I decide between RAG, retraining, and fine-tuning for LLM systems, including trade-offs, use cases, and practical decision criteria."
+sidebar_position: 1
 keywords:
   - ai
   - llm

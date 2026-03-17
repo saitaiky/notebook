@@ -35,6 +35,46 @@ Foundation language models, like MT-NLG and GPT-3, are versatile and perform a w
 Generative AI and LLMs specifically are a general purpose technology. That means that similar to other general purpose technologies like deep learning and electricity, is useful not just for a single application, but for a lot of different applications that span many corners of the economy. 
 :::
 
+## Quick Foundations Primer
+
+I use this section as a compact bridge between traditional language modeling and modern transformer-based LLMs.
+
+### Corpus, Probabilities, and Predictive Text
+
+A corpus is the text collection used to train a language model. The model learns probability patterns from that corpus, then uses those patterns for tasks such as next-word prediction, summarization, translation, and question-answering. Predictive text on phones and email autocomplete are practical examples of this probability-first behavior.
+
+### N-gram Intuition (Before Transformers)
+
+Before transformers, one of the simplest approaches was the N-gram model:
+
+- A **bigram** predicts the next token from one previous token.
+- A **trigram** predicts from two previous tokens.
+- Larger N can improve context but also increases sparsity and brittleness.
+
+N-grams are still useful for intuition and baselines, even though they cannot reliably capture long-range dependencies.
+
+### Temperature and Output Style
+
+Temperature controls how deterministic or creative generation becomes:
+
+- Lower temperature gives stable, repetitive, and safer outputs.
+- Higher temperature increases variation and novelty, but can reduce coherence.
+
+In practice, I treat temperature as a task-level control: lower for structured writing, medium for balanced generation, and higher for exploratory creative drafts.
+
+### Epochs, Loss, and Overfitting
+
+During training, the model performs multiple passes through data (epochs) and optimizes against a loss function. Loss typically decreases as the model learns, but pushing optimization too far can cause overfitting, where the model memorizes patterns and generalizes poorly. Practical training is about finding the balance between under-training and overfitting.
+
+### Preprocessing and Tokenization
+
+Raw text usually needs normalization before training, including cleanup of punctuation conventions, casing strategy, and abbreviation handling. Tokenization then converts text into model-usable units. Modern systems often rely on subword methods such as BPE to balance vocabulary size and coverage for unseen words.
+
+### Related Foundations Notes
+
+- [RAG vs Retrain vs Finetune](./foundations/rag-vs-retrain-vs-finetune)
+- [Practical Questions](./foundations/practical-questions)
+
 ## Evolution of Large Language Models
 
 The evolution of large language models (LLMs) has brought about a paradigm shift in natural language processing (NLP). Historically, AI systems focused on data analysis rather than generation, but the advent of LLMs shifted this balance. This change can be observed by comparing three NLP regimes:
