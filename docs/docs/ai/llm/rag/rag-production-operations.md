@@ -1,6 +1,6 @@
 ---
-title: RAG in Production: Observability, Trade-offs, and Security
-description: Production operations playbook for RAG systems across observability, evaluation, latency and cost trade-offs, deployment safety, and security.
+title: "RAG in Production: Observability, Trade-offs, and Security"
+description: "Production operations playbook for RAG systems across observability, evaluation, latency and cost trade-offs, deployment safety, and security."
 keywords:
     - rag production
     - rag observability

@@ -36,6 +36,14 @@ Recommended when available:
 - Include at least one relevant image for social cards.
 - Maintain human-readable links and stable slugs.
 
+## Frontmatter YAML Safety Rules
+
+- Always wrap `title` and `description` values in double quotes.
+- Quote any frontmatter string value containing special characters such as `:`, `#`, `[`, `]`, `{`, `}`, or leading/trailing spaces.
+- Use spaces (not tabs) for YAML indentation.
+- Keep list indentation consistent (two spaces before `-` items).
+- If frontmatter is edited, run a build check (`yarn build`) before considering the change complete.
+
 ## Content Update Rules
 
 - Keep intro paragraph aligned with `description` intent.

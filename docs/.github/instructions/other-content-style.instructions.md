@@ -35,6 +35,14 @@ Use this standard for non-technical content under `docs/other/**`.
 - Use concise paragraphs and lists for readability.
 - End with practical takeaways, reflection prompts, or next steps where relevant.
 
+## Frontmatter YAML Safety Rules
+
+- Always wrap `title` and `description` values in double quotes.
+- Quote any frontmatter string value containing special characters such as `:`, `#`, `[`, `]`, `{`, `}`, or leading/trailing spaces.
+- Use spaces (not tabs) for YAML indentation.
+- Keep list indentation consistent (two spaces before `-` items).
+- If frontmatter is edited, run a build check (`yarn build`) before considering the change complete.
+
 ## Topic-Specific Notes
 
 ### Psychology

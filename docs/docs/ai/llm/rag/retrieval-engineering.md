@@ -1,6 +1,6 @@
 ---
-title: RAG Retrieval Engineering: From Keywords to Hybrid Search
-description: Retrieval engineering guide for RAG systems covering metadata filters, BM25, semantic embeddings, hybrid search, fusion, and evaluation metrics.
+title: "RAG Retrieval Engineering: From Keywords to Hybrid Search"
+description: "Retrieval engineering guide for RAG systems covering metadata filters, BM25, semantic embeddings, hybrid search, fusion, and evaluation metrics."
 keywords:
     - rag retrieval
     - bm25

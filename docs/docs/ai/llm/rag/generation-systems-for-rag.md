@@ -1,6 +1,6 @@
 ---
-title: Generation Systems for RAG: Prompting, Hallucinations, and Evaluation
-description: Practical guide to RAG generation quality, including sampling controls, prompt construction, context management, hallucination controls, and evaluation.
+title: "Generation Systems for RAG: Prompting, Hallucinations, and Evaluation"
+description: "Practical guide to RAG generation quality, including sampling controls, prompt construction, context management, hallucination controls, and evaluation."
 keywords:
     - rag generation
     - prompt engineering

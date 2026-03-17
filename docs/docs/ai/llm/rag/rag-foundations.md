@@ -1,15 +1,15 @@
 ---
-title: RAG Foundations in Practice: A Software Engineer's Overview
-description: Practical introduction to Retrieval-Augmented Generation (RAG), including architecture, use cases, retrieval bottlenecks, and implementation guidance.
+title: "RAG Foundations in Practice: A Software Engineer's Overview"
+description: "Practical introduction to Retrieval-Augmented Generation (RAG), including architecture, use cases, retrieval bottlenecks, and implementation guidance."
 keywords:
-	- retrieval augmented generation
-	- rag architecture
-	- llm grounding
-	- ai engineering
-	- codebase assistant
-	- enterprise chatbot
-	- hallucination reduction
-	- retrieval quality
+  - retrieval augmented generation
+  - rag architecture
+  - llm grounding
+  - ai engineering
+  - codebase assistant
+  - enterprise chatbot
+  - hallucination reduction
+  - retrieval quality
 sidebar_position: 1
 ---
 

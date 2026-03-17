@@ -1,6 +1,6 @@
 ---
-title: Production Retrieval Systems: Vector DB, ANN, Chunking, and Reranking
-description: Production retrieval design for RAG at scale with vector databases, ANN indexing, chunking strategy, query parsing, and reranking.
+title: "Production Retrieval Systems: Vector DB, ANN, Chunking, and Reranking"
+description: "Production retrieval design for RAG at scale with vector databases, ANN indexing, chunking strategy, query parsing, and reranking."
 keywords:
     - vector database
     - ann indexing
