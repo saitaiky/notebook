@@ -30,6 +30,9 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
   - remove the parent wrapper and promote the child heading,
   - split the section into at least two genuinely distinct subsections if the content supports it.
 - Use extra heading depth only when it improves scanning and information architecture, not just to decorate the page.
+- Avoid numeric prefixes in headings and subsection titles, such as "Part 1", "1.1", or "2.4", unless the numbering is explicitly requested or the UI visibly exposes that numbered structure.
+- Prefer descriptive heading text without numbering by default.
+- If numbering might improve cross-reference or teaching flow, ask before introducing it rather than assuming it is wanted.
 
 ## Subsection Depth And Substance
 
