@@ -6,6 +6,8 @@ applyTo: "blog/**/*.md"
 
 Use this standard for all blog content updates.
 
+Repo-wide rules in `.github/copilot-instructions.md` still apply. This file should be read as adding blog-specific requirements, not replacing global repository guidance.
+
 ## Required Frontmatter
 
 Every blog post should include:
@@ -36,18 +38,9 @@ Recommended when available:
 - Include at least one relevant image for social cards.
 - Maintain human-readable links and stable slugs.
 
-## Frontmatter YAML Safety Rules
-
-- Always wrap `title` and `description` values in double quotes.
-- Quote any frontmatter string value containing special characters such as `:`, `#`, `[`, `]`, `{`, `}`, or leading/trailing spaces.
-- Use spaces (not tabs) for YAML indentation.
-- Keep list indentation consistent (two spaces before `-` items).
-- If frontmatter is edited, run a build check (`yarn build`) before considering the change complete.
-
 ## Content Update Rules
 
 - Keep intro paragraph aligned with `description` intent.
-- Keep one clear `##` hierarchy; avoid heading jumps.
 - Keep `<!-- truncate -->` in long posts for blog list previews.
 - Preserve existing links unless they are broken; fix broken links in the same change.
 
@@ -92,13 +85,8 @@ Apply this style for non-technical domains such as psychology, life, culture, ed
 ### Readability And Structure
 
 - Include a concise intro that states audience value.
-- Keep heading flow logical (`##` then `###`) without jumps.
 - Use lists for steps, comparisons, and checklists.
 - End with practical takeaways or next-step guidance when appropriate.
-
-### Audience/Tone Override Rule
-
-- If a user specifies audience, tone, or depth, that explicit request overrides these defaults.
 
 ## Pre-merge Checklist
 

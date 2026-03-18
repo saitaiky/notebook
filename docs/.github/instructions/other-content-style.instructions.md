@@ -6,6 +6,8 @@ applyTo: "docs/other/**/*.md"
 
 Use this standard for non-technical content under `docs/other/**`.
 
+Repo-wide rules in `.github/copilot-instructions.md` still apply. This file should be read as adding `docs/other/**`-specific guidance, not duplicating global repository rules.
+
 ## Audience
 
 - General readers looking for practical understanding, self-development, and cultural context.
@@ -31,17 +33,8 @@ Use this standard for non-technical content under `docs/other/**`.
 
 ## Structure
 
-- Keep headings clear and progressively scoped (`##` then `###`).
 - Use concise paragraphs and lists for readability.
 - End with practical takeaways, reflection prompts, or next steps where relevant.
-
-## Frontmatter YAML Safety Rules
-
-- Always wrap `title` and `description` values in double quotes.
-- Quote any frontmatter string value containing special characters such as `:`, `#`, `[`, `]`, `{`, `}`, or leading/trailing spaces.
-- Use spaces (not tabs) for YAML indentation.
-- Keep list indentation consistent (two spaces before `-` items).
-- If frontmatter is edited, run a build check (`yarn build`) before considering the change complete.
 
 ## Topic-Specific Notes
 
@@ -56,6 +49,3 @@ Use this standard for non-technical content under `docs/other/**`.
 - Prefer context and interpretation over prescriptive judgments.
 - Keep wording respectful across different cultural and personal backgrounds.
 
-## Override Rule
-
-- If the user explicitly requests a different audience, tone, or format, follow the user request.
