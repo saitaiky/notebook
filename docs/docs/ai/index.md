@@ -1,83 +1,106 @@
 ---
-title: Overview
+title: "AI Overview"
+description: "A curriculum map for the AI section, showing how classical AI, machine learning, deep learning, and LLM topics fit together and where to start."
 sidebar_position: 1
 ---
 
-![Deep_Learning_Icons_R5_PNG](/img/ai/Deep_Learning_Icons_R5_PNG.webp)
+Artificial intelligence is broad enough that a flat list of topics stops being useful quickly. The practical way to organize it is by problem type and by the kind of representation each part of the field depends on.
 
-Source: [Nvidia: What’s the Difference Between Artificial Intelligence, Machine Learning and Deep Learning?](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
+That is how this section is structured. Instead of treating AI as one giant bag of methods, I separate it into four linked tracks: classical AI, machine learning, deep learning, and LLMs.
 
-AI can be categorized into different approaches, with one common classification being the trio of Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning. 
-- AI serves as the overarching concept, encompassing various activities aimed at replicating human intelligence. 
-- Machine Learning, a subset of AI, involves applying complex algorithms and statistics to existing data for decision-making and predictions. 
-- Deep Learning, a critical subfield of ML, uses large datasets and Neural Networks to simulate human-like behavior, including reinforcement learning.
+## Start With This Mental Model
 
-## AI (Search, Plan, Reasoning)
+- **Classical AI** asks how to represent problems, search decision spaces, plan with actions, and reason under uncertainty.
+- **Machine Learning** asks how to learn from data, whether the task is prediction, clustering, or sequential decision-making.
+- **Deep Learning** asks how neural architectures learn representations directly from raw, high-dimensional inputs.
+- **LLMs** focus on transformer-based language systems and the practical engineering around building, adapting, and deploying them.
 
-> Generally speaking, if you exclude machine learning and deep learning, AI itself mainly focuses on topics like CSP and searching to mimick of human intelligence by computers
+These tracks overlap, but they are not interchangeable. A routing problem and a document-classification problem both sit under AI, but they require very different ideas.
 
-Artificial Intelligence (AI) plays a crucial role in automation, logistics, and operations research by leveraging various techniques to optimize and streamline complex processes. Here's a brief overview of how AI employs search, optimization, planning, and probabilistic graphical models in these domains:
+## Before You Dive In
 
-- Search Algorithms: AI uses search algorithms to navigate large solution spaces efficiently. These algorithms, such as A* or breadth-first search, are instrumental in finding optimal paths and solutions in logistics and operations, like route planning for transportation, inventory management, or facility layout optimization.
-- Optimization Techniques: AI applies optimization methods to enhance resource allocation and decision-making. Linear programming, integer programming, and metaheuristic algorithms (e.g., genetic algorithms or simulated annealing) are used for solving complex optimization problems. These techniques are valuable for scheduling tasks, resource allocation, and load balancing.
-- Planning and Scheduling: AI-based planning systems employ various techniques like classical planning, heuristic search, and automated planners. They assist in creating schedules, allocating resources, and managing workflows efficiently. This is vital in industries like manufacturing, where production schedules need to be optimized.
-- Probabilistic Graphical Models: Probabilistic graphical models, such as Bayesian networks and Markov decision processes, help in modeling uncertainty and making decisions under probabilistic conditions. These models are crucial in supply chain management for demand forecasting, risk assessment, and quality control.
+If you want a quick background check before starting, use [AI Prerequisites](/ai/prerequisites). It covers the minimum math, coding, and notation background that makes the rest of the material easier to follow.
 
-## Machine learning
+## The Four Tracks
 
-Machine learning is a subfield of artificial intelligence (AI) that focuses on the development of algorithms and models that enable computers to learn and make predictions or decisions without being explicitly programmed. It is a technology that has gained significant attention and importance in recent years due to its wide range of applications in various domains. 
+### Classical AI
 
-### Types of learning
+The [Classical AI](/ai/search-plan) track is where I put search, planning, constraint satisfaction, game playing, and probabilistic reasoning. This is the part of AI that teaches me how to think about state, actions, heuristics, combinatorics, and explicit uncertainty.
 
-- Supervised Learning:
-    - Supervised learning is a type of machine learning where the algorithm learns from labeled data, which means the training data includes input-output pairs.
-    - The key algorithms used in supervised learning include decision trees, linear regression, support vector machines, k-nearest neighbors, and deep neural networks.
-    - Supervised learning algorithms are trained to make predictions or classify new, unseen data based on patterns learned from the labeled training data.
-- Unsupervised Learning:
-    - Unsupervised learning is another category of machine learning, but in this case, the algorithm learns from unlabeled data, finding patterns, structures, or groupings within the data.
-    - Algorithms for unsupervised learning include k-means clustering, hierarchical clustering, principal component analysis (PCA), and autoencoders.
-    - These algorithms help uncover underlying structures and relationships in data without explicit labels, making them useful for tasks like data compression, dimensionality reduction, and data exploration.
-- Reinforcement Learning:
-    - Reinforcement learning (RL) is a distinct machine learning paradigm that focuses on an agent interacting with an environment to maximize a reward signal.
-    - RL algorithms, such as Q-learning, policy gradients, and deep reinforcement learning, enable agents to learn optimal strategies or policies for sequential decision-making tasks.
-    - In RL, algorithms learn from trial and error, aiming to find the best actions to take in various states to maximize cumulative rewards.
+This track is the right entry point if I care about:
 
-### Model Training
+- state-space search,
+- scheduling and planning,
+- game-playing agents,
+- Bayes nets and HMMs,
+- reasoning under structured constraints.
 
-Training a machine learning model involves presenting it with a dataset and allowing it to adjust its internal parameters to minimize errors or maximize rewards. The trained model can then make predictions or decisions on new, unseen data.
+Start here: [Foundations and Constraint Satisfaction](/ai/search-plan/foundations-csp)
 
-### Key Algorithms
+### Machine Learning
 
-- Linear Regression
-- Decision Trees
-- Support Vector Machines (SVM)
-- k-Nearest Neighbors (k-NN)
-- Neural Networks
-- K-Means Clustering
-- Principal Component Analysis (PCA)
-- Reinforcement Learning Algorithms (e.g., Q-Learning)
+The [Machine Learning](/ai/ml) track covers supervised learning, unsupervised learning, and reinforcement learning. This is where the core question is how systems improve from data rather than from hand-written rules.
 
-## Deep learning
+This track is the right entry point if I care about:
 
-Deep Learning (DL) is a subfield of machine learning (ML) that focuses on training artificial neural networks (ANNs) with multiple layers, also known as deep neural networks (DNNs). Deep Learning encompasses a variety of neural network architectures and techniques, including DNN, RNN, CNN, Generative Adversarial Networks (GANs), and Reinforcement Learning (RL). Here's a brief overview of their relationships:
+- honest model evaluation,
+- classification and regression,
+- clustering and dimensionality reduction,
+- RL as sequential decision-making learned from reward.
 
-- Deep Neural Networks (DNNs):
-    - DNNs are a type of artificial neural network with multiple hidden layers between the input and output layers.
-    - These networks are the foundation of deep learning and are used for tasks like image and speech recognition, natural language processing, and more.
-- Recurrent Neural Networks (RNNs):
-    - RNNs are a type of deep neural network architecture designed for sequential data, such as time series or natural language.
-    - They use recurrent connections to process sequences, making them suitable for tasks like language modeling, speech recognition, and machine translation.
-- Convolutional Neural Networks (CNNs):
-    - CNNs are specialized deep neural networks tailored for processing grid-like data, such as images and videos.
-    - They use convolutional layers to automatically learn features from input data, making them ideal for image classification, object detection, and image generation.
-- Generative Adversarial Networks (GANs):
-    - GANs are a class of deep learning models consisting of two neural networks: a generator and a discriminator.
-    - They are used for generating synthetic data, image-to-image translation, and creating deepfake content by training the generator to produce data that is indistinguishable from real data.
-- Reinforcement Learning (RL):
-    - RL is a machine learning paradigm that focuses on agents learning to make decisions by interacting with an environment.
-    - Deep Reinforcement Learning (DRL) combines deep learning techniques with RL algorithms, allowing agents to handle complex tasks, such as game playing, robotics, and autonomous control.
+Start here: [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning)
 
-In summary, Deep Learning serves as the overarching field that encompasses these various neural network architectures and techniques. DNNs, RNNs, CNNs, GANs, and RL are specific branches of deep learning, each tailored for different types of data and tasks. Researchers and practitioners choose the appropriate subfield and architecture based on the requirements of the problem they aim to solve.
+### Deep Learning
+
+The [Deep Learning](/ai/dl) track focuses on neural architectures and representation learning. This is where CNNs, sequence models, generative models, and modern multimodal systems become the center of the story.
+
+I treat deep learning as its own section because once the questions become architectural and representational, it reads better as a separate branch than as one chapter inside ML.
+
+This track is the right entry point if I care about:
+
+- neural-network fundamentals,
+- CNNs and transfer learning,
+- sequence models,
+- embeddings,
+- GANs and diffusion-era ideas.
+
+Start here: [Foundations and CNNs](/ai/dl/foundations-and-cnns)
+
+### LLMs
+
+The [LLM](/ai/llm) track is where I keep transformer-heavy language-model material. That includes transformer basics, pretraining and scaling, fine-tuning, RLHF-related topics, RAG, and application architecture.
+
+I keep this separate from the generic DL section because the engineering questions around LLM systems are now large enough to deserve their own path.
+
+This track is the right entry point if I care about:
+
+- transformers in language modeling,
+- foundation vs fine-tuned models,
+- prompt and adaptation strategies,
+- RAG systems,
+- production LLM application design.
+
+Start here: [Introduction to LLMs](/ai/llm)
+
+## How The Tracks Connect
+
+The best way to read these sections is not to think of them as mutually exclusive categories.
+
+- Classical AI gives me the language of state, search, planning, and uncertainty.
+- Machine learning gives me the language of fitting from data and evaluating that fit honestly.
+- Deep learning gives me the language of learned representations and architecture design.
+- LLMs give me the modern transformer-centered branch built on top of deep learning.
+
+That means there is a natural progression for many readers:
+
+1. [AI Prerequisites](/ai/prerequisites)
+2. [Classical AI](/ai/search-plan) or [Machine Learning](/ai/ml), depending on whether the problem is structured search or learning from data
+3. [Deep Learning](/ai/dl)
+4. [LLMs](/ai/llm)
+
+## What This Means in Practice
+
+The point of this section is not to force one canonical order on every reader. The point is to make the boundaries clear enough that you can choose the right track for the problem you care about.
 
 
 

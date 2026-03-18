@@ -26,14 +26,18 @@ This section groups practical deep learning projects and maps each one to the kn
 
 ## Key knowledge to learn
 
-- Neural network foundations, training dynamics, and practical optimization in [Deep Learning Overview](/ai/dl).
-- Sequence modeling with RNNs/LSTMs in [Part 1: Sequence Models](/ai/dl#part-1-sequence-models---recurrent-neural-networks-rnns).
-- Embeddings, Seq2Seq, and attention in [Part 2: Word Embeddings](/ai/dl#part-2-representing-words-as-vectors) and [Part 3: Sequence-to-Sequence Models](/ai/dl#part-3-sequence-to-sequence-seq2seq-models).
-- Generative models in [Part 4: Generative Models](/ai/dl#part-4-generative-models).
-- Modern text-to-image context in [Part 5: The Modern Era](/ai/dl#part-5-the-modern-era---bridging-text-and-pixels).
+- Read [AI Prerequisites](/ai/prerequisites) if you want a quick check on the math, Python, and notation assumed by the notes.
+- Use [AI Overview](/ai) to see where deep learning sits relative to classical ML and the separate LLM track.
+- High-level roadmap in [Deep Learning Overview](/ai/dl).
+- Neural network foundations, activation choices, optimization, regularization, CNNs, and transfer learning in [Foundations and CNNs](/ai/dl/foundations-and-cnns).
+- Sequence modeling with RNNs, LSTMs, GRUs, and encoder-decoder workflows in [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models).
+- Embeddings, attention, autoencoders, VAEs, GANs, and modern text-to-image context in [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models).
+- Transformer-heavy language-model material in [LLM Overview](/ai/llm) if you want the modern language-model branch rather than the broader DL track.
 
 ## Suggested learning flow
 
-1. Start with [Image Classification](./image-classification) and [Deep Learning Overview](/ai/dl) to ground core training concepts.
-2. Move to [TV Script Generation](./script-generation) and [Language Translation](./language-translation), then review the RNN/LSTM and Seq2Seq note sections.
-3. Finish with [Face Generation](./face-generation), then read the generative-model sections to connect GAN mechanics with implementation decisions.
+1. Start with [AI Overview](/ai), and use [AI Prerequisites](/ai/prerequisites) if you want the background check first.
+2. Ground the basics with [Image Classification](./image-classification) and [Foundations and CNNs](/ai/dl/foundations-and-cnns).
+3. Move to [TV Script Generation](./script-generation), [Style Transfer with LSTM](./style-transfer-lstm), and [Language Translation](./language-translation), then review [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models).
+4. Finish with [Face Generation](./face-generation), then return to [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models) to connect GAN mechanics with implementation decisions.
+5. If your real target is transformer-era language systems, hand off from this section to [LLM Overview](/ai/llm) rather than treating the DL notes as the end of the path.

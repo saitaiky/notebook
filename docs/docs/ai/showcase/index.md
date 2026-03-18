@@ -3,11 +3,21 @@ title: Home
 sidebar_position: 1
 ---
 
-Here is a compilation of project showcases I completed between 2017 and 2019 during my studies in [Artificial Intelligence](https://www.udacity.com/course/ai-artificial-intelligence-nanodegree--nd898), [Machine learning](https://www.udacity.com/course/aws-machine-learning-engineer-nanodegree--nd189) and [Deep Learning](https://www.udacity.com/course/deep-learning-nanodegree--nd101) Nanodegree through [Udacity](https://www.udacity.com/). During my learning journey, I discovered that it's more efficient to have a clear understanding of your goals before delving into research papers or online materials. This approach allows you to grasp the end product's concept before immersing yourself in unfamiliar subjects.
+This section is the project-facing companion to the main AI notes. I use it to connect finished implementations with the theory pages that explain why each approach works, where it breaks, and what to study next.
 
-I trust that this showcase of my completed projects will provide you with a quick overview, helping you identify areas of knowledge that may be of interest to you.
+Most of these projects were built during my Udacity nanodegree work between 2017 and 2019, but I keep them here because they are still useful as concrete anchors. A project makes the abstraction load smaller: instead of reading about minimax, HMMs, CNNs, or policy learning in isolation, I can tie each concept back to a system that had to run.
 
-Looking ahead, my objective is to consistently share noteworthy projects, proof of concepts (POCs), or updates from the industry, particularly when new algorithms are introduced.
+If you want the curriculum-level map first, start with [AI Overview](/ai). If you want a quick readiness check before diving into the theory, use [AI Prerequisites](/ai/prerequisites).
+
+## How To Use This Section
+
+- Use [Classical AI Showcase](/ai/showcase/search-plan) for search, planning, adversarial reasoning, and probabilistic modeling projects.
+- Use [Machine Learning Showcase](/ai/showcase/ml) for regression, classification, clustering, and reinforcement-learning projects.
+- Use [Deep Learning Showcase](/ai/showcase/dl) for CNNs, sequence models, and generative-model projects.
+
+The most effective reading pattern is usually project first, theory second, then project again. The implementation gives me stakes. The theory gives me language. Going back to the implementation after that is where the design choices start to make sense.
+
+Looking ahead, I want this section to keep growing with newer proofs of concept and production-flavored experiments, not just course-era artifacts.
 
 For the complete source code of each project, please check:
 - [Deep Learning](https://github.com/saitaiky/Deep-Learning-Nanodegree)

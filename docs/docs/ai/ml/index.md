@@ -1,5 +1,14 @@
 ---
-title: Home
+title: "An Engineer's Guide to Machine Learning"
+description: "A practical overview of machine learning topics, from evaluation and supervised learning to unsupervised methods and reinforcement learning, with deep learning linked as its own section."
+keywords:
+  - machine learning
+  - supervised learning
+  - unsupervised learning
+  - deep learning
+  - reinforcement learning
+  - model evaluation
+  - cross validation
 ---
 
 :::warning As of July 2024
@@ -8,53 +17,52 @@ It might take me a bit to get everything written down, but I'll carve out some t
 
 ## Overview
 
-Machine learning is a cornerstone of modern AI, enabling systems to learn from data and make intelligent decisions. By mastering these techniques, you can build models that predict outcomes, uncover patterns, and make autonomous decisions. 
+Machine learning is a practical discipline for building systems that improve from data rather than from fixed hand-written rules. That sentence is broad enough to sound vague, so the only useful way to make it concrete is to walk through the problem types one by one.
 
-### Supervised Learning
+This section is organized around those problem types rather than around course terms. I care less about when a topic was taught and more about what engineering problem it solves.
 
-In supervised learning, you'll dive into algorithms like linear regression, decision trees, and neural networks. For instance, predicting Boston housing prices helps you understand how to train, test, and evaluate models, while finding donors for CharityML introduces more complex algorithms like SVMs and ensemble learning. These skills are essential for tasks where labeled data guides the learning process, from spam detection to medical diagnosis.
+## What This Section Covers
 
-### Unsupervised Learning and Deep Learning
+The first part focuses on model evaluation and supervised learning. This is where I learn how to split data properly, reason about bias and variance, choose the right metric, tune hyperparameters without contaminating the test set, and compare the main supervised algorithm families. That includes linear models, logistic regression, Naive Bayes, SVMs, decision trees, and ensemble methods.
 
-Unsupervised learning techniques, such as clustering and dimensionality reduction, allow you to find hidden patterns in data without predefined labels. Creating customer segments is a practical example, helping businesses tailor their marketing strategies. Additionally, deep learning, particularly with CNNs, is crucial for tasks like image recognition, as seen in the dog breed classifier project. These methods expand your ability to handle complex data and extract meaningful insights.
+The second part focuses on unsupervised learning and feature engineering. This is the part I reach for when I do not have labels but still need structure: customer segmentation, feature scaling, clustering, dimensionality reduction, and internal validation.
 
-### Reinforcement Learning
+The third part covers reinforcement learning, where the model is no longer predicting a label for a static row of data. Instead, an agent learns through sequential interaction, reward, and delayed consequences.
 
-Reinforcement learning teaches you how to train agents to make decisions by interacting with their environment. Training a quadcopter to fly showcases the power of algorithms like Q-learning and policy gradients. This approach is pivotal for developing systems that learn optimal behaviors through trial and error, applicable in robotics, gaming, and autonomous driving.
+Deep learning now lives in its own dedicated [Deep Learning](/ai/dl) section. I still treat it as part of the larger ML story, but it has enough architectural and representational depth that it reads better as a separate branch.
 
-Overall, these machine learning techniques form the foundation for creating intelligent systems capable of tackling a wide range of real-world problems, making them indispensable in today's data-driven world.
+## Why I Grouped It This Way
 
-## Table of content
+The old term-based split was not doing the material any favors. Model evaluation, supervised learning, and unsupervised learning belong together as classical ML foundations. Reinforcement learning is still part of machine learning, but it solves a different kind of problem than ordinary prediction. Deep learning remains connected, but it now has its own dedicated section rather than being squeezed into this one.
 
-- [Predicting Boston Housing Prices (Basic Knowledge)](./term1#part-1-model-evaluation-validation)
-  - [Training and testing models](./term1#the-core-task-training-and-testing)
-  - [Evaluation metrics](./term1#how-good-is-good-metrics-for-success)
-  - [Valuation and validation](./term1#the-process-finding-the-best-model-with-validation)
-- [Find Donors for CharityML (Supervised Learning)](./term1#part-2-supervised-learning-classification)
-  - [Linear regression](./term1#the-first-step-linear-polynomial-regression)
-  - [Perceptron Algorithm](./term1#the-perceptron)
-  - [Logistic Regression](./term1#linear-models-the-foundation)
-  - [Neural Networks](./term2#part-4-from-neural-networks-to-deep-learning)
-  - [Decision Tree](./term1#decision-trees)
-  - [Naive Bayes](./term1#probabilistic-models-naive-bayes)
-  - [Support Vector Machines(SVM)](./term1#support-vector-machines-svm)
-  - [Ensemble of learners](./term1#ensemble-methods)
-- [Create Customer Segments (Unsupervised Learning)](./term1#part-3-unsupervised-learning-clustering-dimensionality-reduction)
-  - [Clustering](./term1#clustering-finding-groups-in-data)
-  - [Hierarchical & Density-based clustering](./term1#hierarchical-clustering)
-  - [Gaussian mixture models](./term1#gaussian-mixture-models-gmms)
-  - [Feature scaling](./term1#the-importance-of-preprocessing-feature-scaling)
-  - [Dimensionality reduction](./term1#dimensionality-reduction-finding-the-latent-features)
-- [Dog Breed Classifier (Deep learning)](./term2#part-5-convolutional-neural-networks-cnns)
-  - [Deep Neural Network (DNN)](./term2#part-4-from-neural-networks-to-deep-learning)
-  - [Convolutional Neural Networks (CNN)](./term2#part-5-convolutional-neural-networks-cnns)
-- [Train a Quadcopter to fly (Reinforcement Learning)](./term2#part-6-reinforcement-learning-foundations)
-  - [`Problem` - RL framework: Markov Decision Processes](./term2#the-formal-framework-markov-decision-processes-mdps)
-  - [`Solution` - RL framework: Policies, value function and Bellman Equations](./term2#the-solution-value-functions-policies)
-  - [Dynamic progremming](./term2#part-6-reinforcement-learning-foundations)
-  - [Monte Carlo Methods](./term2#part-6-reinforcement-learning-foundations)
-  - [Temporal - Sarsa, Q-Learning, Expected Sarsa algorithms](./term2#part-6-reinforcement-learning-foundations)
-  - [Work with Continuous spaces](./term2#beyond-dqn-modern-reinforcement-learning)
-  - [Deep Q-learning](./term2#value-based-methods-deep-q-networks-dqn)
-  - [Policy gradients](./term2#policy-based-methods-the-road-ahead)
-  - [Actor-critic methods](./term2#beyond-dqn-modern-reinforcement-learning)
+Organizing the section by topic makes it easier to answer practical questions such as:
+
+- How do I evaluate a classifier honestly?
+- When should I use clustering instead of classification?
+- When does deep learning become worth the extra complexity?
+- Why is reinforcement learning harder to stabilize than ordinary supervised learning?
+
+Those are better organizing questions than term numbers.
+
+## Chapter Guide
+
+1. [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning) covers evaluation, validation, regression, classification, trees, SVMs, and ensembles.
+2. [Unsupervised Learning and Feature Engineering](/ai/ml/unsupervised-learning-and-feature-engineering) covers scaling, clustering, PCA, and cluster validation.
+3. [Reinforcement Learning](/ai/ml/reinforcement-learning) covers MDPs, Bellman equations, Q-learning, DQN, policy gradients, and actor-critic methods.
+
+Related section:
+[Deep Learning](/ai/dl) covers neural networks, CNNs, sequence models, and generative models in more depth.
+
+## What You Will Get Out of It
+
+If you work through this section in order, you end up with a mental model for three different kinds of ML work plus a clear handoff into deep learning.
+
+- The supervised-learning mindset: learn from labeled examples and validate honestly.
+- The unsupervised-learning mindset: discover structure when labels do not exist.
+- The reinforcement-learning mindset: optimize behavior over time under delayed feedback.
+
+That is a much better foundation than treating machine learning as one giant bag of algorithms, and it keeps the deep-learning material where it has enough room to breathe.
+
+## Start Here
+
+If you are new to this section, begin with [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning). If you already know standard regression and classification workflows, skip ahead to [Unsupervised Learning and Feature Engineering](/ai/ml/unsupervised-learning-and-feature-engineering), [Reinforcement Learning](/ai/ml/reinforcement-learning), or the dedicated [Deep Learning](/ai/dl) section depending on what you want to build.

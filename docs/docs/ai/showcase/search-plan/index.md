@@ -23,14 +23,18 @@ This section focuses on classical AI projects where the core challenge is struct
 
 ## Key knowledge to learn
 
+- Read [AI Prerequisites](/ai/prerequisites) if you want a quick check on the math, Python, and notation background behind the search notes.
+- Use [AI Overview](/ai) to place classical AI relative to machine learning, deep learning, and LLM-focused material.
 - Foundations of agents, environments, and rational behavior in [Classical AI Overview](/ai/search-plan).
-- Constraint modeling and search strategy in [Part 2: Constraint Satisfaction Problems](/ai/search-plan#part-2-constraint-satisfaction-problems-csps).
-- Optimization and local search in [Part 3: Optimization with Local Search](/ai/search-plan#part-3-optimization-with-local-search).
-- Adversarial reasoning in [Part 4: Adversarial Search](/ai/search-plan#part-4-adversarial-search-for-game-playing) and [Part 5: Advanced Game Playing Techniques](/ai/search-plan#part-5-advanced-game-playing-techniques).
-- Probabilistic inference context in [Part 7: Probabilistic Models](/ai/search-plan#part-7-probabilistic-models).
+- Constraint modeling and search strategy in [Foundations and Constraint Satisfaction](/ai/search-plan/foundations-csp#constraint-satisfaction-problems-csps).
+- State-space search fundamentals in [Uninformed and Informed Search](/ai/search-plan/uninformed-informed-search).
+- Optimization and local search in [Search, Optimization, and Game Playing](/ai/search-plan/search-optimization-game-playing#search-and-optimization).
+- Adversarial reasoning in [Adversarial search for game playing](/ai/search-plan/search-optimization-game-playing#adversarial-search-for-game-playing) and [Advanced game-playing techniques](/ai/search-plan/search-optimization-game-playing#advanced-game-playing-techniques).
+- Probabilistic inference context in [Planning and Probabilistic Reasoning](/ai/search-plan/planning-and-probabilistic-reasoning#probabilistic-models).
 
 ## Suggested learning flow
 
-1. Start with [A planning search](./a-planning-search), then read the CSP and optimization sections in [Classical AI Overview](/ai/search-plan).
-2. Continue with [An Adversarial Search Agent](./an-adversarial-search-agent), then review minimax and alpha-beta related sections.
-3. Use [A Sign Language Recognizer](./a-sign-language-recognizer) to connect sequence recognition work with probabilistic-model thinking.
+1. Start with [AI Overview](/ai), and use [AI Prerequisites](/ai/prerequisites) if you want the quick readiness check first.
+2. Work through [A planning search](./a-planning-search), then read [Foundations and Constraint Satisfaction](/ai/search-plan/foundations-csp), [Uninformed and Informed Search](/ai/search-plan/uninformed-informed-search), and [Search, Optimization, and Game Playing](/ai/search-plan/search-optimization-game-playing).
+3. Continue with [An Adversarial Search Agent](./an-adversarial-search-agent), then review minimax, alpha-beta pruning, and time-bounded game-playing sections.
+4. Use [A Sign Language Recognizer](./a-sign-language-recognizer) to connect sequence recognition work with [Planning and Probabilistic Reasoning](/ai/search-plan/planning-and-probabilistic-reasoning).
