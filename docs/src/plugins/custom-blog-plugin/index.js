@@ -1,8 +1,11 @@
 // ./custom-blog-plugin.js
 
 const blogPluginExports = require('@docusaurus/plugin-content-blog');
+const recentUpdatesPlugin = require('../recent-updates-plugin');
 
 const defaultBlogPlugin = blogPluginExports.default;
+const collectRecentUpdates = recentUpdatesPlugin.collectRecentUpdates;
+const recentUpdatesLimit = 8;
 
 async function blogPluginExtended(...pluginArgs) {
 
@@ -21,6 +24,7 @@ async function blogPluginExtended(...pluginArgs) {
         const frontMatter = blogPost.metadata.frontMatter || {};
         return frontMatter.unlisted !== true;
       });
+      const recentUpdates = collectRecentUpdates(pluginArgs[0].siteDir, recentUpdatesLimit);
 
       // Get the 5 latest blog posts
       const recentPostsLimit = 5;
@@ -69,6 +73,14 @@ async function blogPluginExtended(...pluginArgs) {
               blogDescription: pluginOptions.blogDescription,
               totalPosts: visibleBlogPosts.length,
               totalRecentPosts: recentPosts.length,
+            })
+          ),
+          recentUpdates: await actions.createData(
+            'home-page-recent-updates.json',
+            JSON.stringify({
+              title: 'Recent Updates',
+              totalUpdates: recentUpdates.length,
+              updates: recentUpdates,
             })
           ),
           recentPosts: await Promise.all(

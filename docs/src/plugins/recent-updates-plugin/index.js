@@ -107,7 +107,7 @@ function readGitHistory(siteDir) {
   try {
     return execFileSync(
       'git',
-      ['log', '--date=iso-strict', '--name-only', '--pretty=format:__COMMIT__%n%aI|||%s', '--', 'docs'],
+      ['log', '--date=iso-strict', '--name-only', '--pretty=format:__COMMIT__%n%aI|||%s%n', '--', 'docs'],
       {
         cwd: siteDir,
         encoding: 'utf8',
@@ -119,8 +119,23 @@ function readGitHistory(siteDir) {
   }
 }
 
+function resolveGitRoot(siteDir) {
+  try {
+    return execFileSync('git', ['rev-parse', '--show-toplevel'], {
+      cwd: siteDir,
+      encoding: 'utf8',
+    }).trim();
+  } catch (error) {
+    console.warn('[recent-updates-plugin] Unable to resolve git root.', error.message);
+    return siteDir;
+  }
+}
+
 function collectRecentUpdates(siteDir, limit) {
   const gitLogOutput = readGitHistory(siteDir);
+  const gitRoot = resolveGitRoot(siteDir);
+  const siteRelativePrefix = path.relative(gitRoot, siteDir).replace(/\\/g, '/');
+  const docsPrefix = [siteRelativePrefix, 'docs'].filter(Boolean).join('/') + '/';
 
   if (!gitLogOutput) {
     return [];
@@ -151,7 +166,7 @@ function collectRecentUpdates(siteDir, limit) {
       continue;
     }
 
-    if (!currentCommit || !/\.mdx?$/i.test(line) || !line.startsWith('docs/')) {
+    if (!currentCommit || !/\.mdx?$/i.test(line) || !line.startsWith(docsPrefix)) {
       continue;
     }
 
@@ -161,12 +176,12 @@ function collectRecentUpdates(siteDir, limit) {
 
     seenFiles.add(line);
 
-    const absolutePath = path.join(siteDir, line);
+    const absolutePath = path.join(gitRoot, line);
     if (!fs.existsSync(absolutePath)) {
       continue;
     }
 
-    const relativePath = line.replace(/^docs\//, '');
+    const relativePath = line.slice(docsPrefix.length);
     const fileContent = fs.readFileSync(absolutePath, 'utf8');
     const { title, slug } = parseFrontMatter(fileContent);
     const lastModifiedTimestamp = Date.parse(currentCommit.date);
@@ -182,7 +197,7 @@ function collectRecentUpdates(siteDir, limit) {
       lastModified: currentCommit.date,
       lastModifiedTimestamp,
       commitMessage: currentCommit.message,
-      sourceFilePath: line,
+      sourceFilePath: relativePath,
     });
   }
 
@@ -191,7 +206,7 @@ function collectRecentUpdates(siteDir, limit) {
     .slice(0, limit);
 }
 
-module.exports = function recentUpdatesPlugin(context, options = {}) {
+function recentUpdatesPlugin(context, options = {}) {
   return {
     name: 'recent-updates-plugin',
 
@@ -208,4 +223,8 @@ module.exports = function recentUpdatesPlugin(context, options = {}) {
       });
     },
   };
-};
+}
+
+recentUpdatesPlugin.collectRecentUpdates = collectRecentUpdates;
+
+module.exports = recentUpdatesPlugin;

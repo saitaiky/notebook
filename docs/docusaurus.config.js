@@ -112,13 +112,6 @@ const config = {
       },
     ],
     [
-      path.resolve(__dirname, './src/plugins/recent-updates-plugin'),
-      {
-        title: 'Recent Updates',
-        limit: 15,
-      },
-    ],
-    [
       // https://kgajera.com/blog/display-recent-blog-posts-on-home-page-with-docusaurus/
       path.resolve(__dirname, './src/plugins/custom-blog-plugin'),
       {

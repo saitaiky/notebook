@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { usePluginData } from '@docusaurus/useGlobalData';
 
 function formatDate(value) {
   const date = new Date(value);
@@ -16,8 +15,8 @@ function formatDate(value) {
   });
 }
 
-export default function RecentUpdates() {
-  const data = usePluginData('recent-updates-plugin');
+export default function RecentUpdates({ recentUpdates }) {
+  const data = recentUpdates;
 
   if (!data || !data.updates || data.updates.length === 0) {
     return null;

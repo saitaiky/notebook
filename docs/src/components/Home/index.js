@@ -191,7 +191,7 @@ function RecentBlogPostCard({ recentPost }) {
   );
 }
 
-export default function Home({ homePageBlogMetadata, recentPosts }) {
+export default function Home({ homePageBlogMetadata, recentPosts, recentUpdates }) {
     
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -237,7 +237,7 @@ export default function Home({ homePageBlogMetadata, recentPosts }) {
             </div>
         </div>
 
-        <RecentUpdates />
+        <RecentUpdates recentUpdates={recentUpdates} />
 
         {/* <hr /> */}
         <HomepageFeatures />
