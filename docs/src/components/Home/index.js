@@ -6,6 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import RecentUpdates from '@site/src/components/RecentUpdates';
 
 import styles from './styles.module.scss';
 import './styles.scss';
@@ -43,8 +44,6 @@ function HomepageHeader() {
 }
 
 function RecentBlogPostCard({ recentPost }) {
-
-  console.log(recentPost)
   const { Preview, metadata } = recentPost;
 
   const { permalink, tags, readingTime, hasTruncateMarker } = Preview.metadata;
@@ -237,6 +236,8 @@ export default function Home({ homePageBlogMetadata, recentPosts }) {
                 </div>
             </div>
         </div>
+
+        <RecentUpdates />
 
         {/* <hr /> */}
         <HomepageFeatures />

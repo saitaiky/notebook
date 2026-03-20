@@ -17,10 +17,14 @@ async function blogPluginExtended(...pluginArgs) {
      */
     contentLoaded: async function (params) {
       const { content, actions } = params;
+      const visibleBlogPosts = content.blogPosts.filter((blogPost) => {
+        const frontMatter = blogPost.metadata.frontMatter || {};
+        return frontMatter.unlisted !== true;
+      });
 
       // Get the 5 latest blog posts
       const recentPostsLimit = 5;
-      const recentPosts = [...content.blogPosts].splice(0, recentPostsLimit);
+      const recentPosts = [...visibleBlogPosts].splice(0, recentPostsLimit);
 
       async function createRecentPostModule(blogPost, index) {
         
@@ -63,7 +67,7 @@ async function blogPluginExtended(...pluginArgs) {
             JSON.stringify({
               blogTitle: pluginOptions.blogTitle,
               blogDescription: pluginOptions.blogDescription,
-              totalPosts: content.blogPosts.length,
+              totalPosts: visibleBlogPosts.length,
               totalRecentPosts: recentPosts.length,
             })
           ),
