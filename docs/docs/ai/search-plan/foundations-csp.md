@@ -27,6 +27,14 @@ For AI to be a productive field, my notion of intelligence has to be a property 
 
 An agent that can successfully play chess is intelligent at chess, but that says nothing about its ability to drive a car or compose music. The practical goal is to design systems that exhibit rational, goal-oriented behavior for well-defined problems, where rational means selecting actions that are expected to maximize a performance measure.
 
+I find it useful to make this concrete with task-level metrics:
+
+- In medical triage, intelligence might mean maximizing recall on high-risk cases while keeping false alarms manageable.
+- In route planning, intelligence might mean minimizing expected travel time under changing traffic.
+- In a trading simulator, intelligence might mean maximizing risk-adjusted return rather than raw return.
+
+The same system can score highly on one metric and fail badly on another. That is why the phrase "intelligent system" is incomplete unless I also define the task, objective, and constraints.
+
 ### Agents, Environments, and State
 
 AI is fundamentally about building agents, which are systems that interact with an environment.
@@ -58,6 +66,8 @@ The PEAS framework helps classify AI problems by performance measure, environmen
 
 These distinctions matter because the right algorithm for a fully observable, deterministic board game is rarely the right one for a stochastic, partially observable environment.
 
+<!-- NOTEBOOKLM_DIAGRAM: concept=PEASClassification; type=image; goal=show environment dimensions (observability, determinism, discreteness, adversariality) and map each to suitable algorithm families; complexity=intermediate -->
+
 ### Rationality and Bounded Optimality
 
 A practical intelligent agent is one that exhibits rational behavior: it takes actions that maximize expected utility given what it knows and what it can perceive.
@@ -67,6 +77,14 @@ The catch is that perfectly optimal action selection is often computationally in
 This is where heuristics become indispensable. A heuristic is not magic; it is an informed shortcut that helps focus computation where it is most useful.
 
 That trade-off is not a flaw in AI. It is the engineering reality of AI. The useful question is rarely whether the agent is globally optimal. The useful question is whether it makes consistently strong decisions under the constraints I actually have.
+
+I can think of bounded optimality as choosing the best policy under a resource budget, not in a vacuum. For example:
+
+- A chess agent with 100 ms per move cannot use the same search depth as one with 5 seconds.
+- A drone planner with strict battery limits may choose a "good enough" route that is safer and faster to compute.
+- A recommender system with a 50 ms SLA may use an approximate ranker online and reserve heavier re-ranking for offline updates.
+
+The implementation implication is simple: design the objective and the compute budget together. If I optimize one without the other, the system usually fails in production.
 
 ## Constraint Satisfaction Problems (CSPs)
 
@@ -86,6 +104,13 @@ Sudoku is one of the best teaching examples for CSPs because the variable, domai
 
 That representation matters because it allows the system to alternate between deduction and search instead of jumping straight to brute force. Each cell participates in row, column, and subgrid constraints, and each solved cell immediately reduces the legal values of its peers. The board is not just a grid of digits. It is a dynamic domain table.
 
+I usually keep the board in a domain-map form such as:
+
+- solved cell: `A1 = {7}`
+- unsolved cell: `A2 = {1,3,5}`
+
+This makes each inference step explicit and debuggable. If a domain accidentally becomes empty, I know exactly where a contradiction was introduced.
+
 ### Strategy 1: Constraint Propagation
 
 Constraint propagation uses local rules to iteratively shrink the domain of possible values, reducing the need for search.
@@ -94,6 +119,14 @@ Constraint propagation uses local rules to iteratively shrink the domain of poss
 2. **Only choice** assigns a value when a digit can only fit in one location within a unit.
 
 By repeatedly applying these rules until nothing changes, many Sudoku puzzles can be solved without guessing at all. The deeper point is that propagation is a form of inference over domains. Every reduction in a domain removes whole subtrees from the eventual search space.
+
+A micro-trace makes this tangible. Suppose row `A` currently has solved values `{7, 9, 4, 6}` and cell `A5` has domain `{1,2,4}`.
+
+1. Elimination removes `4` from `A5`, so domain becomes `{1,2}`.
+2. Later in the same row, if every other unsolved cell cannot take `2`, then `A5` becomes the only-choice location for `2`.
+3. Assigning `A5=2` then triggers new eliminations in its column and subgrid.
+
+That chain reaction is why propagation quality heavily influences search runtime.
 
 ### Strategy 2: Search (Depth-First Search)
 
@@ -108,6 +141,39 @@ The choice rule in step 1 is the Minimum Remaining Values heuristic. If one box 
 
 The important lesson is that constraint propagation and search are not competing techniques. They are complementary. Propagation reduces the branching factor. Search resolves the remaining ambiguity.
 
+This control flow is easier to internalize as a solver loop.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=CSPSolverLoop; type=image; goal=show propagate-contradiction-solved-MRV-branch-recurse-backtrack control flow for Sudoku CSP solver; complexity=intermediate -->
+
+The key thing to notice is where failure happens: contradiction checks are early, so bad branches are pruned before deep recursion.
+
+At this point, the search loop is effectively a disciplined backtracking program:
+
+```text
+solve(board):
+  board <- propagate(board)
+  if contradiction(board): return failure
+  if solved(board): return board
+
+  v <- select_unassigned_variable_with_MRV(board)
+  for value in domain(v):
+    child <- assign(board, v, value)
+    result <- solve(child)
+    if result != failure: return result
+
+  return failure
+```
+
+A small walkthrough makes the control flow clearer. Suppose MRV picks cell `C7` with domain `{2, 9}`:
+
+1. Try `C7 = 2`, run propagation, and detect a contradiction because another cell in the same row now has an empty domain.
+2. Backtrack immediately to `C7 = 9`.
+3. Run propagation again, reduce several peer domains, then continue recursively.
+
+That "fail fast" behavior is the reason MRV + propagation is so effective: bad branches terminate early before the tree grows.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=SudokuBacktrackingMRV; type=image; goal=show DFS branch, contradiction detection, and immediate backtrack with MRV-selected variable; complexity=intermediate -->
+
 In practice, the pattern looks like this:
 
 1. Apply inference until the puzzle stops changing.
@@ -116,6 +182,14 @@ In practice, the pattern looks like this:
 4. Abort a branch immediately when any domain becomes empty.
 
 That is already the core architecture of many practical CSP solvers.
+
+In implementation, I keep three debugging checks always on:
+
+1. **Domain non-emptiness**: every unsolved variable must keep at least one value.
+2. **Constraint sanity**: no unit (row/column/subgrid) contains duplicate solved values.
+3. **Monotonic propagation**: domains should only shrink unless backtracking restores a prior snapshot.
+
+These checks catch most solver bugs quickly and make recursive search failures easier to localize.
 
 :::info Further Study: Bidirectional Search
 

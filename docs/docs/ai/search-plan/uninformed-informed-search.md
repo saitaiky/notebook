@@ -36,6 +36,16 @@ Before comparing algorithms, I need one structural distinction.
 
 The difference is not cosmetic. In any domain with cycles or many repeated paths, graph search can cut huge amounts of wasted work. Tree search is easier to explain. Graph search is usually what I want in practice.
 
+I can see the difference with a tiny cyclic graph: `A -> B -> C -> A`. A tree-search implementation can keep regenerating `A` from `C`, then `B` from `A`, and so on. A graph-search implementation marks visited states and avoids reopening the same cycle repeatedly.
+
+That one design choice changes complexity in real systems. In routing and planning domains, duplicate-state suppression is often the line between "finishes quickly" and "never finishes within budget."
+
+This side-by-side diagram shows the difference in expansion behavior.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=TreeVsGraphSearchDuplicates; type=image; goal=compare duplicate expansions in tree search vs visited-set graph search on a cyclic graph; complexity=basic -->
+
+Tree search keeps generating duplicate states as new branches, while graph search suppresses them with a visited set.
+
 ### Breadth-First Search
 
 Breadth-first search expands the shallowest frontier nodes first.
@@ -98,6 +108,16 @@ In practical AI education, A* is one of the most important algorithms because it
 
 Like UCS, A* uses a priority queue, but the priority is now the estimated total solution cost. If $h(n)=0$ everywhere, A* reduces to UCS. If $g(n)$ is ignored, the behavior moves toward greedy best-first search. That makes A* a useful bridge algorithm because it lets me see uninformed cost search and heuristic search as two ends of one design pattern.
 
+A small numerical trace shows the mechanics clearly. Suppose the frontier has:
+
+- node A: $g=4$, $h=6$, so $f=10$
+- node B: $g=7$, $h=2$, so $f=9$
+- node C: $g=3$, $h=8$, so $f=11$
+
+A* expands B first because it has the smallest $f$. After expanding B, it inserts B's children and repeats this ordering step. The key point is that A* can prefer a node with higher accumulated cost if its remaining-cost estimate is much better.
+
+When debugging A*, I usually log `(node, g, h, f)` at each expansion. If expansions look surprising, the issue is often not in the queue logic but in heuristic quality or inconsistent edge costs.
+
 ### A Comparison Table
 
 The algorithms are easier to compare once I line them up by what they optimize and what they sacrifice.
@@ -126,6 +146,17 @@ The practical goal is not to invent a perfect heuristic. The practical goal is t
 
 One useful mental model is heuristic dominance. If two admissible heuristics satisfy $h_2(n) \geq h_1(n)$ for every node while still never overestimating, then $h_2$ is usually preferable because it is more informative. In practice, many good heuristics come from problem relaxations: I remove constraints, solve the easier problem, and use that cheaper optimal cost as a lower bound for the real one.
 
+A concrete example is grid pathfinding with four-direction movement and unit step cost:
+
+- `h1(n) = 0` is admissible but useless.
+- `h2(n) = ManhattanDistance(n, goal)` is admissible and usually much better.
+
+Because `h2(n) >= h1(n)` for every node and both remain admissible, `h2` dominates `h1`. In practice, A* with Manhattan distance expands far fewer nodes than A* with a near-trivial heuristic.
+
+Another practical heuristic pattern is relaxation. If my true problem has obstacles and extra constraints, I can ignore some constraints, solve the easier version, and use that value as a lower bound. That lower bound is often admissible by construction.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=HeuristicDominanceAStar; type=image; goal=show two admissible heuristics on same search space with different node expansions and dominance relation h2>=h1; complexity=intermediate -->
+
 ### Admissibility and Consistency
 
 A heuristic is **admissible** if it never overestimates the true remaining cost:
@@ -146,6 +177,16 @@ $$
 
 Consistency is stronger than admissibility. It gives the search a triangle-inequality-like structure, which is especially useful in graph search because it prevents the estimated total cost from decreasing unexpectedly along a path.
 
+I can test consistency locally on each edge. If an edge $n \rightarrow n'$ has cost $2$, and I define $h(n)=7$, then consistency requires:
+
+$$
+7 \leq 2 + h(n')
+$$
+
+So $h(n')$ must be at least $5$. If I set $h(n')=3$, the inequality fails, meaning the heuristic is inconsistent on that edge.
+
+Why this matters in practice: with consistent heuristics, once a node is expanded in graph-search A*, I do not need to reopen it later. That significantly simplifies implementation and improves performance predictability.
+
 ### Choosing the Right Search Strategy
 
 There is no single search algorithm that dominates in every setting.
@@ -159,6 +200,20 @@ There is no single search algorithm that dominates in every setting.
 This is the practical lesson of the chapter: search is not one algorithm. It is a family of strategies shaped by the structure of the state space and the guarantees I need.
 
 If I want one compact decision rule, it is this: start by asking whether costs matter, whether memory is the real bottleneck, and whether I have a trustworthy heuristic. Those three questions usually narrow the choice faster than memorizing textbook slogans.
+
+I also like a second-pass rule after the first algorithm choice:
+
+1. If memory fails first, move toward iterative deepening or tighter duplicate-state control.
+2. If runtime fails first, improve heuristic quality before changing the entire algorithm family.
+3. If solution quality fails first, move from greedy behavior toward UCS/A* style guarantees.
+
+This keeps search selection iterative and evidence-driven. I do not need a perfect initial choice; I need a fast feedback loop between observed bottleneck and algorithm adjustment.
+
+The following decision flow is a practical default for first algorithm selection.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=SearchStrategyDecisionFlow; type=image; goal=decision flow based on cost sensitivity, memory budget, and heuristic trustworthiness leading to BFS/DFS/UCS/Greedy/A*; complexity=basic -->
+
+Use this as a starting point, then iterate based on observed bottlenecks (runtime, memory, or solution quality).
 
 ## What This Means to Me as a Builder
 

@@ -73,6 +73,10 @@ Classical AI is often taught as a bag of disconnected algorithms, but the strong
 
 That progression is the reason I kept this section as one series even after splitting it across several files.
 
+<!-- NOTEBOOKLM_DIAGRAM: concept=ClassicalAISeriesProgression; type=image; goal=show progression from foundations to CSP to search to optimization/game playing to planning/probabilistic reasoning as one learning arc; complexity=basic -->
+
+Read this as a dependency chain: each chapter introduces assumptions and techniques that the next chapter reuses.
+
 ## What Kind Of Reader This Is For
 
 This section is for readers who want more than a vocabulary list. I wrote it for the person who wants to understand why a heuristic helps, why a search tree explodes, why a logical representation is sometimes more powerful than a raw state graph, and why probability is not just statistics but a concrete way to model belief in a system.
