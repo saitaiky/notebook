@@ -48,7 +48,7 @@ This track is the right entry point if I care about:
 - clustering and dimensionality reduction,
 - RL as sequential decision-making learned from reward.
 
-Start here: [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning)
+Start here: [Machine Learning Foundations](/ai/ml/foundations)
 
 ### Deep Learning
 

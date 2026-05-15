@@ -1,14 +1,14 @@
 ---
 title: "An Engineer's Guide to Machine Learning"
-description: "A practical overview of machine learning topics, from evaluation and supervised learning to unsupervised methods and reinforcement learning, with deep learning linked as its own section."
+description: "A practical machine learning roadmap split into foundations, supervised learning, unsupervised learning, feature engineering, and reinforcement learning."
 keywords:
   - machine learning
+  - machine learning foundations
   - supervised learning
   - unsupervised learning
+  - feature engineering
   - deep learning
   - reinforcement learning
-  - model evaluation
-  - cross validation
 ---
 
 :::warning As of July 2024
@@ -23,46 +23,55 @@ This section is organized around those problem types rather than around course t
 
 ## What This Section Covers
 
-The first part focuses on model evaluation and supervised learning. This is where I learn how to split data properly, reason about bias and variance, choose the right metric, tune hyperparameters without contaminating the test set, and compare the main supervised algorithm families. That includes linear models, logistic regression, Naive Bayes, SVMs, decision trees, and ensemble methods.
+I split this section into five focused pages so each topic can go deeper without becoming a long mixed chapter.
 
-The second part focuses on unsupervised learning and feature engineering. This is the part I reach for when I do not have labels but still need structure: customer segmentation, feature scaling, clustering, dimensionality reduction, and internal validation.
+The first page is foundations: problem framing, leakage-safe data splits, validation strategy, metric selection, and error analysis. This is the part that protects me from false confidence.
 
-The third part covers reinforcement learning, where the model is no longer predicting a label for a static row of data. Instead, an agent learns through sequential interaction, reward, and delayed consequences.
+Then I move into supervised learning and unsupervised learning as separate workflows, because they solve different problem types and require different validation habits.
+
+Feature engineering now has its own page, since representation design, encoding strategy, and pipeline safety are often the biggest practical performance levers in classical ML.
+
+The final page is reinforcement learning, where learning happens through interaction and delayed reward instead of fixed labels.
 
 Deep learning now lives in its own dedicated [Deep Learning](/ai/dl) section. I still treat it as part of the larger ML story, but it has enough architectural and representational depth that it reads better as a separate branch.
 
 ## Why I Grouped It This Way
 
-The old term-based split was not doing the material any favors. Model evaluation, supervised learning, and unsupervised learning belong together as classical ML foundations. Reinforcement learning is still part of machine learning, but it solves a different kind of problem than ordinary prediction. Deep learning remains connected, but it now has its own dedicated section rather than being squeezed into this one.
+The old two-in-one pages were convenient, but they hid important boundaries. Foundations and supervised learning were coupled even though one is mostly about evaluation discipline and the other is about algorithm families. Unsupervised learning and feature engineering were coupled even though one is about structure discovery and the other is about representation construction.
 
-Organizing the section by topic makes it easier to answer practical questions such as:
+The split is intentionally task-first and production-oriented. It makes it easier to answer practical questions such as:
 
-- How do I evaluate a classifier honestly?
-- When should I use clustering instead of classification?
-- When does deep learning become worth the extra complexity?
-- Why is reinforcement learning harder to stabilize than ordinary supervised learning?
+- How do I set up an evaluation pipeline I can trust?
+- Which supervised model family should I benchmark first?
+- When does clustering reveal useful structure and when is it noise?
+- Which feature transformations are safe and high leverage?
+- Why does RL training break even when the code looks correct?
 
-Those are better organizing questions than term numbers.
+Those are better organizing questions than term numbers or algorithm popularity.
 
 ## Chapter Guide
 
-1. [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning) covers evaluation, validation, regression, classification, trees, SVMs, and ensembles.
-2. [Unsupervised Learning and Feature Engineering](/ai/ml/unsupervised-learning-and-feature-engineering) covers scaling, clustering, PCA, and cluster validation.
-3. [Reinforcement Learning](/ai/ml/reinforcement-learning) covers MDPs, Bellman equations, Q-learning, DQN, policy gradients, and actor-critic methods.
+1. [Machine Learning Foundations](/ai/ml/foundations): problem framing, leakage control, validation, and failure analysis.
+2. [Supervised Learning](/ai/ml/supervised-learning): regression/classification models, ensembles, calibration, and threshold design.
+3. [Unsupervised Learning](/ai/ml/unsupervised-learning): clustering, latent structure, dimensionality reduction, and internal validation.
+4. [Feature Engineering](/ai/ml/feature-engineering): transformations, encoding, selection, and production-safe pipelines.
+5. [Reinforcement Learning](/ai/ml/reinforcement-learning): MDPs, Bellman equations, value and policy learning, and stability patterns.
 
 Related section:
 [Deep Learning](/ai/dl) covers neural networks, CNNs, sequence models, and generative models in more depth.
 
 ## What You Will Get Out of It
 
-If you work through this section in order, you end up with a mental model for three different kinds of ML work plus a clear handoff into deep learning.
+If you work through this section in order, you get a practical model-building workflow that starts with evaluation discipline, then moves through prediction, structure discovery, representation design, and sequential decision-making.
 
-- The supervised-learning mindset: learn from labeled examples and validate honestly.
-- The unsupervised-learning mindset: discover structure when labels do not exist.
-- The reinforcement-learning mindset: optimize behavior over time under delayed feedback.
+- A foundations mindset: define the right objective and verify results honestly.
+- A supervised-learning mindset: model labeled outcomes and tune to business costs.
+- An unsupervised-learning mindset: discover useful structure without labels.
+- A feature-engineering mindset: improve representation before chasing model complexity.
+- A reinforcement-learning mindset: optimize behavior over time under delayed feedback.
 
-That is a much better foundation than treating machine learning as one giant bag of algorithms, and it keeps the deep-learning material where it has enough room to breathe.
+That is a stronger foundation than treating ML as one bag of algorithms, and it keeps deep learning in its dedicated [Deep Learning](/ai/dl) branch where architectural detail has enough room.
 
 ## Start Here
 
-If you are new to this section, begin with [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning). If you already know standard regression and classification workflows, skip ahead to [Unsupervised Learning and Feature Engineering](/ai/ml/unsupervised-learning-and-feature-engineering), [Reinforcement Learning](/ai/ml/reinforcement-learning), or the dedicated [Deep Learning](/ai/dl) section depending on what you want to build.
+If you are new to this section, begin with [Machine Learning Foundations](/ai/ml/foundations). If you already have strong evaluation habits, jump to [Supervised Learning](/ai/ml/supervised-learning), [Unsupervised Learning](/ai/ml/unsupervised-learning), [Feature Engineering](/ai/ml/feature-engineering), or [Reinforcement Learning](/ai/ml/reinforcement-learning) based on the problem you want to solve.

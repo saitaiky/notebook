@@ -29,15 +29,17 @@ This section summarizes the machine learning projects and points to the exact no
 - Read [AI Prerequisites](/ai/prerequisites) if you want a quick check on the math, Python, and notation background assumed by the notes.
 - Use [AI Overview](/ai) to see how machine learning fits with classical AI, deep learning, and LLM-specific material.
 - High-level roadmap in [ML Overview](/ai/ml).
-- Evaluation, bias-variance, cross-validation, and core supervised algorithms in [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning).
-- Clustering, scaling, PCA, and segmentation workflows in [Unsupervised Learning and Feature Engineering](/ai/ml/unsupervised-learning-and-feature-engineering).
+- Evaluation, bias-variance, split design, and leakage prevention in [Machine Learning Foundations](/ai/ml/foundations).
+- Core regression and classification model families in [Supervised Learning](/ai/ml/supervised-learning).
+- Clustering, latent structure, and internal validation in [Unsupervised Learning](/ai/ml/unsupervised-learning).
+- Representation design and preprocessing pipelines in [Feature Engineering](/ai/ml/feature-engineering).
 - Deep learning and vision-model foundations in [Foundations and CNNs](/ai/dl/foundations-and-cnns).
 - Sequential decision-making foundations in [Reinforcement Learning](/ai/ml/reinforcement-learning).
 
 ## Suggested learning flow
 
 1. Start with [AI Overview](/ai), and use [AI Prerequisites](/ai/prerequisites) if you want a quick readiness pass before the project material.
-2. Work through [House Price Prediction](./boston-housing) and [Donor Prediction](./finding-donors), then study [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning).
-3. Continue with [Customer Segments](./customer-segments), then review [Unsupervised Learning and Feature Engineering](/ai/ml/unsupervised-learning-and-feature-engineering).
+2. Work through [House Price Prediction](./boston-housing) and [Donor Prediction](./finding-donors), then study [Machine Learning Foundations](/ai/ml/foundations) and [Supervised Learning](/ai/ml/supervised-learning).
+3. Continue with [Customer Segments](./customer-segments), then review [Unsupervised Learning](/ai/ml/unsupervised-learning) and [Feature Engineering](/ai/ml/feature-engineering).
 4. Finish with [Teach A Quadcopter How To Fly](./teach-a-quadcopter-how-to-fly), then consolidate with [Reinforcement Learning](/ai/ml/reinforcement-learning).
 5. Use [Dog Breed Classifier](./dog-breed-classifier) as the handoff into [Foundations and CNNs](/ai/dl/foundations-and-cnns) if you want to continue into the deep-learning track.
