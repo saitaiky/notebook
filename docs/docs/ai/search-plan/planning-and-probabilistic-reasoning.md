@@ -134,6 +134,8 @@ $$
 At(robot, y, Result(Move(x, y), s)) \leftrightarrow True
 $$
 
+This reads as: after applying action $Move(x, y)$ in situation $s$, the fluent $At(robot, y)$ is true. Here, $x$ is the origin location, $y$ is the destination, and $Result(a, s)$ denotes the new situation produced by action $a$.
+
 and pair it with axioms that preserve unrelated fluents unless an action explicitly affects them. The benefit is not just mathematical elegance; it is maintainability when the action set grows.
 
 <!-- NOTEBOOKLM_DIAGRAM: concept=SituationCalculusFrameProblem; type=image; goal=contrast naive frame-axiom explosion with successor-state-axiom style update over fluents; complexity=intermediate -->
@@ -171,6 +173,8 @@ $$
 P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}
 $$
 
+In these identities, $A$ and $B$ are events, $\neg A$ is the complement of $A$, and the set $\{B_i\}$ represents a partition of alternative cases used in the rule of total probability.
+
 That last equation is the one that turns evidence into learning.
 
 The easiest way to internalize Bayes' rule is a diagnosis example. Suppose:
@@ -203,6 +207,8 @@ The key factorization is that the full joint distribution becomes a product of l
 $$
 P(X_1, \ldots, X_n) = \prod_i P(X_i \mid Parents(X_i))
 $$
+
+Here, $X_1, \ldots, X_n$ are the random variables in the network, and $Parents(X_i)$ means the direct parent nodes of variable $X_i$ in the Bayes net graph.
 
 That is the mathematical reason Bayes nets are so useful.
 
@@ -265,6 +271,8 @@ $$
 P(X_t \mid X_{1:t-1}) = P(X_t \mid X_{t-1})
 $$
 
+In this Markov assumption, $X_t$ is the hidden state at time step $t$, and $X_{1:t-1}$ means the full history of hidden states before time $t$.
+
 The Viterbi algorithm is the classic dynamic-programming method for recovering the most likely hidden-state sequence from a sequence of observations. Instead of enumerating every possible state path, it keeps only the highest-probability path into each state at each time step and reconstructs the best sequence by backtracking through those choices.
 
 The operational structure of an HMM is:
@@ -278,6 +286,8 @@ Viterbi then computes:
 $$
 \delta_t(j) = \max_i \left[\delta_{t-1}(i) \cdot a_{ij}\right] \cdot b_j(e_t)
 $$
+
+Here, $\delta_t(j)$ is the score of the best path ending in hidden state $j$ at time $t$, $a_{ij}$ is the transition probability from state $i$ to state $j$, and $b_j(e_t)$ is the probability of observing $e_t$ from state $j$.
 
 where $a_{ij}$ is transition probability and $b_j(e_t)$ is emission likelihood. Argmax backpointers are kept so the best full state sequence can be reconstructed after processing all observations.
 

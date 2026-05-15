@@ -1,4 +1,8 @@
-  
+---
+title: "Module 5: RAG Systems in Production"
+unlisted: true
+---
+
 At this point, you know all the skills you'll need to design and build your own RAG system. Once you're ready to move that application into production, however, a number of new considerations arise. In this module, you'll learn how to get your RAG system production ready. To start, you'll review a variety of evaluation strategies for RAG systems and platforms for running those evals. Whether you're looking at individual components or your overall system, you'll want the ability to observe your system's performance. You'll also explore how logging can help you trace individual calls to your RAG system and identify the cause of low-quality responses. To conclude this look at evals, you'll learn how to build custom datasets from your application's traffic in order to test changes to your RAG system using actual customer data. 
 
 In the next section, you'll explore a variety of trade-offs you'll often encounter when designing and tweaking your RAG system. Whether you're looking to control cost, memory footprint, or latency, you'll investigate strategies that help align a RAG system with your project's needs without significant loss in response quality. Finally, you'll explore some cutting-edge approaches to incorporate multimodal data into RAG systems, allowing your systems to pull from a knowledge base that contains image or PDF data in addition to text. As always, the module concludes with a programming assignment where you can try out all the skills you've learned. I think you'll enjoy this final module focused on making your production RAG system even higher performing. Join me in the next video and let's get started.

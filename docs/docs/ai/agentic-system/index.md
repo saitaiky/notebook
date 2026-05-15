@@ -1,81 +1,97 @@
 ---
-title: Architectures in AI Agents
-description: 'LangGraph offers powerful tools for building AI agents, but as agent architectures evolve, it’s essential to understand some of the advanced frameworks emerging i.'
+title: "Agentic Systems"
+description: "A practical catalog for building agentic and generative AI systems, covering protocols, retrieval implementation, evaluation, orchestration patterns, and operational controls."
 keywords:
   - ai
   - agentic system
-  - architectures ai agents
-  - architectures
   - agents
-  - langgraph
-  - offers
-  - powerful
+  - orchestration
+  - retrieval systems
+  - model context protocol
+  - agent-to-agent
+  - production ai
 ---
 
-LangGraph offers powerful tools for building AI agents, but as agent architectures evolve, it’s essential to understand some of the advanced frameworks emerging in the field. These architectures enable more complex workflows, multi-agent interactions, and flow control. Here, we’ll explore a few key architectures, their characteristics, and their potential use cases.
+This section is the engineering side of my AI notes. I use it to organize the decisions that show up when a model stops being an isolated demo and becomes part of a real system with tools, retrieval, routing, safety controls, evaluation loops, and operational constraints.
 
-## Agentic workflow
+That means this section is not primarily a theory-first course track. The point here is not to re-teach the full model background behind language models or deep learning. The point is to answer questions such as: how should context be routed, how should retrieval be configured, when does an agent protocol help, how should tool boundaries be exposed, and what usually breaks once a system is under real traffic and cost constraints.
 
-### Multi-Agent Architecture
+:::info Scope
 
-![simple_multi_agent_diagram](/img/ai/agentic-system/simple_multi_agent_diagram.png)
+If the goal is to study transformer concepts, language-model background, or course-style explanations, the better entry point is [LLM Overview](/ai/llm). If the goal is representation learning, sequence models, or multimodal generation mechanisms, the better entry point is [Deep Learning Overview](/ai/dl).
 
-Source: [Github: LangGrapgh](https://github.com/langchain-ai/langgraph/blob/main/examples/multi_agent/img/simple_multi_agent_diagram.png)
+:::
 
-A **multi-agent architecture** involves several agents working collaboratively on a shared state. Each agent can have distinct roles and tools at its disposal, but they all operate on the same underlying information. This creates a highly coordinated system where:
-- **Shared State**: The agents continuously pass information between each other as they work, ensuring all agents are aligned.
-- **Complex Tasks**: This setup is ideal for tasks requiring multiple phases, such as research, content creation, or technical analysis.
-- **Parallel Processing**: Multiple agents can run in parallel, each contributing to a different part of the overall task.
+## What Belongs Here
 
-### Supervisor-Agent Architecture
+I treat this section as a catalog of implementation layers that sit around or on top of models.
 
-![supervisor-diagram](/img/ai/agentic-system/supervisor-diagram.png)
+- **Protocols and interfaces**: how systems expose capabilities and communicate across process boundaries.
+- **Retrieval system design**: how chunking, embeddings, indexing, and vector-store choices affect downstream behavior.
+- **Agentic patterns**: how supervisors, planners, prompt scaffolds, and multi-step flows change execution.
+- **Operations and controls**: how caching, rate limiting, safeguarding, and evaluation keep a system usable in production.
 
-Source: [Github: LangGrapgh](https://github.com/langchain-ai/langgraph/blob/main/examples/multi_agent/img/simple_multi_agent_diagram.png)
+These topics overlap with LLM ideas in vocabulary, but not in job. The same word may appear in both sections while serving different purposes. For example, retrieval can appear in both places, but here the emphasis is on implementation trade-offs rather than on introductory explanation.
 
-In contrast to the multi-agent framework, a **supervisor-agent architecture** involves a **central supervisor** controlling sub-agents. Key characteristics include:
-- **Supervisor Control**: The supervisor decides which tasks to delegate to sub-agents and passes specific inputs to each. This allows for more granular control over task execution.
-- **Independent Sub-Agents**: Each sub-agent can maintain its own state, meaning it can operate independently of other agents.
-- **Powerful Supervision**: Using a sophisticated LLM as the supervisor can enable intelligent decision-making and planning. This is particularly useful for tasks requiring adaptive strategies, such as project management or complex reasoning.
+## How To Read This Section
 
-### Flow Engineering
+There are a few practical entry paths depending on the kind of problem being solved.
 
-![flow-engineering](/img/ai/agentic-system/flow-engineering.webp)
+If the immediate problem is **system integration**, start with [Model Context Protocol (MCP) Architecture](/ai/agentic-system/model-context-protocol) and [Agent-to-Agent Communication Architectures](/ai/agentic-system/agent-to-agent). Those pages explain the interface layer for tool access, composition, delegation, and multi-agent execution.
 
-Source: [Arxiv: Code Generation with AlphaCodium: From Prompt Engineering to Flow Engineering](https://arxiv.org/pdf/2401.08500)
+If the immediate problem is **retrieval quality**, start with [RAG Implementation](/ai/agentic-system/rag-implementation), then move through [Chunking](/ai/agentic-system/chunking), [Embedding Model](/ai/agentic-system/embedding-model), [Indexing](/ai/agentic-system/indexing), and [Vectorstore Settings](/ai/agentic-system/vectorstore-settings). That path is closer to a retrieval-systems handbook than a conceptual primer.
 
-Flow engineering originates from advanced research in agent architecture, particularly inspired by state-of-the-art solutions like **AlphaCodium**. The key idea is designing an information flow that optimizes how agents take action and make decisions. Characteristics of flow engineering include:
-- **Directed Flow with Loops**: Tasks often follow a clear flow of steps, but certain parts of the process may involve loops where the agent iterates on a solution or revisits previous steps (e.g., refining code or re-running tests).
-- **Graphical Representation**: Flow engineering is often visualized as a pipeline where agents or processes are represented as nodes in a graph, with certain nodes allowing for iterative refinement.
-- **Dynamic Adjustments**: As the agent works through its tasks, it can adjust its flow based on real-time feedback or reflection on past actions.
+If the immediate problem is **runtime behavior**, use [Caching](/ai/agentic-system/caching), [Rate Limit](/ai/agentic-system/rate-limit), and [Safeguarding](/ai/agentic-system/safeguarding) as the operational starting points. These pages belong to the part of the stack where cost, latency, abuse, and failure modes become visible.
 
-### Plan and Execute Paradigm
+If the immediate problem is **workflow design**, use [Prompting vs Agentic Prompting](/ai/agentic-system/prompting-vs-agentic-prompting), [Context Engineering](/ai/agentic-system/context-engineering), and the material under the `patterns` and `evaluation` subfolders to think through orchestration and measurement rather than raw model capability.
 
-![plan-execute](/img/ai/agentic-system/plan-execute.png)
+## Section Map
 
-Source: [Github: LangGrapgh](https://github.com/langchain-ai/langgraph/blob/main/examples/plan-and-execute/plan-and-execute.ipynb?ref=blog.langchain.dev)
+The current material naturally groups into four clusters.
 
-In a **plan and execute** style architecture, the agent explicitly creates a plan upfront and then executes it step-by-step. Key aspects of this architecture include:
-- **Clear Planning**: The agent begins by developing a clear plan, outlining the actions it will take. This ensures a structured approach to problem-solving.
-- **Iterative Execution**: The agent executes the plan step-by-step, possibly adjusting the plan as needed. This iterative execution ensures the agent can adapt to new information or results as it progresses.
-- **Task Flexibility**: After each step, the agent may return to update its plan or continue executing based on feedback from the environment or task completion.
+### Protocols and Architecture
 
-### Language Agent Tree Search
+This cluster covers how capabilities are exposed and composed across services or agents.
 
-![language-agent-tree-search](/img/ai/agentic-system/language-agent-tree-search.png)
+- [Model Context Protocol (MCP) Architecture](/ai/agentic-system/model-context-protocol)
+- [Agent-to-Agent Communication Architectures](/ai/agentic-system/agent-to-agent)
+- [LangGraph vs Other Products](/ai/agentic-system/langraph-vs-other-products)
 
-Source: [Arxiv: Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models](https://arxiv.org/abs/2310.04406)
+### Retrieval Systems
 
-![language-agent-tree-search-2](/img/ai/agentic-system/language-agent-tree-search-2.png)
+This cluster covers the implementation choices that determine whether retrieval is cheap, stable, and useful in practice.
 
-Source: [Github: LangGrapgh](https://github.com/langchain-ai/langgraph/blob/main/examples/lats/lats.ipynb)
+- [RAG Implementation](/ai/agentic-system/rag-implementation)
+- [Chunking](/ai/agentic-system/chunking)
+- [Embedding Model](/ai/agentic-system/embedding-model)
+- [Indexing](/ai/agentic-system/indexing)
+- [Vectorstore Settings](/ai/agentic-system/vectorstore-settings)
 
-A more experimental approach, **Language Agent Tree Search**, involves an agent exploring a tree of possible actions, reflecting at each step. Characteristics include:
-- **Tree-Based Search**: The agent starts by generating an action, reflects on it, and then explores sub-actions based on its reflection.
-- **Backpropagation**: The agent can revisit previous nodes in the tree to update its understanding of earlier actions based on new information.
-- **Persistence and Reflection**: This method relies heavily on persistence, as the agent needs to track its previous states and actions, revisiting them to make informed decisions about future steps.
+### Workflow and Prompt Design
 
-## The Importance of **Persistence** and **Flow Control**:
-Across all of these architectures, two concepts stand out as critical: **persistence** and **flow control**. 
-- **Persistence** allows the agent to store and recall states, enabling it to revisit previous decisions or steps. This is essential for long-running tasks, iterative refinement, and complex problem-solving.
-- **Flow Control** enables precise management of the information and action sequence. Whether the flow involves loops, iterations, or a linear progression, controlling how the agent processes tasks is key to building robust, intelligent agents.
+This cluster covers how tasks are structured once a single prompt is no longer enough.
+
+- [Prompting vs Agentic Prompting](/ai/agentic-system/prompting-vs-agentic-prompting)
+- [Context Engineering](/ai/agentic-system/context-engineering)
+- Content under `patterns/`
+
+### Operations, Safety, and Evaluation
+
+This cluster covers the pages that matter when the system is already working but not yet dependable.
+
+- [Caching](/ai/agentic-system/caching)
+- [Rate Limit](/ai/agentic-system/rate-limit)
+- [Safeguarding](/ai/agentic-system/safeguarding)
+- Content under `evaluation/`
+
+## Relationship To The LLM Section
+
+The easiest way to think about the split is this.
+
+The [LLM Overview](/ai/llm) section is where I keep study notes about how language models work, how the ideas evolved, and how course material fits together. This section is where I keep the engineering notes for using those models inside systems.
+
+That distinction matters because it keeps both sections readable. If I mix conceptual study notes and production design notes in the same place, pages become confused about whether they are teaching fundamentals or making implementation decisions. I would rather keep the two layers close and cross-linked than force them into one folder.
+
+## What To Read Next
+
+If you want the model-side background first, go to [LLM Overview](/ai/llm). If you want the broader AI curriculum around search, machine learning, and deep learning, go back to [AI Overview](/ai). If you already know the model basics and want a concrete systems entry point, start with [RAG Implementation](/ai/agentic-system/rag-implementation) or [Model Context Protocol (MCP) Architecture](/ai/agentic-system/model-context-protocol).

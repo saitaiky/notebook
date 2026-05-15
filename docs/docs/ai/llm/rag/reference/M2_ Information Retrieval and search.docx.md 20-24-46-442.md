@@ -1,3 +1,8 @@
+---
+title: "Module 2: Information Retrieval and Search"
+unlisted: true
+---
+
 # Module 2
 
 ## Introduction

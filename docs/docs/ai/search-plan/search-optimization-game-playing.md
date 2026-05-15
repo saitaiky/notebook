@@ -30,8 +30,10 @@ That shift changes what "done" means. In CSP, the first valid assignment can be 
 The objective can be framed as a scoring function over complete states:
 
 $$
-  ext{score}(s) \rightarrow \max \text{ or } \min
+	ext{score}(s) \rightarrow \max \text{ or } \min
 $$
+
+Here, $s$ denotes one complete candidate state, and $\text{score}(s)$ is the objective value assigned to that state.
 
 Then the algorithm question becomes: how can better-scoring states be searched efficiently under a time budget?
 
@@ -66,6 +68,8 @@ Simulated annealing fixes the worst weakness of hill climbing by sometimes accep
 Early in the search, when the temperature is high, the algorithm is willing to explore broadly and escape local maxima. As the temperature cools, it behaves more conservatively and converges toward a good solution. The core idea is that the algorithm should become less tolerant of bad moves over time.
 
 More formally, if a move makes the objective worse by $\Delta E$, the algorithm can still accept it with probability $e^{-\Delta E / T}$, where $T$ is the temperature. High temperature makes exploration likely. Low temperature makes the algorithm behave more like hill climbing.
+
+In this expression, $\Delta E$ is the amount by which the move worsens the objective, and $T$ is the current temperature controlling how willing the algorithm is to accept that worse move.
 
 That balance between exploration and exploitation is the real lesson. The algorithm works because it is neither purely random nor purely greedy.
 
@@ -154,8 +158,10 @@ A practical evaluation function should be:
 In Isolation, a simple heuristic like
 
 $$
-  	ext{score} = \#\text{my\_moves} - \#\text{opponent\_moves}
+  ext{score} = \#\text{my\_moves} - \#\text{opponent\_moves}
 $$
+
+Here, $\#\text{my\_moves}$ is the number of legal moves currently available to the agent, and $\#\text{opponent\_moves}$ is the corresponding count for the opponent.
 
 can already be surprisingly effective, because mobility is strongly related to eventual success. More aggressive variants can weight the opponent more heavily, such as $\#\text{my\_moves} - 2 \cdot \#\text{opponent\_moves}$.
 

@@ -346,6 +346,16 @@ This is the uncomfortable truth: there is no perfect general solution that guara
 
 What I can do instead is reduce the risk, detect unsupported claims more reliably, and design the system so unsupported answers are less likely and less harmful.
 
+### A Useful Hallucination Taxonomy
+
+In practice, it helps to distinguish a few different failure types instead of treating every bad answer as the same problem.
+
+1. **Fabrication** means the model invents a fact that is not supported by the retrieved context at all.
+2. **Distortion** means the model starts from real evidence but changes an important detail such as a number, condition, or date.
+3. **Omission** means the model leaves out a qualifying detail that makes the answer materially misleading.
+
+These failure types matter because they often point to different root causes. Fabrication often reflects weak grounding or an over-helpful prompt. Distortion often appears when the retrieved evidence is partially relevant but the model compresses it badly. Omission often happens when the context window is crowded and the model drops constraints that looked secondary but were actually decisive.
+
 ### Practical Hallucination Controls
 
 The best practical controls usually include:
@@ -373,6 +383,10 @@ These matter more in RAG than in many ordinary chat systems because grounding is
 
 If the model produces elegant answers but fails on faithfulness, the RAG pipeline is not really doing its job.
 
+There is also a practical design distinction between **inline citations generated directly by the model** and **post-hoc attribution systems** that map answer sentences back to supporting chunks after generation. Systems in the second category are useful when I want tighter sentence-to-source alignment than the model will reliably provide on its own.
+
+Benchmarks such as ALCE are useful here because they evaluate answer quality and citation quality together. That is closer to the real user promise of a RAG system than a generic answer-quality metric by itself.
+
 ## Evaluating LLM Performance in RAG
 
 The evaluation logic for the generator should stay aligned with the generator's role.
@@ -398,6 +412,8 @@ These are nuanced judgments, which is why LLM-as-a-judge approaches are so commo
 
 Libraries like Ragas are useful because they package repeatable metrics for this kind of evaluation.
 
+One caveat is that LLM judges are not neutral by default. A judge model can prefer outputs that sound like its own training style or its own model family. So I treat LLM-as-a-judge scores as useful signals, not as unquestionable truth. The more important the decision, the more I want human review or at least multiple judge configurations.
+
 ### Useful Generation-Side Metrics
 
 Some of the most useful metrics include:
@@ -408,6 +424,8 @@ Some of the most useful metrics include:
 - robustness to irrelevant context.
 
 I also still care about real user feedback, because offline metrics are not the same thing as actual satisfaction.
+
+Ragas-style metrics are useful here because they make the metric definitions more explicit. `response_relevancy` is trying to answer whether the response actually addresses the user's question rather than merely sounding good. `faithfulness` is closer to a claim-grounding check: are the answer's statements supported by the retrieved context? Those two metrics often fail independently, which is exactly why I want both. An answer can be relevant but unsupported, or supported but not responsive enough to the user's real question.
 
 ## Agentic RAG on the Generation Side
 
@@ -441,10 +459,12 @@ What matters in this workflow is not the exact boxes. It is the design principle
 
 Useful workflow patterns include:
 
-- sequential workflows,
-- conditional workflows,
-- iterative workflows,
-- parallel workflows with later synthesis.
+- **sequential workflows**, where one step prepares the next, such as rewrite -> retrieve -> answer -> verify,
+- **conditional workflows**, where a router decides whether retrieval is needed at all or which retriever/model path to use,
+- **iterative workflows**, where an evaluator decides whether the current evidence is weak and another retrieval round is needed,
+- **parallel workflows with later synthesis**, where multiple retrievers or specialized generators run at once and a later step merges the result.
+
+That pattern distinction matters because it clarifies what kind of problem the orchestration is solving. Conditional workflows are often about cost and latency control. Iterative workflows are often about recall and evidence sufficiency. Parallel workflows are often about breadth and robustness.
 
 These patterns can improve quality, but they also add latency, orchestration complexity, and more places where evaluation is needed.
 

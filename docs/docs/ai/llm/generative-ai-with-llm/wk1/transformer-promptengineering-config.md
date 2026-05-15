@@ -113,7 +113,7 @@ Large Language Models (LLMs) and generative AI are often associated with chat-ba
 
 ### History
 
-> For more details, check [History of LLM](/ai/llm/#evolution-of-large-language-models)
+> For broader orientation, check [LLM Study Notes](/ai/llm).
 
 Before the advent of transformers, generative algorithms relied on Recurrent Neural Networks (RNNs), which were constrained by their computational and memory demands. RNNs struggled with long-term dependencies, making them inadequate for understanding complex language structures. Despite scaling, RNNs often failed at tasks like next-word prediction due to their limited ability to retain contextual information over long sequences. The breakthrough came in 2017 with the transformer architecture, introduced by the paper "Attention is All You Need." Transformers efficiently handle larger datasets and parallel processing, focusing on the contextual meaning of words, revolutionizing generative AI capabilities.
 

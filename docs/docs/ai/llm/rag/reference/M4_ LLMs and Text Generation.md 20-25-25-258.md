@@ -1,4 +1,8 @@
 
+---
+title: "Module 4: LLMs and Text Generation"
+unlisted: true
+---
 
 The Retriever is a critical part of your RAG system, but the LLM is the real brains of the operation. The Retriever can find and prepare useful information, but at the end of the day, it's the LLM that needs to actually use that information to generate a high-quality response. In this module, you'll learn all about large language models, how they work, as well as specific techniques that you can use to improve their performance within a RAG system. You'll dive deep on the transformer architecture that LLMs are built on, learn how to construct LLM calls and code, and then iteratively add to that basic workflow to ensure the LLM provides high-quality responses that are grounded in the information provided by the Retriever. You'll see some advanced techniques that push the limits of LLM performance, but also get practical advice for what approaches tend to work for a typical RAG project.
 

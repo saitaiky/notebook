@@ -86,6 +86,8 @@ $$
 f(n) = h(n)
 $$
 
+Here, $n$ is the current node, $h(n)$ is the heuristic estimate of remaining cost to a goal, and $f(n)$ is the score used to rank the frontier.
+
 That often makes it much faster than uninformed search, but it gives up reliability. A heuristic can pull the search toward what looks promising locally while ignoring the true cost already paid.
 
 That is why greedy search is often fast but not guaranteed to be optimal.
@@ -99,6 +101,8 @@ A* combines actual path cost and heuristic guidance:
 $$
 f(n) = g(n) + h(n)
 $$
+
+In A*, $g(n)$ is the path cost already paid to reach node $n$, $h(n)$ is the estimated remaining cost, and $f(n)$ is the estimated total solution cost through that node.
 
 This is the central idea of informed search. The search should care both about how much cost has already been paid and how much cost is still expected.
 
@@ -165,6 +169,8 @@ $$
 h(n) \leq h^*(n)
 $$
 
+Here, $h(n)$ is the heuristic estimate and $h^*(n)$ is the true optimal remaining cost from node $n$ to a goal.
+
 where $h^*(n)$ is the true optimal remaining cost.
 
 This matters because admissibility is what protects A*'s optimality in tree search.
@@ -174,6 +180,8 @@ A heuristic is **consistent** if for every edge from $n$ to $n'$ with step cost 
 $$
 h(n) \leq c(n,n') + h(n')
 $$
+
+In the consistency condition, $c(n,n')$ is the step cost of moving from node $n$ to successor $n'$.
 
 Consistency is stronger than admissibility. It gives the search a triangle-inequality-like structure, which is especially useful in graph search because it prevents the estimated total cost from decreasing unexpectedly along a path.
 

@@ -1,4 +1,8 @@
 
+---
+title: "Module 3: Information Retrieval with Vector Databases"
+unlisted: true
+---
 
 [https://community.deeplearning.ai/c/course-q-a/406?utm\_campaign=forum-engagement\&utm\_medium=long-form-courses\&utm\_source=coursera](https://community.deeplearning.ai/c/course-q-a/406?utm_campaign=forum-engagement&utm_medium=long-form-courses&utm_source=coursera)
 ## Retrieval with vector database

@@ -44,6 +44,8 @@ $$
 \text{WCSS} = \sum_{k=1}^{K}\sum_{x_i \in C_k} ||x_i - \mu_k||^2
 $$
 
+Here, $K$ is the number of clusters, $C_k$ is the set of points assigned to cluster $k$, $x_i$ is one data point, and $\mu_k$ is the centroid of cluster $k$.
+
 Its iterative process is simple and fast:
 
 1. initialize centroids,
@@ -122,6 +124,8 @@ Silhouette coefficient for point $i$:
 $$
 s(i)=\frac{b(i)-a(i)}{\max(a(i), b(i))}
 $$
+
+In this formula, $i$ indexes one data point, $a(i)$ is its average distance to points in the same cluster, and $b(i)$ is its average distance to the nearest competing cluster.
 
 where $a(i)$ is average intra-cluster distance and $b(i)$ is nearest-cluster distance.
 

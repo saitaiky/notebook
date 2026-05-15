@@ -83,6 +83,8 @@ $$
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 $$
 
+In both equations, $n$ is the number of examples, $y_i$ is the true target value for example $i$, and $\hat{y}_i$ is the model prediction.
+
 MAE is easier to interpret in the original unit of the target, while RMSE penalizes large misses more aggressively. Which one is more useful depends on whether large errors are merely inconvenient or operationally expensive.
 
 ### Classification metrics
@@ -92,6 +94,8 @@ For classification, accuracy is only a starting point. Precision, recall, and ca
 $$
 \text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN}
 $$
+
+Here, $TP$ means true positives, $FP$ means false positives, and $FN$ means false negatives.
 
 The selection rule is simple: choose the metric that reflects the failure mode the system actually cares about.
 

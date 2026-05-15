@@ -30,14 +30,14 @@ This section groups practical deep learning projects and maps each one to the kn
 - Use [AI Overview](/ai) to see where deep learning sits relative to classical ML and the separate LLM track.
 - High-level roadmap in [Deep Learning Overview](/ai/dl).
 - Neural network foundations, activation choices, optimization, regularization, CNNs, and transfer learning in [Foundations and CNNs](/ai/dl/foundations-and-cnns).
-- Sequence modeling with RNNs, LSTMs, GRUs, and encoder-decoder workflows in [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models).
-- Embeddings, attention, autoencoders, VAEs, GANs, and modern text-to-image context in [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models).
+- Sequence modeling with RNNs, LSTMs, GRUs, embeddings, and encoder-decoder workflows in [Sequence Models and Language Representation](/ai/dl/sequence-models-and-language-representation).
+- Autoencoders, VAEs, GANs, vision-language bridges, and modern text-to-image context in [Multimodal Representation and Generation](/ai/dl/multimodal-representation-and-generation).
 - Transformer-heavy language-model material in [LLM Overview](/ai/llm) if you want the modern language-model branch rather than the broader DL track.
 
 ## Suggested learning flow
 
 1. Start with [AI Overview](/ai), and use [AI Prerequisites](/ai/prerequisites) if you want the background check first.
 2. Ground the basics with [Image Classification](./image-classification) and [Foundations and CNNs](/ai/dl/foundations-and-cnns).
-3. Move to [TV Script Generation](./script-generation), [Style Transfer with LSTM](./style-transfer-lstm), and [Language Translation](./language-translation), then review [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models).
-4. Finish with [Face Generation](./face-generation), then return to [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models) to connect GAN mechanics with implementation decisions.
+3. Move to [TV Script Generation](./script-generation), [Style Transfer with LSTM](./style-transfer-lstm), and [Language Translation](./language-translation), then review [Sequence Models and Language Representation](/ai/dl/sequence-models-and-language-representation).
+4. Finish with [Face Generation](./face-generation), then return to [Multimodal Representation and Generation](/ai/dl/multimodal-representation-and-generation) to connect GAN mechanics and vision-language ideas with implementation decisions.
 5. If your real target is transformer-era language systems, hand off from this section to [LLM Overview](/ai/llm) rather than treating the DL notes as the end of the path.

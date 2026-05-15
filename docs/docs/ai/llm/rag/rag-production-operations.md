@@ -224,6 +224,8 @@ Quantization is one of the most practical production techniques because it reduc
 
 The trade-off is some quality loss, but in many cases the drop is small enough to be worth it.
 
+For embedding systems, one especially useful idea is Matryoshka-style representation learning. The goal is to train embeddings so that the early dimensions still carry useful information even when the vector is truncated. That gives me another compression lever: I can store or search shorter prefixes of the same embedding when I need lower cost or lower latency, instead of retraining a separate small embedding model.
+
 ### An example of a quantization experiment loop
 
 The point of this example is not just to try lower-precision settings, but to evaluate them systematically so speed, memory, and answer quality can be compared in one place.
@@ -260,6 +262,8 @@ One of the most useful production heuristics is that most latency comes from tra
 4. caching opportunities.
 
 Caching is another practical latency tool. If similar prompts recur often, caching can let me bypass expensive generation entirely or route the cached result through a smaller model for slight personalization. That can deliver large wins when the product has repetitive traffic patterns.
+
+Another strong latency pattern is conditional routing. A lightweight router model or classifier can decide whether a request needs the expensive generation path at all. Simple factual questions with obvious retrieval hits may be handled by a smaller cheaper model, while ambiguous or synthesis-heavy questions go to the stronger path. That often matters more than shaving a few milliseconds off one component.
 
 Retrieval is usually not the biggest latency source, but there are still useful techniques:
 
@@ -362,6 +366,8 @@ Two major components must become multimodal:
 The embedding model must map text and image-like content into a shared or comparable space.
 
 The generator must be able to interpret non-text inputs, which is why vision-capable LLMs matter here.
+
+In practice, there are two broad strategies. One is to convert visual material into text first with OCR, layout extraction, or captioning, then feed that text into a mostly text-native pipeline. The other is to use native multimodal embeddings and vision-capable generators so retrieval and synthesis can stay closer to the original visual structure. The first path is simpler. The second usually preserves more layout and diagram meaning.
 
 ### Why PDFs and slides are tricky
 

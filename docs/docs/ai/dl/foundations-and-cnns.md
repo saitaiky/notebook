@@ -41,6 +41,8 @@ $$
 z = w^T x + b
 $$
 
+Here, $x$ is the input vector, $w$ is the weight vector, $b$ is the bias term, and $z$ is the pre-activation score before the nonlinearity is applied.
+
 and then applies an activation such as ReLU:
 
 $$
@@ -77,6 +79,8 @@ For classification, cross-entropy is the default loss:
 $$
 \mathcal{L}_{\text{CE}} = -\sum_i y_i \log(\hat{y}_i)
 $$
+
+In this expression, $y_i$ is the target probability or indicator for class $i$, and $\hat{y}_i$ is the model's predicted probability for that same class.
 
 This measures how far the predicted probability distribution is from the target distribution. When the model is confident and correct, the loss is small. When it is confidently wrong, the loss is large.
 
@@ -139,6 +143,8 @@ If the input size is $n$, the filter size is $f$, the padding is $p$, and the st
 $$
 \frac{n - f + 2p}{s} + 1
 $$
+
+Here, $n$ is the input spatial size, $f$ is the filter size, $p$ is the padding width, and $s$ is the stride.
 
 For `VALID` padding, $p = 0$. For `SAME` padding, the padding is chosen so the output size is approximately preserved when stride is $1$.
 
@@ -211,4 +217,4 @@ That is why I think of this chapter as the practical entry point to deep learnin
 
 ## What to Read Next
 
-Continue to [Sequence Models and Generative Models](/ai/dl/sequence-models-and-generative-models) if you want to move from image and representation fundamentals into language, memory, and synthesis.
+Continue to [Sequence Models and Language Representation](/ai/dl/sequence-models-and-language-representation) if you want to move from image and representation fundamentals into language, memory, and attention, or continue further to [Multimodal Representation and Generation](/ai/dl/multimodal-representation-and-generation) if your main interest is vision-language systems and synthesis.

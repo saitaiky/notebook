@@ -58,6 +58,8 @@ $$
 \mathcal{L}_{L2} = \mathcal{L} + \lambda \sum_j w_j^2
 $$
 
+Across these equations, $x$ is the feature vector, $w$ is the weight vector, $b$ is the bias or intercept, $\sigma$ is the sigmoid function, $\mathcal{L}$ is the original data-fitting loss, and $\lambda$ controls how strongly large weights are penalized.
+
 L1 regularization is useful when I need sparse coefficients and implicit feature selection.
 
 Even when a linear model is not the final winner, it gives a stable reference point for debugging feature quality and checking whether later gains are real.
