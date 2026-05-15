@@ -15,7 +15,7 @@ sidebar_position: 2
 
 # Search, Optimization, and Game Playing
 
-This chapter is where classical AI starts to feel like engineering rather than taxonomy. Once I stop asking for any valid solution and start asking for the best solution under limited time, the search problem changes shape.
+This chapter is where classical AI starts to feel like engineering rather than taxonomy. Once the goal stops being any valid solution and becomes the best solution under limited time, the search problem changes shape.
 
 The first half covers optimization with local search. The second half covers adversarial game playing, where the environment actively tries to make my decisions fail.
 
@@ -23,25 +23,25 @@ The first half covers optimization with local search. The second half covers adv
 
 ### From Finding a Solution to Finding the Best Solution
 
-In constraint satisfaction, the goal is often to find any state that satisfies all constraints. In optimization problems, that is not enough. I now care about an objective function that I want to maximize or minimize.
+In constraint satisfaction, the goal is often to find any state that satisfies all constraints. In optimization problems, that is not enough. The focus shifts to an objective function that needs to be maximized or minimized.
 
-That shift changes what "done" means. In CSP, the first valid assignment can be enough. In optimization, every valid assignment is just a candidate until I compare it against alternatives.
+That shift changes what "done" means. In CSP, the first valid assignment can be enough. In optimization, every valid assignment is just a candidate until it is compared against alternatives.
 
-I can frame the objective as a scoring function over complete states:
+The objective can be framed as a scoring function over complete states:
 
 $$
-  	ext{score}(s) \rightarrow \max \text{ or } \min
+  ext{score}(s) \rightarrow \max \text{ or } \min
 $$
 
-Then the algorithm question becomes: how do I search for better-scoring states efficiently under a time budget?
+Then the algorithm question becomes: how can better-scoring states be searched efficiently under a time budget?
 
 ### The Challenge of Optimization Problems
 
-The Traveling Salesman Problem is the classic example. Given a set of cities and distances, I want the shortest tour that visits each city exactly once and returns to the start.
+The Traveling Salesman Problem is the classic example. Given a set of cities and distances, the goal is the shortest tour that visits each city exactly once and returns to the start.
 
 The issue is combinatorial explosion. The number of tours grows factorially, which means a straightforward exhaustive search becomes unusable very quickly. For $n$ cities, the search space grows on the order of $n!$, which becomes hopeless almost immediately.
 
-That is why optimization problems force me to think differently about search. The question stops being "can I enumerate the space?" and becomes "how can I navigate the space without enumerating it?"
+That is why optimization problems force a different way of thinking about search. The question stops being "can the space be enumerated?" and becomes "how can the space be navigated without enumerating it?"
 
 ### Local Search: Hill Climbing
 
@@ -55,7 +55,7 @@ Hill climbing works on one complete candidate solution at a time.
 
 This is computationally attractive, but it is greedy. Hill climbing can get stuck at a local maximum that is good relative to nearby states but far from globally optimal.
 
-I usually read hill climbing as "gradient-like search without guarantees." If each move only considers immediate local improvements, the algorithm cannot cross a temporary valley to reach a better peak. That is the core failure mode.
+Hill climbing can be read as "gradient-like search without guarantees." If each move only considers immediate local improvements, the algorithm cannot cross a temporary valley to reach a better peak. That is the core failure mode.
 
 <!-- NOTEBOOKLM_DIAGRAM: concept=HillClimbingLocalMaxima; type=image; goal=show search landscape with local and global maxima and a hill-climbing path trapped in a local peak; complexity=basic -->
 
@@ -69,7 +69,7 @@ More formally, if a move makes the objective worse by $\Delta E$, the algorithm 
 
 That balance between exploration and exploitation is the real lesson. The algorithm works because it is neither purely random nor purely greedy.
 
-I usually reason about annealing schedules through one concrete loop:
+Annealing schedules are easiest to reason about through one concrete loop:
 
 1. Set an initial temperature $T_0$ high enough that some bad moves are accepted.
 2. Propose a neighboring state each iteration.
@@ -82,7 +82,7 @@ Two practical tuning signals matter:
 - If acceptance of worse moves drops to almost zero too early, cooling is too fast.
 - If the algorithm keeps wandering late in the run, cooling is too slow.
 
-In production-style optimization, I treat annealing as a budgeted search method: set iteration count and cooling schedule so each run fits a predictable time envelope.
+In production-style optimization, annealing works best as a budgeted search method: set iteration count and cooling schedule so each run fits a predictable time envelope.
 
 :::info Further Study: Genetic Algorithms
 
@@ -94,14 +94,14 @@ Genetic algorithms take a population-based approach. Instead of refining one sta
 
 ### Introduction to Game Trees
 
-For deterministic, turn-based games like Tic-Tac-Toe, chess, or Isolation, I can model the problem as a game tree.
+For deterministic, turn-based games like Tic-Tac-Toe, chess, or Isolation, the problem can be modeled as a game tree.
 
 - **Nodes** represent game states.
 - **Edges** represent legal moves.
 - **The root** is the current state.
 - **Leaf nodes** represent terminal outcomes such as win, loss, or draw.
 
-This representation matters because it lets me reason not only about what I want to do next, but also about how an opponent will respond.
+This representation matters because it supports reasoning not only about the next move, but also about how an opponent will respond.
 
 A quick Tic-Tac-Toe example makes this concrete. From one mid-game board, each legal move creates a child node. Then each opponent response creates another level. Even this tiny game creates a branching structure where immediate-looking good moves can be punished two turns later.
 
@@ -111,17 +111,17 @@ That is exactly why the tree abstraction matters: it forces me to evaluate plans
 
 Minimax assumes a perfect opponent.
 
-- I am the **MAX** player, trying to maximize utility.
+- The **MAX** player tries to maximize utility.
 - My opponent is the **MIN** player, trying to minimize it.
 
 The algorithm searches the tree, scores outcomes, and propagates those values upward.
 
-- At MAX nodes, I keep the highest child value.
-- At MIN nodes, I keep the lowest child value.
+- At MAX nodes, the highest child value is kept.
+- At MIN nodes, the lowest child value is kept.
 
 The result is a move that is optimal under the assumption that the opponent is also playing optimally. In the idealized full-tree version, terminal utilities such as $+1$, $0$, and $-1$ propagate upward until the root receives its minimax value.
 
-I can think of propagation as alternating operators:
+Propagation can be understood as alternating operators:
 
 - MAX layers apply `max(...)` over child values.
 - MIN layers apply `min(...)` over child values.
@@ -140,11 +140,11 @@ Real game trees explode in size. In a game like Isolation, the branching factor 
 
 If the average branching factor is $b$ and the search depth is $d$, a naive minimax search explores on the order of $O(b^d)$ nodes. That exponential cost is the real enemy.
 
-That is why heuristics become essential. I need a way to estimate the value of non-terminal states without searching all the way to the end.
+That is why heuristics become essential. A way is needed to estimate the value of non-terminal states without searching all the way to the end.
 
 ### Depth-Limited Search and Evaluation Functions
 
-Depth-limited search cuts the tree at a fixed horizon. Once I stop the search early, I need an evaluation function to estimate how promising the current state is.
+Depth-limited search cuts the tree at a fixed horizon. Once the search stops early, an evaluation function is needed to estimate how promising the current state is.
 
 A practical evaluation function should be:
 
@@ -159,7 +159,7 @@ $$
 
 can already be surprisingly effective, because mobility is strongly related to eventual success. More aggressive variants can weight the opponent more heavily, such as $\#\text{my\_moves} - 2 \cdot \#\text{opponent\_moves}$.
 
-The practical trade-off is evaluation cost versus search depth. If I double evaluation complexity but keep the same move-time budget, I may cut the reachable depth and lose tactical sharpness. In practice, I tune both together.
+The practical trade-off is evaluation cost versus search depth. If evaluation complexity doubles while the move-time budget stays the same, reachable depth may shrink and tactical sharpness may be lost. In practice, both need to be tuned together.
 
 ### Optimizing with Alpha-Beta Pruning
 
@@ -168,11 +168,11 @@ Alpha-beta pruning returns the same decision as minimax while exploring fewer br
 - **Alpha** tracks the best score MAX can already guarantee.
 - **Beta** tracks the best score MIN can already force.
 
-As soon as a branch becomes incapable of improving the final decision, I can stop exploring it. The pruning condition is simply $\alpha \geq \beta$.
+As soon as a branch becomes incapable of improving the final decision, exploration can stop. The pruning condition is simply $\alpha \geq \beta$.
 
-With good move ordering, alpha-beta pruning can dramatically increase the effective search depth I can reach in the same time budget. In the best case, it reduces the effective complexity from roughly $O(b^d)$ to about $O(b^{d/2})$, which is the difference between a toy search and a usable game-playing system.
+With good move ordering, alpha-beta pruning can dramatically increase the effective search depth reachable in the same time budget. In the best case, it reduces the effective complexity from roughly $O(b^d)$ to about $O(b^{d/2})$, which is the difference between a toy search and a usable game-playing system.
 
-I treat move ordering as part of alpha-beta, not as a separate optional improvement. If good candidate moves are searched earlier, cutoffs happen sooner and more often. That means better pruning and deeper effective lookahead.
+Move ordering should be treated as part of alpha-beta, not as a separate optional improvement. If good candidate moves are searched earlier, cutoffs happen sooner and more often. That means better pruning and deeper effective lookahead.
 
 This simplified tree highlights where pruning happens.
 
@@ -184,9 +184,9 @@ The intuition is that once a branch cannot improve the already known bound, deep
 
 ### Iterative Deepening
 
-Iterative deepening solves a practical time-management problem. Instead of searching once to a fixed depth, I search repeatedly at depth 1, then 2, then 3, and so on until time runs out.
+Iterative deepening solves a practical time-management problem. Instead of searching once to a fixed depth, the search runs repeatedly at depth 1, then 2, then 3, and so on until time runs out.
 
-This makes the agent anytime-capable: if the clock stops the search, I still have the best move from the deepest completed iteration. The apparent redundancy is usually acceptable because the deepest frontier dominates the runtime anyway.
+This makes the agent anytime-capable: if the clock stops the search, the best move from the deepest completed iteration is still available. The apparent redundancy is usually acceptable because the deepest frontier dominates the runtime anyway.
 
 There is also a second benefit: iterative deepening improves move ordering for deeper searches. The best move from depth $k$ is often a strong candidate at depth $k+1$, which helps alpha-beta pruning cut earlier.
 
@@ -227,13 +227,13 @@ Stronger game-playing systems rely on richer evaluation functions.
 
 The trade-off is always the same: a more accurate heuristic usually costs more time, which may reduce search depth.
 
-In practice, I design evaluation features in layers:
+In practice, evaluation features are often designed in layers:
 
 1. Core tactical features: legal move count, immediate threats, king safety-like constraints.
 2. Positional features: center control, connectivity, region dominance.
 3. Context features: game phase (opening/midgame/endgame) and risk weighting.
 
-Then I calibrate feature weights against two metrics at once: win rate and nodes searched per second. A sophisticated evaluator that reduces search depth too aggressively can perform worse than a simpler one.
+Then feature weights are calibrated against two metrics at once: win rate and nodes searched per second. A sophisticated evaluator that reduces search depth too aggressively can perform worse than a simpler one.
 
 ### Multiplayer and Probabilistic Games
 
@@ -242,14 +242,14 @@ Classical minimax is for two-player deterministic games. Once that assumption br
 - **MAXN** generalizes game trees to multiple players by using a utility vector rather than one scalar value.
 - **Expectimax** handles chance by replacing some nodes with expected-value calculations rather than adversarial choices.
 
-These extensions matter because not every strategic problem is a clean two-player duel. Once randomness enters the tree, I am no longer propagating minima at every opponent-like branch. I am sometimes propagating expectations.
+These extensions matter because not every strategic problem is a clean two-player duel. Once randomness enters the tree, the algorithm is no longer propagating minima at every opponent-like branch. It is sometimes propagating expectations.
 
 A quick mental model helps:
 
 - In minimax, opponent nodes use worst-case choice (`min`).
 - In expectimax, chance nodes use weighted average (`\sum p_i v_i`).
 
-If I am evaluating a move in a dice game and the next event is a die roll, the correct update is expectation over outcomes, not adversarial minimum. This single change can completely alter which move is preferred.
+If a move is being evaluated in a dice game and the next event is a die roll, the correct update is expectation over outcomes, not adversarial minimum. This single change can completely alter which move is preferred.
 
 For multiplayer games, MAXN extends this idea by keeping a utility vector (one component per player). The implementation trade-off is that pruning becomes harder and evaluation design must reflect multiple competing objectives.
 
@@ -257,7 +257,7 @@ For multiplayer games, MAXN extends this idea by keeping a utility vector (one c
 
 The practical lesson of this chapter is that search quality comes from disciplined approximation.
 
-I do not beat large decision spaces by brute force. I beat them by representing the problem well, using heuristics intelligently, and spending computation where it matters most.
+Large decision spaces are not beaten by brute force. They are handled by representing the problem well, using heuristics intelligently, and spending computation where it matters most.
 
 ## Key Takeaways
 

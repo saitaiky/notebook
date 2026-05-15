@@ -25,24 +25,24 @@ It might take me a bit to get everything written down, but I'll carve out some t
 
 Understanding the fundamental techniques of AI, such as search, planning, and reasoning, is crucial for developing intelligent systems capable of solving complex problems. These methods allow AI agents to navigate environments, make decisions, and find solutions efficiently. Building an AI to solve Sudoku introduces logical constraints and backtracking. Building a chess-playing agent introduces optimization, adversarial search, and time-bounded decision-making. Probabilistic models add the machinery needed to reason under uncertainty and work with language-like sequential data.
 
-This section is my attempt to make classical AI feel less like a museum of old algorithms and more like a practical toolkit. A lot of the techniques here predate the current wave of large models, but they still teach the parts of intelligence that depend on representation, search-space design, uncertainty handling, and disciplined decision-making under constraints.
+This section is meant to make classical AI feel less like a museum of old algorithms and more like a practical toolkit. A lot of the techniques here predate the current wave of large models, but they still teach the parts of intelligence that depend on representation, search-space design, uncertainty handling, and disciplined decision-making under constraints.
 
 ## Why This Still Matters
 
 Modern AI discussions often jump straight to transformers, embeddings, and inference infrastructure. That is useful, but it hides a simpler truth: many difficult engineering problems are still search problems, constraint problems, planning problems, or uncertainty problems wearing modern clothes.
 
-If I am building a scheduler, a routing system, a game-playing agent, a symbolic planner, or a recognizer that has to infer hidden structure from partial observations, I am back in the world of classical AI very quickly. The names may change, but the underlying questions do not.
+When building a scheduler, a routing system, a game-playing agent, a symbolic planner, or a recognizer that has to infer hidden structure from partial observations, the problem quickly returns to the world of classical AI. The names may change, but the underlying questions do not.
 
 - What counts as a good state representation?
 - Which parts of the problem are hard because of combinatorics, and which are hard because of uncertainty?
-- Where can exact reasoning work, and where do I need heuristics or approximation?
-- How do I make strong decisions under time limits rather than perfect decisions with infinite compute?
+- Where can exact reasoning work, and where are heuristics or approximation necessary?
+- How can strong decisions be made under time limits rather than perfect decisions with infinite compute?
 
 That is the thread connecting the whole section.
 
 ## What You Will Learn
 
-The series starts with the basic language of intelligent systems: agents, environments, state, rational behavior, and bounded optimality. Those ideas matter because every later algorithm quietly assumes that I have already decided what the agent perceives, what it can do, and what outcome I actually want to optimize.
+The series starts with the basic language of intelligent systems: agents, environments, state, rational behavior, and bounded optimality. Those ideas matter because every later algorithm quietly assumes that the designer has already decided what the agent perceives, what it can do, and what outcome it is trying to optimize.
 
 From there, the material moves into constraint satisfaction through Sudoku. That part is deliberately concrete. It shows how variables, domains, and constraints turn a puzzle into a reusable formal problem, and how inference rules such as elimination, only-choice, and minimum-remaining-values heuristics work together with backtracking search.
 

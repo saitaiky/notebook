@@ -28,13 +28,13 @@ Search algorithms like A* work over a concrete state space. Planning operates at
 
 The important difference is flexibility. A problem-solving agent often plans once and executes. A planning agent can interleave planning and execution, observe the world, and revise the plan when conditions change.
 
-I like to frame planning with three questions:
+Planning can be framed with three questions:
 
 1. What facts describe the world right now?
 2. What actions can legally change those facts?
 3. Which fact pattern counts as success?
 
-That framing is useful in real systems. A warehouse robot planner, for example, can replan when an aisle is blocked because the action model is explicit. If I model only raw paths but not action preconditions, dynamic replanning becomes brittle.
+That framing is useful in real systems. A warehouse robot planner, for example, can replan when an aisle is blocked because the action model is explicit. If only raw paths are modeled and action preconditions are omitted, dynamic replanning becomes brittle.
 
 ### Propositional Logic
 
@@ -53,13 +53,13 @@ The useful distinctions are simple but important:
 
 Those distinctions are what let logic become an engineering tool instead of just a notation system.
 
-A tiny truth-table mindset helps in practice. Suppose I encode:
+A tiny truth-table mindset helps in practice. Suppose the encoding is:
 
 - $R$: it is raining
 - $W$: the ground is wet
 - rule: $R \rightarrow W$
 
-If I also know $R$ is true, then any consistent model should set $W$ to true. If I add $\neg W$ at the same time, the set becomes inconsistent. This is exactly how logical contradiction checking catches bad rule combinations in planning domains.
+If $R$ is also known to be true, then any consistent model should set $W$ to true. If $\neg W$ is added at the same time, the set becomes inconsistent. This is exactly how logical contradiction checking catches bad rule combinations in planning domains.
 
 ### First-Order Logic
 
@@ -90,7 +90,7 @@ The planner then searches for a sequence of actions that transforms the initial 
 
 That is a major difference from ordinary state-space search. The planner reasons over structured action descriptions rather than blindly expanding all reachable states.
 
-I can make this concrete with a mini block-stacking domain.
+This becomes concrete with a mini block-stacking domain.
 
 - Initial state: `On(A,Table)`, `On(B,Table)`, `Clear(A)`, `Clear(B)`, `HandEmpty`
 - Goal: `On(A,B)`
@@ -100,7 +100,7 @@ I can make this concrete with a mini block-stacking domain.
 
 Progression planning starts from the initial state and applies legal actions forward. Regression planning starts from the goal and asks which actions could make that goal true. In small domains, either works. In goal-sparse domains, regression often prunes faster.
 
-I often compare them with the same goal `On(A,B)`:
+The comparison is easiest with the same goal `On(A,B)`:
 
 - Progression: explore from all immediately legal actions, then filter paths that eventually satisfy the goal.
 - Regression: start from `On(A,B)`, then derive which predecessor conditions must hold (for example `Holding(A)` and `Clear(B)`), and continue backward.
@@ -128,10 +128,10 @@ This helps solve the frame problem, which is the challenge of describing what ch
 
 The frame problem appears when naive action models force me to restate every unaffected fact after each action. In a nontrivial domain, that becomes unmaintainable.
 
-Situation calculus addresses this with successor-state axioms that specify what changes and implicitly preserve what does not. I can write:
+Situation calculus addresses this with successor-state axioms that specify what changes and implicitly preserve what does not. For example:
 
 $$
-At(robot, x, Result(Move(x, y), s)) \leftrightarrow True
+At(robot, y, Result(Move(x, y), s)) \leftrightarrow True
 $$
 
 and pair it with axioms that preserve unrelated fluents unless an action explicitly affects them. The benefit is not just mathematical elegance; it is maintainability when the action set grows.
@@ -206,17 +206,17 @@ $$
 
 That is the mathematical reason Bayes nets are so useful.
 
-A classic example is `Cloudy -> Rain`, `Cloudy -> Sprinkler`, and both `Rain` and `Sprinkler` pointing to `WetGrass`. This graph says wet grass depends directly on rain and sprinkler, while rain and sprinkler become conditionally independent once I condition on cloudy.
+A classic example is `Cloudy -> Rain`, `Cloudy -> Sprinkler`, and both `Rain` and `Sprinkler` pointing to `WetGrass`. This graph says wet grass depends directly on rain and sprinkler, while rain and sprinkler become conditionally independent once conditioning on cloudy happens.
 
-The practical win is parameter reduction. Instead of one full joint table over all variables, I specify local conditional probability tables (CPTs) per node.
+The practical win is parameter reduction. Instead of one full joint table over all variables, local conditional probability tables (CPTs) are specified per node.
 
-I can use that structure for direct queries such as $P(Rain \mid WetGrass)$. Instead of enumerating every variable assignment in the full joint space, I combine only the local factors touched by this query and its evidence.
+That structure can be used for direct queries such as $P(Rain \mid WetGrass)$. Instead of enumerating every variable assignment in the full joint space, only the local factors touched by the query and its evidence are combined.
 
 <!-- NOTEBOOKLM_DIAGRAM: concept=BayesNetWithCPTs; type=image; goal=show Cloudy-Rain-Sprinkler-WetGrass network and one example CPT for WetGrass conditioned on Rain/Sprinkler; complexity=intermediate -->
 
 ### Inference in Bayes Nets
 
-Inference means computing what I should now believe about some query variables after observing evidence.
+Inference means computing what should now be believed about some query variables after observing evidence.
 
 Three broad strategies matter:
 
@@ -228,15 +228,15 @@ The practical point is that probabilistic reasoning is rarely about storing numb
 
 Gibbs sampling is especially important because it updates one non-evidence variable at a time using that variable's Markov blanket, which means its parents, its children, and the other parents of those children. That local conditional structure is what makes large approximate inference feasible.
 
-I usually choose methods by scale:
+Method choice usually follows problem scale:
 
 - Enumeration: good for tiny networks and teaching, poor for large graphs.
 - Variable elimination: strong exact baseline for moderate-size graphs.
-- Sampling (for example Gibbs): useful when exact inference is too expensive or when I need anytime estimates.
+- Sampling (for example Gibbs): useful when exact inference is too expensive or anytime estimates are needed.
 
 A practical workflow is to start with variable elimination for correctness, then move to sampling only when latency or memory constraints force approximation.
 
-Variable elimination is easier to trust with a tiny query. Suppose I ask for $P(Rain \mid WetGrass=True)$ in the Cloudy-Sprinkler-Rain-WetGrass network. I can:
+Variable elimination is easier to trust with a tiny query. Suppose the query is $P(Rain \mid WetGrass=True)$ in the Cloudy-Sprinkler-Rain-WetGrass network. The workflow is:
 
 1. Write the product of local factors.
 2. Sum out hidden variables in an elimination order, for example `Cloudy` then `Sprinkler`.
@@ -254,8 +254,8 @@ The common workflow is exact-first for correctness, then approximate only when c
 
 Hidden Markov Models are designed for sequential data such as speech, handwriting, and tagging problems.
 
-- Hidden states represent the underlying process I cannot observe directly.
-- Observations are the visible outputs I do observe.
+- Hidden states represent the underlying process that cannot be observed directly.
+- Observations are the visible outputs that can be observed.
 - Transition probabilities describe movement between hidden states.
 - Emission probabilities describe how likely each observation is from a given state.
 
@@ -279,7 +279,7 @@ $$
 \delta_t(j) = \max_i \left[\delta_{t-1}(i) \cdot a_{ij}\right] \cdot b_j(e_t)
 $$
 
-where $a_{ij}$ is transition probability and $b_j(e_t)$ is emission likelihood. I keep argmax backpointers so I can reconstruct the best full state sequence after processing all observations.
+where $a_{ij}$ is transition probability and $b_j(e_t)$ is emission likelihood. Argmax backpointers are kept so the best full state sequence can be reconstructed after processing all observations.
 
 This is the key insight: dynamic programming turns an exponential path search into a tractable table fill with backtracking.
 

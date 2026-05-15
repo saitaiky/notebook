@@ -110,7 +110,7 @@ If the notation is new, the important thing is not memorizing symbols in isolati
 
 ## Suggested Entry Paths
 
-If your background is mostly software engineering, start with [Foundations and Constraint Satisfaction](/ai/search-plan/foundations-csp) or [Foundations and Supervised Learning](/ai/ml/foundations-and-supervised-learning).
+If your background is mostly software engineering, start with [Foundations and Constraint Satisfaction](/ai/search-plan/foundations-csp) or [Machine Learning Foundations](/ai/ml/foundations).
 
 If your background is already ML-adjacent, you can move straight into [Deep Learning Overview](/ai/dl) and then use this page only when you hit unfamiliar math.
 
