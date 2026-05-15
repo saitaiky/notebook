@@ -37,12 +37,16 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
 ## Subsection Depth And Substance
 
 - Avoid creating subsections that contain only 1-2 short sentences.
+- Avoid heading blocks that read like note fragments: a one-line claim followed by a short list is usually not enough.
 - If content under a heading is too short to stand on its own, prefer one of these:
   - merge it into the parent section body,
   - convert multiple thin subsections into a single list or comparison block,
   - expand the subsection with concrete explanation (mechanism, example, implication, and practical takeaway).
 - Use a dedicated subsection only when it materially improves comprehension, navigation, or future extensibility.
 - If the idea can be communicated clearly in a compact paragraph without losing scanability, prefer the paragraph over a new heading.
+- For technical documentation, most kept subsections should include at least one developed explanatory paragraph, not only bullets or definition-style fragments.
+- If a list is used, surround it with enough prose that the reader understands why the items matter, how they differ, and what to notice in practice.
+- Prefer chapter-like flow over terse cheatsheet rhythm unless the page is explicitly intended to be a reference sheet.
 
 ## Review Checklist
 
@@ -61,7 +65,10 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
 
 ## Author Voice (Personal Site)
 
-- This is a personal knowledge site, so default to first-person singular voice for project narratives and reflective explanations (use "I" instead of "we" when describing work completed by the site owner).
+- This is a personal knowledge site, so use first-person singular voice for project narratives, lived experience, judgments, and reflective explanations (use "I" instead of "we" when describing work completed by the site owner).
+- For established theory, standard definitions, and concepts invented by others, prefer a neutral explanatory tone rather than phrasing that implies personal authorship.
+- Use "I" when expressing the site owner's point of view, recommendation, sequencing choice, or lesson learned. Do not force "I" into sections that are mainly teaching generally accepted material.
+- Avoid wording that makes shared theory sound like a personal invention. The prose can still feel personal through framing and selective commentary without turning every explanation into first-person narration.
 - Avoid platform or institutional tone unless the user explicitly requests it.
 - In published multi-post series, avoid referring to chapters as "Module 1", "Module 2", and similar labels unless the UI visibly exposes that numbering.
 - When referring to adjacent entries in a series, prefer link-based wording such as "the previous post" or "the next post" with the actual page title.

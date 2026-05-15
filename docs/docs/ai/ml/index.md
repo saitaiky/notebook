@@ -21,15 +21,25 @@ Machine learning is a practical discipline for building systems that improve fro
 
 This section is organized around those problem types rather than around course terms. I care less about when a topic was taught and more about what engineering problem it solves.
 
+The section map below is the visual version of that structure.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=ml-section-roadmap; type=image; goal=show how foundations, supervised learning, unsupervised learning, feature engineering, reinforcement learning, and deep learning connect as a study path; complexity=basic -->
+
+The main thing to notice is that foundations and feature engineering support several branches at once, while reinforcement learning splits away because its learning loop is structurally different from ordinary prediction tasks.
+
 ## What This Section Covers
 
 I split this section into five focused pages so each topic can go deeper without becoming a long mixed chapter.
+
+### Core classical ML workflow
 
 The first page is foundations: problem framing, leakage-safe data splits, validation strategy, metric selection, and error analysis. This is the part that protects me from false confidence.
 
 Then I move into supervised learning and unsupervised learning as separate workflows, because they solve different problem types and require different validation habits.
 
 Feature engineering now has its own page, since representation design, encoding strategy, and pipeline safety are often the biggest practical performance levers in classical ML.
+
+### Sequential decision-making branch
 
 The final page is reinforcement learning, where learning happens through interaction and delayed reward instead of fixed labels.
 
@@ -75,3 +85,5 @@ That is a stronger foundation than treating ML as one bag of algorithms, and it 
 ## Start Here
 
 If you are new to this section, begin with [Machine Learning Foundations](/ai/ml/foundations). If you already have strong evaluation habits, jump to [Supervised Learning](/ai/ml/supervised-learning), [Unsupervised Learning](/ai/ml/unsupervised-learning), [Feature Engineering](/ai/ml/feature-engineering), or [Reinforcement Learning](/ai/ml/reinforcement-learning) based on the problem you want to solve.
+
+If the goal is a linear first pass, the cleanest order is foundations, supervised learning, unsupervised learning, feature engineering, and then reinforcement learning. That sequence keeps the evaluation logic in place before the algorithm-specific pages get more detailed.

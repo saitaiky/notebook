@@ -14,15 +14,17 @@ sidebar_position: 1
 
 # Machine Learning Foundations
 
-This page is about the part of machine learning that usually decides project quality before I pick any fancy algorithm. If the problem framing is wrong, the data split is leaky, or the metric does not match business cost, I can still get a high score and ship a bad system.
+This page is about the part of machine learning that usually decides project quality before any sophisticated algorithm enters the picture. If the problem framing is wrong, the data split is leaky, or the metric does not match business cost, it is still possible to get a high score and ship a bad system.
 
 Foundations are not a warm-up chapter. They are the control system for every chapter that follows.
 
 ## Problem Framing Before Modeling
 
-A model only learns the problem I define. If the target and constraints are ambiguous, training becomes a guessing game.
+A model only learns the problem definition it is given. If the target and constraints are ambiguous, training becomes a guessing game.
 
-I always lock these first:
+### Define the target and decision context
+
+These choices should be fixed first:
 
 - prediction type: regression, classification, ranking, or recommendation,
 - decision horizon: one-shot prediction vs repeated prediction over time,
@@ -31,9 +33,19 @@ I always lock these first:
 
 This prevents common mistakes like optimizing ROC-AUC when the product actually needs high precision at a strict review budget.
 
+The important point is that modeling starts before model training. It starts when the task is translated into a measurable decision problem.
+
 ## Data Splits and Leakage Control
 
 A split is not only about percentages. It is about simulation fidelity.
+
+The workflow below is one of the easiest places to make an evaluation mistake.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=leakage-safe-evaluation-workflow; type=image; goal=show the relationship between raw data, train split, cross-validation, hyperparameter tuning, holdout test, and leakage boundaries; complexity=intermediate -->
+
+The useful thing for the later image to highlight is the boundary: preprocessing and tuning can happen inside training and validation, but the final test set stays untouched until the end.
+
+### Match the split to the deployment pattern
 
 The split strategy should mirror production:
 
@@ -47,6 +59,8 @@ A safe baseline pattern is:
 2. run model selection on the training partition with cross-validation,
 3. evaluate once on test after all tuning decisions are fixed.
 
+### Keep the validation boundary intact
+
 :::danger Leakage Rule
 
 If any information from validation or test influences feature engineering, threshold setting, or hyperparameter choices, evaluation is optimistic and no longer trustworthy.
@@ -56,6 +70,8 @@ If any information from validation or test influences feature engineering, thres
 ## Metrics That Match Real Cost
 
 No metric is universally correct. The right metric depends on the asymmetry of error cost.
+
+### Regression metrics
 
 For regression:
 
@@ -67,13 +83,17 @@ $$
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 $$
 
+MAE is easier to interpret in the original unit of the target, while RMSE penalizes large misses more aggressively. Which one is more useful depends on whether large errors are merely inconvenient or operationally expensive.
+
+### Classification metrics
+
 For classification, accuracy is only a starting point. Precision, recall, and calibration usually matter more:
 
 $$
 \text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN}
 $$
 
-I choose metrics by asking: which error type is expensive, and how expensive.
+The selection rule is simple: choose the metric that reflects the failure mode the system actually cares about.
 
 ## Validation and Model Selection
 
@@ -83,12 +103,14 @@ In $k$-fold cross-validation, each fold acts as validation once, and performance
 
 Hyperparameter search sits on top of this process. Grid search is exhaustive over a small space; random search explores broader spaces faster; Bayesian methods are useful when training is expensive.
 
-A practical process:
+A practical process looks like this:
 
 1. establish a baseline model,
 2. define a constrained search space,
 3. compare by mean and variance across folds,
 4. inspect failure slices, not only aggregate score.
+
+The last step is where many evaluations become more useful. Aggregate averages can hide the exact cohorts where the model is failing.
 
 ## Bias, Variance, and Learning Curves
 
@@ -102,6 +124,8 @@ Learning curves make this visible quickly and help choose the next intervention:
 - add capacity or better features for high bias,
 - add regularization, simplify model, or gather more data for high variance.
 
+This is one reason foundations matter so much. They turn vague disappointment with model performance into a narrower diagnosis that can actually be acted on.
+
 ## Baselines and Error Analysis
 
 A baseline is required, not optional. If a complex model barely beats a simple baseline, complexity is probably not justified.
@@ -112,7 +136,7 @@ Useful baseline types:
 - majority class predictor for classification,
 - regularized linear/logistic model for fast interpretable reference.
 
-After baseline comparison, I inspect failure segments:
+After baseline comparison, failure analysis should move from score comparison into slice-level inspection:
 
 - data slices with systematic underperformance,
 - threshold-sensitive regions,
@@ -130,6 +154,8 @@ Foundations include operational discipline:
 - clear separation between research and production inference code paths.
 
 Without this, improvements are hard to trust and harder to maintain.
+
+That discipline matters even in early experimentation. When datasets, feature definitions, and scoring settings are not tracked carefully, it becomes difficult to tell whether a change improved the model or merely changed the measurement setup.
 
 ## What This Means in Practice
 

@@ -15,20 +15,30 @@ sidebar_position: 2
 
 # Supervised Learning
 
-Supervised learning is what I use when I have labeled examples and need a mapping from features to target values. The mechanics are straightforward, but the design decisions are not: representation, regularization, calibration, and thresholding all shape production behavior.
+Supervised learning is the part of machine learning that learns from labeled examples and maps features to target values. The mechanics are straightforward, but the design decisions are not: representation, regularization, calibration, and thresholding all shape production behavior.
 
 ## Regression and Classification Problem Types
 
-I treat task type as a modeling constraint, not a naming detail.
+Task type should be treated as a modeling constraint, not as a naming detail.
 
 - regression predicts continuous values,
 - classification predicts discrete labels or class probabilities.
 
 That distinction affects loss function, metrics, and deployment decisions.
 
+In practice, it also changes what a useful output looks like. A regression model may support ranking, forecasting, or cost estimation. A classifier may need not only a label, but a well-calibrated probability that can drive downstream thresholds.
+
 ## Linear Models as High-Value Baselines
 
-Linear and logistic models are fast, interpretable, and usually the first models I trust.
+Linear and logistic models are fast, interpretable, and usually the first baselines worth trusting.
+
+The visual comparison below would be useful because many ML pages flatten these families into one list even though they fail for different reasons.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=supervised-model-family-tradeoffs; type=image; goal=compare linear models, trees, random forests, boosting, and SVMs by interpretability, nonlinearity, data scale, and tuning sensitivity; complexity=intermediate -->
+
+The important thing to show is not only the algorithms, but the trade-offs: what each family handles well, what it struggles with, and why the baseline order matters.
+
+### Why linear models still matter
 
 For regression:
 
@@ -50,9 +60,13 @@ $$
 
 L1 regularization is useful when I need sparse coefficients and implicit feature selection.
 
+Even when a linear model is not the final winner, it gives a stable reference point for debugging feature quality and checking whether later gains are real.
+
 ## Tree-Based Models
 
 Decision trees partition feature space with rule-based splits. They are intuitive and handle nonlinear interactions naturally.
+
+### Single trees vs ensembles
 
 Common split quality criteria:
 
@@ -62,6 +76,8 @@ Common split quality criteria:
 Trees overfit easily when unconstrained, so depth and leaf-size constraints are essential.
 
 Random forests improve robustness by averaging many decorrelated trees, primarily reducing variance.
+
+That difference matters in practice. A single tree is mostly useful for interpretability and quick inspection. Forests are the production-oriented extension when the objective shifts toward stability and predictive strength.
 
 ## Boosting Methods
 
@@ -74,6 +90,8 @@ In practice, gradient boosting methods often dominate tabular benchmarks because
 - provide strong performance with moderate tuning.
 
 The trade-off is sensitivity to hyperparameters and training-time complexity.
+
+That is why boosting often looks attractive in benchmarks but still requires careful guardrails around learning rate, tree depth, early stopping, and validation discipline.
 
 ## Support Vector Machines
 
@@ -90,6 +108,8 @@ Key control: parameter $C$.
 - larger $C$: lower training error, potentially lower margin,
 - smaller $C$: wider margin, stronger regularization.
 
+SVMs are less dominant in modern large-scale tabular work than they once were, but they are still useful to understand because margin-based reasoning remains one of the clearest ways to think about generalization.
+
 ## Probabilistic Models and Calibration
 
 Probability quality matters when decisions depend on confidence thresholds.
@@ -101,6 +121,8 @@ Two models can have similar accuracy but very different calibration behavior. In
 - threshold sensitivity by business segment.
 
 Calibration methods such as Platt scaling or isotonic regression can improve decision consistency.
+
+This is a good example of how a page on algorithms should still stay close to deployment behavior. A model that ranks well but produces unreliable probabilities can still create poor downstream decisions.
 
 ## Class Imbalance and Threshold Design
 
@@ -114,6 +136,8 @@ I generally pair these choices:
 
 This is often more impactful than changing algorithm family.
 
+In many real systems, threshold design is where modeling meets operations. The threshold determines review queue size, alert volume, and the trade-off between false positives and missed cases.
+
 ## Practical Selection Pattern
 
 A robust supervised workflow:
@@ -125,6 +149,8 @@ A robust supervised workflow:
 5. lock operating threshold and run final holdout test.
 
 This pattern keeps experimentation honest while still allowing aggressive optimization.
+
+It also keeps the selection order disciplined. Instead of jumping directly to the most complex model in the library, the workflow narrows the problem with increasingly expensive choices.
 
 ## What This Means in Practice
 
