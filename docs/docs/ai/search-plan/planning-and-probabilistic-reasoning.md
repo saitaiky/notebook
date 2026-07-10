@@ -109,7 +109,7 @@ This backward framing is usually easier when goals are specific and action effec
 
 This diagram contrasts the two planning directions.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=ProgressionVsRegressionPlanning; type=image; goal=contrast progression planning from initial state with regression planning from goal conditions in one side-by-side flow; complexity=basic -->
+![Progression planning compared with regression planning](/img/ai/search-plan/Progression_vs_Regression_Planning.png)
 
 Progression explores reachable futures; regression narrows required preconditions backward from the goal.
 
@@ -138,7 +138,7 @@ This reads as: after applying action $Move(x, y)$ in situation $s$, the fluent $
 
 and pair it with axioms that preserve unrelated fluents unless an action explicitly affects them. The benefit is not just mathematical elegance; it is maintainability when the action set grows.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=SituationCalculusFrameProblem; type=image; goal=contrast naive frame-axiom explosion with successor-state-axiom style update over fluents; complexity=intermediate -->
+![Situation calculus compared with naive frame axioms for modeling change](/img/ai/search-plan/Situation_Calculus_Frame_Problem_Comparison.png)
 
 ## Probabilistic Models
 
@@ -191,7 +191,7 @@ $$
 
 So a positive test does not imply 95% disease probability. It implies about 16.1% under this base rate. This is exactly why priors matter.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=BayesRulePriorLikelihoodPosterior; type=image; goal=visualize prior, likelihood, evidence, and posterior with the medical-test numeric example; complexity=intermediate -->
+![Bayes' rule visualized with prior, likelihood, and posterior from a medical test example](/img/ai/search-plan/Bayes__Rule_Logic_Infographic.png)
 
 ### Bayes Nets
 
@@ -218,7 +218,7 @@ The practical win is parameter reduction. Instead of one full joint table over a
 
 That structure can be used for direct queries such as $P(Rain \mid WetGrass)$. Instead of enumerating every variable assignment in the full joint space, only the local factors touched by the query and its evidence are combined.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=BayesNetWithCPTs; type=image; goal=show Cloudy-Rain-Sprinkler-WetGrass network and one example CPT for WetGrass conditioned on Rain/Sprinkler; complexity=intermediate -->
+![Bayes net for Cloudy, Rain, Sprinkler, and WetGrass with an example CPT](/img/ai/search-plan/Mapping_Bayes_Nets_Probabilistic_Dependencies.png)
 
 ### Inference in Bayes Nets
 
@@ -252,7 +252,7 @@ That workflow makes two benefits obvious: exactness and reusable intermediate fa
 
 Use this method-selection flow as a practical default.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=BayesInferenceMethodSelectionFlow; type=image; goal=show practical method selection path among enumeration, variable elimination, and sampling based on graph size, exactness need, and latency; complexity=basic -->
+![Bayesian inference method selection flow across enumeration, variable elimination, and sampling](/img/ai/search-plan/Choosing_Bayesian_Inference_Methods.png)
 
 The common workflow is exact-first for correctness, then approximate only when cost constraints force it.
 
@@ -302,7 +302,7 @@ A compact two-step example helps. Assume hidden states `{Sunny, Rainy}` and obse
 
 Even in this tiny case, Viterbi avoids evaluating every full state sequence explicitly. That is why it scales to longer observation streams.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=HMMViterbiTrellis; type=image; goal=show HMM trellis with observation sequence, delta updates, and backpointer path reconstruction; complexity=advanced -->
+![HMM Viterbi trellis with delta updates and backpointer reconstruction](/img/ai/search-plan/HMM_Viterbi_Trellis_Decoding_Guide.png)
 
 :::info Further Study: Dynamic Time Warping
 

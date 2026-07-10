@@ -23,7 +23,7 @@ This section is organized around those problem types rather than around course t
 
 The section map below is the visual version of that structure.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=ml-section-roadmap; type=image; goal=show how foundations, supervised learning, unsupervised learning, feature engineering, reinforcement learning, and deep learning connect as a study path; complexity=basic -->
+![Machine learning study roadmap linking foundations, feature engineering, supervised learning, unsupervised learning, reinforcement learning, and deep learning](/img/ai/ml/AI_and_Machine_Learning_Blueprint.png)
 
 The main thing to notice is that foundations and feature engineering support several branches at once, while reinforcement learning splits away because its learning loop is structurally different from ordinary prediction tasks.
 

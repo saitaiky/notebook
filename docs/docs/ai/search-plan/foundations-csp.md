@@ -66,7 +66,7 @@ The PEAS framework helps classify AI problems by performance measure, environmen
 
 These distinctions matter because the right algorithm for a fully observable, deterministic board game is rarely the right one for a stochastic, partially observable environment.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=PEASClassification; type=image; goal=show environment dimensions (observability, determinism, discreteness, adversariality) and map each to suitable algorithm families; complexity=intermediate -->
+![PEAS framework mapping environment properties to AI algorithm families](/img/ai/search-plan/The_PEAS_Framework_for_AI.png)
 
 ### Rationality and Bounded Optimality
 
@@ -143,7 +143,7 @@ The important lesson is that constraint propagation and search are not competing
 
 This control flow is easier to internalize as a solver loop.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=CSPSolverLoop; type=image; goal=show propagate-contradiction-solved-MRV-branch-recurse-backtrack control flow for Sudoku CSP solver; complexity=intermediate -->
+![CSP solver loop for Sudoku with propagation, contradiction checks, MRV branching, and backtracking](/img/ai/search-plan/AI_Logic_Puzzle_Solver_Loop.png)
 
 The key thing to notice is where failure happens: contradiction checks are early, so bad branches are pruned before deep recursion.
 
@@ -172,7 +172,7 @@ A small walkthrough makes the control flow clearer. Suppose MRV picks cell `C7` 
 
 That "fail fast" behavior is the reason MRV + propagation is so effective: bad branches terminate early before the tree grows.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=SudokuBacktrackingMRV; type=image; goal=show DFS branch, contradiction detection, and immediate backtrack with MRV-selected variable; complexity=intermediate -->
+![Sudoku backtracking example using the MRV heuristic](/img/ai/search-plan/Sudoku_Solving_With_MRV_Heuristic.png)
 
 In practice, the pattern looks like this:
 

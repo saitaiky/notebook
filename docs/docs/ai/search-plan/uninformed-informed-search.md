@@ -42,7 +42,7 @@ That one design choice changes complexity in real systems. In routing and planni
 
 This side-by-side diagram shows the difference in expansion behavior.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=TreeVsGraphSearchDuplicates; type=image; goal=compare duplicate expansions in tree search vs visited-set graph search on a cyclic graph; complexity=basic -->
+![Tree search versus graph search on a cyclic graph](/img/ai/search-plan/Tree_Search_vs._Graph_Search.png)
 
 Tree search keeps generating duplicate states as new branches, while graph search suppresses them with a visited set.
 
@@ -159,7 +159,7 @@ Because `h2(n) >= h1(n)` for every node and both remain admissible, `h2` dominat
 
 Another practical heuristic pattern is relaxation. If the true problem has obstacles and extra constraints, some constraints can be ignored, the easier version can be solved, and that value can be used as a lower bound. That lower bound is often admissible by construction.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=HeuristicDominanceAStar; type=image; goal=show two admissible heuristics on same search space with different node expansions and dominance relation h2>=h1; complexity=intermediate -->
+![A* heuristic dominance comparison showing stronger heuristics reducing node expansions](/img/ai/search-plan/Heuristic_Dominance_in_A__Search.png)
 
 ### Admissibility and Consistency
 
@@ -219,7 +219,7 @@ This keeps search selection iterative and evidence-driven. A perfect initial cho
 
 The following decision flow is a practical default for first algorithm selection.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=SearchStrategyDecisionFlow; type=image; goal=decision flow based on cost sensitivity, memory budget, and heuristic trustworthiness leading to BFS/DFS/UCS/Greedy/A*; complexity=basic -->
+![Search strategy decision flow for BFS, DFS, UCS, greedy best-first search, and A*](/img/ai/search-plan/AI_Search_Algorithm_Decision_Flow.png)
 
 Use this as a starting point, then iterate based on observed bottlenecks (runtime, memory, or solution quality).
 

@@ -59,7 +59,7 @@ This is computationally attractive, but it is greedy. Hill climbing can get stuc
 
 Hill climbing can be read as "gradient-like search without guarantees." If each move only considers immediate local improvements, the algorithm cannot cross a temporary valley to reach a better peak. That is the core failure mode.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=HillClimbingLocalMaxima; type=image; goal=show search landscape with local and global maxima and a hill-climbing path trapped in a local peak; complexity=basic -->
+![Hill climbing trapped at a local maximum instead of reaching the global maximum](/img/ai/search-plan/The_Hill_Climbing_Trap.png)
 
 ### Escaping Local Maxima: Simulated Annealing
 
@@ -134,7 +134,7 @@ For example, if a MAX node has child values `[-1, 0, +1]`, it returns `+1`. If t
 
 Here is a compact minimax propagation view.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=MinimaxValuePropagation; type=image; goal=show a compact minimax tree with MAX/MIN alternating layers and bottom-up score propagation; complexity=intermediate -->
+![Minimax value propagation through alternating MAX and MIN layers](/img/ai/search-plan/Logic_of_Minimax_Value_Propagation.png)
 
 Read bottom-up: each MIN node keeps its smaller child value, then MAX chooses the larger of those two propagated values.
 
@@ -182,7 +182,7 @@ Move ordering should be treated as part of alpha-beta, not as a separate optiona
 
 This simplified tree highlights where pruning happens.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=AlphaBetaPruningBounds; type=image; goal=show alpha-beta bounds and a pruned subtree where alpha is greater than or equal to beta; complexity=intermediate -->
+![Alpha-beta pruning example showing alpha and beta bounds and a pruned subtree](/img/ai/search-plan/Mechanics_of_Alpha-Beta_Pruning.png)
 
 The intuition is that once a branch cannot improve the already known bound, deeper exploration is unnecessary.
 
@@ -207,7 +207,7 @@ That pattern is one of the reasons game agents can stay robust under strict per-
 
 The process is often visualized as an anytime depth ladder.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=IterativeDeepeningAnytimeLadder; type=image; goal=show depth-by-depth iterative deepening timeline with time cutoff and best-move return from deepest completed depth; complexity=basic -->
+![Iterative deepening as an anytime depth ladder with a time cutoff](/img/ai/search-plan/Iterative_Deepening_Search_Process_Infographic.png)
 
 The key property is graceful degradation: even if deeper search is interrupted, a valid best-so-far move is always available.
 
@@ -221,7 +221,7 @@ A standard failure case is a "fake safe" move: at depth $d$, my evaluation looks
 
 Quiescence search handles this by extending only noisy positions, for example checks, captures, or forced tactical swings. It does not expand the whole tree uniformly; it extends where static evaluation is likely to lie.
 
-<!-- NOTEBOOKLM_DIAGRAM: concept=HorizonEffectAndQuiescence; type=image; goal=contrast depth-limited cutoff error versus quiescence extension on a tactical sequence; complexity=intermediate -->
+![Horizon effect contrasted with quiescence search in tactical positions](/img/ai/search-plan/Overcoming_the_Horizon_Effect.png)
 
 ### Advanced Evaluation Functions
 
