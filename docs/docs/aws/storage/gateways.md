@@ -38,6 +38,28 @@ There are 2 option for Volume Gateway:
 As your application needs to grow, you might want to expand your volume instead of adding more volumes to your gateway. In this case, you can do one of the following:
 
 - Create a snapshot of the volume that you want to expand and then use the snapshot to create a new volume of a larger size.
+
+## FSx File Gateway vs S3 File Gateway
+
+Storage Gateway actually has **two different file-oriented gateway types**, and the exam trap is picking the wrong one based on the *file protocol and backing store* your on-premises application needs:
+
+- **Amazon S3 File Gateway** (the "File gateway" described above) presents a **NFS/SMB share backed by S3 objects**. Use it when you want files stored as S3 objects (so you can also use S3 features like Lifecycle rules, Glacier archiving, or process them directly with other AWS services), and your access pattern is largely single-writer or infrequently-conflicting file access.
+- **Amazon FSx File Gateway** presents a **local cache in front of an actual Amazon FSx for Windows File Server** filesystem. Use it when your on-premises workload needs genuine **Windows file system semantics** — SMB, Active Directory-integrated permissions, Distributed File System (DFS) namespaces, and Volume Shadow Copy Service (VSS) for previous-versions/backups — which plain S3-backed file shares can't fully replicate.
+
+:::tip Exam trap: "needs AD-integrated Windows file shares" → FSx File Gateway, not S3 File Gateway
+If the scenario mentions **Windows-native ACLs, DFS namespaces, or VSS snapshots**, that's FSx File Gateway. If it just needs a generic NFS/SMB share with S3 as the backing store (and possibly lifecycle/archival features), that's S3 File Gateway.
+:::
+
+## AWS DataSync vs Snowball Family
+
+When the question is about **migrating or continuously syncing large datasets** between on-premises and AWS (rather than providing ongoing hybrid access like Storage Gateway does), two other services come up:
+
+- **AWS DataSync** moves data **online**, over the network (optionally accelerated, and can run over a VPN or Direct Connect for privacy). It's built for **repeated, incremental transfers** — initial migration plus ongoing sync, or scheduled replication between on-premises NFS/SMB/HDFS and S3/EFS/FSx. Use it when you have decent bandwidth and want automation, scheduling, and incremental (delta-only) transfers going forward.
+- **AWS Snowball / Snowball Edge / Snowmobile** move data **offline**, by physically shipping a device to you that you fill locally and ship back. Use these when bandwidth is too limited or too costly to move a large one-time dataset (**terabytes to exabytes**) over the network in a reasonable time, or when the transfer is a single one-off migration rather than an ongoing sync.
+
+:::tip Exam trap: repeated/incremental transfer over network → DataSync; one-time massive bulk transfer with poor bandwidth → Snowball
+A classic distractor pair: "migrate 200 TB once, and our internet link would take months" → **Snowball Edge**. "Continuously replicate an on-premises NFS share to S3 every night" → **DataSync**. Storage Gateway itself is neither of these — it's for ongoing, low-latency **hybrid access** where on-premises apps keep reading/writing through the gateway, not a one-time or scheduled bulk transfer tool.
+:::
 - Use the cached volume you want to expand to clone a new volume of a larger size.
 
 Reference: [Expanding the Size of a Volume](https://docs.aws.amazon.com/storagegateway/latest/vgw/volume-size-increase.html)

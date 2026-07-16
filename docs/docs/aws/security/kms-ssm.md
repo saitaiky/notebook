@@ -127,3 +127,11 @@ SSE-KMS is similar to SSE-S3 but comes with some additional benefits over SSE-S3
 When you create a CMK using KMS instead of using default CMK you get more flexibility as you can create, rotate and disable the encryption keys whilist **with SSE-S3 everything are managed by AWS**.
 
 As KMS is integrated with Cloudtrail with SSE-KMS you can also **audit the usage of the key like when, by whom, for what purpose the key was used** whilist SSE-S3 **does not provide the ability to audit trail** the usage of the encryption keys. You can also give separate permissions for the use of an envelope key.
+
+:::danger Exam trap: cross-account CMK access always needs two policies, not one
+Granting another AWS account access to your CMK is a two-part grant, and forgetting either half is the most common reason cross-account KMS access silently fails:
+1. The **key policy** on the CMK itself must name the other account (or a specific principal/role in it) as a principal allowed to use the key.
+2. An **IAM policy** in the *calling* account must also explicitly allow that principal to perform the KMS action (e.g., `kms:Decrypt`) on the key's ARN.
+
+A missing key policy grant, or a missing IAM policy grant, both produce the same generic `AccessDenied` error — so when troubleshooting, always check both sides.
+:::

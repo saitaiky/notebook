@@ -111,3 +111,18 @@ AWS offers two schema conversion solutions to make heterogeneous database migrat
 The target engines can be Oracle, SQL Server, PostgreSQL, and MySQL.
 
 ![SOAF14-AWS-Schema-Conversion-Tool-SCT](/img/aws/database/SOAF14-AWS-Schema-Conversion-Tool-SCT.png)
+## Disaster recovery strategies (RTO/RPO)
+
+When an exam question describes a disaster recovery requirement, it's almost always steering you toward one of four standard strategies, ordered from **cheapest/slowest recovery** to **most expensive/fastest recovery**:
+
+- **Backup and restore**: Store backups (e.g., RDS snapshots, S3) in a DR region and restore infrastructure/data only when disaster strikes. Cheapest option, but **highest RTO and RPO** (hours) since everything is provisioned from scratch during the incident.
+- **Pilot light**: Keep a minimal version of the core stack (e.g., a small/stopped DB replica) always running in the DR region; scale the rest up only during failover. Lower RTO than backup/restore because the data layer is already warm.
+- **Warm standby**: Run a **scaled-down but fully functional** copy of the full stack in the DR region at all times, then scale it up to full capacity during failover. Faster RTO than pilot light since application servers are already running, just under-provisioned.
+- **Multi-site active-active**: Run the **full production stack at full scale in two or more Regions simultaneously**, serving live traffic from both. Gives the **lowest possible RTO/RPO** (near-zero), at the **highest cost**, since you're paying for full duplicate capacity all the time.
+
+:::tip How to map RTO/RPO wording to a strategy on the exam
+- "Cost is the primary concern, some downtime acceptable" → **backup and restore**.
+- "Need a middle ground, data layer should already exist in DR region" → **pilot light**.
+- "Need faster recovery, willing to pay for always-on (but smaller) DR infrastructure" → **warm standby**.
+- "Near-zero downtime and near-zero data loss, cost is not the primary constraint" → **multi-site active-active** (e.g., DynamoDB global tables, Aurora Global Database).
+:::

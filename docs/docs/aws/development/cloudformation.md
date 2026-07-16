@@ -468,6 +468,18 @@ With service-managed permissions model, you can deploy stack instances to accoun
 - **A target account** is an account into which you create, update, or delete one or more stacks in your stack set. 
 :::
 
+### Drift detection
+
+Drift detection lets you check whether the **actual configuration of your stack's resources** still matches what's **defined in the CloudFormation template**. This matters because resources can be modified directly (through the console, CLI, or another automation tool) outside of CloudFormation, and CloudFormation itself has no way of knowing about those out-of-band changes until you explicitly ask it to check.
+
+- Running drift detection compares each resource's live configuration against the last-known template configuration and reports each resource as `IN_SYNC`, `MODIFIED`, `DELETED`, or `NOT_CHECKED` (for resource types that don't support drift detection).
+- You can run drift detection on an individual stack or on an entire **StackSet** (checking every stack instance across accounts/regions at once).
+- Drift detection is **read-only** — it never modifies your resources or your template; it only reports differences so you can decide whether to update the template to match reality, or revert the manual change.
+
+:::warning Exam trap: Drift detection doesn't fix anything, it only reports
+If a scenario needs CloudFormation to *report* on unauthorized/manual changes to resources it manages, the answer is **drift detection**. If it needs those changes to be *automatically reverted or blocked*, drift detection alone is not enough — you'd combine it with a **Stack Policy** (to prevent certain updates) or **AWS Config** (to detect and remediate configuration drift more broadly, including on resources not managed by CloudFormation at all).
+:::
+
 ## Trouble shooting
 
 ### Template contains custom named IAM resources

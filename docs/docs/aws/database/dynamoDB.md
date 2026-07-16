@@ -89,6 +89,14 @@ The two most commonly used multiregion architecture configurations are active-pa
 
 Use **eventually consistent** reads in place of strongly consistent reads whenever possible - If your application doesn't require strongly consistent reads, consider using eventually consistent reads. Eventually consistent reads are cheaper and are less likely to experience high latency.
 
+### TTL (Time To Live) deletion is asynchronous
+
+DynamoDB TTL lets you define a per-item timestamp attribute after which the item should expire. However, TTL is **not a real-time delete**: AWS documents the deletion as happening **within a best-effort window (typically up to 48 hours)** after the timestamp elapses, and expired items are marked for deletion and removed as background capacity allows.
+
+:::danger Exam trap: TTL-expired items can still show up in queries/scans right after expiry
+Because deletion is asynchronous, an item can be **past its TTL timestamp but still readable** by `Query`/`Scan`/`GetItem` until the background purge actually removes it. If a requirement needs items to disappear from reads **immediately** at a precise time, TTL alone is not sufficient — you'd need application-level filtering (check the timestamp attribute yourself) or an explicit delete. TTL deletions also **do not consume write capacity** and are recorded on DynamoDB Streams as a system-initiated delete, which is a handy way to trigger archival to S3 via Lambda before the item disappears for good.
+:::
+
 
 
 ## API

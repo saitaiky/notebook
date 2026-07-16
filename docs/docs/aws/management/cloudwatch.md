@@ -74,6 +74,17 @@ Examples of EventBridge rules and targets:
 
 You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
 
+### Metric filters vs Subscription filters
+
+Both work against **CloudWatch Logs**, but they solve different problems and are a common source of exam confusion:
+
+- **Metric filters** scan incoming log events for a pattern you define (e.g., the literal string `ERROR`, or a structured JSON field) and turn matches into a **CloudWatch metric data point**. Use metric filters when you want to **count occurrences over time and alarm on them** (e.g., alarm if `ERROR` appears more than 10 times in 5 minutes). Metric filters only look **forward** from when they're created — they don't retroactively process already-ingested log events.
+- **Subscription filters** stream **matching log events themselves** (not just a count) in near real time to a **destination** such as a Kinesis Data Stream, Kinesis Data Firehose, or a Lambda function. Use subscription filters when you need to **process, route, or archive the actual log content** as it arrives (e.g., feed logs into an OpenSearch cluster or a SIEM tool for analysis).
+
+:::tip Exam trap: "alarm on a pattern count" vs "forward/process the log content"
+If the requirement is *"alert me when this error appears N times"* → **metric filter** + CloudWatch alarm. If the requirement is *"send every matching log line to Lambda/Kinesis for further processing"* → **subscription filter**. You can have both a metric filter and a subscription filter on the same log group simultaneously since they're independent.
+:::
+
 ### Trusted Advisor(Service limit)
 
 :::info What is Service limit from Trusted Advisor

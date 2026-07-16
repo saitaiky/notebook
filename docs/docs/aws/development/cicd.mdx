@@ -102,6 +102,30 @@ In order to let AWS CodeBuild to encrypt its build output artifacts, it needs ac
 By default, AWS CodeBuild uses the AWS-managed CMK for Amazon S3 in your AWS account.  The following environment variable provides these details:
 `CODEBUILD_KMS_KEY_ID`: The identifier of the AWS KMS key that CodeBuild is using to encrypt the build output artifact (for example, `arn:aws:kms:region-ID:account-ID:key/key-ID` or `alias/key-alias`).
 
+### Cross-account CodePipeline (artifacts encrypted with a customer-managed CMK)
+
+When your pipeline's source, build, and deploy stages span **multiple AWS accounts** (e.g., a shared tooling account running CodePipeline that deploys into separate dev/staging/prod accounts), the S3 artifact bucket must use a **customer-managed CMK** instead of the default AWS-managed key, because AWS-managed keys can't be shared across accounts.
+
+Setting this up requires changes in **both directions**, the same two-policy pattern used for any cross-account KMS access:
+
+1. **KMS key policy** (in the pipeline/tooling account) must explicitly grant the target account(s) `kms:Decrypt`, `kms:DescribeKey`, and `kms:GenerateDataKey*` permissions on the CMK.
+2. **IAM policy** attached to the CodePipeline service role, the CodeBuild service role, and the cross-account deployment role in the target account must also allow the same KMS actions on that CMK's ARN.
+3. The target account's role that CodePipeline assumes to deploy (via `sts:AssumeRole`) needs an S3 bucket policy grant on the artifact bucket itself, in addition to the KMS grants.
+
+```json
+// Example: KMS key policy statement granting a target account's deployment role decrypt access
+{
+  "Effect": "Allow",
+  "Principal": { "AWS": "arn:aws:iam::222222222222:role/CrossAccountDeploymentRole" },
+  "Action": ["kms:Decrypt", "kms:DescribeKey", "kms:GenerateDataKey*"],
+  "Resource": "*"
+}
+```
+
+:::danger Exam trap: missing the KMS grant is the most common cross-account pipeline failure
+If a cross-account CodePipeline deployment fails with an **access denied** error on the artifact, the S3 bucket policy is often correctly configured but the **KMS key policy (or the IAM policy on the target account's role) is missing the decrypt grant**. Both the key policy AND an IAM policy must allow the action — exactly like any other cross-account CMK sharing scenario.
+:::
+
 ## CodeDeploy
 
 ### Compute Platforms

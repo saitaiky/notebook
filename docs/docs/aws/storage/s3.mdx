@@ -266,6 +266,13 @@ These URLs return the default index document that you configure for the website.
 If your Amazon S3 bucket is configured as a website endpoint, you can't configure CloudFront to use HTTPS to communicate with your origin because Amazon S3 **doesn't support HTTPS connections** in that configuration.
 :::
 
+:::danger Exam trap: REST endpoint vs website endpoint changes what access control is possible
+- **REST API endpoint** (`bucket.s3.region.amazonaws.com`): supports **Origin Access Identity (OAI)** or **Origin Access Control (OAC)**, so the bucket can stay fully private while CloudFront serves its content, and both `GET`/`PUT` are supported.
+- **Website endpoint** (`bucket.s3-website-region.amazonaws.com`): supports static website features like index/error documents and redirect rules, but the bucket **must be public** (no OAI/OAC support) and only works over HTTP between CloudFront and the origin.
+
+If a requirement needs CloudFront to serve S3 content **while keeping the bucket private**, the origin must be the REST endpoint, not the website endpoint — even though the website endpoint looks like the obvious choice for a "static website" scenario.
+:::
+
 :::warning You must give the S3 bucket the same name as the record that you want to use to route traffic to the bucket
 When you configure an Amazon S3 bucket for website hosting, you must give the bucket the same name as the record that you want to use to route traffic to the bucket. 
 

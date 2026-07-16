@@ -44,6 +44,10 @@ Some points to remember:
   - By default, **basic monitoring** is enabled when you use the AWS management console to create a launch configuration. 
   - **Detailed monitoring** is enabled by default when you create a launch configuration using the AWS CLI
 
+:::warning Launch Configurations are legacy — use Launch Templates instead
+AWS no longer recommends **Launch Configurations** for new Auto Scaling groups. **Launch Templates** are the modern replacement and support features launch configurations don't, such as **versioning** (create new versions instead of a brand-new resource each time), mixing **On-Demand and Spot Instances** in the same ASG, specifying **multiple instance types**, and referencing the **latest** or a **specific numbered** template version. If a question mentions needing a mix of Spot/On-Demand capacity or template versioning within an ASG, that's a Launch Template feature — Launch Configurations can't do it.
+:::
+
 ### ASG terminates unhealthy EC2 instance
 
 :::info Scaling without ASG update the size of the group

@@ -133,3 +133,17 @@ AWS SSO automatically provides you with **a store** by default, which you can us
 > This is for provisioning users and groups from Active Directory
 
 IAM Identity Center configurable **AD sync** enables you to explicitly configure the identities in Microsoft Active Directory that are automatically synchronized into IAM Identity Center and control the synchronization process. Document: [IAM Identity Center configurable AD sync](https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-users-from-ad-configurable-ADsync.html)
+
+### IAM Identity Center vs AD Connector vs AWS Managed Microsoft AD
+
+When an exam question describes a company that already runs an **on-premises Active Directory** and wants its workforce to log in to AWS, there are three services that sound similar but solve different problems:
+
+- **IAM Identity Center** is the single sign-on layer. It's where you assign *permission sets* (collections of policies) to users/groups so they can access one or more AWS accounts and SSO-integrated business applications. IAM Identity Center itself is not a directory: it needs an identity source, which can be its own built-in store, or a connection to an external directory.
+- **AD Connector** is a *proxy/redirector*, not a directory. It forwards authentication requests to your **existing on-premises AD** over a VPN or Direct Connect connection. No user data is stored or cached in AWS; every login is a live round-trip to your on-prem domain controllers. Use it when you must keep your directory strictly on-premises (e.g., compliance) and only need AWS services (like WorkSpaces, Cognito, or IAM Identity Center) to authenticate against it.
+- **AWS Managed Microsoft AD** (part of AWS Directory Service) is an **actual Windows Server Active Directory running in AWS**, fully managed by AWS. Use it when you need a real AD in the cloud (to host domain-joined EC2/RDS SQL Server workloads, or to establish a two-way trust with your on-prem AD), not just a passthrough for authentication.
+
+:::tip How to pick quickly on the exam
+- "Keep the directory on-premises only, just let AWS check credentials against it" → **AD Connector**.
+- "Need a real, AWS-hosted domain controller, possibly trusted with on-prem AD" → **AWS Managed Microsoft AD**.
+- "Centrally manage SSO access to multiple AWS accounts and business apps" → **IAM Identity Center** (using either of the above, or Okta/Azure AD/Ping, as its identity source).
+:::

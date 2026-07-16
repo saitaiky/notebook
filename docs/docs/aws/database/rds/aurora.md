@@ -74,6 +74,21 @@ In the event of an outage that affects an entire AZ where the primary instance o
 
 Aurora Replicas are independent endpoints in an Aurora DB cluster, best used for scaling read operations and increasing availability. Up to 15 Aurora Replicas can be distributed across the Availability Zones that a DB cluster spans within an AWS Region. The DB cluster volume is made up of multiple copies of the data for the DB cluster. However, the data in the cluster volume is represented as a single, logical volume to the primary instance and to Aurora Replicas in the DB cluster.
 
+:::danger Exam trap: Multi-AZ (failover/HA) is not the same as Read Replicas (read scaling)
+- **Multi-AZ** (the primary instance + at least one Aurora Replica/standby in another AZ) exists to give you **automatic failover / high availability**. It does not, by itself, scale your read throughput — you get it "for free" once you have replicas, but the *purpose* of Multi-AZ is resilience, not performance.
+- **Read Replicas** (Aurora Replicas, or cross-region read replicas) exist to **scale read traffic** by offloading `SELECT` queries away from the primary/writer. They can also serve as a failover target or DR candidate, but that's a side benefit, not their primary purpose.
+
+If a question emphasizes "minimize downtime during failure" → think Multi-AZ. If it emphasizes "reduce load on the primary from read-heavy traffic" → think read replicas/Aurora Replicas.
+:::
+
+### Aurora Auto Scaling (read replicas only)
+
+Aurora Auto Scaling automatically adjusts the **number of Aurora Replicas** provisioned for an Aurora DB cluster in response to a target-tracking policy on a metric such as average CPU utilization or average active connections on the replicas.
+
+:::warning Exam trap: Aurora Auto Scaling only adds/removes read replicas
+Aurora Auto Scaling **never changes the writer/primary instance** and does **not** resize instance classes. It only adds or removes **reader** Aurora Replicas within the limits you configure (min/max replica count). If a scenario needs to scale *write* throughput, Aurora Auto Scaling is not the answer — you'd need to look at Aurora Serverless v2 or a larger writer instance class instead.
+:::
+
 ### Multi-Master For Write
 
 You can use Amazon Aurora Multi-Master which is a feature of the Aurora MySQL-compatible edition that adds the ability to scale out write performance across multiple Availability Zones, allowing applications to direct read/write workloads to multiple instances in a database cluster and operate with higher availability.

@@ -256,3 +256,28 @@ Source: [Remediate noncompliant AWS Config rules with AWS Systems Manager Automa
 - AWS Config sends notifications **only when the compliance status changes**.  If a resource was previously non-compliant and is still non-compliant, Config will not send a new notification.
 - You can leverage the `require-tags` managed rule in AWS Config to check if a resource contains the tags that you specify.
 ![require-tags](/img/aws/management/monitor/require-tags.png)
+
+## CloudTrail vs Config vs CloudWatch
+
+These three are frequently confused because they all involve "monitoring," but each answers a different question:
+
+- **CloudTrail** answers *"who did what, and when?"* — it's an **audit log of API calls** (who called `DeleteBucket`, from what IP, using what credentials).
+- **AWS Config** answers *"what did my resource's configuration look like at a point in time, and is it compliant with a rule?"* — it's a **configuration history and compliance-as-code** tool, not a call log.
+- **CloudWatch** answers *"how is my resource performing right now?"* — it's **metrics, logs, and alarms** for operational health (CPU utilization, error rates, custom application metrics).
+
+:::tip Exam trap: pick the service based on the noun in the question
+"Who deleted this security group?" → **CloudTrail**. "Was encryption enabled on this EBS volume last Tuesday?" → **Config**. "Is my API latency spiking right now?" → **CloudWatch**. They're complementary, not substitutes — a mature setup uses all three together (e.g., CloudTrail feeding EventBridge, Config rules triggering SSM remediation, CloudWatch alarms driving Auto Scaling).
+:::
+
+## Macie vs Inspector vs GuardDuty vs Security Hub
+
+All four are AWS security services, but they each look at a different signal and none of them substitute for the others:
+
+- **Amazon Macie** uses machine learning to discover and classify **sensitive data (PII, credentials, financial data) stored in Amazon S3**. It answers "do I have sensitive data sitting somewhere it shouldn't be?"
+- **Amazon Inspector** (covered above) scans **EC2, Lambda, and ECR container images** for **software vulnerabilities (CVEs) and unintended network exposure**. It answers "are my compute resources running vulnerable software?"
+- **Amazon GuardDuty** is a **threat detection** service that continuously analyzes CloudTrail, VPC Flow Logs, DNS logs, and (optionally) S3/EKS data events to detect **malicious or unauthorized behavior** (e.g., a compromised credential calling the API from an unusual location, cryptocurrency-mining traffic patterns). It answers "is something actively attacking or already inside my account?"
+- **AWS Security Hub** does not generate its own findings — it **aggregates and normalizes findings from Macie, Inspector, GuardDuty, Config, and third-party tools into a single dashboard** with a consolidated security score, so you get one place to triage everything instead of checking each service separately.
+
+:::danger Exam trap: Security Hub is an aggregator, not a detector
+If a question asks which service to enable to *centralize and prioritize* findings from multiple AWS security services, the answer is **Security Hub** — but Security Hub alone finds nothing new; you still need Macie/Inspector/GuardDuty/Config actually turned on to produce the findings it aggregates.
+:::

@@ -36,6 +36,7 @@ Most of the AWS-managed services are regional-based services with few exceptions
       - A subnet can span only a single Availability Zone
   - Security groups -- Regional
       - A security group is tied to a region and can be assigned only to instances in the same region.
+  - Network ACLs -- Regional (associated per subnet)
   - VPC Endpoints-- Regional
       - VPC Gateway & Interface Endpoints cannot be created between a VPC and an AWS service in a different region.
   - VPC Peering -- ~~Regional~~
@@ -46,6 +47,17 @@ Most of the AWS-managed services are regional-based services with few exceptions
   - Elastic Network Interface -- Availability Zone
 
 > Future reading: [AWS Global vs Regional vs AZ resources](https://jayendrapatil.com/aws-global-vs-regional-vs-az-resources/#Global_vs_Regional_vs_AZ_Resource_locations)
+
+### Network ACLs vs Security Groups
+
+Both filter traffic in and out of your VPC, but they operate at different scopes and with a fundamentally different behavior that's a frequent exam trap:
+
+- **Security Groups are stateful and instance/ENI-level.** If you allow an inbound request, the response is **automatically allowed out**, regardless of outbound rules. Security Groups only support `Allow` rules; there's no explicit `Deny`.
+- **Network ACLs (NACLs) are stateless and subnet-level.** Allowing inbound traffic does **not** automatically allow the matching outbound response — you must explicitly open the **ephemeral port range** (1024-65535, or the client's actual ephemeral range) outbound for return traffic to flow. NACLs evaluate rules **in numeric order** and support both `Allow` and `Deny` rules.
+
+:::danger Exam trap: Forgetting ephemeral ports on a NACL
+A classic scenario: a NACL allows inbound port 443 but a client still can't complete an HTTPS request. The missing piece is almost always the **outbound NACL rule for the ephemeral port range** the client used for its source port — without it, the stateless NACL never lets the response back out. Security Groups never have this problem because they're stateful.
+:::
 
 ### Delete a VPC
 
@@ -254,11 +266,16 @@ A VPC endpoint enables you to privately connect your VPC to supported AWS servic
 
 - Interface endpoint sits inside a subnet, and associated with a **security group**
 - An interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service.
+- **Service coverage**: Interface endpoints cover almost every other AWS service exposed via PrivateLink — for example Kinesis, Secrets Manager, ECR, CloudWatch Logs, SSM, SNS, and many more.
 
 ### A gateway endpoint
 
 - [Gateway endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) sits inside a VPC and with a **route table**
 - Gateway endpoints provide reliable connectivity to Amazon S3 and DynamoDB without requiring an internet gateway or a NAT device for your VPC. Gateway endpoints do not use AWS PrivateLink, unlike other types of VPC endpoints.
+
+:::danger Exam trap: Gateway endpoints only exist for S3 and DynamoDB
+Gateway endpoints are limited to exactly **two services: Amazon S3 and DynamoDB**. Every other AWS service that supports private connectivity (Kinesis, Secrets Manager, ECR, CloudWatch Logs, SSM, etc.) requires an **Interface endpoint** instead. If a question asks about private access to any service other than S3/DynamoDB, the Gateway endpoint option is a distractor.
+:::
 
 ### AWS PrivateLink
 

@@ -25,6 +25,14 @@ Amazon Elastic Container Registry (ECR) is a fully managed container registry se
 ### Required Permision 
 Amazon ECR users require permission to call `ecr:GetAuthorizationToken` before they can authenticate to a registry and push or pull any images from any Amazon ECR repository. Amazon ECR provides several managed policies to control user access at varying levels
 
+### Image tag immutability
+
+By default, ECR repository tags are **mutable** — pushing a new image with the same tag (e.g., `latest`) silently overwrites what that tag points to, which makes it hard to guarantee that the image running in production is exactly the one you tested. Enabling **tag immutability** on a repository prevents any existing tag from being overwritten; a push that reuses an existing tag is rejected, forcing you to push a new, uniquely tagged image instead.
+
+:::tip Exam trap: reproducible deployments and rollback traceability
+If a scenario emphasizes needing to **guarantee the exact image referenced by a deployment can never silently change** (a common audit/compliance and rollback-safety requirement), the answer is enabling **image tag immutability** on the ECR repository — not a bucket policy or IAM restriction, since those don't stop legitimate ECR push permissions from overwriting a tag.
+:::
+
 ### Pull docker images from ECR
 
 You have to run these 2 commands to get 

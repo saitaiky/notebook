@@ -78,6 +78,22 @@ Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroo
 
 Source: [CloudFront Signed URLs / Cookies and S3 Presigned URLs](https://liveroomlk.medium.com/cloudfront-signed-urls-cookies-and-s3-presigned-urls-be850c34f9ce)
 
+:::tip Signed URL vs Signed Cookie: pick by number of restricted files
+Use a **signed URL** when you need to restrict access to **individual files** (e.g., one installer download), or when your client doesn't support cookies. Use **signed cookies** when you need to grant access to **multiple restricted files** at once (e.g., every asset in a video streaming session) without generating and distributing a signed URL per file.
+:::
+
+### Origin Access Control (OAC) replaces Origin Access Identity (OAI)
+
+When CloudFront serves private content from an S3 bucket, CloudFront needs a way to authenticate to S3 so the bucket itself can stay fully private (no public access). AWS's original mechanism for this was **Origin Access Identity (OAI)**, a special CloudFront principal you referenced in the bucket policy. **Origin Access Control (OAC)** is the newer, recommended replacement:
+
+- OAC supports **SSE-KMS encrypted S3 objects**; OAI does not.
+- OAC works with **all AWS Regions**, all S3 API operations (including `PUT`, not just `GET`), and follows AWS Signature Version 4 for every request.
+- AWS now recommends OAC for all new distributions; OAI is a legacy feature kept for backward compatibility.
+
+:::warning Exam trap: OAI/OAC only work with the S3 REST endpoint, not the S3 static website endpoint
+Both OAI and OAC authenticate CloudFront to S3 using the bucket's **REST API endpoint** (`bucket.s3.region.amazonaws.com`). If the origin is instead configured as an **S3 static website endpoint** (`bucket.s3-website-region.amazonaws.com`), the bucket **must be public** — neither OAI nor OAC can be used, and CloudFront can only reach it over HTTP. Use the REST endpoint as the origin whenever you need CloudFront to keep the bucket private.
+:::
+
 ### Origin Shield
 
 CloudFront Origin Shield provides a centralized caching layer that sits in front of your origin to help **increase CloudFront’s cache hit ratio and collapse simultaneous requests** for the same object coming across multiple regions. As a general best practice, you should always choose the Origin Shield Region that is closest to your origin. 

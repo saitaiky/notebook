@@ -79,6 +79,18 @@ Source: [Deploying applications to Elastic Beanstalk environments](https://docs.
 - **Immutable** - A slower deployment method, that ensures *the new application version is always deployed to new instances, instead of updating existing instances*. It also has the additional advantage of a quick and safe rollback in case the deployment fails. With this method, Elastic Beanstalk performs an [immutable update](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environmentmgmt-updates-immutable.html) to deploy your application. In an immutable update, a second Auto Scaling group is launched in your environment and the new version serves traffic alongside the old version until the new instances pass health checks.
 - **Traffic splitting** - *A canary testing deployment method*. Suitable if you want to test the health of your new application version using a portion of incoming traffic, while keeping the rest of the traffic served by the old application version.
 
+### Blue/Green deployment (environment swap)
+
+None of the five deployment policies above touch your environment's URL — they all update application versions **within the same environment**. **Blue/Green deployment** is a different pattern: you keep your live ("blue") environment fully untouched and running, and create a **brand-new, separate Elastic Beanstalk environment** ("green") with the new application version. You test the green environment on its own auto-generated URL until you're confident, then use the **"Swap Environment URLs"** action to atomically swap the CNAMEs between the two environments in Route 53.
+
+- Because the swap only repoints DNS (not the underlying instances), it's the **quickest way to cut over to a new version** and, symmetrically, the **quickest way to roll back** — swap the CNAMEs back to point at the still-running blue environment.
+- Unlike Immutable deployments (which also launch a parallel Auto Scaling group but within the *same* environment), Blue/Green gives you two **fully independent environments**, so you can validate the new version against production-like data/config in isolation before any customer traffic reaches it.
+- Because DNS records have a TTL, clients caching the old CNAME resolution may take a short time to pick up the swap — this isn't instantaneous at the DNS-resolver level even though the swap operation itself is immediate.
+
+:::tip Exam trap: Blue/Green vs Immutable
+If a question emphasizes **testing a new environment in complete isolation before cutover, with the fastest possible rollback**, that's Blue/Green (environment swap). If it emphasizes **avoiding downtime for updates to the same environment while keeping a safety net of old instances during the rollout**, that's Immutable deployment.
+:::
+
 ## Deployment failure
 
 >  Using **Blue/Green deployment** to redeploy is the quickest among all the others deployment methods,  the rollback process is very quick via swapping the CNAMEs via Route 53 for the two environments.
