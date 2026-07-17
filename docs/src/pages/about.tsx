@@ -29,8 +29,8 @@ function HomepageHeader() {
         <p>Outside of work, I like to play guitar and draw; baking has become my favourite hobby since the pandemic.</p>
         <div>
           <img src="/img/about-me/sa.png" width="200px"></img>
-          <img src="/img/about-me/developer.png" width="200px"></img>
-          <img src="/img/about-me/sysops.png" width="200px"></img>
+          <img src="/img/about-me/genai.png" width="200px"></img>
+          <img src="/img/about-me/devops.png" width="200px"></img>
         </div>
       </div>
     </header>
