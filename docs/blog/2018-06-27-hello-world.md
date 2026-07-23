@@ -46,5 +46,5 @@ In summer 2025 I set myself a personal challenge: three AWS Professional certifi
 
 The experience reinforced something I think matters in this field: the real differentiator in AI is not simply access to the latest models, but the ability to turn them into scalable, governed, and commercially sound solutions. Many of the patterns that make AI work in production — state management, retrieval architecture, model evaluation, inference optimisation, observability, and governance — are rooted in established engineering disciplines. AI can accelerate delivery, but without sound technical judgement it can just as easily accelerate cost, complexity, and technical debt.
 
-I organised my study notes from all three tracks into this notebook. If you are preparing for AWS certifications or want to strengthen your cloud and AI foundations, the [AWS section](/docs/aws) is a good starting point — particularly the [AI & Machine Learning](/docs/aws/ai) page, which maps the service landscape and common exam decision points.
+I organised my study notes from all three tracks into this notebook. If you are preparing for AWS certifications or want to strengthen your cloud and AI foundations, the [AWS section](/aws) is a good starting point — particularly the [AI & Machine Learning](/aws/ai) page, which maps the service landscape and common exam decision points.
 
