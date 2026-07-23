@@ -2,27 +2,30 @@
 title: Intro 
 sidebar_label: Intro
 sidebar_position: 0
-description: AWS certification study guide covering SysOps, Developer, and Solutions Architect associate certifications with practical knowledge, hands-on experience, and exam preparation strategies.
+description: AWS certification study guide covering associate and professional certifications including Solutions Architect, DevOps Engineer, and Generative AI Developer, with practical notes and exam preparation strategies.
 keywords:
   - aws
   - amazon web services
-  - index
-  - intro aws
-  - intro guide
-  - index on aws
-  - intro tutorial
+  - aws certified
+  - solutions architect professional
+  - devops engineer professional
+  - generative ai developer
+  - sysops
   - cloud architecture
+  - aws study guide
 ---
 
-Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for the AWS [SysOps](https://aws.amazon.com/certification/certified-sysops-admin-associate/), [Developer](https://aws.amazon.com/certification/certified-developer-associate/), and [Solutions Architect](https://aws.amazon.com/certification/certified-solutions-architect-associate/) associate certifications. If you find any inaccuracy, kindly notify me through GitHub/the comment section.
+Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gained while preparing for AWS certifications across both associate and professional tracks. If you find any inaccuracy, kindly notify me through GitHub/the comment section.
 
 While obtaining certifications is an achievement, the journey itself offers valuable insights. Preparation involves not just testing existing knowledge but also gaining hands-on experience with various AWS services. For example, you'll explore security-related services like AWS Inspector, AWS Config, and AWS Trusted Advisor, understanding when to use each. You'll tackle practical questions, such as setting up a VPC for internet-connected instances while keeping others isolated, ensuring file system integrity when creating AMIs, and achieving "Write Once, Read Many" (WORM) compliance for sensitive data storage. This preparation equips you to grasp these concepts and implement them effectively with AWS.
 
 ## Certifications
 
-By far, I hold three associate certifications: SysOps, Developer, and Solutions Architect (SA). I feel that SA is the most accessible, requiring a basic grasp of service usage and system design from an architectural perspective. Developer delves deeper than SA, emphasising implementation using serverless services, data streams, SQS, and CodePipeline.
+I hold six AWS certifications across associate and professional levels.
 
-SysOps is the most challenging. It involves not only troubleshooting issues that Architects or Developers might encounter but also ensuring high security, cost optimisation, continuous monitoring, and compliance with client and owner requirements. Given its broader scope compared to the other two, SysOps is understandably the toughest, often requiring multiple attempts for success according to various online resources like Reddit or Udemy.
+On the associate track: [SysOps](https://aws.amazon.com/certification/certified-sysops-admin-associate/), [Developer](https://aws.amazon.com/certification/certified-developer-associate/), and [Solutions Architect](https://aws.amazon.com/certification/certified-solutions-architect-associate/). Solutions Architect is the most accessible, requiring a solid grasp of service usage and system design. Developer goes deeper on implementation — serverless, data streams, SQS, and CodePipeline. SysOps is the hardest of the three: it covers troubleshooting, security, cost optimisation, monitoring, and compliance, and is widely considered the toughest associate exam.
+
+In summer 2025 I completed the professional track — [Solutions Architect Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/), [DevOps Engineer Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/), and [Generative AI Developer Professional](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/) — as a personal challenge, finishing all three within four weeks. The professional exams demand a different kind of preparation: less about recognising services and more about evaluating trade-offs, designing at scale, and knowing when a simpler option is the right one. The AI and DevOps tracks in particular reward understanding how the disciplines connect rather than treating each service in isolation.
 
 ## Is it worth it?
 

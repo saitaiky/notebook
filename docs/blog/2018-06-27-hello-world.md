@@ -1,9 +1,9 @@
 ---
 title: About this place
 slug: hello-world
-description: Why this notebook exists, who it is for, and how adaptable thinking shapes what I document across software, AI, and life topics.
-tags: [diary, personal-notes, writing, learning-journey, adaptability]
-keywords: [personal knowledge base, docusaurus blog, learning in public, software engineer notes, adaptability mindset]
+description: Why this notebook exists, who it is for, and an update on completing three AWS Professional certifications across AI, DevOps, and Solutions Architecture.
+tags: [diary, personal-notes, writing, learning-journey, adaptability, aws, certifications, ai]
+keywords: [personal knowledge base, docusaurus blog, learning in public, software engineer notes, adaptability mindset, aws certified, solutions architect professional, devops engineer professional, generative ai developer, aws study notes]
 image: https://sai-tai.com/assets/images/homepage-banner-28130bbd71ae53de0f4be432a0220fb7.jpg
 ---
 
@@ -38,7 +38,13 @@ The subtitle of this notebook is "Adapt and Adjust." In today's fast-paced world
 
 With this in mind, I intend for this blog to document my ongoing learning journey in this ever-evolving world. Your feedback is greatly appreciated should you come across any inaccuracies, as it will enable me to make necessary adjustments.
 
-## The future
+## What has happened since
 
-As of October 2023, the majority of my articles here provide answers to "how" and "what." In 2024, my focus will shift towards exploring thoughts, ideas, and developing side projects in the AI and Crypto domains.
+As of October 2023, most articles here answered "how" and "what." Since then, my focus has shifted toward the intersection of AI, cloud architecture, and engineering rigour — exactly where I expected it to go.
+
+In summer 2025 I set myself a personal challenge: three AWS Professional certifications in four weeks — Solutions Architect, DevOps Engineer, and Generative AI Developer. The certifications themselves were a milestone, but what I valued more was the chance to revisit architectural fundamentals, connect ideas across AI, cloud, and DevOps, and pressure-test my own assumptions.
+
+The experience reinforced something I think matters in this field: the real differentiator in AI is not simply access to the latest models, but the ability to turn them into scalable, governed, and commercially sound solutions. Many of the patterns that make AI work in production — state management, retrieval architecture, model evaluation, inference optimisation, observability, and governance — are rooted in established engineering disciplines. AI can accelerate delivery, but without sound technical judgement it can just as easily accelerate cost, complexity, and technical debt.
+
+I organised my study notes from all three tracks into this notebook. If you are preparing for AWS certifications or want to strengthen your cloud and AI foundations, the [AWS section](/docs/aws) is a good starting point — particularly the [AI & Machine Learning](/docs/aws/ai) page, which maps the service landscape and common exam decision points.
 
