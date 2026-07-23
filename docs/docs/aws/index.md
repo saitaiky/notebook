@@ -21,7 +21,7 @@ While obtaining certifications is an achievement, the journey itself offers valu
 
 ## Certifications
 
-In summer 2025 I completed three AWS Professional certifications — [Solutions Architect Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/), [DevOps Engineer Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/), and [Generative AI Developer Professional](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/) — as a personal challenge, finishing all three within four weeks.
+In summer 2026 I completed three AWS Professional certifications — [Solutions Architect Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/), [DevOps Engineer Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/), and [Generative AI Developer Professional](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/) — as a personal challenge, finishing all three within four weeks.
 
 These exams demand a different style of preparation: less about recognising services and more about evaluating trade-offs, designing at scale, and knowing when a simpler option is the right one. The AI and DevOps tracks in particular reward understanding how disciplines connect rather than treating each service in isolation.
 
