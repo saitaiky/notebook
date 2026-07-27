@@ -19,6 +19,14 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
 - Keep markdown structure semantic (`#`, `##`, tables, lists) for readability and indexing.
 - Ensure links are valid and keep existing internal URLs stable.
 
+## Published Vs Private Source Material
+
+- Treat `docs/**` and `blog/**` as published content roots.
+- Keep raw reference notes, imported transcripts, course dumps, and blog drafting material outside those roots.
+- Prefer the top-level `reference/**` tree for private source material that informs future docs or blog posts.
+- Do not rely on `unlisted: true` alone for private source material. It reduces discovery, but the route can still be published.
+- If a file should not be reachable on the deployed site, move it out of the Docusaurus docs tree instead of keeping it under `docs/**`.
+
 ## Heading And Section Structure
 
 - Do not create a section that contains only one subsection.
