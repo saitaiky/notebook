@@ -8,6 +8,8 @@ tags: [authentication, oauth, obo, token-exchange, ai-agents, enterprise-integra
 
 Building an AI agent that sits between an enterprise platform and a third-party API service forces you to think clearly about authentication. You're not just authenticating a user; you're orchestrating credentials across two completely separate authentication contexts. This post shares what I learned integrating an enterprise AI platform with an external API service, focusing on what works today and what aspirations are worth planning for.
 
+<!-- truncate -->
+
 ## The problem: bridging two authentication worlds
 
 Imagine this architecture:

@@ -41,7 +41,7 @@ Recommended when available:
 ## Content Update Rules
 
 - Keep intro paragraph aligned with `description` intent.
-- Keep `<!-- truncate -->` in long posts for blog list previews.
+- Include exactly one `<!-- truncate -->` marker in every blog post, placed after a concise intro so blog/home previews do not show the full article.
 - Preserve existing links unless they are broken; fix broken links in the same change.
 
 ## Audience And Voice Rules

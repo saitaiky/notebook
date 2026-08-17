@@ -10,6 +10,8 @@ draft: true
 
 幸福 vs 開心
 
+<!-- truncate -->
+
 事業 vs 職業
 生活係好實際,人生志向
 追求價值上既理想。資本主意  tend to reduce 事業 to 職業
