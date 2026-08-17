@@ -30,3 +30,6 @@ yarn-error.log*
 .tool-versions
 
 spell_check_results.txt
+
+# Embedding vector cache — safe to commit for free CI builds, ignored by default
+.embedding-cache.json

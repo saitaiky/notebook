@@ -48,8 +48,11 @@ border-radius: 7px;
     background-color: #fbfbfb;
 
     .heroBanner{
-        background-color: white;
-        padding: 4rem 6rem;
+        background-color: transparent;
+        padding: 2.75rem 0 1.1rem;
+        margin: 0;
+        display: block;
+        text-align: center;
     }
 
     .blog-list--item{
@@ -233,12 +236,8 @@ border-radius: 7px;
 @media (max-width: 996px) {
     .blog-list__page{
         .heroBanner {
-            flex-wrap: wrap;
-            justify-content: center;
             text-align: center;
-            // justify-content: space-between;
-            grid-gap: 4rem;
-            padding: 0rem;
+            padding: 1.75rem 0 0.9rem;
         }
     }
   }
@@ -250,7 +249,7 @@ html[data-theme='dark'] {
         /* color: var(--ifm-color-gray-900); */
     }
     .heroBanner{
-        background-color: var(--ifm-background-color);
+        background-color: transparent;
     }
     .blog-list--item{
         background: var(--ifm-navbar-background-color);

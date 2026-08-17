@@ -2,6 +2,7 @@
 
 const blogPluginExports = require('@docusaurus/plugin-content-blog');
 const recentUpdatesPlugin = require('../recent-updates-plugin');
+const { buildGraph } = require('../knowledge-graph/buildGraph');
 
 const defaultBlogPlugin = blogPluginExports.default;
 const collectRecentUpdates = recentUpdatesPlugin.collectRecentUpdates;
@@ -20,15 +21,26 @@ async function blogPluginExtended(...pluginArgs) {
      */
     contentLoaded: async function (params) {
       const { content, actions } = params;
+      const siteDir = pluginArgs[0].siteDir;
       const visibleBlogPosts = content.blogPosts.filter((blogPost) => {
         const frontMatter = blogPost.metadata.frontMatter || {};
         return frontMatter.unlisted !== true;
       });
-      const recentUpdates = collectRecentUpdates(pluginArgs[0].siteDir, recentUpdatesLimit);
+      const recentUpdates = collectRecentUpdates(siteDir, recentUpdatesLimit);
 
       // Get the 5 latest blog posts
       const recentPostsLimit = 5;
       const recentPosts = [...visibleBlogPosts].splice(0, recentPostsLimit);
+
+      // Build the knowledge graph
+      let graphData = null;
+      try {
+        graphData = await buildGraph(siteDir);
+        console.log(`[Knowledge Graph] Built graph: ${graphData.stats.nodeCount} nodes, ${graphData.stats.linkCount} links, ${graphData.stats.communityCount} communities`);
+      } catch (error) {
+        console.error('[Knowledge Graph] Failed to build graph:', error.message);
+        graphData = { nodes: [], links: [], stats: { nodeCount: 0, linkCount: 0, unresolvedCount: 0, communityCount: 0 } };
+      }
 
       async function createRecentPostModule(blogPost, index) {
         
@@ -86,11 +98,27 @@ async function blogPluginExtended(...pluginArgs) {
           recentPosts: await Promise.all(
             recentPosts.map(createRecentPostModule)
           ),
+          knowledgeGraph: await actions.createData(
+            'home-page-knowledge-graph.json',
+            JSON.stringify(graphData)
+          ),
         },
       });
 
       // Call the default overridden `contentLoaded` implementation
       return blogPluginInstance.contentLoaded(params);
+    },
+
+    /**
+     * Override getPathsToWatch to include docs and blog files for dev rebuild
+     */
+    getPathsToWatch() {
+      const defaultPaths = blogPluginInstance.getPathsToWatch ? blogPluginInstance.getPathsToWatch() : [];
+      return [
+        ...defaultPaths,
+        '../../docs/**/*.{md,mdx}',
+        '../../blog/**/*.{md,mdx}',
+      ];
     },
   };
 }

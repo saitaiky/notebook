@@ -1,0 +1,292 @@
+/**
+ * KnowledgeGraph component styles.
+ * Responsive force-directed graph with theme support.
+ */
+
+.knowledgeGraphContainer {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+}
+
+.graphCanvas {
+  position: relative;
+  width: 100%;
+  height: var(--graph-height, 65vh);
+  min-height: 420px;
+  overflow: hidden;
+  background: var(--ifm-background-color);
+
+  // Ensure canvas fills container
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.graphFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1rem;
+  text-align: center;
+  background: var(--ifm-background-surface-secondary);
+}
+
+.sectionToolbar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  pointer-events: auto;
+}
+
+.sectionButton,
+.sectionButtonActive {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background: var(--ifm-background-surface-secondary);
+  color: var(--ifm-color-emphasis-800);
+  transition: background 0.15s ease, color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  &:hover {
+    background: var(--ifm-color-emphasis-200);
+  }
+}
+
+.sectionButtonActive {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+
+  &:hover {
+    background: var(--ifm-color-primary-dark);
+  }
+}
+
+.expandedChips {
+  position: absolute;
+  top: 52px;
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.chip {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: var(--ifm-background-surface-secondary);
+  color: var(--ifm-color-emphasis-800);
+
+  &:hover {
+    background: var(--ifm-color-emphasis-200);
+  }
+}
+
+// Anchored to the bottom so it never collides with the toolbar/chips at the top
+.legend {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  background: var(--ifm-background-surface-secondary);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.legendLine {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.nodeTooltip {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  max-width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 15;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-900);
+  background: var(--ifm-background-surface-secondary);
+  border: 1px solid var(--ifm-color-emphasis-300);
+
+  // Dark mode adjustments
+  html[data-theme='dark'] & {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background: var(--ifm-background-surface-primary);
+    border-color: var(--ifm-color-emphasis-400);
+  }
+}
+
+.nodeTitle {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  word-break: break-word;
+}
+
+.nodeInfo {
+  margin: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ifm-color-emphasis-700);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.infoLabel {
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.nodeRelated {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.relatedLink {
+  font-size: 0.8rem;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 240px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/**
+ * Responsive design for tablet and smaller screens
+ */
+@media (max-width: 996px) {
+  .knowledgeGraphContainer {
+    padding: 0;
+    margin: 0;
+  }
+
+  .graphCanvas {
+    height: var(--graph-height, 62vh);
+    min-height: 360px;
+  }
+
+  .nodeTooltip {
+    max-width: 240px;
+    font-size: 0.8125rem;
+  }
+}
+
+/**
+ * Responsive design for mobile devices
+ */
+@media (max-width: 576px) {
+  .knowledgeGraphContainer {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .graphCanvas {
+    height: var(--graph-height, 56vh);
+    min-height: 320px;
+  }
+
+  .nodeTooltip {
+    max-width: 200px;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .nodeTitle {
+    margin-bottom: 0.25rem;
+  }
+
+  .nodeInfo {
+    margin: 0.125rem 0;
+    gap: 0.25rem;
+  }
+}
+
+/**
+ * Light/dark mode specific adjustments
+ */
+html[data-theme='light'] {
+  .nodeTooltip {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+}
+
+html[data-theme='dark'] {
+  .nodeTooltip {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .nodeInfo {
+    color: var(--ifm-color-emphasis-600);
+  }
+
+  .infoLabel {
+    color: var(--ifm-color-emphasis-700);
+  }
+}
