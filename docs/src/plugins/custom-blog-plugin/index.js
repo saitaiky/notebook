@@ -2,7 +2,7 @@
 
 const blogPluginExports = require('@docusaurus/plugin-content-blog');
 const recentUpdatesPlugin = require('../recent-updates-plugin');
-const { buildGraph } = require('../knowledge-graph/buildGraph');
+const { buildGraphCached } = require('../knowledge-graph/buildGraph');
 
 const defaultBlogPlugin = blogPluginExports.default;
 const collectRecentUpdates = recentUpdatesPlugin.collectRecentUpdates;
@@ -35,7 +35,7 @@ async function blogPluginExtended(...pluginArgs) {
       // Build the knowledge graph
       let graphData = null;
       try {
-        graphData = await buildGraph(siteDir);
+        graphData = await buildGraphCached(siteDir);
         console.log(`[Knowledge Graph] Built graph: ${graphData.stats.nodeCount} nodes, ${graphData.stats.linkCount} links, ${graphData.stats.communityCount} communities`);
       } catch (error) {
         console.error('[Knowledge Graph] Failed to build graph:', error.message);

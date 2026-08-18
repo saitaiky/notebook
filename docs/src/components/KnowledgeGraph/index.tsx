@@ -17,6 +17,7 @@ interface GraphData {
     url: string;
     contentType: string;
     section: string;
+    subsection: string;
     degree: number;
     inDegree: number;
     outDegree: number;

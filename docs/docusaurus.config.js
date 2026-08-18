@@ -122,6 +122,12 @@ const config = {
         blogDescription: '',
       },
     ],
+    [
+      path.resolve(__dirname, './src/plugins/related-content-plugin'),
+      {
+        maxItems: 8,
+      },
+    ],
   ],
   stylesheets: [
     {

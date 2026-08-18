@@ -51,6 +51,22 @@ In a production RAG system, you'll typically store and retrieve vectors from a s
 \- finally create the index that will power your ANN search algorithm, like the HNSW index you just saw. 
 
 * At that point, you're ready to run actual searches. 
+
+### Example: setting up a collection and loading documents (rag-3, Weaviate)
+
+```python
+# Create a collection, specifying the vectorizer / embedding model used to index it
+collection = client.collections.create(
+	name="Documents",
+	vectorizer_config=Configure.Vectorizer.text2vec_openai(),
+)
+
+# Batch-load objects into the collection; the vectorizer embeds each object automatically
+with collection.batch.dynamic() as batch:
+	for doc in documents:
+		batch.add_object(properties={"content": doc["text"], "team": doc["team"]})
+```
+
 ## Chunking
 
 It's straightforward to set up a database that scales rapidly and supports different retrieval patterns. In most production RAG systems, however, you still need additional techniques to improve quality and cost efficiency. The first is chunking: breaking longer documents into smaller, retrievable units.
@@ -100,6 +116,32 @@ The idea is you choose one particular character to split on. For example, you c
 
 \> Chunking your documents has a variety of benefits for vector retrieval, from increasing search relevancy to minimizing the use of your LLM's context window. If you're looking for a good starting point, just use fixed size chunks of about 500 characters with an overlap of 50 to 100 characters. In some other instances, more advanced chunking techniques might be helpful, so join me in the next video to explore what some of those look like. 
 
+## Advanced chunking techniques
+
+Fixed-size and recursive splitting are good defaults, but they split text based on character positions or structural markers, not on meaning. Several more advanced strategies try to keep semantically related content together so each chunk maps cleanly to a single idea.
+
+### Semantic chunking
+
+Semantic chunking groups sentences together based on how similar their embeddings are, rather than on a fixed character count. The idea is to walk through a document sentence by sentence, embed each one, and measure the vector distance between consecutive sentences. When the distance between one sentence and the next crosses a threshold, that is treated as a topic boundary and a new chunk begins.
+
+The benefit is that each chunk tends to cover a single coherent topic, which sharpens the representation of that chunk's vector and improves search relevance. The trade-off is that it is more expensive to compute because you must embed every sentence up front to decide boundaries, and you still need threshold tuning.
+
+### LLM-based chunking
+
+Instead of relying on distance thresholds, you can ask a language model to decide sensible boundaries. The model can detect topic shifts, argument boundaries, and transitions between examples and explanation that fixed-size splitting misses.
+
+This usually produces the most human-sensible chunks, but it is also the most expensive approach because it requires an LLM pass across your corpus at indexing time.
+
+### Context-aware chunking
+
+A chunk pulled from the middle of a long document can lose the context that makes it interpretable. Context-aware chunking addresses this by attaching short contextual text to each chunk before it is embedded and stored.
+
+One common pattern is to generate a one- or two-sentence summary of how the chunk fits into the wider document and prepend it to the chunk. When the chunk is retrieved later, it carries enough context to stand on its own.
+
+### Choosing an approach
+
+Start simple. Fixed-size chunks (around 500 characters with 50-100 overlap) are a strong default. Move to recursive splitting when document structure matters, semantic chunking when topic coherence is hurting relevance, and LLM-based or context-aware chunking only when knowledge-base value justifies extra indexing cost.
+
 ### Example: semantic retrieval in Weaviate (rag-3)
 
 ```python
@@ -119,11 +161,45 @@ Query parsing improves retrieval by transforming raw user text into a cleaner se
 
 This step matters because many user prompts mix intent, context, and constraints in one sentence. A parsed query makes those constraints explicit, which often improves both recall and precision. Typical production systems either implement parsing rules directly or use a lightweight LLM to rewrite the query into retriever-friendly form.
 
-## Cross-encoder and ColBert
+### LLM query rewriting
+
+A common form of query parsing is to use a lightweight LLM to rewrite a conversational prompt into a cleaner search query. Users often include filler text, multiple asks, and vague wording in a single message. Query rewriting can strip this down and split a compound request into focused sub-queries.
+
+### Named Entity Recognition (NER) and GLiNER
+
+NER extracts entities like product names, versions, people, dates, and locations so they can be used as filters or weighted keyword cues. This is useful when exact terms matter and should not be left entirely to fuzzy semantic matching.
+
+GLiNER is a lightweight NER model that can extract entity types defined at runtime, which makes it practical for domain-specific RAG systems.
+
+### HyDE (Hypothetical Document Embeddings)
+
+HyDE changes retrieval by generating a hypothetical answer first, embedding that synthetic answer, and then searching with its vector. The intuition is that a fuller hypothetical answer can land closer in vector space to real answer documents than the original short question does.
+
+This can improve retrieval quality, but it adds an extra LLM call and can fail when the generated hypothesis is poor.
+
+## Bi-encoders, cross-encoders, and ColBERT
 
 Initial retrieval is usually optimized for speed, not perfect ranking. To improve final quality, many systems add a reranking stage.
 
+### Bi-encoder
+
+A bi-encoder embeds query and documents separately, then compares vectors. This is the standard fast retrieval baseline because document vectors are precomputed.
+
 A **cross-encoder** scores each query-document pair jointly, which usually gives high relevance quality but is computationally expensive. A **ColBERT-style** model offers a middle ground: it keeps richer token-level interactions than standard bi-encoder retrieval, while remaining cheaper than full cross-encoding.
+
+### Cross-encoder
+
+A cross-encoder jointly encodes query and candidate chunk and outputs one relevance score. It tends to produce stronger ranking quality than bi-encoder retrieval, but it is expensive and therefore used on a small candidate set.
+
+### ColBERT
+
+ColBERT stores token-level vectors and uses late interaction (often MaxSim) at query time. It captures finer interactions than standard dense retrieval while staying cheaper than full cross-encoding. The main trade-off is storage cost.
+
+| Model | How it scores | Speed | Quality | Main cost |
+|---|---|---|---|---|
+| Bi-encoder | Query and doc embedded separately, then compared | Fastest | Baseline | Less joint detail |
+| ColBERT | Per-token vectors with late interaction | Medium | High | Larger index footprint |
+| Cross-encoder | Query and doc encoded jointly | Slowest | Highest | Query-time compute |
 
 In production, a common pattern is:
 - Stage 1: fast ANN retrieval returns top-N candidates.
@@ -136,6 +212,14 @@ Reranking is where retrieval quality is refined from "good enough candidates" to
 
 The key trade-off is latency versus quality. A practical strategy is to keep candidate count small enough for acceptable latency, while still large enough to recover relevant but initially lower-ranked chunks.
 
+### How reranking works in a pipeline
+
+- Stage 1: fast retriever over-fetches a candidate set (often 15-100 items) for recall.
+- Stage 2: a stronger reranker rescales and reorders those candidates.
+- Stage 3: only the top reranked subset (often 5-10 chunks) goes to generation.
+
+This gives much of the quality benefit of expensive reranking while keeping runtime manageable.
+
 ### Example: near-text retrieval with rerank (rag-3 assignment)
 
 ```python
@@ -143,6 +227,28 @@ response = collection.query.near_text(
 	query=user_query,
 	limit=top_k,
 	rerank=reranker,
+)
+```
+
+## Hands-on vector database operations (rag-3, Weaviate)
+
+Beyond semantic search, production vector databases usually combine multiple retrieval styles:
+
+```python
+# 1. Vector (semantic) search
+collection.query.near_text(query="how to reset a device", limit=top_k)
+
+# 2. Keyword (BM25) search
+collection.query.bm25(query="reset device firmware", limit=top_k)
+
+# 3. Hybrid search (alpha=1 pure vector, alpha=0 pure keyword)
+collection.query.hybrid(query="reset device firmware", alpha=0.7, limit=top_k)
+
+# 4. Filtered semantic search
+collection.query.near_text(
+    query="how to reset a device",
+    filters=Filter.by_property("team").equal("support"),
+    limit=top_k,
 )
 ```
 

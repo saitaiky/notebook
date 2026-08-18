@@ -335,7 +335,7 @@ function KnowledgeGraphClient({ graphData, colorMode, height }: KnowledgeGraphCl
     sprite.backgroundColor = isDark ? 'rgba(15,15,18,0.85)' : 'rgba(255,255,255,0.85)';
     sprite.padding = 1.5;
     sprite.borderRadius = 2;
-    sprite.center.y = -0.9; // position above the node sphere
+    (sprite as any).center.y = -0.9; // position above the node sphere — untyped in three-spritetext's .d.ts
     return sprite;
   }, [hoverNode, highlightNodes, isDark]);
 
@@ -494,7 +494,7 @@ function KnowledgeGraphClient({ graphData, colorMode, height }: KnowledgeGraphCl
       {hoverNode && (() => {
         const related = Array.from(neighborNodes.get(hoverNode.id)?.values() ?? []);
         const explicit = related.filter(n => {
-          const link = [...(nodeLinks.get(hoverNode.id) ?? [])].find(l => {
+          const link = Array.from(nodeLinks.get(hoverNode.id) ?? []).find(l => {
             const s = typeof l.source === 'object' ? (l.source as GraphNode).id : l.source;
             const t = typeof l.target === 'object' ? (l.target as GraphNode).id : l.target;
             return s === n.id || t === n.id;

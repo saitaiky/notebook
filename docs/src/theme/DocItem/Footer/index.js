@@ -7,6 +7,7 @@ import EditThisPage from '@theme/EditThisPage';
 import TagsListInline from '@theme/TagsListInline';
 import styles from './styles.module.css';
 import {CommentSection} from '@site/src/components/CommentSection/CommentSection';
+import RelatedContent from '@site/src/components/RelatedContent';
 // import { Feedback } from '@site/src/components/Feedback/Feedback';
 // import { HasuraReleaseNotification } from '@site/src/components/HasuraReleaseNotification/HasuraReleaseNotification';
 
@@ -81,6 +82,9 @@ export default function DocItemFooter() {
           />
         )}
       </footer>
+      <div className='margin-top--xl'>
+        <RelatedContent />
+      </div>
       {!disableComments && (
         <div className='margin-top--xl'>
           <CommentSection/>

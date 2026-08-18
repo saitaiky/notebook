@@ -4,6 +4,7 @@ import BlogPostItem from '@theme-original/BlogPostItem';
 // https://dev.to/m19v/how-to-add-giscus-comments-to-docusaurus-439h
 import { useBlogPost } from '@docusaurus/theme-common/internal'
 import {CommentSection} from '@site/src/components/CommentSection/CommentSection';
+import RelatedContent from '@site/src/components/RelatedContent';
 
 export default function BlogPostItemWrapper(props) {
 
@@ -13,6 +14,11 @@ export default function BlogPostItemWrapper(props) {
   return (
     <>
       <BlogPostItem {...props} />
+      {isBlogPostPage && (
+        <div className='margin-top--xl'>
+          <RelatedContent />
+        </div>
+      )}
       {(!disableComments && isBlogPostPage) && (
         <CommentSection />
       )}

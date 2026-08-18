@@ -384,4 +384,13 @@ async function buildGraph(siteDir) {
   };
 }
 
-module.exports = { buildGraph, normalizeInternalLink, deriveCanonicalRoute };
+const graphBuildCache = new Map();
+
+async function buildGraphCached(siteDir) {
+  if (!graphBuildCache.has(siteDir)) {
+    graphBuildCache.set(siteDir, buildGraph(siteDir));
+  }
+  return graphBuildCache.get(siteDir);
+}
+
+module.exports = { buildGraph, buildGraphCached, normalizeInternalLink, deriveCanonicalRoute };
