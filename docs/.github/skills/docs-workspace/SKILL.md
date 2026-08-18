@@ -129,7 +129,15 @@ With `text-embedding-3-large`, typical similarity ranges:
 
 ### Cache
 
-- File: `.embedding-cache.json` in site root (gitignored by default)
+- File: `.embedding-cache.json` in site root — **committed to git**, like a lockfile.
 - Key: `SHA-256(title + body[:1800])`
 - Hit: no API call. Miss: re-embeds only changed pages.
-- Delete the file to force a full re-embed of all pages.
+- **Why it's committed (not gitignored):** the Netlify build runner has no network access to the embeddings endpoint. Without a committed cache, every Netlify build would silently drop semantic edges for any page not already cached (network calls fail, `buildSemanticEdges` catches the error and returns `[]`). Committing the cache means Netlify builds reuse previously-computed vectors and only need live API access when a page's content actually changes and a local build regenerates the cache first.
+- Delete the file locally to force a full re-embed of all pages, then commit the regenerated file.
+
+### What triggers an embedding API call
+
+- `buildGraph()` runs on every `yarn build` and every `yarn start` (dev) restart, via `custom-blog-plugin`'s `contentLoaded` hook — not on every save, only on process (re)start/build.
+- Inside that, `buildSemanticEdges()` hashes `title + body[:1800]` per page and only calls the embeddings API for pages whose hash isn't already a key in `.embedding-cache.json`.
+- Practical effect: adding/editing one post triggers an API call for that one page's new hash only; unrelated pages are served from cache with zero API calls.
+- If `EMBEDDING_ENDPOINT`/`EMBEDDING_API_KEY` aren't set (e.g. a CI runner without secrets), semantic edges are skipped entirely and a warning is logged — explicit links still work.
