@@ -15,6 +15,10 @@ sidebar_position: 5
 
 ## Model evaluation
 
+:::note Theory background
+For the general evaluation framework — retriever vs. generator metrics, offline/online/pairwise approaches, and hallucination taxonomy — see the [general AI evaluation notes](/ai/agentic-system/evaluation).
+:::
+
 Bedrock's built-in **Model Evaluation** jobs let you compare foundation models (or versions of a fine-tuned model) against each other before committing to one in production. Automated jobs score responses against concrete metrics — **faithfulness** (is the answer supported by the source), **answer relevance** (does it address the question), **context relevance** (did retrieval find the right material), **similarity**, and **hallucination** — while **LLM-as-judge** evaluation uses a separate, capable model (Claude or Mistral Large, for example) to score generated content against a rubric, which scales far better than manual review across large test sets. **Human evaluation** workflows complement both: reviewers rate outputs against defined criteria (accuracy, tone, brand voice, harmfulness) using a private workforce, which is still necessary for judgment calls an automated metric can't reliably capture.
 
 For agentic systems specifically, Bedrock evaluation can also score whether an agent chose and used tools correctly. A custom evaluation dataset can map each input to the expected tool invocation, and the evaluation job can measure **tool selection accuracy** (did the agent choose the right tool at all) and **tool parameter accuracy** (did it call that tool with the right arguments). That distinction matters because an agent can fail long before the final answer is judged: the root cause may be wrong orchestration, not weak language generation.
@@ -38,6 +42,10 @@ Shadow deployments never affect what the user sees — if a question describes e
 :::
 
 ## Agentic orchestration patterns
+
+:::note Theory background
+For the protocol internals behind MCP — JSON-RPC 2.0 transport, tool discovery, bidirectional communication, and security patterns — see [Model Context Protocol Architecture](/ai/agentic-system/model-context-protocol). For agent-to-agent communication patterns and supervisor/sub-agent delegation beyond what Bedrock natively provides, see [Agent-to-Agent Patterns](/ai/agentic-system/agent-to-agent). For the ReAct reasoning pattern itself — the Thought/Action/Observation cycle — see [Help LLM to reasoning](/ai/llm/generative-ai-with-llm/wk3/reasoning#react-framework).
+:::
 
 Beyond a single Bedrock Agent's built-in action groups (covered in [Bedrock Agents in depth](./bedrock.md#bedrock-agents-in-depth)) and [AgentCore](./bedrock.md#agentcore) (Bedrock's managed runtime/gateway/identity/memory building blocks for production agent deployments), several higher-level patterns and frameworks show up for coordinating more complex, multi-agent systems:
 

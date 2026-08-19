@@ -91,6 +91,10 @@ The ReAct framework is a method designed to enhance the capabilities of large la
 
 Unlike simple tasks that LLMs can handle in one step, many real-world applications involve multiple steps and interactions with external data sources or applications. The ReAct framework helps LLMs navigate these complexities by breaking down the problem-solving process into structured, manageable parts. This is achieved through a cycle of reasoning (thought), executing actions (action), and integrating new information (observation), which the model repeats until it arrives at a solution. 
 
+:::note See also on AWS
+For how the ReAct loop is implemented in a managed AWS pipeline (Step Functions orchestrating Lambda-backed tool calls), see [Model Evaluation & Agentic Techniques: agentic orchestration patterns](/aws/ai/evaluation-and-agents#agentic-orchestration-patterns).
+:::
+
 ### Structured Prompts and Pre-pended Instructions
 
 - **Task Definition**: The ReAct framework relies on clear instructions pre-pended to the prompt, which define the task and outline the model's expected actions. This helps the LLM understand the scope of the task and what it needs to accomplish.

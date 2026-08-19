@@ -280,6 +280,9 @@ Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-worl
 - Once a suitable model is found, experiment with various settings to influence the structure and style of the completions. 
 :::
 
+:::note See also on AWS
+For how this applies specifically to AWS generative AI workloads — Bedrock's `Converse` API message roles, structured JSON Schema output, and the prompt-injection defense — see [Prompt Engineering](/aws/ai/prompt-engineering).
+:::
 
 ## Generative configuration at inference time
 

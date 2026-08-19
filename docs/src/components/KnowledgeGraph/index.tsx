@@ -7,7 +7,7 @@
 import React from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import KnowledgeGraphClient from './KnowledgeGraphClient';
+// Dynamic import prevents Three.js from being evaluated during SSR (window.THREE probe)
 import styles from './styles.module.scss';
 
 interface GraphData {
@@ -76,13 +76,17 @@ function KnowledgeGraph({ graphData, height }: KnowledgeGraphProps) {
   return (
     <div className={styles.knowledgeGraphContainer}>
       <BrowserOnly fallback={<div className={styles.graphFallback}>Loading knowledge graph...</div>}>
-        {() => (
-          <KnowledgeGraphClient 
-            graphData={parsedData}
-            colorMode={colorMode}
-            height={height}
-          />
-        )}
+        {() => {
+          // require() here ensures Three.js is never parsed in the SSR context
+          const KnowledgeGraphClient = require('./KnowledgeGraphClient').default;
+          return (
+            <KnowledgeGraphClient
+              graphData={parsedData}
+              colorMode={colorMode}
+              height={height}
+            />
+          );
+        }}
       </BrowserOnly>
     </div>
   );

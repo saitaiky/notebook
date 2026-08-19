@@ -46,6 +46,10 @@ Knowledge Bases also support structured **metadata filtering** — tagging chunk
 
 ## Reranker models
 
+:::note Theory background
+For a deeper explanation of why two-stage retrieval exists, cross-encoder vs. ColBERT-style rerankers, and HNSW internals, see [Production Retrieval Systems](/ai/llm/rag/production-retrieval-systems#reranking-the-quality-layer-after-fast-retrieval).
+:::
+
 A retrieval step tuned for speed (a large Top-K similarity search) and a retrieval step tuned for precision (a small number of truly relevant chunks) are in tension, and reranking is how Bedrock resolves that tension without forcing a single retrieval pass to do both jobs. The pattern is: retrieve a broad candidate set cheaply, then pass those candidates through a dedicated reranking model — configured via `rerankingConfiguration` on the `Retrieve`/`RetrieveAndGenerate` API, backed by models like Amazon Rerank 1.0 or a Cohere reranker — which reorders the candidates by true relevance before only the top few are sent to the model for generation.
 
 :::tip Exam wording cue
@@ -110,7 +114,7 @@ Agents are for autonomous, multi-step reasoning over an open-ended request — t
 Amazon Bedrock AgentCore is a set of managed building blocks for running production-grade AI agents at scale, decoupled from any single model provider or agent framework — it exists because a Bedrock Agent's action groups cover tool invocation, but production agent deployments also need durable session state, secure credential handling, and enterprise identity integration that a single action group doesn't provide on its own.
 
 - **Runtime**: Hosts the agent as a container (packaged for ARM64, listening on port 8080 with `/invocations` and `/ping` endpoints) and validates the caller's JWT, delivering a **Workload Access Token** to the agent via the invocation payload header so the agent can securely call downstream APIs on the user's behalf. Session-level metrics are captured by default, but detailed spans and logs require explicit enablement.
-- **Gateway**: Standardizes tool discovery, schema, and execution across a fleet of tools, so agents don't each need custom integration code per tool — the agent instead discovers available tools through a consistent protocol.
+- **Gateway**: Standardizes tool discovery, schema, and execution across a fleet of tools, so agents don't each need custom integration code per tool — the agent instead discovers available tools through a consistent protocol (the [Model Context Protocol](/ai/agentic-system/model-context-protocol) — JSON-RPC 2.0–based tool schema, discovery, and execution).
 - **Identity**: Manages OAuth/SAML federation and token exchange, enabling trusted identity propagation so a downstream API call made by the agent carries the original user's identity rather than a generic service identity.
 - **Memory**: Stores user preferences and conversation history with per-session summarization, similar in purpose to a Bedrock Agent's memory feature but designed to operate across agents built on different underlying frameworks.
 - **Browser**: A managed, sandboxed headless browser tool an agent can drive to navigate web pages, click, and extract content — useful when a task genuinely requires interacting with a live website rather than retrieving static indexed content.
@@ -135,6 +139,10 @@ Use **BDA** when the input is multi-modal or semi-structured and the real requir
 :::
 
 ## Model customization: fine-tuning, distillation, and LoRA
+
+:::note Theory background
+For the underlying mechanics of instruction fine-tuning, see [Fine-tuning with instruction](/ai/llm/generative-ai-with-llm/wk2/fine-tune). For how LoRA and prompt tuning work as parameter-efficient methods, see [PEFT](/ai/llm/generative-ai-with-llm/wk2/peft).
+:::
 
 Beyond prompting and RAG, Bedrock supports changing a model's actual behavior through several customization mechanisms, each suited to a different constraint:
 

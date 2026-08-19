@@ -377,6 +377,10 @@ By the end of this module, I should be able to explain the following clearly:
 - RAG security is mostly about protecting knowledge-base access and treating external model calls as real trust boundaries.
 - Multimodal RAG expands capability, but also increases storage, chunking, and evaluation complexity.
 
+:::note See also on AWS
+For how these production concerns map onto managed AWS services — event-driven ingestion pipelines, and IAM/PII/logging controls — see [Event-Driven AI Architectures](/aws/ai/event-driven-architectures) and [Responsible AI & Security](/aws/ai/responsible-ai-and-security).
+:::
+
 ## Closing Thought
 
 Production RAG is not about finding one perfect configuration and freezing it. It is about building a system that can be observed, tested, tuned, and defended as usage evolves.

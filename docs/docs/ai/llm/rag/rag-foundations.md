@@ -256,6 +256,10 @@ By this point, I should be able to explain the following in plain language:
 
 If I cannot explain those five ideas clearly, I do not really understand RAG yet.
 
+:::note See also on AWS
+For how this maps to managed AWS services — Bedrock Knowledge Bases, Q Business, Kendra, and when to reach for each — see [RAG & Vector Stores](/aws/ai/rag-and-vector-stores) and the [AWS AI service-selection map](/aws/ai).
+:::
+
 ## Conclusion
 
 RAG makes LLM systems more useful by giving them access to evidence that is private, recent, or domain-specific at the exact moment a user asks a question. Instead of relying only on what the model absorbed during training, the system retrieves relevant material from a knowledge base and augments the prompt with it. That retrieval step grounds the response, improves freshness, and makes answers easier to audit.

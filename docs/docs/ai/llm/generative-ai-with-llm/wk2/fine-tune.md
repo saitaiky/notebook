@@ -19,6 +19,10 @@ Fine-tuning represents a significant advancement in the development of large lan
 
 Instruction fine-tuning is a major breakthrough because it transforms a large language model (LLM) trained on vast amounts of general internet text, which learns to predict the next word, into a model that can **follow specific instructions** using a much smaller dataset. This adaptation makes the model more useful for specific tasks, bridging the gap between general language understanding and task-specific responsiveness.
 
+:::note See also on AWS
+For how this maps to Bedrock's managed fine-tuning service, model distillation, and the "without retraining" exam trap, see [Amazon Bedrock: model customization](/aws/ai/bedrock#model-customization-fine-tuning-distillation-and-lora).
+:::
+
 ### Finetuning steps overview
 
 1. **Define Your Task**: Begin by clearly identifying the task you want the model to perform.

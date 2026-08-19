@@ -493,6 +493,10 @@ By the end of this module, I should be able to explain the following clearly:
 - Hybrid retrieval usually works best because lexical and semantic signals complement each other.
 - Precision, recall, MAP, and MRR are the tools that tell me whether retrieval is actually improving.
 
+:::note See also on AWS
+For how hybrid search and ANN tuning map onto OpenSearch specifically, see [RAG & Vector Stores](/aws/ai/rag-and-vector-stores).
+:::
+
 ## What to Read Next
 
 Next: [Production Retrieval Systems](/ai/llm/rag/production-retrieval-systems), where the focus shifts from ranking ideas to the production machinery that keeps retrieval fast, scalable, and useful under real constraints. That chapter also expands ANN internals, chunking strategy ladders, query parsing patterns, and reranking pipelines used in real deployments.

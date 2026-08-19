@@ -376,6 +376,22 @@ Some of the most useful metrics include:
 I also still care about real user feedback, because offline metrics are not the same thing as actual satisfaction.
 Ragas-style metrics are useful here because they make the metric definitions more explicit. response_relevancy is trying to answer whether the response actually addresses the user's question rather than merely sounding good. faithfulness is closer to a claim-grounding check: are the answer's statements supported by the retrieved context? Those two metrics often fail independently, which is exactly why I want both. An answer can be relevant but unsupported, or supported but not responsive enough to the user's real question.
 
+### Naming the Individual Judge Prompts
+
+Beyond the two headline metrics above, it helps to name the specific judge calls I am actually running, since "LLM-as-judge" by itself hides five different questions with different failure modes:
+
+| Evaluator | Question it answers | Needs a reference answer? | Target |
+| --- | --- | --- | --- |
+| Document relevance | Are the retrieved documents relevant to the question? | No | Retriever |
+| Answer faithfulness | Is the answer grounded in the retrieved documents? | No | Generator (depends on retrieval) |
+| Answer helpfulness | Does the answer actually help address the question? | No | Generator |
+| Answer correctness | Is the answer consistent with a known-good reference answer? | Yes | Generator |
+| Pairwise comparison | Which of two answer versions is better? | No | Generator |
+
+The first four are pointwise: each judge call scores one answer in isolation. Pairwise comparison is a different evaluator shape entirely — instead of asking "is this answer good," it asks "which of these two answers is better," which is often an easier judgment for an LLM (or a human) to make reliably than an absolute score, especially for open-ended tasks like summarization where a single number is hard to justify but a side-by-side preference is not.
+
+There is also a cheaper evaluator category worth naming: **heuristic evaluators**, which are deterministic, rule-based checks rather than model judgments — confirming a response isn't empty, that generated code actually compiles, or that a classification label exactly matches an allowed set. I run these first, before spending an LLM call on judgment, because they catch a class of failure that a judge model shouldn't need to be asked about at all.
+
 ## Agentic RAG on the Generation Side
 
 As RAG systems mature, generation often becomes more modular.
@@ -451,6 +467,10 @@ By the end of this module, I should be able to explain the following clearly:
 - Hallucination control is mostly about grounding, citation, refusal behavior, and evaluation rather than a single perfect trick.
 - Generator evaluation should focus on relevance, faithfulness, citation behavior, and robustness to noisy context.
 - RAG and fine-tuning are complementary: one injects knowledge, the other shapes behavior.
+
+:::note See also on AWS
+For how faithfulness and hallucination are measured with managed tooling — Bedrock Model Evaluation jobs and Guardrails' contextual grounding check — see [Model Evaluation & Agentic Techniques](/aws/ai/evaluation-and-agents) and [RAG & Vector Stores: measuring RAG quality](/aws/ai/rag-and-vector-stores#measuring-rag-quality).
+:::
 
 ## What to Read Next
 

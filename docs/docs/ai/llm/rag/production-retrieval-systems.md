@@ -401,3 +401,7 @@ By the end of this module, I should be able to explain the following clearly:
 ## What to Read Next
 
 Next comes the generator side of the system: once retrieval can reliably deliver good evidence, the remaining question is how to make the model use that evidence faithfully, consistently, and efficiently.
+
+:::note See also on AWS
+For how HNSW tuning, hybrid search, reranking, and semantic caching map onto AWS managed services (OpenSearch, Bedrock Knowledge Bases, Bedrock Reranker), see [RAG & Vector Stores](/aws/ai/rag-and-vector-stores) and [Amazon Bedrock](/aws/ai/bedrock#reranker-models).
+:::

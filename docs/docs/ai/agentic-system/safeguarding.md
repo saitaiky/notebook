@@ -143,72 +143,10 @@ Tool invocation is the riskiest part of an agentic system because it can create 
   Don’t trust the model blindly. Run relevance checks, fact validation, URL availability checks, and readability scoring before persisting results or invoking tools.
 
 
-## Bedrock implementation + monitoring (ship it)
+## Implementing these patterns on AWS
 
-Amazon Bedrock Guardrails give you managed moderation, but you still need to know the difference between *creating* a guardrail and *attaching it* at runtime.
+The defense-in-depth layers above apply to any stack. For the concrete AWS implementation — `CreateGuardrail`/`UpdateGuardrail`, attaching guardrails at runtime via `guardrailConfig`, versioning with CDK/CloudFormation, and the CloudTrail/CloudWatch/guardrail-trace monitoring stack — see the AWS-specific pages:
 
-![Bedrock guardrail](/img/ai/agentic-system/bedrock-guardrail.png)
-
-Source: [AWS: Safeguard your generative AI workloads from prompt injections](https://aws.amazon.com/blogs/security/safeguard-your-generative-ai-workloads-from-prompt-injections/)
-
-**Creating a Guardrail**
-
-* **Console**: Define denied topics, PII redaction, profanity filters, and Prompt Attack detection in the Bedrock UI.
-* **API/SDK**: Use `CreateGuardrail` / `UpdateGuardrail`. Each guardrail gets an immutable `guardrailVersion`.
-* **Infrastructure as Code**: Guardrails can also be created via **AWS CDK or CloudFormation**, so they’re versioned alongside your infrastructure. Recommended for production.
-
-**Attaching guardrails at runtime**
-Once created, reference them via `guardrailConfig` in model invocations:
-
-```python
-resp = bedrock.converse(
-  modelId="anthropic.claude-3-5-sonnet",
-  messages=messages,
-  guardrailConfig={
-    "guardrailId": GUARDRAIL_ID,
-    "guardrailVersion": "1",
-    "trace": "enabled"
-  }
-)
-
-trace = resp.get("amazon-bedrock-trace", {})
-if trace.get("interventions"):
-    return safe_refusal(trace)  # log, explain, or route to human review
-
-data = json.loads(resp.output_text)          # enforce structure
-jsonschema.validate(data, TOOL_CALL_SCHEMA)  # reject or repair
-```
-
-* **Input moderation** happens before text reaches the model.
-* **Output moderation** happens before the response is returned.
-* **Trace** gives you logs of blocked/redacted items for observability.
-
-**Ops checklist**
-
-* CloudTrail → alerts on Guardrail config changes.
-* CloudWatch → dashboards of block vs pass rates, anomalies.
-* Invocation logs → monitor for jailbreak attempts or token spikes.
-
-## Minimal viable safety (then iterate)
-
-If you’re starting fresh, don’t try to implement every guardrail at once. Begin with a **core four** that cover 80% of real-world risks:
-
-1. **Input + Output moderation (Prompt Attack ON)**
-   * Create a guardrail with Prompt Attack enabled.
-   * Attach it on every Bedrock call (`guardrailConfig`).
-2. **Instruction isolation**
-   * Keep user input separate from system instructions.
-   * Use XML/JSON tags so the model can’t confuse the two.
-   ```text
-   <system>Always follow company rules</system>
-   <user>{query}</user>
-   ```
-3. **Tool allowlist + JSON schema lock**
-   * Register only approved tools in your framework (LangChain, LangGraph).
-   * Validate tool calls with `jsonschema` before execution.
-4. **CloudWatch + Guardrail trace dashboards**
-   * Enable tracing and export metrics.
-   * Set alarms for spikes in blocked prompts or suspicious activity.
-
-From here, layer on **retrieval sanitization**, **fact-checking validators**, and **HITL approval** for sensitive tools as your system matures.
+- **[Amazon Bedrock Guardrails](/aws/ai/bedrock#guardrails)** — versioning, detect-only mode, prompt-attack filter, PII redaction, cross-account enforcement
+- **[Responsible AI & Security on AWS](/aws/ai/responsible-ai-and-security)** — IAM controls, PII/PHI service selection (Comprehend vs Macie vs Guardrails), and the CloudTrail vs Model Invocation Logging vs guardrail-tracing distinction
 

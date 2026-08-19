@@ -51,6 +51,10 @@ function buildRelatedIndex(graphData, maxItems) {
     const kind = link.kind || 'explicit';
     const score = asNumber(link.weight, 1);
 
+    // Skip semantic edges to avoid broken links pointing to non-routable nodes.
+    // Use only explicit links entered manually in markdown.
+    if (kind === 'semantic') continue;
+
     addRelation(source, target, kind, score);
     addRelation(target, source, kind, score);
   }

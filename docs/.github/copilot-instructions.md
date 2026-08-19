@@ -19,13 +19,22 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
 - Keep markdown structure semantic (`#`, `##`, tables, lists) for readability and indexing.
 - Ensure links are valid and keep existing internal URLs stable.
 
-## Published Vs Private Source Material
+## Reference Material And Content Curation
+
+### Where Reference Material Lives
 
 - Treat `docs/**` and `blog/**` as published content roots.
 - Keep raw reference notes, imported transcripts, course dumps, and blog drafting material outside those roots.
 - Prefer the top-level `reference/**` tree for private source material that informs future docs or blog posts.
 - Do not rely on `unlisted: true` alone for private source material. It reduces discovery, but the route can still be published.
 - If a file should not be reachable on the deployed site, move it out of the Docusaurus docs tree instead of keeping it under `docs/**`.
+
+### Curating Reference Material Into Published Content
+
+- `reference/**` holds raw exam corpora, course transcripts, and drafting dumps across many subjects (AWS AI, AWS DevOps Pro, AWS SA Pro, and others as the archive grows). Do not assume a topic is new just because it appears in a `reference/**` file.
+- Before turning `reference/**` material into a new `docs/**` or `blog/**` page or a new major section, search existing published content for the same concept first (`grep_search`/`semantic_search` across `docs/**` and `blog/**`, not just the folder that seems like the obvious destination).
+- Prefer extending an existing page or adding a cross-link over creating a new page that re-explains a concept another page already owns.
+- If a scoped instruction file defines a topic-ownership map for a specific content area (for example AI content), consult and update that map instead of re-deriving ownership from scratch each time.
 
 ## Heading And Section Structure
 
@@ -55,14 +64,6 @@ This repository hosts a Docusaurus-based personal knowledge site. Use these rule
 - For technical documentation, most kept subsections should include at least one developed explanatory paragraph, not only bullets or definition-style fragments.
 - If a list is used, surround it with enough prose that the reader understands why the items matter, how they differ, and what to notice in practice.
 - Prefer chapter-like flow over terse cheatsheet rhythm unless the page is explicitly intended to be a reference sheet.
-
-## Review Checklist
-
-- Does each heading earn its own section, or should the content be merged into the parent body?
-- Does any subsection contain only 1-2 short sentences?
-- Should parallel sibling subsections become a list, comparison block, or table instead?
-- Does each kept subsection explain mechanism, example, and practical implication when the topic is technical?
-- Would removing one layer of headings make the page read more like a chapter and less like a cheatsheet?
 
 ## Code Example Presentation
 

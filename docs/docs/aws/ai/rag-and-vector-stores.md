@@ -14,7 +14,7 @@ keywords:
 sidebar_position: 2
 ---
 
-Retrieval-Augmented Generation grounds a model's answers in your own data by retrieving relevant text at query time and injecting it into the prompt, instead of relying only on what the model memorized during training. The quality of a RAG system is decided less by which foundation model you pick and more by three upstream choices: how documents are chunked, how those chunks are embedded, and where the resulting vectors are stored and searched. This page works through those choices in the order they matter, then covers how to measure whether the resulting system is actually good.
+Retrieval-Augmented Generation grounds a model's answers in your own data by retrieving relevant text at query time and injecting it into the prompt, instead of relying only on what the model memorized during training. For the underlying theory — why ANN indexing exists, how HNSW works, and chunking/reranking mechanics — see [Production Retrieval Systems](/ai/llm/rag/production-retrieval-systems) and [From Keywords to Hybrid Search](/ai/llm/rag/retrieval-engineering) in the general AI track. The quality of a RAG system is decided less by which foundation model you pick and more by three upstream choices: how documents are chunked, how those chunks are embedded, and where the resulting vectors are stored and searched. This page works through those choices in the order they matter, then covers how to measure whether the resulting system is actually good.
 
 ## Chunking strategies
 

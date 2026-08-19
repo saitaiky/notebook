@@ -157,8 +157,14 @@ function parseFrontmatter(filePath, derivedRoute, isBlog = false) {
     console.warn(`Failed to parse frontmatter for ${filePath}:`, error.message);
   }
   
-  // Use slug if present in frontmatter, otherwise use derived route
-  const url = slug ? `/${slug}/` : derivedRoute;
+  // For blogs with slug override, build /blog/{slug}/ (Docusaurus omits the date from the route).
+  // For docs, use slug override directly.
+  let url;
+  if (isBlog && slug) {
+    url = `/blog/${slug}/`;
+  } else {
+    url = slug ? `/${slug}/` : derivedRoute;
+  }
 
   // Derive section from source file path, not URL — a slug override changes
   // navigation but must not reclassify the page into a phantom section.
@@ -191,7 +197,7 @@ function parseFrontmatter(filePath, derivedRoute, isBlog = false) {
 
 /**
  * Scan docs/** and blog/** for published markdown files.
- * Exclude docs/**\/*.wip and unlisted blog posts.
+ * Exclude docs/**\/*.wip, draft docs, and unlisted blog posts.
  */
 async function scanContentFiles(siteDir) {
   const docsPattern = path.join(siteDir, 'docs', '**', '*.{md,mdx}');
@@ -203,6 +209,18 @@ async function scanContentFiles(siteDir) {
   
   // Filter out .wip files
   docsFiles = docsFiles.filter(f => !f.endsWith('.wip'));
+
+  // Filter out draft docs (draft: true skips route generation, so any graph
+  // edge pointing at one becomes a broken link at build time)
+  docsFiles = docsFiles.filter(f => {
+    try {
+      const content = fs.readFileSync(f, 'utf8');
+      const { data } = matter(content);
+      return data.draft !== true;
+    } catch {
+      return true; // Include if parsing fails
+    }
+  });
   
   let blogFiles = await glob(blogPattern);
   

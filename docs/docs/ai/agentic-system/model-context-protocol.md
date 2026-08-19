@@ -553,6 +553,10 @@ As of 2025, MCP is evolving toward:
 - **Caching**: MCP servers advertise which results can be cached and for how long.
 - **Cost reporting**: Models can query estimated cost before calling expensive tools.
 
+:::note See also on AWS
+For how MCP is implemented in managed AWS infrastructure — AgentCore Gateway standardizing tool discovery across a fleet, and the Lambda-vs-ECS deployment decision for stateless vs stateful MCP servers — see [AgentCore](/aws/ai/bedrock#agentcore) and [Agentic Orchestration Patterns](/aws/ai/evaluation-and-agents#agentic-orchestration-patterns).
+:::
+
 ## References & Further Reading
 
 - **MCP Specification**: https://modelcontextprotocol.io/

@@ -468,6 +468,10 @@ Stick with a single-agent loop if:
 **Naming and metadata**: Invest heavily in crisp, unambiguous names and descriptions for sub-agents. "Research Agent" is vague. "FactualResearchAgent_WebSearch_Tavily" is clear and enables both human readers and models to route correctly.
 :::
 
+:::note See also on AWS
+For how multi-agent supervisor/collaborator patterns, MCP, and ReAct map onto AWS managed services (Bedrock multi-agent collaboration, AgentCore Gateway), see [Model Evaluation & Agentic Techniques](/aws/ai/evaluation-and-agents#agentic-orchestration-patterns) and [Amazon Bedrock](/aws/ai/bedrock#bedrock-agents-in-depth).
+:::
+
 ## References & Further Reading
 
 - LangGraph's multi-agent examples: https://github.com/langchain-ai/langgraph/tree/main/examples/multi_agent

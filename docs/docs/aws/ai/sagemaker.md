@@ -92,7 +92,14 @@ On the model-quality side, the classic overfitting signature — training loss k
 
 ## No-code and low-code tooling: SageMaker Canvas and JumpStart
 
-Not every SageMaker workload needs a custom training pipeline. **SageMaker Canvas** is a no-code, UI-driven model builder aimed at business analysts — it automatically selects an appropriate algorithm and tunes hyperparameters from a dataset, and can pull in AWS Glue DataBrew for data preparation, without anyone on the team writing training code. **SageMaker JumpStart** takes a different shortcut: it's a catalog of pre-trained foundation models and classical ML models that can be deployed or fine-tuned directly, for teams that want a proven starting point instead of training a model from zero.
+Not every SageMaker workload needs a custom training pipeline. **SageMaker Canvas** is a no-code, UI-driven model builder aimed at business analysts — it automatically selects an appropriate algorithm and tunes hyperparameters from a dataset, and can pull in AWS Glue DataBrew for data preparation, without anyone on the team writing training code.
+
+**SageMaker JumpStart** is a catalog of pre-trained foundation models and classical ML models that can be deployed or fine-tuned directly from the AWS console or SageMaker Studio, for teams that want a proven starting point instead of training a model from zero. Key capabilities:
+
+- **Model Hub**: Offers foundation models (including Flan-T5 variants and Hugging Face models) that can be deployed to a real-time persistent endpoint by specifying instance type and security settings, or fine-tuned by providing training and validation datasets.
+- **Infrastructure**: JumpStart provisions the required GPU compute for deployment and fine-tuning; select instance type/size from the console. Monitor costs closely — GPU usage is on-demand and endpoints should be deleted when not in use.
+- **Hyperparameter tuning**: Exposes tunable hyperparameters including native support for parameter-efficient fine-tuning techniques like LoRA, selectable directly from the interface.
+- **Programmatic access**: Automatically generates a notebook with the underlying code for any deployment or fine-tuning job, allowing customization beyond the console UI.
 
 ## Human-in-the-loop: Ground Truth and Amazon A2I
 

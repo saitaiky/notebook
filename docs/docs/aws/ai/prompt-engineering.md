@@ -16,6 +16,10 @@ The same foundation model can produce dramatically different quality results dep
 
 ## Zero-shot, few-shot, and chain-of-thought prompting
 
+:::note Theory background
+For the underlying mechanics of in-context learning and why larger models need fewer examples, see [Transformer, Prompt engineering, Config](/ai/llm/generative-ai-with-llm/wk1/transformer-promptengineering-config#prompting-and-prompt-engineering). For chain-of-thought's more structured cousins — PAL and the ReAct reasoning loop — see [Help LLM to reasoning](/ai/llm/generative-ai-with-llm/wk3/reasoning).
+:::
+
 These three techniques sit on a spectrum of how much guidance is given to the model before it answers, and the right choice depends on how specialized or how reasoning-heavy the task is:
 
 - **Zero-shot prompting**: The model is instructed directly, with no examples — "classify the sentiment of this review as positive, negative, or neutral." This is the simplest approach and works well for general tasks the model has broad knowledge of, but it's less reliable for highly specific output formats or narrow domain conventions.

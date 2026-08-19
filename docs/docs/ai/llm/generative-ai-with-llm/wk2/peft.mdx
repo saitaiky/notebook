@@ -29,6 +29,10 @@ Prompt tuning and LoRA are effective PEFT methods. Prompt tuning adds trainable 
 :::
 Training large language models (LLMs) is highly computationally intensive, requiring substantial memory for storing model weights and additional parameters during the training process. Full fine-tuning, where every model weight is updated, demands significant memory resources, often exceeding the capabilities of consumer hardware. In contrast, Parameter Efficient Fine-tuning (PEFT) offers a more manageable approach by updating only a small subset of parameters, significantly reducing memory requirements.
 
+:::note See also on AWS
+For how LoRA specifically is offered as a managed Bedrock feature — swappable adapters against a shared base model — see [Amazon Bedrock: model customization](/aws/ai/bedrock#model-customization-fine-tuning-distillation-and-lora).
+:::
+
 ![methods](/img/ai/llm/peft/full-fine-tuning.jpeg)
 
 Source: [DeepLearning.AI - Learn the fundamentals of generative AI for real-world applications](https://www.deeplearning.ai/courses/generative-ai-with-llms/)

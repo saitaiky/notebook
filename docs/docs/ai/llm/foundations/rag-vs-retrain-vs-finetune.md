@@ -123,6 +123,10 @@ Here are the key differences between the two:
    - **Specialized Information Retrieval**: RAG is ideal for handling rare or complex queries that require specialized knowledge not frequently encountered in training data.
    - **Example**: A technical support chatbot that needs to provide detailed answers based on specific technical manuals or documentation.
 
+:::note See also on AWS
+For how this decision plays out with AWS managed services — Bedrock fine-tuning, LoRA adapters, Bedrock Knowledge Bases, and the exam-oriented "without retraining" trap — see [RAG & Vector Stores](/aws/ai/rag-and-vector-stores#rag-vs-fine-tuning) and [Amazon Bedrock](/aws/ai/bedrock#model-customization-fine-tuning-distillation-and-lora).
+:::
+
 ## Challenges and Considerations
 
 When using Retrieval-Augmented Generation (RAG) and retraining, several challenges and considerations must be addressed to ensure optimal performance. 
