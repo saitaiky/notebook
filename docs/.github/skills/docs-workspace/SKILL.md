@@ -59,9 +59,9 @@ The graph is built at **Docusaurus build time**, not in the browser. The custom 
 | `src/components/KnowledgeGraph/styles.module.scss` | Canvas styles and responsive height breakpoints |
 | `src/components/Home/index.js` | Homepage component — receives `knowledgeGraph` prop, renders `<KnowledgeGraph>` |
 
-### Graph Stats (as of last build)
+### Graph Stats (as of 2026-08-20 build)
 
-- **400 nodes**, **155 links**, **317 communities** (Louvain with seeded RNG)
+- **401 nodes**, **458 explicit links**, **204 communities** (Louvain with seeded RNG; semantic edges skipped because no embedding credentials were present)
 
 ### Rendering: 3D (react-force-graph-3d)
 

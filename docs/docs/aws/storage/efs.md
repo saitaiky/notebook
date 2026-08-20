@@ -74,3 +74,10 @@ Using the EFS mount helper, you have the following options for mounting your Ama
 
 - Use `ClientConnections` to track the number of Amazon EC2 instances that are connected to a file system
 - You can see your burst credit balance by monitoring the `BurstCreditBalance` metric for your file system.
+
+## Related filesystem foundations
+
+EFS presents shared file semantics through NFS. Review the [Linux filesystem and NFS notes](/linux/file-system/) for mount
+behaviour and the [POSIX user](/linux/posix-user/) and [UID/GID permissions](/linux/uid-gid-stickbit/) pages for ownership.
+Compare [EBS](/aws/storage/ebs/) when one workload needs a block device and [S3](/aws/storage/s3/) when applications should
+use object APIs instead of filesystem semantics.

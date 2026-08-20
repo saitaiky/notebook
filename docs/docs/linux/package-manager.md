@@ -1,6 +1,7 @@
 ---
 title: "Linux Package Manager"
 description: '以原始碼的方式來安裝軟體，也就是利用廠商釋出的 Tarball 來進行軟體的安裝。不過，你應該很容易發現，那就是每次安裝軟體都需要偵測作業系統與環境、設定編譯參數、實際的編譯、 最後還要依據個人喜好的方式來安裝軟體到定位。這過程是真的很麻煩的，而且對於不熟整個系統的朋友來說，還真是累人啊！.'
+sidebar_position: 10
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 keywords:

@@ -19,6 +19,29 @@ Hello, I'm Sai. I've compiled this AWS section to document the knowledge I gaine
 
 While obtaining certifications is an achievement, the journey itself offers valuable insights. Preparation involves not just testing existing knowledge but also gaining hands-on experience with various AWS services. For example, you'll explore security-related services like AWS Inspector, AWS Config, and AWS Trusted Advisor, understanding when to use each. You'll tackle practical questions, such as setting up a VPC for internet-connected instances while keeping others isolated, ensuring file system integrity when creating AMIs, and achieving "Write Once, Read Many" (WORM) compliance for sensitive data storage. This preparation equips you to grasp these concepts and implement them effectively with AWS.
 
+## Navigate AWS by system concern
+
+The AWS pages are organised by service family, but architecture decisions usually begin with a concern. Use this map to
+move from the requirement to the relevant service section.
+
+| Concern | AWS starting points |
+| --- | --- |
+| Run and scale workloads | [EC2](/aws/compute/ec2/), [Lambda](/aws/compute/lambda/), [ECS](/aws/compute/ecs-ecr/), and [EKS](/aws/development/eks/) |
+| Store and query data | [Database overview](/aws/database/), [S3](/aws/storage/s3/), [EBS](/aws/storage/ebs/), and [EFS](/aws/storage/efs/) |
+| Connect distributed components | [SQS](/aws/integration-messaging/sqs/), [EventBridge](/aws/integration-messaging/eventbridge/), [API Gateway](/aws/integration-messaging/api-gateway/), and [Step Functions](/aws/integration-messaging/step-function/) |
+| Establish network boundaries | [VPC](/aws/networking/vpc/), [load balancing](/aws/networking/elb/), [Route 53](/aws/networking/route53/), and [private access](/aws/networking/private-access-comparison/) |
+| Control and audit access | [IAM](/aws/management/iam/), [Organizations](/aws/management/organizations/), [role assumption](/aws/security/assume-role/), and [KMS](/aws/security/kms-ssm/) |
+| Build, deploy, and operate | [AWS CI/CD](/aws/development/cicd/), [CDK](/aws/development/cdk/), [CloudFormation](/aws/development/cloudformation/), and [CloudWatch](/aws/management/cloudwatch/) |
+| Build AI systems | [AWS AI overview](/aws/ai/), [Bedrock](/aws/ai/bedrock/), and [SageMaker](/aws/ai/sagemaker/) |
+
+## Start from the foundations
+
+AWS services implement more general software and operating-system mechanisms. Use the
+[Software Development map](/software-development/) for architecture, data, identity, messaging, and delivery concepts.
+Use the [Linux learning path](/linux/) for processes, namespaces, filesystems, host users, packages, and secure remote
+operation. Each major AWS page links back to the relevant foundation so that service details remain connected to the
+reason the service exists.
+
 ## Certifications
 
 In summer 2026 I completed three AWS Professional certifications — [Solutions Architect Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/), [DevOps Engineer Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/), and [Generative AI Developer Professional](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/) — as a personal challenge, finishing all three within four weeks.
@@ -64,6 +87,3 @@ Here are the resources I used for certification preparation. Your ideal choice m
 Below are the references I feel handy when studying AWS services:
 - [AWS Global vs Regional vs AZ resources](https://jayendrapatil.com/aws-global-vs-regional-vs-az-resources/)
 - [AWS Certified SysOps Administrator Associate Exam Guide Study Path SOA-C02](https://tutorialsdojo.com/aws-certified-sysops-administrator-associate-exam-guide-study-path-soa-c02/)
-
-
-  

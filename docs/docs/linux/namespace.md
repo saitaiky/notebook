@@ -1,6 +1,7 @@
 ---
 title: Namespace
 description: 'In other words, the key feature of namespaces is that they isolate processes from each other. On a server where you are running many different services, isolating.'
+sidebar_position: 7
 keywords:
   - linux
   - namespace
@@ -72,3 +73,11 @@ In short:
 - mnt
 - uts
 - ipc
+
+## From namespaces to managed containers
+
+Namespaces define what a process can see, while cgroups limit the resources it can consume. Container runtimes combine
+these kernel mechanisms with images, networking, and lifecycle management. Continue with
+[ECS and ECR](/aws/compute/ecs-ecr/) for AWS container scheduling and registries, or [EKS](/aws/development/eks/) for the
+Kubernetes control plane. The [microservices and monoliths](/software-development/system-design/architectural-style/microservice-vs-monolith/)
+page covers the architecture decision; containers are an implementation mechanism, not a requirement for microservices.

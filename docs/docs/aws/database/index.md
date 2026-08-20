@@ -126,3 +126,11 @@ When an exam question describes a disaster recovery requirement, it's almost alw
 - "Need faster recovery, willing to pay for always-on (but smaller) DR infrastructure" → **warm standby**.
 - "Near-zero downtime and near-zero data loss, cost is not the primary constraint" → **multi-site active-active** (e.g., DynamoDB global tables, Aurora Global Database).
 :::
+
+## Related foundations
+
+Start with [data and database foundations](/software-development/database/) for modelling, normalisation, query behaviour,
+and access patterns. [SQL versus NoSQL](/software-development/system-design/data/nosql-vs-sql/) and
+[CAP](/software-development/system-design/data/cap-theorem/) explain the architecture trade-offs; this AWS section applies
+them to RDS, Aurora, DynamoDB, ElastiCache, Redshift, and migration services. For durable files or objects rather than
+database records, continue to [AWS storage](/aws/storage/s3/) and the [Linux filesystem notes](/linux/file-system/).

@@ -1,6 +1,7 @@
 ---
 title: SDLC (Software Development Life Cycle)
 description: Software Development Life Cycle (SDLC) overview covering Agile, Waterfall, and iterative methodologies, phases, and best practices for software project management.
+sidebar_position: 1
 keywords:
   - sdlc
   - software development life cycle
@@ -65,3 +66,10 @@ Different Software Development Life Cycle models have their own Pros and Cons. T
 Example, in case of an unclear requirement, Spiral and Agile models are best to be used as the required change can be accommodated easily at any stage.
 
 Waterfall model is a basic model and all the other SDLC models are based on that only.
+
+## Continue into delivery
+
+The lifecycle becomes operational through [version control](/software-development/version-control/) and
+[DevOps practices](/software-development/devops/). On AWS, [CI/CD services](/aws/development/cicd/) implement build,
+test, deployment, and release strategies, while [CloudFormation](/aws/development/cloudformation/) and
+[CDK](/aws/development/cdk/) make infrastructure changes reviewable alongside application code.

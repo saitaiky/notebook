@@ -545,3 +545,11 @@ EC2 instance goes from the `pending` state to the `terminated` state immediately
 - An EBS snapshot is corrupt.
 - The root EBS volume is encrypted and you do not have permission to access the KMS key for decryption.
 - The instance store-backed AMI that you used to launch the instance is missing a required part (an image.part.xx file).
+
+## Related foundations
+
+EC2 exposes a virtual machine, so operating-system behaviour remains part of the architecture. Review the
+[Linux learning path](/linux/), [boot sequence](/linux/loading-sequence/), [process lifecycle](/linux/process/), and
+[filesystems](/linux/file-system/) when diagnosing instance behaviour. For secure administration, compare
+[SSH](/linux/security/ssh/) with [Systems Manager Session Manager](/aws/management/ssm/). For higher-level runtime choices,
+continue with [ECS](/aws/compute/ecs-ecr/) or [Lambda](/aws/compute/lambda/).

@@ -17,9 +17,32 @@ keywords:
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+Linux is the runtime foundation beneath most server, container, and cloud workloads in this notebook. Use this page as the
+map: learn the shell and filesystem first, then users and processes, then isolation, boot, packages, and security. The
+existing kernel notes continue below the map.
+
+## Learning path
+
+| Stage | Read | Why it comes here |
+| --- | --- | --- |
+| Command line | [Bash introduction](/linux/bash-intro/) → [practical Bash](/linux/bash-practical/) | Establish the interface used by the remaining operational notes. |
+| Files and identity | [Filesystems and NFS](/linux/file-system/) → [POSIX users](/linux/posix-user/) → [UID, GID, and special permission bits](/linux/uid-gid-stickbit/) | Understand how Linux names data and enforces local ownership. |
+| Execution | [Processes](/linux/process/) → [namespaces and cgroups](/linux/namespace/) | Connect application execution to resource isolation and containers. |
+| Machine lifecycle | [Boot sequence](/linux/loading-sequence/) → [CPU architecture](/linux/cpu-architecture/) → [package management](/linux/package-manager/) | Explain how the machine starts, executes binaries, and manages installed software. |
+| Secure operation | [Linux security](/linux/security/ssh/) | Apply remote-access, encryption, and host-security controls. |
+
+## Connect Linux to software design and AWS
+
+| Linux mechanism | Software-design concept | AWS application |
+| --- | --- | --- |
+| Process lifecycle and isolation | [Stateful versus stateless design](/software-development/others/stateful-vs-stateless/) | [EC2](/aws/compute/ec2/), [ECS](/aws/compute/ecs-ecr/), and [EKS](/aws/development/eks/) |
+| Users, groups, and permissions | [Authentication and identity](/software-development/authentication/) | [IAM](/aws/management/iam/) and [role assumption](/aws/security/assume-role/) |
+| Filesystems and network mounts | [Storage concepts](/software-development/others/storage/) | [EBS](/aws/storage/ebs/), [EFS](/aws/storage/efs/), and [FSx](/aws/storage/fsx-hpc/) |
+| Shell automation and packages | [Delivery and operations](/software-development/devops/) | [AWS CI/CD](/aws/development/cicd/) and [Systems Manager](/aws/management/ssm/) |
+
 Linux is an open-source operating system kernel initially developed by Linus Torvalds in 1991. As the core component of many operating systems known as Linux distributions (or distros), it powers a vast array of devices, from servers and desktops to smartphones and embedded systems. Some popular distributions include Ubuntu, Fedora, and Debian. Linux is highly regarded for its stability, security, and flexibility, attributes that make it the backbone of most web servers, supercomputers, and cloud infrastructures. The development of Linux is a global collaborative effort involving contributions from individual developers, communities, and organizations. Its open-source nature means that the source code is freely available for anyone to study, modify, and distribute, fostering a culture of transparency and innovation. This community-driven approach has enabled Linux to continually evolve and adapt to the changing needs of technology users worldwide.
 
-## Kernel, Sheel, Drivers
+## Kernel, shell, and drivers
 
 A kernel is the core of an Operating System. It provides basic services for all other components of the OS. It is the main layer between the OS and hardware, and it helps with process and memory management, file systems, device control, and networking.
 
@@ -195,3 +218,8 @@ ttys can be of different types. For example, graphical consoles that you can acc
 
 - [第二十三章、X Window 設定介紹](http://linux.vbird.org/linux_basic/0590xwindow.php)
 - [What is the difference between a kernel, drivers, and shell?](https://www.quora.com/What-is-the-difference-between-a-kernel-drivers-and-shell)
+
+## Continue learning
+
+Return to the [Software Development map](/software-development/) for the architecture and delivery paths, or continue to
+the [AWS overview](/aws/) to apply these operating-system concepts to managed compute, storage, identity, and operations.

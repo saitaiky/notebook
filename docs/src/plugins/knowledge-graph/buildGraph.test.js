@@ -7,7 +7,8 @@ const test = require('node:test');
 const assert = require('node:assert');
 const { 
   normalizeInternalLink, 
-  deriveCanonicalRoute 
+  deriveCanonicalRoute,
+  routeFromSlug,
 } = require('./buildGraph');
 
 test('normalizeInternalLink - removes trailing hash and query', () => {
@@ -97,6 +98,16 @@ test('deriveCanonicalRoute - handles Windows path separators', () => {
 test('normalizeInternalLink - empty/root handling', () => {
   assert.strictEqual(normalizeInternalLink(''), '/');
   assert.strictEqual(normalizeInternalLink('/'), '/');
+});
+
+test('routeFromSlug - normalizes absolute and relative doc slugs', () => {
+  assert.strictEqual(routeFromSlug('/software-development'), '/software-development/');
+  assert.strictEqual(routeFromSlug('software-development/'), '/software-development/');
+  assert.strictEqual(routeFromSlug('/'), '/');
+});
+
+test('routeFromSlug - prefixes blog slugs exactly once', () => {
+  assert.strictEqual(routeFromSlug('/auth-bridging-agents/', true), '/blog/auth-bridging-agents/');
 });
 
 console.log('All tests passed!');

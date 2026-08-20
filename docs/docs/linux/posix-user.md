@@ -1,6 +1,7 @@
 ---
 title: POSIX user
 description: 'A POSIX user refers to a user account in a UNIX-like operating system that adheres to the POSIX (Portable Operating System Interface) standard. POSIX is a set of.'
+sidebar_position: 4
 keywords:
   - linux
   - posix user
@@ -26,3 +27,10 @@ A POSIX user account typically includes the following attributes:
 6. Access permissions: POSIX users are subject to file permissions and access controls, which define their level of access to various system resources.
 
 POSIX user accounts are commonly used in UNIX-like operating systems such as Linux and macOS, where adherence to POSIX standards ensures compatibility and consistency across different distributions or versions of the operating system.
+
+## Identity beyond the host
+
+A POSIX user is local to an operating-system security boundary. Application users and cloud principals are different
+layers. Read [authentication and identity](/software-development/authentication/) for federation and delegated access,
+then [AWS IAM](/aws/management/iam/) for users, roles, policies, and service identities. On managed Linux workloads, map
+cloud authorization to the narrow host-level user and group permissions the process actually needs.

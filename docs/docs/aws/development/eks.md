@@ -33,3 +33,10 @@ EKS clusters need a mapping between **IAM principals** (users/roles) and **Kuber
 :::tip Exam trap: "can't recover cluster access after a bad aws-auth edit" → access entries avoid this
 If a scenario describes a team locking themselves out of a cluster by misconfiguring the `aws-auth` ConfigMap, or needing an **auditable, IAM-native way to grant Kubernetes access without touching in-cluster config**, the answer is **EKS access entries**, not manually editing `aws-auth`.
 :::
+
+## Related foundations
+
+Kubernetes schedules containers, while Linux [namespaces and cgroups](/linux/namespace/) provide the underlying process
+isolation and resource controls. [POSIX users](/linux/posix-user/) explain host identity; [AWS IAM](/aws/management/iam/)
+and Kubernetes RBAC form separate authorization layers that EKS must map deliberately. Compare [ECS](/aws/compute/ecs-ecr/)
+when the workload needs managed container orchestration but not the Kubernetes API or ecosystem.

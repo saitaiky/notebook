@@ -1,95 +1,77 @@
 ---
-title: Software development
-description: Software development
+title: 'Software Development'
+description:
+  'A structured guide to programming, delivery, system design, data, identity, Linux foundations, and their AWS
+  implementations.'
 keywords:
-  - hasura
-  - docs
-  - manual
-  - graphql engine
+  - software development
+  - system design
+  - programming
+  - devops
+  - linux
+  - aws architecture
 slug: /software-development
 sidebar_label: Overview
 sidebar_position: 0
 ---
 
-import Link from "@docusaurus/Link";
+This section connects the work of building software to the systems that run it. The material is organised as a path from
+development fundamentals, through delivery and architecture, to Linux runtime behaviour and AWS service choices. You can
+follow the path end to end or enter at the layer that matches the problem you are solving.
 
-import {
-  CustomTOCList,
-  CustomTOCListSection,
-  CustomTOCListHead,
-  CustomTOCListContent,
-} from "@site/src/components/CustomTOCList";
+## Choose a learning path
 
+| Goal                                          | Suggested path                                                                                                                                                                                                 |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build and ship software reliably              | [SDLC](/software-development/sdlc/) → [Programming](/software-development/programming/) → [Version control](/software-development/version-control/) → [Delivery and operations](/software-development/devops/) |
+| Design a production system                    | [System design](/software-development/system-design/) → [Data and databases](/software-development/database/) → [Authentication and identity](/software-development/authentication/)                           |
+| Understand the runtime beneath an application | [Linux foundations](/linux/) → [Processes](/linux/process/) → [Filesystems](/linux/file-system/) → [Isolation with namespaces](/linux/namespace/)                                                              |
+| Apply the concepts on AWS                     | [AWS overview](/aws/) → [Compute](/aws/compute/ec2/) → [Integration and messaging](/aws/integration-messaging/sqs/) → [Operations](/aws/management/cloudwatch/)                                                |
+| Prepare for architecture interviews           | [Interview and communication](/software-development/interview/) after completing the relevant technical path above                                                                                             |
 
-My aim in this software development section is to share essential concepts for software architects, offering insights into the technical knowledge and practices crucial for designing effective and efficient software solutions. Here are some key topics that will be explored in detail later on this website:
+## Browse by area
 
-- System Architecture: Understand different architectural patterns, such as microservices, monolithic, serverless, and event-driven architectures. Select the appropriate architecture based on project requirements.
-    - Scalability: Know how to design systems that can scale horizontally and vertically to handle increased loads. Consider load balancing, distributed databases, and caching mechanisms.
-    - Performance Optimization: Implement techniques to optimize system performance, including database indexing, code optimization, and query optimization.
-        - Caching: Implement caching strategies to improve system performance. Know when to use in-memory caches, content delivery networks (CDNs), or distributed caches like Redis.
-    - Security: Be well-versed in security best practices, including data encryption, authentication, authorization, and protection against common vulnerabilities like SQL injection and cross-site scripting (XSS).
-    - API Design: Develop RESTful or GraphQL APIs and understand API security, versioning, and documentation best practices.
-    - Integration and Middleware: Design systems that integrate with other applications and services using messaging queues, APIs, and middleware.
-    - Cost Optimization: Make cost-effective decisions, considering cloud resource usage and managing expenses efficiently.
-    - Architectural Patterns: Know various architectural patterns, like the Layered Architecture, MVC, and SOA, and apply them as appropriate.
-- Data 
-    - Data Storage: Understand various data storage options, such as relational databases, NoSQL databases, data warehousing, and distributed file systems. Choose the right storage solution for specific use cases.
-    - Database Design: Design efficient database schemas and understand data modeling concepts.
-- Operational
-    - DevOps Practices: Understand DevOps principles, including infrastructure as code (IaC), automation, and collaboration between development and operations teams.
-        - Continuous Integration and Continuous Deployment (CI/CD): Implement CI/CD pipelines to automate code testing, build processes, and deployments.
-    - Agile Methodologies: Work within agile development frameworks like Scrum or Kanban to facilitate iterative development and collaboration.
-    - Disaster Recovery: Design disaster recovery plans to ensure business continuity in the event of data loss, system failures, or natural disasters. Utilize backup and recovery solutions.
-    - Monitoring and Logging: Set up monitoring and logging systems to track system performance, detect issues, and troubleshoot problems. Tools like Prometheus, Grafana, and ELK (Elasticsearch, Logstash, Kibana) can be valuable.
-    - Version Control: Use version control systems like Git to manage source code and collaborate with development teams effectively.
-- Containerization and Orchestration: Understand containerization technologies like Docker and container orchestration platforms like Kubernetes to manage and deploy applications efficiently.
-- Cloud Services: Familiarize yourself with major cloud platforms (e.g., AWS, Azure, Google Cloud) and know how to leverage their services, such as serverless computing, databases, and storage solutions.
-- Compliance and Regulations: Be aware of industry-specific regulations (e.g., GDPR, HIPAA) and ensure that your solutions comply with relevant data protection and privacy requirements.
+- **[Programming](/software-development/programming/)** develops the language, complexity, asynchronous-programming, and
+  refactoring foundations used by the rest of the site.
+- **[Version control](/software-development/version-control/)** covers daily Git work and the merge strategies that
+  support collaborative delivery.
+- **[Delivery and operations](/software-development/devops/)** connects testing, CI/CD, observability, GitOps, and the
+  “you build it, you run it” operating model.
+- **[System design](/software-development/system-design/)** owns vendor-neutral architecture, APIs, scaling, messaging,
+  security, and reliability trade-offs.
+- **[Data and databases](/software-development/database/)** covers modelling, relational and NoSQL choices, query
+  efficiency, and distributed data concerns.
+- **[Authentication and identity](/software-development/authentication/)** explains identity providers, OAuth/OIDC,
+  delegated access, and service identity.
+- **[Cross-cutting architecture concepts](/software-development/others/)** collects operational topics that span several
+  lifecycle stages, including monitoring, disaster recovery, storage, and quality.
+- **[Interview and communication](/software-development/interview/)** turns the technical material into reusable
+  stories, discovery conversations, demonstrations, and system-design responses.
 
-A Solution Architect is fundamentally a problem solver, tasked with efficiently addressing and resolving issues using a variety of tools. As such, this section will also cover emerging technologies and best practices, as they are crucial elements in making informed and effective architectural decisions.
+## Connect concepts to Linux and AWS
 
-## Learn from genesis
+The general pages explain why a design works. Linux pages show how the runtime enforces it, and AWS pages show one
+managed implementation. The links below are bridges, not substitutes: start with the concept when you need a mental
+model and move to AWS when you need service-specific decisions.
 
-Learning from the approaches of successful people can offer valuable insights and inspiration, thus I like to follow the social media accounts of these industrial leaders. That said, it's also worth mentioning that you should consider the context and whether their methods align with your goals and circumstances.
+| Concept                           | Runtime foundation                                                                                                                       | AWS implementation                                                                                                                                                   |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Processes, isolation, and scaling | [Linux processes](/linux/process/) and [namespaces](/linux/namespace/)                                                                   | [EC2](/aws/compute/ec2/), [ECS and ECR](/aws/compute/ecs-ecr/), and [EKS](/aws/development/eks/)                                                                     |
+| Identity and least privilege      | [POSIX users](/linux/posix-user/) and [Linux permissions](/linux/uid-gid-stickbit/)                                                      | [IAM](/aws/management/iam/), [Cognito](/aws/management/cognito/), and [role assumption](/aws/security/assume-role/)                                                  |
+| Persistence and shared files      | [Linux filesystems and NFS](/linux/file-system/)                                                                                         | [EBS](/aws/storage/ebs/), [EFS](/aws/storage/efs/), [S3](/aws/storage/s3/), and [AWS databases](/aws/database/)                                                      |
+| Asynchronous integration          | [Queues and delivery semantics](/software-development/system-design/sync-async/queue/overview/)                                          | [SQS](/aws/integration-messaging/sqs/), [EventBridge](/aws/integration-messaging/eventbridge/), and [Step Functions](/aws/integration-messaging/step-function/)      |
+| Delivery and operations           | [SDLC](/software-development/sdlc/), [DevOps](/software-development/devops/), and [GitOps](/software-development/devops/gitops/)         | [AWS CI/CD](/aws/development/cicd/), [CDK](/aws/development/cdk/), [CloudFormation](/aws/development/cloudformation/), and [CloudWatch](/aws/management/cloudwatch/) |
+| Data architecture                 | [Data management](/software-development/system-design/data/data-management/) and [database foundations](/software-development/database/) | [RDS and Aurora](/aws/database/rds/), [DynamoDB](/aws/database/dynamoDB/), [ElastiCache](/aws/database/elastic-cache/), and [Redshift](/aws/database/redshift/)      |
 
-Below are some approaches that great technical people use in tech. 
+## A practical reading method
 
-- Learning K8s with only command lines and API docs with out Googling. This approach is inspired by [Kelsey hightower
-/Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
-- How [Bret Fisher](https://www.bretfisher.com/) study K8s
-    - He started with the documentation with the samples. Also, he used the generated YAML from the command line using `kubectl create`. 
-    - Then, he began using other scratch commands to fill in his gaps and understand new fields that he needed to add to his resource and to make it do what he needs the command to do.
+For a new topic, I start with the vendor-neutral mechanism, inspect the Linux behaviour when the operating system
+matters, and only then choose an AWS service. This sequence makes service comparisons easier because the decision is
+anchored in a requirement—latency, consistency, isolation, delivery semantics, or operational ownership—rather than in a
+list of product names.
 
-## Tool box
-
-- Docker
-    - [colima](https://github.com/abiosoft/colima)
-- Package manager
-    - [HomeBrew](https://brew.sh/)
-    - nvm
-    - [pyenv](https://realpython.com/intro-to-pyenv/#install)
-        - [How to Use `pyenv`: Practical Tips and Commands](/software-development/programming/python/pyenv-poetry/)
-        - [Medium: The right way to install Python on a Mac](https://medium.com/marvelous-mlops/the-rightway-to-install-python-on-a-mac-f3146d9d9a32)
-        - [Stackoverflow: How to use pip for pyenv?](https://stackoverflow.com/questions/52060867/how-to-use-pip-for-pyenv)        
-- Debug / Testing
-    - [Use VSCode debugger when working with AWS CDK](https://cloudash.dev/blog/use-vscode-debugger-for-cdk)
-    - AWS: [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp?#roles)
-    - Prompts evaluation: [promptfoo](https://github.com/promptfoo/promptfoo)
-
-## API references
-
-- AWS
-    - SageMaker 
-        - SDK
-            - [Using the SageMaker Python SDK](https://sagemaker.readthedocs.io/en/v2.223.0/overview.html)
-            - [Utility APIs](https://sagemaker.readthedocs.io/en/v2.223.0/api/utility/index.html)
-            - [AWS CDK Reference Documentation](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sagemaker.CfnModel.ContainerDefinitionProperty.html)
-        - Examples
-            - [Introduction to Amazon Algorithms](https://sagemaker-examples.readthedocs.io/en/latest/introduction_to_amazon_algorithms/index.html)
-            - [Github: amazon-sagemaker-examples](https://github.com/aws/amazon-sagemaker-examples/tree/main)
-            - [Github: amazon-sagemaker-generativeai](https://github.com/aws-samples/amazon-sagemaker-generativeai/tree/main)
-
-## Study materials
-
-- [system-design-101](https://github.com/ByteByteGoHq/system-design-101?tab=readme-ov-file)
-- [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability?tab=readme-ov-file#architecture)
+Useful external references include [System Design 101](https://github.com/ByteByteGoHq/system-design-101),
+[Awesome Scalability](https://github.com/binhnguyennus/awesome-scalability), and
+[Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way). For local tooling, the relevant
+notes are linked from [Python environments](/software-development/programming/python/pyenv-poetry/),
+[Git basics](/software-development/version-control/basic/), and [Linux package management](/linux/package-manager/).

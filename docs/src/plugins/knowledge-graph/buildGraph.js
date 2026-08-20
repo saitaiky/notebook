@@ -135,6 +135,22 @@ function deriveCanonicalRoute(filePath, isBlog = false) {
 }
 
 /**
+ * Convert a frontmatter slug into the canonical graph route.
+ * Docusaurus commonly stores doc slugs with a leading slash; strip it before
+ * adding the route prefix so `/software-development` never becomes
+ * `//software-development/` in the graph.
+ */
+function routeFromSlug(slug, isBlog = false) {
+  const cleanSlug = String(slug).replace(/^\/+|\/+$/g, '');
+
+  if (isBlog) {
+    return cleanSlug ? `/blog/${cleanSlug}/` : '/blog/';
+  }
+
+  return cleanSlug ? `/${cleanSlug}/` : '/';
+}
+
+/**
  * Load and parse frontmatter from a markdown file.
  * Returns {title, description, slug, tags, url, contentType, section}.
  * slug in frontmatter overrides derived route.
@@ -160,10 +176,10 @@ function parseFrontmatter(filePath, derivedRoute, isBlog = false) {
   // For blogs with slug override, build /blog/{slug}/ (Docusaurus omits the date from the route).
   // For docs, use slug override directly.
   let url;
-  if (isBlog && slug) {
-    url = `/blog/${slug}/`;
+  if (slug) {
+    url = routeFromSlug(slug, isBlog);
   } else {
-    url = slug ? `/${slug}/` : derivedRoute;
+    url = derivedRoute;
   }
 
   // Derive section from source file path, not URL — a slug override changes
@@ -411,4 +427,10 @@ async function buildGraphCached(siteDir) {
   return graphBuildCache.get(siteDir);
 }
 
-module.exports = { buildGraph, buildGraphCached, normalizeInternalLink, deriveCanonicalRoute };
+module.exports = {
+  buildGraph,
+  buildGraphCached,
+  normalizeInternalLink,
+  deriveCanonicalRoute,
+  routeFromSlug,
+};

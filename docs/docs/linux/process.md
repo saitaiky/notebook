@@ -1,6 +1,7 @@
 ---
 title: Zombie Process
 description: 'In the world of Linux, a zombie process refers to any process that is essentially removed from the system as ‘defunct’, but still somehow resides in the processor.'
+sidebar_position: 6
 keywords:
   - linux
   - zombie process
@@ -23,6 +24,13 @@ Also sometimes referred to as a process in a ‘terminated state,’ a Zombie pr
 ### fork(), wait() & SIGCHILD
 
 A process created in Unix system must use the kernel function `fork()` , and the address space is cloned from parent process. In Unix system, the parent process is responsible for reap the child process status and memory stack. Then, the parent process calls `wait()` waiting the child process to terminate and reply a `SIGCHLD` signal, once parent process receive this signal it starts to reap the child process. 
+
+## Process ownership in cloud runtimes
+
+[EC2](/aws/compute/ec2/) exposes the virtual-machine boundary and leaves process supervision largely to the operating
+system. [ECS](/aws/compute/ecs-ecr/) and [EKS](/aws/development/eks/) add schedulers that start, stop, and replace container
+processes. [Lambda](/aws/compute/lambda/) moves process lifecycle further behind a managed invocation model. Compare these
+options with [stateful and stateless design](/software-development/others/stateful-vs-stateless/) before choosing a runtime.
 
 So, there is a problem that if the parent process decide not to wait the termination of the child, no one is responsible for the reap and there is one zombie process in system.
 

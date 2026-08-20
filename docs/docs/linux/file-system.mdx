@@ -1,6 +1,7 @@
 ---
 title: "File system"
 description: 'NFS (Network File System) is basically developed for sharing of files and folders between Linux/Unix systems by Sun Microsystems in 1980. It allows you to mount y.'
+sidebar_position: 3
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 keywords:
@@ -105,3 +106,11 @@ ext4:
 - **Limitations**: Like NTFS, ext4 may have limitations when it comes to cross-platform compatibility. While ext4 can be accessed on Windows systems with third-party tools, it may not fully support all ext4 features.
 
 In summary, NTFS and ext4 are both modern file systems that offer various features for managing files, but they are associated with different operating systems (Windows for NTFS and Linux for ext4). When choosing between them, consider the platform you're working with, the specific features you need, and the compatibility requirements for your data and applications.
+
+## Apply filesystem concepts on AWS
+
+The local filesystem model helps distinguish AWS storage types. [EBS](/aws/storage/ebs/) provides block devices that an
+instance formats and mounts, [EFS](/aws/storage/efs/) provides shared NFS-compatible file storage, and
+[S3](/aws/storage/s3/) is object storage rather than a mounted POSIX filesystem. Use
+[FSx](/aws/storage/fsx-hpc/) when a managed specialised filesystem better matches the workload. The storage choice should
+follow access semantics, sharing, durability, and performance requirements rather than a familiar directory interface.

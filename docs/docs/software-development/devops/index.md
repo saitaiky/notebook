@@ -1,6 +1,7 @@
 ---
 title: DevOps
 description: DevOps overview covering shift-left and shift-right testing practices, culture, automation, and the principles for faster, more reliable software delivery.
+sidebar_position: 0
 keywords:
   - devops
   - devops overview
@@ -128,3 +129,13 @@ This doesn't mean there aren't people or teams who specialize, only that the lin
 
 - [Considerations for your DevOps toolchain](https://www.atlassian.com/devops/devops-tools/choose-devops-tools)
 - [Atlassian - DevOps Best Practices](https://www.atlassian.com/devops/what-is-devops/devops-best-practices#:~:text=DevOps%20best%20practices%20include%20agile,%2C%20observability%2C%20and%20continuous%20feedback.)
+
+## Related foundations and AWS services
+
+DevOps connects lifecycle, source control, automation, and runtime feedback. Read [SDLC](/software-development/sdlc/)
+and [version control](/software-development/version-control/) for the upstream development flow. Use
+[Linux](/linux/) for the process, shell, package, and permission mechanics that delivery automation controls.
+
+For AWS implementations, continue with [AWS CI/CD](/aws/development/cicd/), [CloudFormation](/aws/development/cloudformation/),
+[CDK](/aws/development/cdk/), and [CloudWatch](/aws/management/cloudwatch/). These pages cover service-specific mechanics;
+the DevOps page remains the owner of the general delivery and feedback model.

@@ -100,3 +100,9 @@ ssh-add ~/.ssh/id_ed25519
 ```
 ssh-add adds private key identities (from your ~/.ssh directory) to the authentication agent (ssh-agent), so that the ssh agent can take care of the authentication for you, and you don’t have type in passwords at the terminal.
 
+## SSH in AWS operations
+
+SSH is one access path, not the default answer for every cloud host. [EC2](/aws/compute/ec2/) covers instance key pairs and
+host access, while [AWS Systems Manager](/aws/management/ssm/) can provide audited session access without exposing an SSH
+port or distributing long-lived host keys. Protect private keys locally, scope the AWS principal that can start a session,
+and prefer a centrally logged access path for production systems.

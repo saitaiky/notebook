@@ -234,3 +234,11 @@ If the following conditions are required, we recommend deploying multiple contai
 If these conditions aren't required, we recommend deploying containers separately in multiple task definitions. This is because, by doing so, you can scale, provision, and deprovision them separately.
 
 > Source: [Using the Fargate launch type](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html)
+
+## Related foundations
+
+Containers depend on Linux [processes](/linux/process/) plus [namespaces and cgroups](/linux/namespace/) for isolation and
+resource control. ECS adds task placement, replacement, networking, identity, and service lifecycle on top of those
+mechanisms; ECR stores the images. Use the [system-design hub](/software-development/system-design/) to decide service
+boundaries before selecting a container scheduler, and compare [EKS](/aws/development/eks/) when Kubernetes APIs or its
+ecosystem are a requirement.

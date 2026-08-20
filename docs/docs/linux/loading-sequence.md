@@ -1,6 +1,7 @@
 ---
 title: Bootup Sequence
 description: 'Press the power button on your system and after few moments you may see the Linux login prompt. Have you ever wondered what happens behind the scenes from the tim.'
+sidebar_position: 8
 keywords:
   - linux
   - bootup sequence

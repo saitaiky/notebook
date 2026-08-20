@@ -56,6 +56,14 @@ In this example policy, when attached to the IAM group "Developers," will grant 
 }
 ```
 
+## Related identity foundations
+
+Use [authentication and identity](/software-development/authentication/) to distinguish identity providers, OAuth/OIDC,
+delegated user access, and service credentials. AWS IAM principally authorizes AWS principals and resources; it is not a
+replacement for application authentication. On a Linux host, [POSIX users](/linux/posix-user/) and
+[UID/GID permission bits](/linux/uid-gid-stickbit/) form another boundary. Map identities across these layers explicitly
+and grant each one only the permissions required for its role.
+
 
 ### Example 2
 

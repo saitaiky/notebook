@@ -1,6 +1,7 @@
 ---
 title: "Bash practical"
 description: '| Symbols | Meaning | |---------|---------| | | Represents ''0 or more'' arbitrary characters | | ? | Represents ''exactly one'' arbitrary character | | [ ] | Represe.'
+sidebar_position: 2
 metaTitle: "Syntax Highlighting is the meta title tag for this page"
 metaDescription: "This is the meta description for this page"
 keywords:
