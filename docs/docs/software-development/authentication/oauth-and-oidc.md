@@ -1,87 +1,98 @@
 ---
-title: "OAuth 2.0 & OpenID Connect (OIDC)"
-description: "The difference between authorization and authentication, and how OAuth and OIDC solve different problems."
+title: OAuth 2.0 and OpenID Connect
+description: 'How OAuth delegates API access, how OpenID Connect authenticates users, and how to implement the authorization-code flow safely.'
+keywords:
+  - oauth 2.0
+  - openid connect
+  - oidc
+  - pkce
+  - authorization code
+  - access token
+  - id token
 ---
 
-# OAuth 2.0 & OpenID Connect (OIDC)
+OAuth 2.0 is an authorization framework: it lets a client obtain limited access to a protected API. OpenID Connect (OIDC)
+adds an identity layer so a client can authenticate a user and receive an ID Token.
 
-## The confusion: OAuth vs authentication
+The practical distinction is:
 
-**OAuth 2.0** is *not* an authentication protocol — it's an **authorization protocol**. It lets you delegate access to your resources without sharing your password.
+- **Access token:** presented to a resource server to authorize an API call.
+- **ID Token:** validated by the OIDC client as a statement about an authentication event and user.
 
-**OpenID Connect (OIDC)** is a layer *on top of* OAuth 2.0 that adds **authentication**.
+An API should not accept an ID Token as a substitute for its access token.
 
-### What's the difference?
+## Roles
 
-**Authorization:** "Can this person access this resource?" (e.g., can they read your files?)
+| Role | Responsibility |
+| --- | --- |
+| Resource owner | Grants access to protected resources, often an end user |
+| Client | Requests authorization and calls the protected API |
+| Authorization server / OpenID Provider | Authenticates the user, obtains authorization, and issues tokens |
+| Resource server | Hosts the API and validates access tokens |
+| User agent | Usually the browser used for redirect-based interaction |
 
-**Authentication:** "Who is this person?" (e.g., is this really Jane Smith?)
+Authentication and authorization are separate decisions. Knowing who a user is does not prove they may perform a
+particular action.
 
-## OAuth 2.0 authorization flow
+## Authorization Code flow with PKCE
 
-Typical scenario: you want to let an app access your Google Drive without sharing your Google password.
+For interactive browser and native-app scenarios, the modern baseline is the Authorization Code flow with PKCE:
 
-```
-1. You click "Connect with Google" in the third-party app
-2. You are redirected to Google's login page
-3. You authenticate to Google (username + password)
-4. Google asks: "App XYZ wants access to your Drive. Allow?"
-5. You click "Allow"
-6. Google redirects you back to App XYZ with an access token
-7. App XYZ uses that token to call Google Drive APIs on your behalf
-```
+1. The client creates a high-entropy code verifier and its S256 code challenge.
+2. The client sends the user agent to the authorization endpoint with the client ID, exact registered redirect URI,
+   requested scope, challenge, and transaction protections.
+3. The authorization server authenticates the user and obtains authorization where required.
+4. The browser returns to the client with a short-lived authorization code—not an access token.
+5. The client sends the code and verifier to the token endpoint over a direct HTTPS connection.
+6. The authorization server validates the code, redirect URI, client binding, and PKCE proof, then returns tokens.
+7. For OIDC, the client validates the ID Token before creating an application session.
 
-The third-party app never sees your Google password. It only gets a token that lets it access your files.
+PKCE binds the code exchange to the client instance that began the flow. Public clients must use it; current security
+guidance also recommends it for confidential clients. Do not use the implicit grant as the default.
 
-### Key OAuth terms
+## Validate the right token at the right boundary
 
-| Term | Meaning |
-|------|---------|
-| **Resource owner** | You (the person whose data is being accessed) |
-| **Client** | The third-party app requesting access |
-| **Authorization server** | The IdP (e.g., Google) that issues tokens |
-| **Resource server** | The API hosting your data (often the same company as the auth server) |
-| **Access token** | A credential the client uses to call APIs on your behalf |
-| **Scope** | Permission limits (e.g., `drive.readonly` means read-only access to Drive) |
-| **Redirect URI** | Where the auth server sends you back after you approve |
+An OIDC client validating an ID Token should check at least:
 
-## OpenID Connect (OIDC) — adding authentication
+- signature against trusted issuer keys;
+- issuer and audience;
+- expiration and other time constraints;
+- nonce when used;
+- any flow-specific requirements.
 
-OIDC extends OAuth 2.0 to also answer "who are you?" by adding:
+A resource server validating an access token should check the token mechanism required by its authorization server,
+including issuer, audience/resource, expiry, and scopes or claims. Token shape is not universal: access tokens may be JWTs
+or opaque references.
 
-1. **An ID token** — a signed JWT containing identity claims (name, email, profile picture, etc.)
-2. **UserInfo endpoint** — an API to fetch the authenticated user's profile
-3. **Standardized claims** — a common set of identity attributes all OIDC providers understand
+## Security checklist
 
-Example OIDC login flow:
-```
-1. App redirects you to Google's OIDC authorization endpoint
-2. You authenticate and consent
-3. Google returns an authorization code
-4. App exchanges the code for an access token AND an ID token
-5. App validates the ID token's signature and reads your identity
-6. App is now certain you are who you claim to be
-```
+- Register redirect URIs exactly; do not allow open redirectors.
+- Use TLS end to end.
+- Use Authorization Code with PKCE and S256.
+- Use a transaction-bound CSRF defence according to the protocol and provider: PKCE, OIDC nonce, or one-time state as
+  applicable.
+- Keep client secrets out of browser and native application bundles.
+- Request the least scope and shortest useful token lifetime.
+- Rotate refresh tokens where supported and handle reuse detection.
+- Do not log authorization codes, tokens, client secrets, or sensitive claims.
+- Prefer maintained protocol libraries over constructing flows manually.
 
-The **access token** is used to call APIs (`scope: drive.readonly`).
-The **ID token** proves your identity (`scope: openid`).
+## Choose the protocol
 
-## When to use OAuth 2.0 vs OIDC
+| Requirement | Starting point |
+| --- | --- |
+| A client needs delegated access to an API | OAuth 2.0 |
+| An application needs user sign-in and identity claims | OIDC using OAuth 2.0 |
+| One service calls another as itself | Client Credentials or workload identity, subject to platform policy |
+| One service must preserve a user's delegated context | A documented token-exchange or on-behalf-of pattern |
 
-| Scenario | Use |
-|----------|-----|
-| "I want this app to access my photos on Flickr" | OAuth 2.0 (authorization only) |
-| "I want to log into an app using my Google account" | OIDC (authentication + authorization) |
-| "I want this service to call another API on my behalf" | OAuth 2.0 + On-Behalf-Of (see next section) |
+Continue with [service credentials and delegation](/software-development/authentication/service-credentials-and-delegation/),
+[on-behalf-of token exchange](/software-development/authentication/obo-token-exchange/), and the
+[OAuth architecture review](/software-development/system-design/security/authentication/oauth/).
 
-## Common confusion
+## Primary references
 
-People often say "OAuth login" but technically mean "OIDC login". OIDC is OAuth 2.0 + authentication layer.
-
-Most modern IdPs (Google, Microsoft Azure AD, Okta) support both:
-- **OAuth 2.0 scopes** for authorization (e.g., `Mail.Read`, `Files.ReadWrite`)
-- **OIDC scopes** for authentication (e.g., `openid`, `profile`, `email`)
-
-## Next: delegated authorization
-
-If you need *this service* to call *another service* on behalf of the authenticated user, that's a different problem. See [On-Behalf-Of (OBO) Flow](./obo-token-exchange.md).
+- [OAuth 2.0 Security Best Current Practice, RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html)
+- [OAuth 2.0 Authorization Framework, RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html)
+- [Proof Key for Code Exchange, RFC 7636](https://www.rfc-editor.org/rfc/rfc7636.html)
+- [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)

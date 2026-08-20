@@ -1,116 +1,98 @@
 ---
-title: "File system"
-description: 'NFS (Network File System) is basically developed for sharing of files and folders between Linux/Unix systems by Sun Microsystems in 1980. It allows you to mount y.'
+title: Linux Filesystems and Mounts
+description: 'A practical model of Linux paths, inodes, links, mounts, capacity, permissions, NFS, and cloud storage choices.'
 sidebar_position: 3
-metaTitle: "Syntax Highlighting is the meta title tag for this page"
-metaDescription: "This is the meta description for this page"
 keywords:
-  - linux
-  - file system
-  - file
-  - system
+  - linux filesystem
+  - inode
+  - mount
+  - symbolic link
   - nfs
-  - network
-  - basically
-  - developed
+  - storage
 ---
 
+Linux presents files through one directory tree rooted at <code>/</code>. Different filesystems are attached to that tree
+at mount points. A path is therefore not a physical disk location; it is a name resolved through directory entries and the
+calling process's mount namespace.
 
-# NFS
-NFS (Network File System) is basically developed for sharing of *files* and *folders* between Linux/Unix systems by Sun Microsystems in 1980. It allows you to mount your local file systems over a network and remote hosts to interact with them as they are mounted locally on the same system. With the help of NFS, we can set up file sharing between *Unix* to *Linux* system and *Linux* to *Unix* system.
+## Files, names, and inodes
 
+On common Unix filesystems, a directory entry maps a name to an inode. The inode stores file metadata and points to file
+data; the filename belongs to the directory entry.
 
-## File Commands
+- A **hard link** adds another directory entry for the same inode.
+- A **symbolic link** stores a path to resolve later.
+- Removing one hard link does not remove the underlying file while another link or open descriptor still references it.
+- A process can continue using an open file after its directory entry is removed, which explains some "disk full but I
+  deleted the log" incidents.
 
-```bash
-# Copy source_directory recursively to destination. If destination exists, copy source_directory into destination, otherwise create destination with the contents of source_directory.
-cp -r source_directory destination
+Inspect with:
 
-# Rename or move file1 to file2. If file2 is an existing directory, move file1 into directory file2
-mv file1 file2
+~~~bash
+ls -li PATH
+stat PATH
+readlink -f PATH
+lsof +L1
+~~~
 
-# Create symbolic link to linkname
-ln -s /path/to/file linkname
+## Mounts and filesystem types
 
-# Create an empty file or update the access and modification times of file.
-touch file
+~~~bash
+findmnt
+lsblk -f
+df -h
+df -i
+du -xhd1 PATH
+~~~
 
-# Browse through a text file
-# less is most useful for viewing the content of large files or the results of commands that produce many lines of output.
-less file
+<code>df</code> reports filesystem capacity; <code>du</code> walks visible directory entries. They can disagree because
+of deleted-but-open files, mount boundaries, snapshots, reserved blocks, or concurrent changes. Check both free blocks
+and free inodes.
 
-# Display the first & last 10 lines of file
-head file
-tail file
+Persistent mounts are commonly described in <code>/etc/fstab</code>. Prefer stable identifiers such as UUIDs rather than
+device names that may change across boots.
 
-# Display the last 10 lines of file and "follow" the file as it grows.
-tail -f file
-```
+## Permissions are evaluated during path traversal
 
-## Useful tips
+Access depends on the process credentials, directory traversal permissions, target mode or ACL, mount options, and
+possibly a mandatory-access-control policy. A writable file is not reachable if the process cannot traverse a parent
+directory. The <code>namei -l PATH</code> command is useful for viewing every path component.
 
-### How do I run a shell script without using “sh” or “bash” commands?
-- Add a "shebang" at the top of your file: `#!/bin/bash`
-- And make your file executable `(chmod +x script.sh)`.
-- Finally, modify your path to add the directory where your script is located (typically, you want `$HOME/bin` for storing your own scripts):
-`export PATH=$PATH:/appropriate/directory`
+Continue with [POSIX users](/linux/posix-user/) and [special permission bits](/linux/uid-gid-stickbit/).
 
-### Why my cd command in makefile doesn't work?
+## Local and network filesystems
 
-When you write a `cd some_directory`. It is actually executing the command, changing the directory to some_directory, however, this is performed in a sub-process shell, and affects neither make nor the shell you're working from.
+ext4 and XFS are common Linux local filesystems. NFS exposes a shared filesystem over a network, changing failure and
+performance assumptions: latency, server availability, identity mapping, caching, and mount behaviour now matter.
 
-If you're looking to perform more tasks within `some_directory`, you need to add a semi-colon and append the other commands as well. Note that you cannot use newlines as they are interpreted by make as the end of the rule, so any newlines you use for clarity needs to be escaped by a backslash.
+Before choosing shared files, ask:
 
-```makefile
-all:
-  cd some_dir; echo "I'm in some_dir"; gcc -Wall -o myTest myTest.c
-```
+- Must several hosts see the same POSIX namespace?
+- Are concurrent writers expected?
+- What consistency and locking semantics does the application require?
+- What happens when the network or storage server is slow?
+- Does the workload need block, file, or object semantics?
 
-### pushd command to change directory
+## AWS storage map
 
-In a Makefile, use `pushd` to change directories temporarily and then return to the original directory with `popd`. Here's a concise example:
+| Requirement | Starting point |
+| --- | --- |
+| Block device for one compute attachment pattern | [EBS](/aws/storage/ebs/) |
+| Shared NFS-compatible filesystem | [EFS](/aws/storage/efs/) |
+| Durable object storage and API access | [S3](/aws/storage/s3/) |
+| Managed specialised filesystem | [FSx](/aws/storage/fsx-hpc/) |
 
-```makefile
-SHELL := /bin/bash
+S3 is object storage, not a POSIX filesystem. A tool that presents objects through a mount does not automatically provide
+the atomic rename, locking, metadata, latency, or consistency behaviour expected from a local filesystem.
 
-.PHONY: build clean
+## Operational checklist
 
-build:
-	@echo "Building project"
-	@pushd src > /dev/null && $(MAKE) all && popd > /dev/null
+For a failed write, check identity and path traversal, read-only or restrictive mount options, free blocks, free inodes,
+quotas, filesystem errors, and deleted-but-open files. For a slow path, separate application I/O, local device latency,
+network filesystem latency, and downstream storage throttling.
 
-clean:
-	@echo "Cleaning project"
-	@pushd src > /dev/null && $(MAKE) clean && popd > /dev/null
-```
+## References
 
-- **`SHELL := /bin/bash`**: Ensures the Makefile uses Bash.
-- **`pushd src > /dev/null && $(MAKE) all && popd > /dev/null`**: Changes to `src`, runs `make all`, then returns to the original directory. `> /dev/null` suppresses output.
-
-## NTFS vs ext4
-
-NTFS (New Technology File System) and ext4 (Fourth Extended File System) are two different file systems used in different operating systems. Here's a comparison of NTFS and ext4:
-
-NTFS:
-- **Origin**: NTFS was developed by Microsoft and is the default file system used in Windows operating systems.
-- **Features**: NTFS offers advanced features like support for large file sizes, file compression, file encryption, access control lists (ACLs), and journaling, which helps in recovering from system crashes or power failures.
-- **Compatibility**: NTFS is primarily used on Windows systems. It has limited support on other operating systems, which may be read-only or require third-party tools for full access.
-- **Performance**: NTFS generally provides good performance, especially on Windows systems. It's optimized for use on modern hardware and supports features like defragmentation.
-- **Limitations**: NTFS has limitations when it comes to full interoperability with non-Windows systems. Its advanced features might not be fully accessible on other platforms.
-
-ext4:
-- **Origin**: ext4 is a widely used file system in the Linux ecosystem and is the successor to ext3.
-- **Features**: ext4 offers features like support for large file sizes, journaling for better recovery, improved performance through delayed allocation, and support for extents (contiguous ranges of blocks) which helps improve file storage efficiency.
-- **Compatibility**: ext4 is the default file system for many Linux distributions. While it is natively supported on Linux systems, it may not be fully supported on Windows or other operating systems without third-party tools.
-- **Performance**: ext4 is known for its solid performance on Linux systems. It is well-suited for a wide range of workloads and use cases.
-- **Limitations**: Like NTFS, ext4 may have limitations when it comes to cross-platform compatibility. While ext4 can be accessed on Windows systems with third-party tools, it may not fully support all ext4 features.
-
-In summary, NTFS and ext4 are both modern file systems that offer various features for managing files, but they are associated with different operating systems (Windows for NTFS and Linux for ext4). When choosing between them, consider the platform you're working with, the specific features you need, and the compatibility requirements for your data and applications.
-
-## Apply filesystem concepts on AWS
-
-The local filesystem model helps distinguish AWS storage types. [EBS](/aws/storage/ebs/) provides block devices that an
-instance formats and mounts, [EFS](/aws/storage/efs/) provides shared NFS-compatible file storage, and
-[S3](/aws/storage/s3/) is object storage rather than a mounted POSIX filesystem. Use
-[FSx](/aws/storage/fsx-hpc/) when a managed specialised filesystem better matches the workload. The storage choice should
-follow access semantics, sharing, durability, and performance requirements rather than a familiar directory interface.
+- [mount(8)](https://man7.org/linux/man-pages/man8/mount.8.html)
+- [path_resolution(7)](https://man7.org/linux/man-pages/man7/path_resolution.7.html)
+- [inode(7)](https://man7.org/linux/man-pages/man7/inode.7.html)

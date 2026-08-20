@@ -1,225 +1,62 @@
 ---
 title: Linux
-description: 'Linux is an open-source operating system kernel initially developed by Linus Torvalds in 1991. As the core component of many operating systems known as Linux dist.'
+description: 'A practical Linux learning path for software engineers: shell, files, identity, processes, memory, networking, services, containers, packages, security, and operations.'
 sidebar_label: Home
 sidebar_position: 0
 keywords:
   - linux
-  - open
-  - source
-  - operating
-  - system
-  - kernel
-  - initially
-  - developed
+  - operating systems
+  - software engineering
+  - cloud runtime
+  - containers
+  - troubleshooting
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-Linux is the runtime foundation beneath most server, container, and cloud workloads in this notebook. Use this page as the
-map: learn the shell and filesystem first, then users and processes, then isolation, boot, packages, and security. The
-existing kernel notes continue below the map.
+Linux is the runtime beneath most server, container, and cloud workloads in this notebook. This section is organised around
+the questions an engineer faces in production: what is running, what can it access, where is its state, how does traffic
+reach it, how is it supervised, and what evidence explains a failure?
 
 ## Learning path
 
-| Stage | Read | Why it comes here |
+| Stage | Read | Outcome |
 | --- | --- | --- |
-| Command line | [Bash introduction](/linux/bash-intro/) → [practical Bash](/linux/bash-practical/) | Establish the interface used by the remaining operational notes. |
-| Files and identity | [Filesystems and NFS](/linux/file-system/) → [POSIX users](/linux/posix-user/) → [UID, GID, and special permission bits](/linux/uid-gid-stickbit/) | Understand how Linux names data and enforces local ownership. |
-| Execution | [Processes](/linux/process/) → [namespaces and cgroups](/linux/namespace/) | Connect application execution to resource isolation and containers. |
-| Machine lifecycle | [Boot sequence](/linux/loading-sequence/) → [CPU architecture](/linux/cpu-architecture/) → [package management](/linux/package-manager/) | Explain how the machine starts, executes binaries, and manages installed software. |
-| Secure operation | [Linux security](/linux/security/ssh/) | Apply remote-access, encryption, and host-security controls. |
+| Work at the command line | [Bash introduction](/linux/bash-intro/) → [practical Bash](/linux/bash-practical/) | Understand shell startup, quoting, redirection, pipes, exit status, and safe composition. |
+| Understand state and identity | [Filesystems](/linux/file-system/) → [POSIX users](/linux/posix-user/) → [permissions and special bits](/linux/uid-gid-stickbit/) | Explain paths, mounts, ownership, permissions, and persistence. |
+| Understand program execution | [Kernel and userspace](/linux/kernel-userspace-system-calls/) → [processes and signals](/linux/process/) → [memory](/linux/memory/) | Follow a program from a system call through scheduling, virtual memory, and termination. |
+| Understand communication | [Linux networking](/linux/networking/) | Diagnose DNS, routes, listening sockets, and failed connections layer by layer. |
+| Operate long-running workloads | [Namespaces and cgroups](/linux/namespace/) → [boot](/linux/loading-sequence/) → [systemd services](/linux/services-systemd/) | Connect containers and services to the host mechanisms that start, isolate, and supervise them. |
+| Maintain and diagnose hosts | [CPU architecture](/linux/cpu-architecture/) → [package management](/linux/package-manager/) → [observability](/linux/observability/) → [security](/linux/security/ssh/) | Select compatible binaries, manage trusted software, gather evidence, and secure access. |
+
+## A production troubleshooting loop
+
+Start with the symptom, then move down the stack without guessing:
+
+1. Confirm the request and the failure boundary: client, DNS, network, process, dependency, or storage.
+2. Inspect service state and recent logs.
+3. Check resource pressure: CPU, memory, disk space, file descriptors, and connection limits.
+4. Verify identity and permissions.
+5. Compare the running configuration and package version with the intended state.
+6. Change one thing, observe the result, and record what the evidence disproved.
+
+The [observability page](/linux/observability/) turns this loop into a command-oriented checklist.
 
 ## Connect Linux to software design and AWS
 
-| Linux mechanism | Software-design concept | AWS application |
+| Linux mechanism | Software-design concern | AWS implementation |
 | --- | --- | --- |
-| Process lifecycle and isolation | [Stateful versus stateless design](/software-development/others/stateful-vs-stateless/) | [EC2](/aws/compute/ec2/), [ECS](/aws/compute/ecs-ecr/), and [EKS](/aws/development/eks/) |
-| Users, groups, and permissions | [Authentication and identity](/software-development/authentication/) | [IAM](/aws/management/iam/) and [role assumption](/aws/security/assume-role/) |
-| Filesystems and network mounts | [Storage concepts](/software-development/others/storage/) | [EBS](/aws/storage/ebs/), [EFS](/aws/storage/efs/), and [FSx](/aws/storage/fsx-hpc/) |
-| Shell automation and packages | [Delivery and operations](/software-development/devops/) | [AWS CI/CD](/aws/development/cicd/) and [Systems Manager](/aws/management/ssm/) |
-
-Linux is an open-source operating system kernel initially developed by Linus Torvalds in 1991. As the core component of many operating systems known as Linux distributions (or distros), it powers a vast array of devices, from servers and desktops to smartphones and embedded systems. Some popular distributions include Ubuntu, Fedora, and Debian. Linux is highly regarded for its stability, security, and flexibility, attributes that make it the backbone of most web servers, supercomputers, and cloud infrastructures. The development of Linux is a global collaborative effort involving contributions from individual developers, communities, and organizations. Its open-source nature means that the source code is freely available for anyone to study, modify, and distribute, fostering a culture of transparency and innovation. This community-driven approach has enabled Linux to continually evolve and adapt to the changing needs of technology users worldwide.
-
-## Kernel, shell, and drivers
-
-A kernel is the core of an Operating System. It provides basic services for all other components of the OS. It is the main layer between the OS and hardware, and it helps with process and memory management, file systems, device control, and networking.
-
-For example, if you want to have a certain network feature (like a core firewall mechanism), but you forget to include that feature in your core, then no matter how hard you try to configure the network package, sorry, it won't work! In other words, whatever task you want your computer to perform, it must have "core support" for it! This standard applies to both Windows and Linux operating systems! If someone develops a "brand new hardware" that is currently not supported by the existing core in either Windows or Linux, well, regardless of the system you use, haha! That hardware will be useless!
-
-Since the original distribution has already considered how to use the core, we don't need to recompile the core! Especially because the distribution actively releases new versions of the core RPM, so there's really no need to do it ourselves!:::
-
-### Kernel
-
-![Linux hardware-kernal-shell](/img/linux/hardware-kernal-shell.png)
-
-Kernel is program that represent the central core of a computer operating system. It controls everything that occurs in the system. Kernel interacts with the hardwares on demand from applications.
-
-A kernel can be contrasted with a shell (such as bash, csh or ksh in Unix-like operating systems), which is the outermost part of an operating system and a program that interacts with user commands. The kernel itself does not interact directly with the user, but rather interacts with the shell and other programs as well as with the hardware devices on the system, including the processor (also called the central processing unit or CPU), memory and disk drives.
-
-Because of its critical nature, the kernel code is usually loaded into a protected area of memory, which prevents it from being overwritten by other, less frequently used parts of the operating system or by application programs.
-
-:::info Difference between Mac and Linux kernel in one line
-The macOS kernel (XNU) has been around longer than Linux and was based on a combination of two even older code bases. On the other hand, Linux is newer, written from scratch, and is used on many more devices.
-
-```bash
-$ uname -r # Get kernel version
-4.15.0-39-generic
-```
-So my Linux kernel version is 4.15.0-39, where: 
-
-- 4 : Kernel version
-- 15 : Major revision
-- 0 : Minor revision
-- 39 : Patch level or number
-- generic : Linux distro/kernel specific additional info
-:::
-
-#### What the kernel does
-
-The kernel has 4 jobs:
-
-1. Memory management: Keep track of how much memory is used to store what, and where
-2. Process management: Determine which processes can use the central processing unit (CPU), when, and for how long
-3. Device drivers: Act as mediator/interpreter between the hardware and processes
-4. System calls and security: Receive requests for service from the processes
-
-source: [What is the Linux kernel?](https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel)
-
-####  Where the kernel fits within the OS
-To put the kernel in context, you can think of a Linux machine as having 3 layers:
-
-1. The hardware: The physical machine—the bottom or base of the system, made up of memory (RAM) and the processor or central processing unit (CPU), as well as input/output (I/O) devices such as storage, networking, and graphics. The CPU performs computations and reads from, and writes to, memory.
-2. The Linux kernel: The core of the OS. (See? It’s right in the middle.) It’s software residing in memory that tells the CPU what to do.
-3. User processes: These are the running programs that the kernel manages. User processes are what collectively make up user space. User processes are also known as just processes. The kernel also allows these processes and servers to communicate with each other (known as inter-process communication, or IPC).
-
-source: [What is the Linux kernel?](https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel)
-
-### Shell
-A shell is a program that provides the traditional, text-only user interface for Linux and other Unix-like operating system. The term shell derives its name from the fact that it is an outer layer of an operating system.
-
-Shell is a program which gives us the ability to interact with the operating system. The shell is a program layer which understands and execute the commands that user enters. shell is also called as command interpreter .
-
-### Drivers
-Drivers in Linux are the programs which are specifically written for the specific device.
-
-A driver communicates with the device through the computer bus or communications subsystem to which the hardware connects.
-
-The main purpose of device drivers is to provide abstraction by acting as a translator between a hardware device and the applications or operating system that use it.
-
-simply the driver is a kernel program which drives the particular device to which it is associated.
-
-for example, when we click button of mouse, particular associated driver gets invoked and it runs the further routines to give output of the clicked button.
-
-every device in the system has its associated driver.
-
-## Relationship of Kernel, Shell, Distro, OS
-**OS** is just kernel and Shell which work hand in hand.
-
-**Distro (dsitribution)** is combination of customized shell(s) working on a kernel.This means,for example-Kali,Ubuntu,fedora,Mint etc are different distros which work on Linux kernel.
-
-<Tabs className="api-tabs">
-<TabItem value="rpm" label="RPM-based">
-  <ul>
-    <li>Red Hat</li>
-    <li>CentOS</li>
-    <li>Fedora</li>
-  </ul>
-</TabItem>
-<TabItem value="debian" label="Debian-based">
-  <ul>
-    <li>Raspberry Pi OS</li>
-    <li>Ubuntu</li>
-  </ul>
-</TabItem>
-</Tabs>
-
-
-**Shell** acts as an interface between the user and the kernel.Shell can be command line interface or Graphic user interface.Bash,sh,Windows GUI are some shells.
-
-**Kernel** is hub of operating system.It allocates time and memory to programs and handles the filestore etc.
-
-To further explain shell and Kernel suppose you type cd . The shell searches the filestore for the file containing the program cd, and then requests the kernel, through system calls, to execute the program cd on myfile.
-
-:::info Examples
-- **Windows GUI **is a Shell,**Windows OS** a disribution by Microsoft.
-- **Ubuntu OS** or **fedora OS** etc a distro working on various shell using Linux kernel.
-
-Shell or a distro does not make Kernel more user friendly to use but it makes it usable for user.
-
-So now,simply you can say Linux is a kernel. Linux + shell(Bash,Gnome etc) is a Linux distro say Ubuntu,Mint,Kali etc and each of them is a OS.
-:::
-
-source: [What's the relationship between a Linux OS and a kernel?](https://stackoverflow.com/questions/3403938/whats-the-relationship-between-a-linux-os-and-a-kernel##:~:text=OS%20is%20just%20kernel%20and,the%20user%20and%20the%20kernel.)
-
-## Dual Mode operations in OS
-
-> TL;DR - User mode restricts access to privileged resources, while kernel mode has full access to these resources.
-
-In an operating system, errors in one program can adversely affect many processes. For example, a process stuck in an infinite loop could affect the correct operation of other processes. To ensure the proper execution of the operating system, there are two modes of operation: user mode and kernel mode (synonymous to the terms – **kernel mode and user mode**). 
-
-![Kernel_Architecture](/img/linux/Kernel_Architecture.jpeg)
-Source: [Linux Kernel Architecture](https://vlinux-freak.blogspot.com/2019/02/linux-kernel-architecture.html)
-
-Memory is divided into 2 areas, known as **kernel space and user space**.
-
-- **User Space/Mode** is the memory area where all **user mode** applications works and this memory can be swapped out when needed. Userspace process normally runs in its own virtual memory space and unless explicitly requested, cannot access the memory of other processes. Due to the protection afforded by this sort of isolation, crashes in **user mode** are always recoverable.
-- **Kernel Space/Mode** is strictly reserved for running the kernel, OS background process, kernel extensions and device drivers. In Linux kernel space gives full access to the hardware, although some extensions runs in the user space. Crashes in **kernel mode** are catastrophic; they will halt the entire PC.
-
-These two modes are enforced by the CPU hardware. The CPU operates in either user mode or kernel mode, switching between them as necessary to execute different types of operations. Below is how It Works
-
-1. **Mode Bit:** The CPU has a mode bit that determines the current mode. If the bit is set to 0, the CPU is in kernel mode; if set to 1, it is in user mode.
-2. **Privileged Instructions:** Certain instructions can only be executed in kernel mode. If a user mode program tries to execute these instructions, the CPU raises an exception. For example, accessing a privileged CPU instruction or modifying memory that it has no access to, then a trappable exception is thrown. Instead of your entire system crashing, only that particular application crashes.
-3. **System Calls:** When a user mode program needs to perform a privileged operation (e.g., accessing hardware), it makes a system call. This switches the CPU to kernel mode, the operation is performed, and then the CPU switches back to user mode.
-
-
-## What is X Window?
-
-The X Window System, often referred to as ‘X11’ or simply ‘X’, is a foundational technology for graphical user interfaces on Unix-like operating systems, including Linux. It serves as a base for graphical environments and desktops, providing the core functionality that allows users to interact with the operating system and applications using windows, menus, buttons, and other graphical elements.
-
-
-![Modern X window](/img/linux/KDE_Plasma_5.16.png)A modern example of a graphical user interface using X11 and KDE Plasma 5.16
-
-> 為什麼稱圖形使用者介面為X呢？因為由英文單字來看，Window的W接的就是X啦！意指Window的下一版就是了！ 需注意的是，X Window並不是X Windows喔！
-
-### How X Window System Works
-
-![streams](/img/linux/simple-X-window-system-architecture.png)
-
-The X Window System works on a client-server model.
-
-- **Server**: Primarily responsible for drawing and displaying screen images.
-  - The main function of X Server (whether it's Xorg or XFree86, they are both X servers) is to manage display hardware on the host regarding aspects like graphics card, screen resolution, keyboard type, mouse type, etc.
-  X Server also has an important task, which is to inform X Client about actions from input devices (such as keyboard, mouse, etc.). Since X Server manages these peripheral hardware, it informs X Client about the actions of these peripherals. However, X Server itself doesn't know what display effects these peripheral device actions will have, so it informs X Client about these actions, allowing X Client to handle them.
-- **Clients**: Primarily responsible for handling "events."
-  - Clients are the GUI applications that users interact with. They could be running on the same machine as the server or on a different machine over the network.
-  - One of the biggest advantages of this system is that X Client doesn't need to know about the hardware setup or operating system of X Server. X Client merely handles drawing data, so it doesn't matter what hardware or OS the X Server on the client side uses.
-- **Display**: This is the combination of the monitor, mouse, keyboard, and related input/output hardware.
-- **Window Manager**: An additional program that determines the appearance of windows and how they behave.
-
-### Simplified Interaction Process
-
-![streams](/img/linux/x_client_os.gif)
-
-1. A client application wants to create a window.
-2. It sends a request to the X server.
-3. The X server creates the window and manages inputs and outputs for that window.
-4. The window manager controls how the window looks and the way the user can interact with it (resizing, moving, closing).
-5. The client application draws its interface in the window by sending draw commands to the server. The server interprets these commands and renders the output on the screen.
-6. User inputs like keyboard strokes or mouse movements are sent via the server to the client application.
-
-
-## What is tty?
-In essence, tty is short for teletype, but it's more popularly known as terminal. It's basically a device (implemented in software nowadays) that allows you to interact with the system by passing on the data (you input) to the system, and displaying the output produced by the system.
-
-ttys can be of different types. For example, graphical consoles that you can access with the Ctrl+Alt+Fn key combination, or terminal emulators like Gnome terminal that run inside an X session. To learn more about tty, head here.
-
-
-- [第二十三章、X Window 設定介紹](http://linux.vbird.org/linux_basic/0590xwindow.php)
-- [What is the difference between a kernel, drivers, and shell?](https://www.quora.com/What-is-the-difference-between-a-kernel-drivers-and-shell)
-
-## Continue learning
-
-Return to the [Software Development map](/software-development/) for the architecture and delivery paths, or continue to
-the [AWS overview](/aws/) to apply these operating-system concepts to managed compute, storage, identity, and operations.
+| Processes, signals, and resource limits | [Reliability](/software-development/system-design/models-patterns-strategy/scaling/reliability/) and graceful shutdown | [EC2](/aws/compute/ec2/), [ECS](/aws/compute/ecs-ecr/), and [EKS](/aws/development/eks/) |
+| Users, groups, permissions, and capabilities | [Authentication and identity](/software-development/authentication/) | [IAM](/aws/management/iam/) and [role assumption](/aws/security/assume-role/) |
+| Block devices, filesystems, and network mounts | [Storage concepts](/software-development/others/storage/) | [EBS](/aws/storage/ebs/), [EFS](/aws/storage/efs/), [S3](/aws/storage/s3/), and [FSx](/aws/storage/fsx-hpc/) |
+| Namespaces and cgroups | Isolation, scheduling, and multi-tenancy | [ECS](/aws/compute/ecs-ecr/) and [EKS](/aws/development/eks/) |
+| Services, packages, and shell automation | [Delivery and operations](/software-development/devops/) | [AWS CI/CD](/aws/development/cicd/) and [Systems Manager](/aws/management/ssm/) |
+| Logs and system metrics | [Monitoring](/software-development/others/monitoring/) | [CloudWatch](/aws/management/cloudwatch/) |
+
+## How deep should an application engineer go?
+
+You do not need to memorise every kernel subsystem. You should be able to explain the boundary between a process and the
+kernel, inspect the process and network state of a host, recognise resource exhaustion, and connect a container or managed
+AWS service to the Linux mechanism it abstracts. Learn a command together with the question it answers; command lists
+without a diagnostic model are difficult to transfer to a new incident.
+
+Continue with [kernel and userspace](/linux/kernel-userspace-system-calls/) for the runtime model, or return to the
+[Software Development map](/software-development/) to follow a design concern from code to cloud.

@@ -1,134 +1,105 @@
 ---
 title: CAP Theorem
-description: CAP theorem explained covering consistency, availability, and partition tolerance trade-offs, with examples of CP, AP, and CA distributed database systems.
+description: 'A precise, practical explanation of consistency and availability during network partitions, including quorum behaviour and system-design decisions.'
 keywords:
   - cap theorem
-  - consistency availability partition
+  - linearizability
+  - availability
+  - network partition
   - distributed systems
-  - cap trade-offs
-  - database consistency
-  - eventual consistency
-  - nosql cap
+  - quorum
 ---
 
-CAP stands for “Consistency”, “Availability”, and “Partition tolerance”. A network partition is a (temporary) network failure between nodes. Partition tolerance means being able to keep the nodes in a distributed database running even when there are network partitions. The theorem states that, in a distributed database, you can only ensure consistency or availability in the case of a network partition.
+CAP describes a narrow but important distributed-systems trade-off: **while a network partition prevents some nodes from
+communicating, a system cannot guarantee both linearizable consistency and a successful response from every non-failing
+node**.
 
-Modern databases are usually distributed and have multiple nodes over a network. Since network failures are inevitable, it’s important to decide beforehand the behavior of nodes in a database, in the event that packets are dropped/lagged or a node becomes unresponsive.
+It is not a general instruction to "choose two of three." Outside a partition, a system can provide both consistency and
+availability. During a partition, the design must decide which operations can continue and which must reject, block, or
+return weaker results.
 
-Understanding the CAP Theorem can be crucial for system design interviews, where you're expected to showcase your ability to clearly outline the implications of each characteristic and recognize the appropriate trade-offs for different applications tailored to specific requirements.
+## Define the terms precisely
 
+| Property | Meaning in CAP |
+| --- | --- |
+| Consistency | Operations appear to occur in one real-time order; after a completed write, a later read observes that write. This is commonly described as linearizability. |
+| Availability | Every request received by a non-failing node eventually receives a non-error response, even if that response contains older data. |
+| Partition | Messages between groups of nodes are delayed or lost long enough that the groups cannot coordinate. |
 
-## Partition tolerance and theorem definition
+These definitions are stronger and more specific than everyday uses of "consistent" and "available." A quick error
+response does not satisfy CAP availability, and eventual consistency is not CAP consistency.
 
-The CAP theorem is a fundamental concept that applies to distributed databases, and it's comprised of three components: **Consistency**, **Availability**, and **Partition Tolerance**. To put it in simple terms:
+## What CP and AP mean during a partition
 
-- **Consistency** means that all nodes in a distributed system see the same data at the same time. It ensures that any read request to the system after a write has been acknowledged returns the value of that write.
-- **Availability** ensures that the system remains operational and can always process requests, even in the event of failures. It doesn't promise that every transaction will be completed, but it does promise that a response will be given, whether it's a success or a failure message.
-- **Partition Tolerance** means the system continues to operate despite arbitrary message loss or failure of part of the system (partitions). It's the system's resilience to network splits.
+Assume five replicas use a majority quorum and the network separates them into groups of three and two.
 
+### Consistency-first behaviour
 
-:::info Does consistency in CAP mean strong consistency?
-In a strongly consistent database, if data is written and then immediately read after, it should always return the updated data. The problem is that in a distributed system, network communication doesn’t happen instantly, since nodes/servers are physically separated from each other and transferring data takes >0 time. 
+The majority side can continue if it can prove that it owns the current term or lease. The minority side rejects or
+blocks operations that could conflict. The whole system does not necessarily stop; quorum prevents two sides from both
+committing incompatible histories.
 
-This is why it’s not possible to have a perfectly, strongly consistent distributed database. In the real world, when we talk about databases that prioritize consistency, we usually refer to databases that are eventually consistent, with a very short, unnoticeable lag time between nodes.
-:::
+This is appropriate when returning or accepting conflicting state would violate an invariant, such as allocating the
+same unique resource twice.
 
-:::warning Does consistency in CAP mean strong consistency?
-I’ve heard the CAP Theorem defined differently as “Choose 2 of the 3, Consistency, Availability or Partition Tolerance”?
+### Availability-first behaviour
 
-This definition is incorrect. You can only choose a database to prioritize consistency or availability in the case of a network partition. You can’t choose to forfeit the “P” in CAP, because network partitions happen all the time in the real world. A database that is not partition tolerant would mean that it’s unresponsive during network failures, and could not be available either.
-:::
+Both sides may continue accepting operations, then reconcile after communication recovers. The application needs an
+explicit conflict model: last-write-wins, mergeable data types, domain reconciliation, or compensating action. "We will
+fix it later" is not a conflict strategy.
 
-Imagine in **a multi-primary architecture scenario** which data can be written to multiple nodes (Node A and Node B). Under normal circumstances, an update made to Node A is also passed along to Node B, making sure that both nodes are in sync.
+This is appropriate when continued local progress matters more than immediately presenting one global order.
 
-```mermaid
-graph LR;
-    clientA[Client A] -- Write Request --> NodeA[Node A]
-    NodeA -- Sync Update --> NodeB[Node B];
-    clientB[Client B] -- Read Request --> NodeB;
-    clientC[Client C] -- Read Request --> NodeA;
-```
+## Reads are part of the trade-off
 
-However, if a network partition occurs, and Node A cannot communicate with Node B, they cannot sync up. The way each node responds to new information depends on the priorities set by the database configuration, specifically whether it favors consistency or availability.
+Reads are not automatically safe during a partition. A linearizable read may need a quorum, a valid leader lease, or
+another coordination mechanism. A node that cannot prove its state is current must reject or delay that read to preserve
+the guarantee. A stale or eventually consistent read can often remain available.
 
-```mermaid
-graph LR;
-    NodeA[Node A] -.-> NodeB[Node B];
-    NodeB -.-> NodeA;
-    clientA[Client A] -- Write Request --> NodeA;
-    clientB[Client B] --> NodeB;
-    classDef partitioned stroke-dasharray: 5 5;
-    class NodeA,NodeB partitioned;
-```
+## Products are not permanently CP or AP
 
-### Consistency
-In a system that prioritizes consistency, both Node A and Node B would refuse any write requests during a network partition. This ensures that no out-of-sync updates can occur—if Node A has received an update, then Node B must also have it before either node accepts new write requests.
+Avoid classifying a database with one CAP label. Behaviour can change with:
 
-```mermaid
-graph LR;
-    clientA[Client A] -- Write Denied --> NodeA[Node A];
-    clientB[Client B] -- Write Denied --> NodeB[Node B];
-    NodeA -- Partitioned, No Sync --> NodeB;
-```
+- read and write consistency settings;
+- quorum size and replica topology;
+- leader election and failure detection;
+- operation type;
+- region and network design;
+- conflict resolution and retry policy.
 
-### Availability
-On the other hand, in a system that prioritizes availability, it accepts the fact that data may temporarily be out of sync in order to ensure that service continues regardless of partition issues. Each node will continue to accept write requests. Once the partition is resolved, the system will work on syncing the data across nodes to achieve eventual consistency.
+For example, a service can offer strongly consistent reads for one request and eventually consistent reads for another.
+Document the guarantee of the operation and configuration you actually use.
 
-```mermaid
-graph LR;
-    clientA[Client A] -- Write Request --> NodeA[Node A];
-    clientB[Client B] -- Write Request --> NodeB[Node B];
-    NodeA -- Partitioned, Will Sync Later --> NodeB;
-```
+## Architecture decision
 
-### Conclusion
+Ask these questions in order:
 
-:::info Read requests
-Notice that only write requests were discussed above. This is because read requests don’t affect the state of the data, and don’t require re-syncing between nodes. Read requests are typically fine during network partitions for both consistent and available databases.
-:::
+1. Which business invariants must never be violated?
+2. Which operations may return stale data?
+3. During loss of coordination, which side is allowed to accept writes?
+4. How will callers distinguish rejection, timeout, and accepted-but-not-yet-reconciled work?
+5. How are retries made idempotent?
+6. How are conflicts detected and resolved after recovery?
+7. What latency trade-offs exist even when there is no partition?
 
-:::info SQL databases
-SQL databases like MySQL, PostgreSQL, Microsoft SQL Server, Oracle, etc, usually prioritize consistency. **Primary-secondary replication** is a common distributed architecture in SQL databases, and in the event of a primary becoming unavailable, the role of primary would failover to one of the replica nodes. During this failover process and electing a new primary node, the database cannot be written to, so that consistency is preserved.
-:::
+CAP alone does not select a database. Normal operation is often dominated by latency, durability, transaction semantics,
+cost, and operational ownership. PACELC is a useful reminder: if there is a partition, consider availability versus
+consistency; else, consider latency versus consistency.
 
-In conclusion, the CAP theorem states that a distributed system can have at most two of the following three properties: Consistency, Availability, and Partition Tolerance. During network partitions, a choice must be made between consistency and availability.
+## Worked example: inventory reservation
 
+If overselling a unique item is unacceptable, the reservation operation should run only where the system can enforce the
+inventory invariant. During a partition, some callers will receive a retryable failure rather than a false success.
 
-## Databases
+If the business accepts provisional orders and later compensation, more partitions may accept work. The architecture must
+then expose provisional status and implement reconciliation, customer communication, and refund behaviour. The decision
+is a business contract implemented by distributed-systems mechanics.
 
-Here's a table listing some of the most common databases along with their cloud platforms, categorized by whether they prioritize consistency or availability:
+Continue with [replication](/software-development/system-design/data/horizontal-scaling/replication/),
+[queue delivery semantics](/software-development/system-design/sync-async/queue/overview/), and
+[AWS databases](/aws/database/).
 
-| Database (Cloud Platform)        | Prioritize Consistency | Prioritize Availability |
-|----------------------------------|------------------------|------------------------|
-| MongoDB                          |                        | ✓                      |
-| Cassandra                        |                        | ✓                      |
-| Apache CouchDB                   |                        | ✓                      |
-| DynamoDB (AWS)                   |                        | ✓                      |
-| SQL Databases                    | ✓                      |                        |
-| MariaDB (AWS RDS)                | ✓                      |                        |
-| Oracle (Oracle Cloud)            | ✓                      |                        |
-| Redis                            | ✓                      |                        |
-| Google BigTable                  | ✓                      |                        |
+## References
 
-## Choosing the Right Trade-off
-
-In a system design interview, you may be asked which approach to take. Here's what to consider:
-
-- **Consistency:** Choose this if your system requires transactions to be seen by all users at the same time, like financial services.
-- **Availability:** Choose this if your system should be responsive and always online, like social media platforms.
-- **Partition Tolerance:** Must be chosen if your system is distributed across multiple nodes and network partitions are a risk.
-
-
-## Examples:
-
-### Q1
-
-Question: When architecting a distributed database for an e-commerce platform that mirrors Amazon's functionality, with a focus on real-time stock validation to forestall issuing refunds, which attribute of the CAP Theorem — consistency or availability — should be the foundation of your database design?
-
-Answer: **Consistency** is essential in this context. During a scenario where network partitions occur and database nodes cannot communicate, it is preferable to temporarily prevent any transactions (hence rejecting all write operations) than to risk multiple customers successfully ordering a single item in stock due to concurrent writes on disparate nodes. An emphasis on *availability*, conversely, would permit such conflicting operations, leading inevitably to customer dissatisfaction due to order cancellations and refunds.
-
-### Q2
-
-Questions: If after careful deliberation, project managers determine that refunding customers for items sold during network outages is more cost-efficient than displaying out-of-stock messages, does this alter the database's priority between consistency or availability according to the CAP Theorem?
-
-Answer: **Availability** should now take precedence. The refined business strategy suggests that the occasional need to process refunds, due to selling unavailable stock, is more acceptable than completely stopping sales when the network is unserviceable. This pivot aligns with an available system that continues to accept write operations (new purchases) even when a network partition is present, ensuring continual sales activity at the expense of the occasional post-purchase stock consistency issue.
+- [Gilbert and Lynch, Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services](https://www.cs.princeton.edu/courses/archive/spring24/cos418/papers/cap.pdf)
+- [Gilbert and Lynch, Perspectives on the CAP Theorem](https://groups.csail.mit.edu/tds/papers/Gilbert/Brewer2.pdf)

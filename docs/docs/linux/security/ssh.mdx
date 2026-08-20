@@ -1,108 +1,101 @@
 ---
-title: "SSH"
-description: 'SSH (Secure Shell) agent is a program that assists with SSH key management. In the context of SSH authentication, an SSH agent saves your private keys and communi.'
-metaTitle: "!!!Syntax Highlighting is the meta title tag for this page"
-metaDescription: "This is the meta description for this page"
+title: SSH
+description: 'Secure Shell trust, host verification, key authentication, agents, configuration, forwarding risks, and AWS access patterns.'
+sidebar_position: 1
 keywords:
-  - linux
-  - security
   - ssh
-  - secure
-  - shell
-  - agent
-  - program
-  - assists
+  - public key authentication
+  - ssh agent
+  - known hosts
+  - secure remote access
 ---
 
-SSH (Secure Shell) agent is a program that assists with SSH key management. In the context of SSH authentication, an SSH agent saves your private keys and communicates with SSH clients to perform authentication without requiring you to manually enter your passphrase each time.
+SSH protects remote terminal sessions, command execution, and file transfer over an untrusted network. Secure operation
+requires two different trust decisions:
 
-Here's a more detailed explanation:
+1. The client verifies the server host key.
+2. The server authenticates the user or workload.
 
-## What is SSH?
+Encryption without host verification can still connect you securely to the wrong machine.
 
-SSH is a protocol used to securely log into remote systems across insecure networks. It encrypts the connection between the SSH client (the user's machine) and the SSH server (the remote host). SSH uses public-key cryptography for both authentication and establishing a secure connection.
+## Host verification
 
-### SSH Authentication Process
+The client stores trusted host keys in <code>known_hosts</code>. On first use, verify the fingerprint through a separate
+trusted channel before accepting it. Treat an unexpected changed-host-key warning as an investigation, not an obstacle to
+remove automatically.
 
-1. **Key Generation**: You generate a pair of cryptographic keys, a public key and a private key.
-2. **Key Deployment**: You copy your public key to the remote host's authorized keys list while keeping the private key secure on your local machine.
-3. **Authentication**: When logging in, the SSH server verifies that you possess the corresponding private key by offering a challenge that can only be correctly responded to by someone with the private key.
+For managed fleets, distribute host certificates or verified host keys instead of teaching users to accept any prompt.
 
-### SSH Agent
+## Public-key authentication
 
-The problem with the above process is that if your private key is encrypted with a passphrase (which it should be for security), you must enter this passphrase every time you use the key. This can become tedious if you frequently SSH into servers. Enter SSH agent, a key manager that:
+Generate a modern key and protect it with a strong passphrase for interactive use:
 
-- **Holds private keys** in memory, decrypted, for the duration of an active user session.
-- **Handles authentication requests** from SSH clients using the loaded keys.
-- **Eliminates the need** to repeatedly enter passphrases during a session.
+~~~bash
+ssh-keygen -t ed25519 -a 64 -f ~/.ssh/id_ed25519
+~~~
 
-:::info Usage
+The private key remains on the client. The public key or a trusted user certificate is installed on the server. Keep
+private-key permissions restrictive and never paste a private key into a ticket, chat, repository, or shell history.
 
-When you start a session, you can add your private keys to the agent by executing `ssh-add`. If your keys are passphrase-protected, you will need to enter the passphrase once.
+Passphrase-less keys may be justified for tightly controlled automation, but they need compensating controls: limited
+account privileges, constrained destinations or commands, short lifetime, secret-store protection, rotation, and
+monitoring. They should not be the default example for a developer's personal key.
 
-```shell
-$ ssh-add ~/.ssh/id_rsa
-```
+## SSH agent
 
-SSH clients are configured to communicate with the agent and use it for authentication when connecting to a remote server.
-:::
+An agent holds unlocked private keys in memory and performs signing operations for clients:
 
-### SSH Agent Forwarding
-
-SSH agent can also handle SSH agent forwarding, which allows you to connect from the server you're logged into to another server, without having your keys on the intermediate server. This is useful but also poses a security risk if not used carefully.
-
-:::warning Considerations
-
-- **Security Implication**: You should be cautious with agent forwarding because if a server you're using is compromised, an attacker might use your ssh-agent to authenticate to other servers.
-- **Life Span**: By default, the ssh-agent doesn't persist across system reboots. Keys need to be re-added after a reboot.
-
-SSH agent is often started automatically by the system or during the login session for the desktop environment, but it can be manually started as well with the `ssh-agent` command.
-
-```shell
-$ eval $(ssh-agent -s)
-```
-:::
-
-## Examples
-
-### Generate key for gitHub
-
-[Generating a new SSH key pair](https://gitlab.com/help/ssh/README#generating-a-new-ssh-key-pair)
-Following best practices, you should always favor **ED25519** SSH keys, since they are more secure and have better performance over the other types.
-
-``` shell
-git config --global user.name "Your Username"
-git config --global user.email "Your Email"
-
-cd ~/.ssh
-# Check if any keys exsist?
-
-#這樣在~/.ssh就會產生id_ed25519和id_rsa.pub，id_ed25519.pub就是公開的sshkey
-ssh-keygen -t ed25519 -C "email@example.com"
-#Generating public/private rsa key pair.
-#Enter file in which to save the key (/Users/QbsuranAlang/.ssh/id_ed25519): (直接return / 比個名尼條key)
-#Enter passphrase (empty for no passphrase): (直接return)
-#Enter same passphrase again: (直接return)
-```
-
-### Adding ssh keys for single sign-on 
-
-``` shell
-# Copy your public SSH key to the clipboard
-xclip -sel clip < ~/.ssh/id_ed25519.pub
- 
-# Go to the host server and edit their authorized_keys
-vi ~/.ssh/authorized_keys
-
-# ========== If you have mutiple ssh keys in ~/.ssh ===================
-# Add your SSH private key to the ssh-agent.
+~~~bash
+eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
-```
-ssh-add adds private key identities (from your ~/.ssh directory) to the authentication agent (ssh-agent), so that the ssh agent can take care of the authentication for you, and you don’t have type in passwords at the terminal.
+ssh-add -l
+~~~
 
-## SSH in AWS operations
+The agent reduces repeated passphrase entry; it does not copy the private key to the server. Protect access to the local
+agent socket and remove keys when they are no longer needed.
 
-SSH is one access path, not the default answer for every cloud host. [EC2](/aws/compute/ec2/) covers instance key pairs and
-host access, while [AWS Systems Manager](/aws/management/ssm/) can provide audited session access without exposing an SSH
-port or distributing long-lived host keys. Protect private keys locally, scope the AWS principal that can start a session,
-and prefer a centrally logged access path for production systems.
+## Client configuration
+
+Use <code>~/.ssh/config</code> to make identity and destination choices explicit:
+
+~~~sshconfig
+Host production-bastion
+  HostName bastion.example.com
+  User operations
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+~~~
+
+This is safer and more reviewable than relying on whichever key the client tries first.
+
+## Agent forwarding and jump hosts
+
+Agent forwarding lets a remote host request signatures from your local agent. A compromised remote host can abuse that
+capability while the forwarding session exists. Prefer <code>ProxyJump</code>, workload-specific credentials, or
+short-lived certificates; enable agent forwarding only for a justified destination.
+
+~~~bash
+ssh -J operations@bastion.example.com app@private-host.example.com
+~~~
+
+## Server-side baseline
+
+- Disable direct root login.
+- Prefer public-key or certificate authentication.
+- Restrict users, groups, networks, and commands according to purpose.
+- Keep the SSH implementation patched.
+- Monitor authentication failures and privileged sessions.
+- Maintain a tested recovery path before changing remote-access policy.
+
+## AWS access
+
+Direct SSH is not always required. [Systems Manager Session Manager](/aws/management/ssm/) can provide audited access
+without opening an inbound SSH port or distributing long-lived host keys. Where SSH remains appropriate, combine it with
+[EC2](/aws/compute/ec2/), restrictive security groups, controlled bastions, short-lived credentials, and least-privilege
+[IAM](/aws/management/iam/).
+
+## References
+
+- [OpenSSH manual pages](https://www.openssh.com/manual.html)
+- [ssh_config(5)](https://man.openbsd.org/ssh_config)
+- [sshd_config(5)](https://man.openbsd.org/sshd_config)

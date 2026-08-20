@@ -1,141 +1,91 @@
 ---
-title: Bootup Sequence
-description: 'Press the power button on your system and after few moments you may see the Linux login prompt. Have you ever wondered what happens behind the scenes from the tim.'
-sidebar_position: 8
+title: Linux Boot Sequence
+description: 'The modern Linux boot path from UEFI or BIOS through the bootloader, kernel, initramfs, systemd, and service targets.'
+sidebar_position: 11
 keywords:
-  - linux
-  - bootup sequence
-  - bootup
-  - sequence
-  - press
-  - power
-  - button
-  - your
+  - linux boot
+  - uefi
+  - bootloader
+  - initramfs
+  - systemd
 ---
 
-Press the power button on your system and after few moments you may see the Linux login prompt. Have you ever wondered what happens behind the scenes from the time you press the power button until the Linux login prompt appears. The Booting process starts when the system/machine power is switched “On”.
+Boot is a chain of trust and responsibility. Each stage establishes enough hardware and software state to load the next
+one. Modern machines commonly use UEFI and GPT; legacy BIOS and MBR systems still exist, so diagnose the machine that is
+actually in front of you.
 
-![Boot Sequence](/img/linux/bootseq.png)
+## 1. Firmware
 
-Source: [Linux Boot Sequence](https://fatmanscafe.blogspot.com/2011/09/linux-boot-sequence.html)
+UEFI or legacy BIOS performs early hardware initialization and chooses a boot entry. UEFI can read an EFI System
+Partition and launch an EFI executable directly. With Secure Boot, firmware verifies signatures according to the
+configured trust policy.
 
+Useful evidence includes firmware boot settings, the selected disk, Secure Boot state, and UEFI boot variables exposed by
+<code>efibootmgr</code> when available.
 
-## Stage-1 BIOS
+## 2. Bootloader or unified kernel image
 
-The processor will execute the codes contained in BIOS [Basic Input and Output System]. The BIOS is actually a program stored in ROM [Read Only Memory]. The processor runs the instruction located at the memory location CS:IP FFFF:0000 of the BIOS, which is located at the 0xFFFF0 address. This memory location is close to the end of the 1MB of system memory accessible in real mode. It typically contains a jump instruction that transfers execution to the location of the BIOS start-up program. The BIOS will next run POST [power on self test] to find certain hardware and its working at the basic level. It compares the hardware settings in the CMOS [Complementary Metal Oxide Semiconductor] to what is physically on the system. It then initializes the hardware devices. Once the POST is completed, the processor jumps to a specific, predefined location in RAM. The instructions located here are relatively simple and basically tell the hardware to go look for a boot device.
+A bootloader such as GRUB selects a kernel and supplies the kernel command line. Some systems instead boot a unified
+kernel image containing the kernel, initramfs, command line, and metadata in one signed EFI executable.
 
-## Stage-2 MBR
+If this stage fails, investigate the firmware entry, EFI System Partition, bootloader configuration, disk identifiers,
+and signatures—not systemd services, which have not started yet.
 
+## 3. Kernel initialization
 
-![Boot Sequence](/img/linux/mbr.png)
+The kernel:
 
-Source: [Linux Boot Sequence](https://fatmanscafe.blogspot.com/2011/09/linux-boot-sequence.html)
+- decompresses and initializes itself;
+- discovers CPUs, memory, and built-in drivers;
+- parses the kernel command line;
+- initializes core subsystems;
+- mounts the initramfs as an early root filesystem;
+- starts the first userspace program.
 
-MBR stands for Master Boot Record. It is located in the 1st sector of the bootable disk. Typically /dev/hda or /dev/sda, MBR is less than 512 bytes in size. This has three components:-
+The kernel ring buffer is available through <code>dmesg</code> and the journal when boot progresses far enough.
 
-1) primary boot loader info in 1st 446 bytes.
-2) partition table info in next 64 bytes.
-3) mbr validation check in last 2 bytes.
+## 4. initramfs and the real root filesystem
 
-It contains information about GRUB (or LILO in old systems). So, in simple terms MBR loads and executes the GRUB boot loader. When a boot device is found (let’s assume that it’s a hard disk), the hardware is told to go to the 0th (first) sector (cylinder 0, head 0, sector 0), then load and execute the instructions there. This is the master boot record, or MBR . So, in simple terms BIOS loads and executes the MBR boot loader.
+The initramfs contains early userspace tools and drivers required before the real root filesystem is available. It may
+assemble RAID, unlock encrypted storage, activate LVM, load storage modules, and discover the root device.
 
-## Stage-3 Grub
+It then mounts the real root filesystem and switches into it. A failure here often means a missing driver, changed disk
+identifier, damaged filesystem, incorrect kernel command line, or unavailable encrypted-storage configuration.
 
-LILO or GRUB allows the root user to set up the boot process as menu-driven or command-line, and permits the user to choose from amongst several boot options. It also allows for a default boot option after a configurable timeout, and current versions are designed to allow booting from broken Level 1  (mirrored) RAID arrays. It has the ability to create a highly configurable, “GUI-fied” boot menu, or a simple, text-only, command-line prompt.
+## 5. PID 1 and systemd
 
-Due to the very small amount of data the BIOS can access, most boot loaders load in two stages. In the first stage of the boot, the BIOS loads a part of the boot loader known as the initial program loader, or IPL. The IPL interrogates the partition table and subsequently is able to load data wherever it may exist on the various media. This action is used initially to locate the second stage boot loader, which holds the remainder of the loader.
+The kernel starts PID 1, commonly systemd. systemd resolves unit dependencies and moves the machine toward a target such
+as <code>multi-user.target</code> or <code>graphical.target</code>. Units may run in parallel when their dependencies
+allow it; this is not the old linear runlevel model.
 
-The second stage boot loader is the real meat of the boot loader; many consider it the only real part of the boot loader. This contains the more disk-intensive parts of the loader, such as user interfaces and kernel loaders. These user interfaces can range from a simple command line to the all-singing, all-dancing GUIs.
+~~~bash
+systemd-analyze
+systemd-analyze critical-chain
+systemctl --failed
+journalctl -b
+journalctl -b -1
+~~~
 
-GRUB stands for GRand Unified Bootloader.
+The last command inspects the previous boot when persistent journal storage is enabled.
 
-If you have multiple kernel images installed on your system, you can choose which one to be executed. GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file. GRUB has the knowledge of the filesystem (the older Linux loader LILO didn’t understand filesystem). Grub configuration file is /boot/grub/grub.conf (/etc/grub.conf is a link to this). The following is sample grub.conf of CentOS.
+## Diagnose by stage
 
-#boot=/dev/sda
-default=0
-timeout=5
-splashimage=(hd0,0)/boot/grub/splash.xpm.gz
-hiddenmenu
-title CentOS (2.6.18-194.el5PAE)
-root (hd0,0)
-kernel /boot/vmlinuz-2.6.18-194.el5PAE ro root=LABEL=/
-initrd /boot/initrd-2.6.18-194.el5PAE.img
+| Last visible stage | Likely evidence |
+| --- | --- |
+| Firmware cannot find a boot entry | Firmware UI, UEFI variables, EFI System Partition |
+| Bootloader appears but kernel does not start | Bootloader configuration, kernel path, signatures, kernel command line |
+| Kernel starts but cannot mount root | Kernel log, initramfs shell, storage drivers, root UUID |
+| Emergency mode after switching root | Filesystem checks, mount units, <code>/etc/fstab</code>, failed units |
+| Login appears but application is unavailable | Service status, service journal, sockets, dependencies |
 
-As you notice from the above info, it contains kernel and initrd image. So, in simple terms GRUB just loads and executes Kernel and initrd images. Depending on the kernel boot option chosen or set as default, lilo or grub will load that kernel.
+Keep a known-good kernel and a recovery route for production hosts. Test changes to bootloader, initramfs, disk layout,
+and encryption as recovery procedures, not only as deployment procedures.
 
-:::info Loading Kernel
-等我們在 grub 的選單中選擇了 Linux 這個系統，然後主機跑到 Linux 所在的硬碟之下，就開始將他的核心載入囉。在 Linux 的系統下，通常開機的核心都擺在 /boot 底下，因此，這個時候的 boot loader 就會到 /boot 去尋找相關的核心。我們的 kernel 名稱通常就是 /boot/vmlinuz-xxxx 的格式，目前 Mandrake 9.0 的核心版本為 2.4.19，而 Mandrake 自行釋出的版本為 2.4.19-16mdk ，所以，使用 uname –r 會出現 2.4.19-16mdk 呦！然後 MDK 9.0 預設核心檔案就是： /boot/vmlinuz-2.4.19-16mdk 這一個！好了，載入這個檔案再往下繼續吧！
-:::
+Continue with [systemd services](/linux/services-systemd/), [filesystems](/linux/file-system/), and
+[observability](/linux/observability/).
 
-## Stage-4 Kernel
+## References
 
-When the kernel is loaded, it immediately initializes and configures the computer’s memory and configures the various hardware attached to the system, including all processors, I/O subsystems, and storage devices. It then looks for the compressed initrd image in a predetermined location in memory, decompresses it, mounts it, and loads all necessary drivers.
-
-Next, it initializes virtual devices related to the file system, such as LVM or software RAID before unmounting the initrd disk image and freeing up all the memory the disk image once occupied. The kernel then creates a root device, mounts the root partition read-only, and frees any unused memory. At this point, the kernel is loaded into memory and operational.
-
-這個核心檔案通常被放置成 /boot/vmlinuz-xxx ，不過也不見得， 因為一部主機上面可以擁有多個核心檔案，只是開機的時候僅能選擇一個來載入而已。 甚至我們也可以在一個 distribution 上面放置多個核心，然後以這些核心來做成多重開機呢！
-
-### 自製核心 - 核心編譯
-剛剛上面談到的核心其實是一個檔案，那麼這個檔案怎麼來的？當然是透過原始碼 (source code) 編譯而成的啊！因為核心是直接被讀入到主記憶體當中的，所以當然要將他編譯成為系統可以認識的資料才行！也就是說， 我們必須要取得核心的原始碼，然後利用第二十一章 Tarball 安裝方式提到的編譯概念來達成核心的編譯才行啊！
-
-### 關於驅動程式 - 是廠商的責任還是核心的責任？
-現在我們知道硬體的驅動程式可以編譯成為核心模組，所以可以在不改變核心的前提下驅動你的新硬體。 但是，很多朋友還是常常感到困惑，就是 Linux 上面針對最新硬體的驅動程式總是慢了幾個腳步， 所以覺得好像 Linux 的支援度不足！其實不可以這麼說的，為什麼呢？因為在 Windows 上面，對於最新硬體的驅動程式需求，基本上，也都是廠商提供的驅動程式才能讓該硬體工作的， 因此，在這個『驅動程式開發』的工作上面來說，應該是屬於硬體發展廠商的問題， 因為他要我們買他的硬體，自然就要提供消費者能夠使用的驅動程式啦！
-
-所以，如果大家想要讓某個硬體能夠在 Linux 上面跑的話，那麼似乎可以發起一人一信的方式，強烈要求硬體開發商發展 Linux 上面的驅動程式！這樣一來，也可以促進 Linux 的發展呢！
-
-
-## Stage-5 INIT
-
-Looks at the /etc/inittab file to decide the Linux run level, Following are the available run levels
-
-```bash
-$ vi /etc/inittab
-
-# 0 - halt
-# 1 - Single user mode
-# 2 - Multiuser, without NFS
-# 3 - Full multiuser mode
-# 4 - unused
-# 5 - X11
-# 6 - reboot
-```
-
-Init identifies the default initlevel from /etc/inittab and uses that to load all appropriate program. Execute ‘grep initdefault /etc/inittab’ on your system to identify the default run level If you want to get into trouble, you can set the default run level to 0 or 6. Since you know what 0 and 6 means, probably you might not do that. Typically you would set the default run level to either 3 or 5.
-
-The first thing the kernel does after completing the boot process is to execute init program. The /sbin/init program (also called init) coordinates the rest of the boot process and configures the environment for the user. Init is the root/parent of all processes executing on Linux which becomes process number 1.
-
-The first few process Ids are given below:-
-1.  Init Process
-2.  kflushd(bdflush) : Started by update  does a more imperfect sync more frequently
-3.  kupdate : Does a sync every 30 seconds
-4.  kpiod
-5.  kswapd
-6.  mdrecoveryd
-
-Processes 2, 3, 4, 5 and 6 are kernel daemons. The kernel daemons are started after init, so they get process numbers like normal processes do. But their code and data lives in the kernel’s part of the memory.
-
-Kflushd and Kupdate :- Input and output is done via buffers in memory. This allows things to run faster and the data in the buffer are written to disk in larger more efficient chunks.The daemons kflushd and kupdate handle this work. kupdate runs periodically (5 seconds) to check whether there are any dirty buffers. If there are, it gets kflushd to flush them to disk.
-
-Kswap and Kpiod :- System memory can be better managed by shifting unused parts of running programs out to the swap partition(s) of the hard disk. Moving this data in and out of memory as needed is done by kpiod and kswapd. Every second or so, kswapd wakes up to check out the memory situation, and if something on the disk is needed in memory, or there is not enough free memory, kpiod is called in.
-
-Mdrecoveryd :- mdrecoveryd is part of the Multiple Devices package used for software RAID and combining multiple disks into one virtual disk Basically it is part of the kernel. It can be removed from the kernel by deselecting it (CONFIG_BLK_DEV_MD) and recompiling the kernel.
-
-
-## Stage – 6 Run Level programs
-
-
-When the Linux system is booting up, you might see various services getting started. For example, it might say “starting sendmail …. OK”. Those are the runlevel programs, executed from the run level directory as defined by your run level. Depending on your default init level setting, the system will execute the programs from one of the following directories.
-
-```bash
-Run level 0 – /etc/rc.d/rc0.d/
-Run level 1 – /etc/rc.d/rc1.d/
-Run level 2 – /etc/rc.d/rc2.d/
-Run level 3 – /etc/rc.d/rc3.d/
-Run level 4 – /etc/rc.d/rc4.d/
-Run level 5 – /etc/rc.d/rc5.d/
-Run level 6 – /etc/rc.d/rc6.d/
-```
-
-Please note that there are also symbolic links available for these directory under /etc directly. So, /etc/rc0.d is linked to /etc/rc.d/rc0.d. Under the /etc/rc.d/rc*.d/ directories, you would see programs that start with S and K. Programs starts with S are used during startup. S for startup. Programs starts with K are used during shutdown. K for kill. There are numbers right next to S and K in the program names. Those are the sequence number in which the programs should be started or killed. For example, S12syslog is to start the syslog deamon, which has the sequence number of 12. S0 sendmail is to start the sendmail daemon, which has the sequence number of 80. So, syslog program will be started before sendmail.
-
-There you have it. That is what happens during the Linux boot process.
+- [Linux kernel parameters](https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html)
+- [systemd bootup documentation](https://www.freedesktop.org/software/systemd/man/latest/bootup.html)
+- [systemd-analyze](https://www.freedesktop.org/software/systemd/man/latest/systemd-analyze.html)

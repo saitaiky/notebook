@@ -1,7 +1,7 @@
 ---
 title: CPU architecture
 description: 'Apple silicon chips. Apple''s custom chips are Arm-based and are similar to the A-series chips used in iPhones and iPads, and Apple unveiled the first Apple silico.'
-sidebar_position: 9
+sidebar_position: 13
 keywords:
   - linux
   - cpu architecture

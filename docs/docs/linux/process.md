@@ -1,117 +1,102 @@
 ---
-title: Zombie Process
-description: 'In the world of Linux, a zombie process refers to any process that is essentially removed from the system as ‘defunct’, but still somehow resides in the processor.'
-sidebar_position: 6
+title: Linux Processes and Signals
+description: 'Process creation, states, signals, child reaping, zombies, graceful shutdown, and practical Linux process diagnosis.'
+sidebar_position: 7
 keywords:
-  - linux
+  - linux process
+  - signals
+  - fork exec wait
   - zombie process
-  - zombie
-  - process
-  - world
-  - refers
-  - any
-  - essentially
+  - graceful shutdown
 ---
 
-## What is a Zombie process?
+A Linux process is a running program with an address space, threads, credentials, file descriptors, signal state, and
+kernel scheduling state. A process ID identifies it within a PID namespace; a parent process ID records the process that
+created it.
 
-In the world of Linux, a zombie process refers to any process that is essentially removed from the system as ‘defunct’, but still somehow resides in the processor’s memory as a ‘zombie’.
+## Creation and termination
 
-Also sometimes referred to as a process in a ‘terminated state,’ a Zombie process is usually cleaned from the memory system through a parent process. But when the parent process isn’t notified of the change, the child process (zombie) doesn’t get the signal to leave the memory.
+On Unix-like systems, a common lifecycle is:
 
-## How Linux handle process
+1. A process creates a child with <code>fork</code> or a related clone operation.
+2. The child may replace its program image with <code>execve</code>.
+3. Parent and child execute independently.
+4. The child exits and leaves an exit status.
+5. The parent calls <code>wait</code> or <code>waitpid</code> to collect that status.
 
-### fork(), wait() & SIGCHILD
+After a successful exec, the PID remains the same; the program image changes.
 
-A process created in Unix system must use the kernel function `fork()` , and the address space is cloned from parent process. In Unix system, the parent process is responsible for reap the child process status and memory stack. Then, the parent process calls `wait()` waiting the child process to terminate and reply a `SIGCHLD` signal, once parent process receive this signal it starts to reap the child process. 
+## Process states
 
-## Process ownership in cloud runtimes
+The one-letter state shown by <code>ps</code> is a useful clue:
 
-[EC2](/aws/compute/ec2/) exposes the virtual-machine boundary and leaves process supervision largely to the operating
-system. [ECS](/aws/compute/ecs-ecr/) and [EKS](/aws/development/eks/) add schedulers that start, stop, and replace container
-processes. [Lambda](/aws/compute/lambda/) moves process lifecycle further behind a managed invocation model. Compare these
-options with [stateful and stateless design](/software-development/others/stateful-vs-stateless/) before choosing a runtime.
+| State | Meaning |
+| --- | --- |
+| R | Running or runnable |
+| S | Interruptible sleep, usually waiting for an event |
+| D | Uninterruptible sleep, often waiting in the kernel for I/O |
+| T | Stopped or being traced |
+| Z | Zombie: exited, but not yet reaped by its parent |
 
-So, there is a problem that if the parent process decide not to wait the termination of the child, no one is responsible for the reap and there is one zombie process in system.
+A zombie consumes very little memory or CPU, but retains a process-table entry. Many zombies indicate that a parent is
+not collecting children correctly.
 
-### Normal scenario
+## Signals and graceful shutdown
 
-Parent process calls `wait()` waiting the child process return a `SIGCHLD` signal and begin reap.
+Signals are asynchronous notifications. SIGTERM asks a process to terminate and can be handled. SIGINT commonly
+represents an interactive interrupt. SIGHUP is often used for session loss or configuration reload. SIGKILL cannot be
+caught or delayed and prevents application cleanup.
 
-![normal-scenario](/img/linux/normal-scenario.png)
-Source: [Operating System — How does zombie process happen and how to prevent it](https://medium.com/@lsc830621/operating-system-how-does-zombie-process-happen-and-how-to-prevent-it-c05a3a48a4bc)
+Use the least forceful appropriate signal:
 
-### Zombie process scenario
+~~~bash
+kill -TERM PID
+kill -KILL PID
+~~~
 
-Parent process keep doing its own thing instead calling `wait()` , so it would not know when the child process terminate. And the reap would never happen causing an zombie process left in the system.
+Do not jump to SIGKILL simply because it is effective. A service may need to finish requests, flush state, release a
+lease, or remove temporary resources. The supervisor or orchestrator will enforce a deadline if the process does not exit.
 
-![zombie-scenario](/img/linux/zombie-scenario.png)
-Source: [Operating System — How does zombie process happen and how to prevent it](https://medium.com/@lsc830621/operating-system-how-does-zombie-process-happen-and-how-to-prevent-it-c05a3a48a4bc)
+## Zombie processes
 
-:::info Why does this happened?
-These functions usually happen very quickly, so there is no time for zombie processes to accumulate on your system. However, for a zombie process to be removed entirely from the system, the parent process must be appropriately programmed to call on `wait()`. If you’re unsure how to identify zombie processes in your system, conduct a routine zombie test using predetermined patterns and methods.
-:::
+A zombie cannot be killed again because it has already exited. Correct the parent:
 
-:::info Why are zombie process bad?
-Although zombies do not use up your system's precious resources like a rogue app does, it can pose a significant threat by retaining all PIDs (Process IDs). Since a Linux system has a [finite amount of PIDs](https://www.techrepublic.com/article/how-to-find-and-kill-zombie-processes-on-your-linux-data-center-servers/), when numerous PIDs are zombied, no other process can easily be launched. 
-:::
+- allow the parent to handle SIGCHLD and call a wait function;
+- restart or repair a faulty long-running parent;
+- ensure a container's PID 1 reaps orphaned children;
+- use an init process when an application launches unmanaged child processes.
 
-## How to kill the zombie process
+If the parent exits, an init/subreaper process adopts and should reap the orphan. Repeatedly killing parents is a
+mitigation, not a code-level fix.
 
-Bear in mind that zombie processes are already dead. This means that you cannot kill a zombie function with the same command (SIGKILL signal) to kill normal processes.  
+## Inspect a process
 
-The steps necessary to clean up an accumulation of zombie processes can be difficult and complicated. Below are two scenarios that can simplify this process and help you to remove a zombie process:
+~~~bash
+ps -eo pid,ppid,state,lstart,etime,comm,args
+pstree -ap
+cat /proc/PID/status
+ls -l /proc/PID/fd
+cat /proc/PID/limits
+systemctl status SERVICE
+journalctl -u SERVICE
+~~~
 
-### If the parent process is still active
+Ask whether the process is runnable, blocked, repeatedly restarting, waiting on a child, limited by a cgroup, or holding
+unexpected files and sockets.
 
-The zombie process exists while the parent process is still active and stuck on a particular task somewhere in the system, and hasn't received the execution signal.
+## Cloud and container connection
 
-In such cases, there are two things you can do:
+A container still contains Linux processes. PID namespaces change which PIDs are visible; cgroups account for and limit
+resources. ECS task shutdown, Kubernetes pod termination, and systemd service stopping all depend on an application
+responding correctly to signals.
 
-1. Use the strace command on the parent process to debug and troubleshoot the issue. A strace command [stores all system calls](https://linuxconfig.org/how-to-trace-system-calls-made-by-a-process-with-strace-on-linux) and signals made by a process.
+Continue with [kernel and userspace](/linux/kernel-userspace-system-calls/),
+[namespaces and cgroups](/linux/namespace/), [systemd services](/linux/services-systemd/), and
+[ECS](/aws/compute/ecs-ecr/).
 
-2. Additionally, you can also kill the zombie process by sending the `SIGCHLD` signal to the parent process to make the parent process exit cleanly with its zombie process. If you choose this option, it is preferred to use the 'kill' command in tandem with the default signal -15 (`SIGTERM`) instead of using a -9 (`SIGKILL`) signal.
+## References
 
-### If the parent process is no longer active
-
-However, oftentimes the parent process is ‘inactive’. It may be possible that the process isn’t programmed correctly, which may cause it to ignore the SIGCHLD signals.
-
-In such a case, it makes sense for you to remove the parent process so that **an init process** will be the latest parent to the zombie processes. (In Unix , when the parent process terminate , the init process (created by Unix Kernel) would take care all of its child process. )
-
-:::info What is an init process?
-An init process -- short for initialization -- is the first process that is issued when a system reboots. An init process will then [periodically execute the regular protocol](https://www.geeksforgeeks.org/init-command-in-linux-with-examples/): giving the wait() system call to clean up its zombie children.
-:::
-
-**One thing to remember is that if a parent process is inactive, you cannot remove the zombie process without rebooting your system.** So if you only have a few zombie processes and they aren't multiplying, you can deal with them at the next system reboot. However, zombie processes may be quick to accumulate, usually a signal that there might be an issue with your system.
-
-If a parent process continues to create zombies, repair them straight away. This is important so the parents can properly call wait() to do away with its zombie children. File a bug report if a program on your system keeps creating zombies.
-
-### CLI Example
-
-
-1. Find zombie processes as root user
-    ```bash
-    ps aux | egrep "Z|defunct" | grep -v 'grep'
-    ```
-
-2. Get parent PID for child PID called 1313
-    ```bash 
-    $ps -o ppid=1313
-    ```
-
-3. Parent process
-
-    **Approach 1: When parent process is still active**: return PID 4104, kill zombie process which has a parent PID 4104
-    ```bash 
-    $kill -s SIGCHLD 4104
-    ```
-
-    **Approach 2: If parent process is not active / above command failed**, try the following command to kill its parent process:
-    ```bash 
-    $kill -9 4104
-    ```
-
-## Reference 
-
-- [Zombie Process in Linux – How to work with defunct/zombie processes in Linux?](https://www.linuxfordevices.com/tutorials/linux/defunct-zombie-process)
-- [Killing zombie processes on Linux using kill command](https://www.cyberciti.biz/tips/killing-zombie-process.html)
+- [fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html)
+- [execve(2)](https://man7.org/linux/man-pages/man2/execve.2.html)
+- [wait(2)](https://man7.org/linux/man-pages/man2/wait.2.html)
+- [signal(7)](https://man7.org/linux/man-pages/man7/signal.7.html)

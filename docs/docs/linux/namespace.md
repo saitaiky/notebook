@@ -1,7 +1,7 @@
 ---
 title: Namespace
 description: 'In other words, the key feature of namespaces is that they isolate processes from each other. On a server where you are running many different services, isolating.'
-sidebar_position: 7
+sidebar_position: 10
 keywords:
   - linux
   - namespace
