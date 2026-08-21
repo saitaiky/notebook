@@ -265,7 +265,7 @@ const config = {
             position: 'left',
           },
           {
-            label: 'Other',
+            label: 'Beyond Technology',
             type: 'doc',
             docId: 'other/index',
             position: 'left',

@@ -1,3 +1,8 @@
 {
-  "label": "Other"
+  "label": "Beyond Technology",
+  "position": 7,
+  "link": {
+    "type": "doc",
+    "id": "other/index"
+  }
 }

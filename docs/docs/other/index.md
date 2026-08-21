@@ -1,39 +1,29 @@
 ---
-title: Home
-description: 'This section is for recording some hobbies and topics that I would like to learn or jot in the future.'
+title: Beyond Technology
+description: 'Essays and practical guides about culture, psychology, economics, creativity, and everyday life—the wider context in which technology is designed and used.'
 sidebar_position: 0
 keywords:
-  - home
-  - section
-  - recording
-  - some
-  - hobbies
-  - topics
-  - i
-  - would
+  - beyond technology
+  - culture
+  - psychology
+  - economics
+  - creativity
+  - everyday life
 ---
 
-This section is for recording some hobbies and topics that I would like to learn or jot in the future. They include:
-- Cognitive psychology / psychology
-    - Book: The Laws of Human Nature by Robert Greene
-- Philosophy
-    - Book
-        - A Brief History of Analytic Philosophy: From Russell to Rawls by by Stephen P. Schwart
-        - [Dialectic of Enlightenment](https://www.amazon.co.uk/Dialectic-Enlightenment-Cultural-Memory-Present/dp/0804736332)
-    - [The Stranger by Albert Camus](https://www.youtube.com/watch?v=53W-3ccLYV0&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=104)
-    - [La Mort de Socrate by Socrates](https://www.youtube.com/watch?v=ZQWUEDo7adc&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=67)
-    - [The Ego and the Id by Freud, Sigmund](https://www.youtube.com/watch?v=KRPEv520stE&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=52)
-    - Ethics
-    - Logic
-- Sapiens: a brief history of humankind genre by Yuval Noah Harari
-- Literature
-    - Literature can sharply make us feel that the world of ordinary people isn't all that great. It prompts us to reflect on prevailing mainstream values, to accept things that were previously not accepted—that's the value of literature.
-    - [Normal people by Sally Rooney](https://www.youtube.com/watch?v=J4neWrY2iF0&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=13)
-    - [酒國 (The Republic of Wine)](https://www.youtube.com/watch?v=VL097uC0-ps&list=PLej9xcI1geUsgg84G4Gsw5QlbKUzQhENE&index=120) by 莫言
-    - 林夕《曾經——林夕90前後》
-    - 林夕 - [拚命無恙](https://www.eslite.com/product/1001276622682165200006)
-    - 臺灣最好的時刻，1977-1987：民族記憶美麗島
-    - 保育黃霑（限定製作紀念套裝
-- Movies
-    - 1983: Amagi Pass (天城越え)
-    - 七人樂隊
+Technology is the professional spine of this notebook. **Beyond Technology** explores the human context around it: how people learn and make decisions, how culture carries meaning, and how ideas become part of everyday life.
+
+The material here is organised as reader-facing essays and guides rather than a miscellaneous collection of notes.
+
+## Explore the collections
+
+- **Arts, culture, and place** — Japanese gardens, ukiyo-e, drawing, food culture, music, and life in the UK. Original Japanese and Chinese terminology is retained where translation would flatten the meaning.
+- **Mind, learning, and life** — psychology, memory, motivation, relationships, parenting, meaning, and personal development.
+- **Economics and everyday decisions** — investing concepts, financial products, market behaviour, and practical household knowledge.
+- **Work and product design** — ways to evaluate products, communicate ideas, and connect human confidence with technical systems.
+
+## Editorial approach
+
+Public pages are selected because they offer a coherent explanation, argument, or practical guide. Personal checklists, course notes, reading queues, and unfinished study material remain in the private `reference/` workspace until they are ready to become something useful for a reader.
+
+Multilingual material keeps its original language as the canonical expression. English introductions and navigation provide orientation without pretending that every cultural term has a clean one-to-one translation.
