@@ -323,6 +323,10 @@ const config = {
                 label: 'Table to Markdown',
               },
               {
+                to: '/privacy',
+                label: 'Privacy & analytics',
+              },
+              {
                 to: 'https://www.tablesgenerator.com/',
                 label: 'Markdown Table',
               },

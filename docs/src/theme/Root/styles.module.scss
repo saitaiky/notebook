@@ -38,8 +38,7 @@
 }
 
 .acceptButton,
-.rejectButton,
-.preferencesButton {
+.rejectButton {
   padding: 0.55rem 0.85rem;
   font: inherit;
   font-size: 0.85rem;
@@ -54,26 +53,14 @@
   border: 1px solid var(--ifm-color-primary);
 }
 
-.rejectButton,
-.preferencesButton {
+.rejectButton {
   color: var(--ifm-font-color-base);
   background: var(--ifm-background-surface-color);
   border: 1px solid var(--ifm-color-emphasis-400);
 }
 
-.preferencesButton {
-  position: fixed;
-  bottom: 0.75rem;
-  left: 0.75rem;
-  z-index: 999;
-  padding: 0.35rem 0.55rem;
-  font-size: 0.72rem;
-  opacity: 0.75;
-}
-
 .acceptButton:hover,
-.rejectButton:hover,
-.preferencesButton:hover {
+.rejectButton:hover {
   opacity: 0.85;
 }
 

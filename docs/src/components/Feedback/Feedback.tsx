@@ -27,7 +27,7 @@ export const Feedback = ({ metadata }: { metadata: any }) => {
     });
 
     if (!sent) {
-      setErrorText('Allow analytics in Analytics settings before sending this anonymous rating.');
+      setErrorText('Allow analytics from Tools & Docs → Privacy & analytics before sending this anonymous rating.');
       return;
     }
 

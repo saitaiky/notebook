@@ -4,6 +4,26 @@ This is the private operational contract for the notebook's analytics setup. The
 `window.dataLayer`; Google Tag Manager owns delivery to GA4. Do not add a second GA4 loader or a second page-view
 trigger.
 
+## Current production state
+
+As of 21 August 2026, the production analytics configuration is:
+
+| Setting                  | Value                                    |
+| ------------------------ | ---------------------------------------- |
+| Production site          | `https://sai-tai.com/`                   |
+| GTM web container        | `GTM-57D8HMJV`                           |
+| GTM numeric container ID | `261915184`                              |
+| Published GTM version    | **2 — Consent-controlled GA4 analytics** |
+| GA4 account              | **Sai Notes** (`96998055`)               |
+| GA4 property             | **Sai's Notes - GA4** (`320173437`)      |
+| GA4 web stream           | `3786262932`                             |
+| GA4 measurement ID       | `G-B35TPRVQ3Q`                           |
+
+GTM version 2 is live and contains three tags, two custom-event triggers and 19 user-defined variables. The Default
+Workspace had no pending changes immediately after publication. The `0% consent rate` diagnostic is expected at launch:
+analytics storage defaults to denied until readers opt in, while advertising consent intentionally remains denied. The
+GTM recommendation to add another administrator is an account-recovery recommendation, not an analytics defect.
+
 ## Repository and deployment configuration
 
 1. Use the **Web** container `GTM-57D8HMJV` for `sai-tai.com`.
@@ -77,6 +97,9 @@ accepted.
 The application also suppresses behavioural events until analytics consent is granted. In GTM Preview, confirm that GA4
 tags respect the built-in `analytics_storage` consent check. Do not add advertising tags without revising the banner and
 privacy page.
+
+The first-choice banner disappears after a reader selects **Decline** or **Allow analytics**; no persistent floating
+button is displayed. Readers can review or change the stored choice through **Tools & Docs → Privacy & analytics**.
 
 In GA4 Admin:
 

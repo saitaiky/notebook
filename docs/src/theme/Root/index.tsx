@@ -18,26 +18,35 @@ export default function Root({ children }: Props): JSX.Element {
   const analyticsProvider = siteConfig.customFields?.analyticsProvider;
   const analyticsEnabled = analyticsProvider === 'gtm';
   const [consent, setConsent] = useState<AnalyticsConsent | null>(null);
-  const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setConsent(getAnalyticsConsent());
     setHydrated(true);
+
+    const syncConsent = (event: Event) => {
+      const consentEvent = event as CustomEvent<{ consent?: AnalyticsConsent }>;
+      const nextConsent = consentEvent.detail?.consent;
+      if (nextConsent === 'granted' || nextConsent === 'denied') {
+        setConsent(nextConsent);
+      }
+    };
+
+    window.addEventListener('analytics:consent-updated', syncConsent);
+    return () => window.removeEventListener('analytics:consent-updated', syncConsent);
   }, []);
 
   const chooseConsent = (choice: AnalyticsConsent) => {
     const consentChanged = choice !== consent;
     updateAnalyticsConsent(choice);
     setConsent(choice);
-    setPreferencesOpen(false);
 
     if (choice === 'granted' && consentChanged) {
       window.setTimeout(() => trackVirtualPageView());
     }
   };
 
-  const showBanner = analyticsEnabled && hydrated && (consent === null || preferencesOpen);
+  const showBanner = analyticsEnabled && hydrated && consent === null;
 
   return (
     <>
@@ -64,11 +73,6 @@ export default function Root({ children }: Props): JSX.Element {
             </button>
           </div>
         </aside>
-      ) : null}
-      {analyticsEnabled && hydrated && consent !== null && !preferencesOpen ? (
-        <button type="button" className={styles.preferencesButton} onClick={() => setPreferencesOpen(true)}>
-          Analytics settings
-        </button>
       ) : null}
     </>
   );
