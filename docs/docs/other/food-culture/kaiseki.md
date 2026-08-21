@@ -15,6 +15,8 @@ keywords:
 
 Kaiseki is a traditional Japanese dining experience that embodies the essence of seasonal and meticulously prepared dishes. It is a multi-course meal that follows a specific sequence and showcases the harmony of flavors, textures, and presentation. Each dish is carefully crafted using fresh, locally sourced ingredients to highlight their natural flavors.
 
+This guide retains the Japanese names of dishes and dining traditions as part of the multilingual [Arts, Culture & Place collection](/other/arts-culture/).
+
 Kaiseki typically consists of several courses, including appetizers, sashimi, simmered dishes, grilled dishes, and a final course of rice or noodles. The chef's skill and attention to detail are evident in every aspect, from the arrangement of the dishes to the choice of tableware.
 
 The aim of kaiseki is to create a balanced and unforgettable dining experience that reflects the season and evokes a sense of tranquility. It celebrates the beauty of simplicity, incorporating elements of Japanese aesthetics, such as minimalism and harmony. Kaiseki is not just a meal but a cultural expression that showcases the rich culinary heritage of Japan.
@@ -190,4 +192,3 @@ Kaizeki Ryori is a cuisine enjoyed by haiku poets after their gatherings and bec
 10. 酢の物（醋漬料理）
 11. ご飯（白飯）・止め椀（味噌湯）・香の物（醬菜）
 12. 水物（水果、點心）
-

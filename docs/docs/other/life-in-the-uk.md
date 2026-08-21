@@ -12,6 +12,8 @@ keywords:
   - english
 ---
 
+This guide is part of the [Arts, Culture & Place collection](/other/arts-culture/), connecting history and institutions to the cultural context of everyday life in the UK.
+
 ## History
 
 :::info The two-House system
@@ -354,4 +356,3 @@ Some religious festivals
 - Bonfire Night: 5 November. The origin of this celebration was an event in 1605, when a group of Catholics led by Guy Fawkes failed in their plan to kill the Protestant king with a bomb in the houses of Parliament.
 - Remembrance Day, 11 November, commemorates those who died fighting for the UK and its allies. Originally it commemorated the dead of the First World War, which ended on 11 November 1918. People wear poopies. At 11.00 am there is two-minute silence and wreaths are laid at the Cenotaph in Whitehall, London. 
 :::
-

@@ -12,6 +12,8 @@ keywords:
   - when
 ---
 
+For the geographical context behind the landscape prints, explore the [Ukiyoe map 浮世絵地図](/other/drawing/ukitoe-map/). Both guides belong to the multilingual [Arts, Culture & Place collection](/other/arts-culture/).
+
 ## Kitagawa Utamaro (喜多川 歌麿)
 
 ![江戶寬政三美人](/img/other/drawing/ukiyoe/江戶寬政三美人.jpeg)

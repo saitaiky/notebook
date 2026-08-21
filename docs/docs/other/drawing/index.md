@@ -12,6 +12,7 @@ keywords:
   - approaches
 ---
 
+This practical drawing guide sits alongside the [Ukiyoe 浮世絵 guide](/other/drawing/ukiyoe/) in the multilingual [Arts, Culture & Place collection](/other/arts-culture/).
 
 
 ## Basic of drawing
@@ -132,5 +133,4 @@ Mid-tone fall into the light and is the range of tones that fall between the hig
 - one surface, one colour value
 - different angles, look upward nose level becomes the same as eyes
 - Look downward nose level becomes the same as month 
-
 

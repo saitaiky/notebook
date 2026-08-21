@@ -13,7 +13,9 @@ keywords:
   - want
 ---
 
-Below is the ranking of [Shiosai project](https://gardenrankings.com/) which I want to visit. Also, this is a good recourse for gardening guide in japanses:  [庭園ガイド](https://garden-guide.jp/spot.php?i=katsurarikyu)
+This bilingual index accompanies the [Japanese Gardens overview](/other/japanese-garden/) and the wider [Arts, Culture & Place collection](/other/arts-culture/).
+
+Below is the ranking of [Shiosai project](https://gardenrankings.com/) which I want to visit. Also, this is a good resource for gardening guides in Japanese: [庭園ガイド](https://garden-guide.jp/spot.php?i=katsurarikyu).
 
 <table><thead>
   <tr>

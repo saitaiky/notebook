@@ -17,10 +17,10 @@ The material here is organised as reader-facing essays and guides rather than a 
 
 ## Explore the collections
 
-- **Arts, culture, and place** — Japanese gardens, ukiyo-e, drawing, food culture, music, and life in the UK. Original Japanese and Chinese terminology is retained where translation would flatten the meaning.
-- **Mind, learning, and life** — psychology, memory, motivation, relationships, parenting, meaning, and personal development.
-- **Economics and everyday decisions** — investing concepts, financial products, market behaviour, and practical household knowledge.
-- **Work and product design** — ways to evaluate products, communicate ideas, and connect human confidence with technical systems.
+- **[Arts, culture, and place](/other/arts-culture/)** — Japanese gardens, ukiyo-e, drawing, food culture, and life in the UK. Original Japanese and Chinese terminology is retained where translation would flatten the meaning.
+- **[Mind, learning, and life](/other/mind-learning-life/)** — psychology, memory, motivation, relationships, parenting, meaning, and personal development.
+- **[Economics and everyday decisions](/other/economics-everyday-decisions/)** — investing concepts, financial products, market behaviour, and practical household knowledge.
+- **[Work and product design](/other/work-product-design/)** — ways to evaluate products and connect human confidence with technical systems.
 
 ## Editorial approach
 
