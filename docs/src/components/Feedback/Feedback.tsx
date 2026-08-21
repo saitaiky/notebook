@@ -1,185 +1,97 @@
-import React, { ReactNode, useState } from 'react';
-import { saTrack } from '@site/src/utils/segmentAnalytics';
+import React, { useState } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { trackEvent } from '@site/src/utils/analytics';
 import styles from './styles.module.scss';
+
+type Rating = 1 | 2 | 3 | 4 | 5;
+
 export const Feedback = ({ metadata }: { metadata: any }) => {
-  const [rating, setRating] = useState<1 | 2 | 3 | 4 | 5 | null>(null);
-  const [notes, setNotes] = useState<string | null>(null);
+  const { siteConfig } = useDocusaurusContext();
+  const [rating, setRating] = useState<Rating | null>(null);
   const [errorText, setErrorText] = useState<string | null>(null);
-  const [hoveredScore, setHoveredScore] = useState<Number | null>(null);
-  const [textAreaLabel, setTextAreaLabel] = useState<ReactNode | null>(null);
-  const [textAreaPlaceholder, setTextAreaPlaceholder] = useState<string>('This section is optional ✌️');
-  const [isSubmitSuccess, setIsSubmitSuccess] = useState<boolean>(false);
+  const [hoveredScore, setHoveredScore] = useState<number | null>(null);
+  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
 
-  const submitDisabled = rating === null || (rating < 4 && (notes === null || notes === ''));
+  const scores: Rating[] = [1, 2, 3, 4, 5];
+  const analyticsEnabled = siteConfig.customFields?.analyticsProvider === 'gtm';
 
-  const scores: (1 | 2 | 3 | 4 | 5)[] = [1, 2, 3, 4, 5];
-
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (rating === null) {
       setErrorText('Please select a score.');
       return;
     }
 
-    if (rating < 4 && notes === null) {
-      setErrorText(
-        "Because this doc wasn't up to scratch please provide us with some feedback of where we can improve."
-      );
+    const sent = trackEvent('feedback_submit', {
+      feedback_rating: rating,
+      feedback_helpful: rating >= 4,
+    });
+
+    if (!sent) {
+      setErrorText('Allow analytics in Analytics settings before sending this anonymous rating.');
       return;
     }
 
-    const sendData = async () => {
-      const myHeaders = new Headers();
-      myHeaders.append('Content-Type', 'application/json');
-
-      const raw = JSON.stringify({
-        feedback: {
-          isHelpful: rating >= 4 ? `👍` : `👎`,
-          score: rating,
-          notes,
-          pageTitle: document.title,
-          url: window.location.href,
-        },
-      });
-
-      const requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow',
-      };
-
-      fetch('https://us-central1-websitecloud-352908.cloudfunctions.net/docs-feedback', requestOptions)
-        .then(response => response.text())
-        .catch(error => console.error('error', error));
-    };
-
-    // Sai: This part prevent any other website send the data to the backend.
-    if (!window.location.hostname.includes('hasura.io')) {
-      alert(
-        'Hey! Thank you for letting me know your feedback🎉\n\n Appreciate that.✌️'
-      );
-      setRating(null);
-      setNotes(null);
-      setIsSubmitSuccess(true);
-      return;
-    }
-
-    sendData()
-      .then(() => {
-        saTrack('Responded to Did You Find This Page Helpful', {
-          label: 'Responded to Did You Find This Page Helpful',
-          response: rating >= 4 ? 'YES' : 'NO',
-          pageUrl: window.location.href,
-        });
-        setRating(null);
-        setNotes(null);
-        setIsSubmitSuccess(true);
-      })
-      .catch(e => {
-        console.error(e);
-      });
-
-    return;
-  };
-
-  const handleScoreClick = (scoreItem: 1 | 2 | 3 | 4 | 5) => {
-    if (scoreItem === rating) {
-      setRating(null);
-      setErrorText(null);
-      setHoveredScore(null);
-      return;
-    }
     setErrorText(null);
-    setRating(scoreItem);
-    if (scoreItem < 4) {
-      setTextAreaLabel(
-        <>
-          <p>What can we do to improve it? Please be as detailed as you like.</p>
-          <p>I'll read every single review.</p>
-        </>
-      );
-      setTextAreaPlaceholder('This section is required... how can we do better? ✍️');
-    }
-    if (scoreItem >= 4) {
-      setTextAreaLabel(
-        <>
-          <p>Any general feedback you'd like to add?</p>
-          <p>I'll take it all... tell me where this website can be improved.</p>
-          <p>I'll read every single review.</p>
-        </>
-      );
-      setTextAreaPlaceholder('This section is optional ✌️');
-    }
+    setIsSubmitSuccess(true);
   };
 
-  // Do not show on Intro page
-  if (metadata.source === '@site/docs/index.mdx') {
+  if (!analyticsEnabled || metadata.source === '@site/docs/index.mdx' || metadata.source === '@site/docs/index.md') {
     return null;
   }
 
   return (
-    <div className={styles.feedback} id={'feedback'}>
+    <div className={styles.feedback} id="feedback">
       <div className={styles.form}>
         <div className={styles.topSection}>
-          <h3>What did you think of this doc?</h3>
+          <h3>Was this page useful?</h3>
           {isSubmitSuccess ? (
             <div className={styles.successMessage}>
-              <p>Thanks for your feedback.</p>
-              {rating >= 3 ? (
-                <p>Feel free to review as many docs pages as you like!</p>
-              ) : (
-                <p>
-                  I'll continue to review and update the content to make sure the content is high quality.
-                </p>
-              )}
+              <p>Thanks—your anonymous rating was recorded.</p>
             </div>
           ) : (
-            <div className={styles.numberRow}>
-              {scores.map((star, index) => (
-                <div
-                  className={styles.star}
-                  key={star}
-                  onClick={() => handleScoreClick(star)}
-                  onMouseEnter={() => setHoveredScore(index + 1)}
-                  onMouseLeave={() => setHoveredScore(-1)}
+            <>
+              <p>Only the score and page category are collected.</p>
+              <div className={styles.numberRow}>
+                {scores.map(score => (
+                  <button
+                    type="button"
+                    className={styles.star}
+                    key={score}
+                    aria-label={`Rate this page ${score} out of 5`}
+                    aria-pressed={rating === score}
+                    onClick={() => {
+                      setRating(score);
+                      setErrorText(null);
+                    }}
+                    onMouseEnter={() => setHoveredScore(score)}
+                    onMouseLeave={() => setHoveredScore(null)}
+                  >
+                    <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        fill={
+                          (rating !== null && rating >= score) || (hoveredScore !== null && hoveredScore >= score)
+                            ? '#ffc107'
+                            : '#B1BCC7'
+                        }
+                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                      />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+              {errorText ? <p className={styles.errorText}>{errorText}</p> : null}
+              <div className={styles.buttonContainer}>
+                <button
+                  type="button"
+                  disabled={rating === null}
+                  className={rating === null ? styles.buttonDisabled : ''}
+                  onClick={handleSubmit}
                 >
-                  {rating >= star ? (
-                    <svg width="36" height="36" viewBox="0 0 24 24">
-                      <path
-                        fill="#ffc107"
-                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg width="36" height="36" viewBox="0 0 24 24">
-                      <path
-                        fill={hoveredScore > index ? '#ffc107' : '#B1BCC7'}
-                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                      />
-                    </svg>
-                  )}
-                </div>
-              ))}
-            </div>
+                  Send rating
+                </button>
+              </div>
+            </>
           )}
-        </div>
-        <div style={rating ? { display: 'block' } : { display: 'none' }}>
-          <div className={styles.textAreaLabel}>{textAreaLabel}</div>
-          <textarea
-            className={styles.textarea}
-            value={notes ?? ''}
-            placeholder={textAreaPlaceholder ?? ''}
-            rows={5}
-            onChange={e => setNotes(e.target.value)}
-          />
-          <div className={styles.errorAndButton}>
-            <p className={styles.errorText}>{errorText}</p>
-            <div className={styles.buttonContainer}>
-              <button className={submitDisabled ? styles.buttonDisabled : ''} onClick={() => handleSubmit()}>
-                Send your review!
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

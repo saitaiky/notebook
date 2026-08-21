@@ -177,6 +177,10 @@ html[data-theme='dark'] {
 }
 
 .star {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
   transition: 0.1s ease-out;
   cursor: pointer;
   &:hover {

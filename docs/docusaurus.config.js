@@ -6,6 +6,15 @@ import rehypeKatex from 'rehype-katex';
 
 const path = require('path');
 
+const googleTagManagerId = (
+  process.env.GOOGLE_TAG_MANAGER_ID || 'GTM-57D8HMJV'
+).trim();
+if (googleTagManagerId && !/^GTM-[A-Z0-9]+$/.test(googleTagManagerId)) {
+  throw new Error(
+    'GOOGLE_TAG_MANAGER_ID must be a valid container ID such as GTM-ABC1234.'
+  );
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sai\'s Notebook',
@@ -19,6 +28,10 @@ const config = {
   organizationName: 'hasura',
   projectName: 'graphql-engine',
   staticDirectories: ['static', 'public'],
+  clientModules: [require.resolve('./src/clientModules/analytics.ts')],
+  customFields: {
+    analyticsProvider: googleTagManagerId ? 'gtm' : 'gtag',
+  },
   // scripts: [
   //   {
   //     src: "https://www.chatbase.co/embed.min.js",
@@ -104,13 +117,23 @@ const config = {
     //     // trackPageDelay: 50,
     //   },
     // ],
-    [
-      '@docusaurus/plugin-google-gtag',
-      {
-        trackingID: 'G-B35TPRVQ3Q',
-        anonymizeIP: true,
-      },
-    ],
+    ...(googleTagManagerId
+      ? [
+          require.resolve('./src/plugins/analytics-consent-plugin'),
+          [
+            '@docusaurus/plugin-google-tag-manager',
+            {containerId: googleTagManagerId},
+          ],
+        ]
+      : [
+          [
+            '@docusaurus/plugin-google-gtag',
+            {
+              trackingID: 'G-B35TPRVQ3Q',
+              anonymizeIP: true,
+            },
+          ],
+        ]),
     [
       // https://kgajera.com/blog/display-recent-blog-posts-on-home-page-with-docusaurus/
       path.resolve(__dirname, './src/plugins/custom-blog-plugin'),

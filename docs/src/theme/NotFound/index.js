@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 import Light404 from '@site/static/img/light-404.png';
 import Dark404 from '@site/static/img/dark-404.png';
 import Link from '@docusaurus/Link';
+import {trackEvent} from '@site/src/utils/analytics';
 
 export default function NotFound() {
   // State for handling search results
@@ -52,6 +53,17 @@ export default function NotFound() {
         console.error(error);
       });
   }, []);
+
+  useEffect(() => {
+    const trackNotFound = () => {
+      trackEvent('page_not_found', {missing_path: location.pathname});
+    };
+
+    trackNotFound();
+    window.addEventListener('analytics:consent-updated', trackNotFound);
+    return () =>
+      window.removeEventListener('analytics:consent-updated', trackNotFound);
+  }, [location.pathname]);
 
   return (
     <>

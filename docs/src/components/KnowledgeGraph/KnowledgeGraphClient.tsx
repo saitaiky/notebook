@@ -6,6 +6,7 @@
 import React, { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import ForceGraph3D from 'react-force-graph-3d';
 import SpriteText from 'three-spritetext';
+import { trackEvent } from '@site/src/utils/analytics';
 import styles from './styles.module.scss';
 
 interface GraphNode {
@@ -458,6 +459,10 @@ function KnowledgeGraphClient({ graphData, colorMode, height }: KnowledgeGraphCl
           const n = node as GraphNode;
           if (n.isCluster) {
             const sub = n.subsection;
+            trackEvent('graph_expand', {
+              graph_section: n.section,
+              graph_subsection: sub,
+            });
             // Expanding a cluster should own camera control; block fallback full-graph auto-fit.
             initialFitDone.current = true;
             setExpandedGroups(prev => new Set(prev).add(sub));
@@ -468,6 +473,11 @@ function KnowledgeGraphClient({ graphData, colorMode, height }: KnowledgeGraphCl
             }, 1300);
             return;
           }
+          trackEvent('select_content', {
+            item_id: n.url,
+            source_component: 'knowledge_graph',
+            target_section: n.section,
+          });
           window.location.href = n.url;
         }}
         onNodeDragEnd={node => {

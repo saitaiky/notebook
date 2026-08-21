@@ -8,7 +8,7 @@ import TagsListInline from '@theme/TagsListInline';
 import styles from './styles.module.css';
 import {CommentSection} from '@site/src/components/CommentSection/CommentSection';
 import RelatedContent from '@site/src/components/RelatedContent';
-// import { Feedback } from '@site/src/components/Feedback/Feedback';
+import {Feedback} from '@site/src/components/Feedback/Feedback';
 // import { HasuraReleaseNotification } from '@site/src/components/HasuraReleaseNotification/HasuraReleaseNotification';
 
 function TagsRow(props) {
@@ -62,26 +62,25 @@ export default function DocItemFooter() {
   const canDisplayTagsRow = tags.length > 0;
   const canDisplayEditMetaRow = !!(editUrl || lastUpdatedAt || lastUpdatedBy);
   const canDisplayFooter = canDisplayTagsRow || canDisplayEditMetaRow;
-  if (!canDisplayFooter) {
-    return null;
-  }
   return (
     <>
-      {/* <Feedback metadata={metadata} /> */}
+      <Feedback metadata={metadata} />
       {/* <HasuraReleaseNotification /> */}
-      <footer
-        className={clsx(ThemeClassNames.docs.docFooter, 'docusaurus-mt-lg')}
-      >
-        {canDisplayTagsRow && <TagsRow tags={tags} />}
-        {canDisplayEditMetaRow && (
-          <EditMetaRow
-            editUrl={editUrl}
-            lastUpdatedAt={lastUpdatedAt}
-            lastUpdatedBy={lastUpdatedBy}
-            formattedLastUpdatedAt={formattedLastUpdatedAt}
-          />
-        )}
-      </footer>
+      {canDisplayFooter && (
+        <footer
+          className={clsx(ThemeClassNames.docs.docFooter, 'docusaurus-mt-lg')}
+        >
+          {canDisplayTagsRow && <TagsRow tags={tags} />}
+          {canDisplayEditMetaRow && (
+            <EditMetaRow
+              editUrl={editUrl}
+              lastUpdatedAt={lastUpdatedAt}
+              lastUpdatedBy={lastUpdatedBy}
+              formattedLastUpdatedAt={formattedLastUpdatedAt}
+            />
+          )}
+        </footer>
+      )}
       <div className='margin-top--xl'>
         <RelatedContent />
       </div>

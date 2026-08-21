@@ -5,6 +5,7 @@ import BlogPostItem from '@theme-original/BlogPostItem';
 import { useBlogPost } from '@docusaurus/theme-common/internal'
 import {CommentSection} from '@site/src/components/CommentSection/CommentSection';
 import RelatedContent from '@site/src/components/RelatedContent';
+import {Feedback} from '@site/src/components/Feedback/Feedback';
 
 export default function BlogPostItemWrapper(props) {
 
@@ -14,6 +15,7 @@ export default function BlogPostItemWrapper(props) {
   return (
     <>
       <BlogPostItem {...props} />
+      {isBlogPostPage && <Feedback metadata={metadata} />}
       {isBlogPostPage && (
         <div className='margin-top--xl'>
           <RelatedContent />

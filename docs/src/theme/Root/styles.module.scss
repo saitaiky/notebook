@@ -1,0 +1,90 @@
+.consentBanner {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 18%);
+}
+
+.consentCopy {
+  strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+.consentActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+.acceptButton,
+.rejectButton,
+.preferencesButton {
+  padding: 0.55rem 0.85rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0.4rem;
+}
+
+.acceptButton {
+  color: var(--ifm-color-white);
+  background: var(--ifm-color-primary);
+  border: 1px solid var(--ifm-color-primary);
+}
+
+.rejectButton,
+.preferencesButton {
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-400);
+}
+
+.preferencesButton {
+  position: fixed;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  z-index: 999;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.acceptButton:hover,
+.rejectButton:hover,
+.preferencesButton:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 700px) {
+  .consentBanner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .consentActions {
+    justify-content: flex-end;
+  }
+}

@@ -36,9 +36,9 @@ export default function RelatedContent(): JSX.Element | null {
     <div className={styles.relatedBlock}>
       <h3 className={styles.title}>Related</h3>
       <ul className={styles.relatedList}>
-        {relatedItems.map((item) => (
+        {relatedItems.map(item => (
           <li key={item.url} className={styles.relatedItem}>
-            <Link to={item.url} className={styles.relatedLink}>
+            <Link to={item.url} className={styles.relatedLink} data-analytics-source="related_content">
               {item.title}
             </Link>
           </li>
