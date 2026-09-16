@@ -214,6 +214,37 @@ If a policy changes tomorrow, updating the indexed knowledge base is usually muc
 So I think of RAG less as a competitor to fine-tuning and more as a complementary tool. RAG is usually the first answer when the problem is freshness, privacy, or traceable grounding.
 A simple decision rule helps here. If the thing I need to change is the model's behavior, format, or task specialization, I think about fine-tuning. If the thing I need to change is what evidence the model can access at runtime, I think about retrieval. That distinction is not perfect, but it is a useful first pass when designing a system.
 
+## Retrieval vs. Tool Calls: Stable Knowledge and Live State
+
+There is a second boundary I need once RAG is working, and it trips people up more often than the fine-tuning question does: not everything that looks like "missing information" should be solved with retrieval. Some of it should be solved with a tool call instead, and mixing the two up produces answers that are fluent, confident, and quietly wrong.
+The rule I use is simple to state:
+
+:::info[Core framing]
+
+Retrieval is for stable knowledge: things that were true yesterday and will be true tomorrow. Tool use is for live state: things whose current value is owned by a system and changes independently of my index.
+
+:::
+
+Manuals, policies, contracts, and reference material are stable knowledge. They can change, but not on every request, and an index built from them stays valid between refreshes. An order status, an account balance, an inventory count, or an appointment slot is different. Its current value belongs to a system of record, and that value can be different the next time anyone asks, regardless of when my index was last built.
+
+### Why a Vector Index Can't Stand In for Live State
+
+An index is a snapshot. It holds whatever text was true when I last embedded it, not what is true right now. That distinction sounds obvious in the abstract, but it disappears the moment I look only at similarity scores.
+Embedding similarity measures how alike two pieces of text are in meaning. It says nothing about which one is current. If my corpus happens to contain two snapshots of the same order at two different points in time, both are valid English sentences, both may score similarly well against the query, and the retriever has no built-in way to prefer the newer one. It just returns whichever snapshot looks like the best semantic match, and the model composes a fluent answer from whatever it was handed.
+
+<!-- NOTEBOOKLM_DIAGRAM: concept=stale-snapshot-vs-live-tool-call; type=image; goal=contrast a vector index returning two semantically similar but differently-timed order-status snapshots against a tool call that queries the live order-status system directly, highlighting that similarity does not imply recency; complexity=intermediate -->
+
+That is the specific failure mode to watch for: a confident, well-written answer that disagrees with what the live system actually says. A better embedding model, a shorter refresh interval, or a higher similarity threshold does not fix this, because the category error is upstream of all three. The fix is to stop asking the index and start asking the system: route that question to a tool call against the order-status service, the inventory API, or whatever owns the live value, and let retrieval keep doing the job it is actually good at.
+
+### A Quick Diagnostic
+
+I use three questions to catch this before it reaches production:
+- Does the retrieved answer ever disagree with what the live system currently shows, even though nothing looks technically broken?
+- Do results shift every time the corpus is refreshed, yet users still report answers that feel stale?
+- Do two retrieved chunks contradict each other while both look individually plausible?
+
+If any of those show up, the fix is very rarely "tune retrieval harder." It is usually "this question was never a retrieval question in the first place."
+
 ## Agentic RAG: The Next Step Up in Flexibility
 
 A simple RAG system retrieves once and generates once. That is already useful, but harder problems often benefit from more deliberate workflows.

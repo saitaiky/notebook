@@ -54,6 +54,39 @@ Prompt engineering is just one piece of this puzzle — focused on clever wordin
 **Context engineering is broader:** it designs the *entire dynamic system* that decides which information, examples, tools, and formats get delivered to the model at runtime.
 :::
 
+## Combining Context Strategies in Practice
+
+The Write/Select/Compress/Isolate framework above answers *what* to do with context. A second, complementary question is *how much of the window to fill and when* — and that question is easiest to reason about along a spectrum from loading everything up front to loading almost nothing until it's needed.
+
+* **Monolithic** — load the full task context into a single prompt: the whole document, the whole conversation history, the whole retrieved corpus. It's simple, and it's the right call for a bounded task with a predictable input size or a stable prefix worth caching. It breaks down the moment context accumulates turn over turn, because cost and latency scale linearly with input length and a long-enough conversation eventually hits the window's hard limit.
+* **Progressive** — carry forward only what the next step needs: the latest tool result, the last few turns, the current subtask. This is the right default for most production workloads, but it comes with two costs. First, the exact input the model saw three steps ago is no longer reconstructable, which makes debugging harder. Second, because the "recent state" tail mutates every turn, it undermines prompt caching — caching depends on a stable, byte-identical prefix, and a tail that changes every turn can never form one.
+* **Retrieval** — fetch a relevant slice from an external store at query time, the same retrieval mechanism covered throughout this catalog's RAG pages. It earns its place when the corpus is too large to preload and only a fraction of it is relevant to any single step.
+* **Compaction** — periodically summarize or compress the context that has already accumulated, keeping the decisions and identifiers that matter while dropping the verbatim detail that got them there. It earns its place once a session would otherwise hit the context limit mid-task, though measuring how faithful a summary is to the original transcript remains a genuinely hard, mostly unsolved evaluation problem.
+
+:::tip Answering the caching question directly
+If progressive context makes caching harder because the tail keeps changing, the fix isn't to abandon caching — it's to stop asking one strategy to do both jobs. Keep a small, genuinely stable **monolithic prefix** (system prompt, task setup, anything that doesn't change call to call) ahead of the cache boundary so it can be cached once and reused, then layer the **progressive** tail after that boundary for the parts that do change every turn. And if the progressive window is at risk of *losing* something important as it slides forward, that's precisely what **compaction** is for: summarizing the part about to fall out of the window into a compact note that rides forward with the rest of the context, instead of letting it disappear outright.
+:::
+
+These four strategies are presented separately here for learning clarity, but production systems almost always combine them — trying to run a real agent on only one of the four tends to fail in a predictable way, because each strategy is answering a different question:
+
+* What does the model need at the **start** of the task? → drives the monolithic baseline.
+* What does it need from the **most recent steps**? → drives the progressive window.
+* What might it need to **fetch on demand**? → drives the retrieval layer.
+* What **earlier material can be compressed** without losing decision-relevant detail? → drives the compaction policy.
+
+### Worked Example: A Long-Running Coding Agent
+
+| Phase | What's happening | Strategy in play |
+| --- | --- | --- |
+| Session start | The task description and the few files the user explicitly referenced load once | Monolithic prefix — small, stable, and cacheable |
+| Active work | Each tool call (read file, run tests, edit) appends to the working context | Progressive — the latest additions are what the next step needs |
+| Discovery | The agent realizes it needs a file it didn't load initially and searches the codebase | Retrieval — the corpus is too large to preload, so only a relevant slice is fetched on demand |
+| Context filling | After many turns, early exploration is crowding the window, but the conclusions still matter | Compaction — summarizes "what was tried and what was learned," dropping the verbatim tool output |
+
+No single strategy could carry this workload alone. Monolithic alone hits the context limit as soon as the session runs long. Progressive alone has no way to surface code the agent never loaded in the first place. Retrieval alone loses the thread of what has already been tried. Compaction alone has nothing to compact until the other three have built up a trajectory worth summarizing.
+
+Mapped back onto the Write/Select/Compress/Isolate framework earlier in this page: **Select** is roughly the progressive-plus-retrieval decision of what enters the window right now; **Compress** is the compaction policy; **Write** is what persists state outside the window so it can be reloaded later; and the monolithic baseline is simply the starting point that exists before any of the other three mechanisms need to act.
+
 ## Memory in Context Engineering
 
 Among the four strategies, **memory is the backbone**. Without it, every LLM call starts from zero. With poorly designed memory, agents bloat, drift, or leak. With well-designed memory, agents become adaptive, personal, and persistent.

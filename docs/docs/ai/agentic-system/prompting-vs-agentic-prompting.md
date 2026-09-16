@@ -59,6 +59,16 @@ This extended version is particularly suitable for handling complex tasks that r
 **Extended thinking** is great for *development-time introspection* (see how the model reasons) but costs tokens and hurts reproducibility. Use it to refine prompts; don’t rely on it in steady state.
 :::
 
+#### Extended thinking is a cost/latency lever, not a quality switch
+
+Most providers let a model spend an extra, separately billed block of reasoning tokens before it writes the final answer. It's tempting to treat that as a mode worth flipping on because "it can't hurt," but every one of those reasoning tokens adds to the bill and to latency, whether or not it changes the final answer.
+
+The discipline that keeps this honest is to **run the eval without it first**. If accuracy is still short of the bar after the prompt itself has been improved, that's the point to try enabling extended thinking — and the case for turning it on should come from a measured accuracy gap, not an assumption. Without that measurement, the extra cost is being paid with no proof it moved anything.
+
+Some newer setups replace a hand-tuned reasoning-token budget with an **adaptive-effort** control: instead of guessing a token count, the request dials how much reasoning effort to apply and leaves the model to decide how to spend it. That keeps the cost/latency knob explicit without turning it into a manual budgeting exercise, but the same eval-first discipline still applies — effort is a dial being paid for, not a free quality upgrade.
+
+The same discipline scales up one level, to the model tier itself. Defaulting to the strongest available model because it's the safe-sounding choice is itself a decision — usually the most expensive one — made without evidence that a smaller or cheaper model would have been good enough. The delta-threshold discussion under [Evaluations that actually gate releases](#evaluations-that-actually-gate-releases) below covers the mechanism that makes a model (or reasoning-effort) change defensible instead of a guess.
+
 ### When to use an agent (and when not)
 
 ![should-i-build-an-agent](/img/ai/agentic-system/pormpt-vs-agentic/prompt-engineering-vs-context-engineering.jpeg)
@@ -70,6 +80,65 @@ When the **path is uncertain**, you *can’t* reliably specify that sequence up-
 ![should-i-build-an-agent](/img/ai/agentic-system/pormpt-vs-agentic/should-i-build-an-agent.jpg)
 
 ![should-i-build-an-agent-examples](/img/ai/agentic-system/pormpt-vs-agentic/should-i-examples.jpg)
+
+## System Prompts as Governed Assets
+
+At enterprise scale, a prompt is not a sentence someone typed once. It's a versioned asset with three parts that need to survive contact with real usage:
+
+- **Role and scope** — what this prompt owns, and just as importantly, what's explicitly out of bounds for it.
+- **Fixed constraints** — the rules that must hold on every single call, not just the ones a demo happened to exercise.
+- **An explicit output contract** — the exact shape the response has to take, so downstream code (or a person) can rely on it without re-parsing free text.
+
+A **template** packages this discipline so it survives reuse: the role, tone rules, constraints, and output contract stay fixed as scaffolding, and only a narrow set of slots vary per request. The point of keeping the scaffolding fixed is that filling in a slot can't accidentally delete a safety rule — whoever uses the template supplies the variable content and inherits the guardrails for free, rather than re-authoring them (correctly or not) every time.
+
+### Underspecified Guardrails: The Failure Mode That Looks Like a Control
+
+A guardrail is **underspecified** when it sounds sensible but doesn't define exactly what the model must or must not do. All of the following read like real rules, right up until I ask what they actually mean:
+
+- "Do not reveal sensitive information."
+- "Do not make assumptions."
+- "Avoid hallucinations."
+- "Be professional."
+- "Only provide accurate answers."
+
+Every load-bearing word in that list — *sensitive*, *assumption*, *professional*, *accurate* — is open to interpretation. The model can satisfy its own reading of that word while still producing exactly the output the rule was meant to prevent, and technically no rule was broken.
+
+Compare a weak guardrail with an operational one:
+
+| | Weak | Stronger |
+| --- | --- | --- |
+| Avoiding assumptions | "Do not make assumptions." | "Only state facts explicitly supported by the supplied sources. Do not infer missing facts, dates, figures, causes, or decisions. If the required information is not present, state: 'The supplied sources do not contain enough information to answer this question.'" |
+| Protecting sensitive data | "Do not reveal sensitive information." | "Do not include passwords, access tokens, customer identifiers, personal contact details, financial account details, or confidential project names in the output. If the requested answer requires any of these fields, omit the value and state that it has been withheld." |
+
+The stronger versions aren't longer for the sake of it — each one names a **scope**, a **prohibited behaviour**, a **required behaviour**, and a **fallback** for when the rule is triggered. Naming all four is also what makes the guardrail testable: a test case can check whether the model followed the stronger version. There's no equivalent test for "be professional."
+
+This is why a vague guardrail is more dangerous than a missing one. A missing guardrail is visibly absent — anyone reviewing the prompt can see there's no rule about a given risk. A vague one creates **the appearance of a control without the substance**: it reads like a safeguard, so review attention moves past it, while the model quietly routes around an ambiguous constraint using its own interpretation instead of breaking it outright.
+
+A quick test catches most of these before they ship: ask whether two reasonable people could read the instruction differently. If "sensitive," "professional," or "accurate" could plausibly mean different things to two people on the same team, the model has exactly that same room to interpret it inconsistently across requests — which reintroduces the non-determinism a governed prompt was supposed to remove in the first place.
+
+### Picking a Prompting Technique for the Task
+
+Once the guardrails are solid, the remaining lever is how much technique to wrap around the instruction itself — and the right amount is set by task complexity, not habit.
+
+| Technique | Fits when | Cost of over-using it |
+| --- | --- | --- |
+| Zero-shot | The task is well-specified and the model already handles it reliably from instructions alone | — |
+| Few-shot | The desired format or judgement is easier to demonstrate than to describe | Extra tokens; stale examples silently steer the model as the task evolves |
+| Chain-of-thought | Multi-step or interacting logic makes a skipped step a real risk | Extra tokens and latency for no gain on tasks that didn't need reasoning scaffolding |
+
+The mechanics behind each of these — worked chain-of-thought examples, PAL, and the ReAct pattern — are covered in depth in [Chain of Thought Prompting](/ai/llm/generative-ai-with-llm/wk3/reasoning) and [Transformer, Prompt engineering, Config](/ai/llm/generative-ai-with-llm/wk1/transformer-promptengineering-config); the point to take from this table is simpler: add the lightest technique that clears the accuracy bar, and re-check that choice whenever the underlying model changes, since a prompt tuned for one model is a starting point for another, not a finished artifact.
+
+### Packaging Reusable Prompts: Library or Skill
+
+Once a prompt is worth reusing, the last design choice is how a team packages it.
+
+| Consideration | Lean toward a prompt library | Lean toward a Skill |
+| --- | --- | --- |
+| Repeatability | An assembled, often-tweaked prompt per use | A stable procedure run the same way every time |
+| Distribution | Shared within one codebase or team | Distributed across teams or products that need the same procedure |
+| Governance | Lightweight; engineers own the fragments | Needs versioning, approval, and rollback — Skills carry that |
+
+A **prompt library** is a shared set of fragments and templates that engineers assemble in their own code — fine when one team owns it and expects to keep tweaking it. A **Skill** is a more formal, versioned, self-contained package — instructions plus any scripts it needs — that travels as one governed unit with approval and rollback built in. The signal to move from one to the other isn't size; it's whether the same procedure now needs to run identically somewhere the original team doesn't control.
 
 ## Agent prompting 
 
@@ -125,6 +194,22 @@ Start small but real; automate later.
 * 0 schema violations; 0 destructive calls without confirmation.
 * Rubric score ≥ threshold on a “golden” task pack; canary tasks pass.
 * Incident playbook tested (abort/rollback).
+
+#### Delta thresholds: what actually makes a rubric score a release gate
+
+"Rubric score ≥ threshold" only works as a gate if that threshold was agreed **before** anyone saw the new results. A **delta threshold** is the maximum acceptable difference between a new system's evaluation score and a known baseline, fixed in advance of the run.
+
+A concrete case makes this land: baseline accuracy is 92%, the new prompt (or model, or reasoning-effort setting) scores 90% — a delta of -2 points. If the threshold agreed beforehand was "no worse than -1 point," this release fails the gate, full stop, regardless of how much better the new version felt in a quick demo.
+
+The order of operations is what makes this a standard rather than an excuse. Agreeing the threshold *before* running the evaluation means the number decides the outcome. Agreeing it *after* seeing the results means the results are deciding the number — which is moving the goalposts, not gating a release.
+
+A delta threshold isn't limited to accuracy. Hallucination rate, safety-violation rate, cost, and latency can each carry their own threshold, and passing one does not buy back a failure on another: a faster, cheaper version that also hallucinates more has not passed the gate just because its cost number looks great.
+
+:::tip
+Not choosing a model (or a prompt, or a reasoning-effort setting) is equivalent to choosing the most expensive one by default. Building the eval set feels like extra work upfront, but it's the only thing that makes that choice defensible instead of a guess dressed up as judgement.
+:::
+
+For the broader evaluation methodology behind these gates — offline vs. online vs. pairwise evaluation, and the per-application-type techniques for agents, RAG, summarization, and classification — see [Evaluation](/ai/agentic-system/evaluation).
 
 
 # Agent prompting: what’s unique (and why it matters)

@@ -141,8 +141,33 @@ Tool invocation is the riskiest part of an agentic system because it can create 
   *Example:* Wire transfers require operator confirmation before execution.
 * **Output validators before commit**
   Don’t trust the model blindly. Run relevance checks, fact validation, URL availability checks, and readability scoring before persisting results or invoking tools.
+## Regulated-Industry Constraints That Rule Out Options First
 
+Everything above assumes the deployment surface is already decided. In a regulated environment, that assumption doesn't hold — some constraints eliminate an entire class of surface, model route, or vendor before cost, latency, or ergonomics ever get a vote. It helps to separate the decision into three layers that get chosen for different reasons and by different stakeholders: the **user-facing surface** (what a person or system directly talks to), the **developer integration layer** (what a team's code is written against — an SDK, an API, a protocol), and the **hosting/delivery route** (whose infrastructure the request actually runs on — a vendor directly, or through a cloud provider's managed offering). Treating those three as one decision is a common and avoidable mistake: a surface built for engineers ends up in front of non-technical staff, or a compliance question aimed at the hosting route gets answered by pointing at the user-facing surface instead.
 
+The constraints below are the ones worth naming explicitly and confirming with current documentation before any other tradeoff applies, because each one can rule out an otherwise-reasonable option outright:
+
+- **Attorney-client privilege** — a consumer-facing chat surface is often disqualified outright for privileged legal work, regardless of how good its answers are, because the surface itself may not carry the contractual and data-handling guarantees privilege depends on.
+- **HIPAA (PHI handling)** — protected health information requires a route with an executed business-associate agreement (or equivalent) covering the exact service and configuration in use; a BAA covering one product or route does not automatically extend to another.
+- **GDPR and data residency** — where personal data is processed and stored, and whether it can leave a given jurisdiction, can rule out a hosting route independent of anything about model quality.
+- **FedRAMP / government** — government workloads typically require a specific authorized hosting boundary, and a feature or model available on a vendor's general-availability route is not automatically available on the authorized one.
+- **Internal data-residency policy** — even without an external regulation, an organisation's own policy can rule out a route the same way a legal requirement would; it should be treated with the same seriousness, not as a soft preference.
+
+:::danger[These are eliminations, not scores]
+Governance constraints don't get weighed against cost or latency — they remove options from consideration before either of those comparisons starts. A route that fails a compliance requirement isn't "less optimal"; it isn't a candidate.
+:::
+
+### Worked Example: A Document-Review System Under Privilege Constraints
+
+A firm needs to review long contracts against a standard playbook, flag risky clauses, and draft redlines, but attorney-client privilege rules out any consumer-facing surface, and the firm already has SSO and an approved model gateway in place. A defensible shape looks like this:
+
+- A thin internal application built on a direct API or SDK, sitting behind the firm's own SSO and routed through the already-approved gateway — not a general-purpose chat product, because the privilege constraint ruled that out at the first layer.
+- A parallelised workflow that reviews the contract section by section, with an evaluator step enforcing a strict schema on the flagged-clause output, rather than a single open-ended pass over the whole document.
+- The playbook stays inside the firm's own systems as a versioned source of truth, retrieved per clause at call time — the model classifies and drafts against it, but the playbook itself is never treated as something the model should "know" from training.
+- A capable default model handles extraction, classification, and draft redlines with context loaded progressively rather than all at once, and any extra reasoning effort is enabled only for the clause types where a measured accuracy gap justifies the added cost.
+- A senior reviewer signs off on every output, and low-confidence clauses are surfaced prominently rather than buried in the same list as everything else.
+
+Each rejected alternative fails a single load-bearing decision: a consumer-facing surface fails the privilege constraint outright; loading the entire playbook into every request abandons the versioned-source-of-truth principle for no real benefit; and an open-ended, unbounded agent replaces a process whose steps are already known and reviewable with one that's harder to audit for no corresponding gain in capability.
 ## Implementing these patterns on AWS
 
 The defense-in-depth layers above apply to any stack. For the concrete AWS implementation — `CreateGuardrail`/`UpdateGuardrail`, attaching guardrails at runtime via `guardrailConfig`, versioning with CDK/CloudFormation, and the CloudTrail/CloudWatch/guardrail-trace monitoring stack — see the AWS-specific pages:

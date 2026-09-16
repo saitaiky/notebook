@@ -84,6 +84,16 @@ This cluster covers the pages that matter when the system is already working but
 - [Safeguarding](/ai/agentic-system/safeguarding)
 - Content under `evaluation/`
 
+### Production Readiness
+
+This cluster covers what it takes to move a working prototype to an enterprise deployment: cost/latency/reliability modeling, feasibility and sizing, integration layers, and structured experimentation.
+
+- [Production Readiness overview](/ai/agentic-system/production)
+- [Cost, Latency, and Reliability](/ai/agentic-system/production/cost-latency-reliability)
+- [Feasibility and Use-Case Sizing](/ai/agentic-system/production/feasibility-and-sizing)
+- [Enterprise Integration](/ai/agentic-system/production/enterprise-integration)
+- [Experimentation and Observability at Scale](/ai/agentic-system/production/experimentation-and-observability)
+
 ## Relationship To The LLM Section
 
 The easiest way to think about the split is this.

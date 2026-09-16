@@ -29,6 +29,89 @@ Source: [Arxiv - Large Language Models for Information Retrieval](https://arxiv.
 Pointwise methods measure relevance between a query and a single document. Subcategories include relevance generation and query generation, both effective in zero-shot document reranking.
 :::
 
+## Evals as Acceptance Criteria, Not a QA Afterthought
+
+The standard instinct is to build a system, see if it looks right, and test later. That ordering has a real cost: if a behavior has no eval, there is no reliable way to know whether that behavior is present, which means every subsequent change to the system is unverifiable.
+
+Writing the eval suite before production code forces three things that are otherwise easy to defer:
+
+- Stating what success means in measurable terms, instead of a vague intuition.
+- Exposing design assumptions early, when they are still cheap to change.
+- Providing a gate that can say whether a model swap, a prompt revision, or a new retrieval strategy actually improved the system, rather than just felt different.
+
+An eval suite belongs at the start of the build, not at the end as a QA step.
+
+### The Eval Workflow: From Task Definition to Result
+
+A well-constructed eval workflow runs through five sequential stages, and each stage produces an artifact the next stage consumes.
+
+```mermaid
+flowchart LR
+  A[Define the task] --> B[Build the golden dataset]
+  B --> C[Run automated checks]
+  C --> D[Score with a judge]
+  D --> E[Interpret and act]
+```
+
+| Stage | What happens | Output |
+| --- | --- | --- |
+| Define the task | State the behavior being evaluated in specific, measurable terms, and write the prompt used to test it. A vague definition produces a vague eval. | A task specification with a test prompt and pass criteria |
+| Build the golden dataset | Assemble the inputs the system will actually encounter, including edge cases and counterexamples. If the dataset is not representative, the scores are not meaningful. | A labeled dataset with expected outputs |
+| Run automated checks | Pass each prompt through the system and compare the output against the expected result. Reserve this stage for behaviors that are unambiguous: format compliance, schema validation, factual lookups against authoritative data. | A pass/fail record per item |
+| Score with a judge | For behaviors that need interpretation — tone, reasoning quality, edge-case appropriateness — a model-based judge assesses outputs at scale. | A score per item, with reasoning |
+| Interpret and act | Aggregate scores show where the system stands and whether a change moved it in the right direction. A change that raises the mean score while quietly degrading edge cases has not made the system better. | An overall score plus a per-category breakdown |
+
+### Code-Based, Model-Based, and Human-Review Evals
+
+Not every behavior can be checked the same way. Some behaviors have a single correct answer — valid JSON or not. Others depend on whether the output matches an expected tone or style. Picking the right grading tool for a given behavior matters for both accuracy and cost.
+
+| Eval type | How it works | When to use it | Cost | Limitation |
+| --- | --- | --- | --- | --- |
+| Code-based | A function checks the output programmatically: schema validation, regex match, JSON parse, length check, assertion against authoritative data. | Any unambiguous behavior — format compliance, schema correctness, lookup accuracy, length constraints | Very low — milliseconds per check, no API call | Cannot assess anything that requires interpretation |
+| Model-based (LLM-as-judge) | A judge model receives the original prompt, the system output, and a scoring rubric, then returns a score and reasoning. | Response quality, instruction following, reasoning accuracy, safety, handling of ambiguous inputs | Medium to high — one API call per item, at the judge model's rate | Judges can be inconsistent on borderline cases; forcing the judge to produce reasoning alongside the score is what makes that inconsistency detectable |
+| Human review | A person scores the output against a rubric, structured or open-ended. | High-stakes or novel behaviors where neither a function nor a judge model can be trusted yet; also useful for calibrating a judge | High — the most expensive, least scalable option | Slow, not viable at scale beyond a sampled subset, and introduces its own inconsistency |
+
+### The Grading Ladder
+
+The grading method follows a deliberate ladder — reach for the cheapest reliable method first, and climb only when the behavior demands it.
+
+1. **Code-based grading, wherever the behavior allows it.** Deterministic checks run in milliseconds, cost almost nothing, and never drift.
+2. **LLM-as-judge, when the behavior needs interpretation.** Make it rigorous with detailed rubrics, constrained verdicts (a small fixed set of labels rather than a free-form score), calibration against human-labeled examples, and grading with a *different* model than the one being evaluated, to avoid self-preference.
+3. **Human grading, as the last resort.** Reserve it for high-stakes or novel behaviors where neither code nor a calibrated judge is trustworthy yet.
+
+:::warning[Judge calibration is the step teams skip]
+An LLM judge is itself a system that can be wrong. Before trusting its verdicts, run it against a set of human-labeled outputs and confirm its agreement with human judgment is high enough to rely on. An uncalibrated judge produces confident scores that may not be good at all — which is worse than no automated grade, because it *looks* trustworthy.
+:::
+
+Favor volume over perfection: many cheap, automatically-gradable cases catch more regressions than a handful of painstakingly hand-graded ones, and the cheap set can run on every single change.
+
+### Turning a Business Requirement into a Measurable Threshold
+
+A requirement like "summarize claims accurately" doesn't tell you what to measure. Turning it into an eval criterion means:
+
+- **Naming the behavior specifically.** "Summarize claims accurately" becomes "extract the filer's name, claim number, incident date, and claimed amount from each document."
+- **Setting the threshold from the business requirement, not the prototype.** If the thresholds are 100% accuracy on structured fields, under 2% hallucination rate, and 99.5% schema compliance, those numbers should come from what the business actually needs — not from whatever the first prototype happened to achieve.
+- **Naming the failure modes.** A fake claim number, a missing incident date, a value pulled from the wrong claim — each failure mode becomes its own category in the eval dataset.
+- **Including adversarial inputs.** Documents with missing fields, handwritten sections, and unusual formatting all belong in the golden dataset. A golden dataset built only from clean inputs produces eval scores that don't predict production performance.
+
+### Evals as the Gating Mechanism for Every Change
+
+Every change to a production system — a model swap, a prompt revision, a context-strategy change, a retrieval-configuration update — should run through the eval suite before it reaches production. It is the only reliable way to know whether a change actually improved the system, and it backs the same discipline as the [delta-threshold release gates](/ai/agentic-system/prompting-vs-agentic-prompting#delta-thresholds-what-actually-makes-a-rubric-score-a-release-gate) covered elsewhere in this catalog.
+
+A single-turn eval set won't reveal how a system holds up across a conversation. **Multi-turn evals** are a separate category that scores a whole conversation rather than one prompt-response pair — checking whether the system keeps prior context straight across turns, answers a follow-up without inventing details, and holds output quality as the conversation runs longer. Because the unit being scored is the whole conversation, multi-turn evals need their own golden dataset: full transcripts with known-good responses at each turn, covering the follow-ups, topic shifts, and lengths production will actually see.
+
+:::danger[An eval suite is only as good as its last update]
+A team revised a summarization prompt but didn't update the eval suite to match. The suite kept passing — because its golden dataset still reflected the *old* prompt's expected outputs, not the new behavior. Two days after the swap reached production, multi-clause sentences were being truncated in summaries that the stale eval had no way to catch. An eval suite that isn't updated alongside the system it measures provides false confidence, which is worse than no suite at all.
+:::
+
+Cost · Complexity · Risk
+
+**Cost:** Every model-based eval is an API call, but under-evaluating is the bigger risk — a production-breaking change that slips through an undersized suite costs far more than the extra API calls a bigger one would need.
+
+**Complexity:** Eval infrastructure is a parallel system to maintain: the golden dataset has to stay current, judge prompts need engineering and testing, and pass thresholds need revisiting as requirements change.
+
+**Risk:** The highest-risk moment for a regression is exactly when an eval suite exists but is out of date — it creates the appearance of a safety net that isn't actually catching anything.
+
 ## 4 Different application-specific techniques
 
 ### 1. Agents
