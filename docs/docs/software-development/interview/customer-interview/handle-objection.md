@@ -77,6 +77,23 @@ An objection like this can be handled by talking about other customers successfu
 
 After you’ve formulated a basic strategy to close the objection, it is time to present the solution or workaround to the customer. It is important to not be defensive about the lack of a particular feature, but rather outline how other customers handle this particular business need with other areas of your product or other strategies.
 
+When an objection is really a decision between options, make the trade explicit across four dimensions:
+
+| Dimension | What to clarify |
+| --- | --- |
+| Gain | Which business or technical outcome improves if the customer chooses this direction? |
+| Give-up | Which capability, convenience, time, or flexibility does the customer trade away? |
+| Reversal cost | How difficult and expensive is it to undo the choice if its assumptions prove wrong? |
+| Compliance | Does the option satisfy the governing policy, contract, regulation, and evidence requirement? |
+
+This framing keeps the response honest. It does not pretend that the proposed direction has no downside, and it separates a genuine compliance blocker from a preference that can be negotiated through scope or sequencing.
+
+:::tip[Approval of direction is not approval of a number]
+
+When a customer agrees that a proposed architecture or product direction makes sense, do not treat that as acceptance of an unvalidated cost, timeline, capacity, or ROI estimate. Record the directional agreement, identify the assumptions behind the number, and close with the validation needed before either side commits to it.
+
+:::
+
 ## Tips for Success
 
 - **Demonstrate great listening skills by searching for the business motivation behind the question**: A question often has a hidden motive behind it, and it’s critical to suss that out in order to provide an effective and acceptable answer.

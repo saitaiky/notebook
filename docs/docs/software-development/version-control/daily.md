@@ -1,6 +1,7 @@
 ---
 title: "Daily operations"
-description: Daily Git operations reference covering commit, branch, stash, cherry-pick, reset, and common workflows for everyday version control tasks.
+description: "Daily Git operations reference covering commit, branch, stash, cherry-pick, reset, and common workflows for everyday version control tasks."
+sidebar_position: 2
 keywords:
   - git daily operations
   - git commands
@@ -11,26 +12,8 @@ keywords:
   - version control
 ---
 
-There are 2 useful websites when learning Gitflow or Git in general.
-- [learngitbranching](https://learngitbranching.js.org/) - Good to learn the basic git version control with all the lovely graph.
-- [gitflow-animated](https://veerasundar.com/blog/gitflow-animated) - It's a tool to visualize and animate the Gitflow. 
-
-## Gitflow Workflow
-
-![animated-gitflow](/img/software-development/version-control/animated-gitflow.gif)
-
-Source: [gitflowanimated](https://github.com/vraa/gitflowanimated)
-
-Gitflow is a branching model and workflow strategy for version control with Git. It defines a structured approach for managing Git branches to help teams coordinate software development tasks effectively. It categorizes branches into feature, release, hotfix, and other types, ensuring a well-organized development process. This model encourages collaboration, simplifies release management, and maintains a clean and stable codebase. You may find more information on [Bitbucket - Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
-
-:::info Regularly Rebase Your Feature Branch
-In Git Flow, managing a feature branch while the `develop` branch gets frequently updated can indeed lead to merge conflicts. To avoid this, frequently rebase the feature branch against the `develop` branch. This keeps your branch updated with the latest changes and reduces the risk of large, unmanageable conflicts later.
-```
-git checkout feature/your-feature-branch
-git fetch origin
-git rebase origin/develop
-```
-:::
+Use the [branching strategies comparison](/software-development/version-control/branching-strategies/) to choose between
+Gitflow, GitHub Flow, and trunk-based development. This page focuses on the commands used after that policy is chosen.
 
 ## Local operations
 
@@ -155,6 +138,9 @@ To pull from the base repository:
 
 ### Create support branch for hotfix(Gitflow) 
 
+This example extends the [Gitflow model](/software-development/version-control/branching-strategies/#gitflow) when an
+older supported release needs a hotfix.
+
 > Reference: [Following git-flow how should you handle a hotfix of an earlier release?](https://stackoverflow.com/questions/16386323/following-git-flow-how-should-you-handle-a-hotfix-of-an-earlier-release)
 
 It seems that there is a concept of a "support" branch in git flow. This is used to add a hotfix to an earlier release.
@@ -272,7 +258,8 @@ As long as you're just renaming a *file*, and not a *folder*, you can just use
 
 ## Git Version Control Best Practices
 
-Beyond Gitflow and local operations, adopting robust version control practices can make your development process smoother. Below are three essential concepts: Semantic Versioning, conventional-changelog, and commit linting.
+Alongside daily branch operations, release naming and commit conventions make project history easier to automate and
+understand. The following sections introduce Semantic Versioning, conventional-changelog, and commit linting.
 
 ### Semantic Versioning
 

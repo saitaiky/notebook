@@ -49,6 +49,10 @@ The interviewer normally tries to steer the SA off-track over the course of an i
 
 ## A Framework For Giving Effective Demos
 
+A **capabilities demo** answers "what can the product do?" and is useful early, when the customer is still exploring the solution space. A **scenario-specific demo** answers "how would this product handle our workflow under our constraints?" and is appropriate once discovery has identified a real problem, actors, data, and success criteria. Confusing the two produces either a generic feature tour after the customer has stated a concrete need, or a highly tailored scenario built on assumptions nobody validated.
+
+For a scenario-specific demo, agree on the scope jointly before building it: the workflow to show, the roles involved, representative data, the constraints that must remain visible, and what the audience should be able to conclude afterward. Joint scoping is part of the demonstration process, not preparation hidden from the customer; it confirms that the demo will test the decision they actually need to make.
+
 ### Step 1: Introductions
 
 Introduce yourself and validate the problem. Sometimes things get lost in translation, and it is always useful to provide a high-level problem statement of the problem you are trying to solve to ensure that the SA and prospect are on the same page.

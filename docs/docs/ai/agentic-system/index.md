@@ -41,9 +41,11 @@ If the immediate problem is **system integration**, start with [Model Context Pr
 
 If the immediate problem is **retrieval quality**, start with [RAG Implementation](/ai/agentic-system/rag-implementation), then move through [Chunking](/ai/agentic-system/chunking), [Embedding Model](/ai/agentic-system/embedding-model), [Indexing](/ai/agentic-system/indexing), and [Vectorstore Settings](/ai/agentic-system/vectorstore-settings). That path is closer to a retrieval-systems handbook than a conceptual primer.
 
-If the immediate problem is **runtime behavior**, use [Caching](/ai/agentic-system/caching), [Rate Limit](/ai/agentic-system/rate-limit), and [Safeguarding](/ai/agentic-system/safeguarding) as the operational starting points. These pages belong to the part of the stack where cost, latency, abuse, and failure modes become visible.
+If the immediate problem is **runtime behavior**, use [Caching](/ai/agentic-system/caching), [Rate Limits and Failure Handling](/ai/agentic-system/rate-limit), and [Safeguarding](/ai/agentic-system/safeguarding) as the operational starting points. These pages belong to the part of the stack where cost, latency, abuse, and failure modes become visible. When a feature passes in development but breaks under real traffic, [Testing and Tracing](/ai/agentic-system/testing-and-tracing) localizes the failure and [Model Selection in Production](/ai/agentic-system/model-selection) sets the cost/quality baseline the rest tune within. For configuring a coding agent itself — what it is allowed to do and what it knows across sessions — start with [Claude Code Configuration and Permissions](/ai/agentic-system/claude-code-configuration) and [Durable Project Context](/ai/agentic-system/durable-project-context).
 
 If the immediate problem is **workflow design**, use [Prompting vs Agentic Prompting](/ai/agentic-system/prompting-vs-agentic-prompting), [Context Engineering](/ai/agentic-system/context-engineering), and the material under the `patterns` and `evaluation` subfolders to think through orchestration and measurement rather than raw model capability.
+
+If the immediate goal is **Anthropic certification preparation**, use the [Anthropic Certification Study Guide](/ai/anthropic-certification-study-guide) to map each Developer Foundations or Architect Professional course module to the pages that cover it here.
 
 ## Section Map
 
@@ -80,9 +82,19 @@ This cluster covers how tasks are structured once a single prompt is no longer e
 This cluster covers the pages that matter when the system is already working but not yet dependable.
 
 - [Caching](/ai/agentic-system/caching)
-- [Rate Limit](/ai/agentic-system/rate-limit)
+- [Rate Limits and Failure Handling](/ai/agentic-system/rate-limit)
+- [Testing and Tracing](/ai/agentic-system/testing-and-tracing)
+- [Model Selection in Production](/ai/agentic-system/model-selection)
 - [Safeguarding](/ai/agentic-system/safeguarding)
+- [Fairness, Oversight, and Compliance](/ai/agentic-system/fairness-oversight-and-compliance)
 - Content under `evaluation/`
+
+### Agent Runtime Configuration
+
+This cluster covers how a coding agent is governed and grounded: what it is permitted to act on, and the durable context that shapes how it behaves from one session to the next.
+
+- [Claude Code Configuration and Permissions](/ai/agentic-system/claude-code-configuration)
+- [Durable Project Context](/ai/agentic-system/durable-project-context)
 
 ### Production Readiness
 
@@ -92,7 +104,9 @@ This cluster covers what it takes to move a working prototype to an enterprise d
 - [Cost, Latency, and Reliability](/ai/agentic-system/production/cost-latency-reliability)
 - [Feasibility and Use-Case Sizing](/ai/agentic-system/production/feasibility-and-sizing)
 - [Enterprise Integration](/ai/agentic-system/production/enterprise-integration)
+- [Deployment Platform Selection](/ai/agentic-system/production/deployment-platforms)
 - [Experimentation and Observability at Scale](/ai/agentic-system/production/experimentation-and-observability)
+- [Team Enablement and Operational Support](/ai/agentic-system/production/team-enablement-and-operational-support)
 
 ## Relationship To The LLM Section
 

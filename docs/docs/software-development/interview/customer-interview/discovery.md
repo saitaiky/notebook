@@ -59,6 +59,25 @@ Typically, the interviewer gives you a vague technical prompt. You're expected t
 
 ### A Framework for Discovery Interviews
 
+Use four constraint buckets to turn broad stakeholder language into testable requirements:
+
+| Bucket | Question it answers | Example |
+| --- | --- | --- |
+| Must do | Which outcome or capability has to work? | Produce a reviewable claim summary from submitted records |
+| Must not do | Which outcome, action, or data path is prohibited? | Never make the final eligibility decision automatically |
+| Must cost | Which budget, staffing, latency, or operational ceiling applies? | Stay below the agreed cost per completed case |
+| Must prove | Which evidence is required before approval or expansion? | Demonstrate subgroup quality and reconstruct one decision end to end |
+
+The buckets expose ambiguity early. "The system must be secure" is not yet a requirement; discovery should translate it into the prohibited paths, mandatory controls, and proof a reviewer will accept.
+
+| Stakeholder statement | Useful translation question |
+| --- | --- |
+| "It needs to be accurate." | Accurate for which task, measured on which cases, and what error rate is acceptable? |
+| "We cannot send data to the cloud." | Is that a policy preference, contractual term, regulatory requirement, or prior-risk concern? |
+| "It needs to integrate with everything." | Which systems are required for the first workflow, and what data or action crosses each boundary? |
+| "We need this quickly." | Which date matters, what event drives it, and what smaller scope would still create value by then? |
+| "The business case is obvious." | Which measured baseline will the projected gain be compared with, and who owns that number? |
+
 #### Before the Interview
 
 - Research the vertical the company works in. For example, if it is a financial company or a bank, they generally have data-related restrictions regarding storing data in the cloud or the region they can store data in. You should plan to ask questions about data security and legal challenges with data.

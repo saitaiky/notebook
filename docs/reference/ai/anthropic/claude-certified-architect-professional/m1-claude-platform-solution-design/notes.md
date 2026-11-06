@@ -41,12 +41,11 @@ forces the architecture must accommodate.
 
 These properties lead to four design consequences:
 
-- **Non-determinism requires evaluation.** A handful of successful demonstrations does not establish repeatable
-  behavior.
-- **Context is a finite resource.** Context selection, ordering, and omission affect quality, cost, and latency.
-- **Confidence is not validity.** Fluent delivery does not remove the need for verification or human review.
-- **Knowledge has boundaries.** Private, live, and authoritative facts should come from systems that own them, not from
-  model memory.
+- **Non-determinism requires evaluation.** The same input can produce different outputs across runs. This is why evaluation frameworks exist: you cannot certify behavior you only observed once.
+- **Context is a finite resource.** The context window is a hard edge with a fixed token budget. What you put in it, in what order, and what you leave out are design decisions that affect both what the model can work with and what it costs to run. (Feeds model and context strategy, later in this module.)
+- **Confidence is not validity.** Claude can produce a wrong answer in the same fluent, assured tone it uses for a right one. This is why human-in-the-loop placement and verification are architectural choices, not afterthoughts. (Feeds the responsible-deployment work in Module 3.)
+- **Knowledge and capability boundaries.**  The model is reliable with topics that are common, recent, and consistent in its training data, and unreliable with topics that are rare, private, or fast-changing. For unreliable topics, web search, retrieval, tools, and MCP can be used to make an external system the source of truth instead of the model. (Feeds reference architectures and RAG, later in this module.)
+
 
 A production architecture that assumes the model is deterministic can drift silently. The module illustrates this with a
 reconciliation system whose repeated inputs produced different classifications after launch. The failure was not that
@@ -102,10 +101,16 @@ Decomposition creates a delegation map. Ask three questions before assigning wor
 - What is the cost or consequence of being wrong?
 - Who remains accountable for the decision?
 
-For a claims assistant, Claude can read an unstructured claim and draft an email. A rules engine should determine
-priority; a policy system should provide current coverage; the email service should send the message; and a human should
-approve high-value or exceptional outcomes. The better framing is not merely “Where can Claude help?” but “Where do
-Claude's properties make it a better owner than the reliable system or person already responsible?”
+:::info Example:
+A partner asks for a "claims triage assistant that reads a claim, decides priority, looks up policy coverage, and emails the adjuster." An architect's first instinct might be to put all four steps in the "What Claude does" bucket, but the four-properties lens stops this from happening:
+
+-   **"Read the claim."** This is squarely in Claude's capability zone. Reading and interpreting a claim is pattern-rich language work, and if the output schema is constrained, both next-token prediction and steerability are working in your favor. This is work that Claude does.
+-   **"Decide priority."** This step may appear like a language task, but it isn't. Priority is a deterministic rule your partner already defines and maintains. What counts as priority in the partner's organization lives in a rule engine, not in Claude's training data. Routing this to Claude introduces an unnecessary knowledge limitation. Instead, Claude calls the rule engine and the existing system does the work to decide priority.
+-   **"Look up policy coverage."** This runs into the same problem as priority, but with higher stakes. Policies change and coverage tables get updated, and the model has no reliable way to know when the version it learned during training stopped being current. The answer must come from the system that holds the live coverage data, retrieved through tool use or an MCP server.
+-   **"Email the adjuster."** This step needs to be split up. Drafting the message is language work and is something for Claude to do. Sending the message belongs to the email system. A human should review and approve anything above a value threshold, because if Claude decides on its own, its working-memory and steerability limitations both become risks.
+
+Decomposition should be driven by answering the question "where do the four properties argue for Claude over the system that already does this right?" rather than "Where can Claude help?" Pay close attention to this shift in framing, it the key concept this module is building towards.
+:::
 
 ### Failure pattern: deterministic drift
 
@@ -141,6 +146,23 @@ Agents should have narrow tool permissions, turn or cost budgets, stopping crite
 consequential actions. An agent is not the safe default when the team has not yet decided how to structure the work. If
 traces reveal only a small number of repeatable paths, encode them as a router and coded chains.
 
+:::info Try prompting before you consider fine-tuning
+If prompting feels unreliable, the instinct for many engineers is to reach for fine-tuning. On Claude, that's usually the wrong first move. Work through this sequence first:
+
+-   Optimize the prompt. Most reliability problems are prompt problems.
+-   Add tool use or retrieval if the prompt alone isn't enough.
+-   Move to a stronger pattern like an evaluator-optimizer if quality still isn't where it needs to be.
+-   Only then consider fine-tuning.
+
+Fine-tuning does have a place, but in specific situations:
+
+-   The task runs at very high volume and inference cost is the real constraint.
+-   Latency is critical and a smaller specialized model will outperform a prompted general one.
+-   The output needs to follow a consistent format and prompting hasn't solved it reliably.
+
+Outside those situations, fine-tuning locks you to a fixed model version and narrows your options without much to show for it. Treat it as the last step in a deliberate progression, not a quick fix for a prompt that isn't working yet.
+:::
+
 ### Workflow sub-patterns
 
 | Shape               | Mechanism                                                                          | Example fit                                                                 |
@@ -174,9 +196,21 @@ scoped units of work in separate contexts. The architect must define:
 Subagent failures are usually recoverable; an orchestrator losing the goal or synthesis state may invalidate the whole
 run. Make subagent work idempotent and retryable, then protect and checkpoint the orchestrator.
 
+Design for this asymmetry, make subagent work idempotent and retryable, and protect the orchestrator's state.
+
+| Failure | Where it lands | Design response |
+| --- | --- | --- |
+| A subagent returns a malformed or empty result | Subagent boundary (recoverable) | Validate each result; retry or re-route the failed unit; record the gap rather than failing the run. |
+| Two subagents return conflicting results | Synthesis step (recoverable) | Give the orchestrator an explicit conflict-resolution rule, or escalate the conflict to a human. |
+| The orchestrator loses the goal or its synthesis state | Orchestrator (often unrecoverable) | Protect orchestrator state; checkpoint progress so a failed run can resume rather than restart. |
+| Traces fragment across orchestrator and subagents | Observability (cross-cutting) | Propagate a shared trace identifier so a single run is reconstructable end to end. |
+
 The fan-out failure case sends 50 contract sections to subagents but receives only 48 results. Without a coverage
 invariant, the orchestrator produces a polished summary over incomplete work. The synthesis rule should require
 `returned units == dispatched units`; otherwise it must retry or report the gap.
+
+
+
 
 In the orchestration checkpoint, the defective components are the synthesis step that sums only returned results, the
 irreversible auto-archive action without a human gate, and the missing retry or gap flag for a failed subagent.

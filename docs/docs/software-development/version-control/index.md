@@ -21,15 +21,18 @@ operations to the branch and merge decisions that shape review history, release 
 1. Begin with [Git basics](/software-development/version-control/basic/) and the
    [daily workflow](/software-development/version-control/daily/).
 2. Learn how to [synchronise local and remote history](/software-development/version-control/basic/syncing/) before
-   choosing a merge strategy.
+   choosing a collaboration model.
 3. Practise [undo and recovery](/software-development/version-control/basic/undo/) so mistakes remain reversible.
-4. Compare [merge strategies](/software-development/version-control/merge-strategies/):
+4. Compare [branching strategies](/software-development/version-control/branching-strategies/) to choose between
+   Gitflow, GitHub Flow, and trunk-based development.
+5. Compare [merge strategies](/software-development/version-control/merge-strategies/):
    [fast-forward](/software-development/version-control/merge-strategies/fast-forward/),
    [rebase](/software-development/version-control/merge-strategies/rebase/), and
    [squash](/software-development/version-control/merge-strategies/squash/).
 
-The right strategy depends on what the history must communicate. Preserve meaningful intermediate commits when they help
-review or rollback; compress noise when the branch history is only an implementation scratchpad.
+A branching strategy defines where and when work integrates; a merge strategy defines how Git records that integration.
+Preserve meaningful intermediate commits when they help review or rollback, and compress noise when branch history is
+only an implementation scratchpad.
 
 ## Continue into delivery
 

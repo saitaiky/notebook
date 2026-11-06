@@ -98,6 +98,10 @@ That means there is a natural progression for many readers:
 3. [Deep Learning](/ai/dl)
 4. [LLMs](/ai/llm)
 
+## Certification Study Paths
+
+For readers preparing for Anthropic's Claude certifications, [Anthropic Certification Study Guide](/ai/anthropic-certification-study-guide) maps every module in the Developer Foundations and Architect Professional prep courses to the corresponding pages across the LLM, Agentic Systems, production, safety, and stakeholder sections of this site.
+
 ## What This Means in Practice
 
 The point of this section is not to force one canonical order on every reader. The point is to make the boundaries clear enough that you can choose the right track for the problem you care about.

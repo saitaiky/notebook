@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/indexing
 title: Indexing
 description: 'When building retrieval-augmented applications—semantic search, recommendations, similarity search—your choice of index structure in a vector database has a direc.'
 sidebar_position: 2

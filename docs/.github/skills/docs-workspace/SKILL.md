@@ -25,6 +25,11 @@ Use this skill when the task is not only about writing content, but also about d
 
 If a note exists mainly to help write a future page or blog post, treat it as source material, not site content.
 
+## Local Asset Cleanup
+
+When removing the final Markdown reference to a local image or other asset, delete the underlying file from the
+workspace in the same change. Search published content first to confirm that no other page still uses the asset.
+
 ## Blog Preview Rule
 
 - For every blog post in `blog/**/*.md`, include exactly one `<!-- truncate -->` marker.

@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/model-context-protocol
 title: Model Context Protocol (MCP) Architecture
 description: "MCP is a standardized protocol for composing models with tools, resources, and external systems. Learn the protocol design, implementation patterns, and production deployment."
 keywords:
@@ -390,6 +391,18 @@ flowchart TB
 - **HTTP**: Polling or webhooks (good for stateless, scalable services).
 - **WebSocket**: Bidirectional streaming; good for real-time interactions.
 - **Stdio**: Direct subprocess communication (common for local development and testing).
+
+## Transport and Server Scope
+
+Two configuration choices decide where an MCP server can run and who can reach it, and they are independent decisions with dependent consequences. The first is **transport**: `stdio` runs the server as a local subprocess on the same machine as the client, so it is the right choice for a server that is personal to one developer's machine; `HTTP` connects to a remotely hosted server over a network, which is what any server shared across developers or hosted centrally needs. The transport is not a style preference — it determines the physical reachability of the server, so a server meant to be shared cannot sit behind `stdio`.
+
+The second choice is **scope**, meaning which configuration file carries the server definition. A server defined in a user-level configuration stays personal to that developer; a server defined in a project-level `.mcp.json` committed to the repository is shared with everyone who clones it. The trap is combining the two incorrectly: a `stdio` server placed in a committed `.mcp.json` *looks* shareable because it lives in a shared file, but it still runs as a local subprocess that only resolves on a machine where that subprocess exists. A genuinely shared team server requires HTTP transport and a project or enterprise scope together — the file location alone does not make a local server reachable by the team.
+
+:::warning[A shareable-looking configuration that is not shareable]
+
+Putting a `stdio` server in a committed `.mcp.json` is the most common MCP scoping mistake. The configuration propagates to every teammate, but the server it points at only exists as a subprocess on the original author's machine, so every other clone fails to connect. Match the transport to the deployment intent: shared means HTTP plus project/enterprise scope.
+
+:::
 
 ## MCP vs. Alternative Tool Standards
 

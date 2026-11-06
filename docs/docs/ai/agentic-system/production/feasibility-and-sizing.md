@@ -14,6 +14,8 @@ keywords:
 
 The [production-readiness bar](/ai/agentic-system/production) tells you what a system must achieve to be viable. Sizing tells you whether a *specific* business problem can meet that bar, and what constraints the design has to carry to get there. Feasibility resolves to one of three states — feasible as scoped, feasible with constraints, or not feasible — and naming the right one is what makes a scoping document actually useful instead of just optimistic.
 
+Before comparing projected gains, record the **reversal cost**: what it would take to undo the decision if the assumptions prove wrong. Two options with similar expected value can have very different downside profiles when one is a reversible pilot and the other requires a long contract, data migration, or regulated production change. That distinction should influence the size of the initial commitment and the evidence required before expanding it.
+
 ## Sizing a Use Case
 
 Sizing means producing a cost model before a line of code is written. It doesn't need to be precise, but it needs to be accurate enough to validate the architecture against a budget and surface token-distribution assumptions before they get formalized into a commitment.
@@ -31,6 +33,34 @@ Turning a business requirement into a scoped architecture runs through four step
 2. **Capability list to architecture sketch.** For each capability: does the model own it, does an existing system own it, or does it need a human in the loop? This is a decomposition decision, applied to a specific use case rather than in the abstract.
 3. **Architecture sketch to boundary conditions.** State the conditions under which the design works and the conditions under which it doesn't. Feasibility is a verdict *plus* the constraints that make the verdict true — an architecture that handles documents up to 20 pages but fails on longer ones has a boundary condition that must be written down, not discovered later.
 4. **Boundary conditions to scope in the statement of work.** The boundary conditions belong in the SOW, so the development team and the business owner share the same understanding of what the system handles and what's explicitly out of scope.
+
+## From a Business Problem to Functional and Infrastructure Requirements
+
+The capability list above becomes buildable only once each capability is written as a **requirement** — and the discipline that separates a usable requirement from a vague wish is that it must be **checkable**. A business problem ("help support agents answer faster") is not yet a requirement; the requirements derive from it, and they split into two kinds.
+
+A **functional requirement** names what the system must *do*, stated with enough precision to verify. "Classify each ticket into one of four queues", "draft a reply citing the relevant policy", and "never auto-send without human approval" are functional requirements because each is a checkable statement of behavior tied to a specific business-process constraint. The test for where to *stop* decomposing is exactly this checkability: you stop when each statement is specific enough to become a line in an [eval](/ai/agentic-system/evaluation) and a criterion at review. Anything more detailed than that is design, not requirements. AI agents carry functional dimensions that web and mobile apps rarely do — tone, the specific tools the agent may call, the skills it loads, and the guardrails it must honor — but these are still just functional behaviors (what it does) or infrastructure constraints (what bounds it), captured the same checkable way.
+
+An **infrastructure requirement** is a non-functional constraint the deployment must satisfy, and most of them are *not* stated in the business problem — you derive them by asking the questions the problem implies:
+
+- **Latency:** how fast must a response be, measured where the user is?
+- **Scale:** how many requests, and at what peak?
+- **Residency:** where must the data be processed, and under which regulation?
+- **Identity:** who acts, under what credentials, and what must be auditable?
+
+Latency, scale, residency, and identity are the infrastructure requirements that most often decide the deployment platform, and they are easiest to capture at the start, before a platform is chosen for other reasons. That is the direct input to [Deployment Platform Selection](/ai/agentic-system/production/deployment-platforms) — a residency requirement, for instance, can eliminate platforms before any performance comparison begins.
+
+Requirements are written down because the deployment decision will be reviewed by people who did not gather them. A short record of the functional behaviors, the infrastructure constraints, and the regulation each constraint comes from lets a platform choice be defended as *following from the requirements* rather than from familiarity. A rough division of labor helps: the business analyst or lead owns *what must be true and verifiable* (the behaviors, constraints, and acceptance evals); the AI engineer owns *how* (prompt, tool, retrieval, and guardrail design). Classifying each requirement correctly matters because **functional requirements become evals and infrastructure requirements decide the platform** — misfiling one hides a constraint until contract review.
+
+A worked example makes the distinction concrete. For a regulated EU bank that wants an agent to summarize customer call transcripts:
+
+| Candidate statement | Classification | Why |
+| --- | --- | --- |
+| "The agent produces a summary that a human approves before it is stored." | **Valid functional requirement** | Checkable and tied to a specific business-process constraint (human-in-the-loop review). |
+| "Transcript data is processed in the EU." | **Valid infrastructure requirement** | Checkable and tied to a specific regulatory constraint (data residency). |
+| "The agent should be fast and accurate." | Neither | Not checkable — "fast" and "accurate" are not defined against any threshold. |
+| "The system must be built using an approved cloud provider." | Infrastructure (not functional) | A deployment constraint, not a behavior the agent performs. |
+
+The two that fail are instructive: "fast and accurate" cannot be designed against or verified, and "approved cloud provider" is a real constraint but belongs in the infrastructure column, not the functional one. Sorting them correctly at the requirements stage is what keeps the eval set and the platform decision honest later.
 
 ## Technical Feasibility: The Four AI Properties as a Checklist
 

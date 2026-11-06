@@ -1,16 +1,17 @@
 ---
-title: Rate limit
-description: 'When working with large language models (LLMs), especially from cloud-based providers like OpenAI or Anthropic, you''ll inevitably face rate limits — hard constrai.'
+slug: /ai/agentic-system/rate-limit
+title: Rate Limits and Failure Handling
+description: "Managing provider rate limits with throttling, backoff, fallback, concurrency, and batch processing — and the retriable-versus-terminal distinction that decides whether a failed call is retried or failed fast."
 sidebar_position: 5
 keywords:
   - ai
   - agentic system
   - rate limit
-  - rate
-  - limit
-  - when
-  - working
-  - large
+  - failure handling
+  - retriable
+  - terminal
+  - retry-after
+  - backoff
 ---
 
 When working with large language models (LLMs), especially from cloud-based providers like OpenAI or Anthropic, you'll inevitably face **rate limits** — hard constraints on how frequently or quickly your application can interact with the provider's API. These limits are imposed to ensure fair resource distribution and infrastructure stability.
@@ -160,6 +161,110 @@ Here are a few extra strategies to maximise performance and resilience:
 - **Streaming**: For long responses, streaming tokens reduces overall token usage and improves perceived latency.
 - **Parallelisation**: Use with caution — multiple concurrent keys may violate terms of service.
 - **Monitoring**: Track error types, retry rates, and cache effectiveness to guide optimisations.
+
+## Concurrency and Batch Processing
+
+Two patterns address high-volume work, and they solve genuinely different problems, so it's worth separating them from the throttling utilities above.
+
+The first is **non-blocking concurrency**. An async client (for example `AsyncAnthropic` in the Python SDK, or the standard Promise-based client you `await` in the TypeScript SDK) issues API calls without tying up the application thread, so your program can do other work while a request is in flight. The request still returns in real time — the point is only that waiting on it does not block everything else. This is the right pattern when you need to run many requests concurrently and each result is still wanted promptly.
+
+The second is **offline batch processing**. The Message Batches API is a separate mechanism for bulk workloads where no user is waiting on any single result: you submit a large set of requests in one call, receive an identifier, and poll for completion. Batch jobs can take up to 24 hours and run at a lower per-token cost in exchange for that latency, which makes them a good fit for evaluation runs, offline pipelines, and bulk jobs where cost matters more than turnaround. The sizing implication is that a workload whose SLA tolerates delay can often move to batch and pay noticeably less — the same trade-off flagged in [Feasibility and Use-Case Sizing](/ai/agentic-system/production/feasibility-and-sizing#sizing-a-use-case).
+
+:::note[Verify current batch limits]
+
+The 24-hour completion window and the batch discount are provider-specific and change over time. Confirm the current figures against the provider's documentation before committing a workload to batch processing.
+
+:::
+
+## Retriable vs Terminal Failures
+
+Rate limits are one member of a larger family: the failures production throws that development never shows. A prototype called a few dozen times on a stable connection rarely hits a rate limit, a timeout, a transient network drop, or a malformed response under load — so the code that handles them never gets written, and the first failure surfaces as an unhandled exception in production. The decision that organizes all of this is a single question asked of every failure: **would waiting and trying the exact same request again plausibly work?**
+
+```mermaid
+flowchart TB
+  F[A call fails] --> Q{Would the identical<br/>request succeed if retried?}
+  Q -->|Yes — cause is transient| R["Retriable:<br/>429, 529, 500, 502, 503, 504"]
+  Q -->|No — cause is in the request| T["Terminal:<br/>400, 401, 403, 404"]
+  R --> B[Back off with a cap, honor retry-after, limit attempts]
+  T --> X[Fail fast: fix or reject the input, surface the error]
+  Q -->|Unsure| T
+  style R fill:#d1e7dd,stroke:#0f5132
+  style T fill:#f8d7da,stroke:#b02a37
+```
+
+If a later attempt is likely to succeed, the failure is **retriable**: the cause is transient — the service was briefly over capacity, a connection dropped, a per-minute limit was momentarily exceeded. If retrying the identical request changes nothing, the failure is **terminal**: the cause is in the request itself — a malformed body, an expired key, a model name that does not exist. On the Anthropic API the status code names the bucket: a `429` (rate limit) and a `529` (overloaded) are retriable, `5xx` server errors typically clear on retry, while a `400` (bad request), `401` (auth), and `403` (permissions) are terminal.
+
+```python
+RETRIABLE = {429, 529, 500, 502, 503, 504}  # rate limit, overload, transient
+TERMINAL  = {400, 401, 403, 404}            # bad request, auth, missing
+
+def is_retriable(status):
+    return status in RETRIABLE  # everything else fails fast
+```
+
+Correct classification is what preserves the retry budget for the failures that actually need it. Retrying a terminal error wastes attempts and hides the real problem behind a wall of identical failures; when unsure, the safe default is to treat an error as terminal and raise it, because a failure wrongly marked terminal fails loudly and gets fixed, while one wrongly marked retriable hammers a service and deepens the problem.
+
+### Honoring `retry-after` Before Falling Back to Backoff
+
+The API returns rate-limit headers on each response, and the most useful is `retry-after`, included on a `429` or `529` to say exactly how long to wait before trying again. Honoring that value is more precise than guessing with backoff alone, because the service is telling you when capacity returns — so the correct order is to read `retry-after` first and fall back to exponential backoff only when the header is absent.
+
+One caution before writing a retry loop by hand: the Anthropic client libraries **already retry** transient failures with progressive delays, up to a configurable number of attempts. Wrapping your own retry loop around the SDK's retries multiplies attempts against the same limit instead of capping them. Decide where the retry lives — let the SDK own transient cases and reserve your code for application-specific fallbacks, or turn the SDK retries down and own the full path — but do not run both unaware of each other.
+
+The defect this prevents is a tight loop that retries everything, instantly:
+
+```python
+def call_with_retry(make_call, max_attempts=5):
+    for attempt in range(max_attempts):
+        try:
+            return make_call()
+        except Exception:
+            time.sleep(0)            # defect: no backoff, retries fire instantly
+    raise RetryBudgetExhausted()      # also retries terminal errors like 400
+```
+
+Against a rate limit, each instant retry counts as another request and deepens the limit rather than waiting for it to clear; retrying a `400` does nothing but burn the budget. The corrected version honors `retry-after`, grows a capped backoff interval between attempts, and fails fast on terminal statuses:
+
+```python
+def call_with_retry(make_call, max_attempts=5, cap=30):
+    for attempt in range(max_attempts):
+        try:
+            return make_call()
+        except anthropic.RateLimitError as e:
+            wait = e.response.headers.get("retry-after")
+            if wait is None:
+                wait = min(cap, 2 ** attempt) + random.uniform(0, 1)
+            time.sleep(float(wait))
+        except anthropic.APIStatusError as e:
+            if not is_retriable(e.status_code):
+                raise                 # fail fast on terminal
+            time.sleep(min(cap, 2 ** attempt) + random.uniform(0, 1))
+    raise RetryBudgetExhausted()
+```
+
+### Surfacing Tool Errors to the Model
+
+A related failure is quieter because nothing raises. When your code runs a tool and the tool fails, the result should go back to the model with `is_error` explicitly set — not as a silent empty result. This is not automatic: a handler that swallows the exception and returns nothing leaves the model treating the empty result as valid data and reasoning confidently on top of a false premise, which produces a wrong answer that is far harder to catch than a visible failure.
+
+```python
+def run_tool(tool_use):
+    try:
+        result = execute(tool_use)
+        return {"type": "tool_result", "tool_use_id": tool_use.id, "content": result}
+    except Exception as e:
+        # surface the error so the model can react; do NOT return empty
+        return {"type": "tool_result", "tool_use_id": tool_use.id,
+                "is_error": True, "content": f"Tool failed: {e}"}
+```
+
+With `is_error` set, the model knows the tool failed and can change approach, ask for clarification, or stop. One related case sits outside the status-code model entirely: a refusal arrives as a `200` at the HTTP layer with `stop_reason: "refusal"`, so the retriable classifier never sees it — treat it as terminal, raise it, and log it rather than silently retrying.
+
+:::note[Verify status codes and headers]
+
+The specific retriable/terminal status codes, the `retry-after` header name, and refusal signaling are provider- and version-specific. Confirm them against the current API reference before relying on them in a retry path.
+
+:::
+
+This failure-handling layer is where a localized failure from [Testing and Tracing](/ai/agentic-system/testing-and-tracing#tracing-finding-the-step-that-failed) becomes a recovery decision, and it is one of the four decisions captured in the [production-hardening design document](/ai/agentic-system/production#the-production-hardening-design-document).
 
 ## Final Thoughts
 

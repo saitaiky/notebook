@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/agent-to-agent
 title: Agent-to-Agent Communication Architectures
 description: "Agent-to-agent (A2A) systems enable composite reasoning through agent delegation, composition, and hierarchical control. Understand routing, state management, and evaluation in production systems."
 keywords:
@@ -447,6 +448,22 @@ A2A systems require multi-level evaluation:
 - **Real**: Use actual sub-agents; more realistic but slower and burns tokens.
 
 **Recommendation**: Start with synthetic validation to catch routing bugs; graduate to real workload testing on a sample.
+
+## The Cost of Orchestration: A Token Multiplier, Not a Free Speedup
+
+Fanning work out to parallel sub-agents feels like a free speedup — several workers finish sooner than one — but it is a deliberate cost trade, and the trade only pays off under specific conditions. In an orchestrator-worker pattern a lead agent decomposes a task, delegates subtasks to sub-agents that each run in **their own context window**, and then synthesizes the returns. Every sub-agent spends its own input and output tokens, so the cost does not add — it multiplies.
+
+The way to hold the decision is as a **hiring decision**. Five researchers finish a broad survey faster than one, but you pay five salaries. You hire the team only when the work genuinely splits into parts people can do without waiting on each other. If each step depends on the last — as in most coding tasks — the sub-agents mostly wait on each other, and you pay the fan-out cost without getting the parallel benefit.
+
+Anthropic has reported that its own multi-agent research system uses roughly **fifteen times the tokens** of a normal chat interaction, because each sub-agent reads its own slice of sources in its own context and the lead then synthesizes. A single-agent research question costing ~10,000 tokens becomes ~150,000 tokens as an orchestrator with several sub-agents. That multiplier buys something only when the task decomposes into independent parts that can be explored in parallel, such as research across separate sources; on tightly coupled work it buys nothing.
+
+:::note[Verify the multiplier]
+
+The ~15x figure comes from Anthropic's reported internal research-system eval and is specific to that system and workload. Treat it as an order-of-magnitude warning, not a fixed constant, and confirm current figures against Anthropic's engineering write-ups before sizing a budget around it.
+
+:::
+
+There is also a reliability dimension the token math hides: **orchestration multiplies the failure-handling work**. Each sub-agent is an independent call that can hit a rate limit or time out, so each needs its own [retriable-versus-terminal handling, backoff, and fallback](/ai/agentic-system/rate-limit#retriable-vs-terminal-failures) applied independently. A single sub-agent that stalls with no backoff can hang the whole synthesis step while the lead waits for a return that never comes. More agents mean more failure points, not just more tokens — which is another reason to reach for the pattern only when the parallel exploration is genuinely worth the added surface area. One mitigation that preserves coordination quality while trimming the multiplier is a **capable lead with cheaper sub-agents**, the model-routing trade covered in [Model Selection in Production](/ai/agentic-system/model-selection#routing-a-default-model-with-an-override-on-a-signal).
 
 ## When to Build A2A vs. Single-Agent Loops
 

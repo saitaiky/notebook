@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/embedding-model
 title: Embedding Model
 description: 'Embeddings lie at the heart of many modern AI applications—semantic search, Retrieval-Augmented Generation (RAG), clustering, classification, even cross-modal ret.'
 sidebar_position: 1

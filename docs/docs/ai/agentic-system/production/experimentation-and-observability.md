@@ -55,6 +55,24 @@ Production observability needs to answer four questions, and each needs its own 
 - **Anomaly detection.** Threshold alerts on the metrics that matter for the deployment — a cost spike well above the recent average, a p95 that crosses the SLA. Gradual drift in the distribution of outputs over time is harder to catch with threshold alerts and needs periodic distribution comparison instead.
 - **Change attribution.** When a metric moves, the instrumentation should be able to tell apart **model drift** (behavior on stable inputs changed), **data drift** (the input distribution changed), and a **model-update effect** (the model version changed and behaves differently on existing inputs) — these three causes need different fixes, and mixing them up produces the wrong one.
 
+The three metrics that make this possible are cheap to capture because the API already returns them: instrument **token usage** (input and output), **latency**, and **error rate** on every call from the start. In code it is a thin wrapper around the call that records the usage the response already carries:
+
+```python
+import time
+
+def instrumented_call(make_call, step_name):
+    start = time.perf_counter()
+    resp = make_call()                       # raises on any API error
+    latency_ms = (time.perf_counter() - start) * 1000
+    log_metric(step=step_name,
+               input_tokens=resp.usage.input_tokens,
+               output_tokens=resp.usage.output_tokens,
+               latency_ms=latency_ms)
+    return resp
+```
+
+The value of this is that it **changes the questions you can answer**. A cost spike without per-call logging gives you exactly one question — *why is the bill high?* — with no way to answer it. Per-call logging lets you ask *which step, on which request type, is responsible* and read the answer straight from the data. A flow that looks uniformly expensive usually turns out to have one step doing ninety percent of the spend, and that step is where every optimization dollar should go; the same is true for latency, where the slow step is rarely the one you would have guessed. Treating instrumentation as a later step means the bill arrives before the explanation.
+
 ### A Failure Taxonomy
 
 Instrumentation tells you a metric moved; diagnosis tells you what kind of failure moved it, and the common classes call for genuinely different fixes:
@@ -67,6 +85,50 @@ Instrumentation tells you a metric moved; diagnosis tells you what kind of failu
 ### Connecting Observability to the Business Metric
 
 The people who funded the deployment aren't reading a request-level trace — they're reading a KPI dashboard tracking the outcome the deployment was meant to improve. The observability stack needs a translation layer connecting technical metrics (latency, task success rate, error rate) to the business metrics they actually drive (handle time, first-contact resolution, satisfaction score). Build that mapping when the system is designed, not after the first business review — without it, the first question about what's driving a change in a business metric requires a retrospective reconstruction instead of a query someone can just run.
+
+## Closing the Feedback Loop
+
+Monitoring becomes a feedback loop only when a signal can trigger a decision, an owned action, and a later check that the action worked. A dashboard without those links is useful for inspection, but it does not govern change.
+
+```mermaid
+flowchart LR
+  S[Signals] --> T[Triage]
+  T --> D{Decide}
+  D --> A[Act]
+  A --> R[Review]
+  R -->|Outcome becomes a new signal| S
+```
+
+The important feature is the return path: the result of an intervention becomes evidence for the next decision instead of disappearing after the ticket closes.
+
+An operational feedback loop needs five explicit parts:
+
+| Stage | Governing question | Required artifact |
+| --- | --- | --- |
+| Signals | Which technical, user, and business observations are decision-relevant? | Named metrics, feedback channels, thresholds, and sampling rules |
+| Triage | Who determines whether the signal is noise, an incident, drift, or an improvement opportunity? | Owner, severity rule, and response SLA |
+| Decide | What evidence is enough to change a prompt, model, workflow, or policy? | Decision criterion and recorded rationale |
+| Act | Who implements, approves, and rolls back the change? | Named action owner and deployment or rollback path |
+| Review | Did the intervention improve the intended metric without degrading a guardrail metric? | Post-change comparison and next-review date |
+
+Here, an **SLA** is not merely a latency target for the model call. It is the explicit service commitment attached to the loop: how quickly a class of signal must be acknowledged, assessed, and acted on. A severe safety report might require immediate containment and same-day review; a gradual quality drift might enter a weekly triage queue. Without that distinction, every signal is either treated as urgent or allowed to wait indefinitely.
+
+Signal governance also prevents the loudest channel from becoming the roadmap:
+
+| Signal | Useful for | Governance needed |
+| --- | --- | --- |
+| Automated eval regression | Detecting repeatable quality changes against known cases | Versioned dataset, threshold, and release owner |
+| Production anomaly | Detecting cost, latency, error, or distribution shifts | Alert threshold, severity, and on-call route |
+| User feedback | Finding failures the test set did not anticipate | Sampling, privacy handling, deduplication, and triage owner |
+| Business KPI movement | Checking whether technical quality changes produce actual value | Agreed attribution window and business owner |
+
+For example, a rise in abandoned sessions is a signal, not yet a diagnosis. Triage may show that abandonment clusters after slow tool calls rather than low-quality answers; the decision is then to change timeout and fallback behavior, not the prompt. After deployment, the team reviews abandonment and task success together. Similarly, a fairness complaint may trigger containment and a targeted subgroup evaluation before any broad model change is approved.
+
+:::info[Monitoring and decision-making are different layers]
+
+The monitoring layer records and detects. The decision layer interprets evidence, applies policy, chooses an intervention, and accepts its trade-offs. Keeping them separate makes ownership visible: an alerting system can say that a threshold was crossed, but it should not silently decide that a model, prompt, or compliance control must change.
+
+:::
 
 :::warning[A 6-point gain that was noise]
 A team compared 50 sessions of a revised prompt against 50 sessions of the current one. Task success rate came out 68% versus 62%, and the new version shipped as the winner. Two weeks later, the task success rate on the new version had settled at 61% — the apparent gain had evaporated. Three problems compounded: the sample was far too small for a 6-point difference on a high-variance metric to be distinguishable from noise; the two 50-session groups happened to differ in input complexity, so part of the "improvement" was really an artifact of which inputs landed where; and the metric was chosen because it moved in the right direction, not before the test ran — if it had moved the other way, a different metric would likely have been picked instead. An underpowered test with a metric chosen after the fact produces confirmation of whatever was already believed, not evidence.

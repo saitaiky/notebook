@@ -20,15 +20,18 @@ should:
 
 ## Course lessons
 
-- [x] [Claude Platform & Solution Design](claude-platform-solution-design.md)
-  - [Practice exam](claude-platform-solution-design-practice-exam.md)
-- [x] [Enterprise Integration & Production](enterprise-integration-production.md)
-  - [Practice exam](enterprise-integration-production-practice-exam.md)
-- [x] [Responsible AI, Safety & Risk for Architects](responsible-ai-safety-risk-for-architects.md)
-  - [Practice exam](responsible-ai-safety-risk-for-architects-practice-exam.md)
-- [x] [Stakeholder Engagement, Lifecycle & GTM](stakeholder-engagement-lifecycle-gtm.md)
-  - [Practice exam](stakeholder-engagement-lifecycle-gtm-practice-exam.md)
-- [x] [Team Enablement & Operational Productivity](team-enablement-operational-productivity.md)
-  - [Practice exam](team-enablement-operational-productivity-practice-exam.md)
+- [x] [Claude Platform & Solution Design](m1-claude-platform-solution-design/notes.md)
+  - [Practice exam](m1-claude-platform-solution-design/practice-exam.md)
+- [x] [Enterprise Integration & Production](m2-enterprise-integration-production/notes.md)
+  - [Practice exam](m2-enterprise-integration-production/practice-exam.md)
+- [x] [Responsible AI, Safety & Risk for Architects](m3-responsible-ai-safety-risk/notes.md)
+  - [Practice exam](m3-responsible-ai-safety-risk/practice-exam.md)
+- [x] [Stakeholder Engagement, Lifecycle & GTM](m4-stakeholder-engagement-lifecycle-gtm/notes.md)
+  - [Practice exam](m4-stakeholder-engagement-lifecycle-gtm/practice-exam.md)
+- [x] [Team Enablement & Operational Productivity](m5-team-enablement-operational-productivity/notes.md)
+  - [Practice exam](m5-team-enablement-operational-productivity/practice-exam.md)
 
 Update the checklist when a lesson's notes have been reviewed and completed.
+
+Each module folder also holds `source.md` (the captured raw course text the notes are distilled from) and any `raw*.json`
+dumps it was generated from. Shared conversion tooling (`convert.py`, `convert_all.py`) lives in `scripts/`.

@@ -11,7 +11,10 @@ keywords:
   - version control strategies
 ---
 
-There are three merge strategies in version control. Each strategy has its own set of trade-offs, and the choice often depends on the project's version control workflow, collaboration practices, and the desired structure of the commit history.
+Merge strategies control how Git records integration. They are separate from the
+[branching strategy](/software-development/version-control/branching-strategies/), which controls where work happens and
+how quickly it returns to the shared branch. Each merge strategy has trade-offs based on the desired commit history and
+the team's review and rollback practices.
 
 - **Explicit, non fast-forward merge:**
    - **Description:** In this approach, when you merge a branch into another, a new commit is created explicitly, even if the branch being merged is fully contained within the target branch.

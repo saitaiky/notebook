@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/chunking
 title: Chunking Strategies
 description: 'Chunking strategies determine how documents are split into smaller segments ("chunks") before being embedded and stored in a vector database. Selecting the right chunking strategy—whether standard (fixed-token, sentence, paragraph) or advanced (hierarchical, semantic)—is critical for balancing retrieval precision, context relevance, and performance in your retrieval-augmented generation (RAG) application. This guide explains each method clearly, provides code examples, and helps you choose the optimal chunking approach for your use case.'
 

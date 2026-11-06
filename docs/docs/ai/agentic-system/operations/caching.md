@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/caching
 title: Cache
 description: 'Language models are powerful, but they can also be expensive and slow when called repeatedly with similar inputs. LangChain offers elegant caching mechanisms that.'
 sidebar_position: 4
@@ -100,6 +101,46 @@ Don't assume "one API key equals one isolated cache." Multiple API keys can belo
 ### TTL Controls Availability, Not Matching
 
 TTL ("time to live") is how long a cached entry stays eligible for reuse — it has nothing to do with whether a given request's prefix matches an existing entry. The provider defines which TTL options exist; the application picks from that menu. A longer TTL keeps a rarely-hit but expensive-to-rebuild prefix warm; a short TTL suits a prefix that's called constantly and stays warm on its own. Changing the TTL never turns a non-identical prefix into a match — matching and expiry are two separate questions, and conflating them is a common source of confusion.
+
+### Messages API Cache Mechanics in Practice
+
+The section above stays provider-neutral on purpose, but it helps to see one concrete implementation so the abstract rules have something to attach to. On Anthropic's Messages API, caching is not a global switch — you turn it on by marking a **cache breakpoint**, and nothing is cached until you do. You add a `cache_control` field of type `ephemeral` to the last content block you want cached, and that caches everything *up to and including* that block. The request is processed in a fixed order — tools, then system prompt, then messages — so a breakpoint placed after the tool definitions caches the tools while leaving the messages dynamic. You can place up to **four** breakpoints, which lets you cache several stable segments independently.
+
+The lifetime has two options. The default cached entry stays eligible for **five minutes** from its last read, and each read resets that clock, which suits a back-and-forth exchange where requests arrive every few minutes. An opt-in **one-hour** lifetime is available by setting a `ttl` of `1h` on the breakpoint, which suits a workload with longer gaps — an agent that pauses between steps, where a five-minute window would expire before the next request and leave you paying the write cost again for no read benefit. One threshold is easy to miss: caching only applies above a **minimum token count** (on the order of 1,024 tokens for current models), so a short prompt will not be cached even with a breakpoint set.
+
+:::note[Verify the numbers before relying on them]
+
+Breakpoint count, the five-minute and one-hour TTLs, and the minimum-token threshold are provider- and model-specific and change over time. Confirm the current values against Anthropic's documentation before sizing a cost model around them.
+
+:::
+
+A frequent question is whether an open-source orchestration or observability framework lets you choose what gets cached. The distinction worth holding onto is that prompt-prefix caching is a **model-provider feature**, set on the model request itself (the `cache_control` breakpoint here, or the equivalent cache-point marker on a managed platform). A framework such as Langfuse is an observability and prompt-management layer — it traces calls and helps keep a prefix byte-for-byte stable, which is what makes a cache hit possible, but it does not itself cache your model prefix. So "which part do we cache?" is always answered at the model-request layer; the framework only matters in whether it faithfully passes the breakpoint through. Verify that pass-through behavior per framework, since not all of them expose it.
+
+### The Economics: Why Reads Must Outnumber Writes
+
+Caching is not free to turn on, and the numbers are what decide whether it helps. Writing a prefix to the cache is billed at a **premium over normal input tokens** — on Anthropic's Messages API, roughly 1.25x for the five-minute TTL and 2x for the one-hour TTL — while a cache **read** costs a fraction of a normal input token, on the order of 0.1x. The consequence is a simple rule: the economics only work when **reads outnumber writes**. A prefix written once and read once costs *more* than not caching at all; a prefix written once and read hundreds of times before it expires is where the blended cost and latency fall sharply.
+
+This is also why the question "what counts as a stable, frequently reused prefix?" has a precise answer even when the request carries a large variable payload. Imagine a financial-report agent whose user turn is 1 MB of JSON that differs every request. You do not cache the JSON — it never repeats, so it would only ever incur write cost. You cache the parts that *do* repeat: the long system prompt and the tool schema, which are identical on every call. In an explicit-breakpoint setup you place the `cache_control` marker **after the system prompt and tools but before the variable JSON**, so the stable prefix is cached and the changing payload is processed normally each time.
+
+:::note[Verify the multipliers]
+
+The 1.25x / 2x write premiums, the ~0.1x read cost, the TTL options, and the minimum-token threshold are provider- and model-specific and change over time. Confirm the current figures against the provider's documentation before sizing a cost model around them.
+
+:::
+
+### What Makes a Prefix Worth Caching (General Rules)
+
+These three properties decide whether caching helps with a given workload, and they are general rules of thumb rather than Claude-specific trivia — the thresholds differ by provider, but the shape of the decision does not:
+
+1. **The cached content must be identical.** The cache matches on an exact prefix, so any change before the breakpoint — even adding the word "please" — invalidates it and forces a full reprocess. This is why caching fits stable content and works against anything that must reflect live state.
+2. **The same content must recur, and recur soon.** The saving only lands when the same prefix is sent again within the TTL window. A prefix reused several times a minute pays off under a five-minute TTL; one reused once an hour does not, because the entry expires before the next request arrives (which is what the longer, costlier one-hour TTL is for).
+3. **The prefix must clear the minimum length.** There is a minimum token threshold below which nothing is cached regardless of stability, so short prompts see no benefit no matter how often they repeat.
+
+Prompt caching exists on other providers too — OpenAI and Amazon Bedrock both offer it — but the knobs differ: some default to automatic caching with no breakpoint to set, others expose explicit cache points, and the TTLs, minimums, and pricing multipliers are each provider-specific. The portable mental model is the three properties above; the per-provider details are a lookup, not a new concept. For the Bedrock specifics, see [Amazon Bedrock — Prompt Caching](/aws/ai/bedrock#prompt-caching).
+
+### Caching and Batching Compound
+
+Prompt caching and the [Message Batches API](/ai/agentic-system/rate-limit#concurrency-and-batch-processing) attack cost from different directions, and they stack. The batch discount lowers the cost of each request in a non-urgent job; caching lowers the cost of the repeated prefix *inside* each request. A scheduled job that carries a long fixed system prompt across many requests — an overnight classification run, a backfill — benefits from both at once: the per-request batch discount and the per-prefix cache read. When a workload is both high-volume and latency-tolerant, reach for both levers rather than treating them as alternatives.
 
 ### Node Caching, Semantic Caching, and Checkpoints Are Different Layers
 

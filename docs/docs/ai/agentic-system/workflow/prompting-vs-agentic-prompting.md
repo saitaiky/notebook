@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/prompting-vs-agentic-prompting
 title: From “Basic Prompting to “Prompting for Agents”
 description: 'Classic prompting aims for deterministic structure and outputs. Agent prompting aims for useful autonomy under constraints (tools, loops, budgets, verification)..'
 keywords:

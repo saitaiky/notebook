@@ -112,6 +112,81 @@ Cost · Complexity · Risk
 
 **Risk:** The highest-risk moment for a regression is exactly when an eval suite exists but is out of date — it creates the appearance of a safety net that isn't actually catching anything.
 
+### Choosing a Grader by the Shape of the Output
+
+The grading ladder above says *reach for the cheapest reliable method*, but the choice is not really about cost first — it is about what the output's structure can support. Comparing how one output scores under each method makes the right pick obvious.
+
+Imagine a feature that should return the three capital cities of a region as a JSON array, and a run returns the right three cities in a different order than the reference string. An **exact match scores it zero**, because the characters do not line up — even though the answer is correct. A **code grader that parses the JSON and checks membership** scores it well, because all three cities are present and the structure is valid. Now change the feature so it should return a one-paragraph rationale: the code grader can only confirm it is a non-empty string (nearly worthless here), exact match is hopeless because no two good rationales are worded the same, and **only a judge** can say whether the rationale is faithful and complete.
+
+So the rule *one correct form takes a match, a structural rule takes a code check, open-ended quality takes a judge* unpacks to three different questions about the output:
+
+- **Is there exactly one acceptable string?** Then the output has a single correct *form*, and an exact match is enough — a classifier label, a known return value. Anything that can be validly reworded or reordered breaks it.
+- **Is correctness a rule a function can evaluate?** Then the output has a checkable *structure* — valid JSON, a number in range, a required field present — and a code grader catches the whole class of format failures a string match would miss.
+- **Does "good" require interpretation?** Then quality is open-ended — faithful, complete, on-tone — and no code rule expresses it, so a judge is the only method that scales.
+
+There is a cost-and-frequency dimension the ladder understates. An exact match and a code check run locally and cost effectively nothing per case, so thousands of them can run on every commit. A judge is a second model call per case, so a thousand-case judge eval is a thousand extra API calls every run — reasonable for a scheduled quality pass, wasteful as a tight inner loop. Many teams grade format and structure with code on every change and reserve the judge for a slower, periodic pass.
+
+### Calibrating a Judge So Its Scores Are Defensible
+
+An LLM judge is itself a system that can be wrong, and the two steps that make it trustworthy are both easy to skip.
+
+The first is **asking for reasoning before the score**. A judge told only to return a number drifts toward a safe middle value — usually around six — regardless of the output's actual quality, because a bare number has nothing to anchor it and hedging is the low-risk move. Requiring strengths, weaknesses, and a short reasoning field *first*, then the score, forces the number to attach to something specific. This is the same chain-of-thought-then-score design that G-Eval ([Liu et al., 2023](https://arxiv.org/abs/2303.16634)) uses: generating evaluation steps before filling in the score raised correlation with human judgment on summarization to a Spearman of 0.514, well above prior reference-based metrics.
+
+The second is **measuring agreement against human labels before you rely on the judge**. Start from a set of cases a human has already labeled, run the judge on the same cases, and measure how often it agrees. A judge that disagrees with human labels half the time produces a number that looks rigorous and means nothing. When MT-Bench and Chatbot Arena ([Zheng et al., 2023](https://arxiv.org/abs/2306.05685)) validated this, a strong judge reached over 80% agreement with human preferences — about the same level humans reach with each other — which is the bar that turns a judge from a guess into evidence. Report agreement with an explicit metric rather than an eyeballed percentage: for categorical verdicts, Cohen's kappa (two raters) or Krippendorff's alpha (chance-corrected, handles missing labels) states how much of the agreement survives after correcting for what chance alone would produce.
+
+:::warning[Judges carry biases a calibration run can surface]
+
+The same validation work also documents judge failure modes to watch for: **position bias** (favoring the first option in a pairwise comparison), **verbosity bias** (scoring longer answers higher), and **self-enhancement bias** (a model preferring outputs from its own family). If a calibration run disagrees with humans in a consistent direction, suspect one of these before trusting the scores — and prefer a judge from a *different* model family than the one being evaluated.
+
+:::
+
+If agreement is low, the fix is the rubric, not the model: tighten what each score band means, add a worked example of a good and a bad answer, and re-measure. That rubric-iteration history is worth keeping in the design document, because a judge's score is only as auditable as the rubric that produced it.
+
+### The Eval Iteration Loop
+
+Once the eval and a calibrated judge exist, improving a feature becomes a loop: set a goal, write an initial prompt, run the eval, read where it failed, apply one change, and run again. The discipline that makes the loop informative is **changing one component at a time**. Rewriting the prompt, adding two examples, and switching the model in one pass and watching the score move teaches nothing about which change caused it. Move one lever, re-run, and keep the change only if the score goes up.
+
+The per-case breakdown matters as much as the average, because a steady average can hide a change that fixed three cases and broke three others. The aggregate conceals that; the per-case view shows it immediately. And a low score is information to act on, not just a verdict — the *category* of failure points at the layer to fix:
+
+- A formatting failure points at the prompt's output instructions.
+- A factual failure on retrieved content points at the retrieval step.
+- A failure that appears only on long input points at context handling.
+
+The eval tells you a case failed; the per-case output tells you which layer owns the fix, which is what turns the next iteration into a targeted change rather than a guess.
+
+:::info[What a "partial eval" means]
+
+A partial eval is an eval deliberately left incomplete so you have to finish the specification yourself: some `expected_behavior` rows in the dataset are blank, and the judge's score-band definitions (what 1–3, 4–7, 8–10 each mean) are left to be filled in. Completing it is the exercise — it checks whether you can state the exact output each input should produce and what each score band rewards, which is the same precision the real eval depends on.
+
+:::
+
+### Validation Confirms Shape, Not Correctness
+
+The most expensive eval gap is the one that looks covered. A team shipped a feature that extracted structured fields from customer messages, checked it against roughly a dozen example messages by hand, agreed the outputs looked right, and deployed. It even had input validation: it confirmed each message was non-empty text, checked that a date field came back populated, and rejected malformed or impossible dates. For two weeks it worked.
+
+Then a customer wrote *"I placed my order on March 3 but did not receive it until April 12."* The feature extracted **April 12** as the order date. Every validation check passed, because both dates are well-formed and the field came back populated — and downstream logic updated a batch of records with the wrong date.
+
+```mermaid
+flowchart TB
+  I["Input: two dates in one sentence<br/>'ordered March 3 ... received April 12'"] --> E[Extract order date]
+  E --> V{Validation checks}
+  V -->|non-empty text? yes| P[pass]
+  V -->|date populated? yes| P
+  V -->|well-formed, possible date? yes| P
+  P --> W["Returns April 12<br/>(wrong value, right shape)"]
+  W --> D[Downstream updates the wrong record]
+  style W fill:#f8d7da,stroke:#b02a37
+  style D fill:#f8d7da,stroke:#b02a37
+```
+
+The diagram shows why the checks could not catch it: every gate asks whether the value has the right *shape*, and none asks whether it is the right *value*. Validation confirms a value is well-formed; it cannot confirm the value is correct. The root cause was a missing graded case — the feature had never been measured against a message containing two dates, because nobody had written that expected behavior down. The eval does not fix the extraction (a prompt change naming which date to extract does that); it **detects** the failure, documents the expected behavior as a checkable case, and guards against the same regression on every future change. The two-date message becomes case one in that set.
+
+:::tip
+
+To find inputs like this before a customer does, ask the model to enumerate edge cases that could break the current implementation — two dates in one sentence, no date at all, a relative date like "next Tuesday" — then turn the plausible ones into graded cases with a human-checked expected output. It is the same case-generation move as [coverage over perfection](#the-grading-ladder), applied before launch rather than after.
+
+:::
+
 ## 4 Different application-specific techniques
 
 ### 1. Agents

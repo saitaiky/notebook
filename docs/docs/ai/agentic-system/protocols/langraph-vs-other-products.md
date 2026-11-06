@@ -1,4 +1,5 @@
 ---
+slug: /ai/agentic-system/langraph-vs-other-products
 title: LangGraph vs Airflow or Prefect
 description: 'In the evolving landscape of AI applications, particularly those involving Large Language Models (LLMs), choosing the right orchestration framework is more than a.'
 keywords:

@@ -20,6 +20,17 @@ Sizing (see [Feasibility and Use-Case Sizing](/ai/agentic-system/production/feas
 
 Regulated-industry constraints — privilege, PHI handling, data residency, government-authorization boundaries, and internal residency policy — eliminate entry points and hosting routes *before* any other integration decision gets made. That elimination logic, and the specific constraints, are covered in [Regulated-Industry Constraints That Rule Out Options First](/ai/agentic-system/safeguarding#regulated-industry-constraints-that-rule-out-options-first); this page picks up from wherever that filter leaves you and covers the remaining four layers.
 
+Translate each obligation into a required assurance level before selecting a delivery route. A broad preference such as "keep data local where possible" may constrain architecture without disqualifying every managed route; a contractual residency term makes an approved region mandatory; a statutory or authorization boundary can rule out a product, feature, or route entirely. The obligation level sets the minimum acceptable route, not the other way around.
+
+| Obligation level | Architectural effect | Selection rule |
+| --- | --- | --- |
+| Internal preference | Influences the preferred route and exceptions process | Choose the preferred route when practical; document any exception |
+| Contractual commitment | Creates an enforceable requirement for handling, retention, or residency | Select only configurations that can evidence the commitment |
+| Regulatory requirement | Establishes mandatory controls and prohibited handling paths | Eliminate any route that cannot meet every applicable control |
+| Formal authorization boundary | Requires a specifically authorized service, region, or delivery route | Verify the exact route and feature scope before design begins |
+
+This ordering prevents a common inversion: choosing a convenient product first and then trying to interpret the obligation so that the product survives. Start with the governing level, derive the route and region constraints, and only then compare the eligible integration options.
+
 ## Entry-Point Selection
 
 Which surface the system connects through is the first decision, and it shapes everything downstream.
@@ -49,6 +60,34 @@ Identity verification happens on the server, *before* the model call — the use
 ## Least-Privilege Tool Configuration
 
 Every tool connected to a model-backed system is both an attack surface and a cost. Audit the tool set the same way you'd audit permissions: for each connected tool, ask whether it's essential to the task or merely convenient, remove what's out of scope, and record the justification for each removal. In an orchestrator-workers deployment, scope each subagent's tool access to its own task specifically, so a subagent can never reach a tool its job doesn't require.
+
+## Authentication Patterns by Service Type
+
+Choosing how a system authenticates to a downstream service is not a single default — it depends on where the service runs and what identity model it supports. Three patterns cover most cases, and matching the pattern to the service is what keeps a connection both working and auditable.
+
+| Service type | Auth method | Where the secret lives |
+| --- | --- | --- |
+| Remote service with user identity (SaaS, cloud) | OAuth — the caller acts as the signed-in user | A token issued by the OAuth provider and held by the client, not a long-lived static key |
+| Remote service with service identity (internal API) | An API key or service credential identifying the calling system, not a person | An environment variable injected at runtime — never an inline value in committed config |
+| Local service (file system, local database) | File-system permissions; often no credential at all | Nothing to store; deny rules enforce which paths are reachable |
+
+The distinction that is easy to get wrong is user identity versus service identity. OAuth fits a remote service the user signs in to, where the downstream system should see *the user* as the caller. A service-to-service connection is different: the downstream system sees the calling platform's own service account, not the end user, so it uses a service credential rather than a user sign-in. Picking OAuth for a service account, or a static key for a user-identity service, mismatches the identity model and usually fails a security review even when the connection technically works.
+
+## Managing the Secret After Authentication
+
+Choosing the right auth pattern establishes the connection; keeping the credential safe afterward is a separate problem, and most credential incidents are failures of handling rather than of the auth method itself. Three practices address three distinct ways a credential gets exposed.
+
+- **Separation** — a credential never travels with the configuration that references it. The config file holds a variable reference; the value lives somewhere the file does not. This matters mechanically: config files get committed, shared, and cloned, so a value written inline rides along with every copy, and a committed value enters repository history in a way that overwriting it later does not remove. Keep the value out of the file and the file stays safe to share.
+- **Storage** — once the value is out of the file, where it goes depends on its blast radius. A value that lives on one machine or in one pipeline run can be an environment variable injected at execution time, written to no disk. A value several services or people need belongs in a **secret store**: a managed service that returns credentials to authorized callers at runtime and records who read what, so a single rotation updates every consumer at once instead of leaving copies scattered across files. Reach for an environment variable when the secret is local and short-lived, a secret store when it is shared or must be audited.
+- **Rotation** — replacing a credential on a schedule, and immediately after any suspected exposure. Rotation is the *only* appropriate response to a leaked key, because an exposed key cannot be made secret again. This is why an inline credential is so costly: a value baked into committed history cannot be rotated cleanly, and every consumer hardcoded to it breaks on change. A credential read from an environment variable or secret store rotates without touching the code that references it by name.
+
+:::danger[A key that traveled into the repository with its config file]
+
+A developer put a data-warehouse service-account key directly in `.mcp.json` to get a server working during setup, planning to move it to an environment variable before sharing — then committed the file so teammates could connect. Within 48 hours the key was on three teammate machines and a CI runner, and in the repository history. Moving the key to a variable and committing the corrected file did not help: the key was still in history, so the service account had to be rotated, which broke two external services configured with the same key. The durable fix is two layers — a CLAUDE.md convention stating credentials must never be written inline, backed by a `PreToolUse` hook that inspects writes to `.mcp.json` for inline-credential patterns and blocks them. The instruction signals intent; the hook enforces it deterministically. See [Durable Project Context](/ai/agentic-system/durable-project-context#hooks-deterministic-enforcement-at-fixed-points) for the hook-versus-instruction distinction.
+
+:::
+
+Two habits make rotation cheaper: scope each credential to the narrowest access its task needs, so a leak reaches only what that integration required, and keep a record of which services use each credential, so a rotation does not have to discover its own consumers. For how this connects to service-to-service auth across an agent platform's two legs — user-to-platform and platform-to-third-party — see the auth walkthrough in [Bridging authentication across agents](/blog/2024/08/04/auth-bridging-agents).
 
 ## Data Handling: The Necessity Filter
 
